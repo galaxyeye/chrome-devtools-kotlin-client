@@ -1,0 +1,276 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>ai.platon.cdt</groupId>
+    <artifactId>ctd-kotlin-client-root</artifactId>
+    <version>0.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>ctd-kotlin-client-root</name>
+    <description>Chrome DevTools kotlin client</description>
+    <url>https://github.com/galaxyeye/chrome-devtools-kotlin-client</url>
+
+    <modules>
+        <module>cdt-protocol-parser</module>
+        <module>cdt-kotlin-protocol-builder</module>
+        <module>cdt-kotlin-client</module>
+        <module>cdt-examples</module>
+    </modules>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Vincent Zhang</name>
+            <email>ivincent.zhang@gmail.com</email>
+            <organization>platon.ai</organization>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
+
+    <organization>
+        <name>platon.ai</name>
+        <url>https://platon.ai</url>
+    </organization>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!--  kotlin  -->
+                <plugin>
+                    <groupId>org.jetbrains.kotlin</groupId>
+                    <artifactId>kotlin-maven-plugin</artifactId>
+                    <version>${kotlin.version}</version>
+                    <!-- You can set this option to automatically take information about lifecycles -->
+                    <extensions>true</extensions>
+                    <executions>
+                        <execution>
+                            <id>compile</id>
+                            <goals>
+                                <goal>compile</goal>
+                            </goals>
+                            <configuration>
+                                <sourceDirs>
+                                    <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
+                                    <sourceDir>${project.basedir}/src/main/java</sourceDir>
+                                </sourceDirs>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>test-compile</id>
+                            <goals>
+                                <goal>test-compile</goal>
+                            </goals>
+                            <configuration>
+                                <sourceDirs>
+                                    <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
+                                    <sourceDir>${project.basedir}/src/test/java</sourceDir>
+                                </sourceDirs>
+                            </configuration>
+                        </execution>
+                    </executions>
+                    <!--  Required by spring  -->
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.jetbrains.kotlin</groupId>
+                            <artifactId>kotlin-maven-allopen</artifactId>
+                            <version>${kotlin.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.jetbrains.kotlin</groupId>
+                            <artifactId>kotlin-maven-noarg</artifactId>
+                            <version>${kotlin.version}</version>
+                        </dependency>
+                    </dependencies>
+                    <configuration>
+                        <args>
+                            <arg>-Xjsr305=strict</arg>
+                        </args>
+                        <compilerPlugins>
+                            <plugin>spring</plugin>
+                            <plugin>jpa</plugin>
+                            <plugin>all-open</plugin>
+                        </compilerPlugins>
+                        <pluginOptions>
+                            <option>all-open:annotation=javax.persistence.Entity</option>
+                            <option>all-open:annotation=javax.persistence.Embeddable</option>
+                            <option>all-open:annotation=javax.persistence.MappedSuperclass</option>
+                        </pluginOptions>
+                        <jvmTarget>${kotlin.compiler.jvmTarget}</jvmTarget>
+                    </configuration>
+                </plugin>
+                <!--  java  -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <executions>
+                        <!--  Replacing default-compile as it is treated specially by maven  -->
+                        <execution>
+                            <id>default-compile</id>
+                            <phase>none</phase>
+                        </execution>
+                        <!--  Replacing default-testCompile as it is treated specially by maven  -->
+                        <execution>
+                            <id>default-testCompile</id>
+                            <phase>none</phase>
+                        </execution>
+                        <execution>
+                            <id>java-compile</id>
+                            <phase>compile</phase>
+                            <goals>
+                                <goal>compile</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>java-test-compile</id>
+                            <phase>test-compile</phase>
+                            <goals>
+                                <goal>testCompile</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <verbose>true</verbose>
+                        <fork>true</fork>
+                        <source>${javac.src.version}</source>
+                        <target>${javac.target.version}</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>${maven-clean-plugin.version}</version>
+                    <configuration>
+                        <filesets>
+                            <fileset>
+                                <directory>${basedir}/lib</directory>
+                                <followSymlinks>false</followSymlinks>
+                                <useDefaultExcludes>true</useDefaultExcludes>
+                                <includes>
+                                    <include>*.*</include>
+                                </includes>
+                            </fileset>
+                        </filesets>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>${maven-exec-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <!-- This plugin is also present in cdt-java-client, so be sure to copy any changes here to that module as well -->
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>license-maven-plugin</artifactId>
+                    <version>2.0.0</version>
+                    <executions>
+                        <execution>
+                            <id>update-file-header</id>
+                            <goals>
+                                <goal>update-file-header</goal>
+                            </goals>
+                            <phase>process-sources</phase>
+                        </execution>
+                        <execution>
+                            <id>attach-licenses</id>
+                            <goals>
+                                <goal>update-project-license</goal>
+                                <goal>add-third-party</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <outputDirectory>${project.basedir}</outputDirectory>
+                        <canUpdateCopyright>true</canUpdateCopyright>
+                        <failOnMissing>true</failOnMissing>
+                        <licenseName>apache_v2</licenseName>
+                        <useMissingFile>true</useMissingFile>
+                        <excludes>
+                            <exclude>**/*.json</exclude>
+                        </excludes>
+                        <roots>
+                            <root>src/main/java</root>
+                            <root>src/test</root>
+                        </roots>
+                        <licenseMerges>
+                            <licenseMerge>The Apache Software License, Version 2.0|Apache License, Version 2.0|Apache
+                                Public License 2.0|Apache 2|Apache 2.0|Apache License 2.0|Apache License
+                            </licenseMerge>
+                            <licenseMerge>Eclipse Public License v1.0|Eclipse Public License 1.0|Eclipse Public License
+                                - v 1.0
+                            </licenseMerge>
+                            <licenseMerge>BSD 3-Clause License|BSD|New BSD License</licenseMerge>
+                            <licenseMerge>Dual license consisting of the CDDL v1.1 and GPL v2|CDDL+GPL</licenseMerge>
+                        </licenseMerges>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <!-- This plugin is also present in cdt-java-client, so be sure to copy any changes here to that module as well -->
+                    <groupId>com.coveo</groupId>
+                    <artifactId>fmt-maven-plugin</artifactId>
+                    <version>2.9.1</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>format</goal>
+                            </goals>
+                            <phase>process-sources</phase>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <properties>
+        <!-- Build properties -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.inceptionYear>2025</project.inceptionYear>
+
+        <ktor.version>2.3.11</ktor.version>
+
+        <version.maven-exec-plugin>3.5.0</version.maven-exec-plugin>
+        <nexus-staging-maven-plugin.version>1.7.0</nexus-staging-maven-plugin.version>
+
+        <!--  Java  -->
+        <javac.src.version>11</javac.src.version>
+        <javac.target.version>11</javac.target.version>
+        <!--  Kotlin  -->
+        <!-- supported languageVersion: 1.8, 1.9, 2.0, etc -->
+        <!--        <kotlin.compiler.languageVersion>1.9</kotlin.compiler.languageVersion>-->
+        <!-- Target version of the generated JVM bytecode, 1.8, 9, 10, ..., 21, default 1.8 -->
+        <kotlin.compiler.jvmTarget>11</kotlin.compiler.jvmTarget>
+
+        <kotlin.version>1.9.25</kotlin.version>
+        <!--        <kotlin.version>2.0.21</kotlin.version>-->
+        <kotlin.coroutine.version>1.8.1</kotlin.coroutine.version>
+        <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
+
+        <dokka.version>1.9.10</dokka.version>
+
+        <!-- Plugin versions -->
+        <maven-compiler-plugin.version>3.12.1</maven-compiler-plugin.version>
+        <maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
+
+        <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
+        <maven-javadoc-plugin.version>3.6.3</maven-javadoc-plugin.version>
+        <maven-deploy-plugin.version>3.1.1</maven-deploy-plugin.version>
+        <maven-release-plugin.version>3.0.1</maven-release-plugin.version>
+        <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
+        <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
+        <maven-failsafe-plugin.version>3.2.5</maven-failsafe-plugin.version>
+        <nexus-staging-maven-plugin.version>1.7.0</nexus-staging-maven-plugin.version>
+        <checksum-maven-plugin.version>1.11</checksum-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
+        <license-maven-plugin.version>4.3</license-maven-plugin.version>
+        <versions-maven-plugin.version>2.16.2</versions-maven-plugin.version>
+
+    </properties>
+</project>

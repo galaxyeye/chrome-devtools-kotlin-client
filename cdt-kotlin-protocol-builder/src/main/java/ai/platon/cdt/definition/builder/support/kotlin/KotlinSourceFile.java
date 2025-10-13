@@ -1,4 +1,4 @@
-package ai.platon.cdt.definition.builder.support.protocol.builder.support;
+package ai.platon.cdt.definition.builder.support.kotlin;
 
 /*-
  * #%L
@@ -20,23 +20,27 @@ package ai.platon.cdt.definition.builder.support.protocol.builder.support;
  * #L%
  */
 
-import ai.platon.cdt.protocol.definition.types.Domain;
-import ai.platon.cdt.protocol.definition.types.Type;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+/** Simple in-memory representation of a Kotlin source file. */
+public class KotlinSourceFile {
+  private final String packageName;
+  private final String fileName;
+  private final String content;
 
-/**
- * Type build request.
- *
- * @author Kenan Klisura
- */
-@Getter
-@Setter
-@AllArgsConstructor
-public class TypeBuildRequest<T extends Type> {
-  private Domain domain;
-  private T type;
+  public KotlinSourceFile(String packageName, String fileName, String content) {
+    this.packageName = packageName;
+    this.fileName = fileName;
+    this.content = content;
+  }
 
-  DomainTypeResolver domainTypeResolver;
+  public String getPackageName() {
+    return packageName;
+  }
+
+  public String getFileName() {
+    return fileName;
+  }
+
+  public String getContent() {
+    return content;
+  }
 }

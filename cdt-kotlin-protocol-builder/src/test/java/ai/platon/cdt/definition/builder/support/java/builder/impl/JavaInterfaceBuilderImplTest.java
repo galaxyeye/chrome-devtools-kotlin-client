@@ -4,7 +4,16 @@ package ai.platon.cdt.definition.builder.support.java.builder.impl;
  * #%L
  * cdt-java-protocol-builder
  * %%
- * Copyright (C) 2018 - 2021 Kenan Klisura
+ * Copyright (C) 2025 platon.ai
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+package ai.platon.cdt.definition.builder.support.java.builder.impl;
+
+/*-
+ * #%L
+ * cdt-java-protocol-builder
+ * %%
+ * Copyright (C) 2025 platon.ai
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,9 +35,9 @@ import static org.easymock.EasyMock.capture;
 import static org.easymock.EasyMock.eq;
 import static org.junit.Assert.*;
 
-import com.github.javaparser.ast.CompilationUnit;
 import ai.platon.cdt.definition.builder.support.java.builder.SourceProject;
 import ai.platon.cdt.definition.builder.support.java.builder.support.MethodParam;
+import com.github.javaparser.ast.CompilationUnit;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -45,8 +54,6 @@ import org.junit.runner.RunWith;
 
 /**
  * Java interface builder test.
- *
- * @author Kenan Klisura
  */
 @RunWith(EasyMockRunner.class)
 public class JavaInterfaceBuilderImplTest extends EasyMockSupport {
@@ -58,6 +65,7 @@ public class JavaInterfaceBuilderImplTest extends EasyMockSupport {
 
   @Mock private SourceProject sourceProject;
 
+  @SuppressWarnings("unused")
   private Path rootPath;
 
   @Before
@@ -80,9 +88,12 @@ public class JavaInterfaceBuilderImplTest extends EasyMockSupport {
 
     interfaceBuilder.build(sourceProject);
 
-    assertEquals(
-        "package com.github.kklisura;\n" + "\n" + "public interface InterfaceTest {\n" + "}\n" + "",
-        compilationUnitCapture.getValue().toString());
+    assertGeneratedEquals(
+        "package com.github.kklisura;\n"
+            + "\n"
+            + "public interface InterfaceTest {\n"
+            + "}\n",
+        compilationUnitCapture);
 
     verifyAll();
   }
@@ -103,7 +114,7 @@ public class JavaInterfaceBuilderImplTest extends EasyMockSupport {
 
     interfaceBuilder.build(sourceProject);
 
-    assertEquals(
+    assertGeneratedEquals(
         "package com.github.kklisura;\n"
             + "\n"
             + "import com.github.kklisura.annotations.Annotation;\n"
@@ -111,9 +122,8 @@ public class JavaInterfaceBuilderImplTest extends EasyMockSupport {
             + "@Annotation\n"
             + "@Deprecated\n"
             + "public interface InterfaceTest {\n"
-            + "}\n"
-            + "",
-        compilationUnitCapture.getValue().toString());
+            + "}\n",
+        compilationUnitCapture);
 
     verifyAll();
   }
@@ -131,7 +141,7 @@ public class JavaInterfaceBuilderImplTest extends EasyMockSupport {
 
     interfaceBuilder.build(sourceProject);
 
-    assertEquals(
+    assertGeneratedEquals(
         "package com.github.kklisura;\n"
             + "\n"
             + "/**\n"
@@ -139,7 +149,7 @@ public class JavaInterfaceBuilderImplTest extends EasyMockSupport {
             + " */\n"
             + "public interface InterfaceTest {\n"
             + "}\n",
-        compilationUnitCapture.getValue().toString());
+        compilationUnitCapture);
 
     verifyAll();
   }
@@ -160,14 +170,13 @@ public class JavaInterfaceBuilderImplTest extends EasyMockSupport {
 
     interfaceBuilder.build(sourceProject);
 
-    assertEquals(
+    assertGeneratedEquals(
         "package com.github.kklisura;\n\n"
             + "import java.util.List;\n"
             + "\n"
             + "public interface InterfaceTest {\n"
-            + "}\n"
-            + "",
-        compilationUnitCapture.getValue().toString());
+            + "}\n",
+        compilationUnitCapture);
 
     verifyAll();
   }
@@ -187,7 +196,7 @@ public class JavaInterfaceBuilderImplTest extends EasyMockSupport {
 
     interfaceBuilder.build(sourceProject);
 
-    assertEquals(
+    assertGeneratedEquals(
         "package com.github.kklisura;\n"
             + "\n"
             + "public interface InterfaceTest {\n"
@@ -198,11 +207,9 @@ public class JavaInterfaceBuilderImplTest extends EasyMockSupport {
             + "     * @param test Test param\n"
             + "     * @return Returns nothing\n"
             + "     */\n"
-            + "    void someMethod1();"
-            + "\n"
-            + "}\n"
-            + "",
-        compilationUnitCapture.getValue().toString());
+            + "    void someMethod1();\n"
+            + "}\n",
+        compilationUnitCapture);
 
     verifyAll();
   }
@@ -245,7 +252,7 @@ public class JavaInterfaceBuilderImplTest extends EasyMockSupport {
 
     interfaceBuilder.build(sourceProject);
 
-    assertEquals(
+    assertGeneratedEquals(
         "package com.github.kklisura;\n"
             + "\n"
             + "import com.github.kklisura.annotations.Annotation;\n"
@@ -265,7 +272,7 @@ public class JavaInterfaceBuilderImplTest extends EasyMockSupport {
             + "    @Annotation5({ String.class, Integer.class })\n"
             + "    String someMethod1(Integer param1, @Annotation @Annotation1 @Deprecated @ParamValue(\"paramValueName\") String param2);\n"
             + "}\n",
-        compilationUnitCapture.getValue().toString());
+        compilationUnitCapture);
 
     verifyAll();
   }
@@ -307,5 +314,16 @@ public class JavaInterfaceBuilderImplTest extends EasyMockSupport {
 
   private static List<String> list(String... values) {
     return Arrays.asList(values);
+  }
+
+  private static void assertGeneratedEquals(
+      String expected, Capture<CompilationUnit> compilationUnitCapture) {
+    String actual = normalize(compilationUnitCapture.getValue().toString());
+    assertEquals(expected, actual);
+  }
+
+  private static String normalize(String source) {
+    String normalized = source.replace("\r\n", "\n").replace("\r", "\n");
+    return normalized.endsWith("\n") ? normalized : normalized + "\n";
   }
 }

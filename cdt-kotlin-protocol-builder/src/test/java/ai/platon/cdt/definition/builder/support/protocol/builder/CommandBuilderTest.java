@@ -4,7 +4,7 @@ package ai.platon.cdt.definition.builder.support.protocol.builder;
  * #%L
  * cdt-java-protocol-builder
  * %%
- * Copyright (C) 2018 - 2021 Kenan Klisura
+ * Copyright (C) 2025 platon.ai
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -454,9 +454,8 @@ public class CommandBuilderTest extends EasyMockSupport {
     final ArrayType resolvedRefType = new ArrayType();
     resolvedRefType.setId("arrayRefType");
 
-    final ai.platon.cdt.protocol.definition.types.type.array.items.RefArrayItem
-        refArrayItem =
-            new ai.platon.cdt.protocol.definition.types.type.array.items.RefArrayItem();
+    final ai.platon.cdt.protocol.definition.types.type.array.items.RefArrayItem refArrayItem =
+        new ai.platon.cdt.protocol.definition.types.type.array.items.RefArrayItem();
     refArrayItem.setRef("TestRefArrayItem");
     resolvedRefType.setItems(refArrayItem);
 
@@ -519,18 +518,16 @@ public class CommandBuilderTest extends EasyMockSupport {
     final ArrayType resolvedRefType = new ArrayType();
     resolvedRefType.setId("arrayRefType");
 
-    final ai.platon.cdt.protocol.definition.types.type.array.items.RefArrayItem
-        refArrayItem =
-            new ai.platon.cdt.protocol.definition.types.type.array.items.RefArrayItem();
+    final ai.platon.cdt.protocol.definition.types.type.array.items.RefArrayItem refArrayItem =
+        new ai.platon.cdt.protocol.definition.types.type.array.items.RefArrayItem();
     refArrayItem.setRef("TestRefArrayItem");
     resolvedRefType.setItems(refArrayItem);
 
     final ArrayType resolvedRefType2 = new ArrayType();
     resolvedRefType2.setId("arrayRefType2");
 
-    final ai.platon.cdt.protocol.definition.types.type.array.items.RefArrayItem
-        refArrayItem2 =
-            new ai.platon.cdt.protocol.definition.types.type.array.items.RefArrayItem();
+    final ai.platon.cdt.protocol.definition.types.type.array.items.RefArrayItem refArrayItem2 =
+        new ai.platon.cdt.protocol.definition.types.type.array.items.RefArrayItem();
     refArrayItem2.setRef("SomeOtherDomain.TestRefArrayItem2");
     resolvedRefType2.setItems(refArrayItem2);
 

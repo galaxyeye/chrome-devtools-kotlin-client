@@ -4,7 +4,7 @@ package ai.platon.cdt.definition.builder.support.java.builder.impl;
  * #%L
  * cdt-java-protocol-builder
  * %%
- * Copyright (C) 2018 - 2021 Kenan Klisura
+ * Copyright (C) 2025 platon.ai
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,9 @@ package ai.platon.cdt.definition.builder.support.java.builder.impl;
 import static ai.platon.cdt.definition.builder.support.java.builder.utils.JavadocUtils.INDENTATION_NO_INDENTATION;
 import static ai.platon.cdt.definition.builder.support.java.builder.utils.JavadocUtils.INDENTATION_TAB;
 
+import ai.platon.cdt.definition.builder.support.java.builder.JavaClassBuilder;
+import ai.platon.cdt.definition.builder.support.java.builder.impl.utils.CompilationUnitUtils;
+import ai.platon.cdt.definition.builder.support.java.builder.utils.JavadocUtils;
 import com.github.javaparser.ast.ImportDeclaration;
 import com.github.javaparser.ast.Modifier;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
@@ -30,9 +33,6 @@ import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.expr.MarkerAnnotationExpr;
 import com.github.javaparser.ast.expr.Name;
-import ai.platon.cdt.definition.builder.support.java.builder.JavaClassBuilder;
-import ai.platon.cdt.definition.builder.support.java.builder.impl.utils.CompilationUnitUtils;
-import ai.platon.cdt.definition.builder.support.java.builder.utils.JavadocUtils;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

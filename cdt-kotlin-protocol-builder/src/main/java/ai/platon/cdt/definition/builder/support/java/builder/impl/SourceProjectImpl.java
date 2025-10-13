@@ -4,7 +4,7 @@ package ai.platon.cdt.definition.builder.support.java.builder.impl;
  * #%L
  * cdt-java-protocol-builder
  * %%
- * Copyright (C) 2018 - 2021 Kenan Klisura
+ * Copyright (C) 2025 platon.ai
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +22,11 @@ package ai.platon.cdt.definition.builder.support.java.builder.impl;
 
 import static com.github.javaparser.utils.CodeGenerationUtils.packageToPath;
 
+import ai.platon.cdt.definition.builder.support.java.builder.SourceProject;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.printer.PrettyPrinter;
 import com.github.javaparser.printer.PrettyPrinterConfiguration;
 import com.github.javaparser.utils.SourceRoot;
-import ai.platon.cdt.definition.builder.support.java.builder.SourceProject;
 import com.google.googlejavaformat.java.Formatter;
 import com.google.googlejavaformat.java.FormatterException;
 import com.google.googlejavaformat.java.JavaFormatterOptions;

@@ -4,7 +4,7 @@ package ai.platon.cdt.definition.builder;
  * #%L
  * cdt-java-protocol-builder
  * %%
- * Copyright (C) 2018 - 2021 Kenan Klisura
+ * Copyright (C) 2025 platon.ai
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,8 @@ package ai.platon.cdt.definition.builder;
  * #L%
  */
 
+import static com.github.javaparser.utils.CodeGenerationUtils.packageToPath;
+
 import ai.platon.cdt.definition.builder.support.java.builder.Builder;
 import ai.platon.cdt.definition.builder.support.java.builder.JavaBuilderFactory;
 import ai.platon.cdt.definition.builder.support.java.builder.JavaClassBuilder;
@@ -30,6 +32,7 @@ import ai.platon.cdt.definition.builder.support.java.builder.impl.JavaClassBuild
 import ai.platon.cdt.definition.builder.support.java.builder.impl.JavaEnumBuilderImpl;
 import ai.platon.cdt.definition.builder.support.java.builder.impl.JavaInterfaceBuilderImpl;
 import ai.platon.cdt.definition.builder.support.java.builder.impl.SourceProjectImpl;
+import ai.platon.cdt.definition.builder.support.kotlin.KotlinProtocolGenerator;
 import ai.platon.cdt.definition.builder.support.protocol.builder.CommandBuilder;
 import ai.platon.cdt.definition.builder.support.protocol.builder.EventBuilder;
 import ai.platon.cdt.definition.builder.support.protocol.builder.TypesBuilder;
@@ -42,6 +45,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,9 +67,6 @@ public class Application {
 
   private static final String COMMAND_FACTORY_NAME = "ChromeDevTools";
 
-  private static final String SRC_MAIN_JAVA = "src/main/java";
-  private static final String SRC_MAIN_KOTLIN = "src/main/kotlin";
-
   /**
    * Applications main entry point.
    *
@@ -85,6 +86,16 @@ public class Application {
       System.exit(1);
     }
 
+    GenerationLanguage language;
+    try {
+      language = GenerationLanguage.fromCliToken(configuration.getLanguage());
+    } catch (IllegalArgumentException ex) {
+      System.err.println(ex.getMessage());
+      parser.printUsage(System.err);
+      System.exit(1);
+      return;
+    }
+
     final String typesPackageName =
         StringUtils.buildPackageName(configuration.getBasePackage(), TYPES_PACKAGE);
     final String eventPackageName =
@@ -98,65 +109,40 @@ public class Application {
         StringUtils.buildPackageName(configuration.getBasePackage(), SUPPORT_ANNOTATIONS_PACKAGE);
 
     final DevToolsProtocol protocol = readDevToolsProtocolFiles(configuration);
+    final Path outputRoot = configuration.getOutputProjectLocation().toPath();
+    final Path languageRoot = outputRoot.resolve(language.getSourceFolder());
 
-    Path outputLocation = configuration.getOutputProjectLocation().toPath().resolve(SRC_MAIN_JAVA);
-    SourceProject sourceProject = new SourceProjectImpl(outputLocation);
+    cleanGeneratedPackage(languageRoot, configuration.getBasePackage());
 
-    JavaBuilderFactory javaBuilderFactory =
-        new JavaBuilderFactory() {
-          @Override
-          public JavaClassBuilder createClassBuilder(String packageName, String className) {
-            return new JavaClassBuilderImpl(packageName, className, supportAnnotationsPackageName);
-          }
-
-          @Override
-          public JavaEnumBuilder createEnumBuilder(String packageName, String enumName) {
-            return new JavaEnumBuilderImpl(packageName, enumName);
-          }
-
-          @Override
-          public JavaInterfaceBuilder createInterfaceBuilder(
-              String packageName, String interfaceName) {
-            return new JavaInterfaceBuilderImpl(
-                packageName, interfaceName, supportAnnotationsPackageName);
-          }
-        };
-
-    final TypesBuilder typesBuilder = new TypesBuilder(typesPackageName, javaBuilderFactory);
-    final EventBuilder eventBuilder =
-        new EventBuilder(eventPackageName, javaBuilderFactory, typesPackageName);
-    final CommandBuilder commandBuilder =
-        new CommandBuilder(
-            commandPackageName,
-            javaBuilderFactory,
+    switch (language) {
+      case JAVA:
+        generateJava(
+            protocol,
+            configuration.getBasePackage(),
             typesPackageName,
             eventPackageName,
-            supportTypesPackageName);
-
-    List<Builder> builderList = new ArrayList<>();
-
-    // Create domain type builders
-    for (Domain domain : protocol.getDomains()) {
-      builderList.addAll(
-          typesBuilder.build(domain, DomainUtils.devToolsProtocolResolver(protocol)));
-      builderList.addAll(
-          eventBuilder.build(domain, DomainUtils.devToolsProtocolResolver(protocol)));
-      builderList.add(commandBuilder.build(domain, DomainUtils.devToolsProtocolResolver(protocol)));
+            commandPackageName,
+            supportTypesPackageName,
+            supportAnnotationsPackageName,
+            languageRoot);
+        break;
+      case KOTLIN:
+        generateKotlin(
+            protocol,
+            configuration.getBasePackage(),
+            typesPackageName,
+            eventPackageName,
+            commandPackageName,
+            supportTypesPackageName,
+            supportAnnotationsPackageName,
+            languageRoot);
+        break;
+      default:
+        throw new IllegalStateException("Unhandled generation language: " + language);
     }
-
-    // Build command factory
-    builderList.add(buildCommandFactory(protocol.getDomains(), configuration.getBasePackage()));
-
-    // Build all items
-    for (Builder builder : builderList) {
-      builder.build(sourceProject);
-    }
-
-    sourceProject.saveAll();
   }
 
-  private static ai.platon.cdt.definition.builder.support.java.builder.Builder buildCommandFactory(
-      List<Domain> domains, String basePackage) {
+  private static Builder buildCommandFactory(List<Domain> domains, String basePackage) {
     String commandsPackage = basePackage + "." + COMMANDS_PACKAGE;
 
     JavaInterfaceBuilder factoryInterfaceBuilder =
@@ -202,5 +188,111 @@ public class Application {
         inputStream.close();
       }
     }
+  }
+
+  private static void generateJava(
+      DevToolsProtocol protocol,
+      String basePackage,
+      String typesPackageName,
+      String eventPackageName,
+      String commandPackageName,
+      String supportTypesPackageName,
+      String supportAnnotationsPackageName,
+      Path languageRoot)
+      throws IOException {
+    SourceProject sourceProject = new SourceProjectImpl(languageRoot);
+
+    JavaBuilderFactory javaBuilderFactory =
+        new JavaBuilderFactory() {
+          @Override
+          public JavaClassBuilder createClassBuilder(String packageName, String className) {
+            return new JavaClassBuilderImpl(packageName, className, supportAnnotationsPackageName);
+          }
+
+          @Override
+          public JavaEnumBuilder createEnumBuilder(String packageName, String enumName) {
+            return new JavaEnumBuilderImpl(packageName, enumName);
+          }
+
+          @Override
+          public JavaInterfaceBuilder createInterfaceBuilder(
+              String packageName, String interfaceName) {
+            return new JavaInterfaceBuilderImpl(
+                packageName, interfaceName, supportAnnotationsPackageName);
+          }
+        };
+
+    final TypesBuilder typesBuilder = new TypesBuilder(typesPackageName, javaBuilderFactory);
+    final EventBuilder eventBuilder =
+        new EventBuilder(eventPackageName, javaBuilderFactory, typesPackageName);
+    final CommandBuilder commandBuilder =
+        new CommandBuilder(
+            commandPackageName,
+            javaBuilderFactory,
+            typesPackageName,
+            eventPackageName,
+            supportTypesPackageName);
+
+    List<Builder> builderList = new ArrayList<>();
+
+    for (Domain domain : protocol.getDomains()) {
+      builderList.addAll(
+          typesBuilder.build(domain, DomainUtils.devToolsProtocolResolver(protocol)));
+      builderList.addAll(
+          eventBuilder.build(domain, DomainUtils.devToolsProtocolResolver(protocol)));
+      builderList.add(commandBuilder.build(domain, DomainUtils.devToolsProtocolResolver(protocol)));
+    }
+
+    builderList.add(buildCommandFactory(protocol.getDomains(), basePackage));
+
+    for (Builder builder : builderList) {
+      builder.build(sourceProject);
+    }
+
+    sourceProject.saveAll();
+  }
+
+  private static void generateKotlin(
+      DevToolsProtocol protocol,
+      String basePackage,
+      String typesPackageName,
+      String eventPackageName,
+      String commandPackageName,
+      String supportTypesPackageName,
+      String supportAnnotationsPackageName,
+      Path languageRoot)
+      throws IOException {
+    KotlinProtocolGenerator generator =
+        new KotlinProtocolGenerator(
+            basePackage,
+            typesPackageName,
+            eventPackageName,
+            commandPackageName,
+            supportTypesPackageName,
+            supportAnnotationsPackageName,
+            languageRoot);
+    generator.generate(protocol, DomainUtils.devToolsProtocolResolver(protocol));
+  }
+
+  private static void cleanGeneratedPackage(Path languageRoot, String basePackage)
+      throws IOException {
+    if (basePackage == null) {
+      return;
+    }
+    Path packageRoot = languageRoot.resolve(packageToPath(basePackage));
+    if (Files.notExists(packageRoot)) {
+      return;
+    }
+
+    Files.walk(packageRoot)
+        .sorted((a, b) -> b.compareTo(a))
+        .forEach(
+            path -> {
+              try {
+                Files.deleteIfExists(path);
+              } catch (IOException e) {
+                throw new RuntimeException("Failed cleaning generated sources at " + path, e);
+              }
+            });
   }
 }

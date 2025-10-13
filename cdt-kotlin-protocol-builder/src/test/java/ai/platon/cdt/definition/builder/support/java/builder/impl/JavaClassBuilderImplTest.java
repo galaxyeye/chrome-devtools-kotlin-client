@@ -4,7 +4,7 @@ package ai.platon.cdt.definition.builder.support.java.builder.impl;
  * #%L
  * cdt-java-protocol-builder
  * %%
- * Copyright (C) 2018 - 2021 Kenan Klisura
+ * Copyright (C) 2025 platon.ai
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,8 +24,8 @@ import static org.easymock.EasyMock.capture;
 import static org.easymock.EasyMock.eq;
 import static org.junit.Assert.assertEquals;
 
-import com.github.javaparser.ast.CompilationUnit;
 import ai.platon.cdt.definition.builder.support.java.builder.SourceProject;
+import com.github.javaparser.ast.CompilationUnit;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -50,7 +50,8 @@ public class JavaClassBuilderImplTest extends EasyMockSupport {
 
   @Mock private SourceProject sourceProject;
 
-  private Path rootPath;
+    @SuppressWarnings("unused")
+    private Path rootPath;
 
   private JavaClassBuilderImpl javaClassBuilder;
 
@@ -73,9 +74,10 @@ public class JavaClassBuilderImplTest extends EasyMockSupport {
 
     javaClassBuilder.build(sourceProject);
 
+    String actual = normalize(compilationUnitCapture.getValue().toString());
     assertEquals(
         "package com.github.kklisura;\n" + "\n" + "public class ClassName {\n" + "}\n" + "",
-        compilationUnitCapture.getValue().toString());
+        actual);
 
     verifyAll();
   }
@@ -94,6 +96,7 @@ public class JavaClassBuilderImplTest extends EasyMockSupport {
 
     javaClassBuilder.build(sourceProject);
 
+    String actual = normalize(compilationUnitCapture.getValue().toString());
     assertEquals(
         "package com.github.kklisura;\n"
             + "\n"
@@ -104,7 +107,7 @@ public class JavaClassBuilderImplTest extends EasyMockSupport {
             + "public class ClassName {\n"
             + "}\n"
             + "",
-        compilationUnitCapture.getValue().toString());
+        actual);
 
     verifyAll();
   }
@@ -122,6 +125,7 @@ public class JavaClassBuilderImplTest extends EasyMockSupport {
 
     javaClassBuilder.build(sourceProject);
 
+    String actual = normalize(compilationUnitCapture.getValue().toString());
     assertEquals(
         "package com.github.kklisura;\n"
             + "\n"
@@ -130,7 +134,7 @@ public class JavaClassBuilderImplTest extends EasyMockSupport {
             + " */\n"
             + "public class ClassName {\n"
             + "}\n",
-        compilationUnitCapture.getValue().toString());
+        actual);
 
     verifyAll();
   }
@@ -150,6 +154,7 @@ public class JavaClassBuilderImplTest extends EasyMockSupport {
 
     javaClassBuilder.build(sourceProject);
 
+    String actual = normalize(compilationUnitCapture.getValue().toString());
     assertEquals(
         "package com.github.kklisura;\n\n"
             + "import java.util.List;\n"
@@ -157,7 +162,7 @@ public class JavaClassBuilderImplTest extends EasyMockSupport {
             + "public class ClassName {\n"
             + "}\n"
             + "",
-        compilationUnitCapture.getValue().toString());
+        actual);
 
     verifyAll();
   }
@@ -176,6 +181,7 @@ public class JavaClassBuilderImplTest extends EasyMockSupport {
 
     javaClassBuilder.build(sourceProject);
 
+    String actual = normalize(compilationUnitCapture.getValue().toString());
     assertEquals(
         "package com.github.kklisura;\n\n"
             + "import java.util.List;\n"
@@ -183,7 +189,7 @@ public class JavaClassBuilderImplTest extends EasyMockSupport {
             + "public class ClassName {\n"
             + "}\n"
             + "",
-        compilationUnitCapture.getValue().toString());
+        actual);
 
     verifyAll();
   }
@@ -203,6 +209,7 @@ public class JavaClassBuilderImplTest extends EasyMockSupport {
 
     javaClassBuilder.build(sourceProject);
 
+    String actual = normalize(compilationUnitCapture.getValue().toString());
     assertEquals(
         "package com.github.kklisura;\n"
             + "\n"
@@ -224,7 +231,7 @@ public class JavaClassBuilderImplTest extends EasyMockSupport {
             + "        this.privateField = privateField;\n"
             + "    }\n"
             + "}\n",
-        compilationUnitCapture.getValue().toString());
+        actual);
 
     verifyAll();
   }
@@ -247,6 +254,7 @@ public class JavaClassBuilderImplTest extends EasyMockSupport {
 
     javaClassBuilder.build(sourceProject);
 
+    String actual = normalize(compilationUnitCapture.getValue().toString());
     assertEquals(
         "package com.github.kklisura;\n"
             + "\n"
@@ -261,8 +269,12 @@ public class JavaClassBuilderImplTest extends EasyMockSupport {
             + "    @Deprecated\n"
             + "    private String privateField;\n"
             + "}\n",
-        compilationUnitCapture.getValue().toString());
+                actual);
 
-    verifyAll();
-  }
+        verifyAll();
+    }
+
+    private static String normalize(String source) {
+        return source.replace("\r\n", "\n").replace("\r", "\n");
+    }
 }

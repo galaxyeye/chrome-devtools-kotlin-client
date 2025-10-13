@@ -1,4 +1,4 @@
-package ai.platon.cdt.definition.builder.support.protocol.builder.support;
+package ai.platon.cdt.definition.builder.support.kotlin;
 
 /*-
  * #%L
@@ -20,23 +20,11 @@ package ai.platon.cdt.definition.builder.support.protocol.builder.support;
  * #L%
  */
 
-import ai.platon.cdt.protocol.definition.types.Domain;
-import ai.platon.cdt.protocol.definition.types.Type;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import java.io.IOException;
 
-/**
- * Type build request.
- *
- * @author Kenan Klisura
- */
-@Getter
-@Setter
-@AllArgsConstructor
-public class TypeBuildRequest<T extends Type> {
-  private Domain domain;
-  private T type;
+/** Accumulates generated Kotlin files before flushing them to disk. */
+public interface KotlinSourceProject {
+  void addFile(KotlinSourceFile file);
 
-  DomainTypeResolver domainTypeResolver;
+  void writeAll() throws IOException;
 }

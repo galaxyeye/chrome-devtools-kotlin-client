@@ -4,7 +4,7 @@
 
     <parent>
         <groupId>ai.platon.cdt</groupId>
-        <artifactId>ctd-kotlin-client-root</artifactId>
+    <artifactId>cdt-kotlin-client-root</artifactId>
         <version>0.0.0-SNAPSHOT</version>
     </parent>
 

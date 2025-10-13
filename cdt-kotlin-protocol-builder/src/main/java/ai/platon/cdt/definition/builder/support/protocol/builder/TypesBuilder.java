@@ -4,7 +4,7 @@ package ai.platon.cdt.definition.builder.support.protocol.builder;
  * #%L
  * cdt-java-protocol-builder
  * %%
- * Copyright (C) 2018 - 2021 Kenan Klisura
+ * Copyright (C) 2025 platon.ai
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -119,14 +119,11 @@ public class TypesBuilder {
   // Registers array item types to java types.
   static {
     registerTypeArrayItem(
-        ai.platon.cdt.protocol.definition.types.type.array.items.StringArrayItem.class,
-        "String");
+        ai.platon.cdt.protocol.definition.types.type.array.items.StringArrayItem.class, "String");
     registerTypeArrayItem(
-        ai.platon.cdt.protocol.definition.types.type.array.items.NumberArrayItem.class,
-        "Double");
+        ai.platon.cdt.protocol.definition.types.type.array.items.NumberArrayItem.class, "Double");
     registerTypeArrayItem(
-        ai.platon.cdt.protocol.definition.types.type.array.items.IntegerArrayItem.class,
-        "Integer");
+        ai.platon.cdt.protocol.definition.types.type.array.items.IntegerArrayItem.class, "Integer");
   }
 
   // Register type class mapping to java types.
@@ -483,10 +480,9 @@ public class TypesBuilder {
       String arrayItemType = null;
 
       if (isRefArrayItemType(arrayType.getItems())) {
-        ai.platon.cdt.protocol.definition.types.type.array.items.RefArrayItem
-            refArrayItem =
-                (ai.platon.cdt.protocol.definition.types.type.array.items.RefArrayItem)
-                    arrayType.getItems();
+        ai.platon.cdt.protocol.definition.types.type.array.items.RefArrayItem refArrayItem =
+            (ai.platon.cdt.protocol.definition.types.type.array.items.RefArrayItem)
+                arrayType.getItems();
 
         arrayItemType =
             addRefImportStatement(

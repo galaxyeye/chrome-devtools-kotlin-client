@@ -74,7 +74,7 @@ public class SourceProjectImplTest extends EasyMockSupport {
 
     replayAll();
 
-    sourceProject.addCompilationUnit("com.github.kklisura", "name", compilationUnit1);
+    sourceProject.addCompilationUnit("ai.platon", "name", compilationUnit1);
 
     verifyAll();
 
@@ -103,8 +103,8 @@ public class SourceProjectImplTest extends EasyMockSupport {
 
     replayAll();
 
-    sourceProject.addCompilationUnit("com.github.kklisura", "name", compilationUnit1);
-    sourceProject.addCompilationUnit("com.github.kklisura", "name", compilationUnit2);
+    sourceProject.addCompilationUnit("ai.platon", "name", compilationUnit1);
+    sourceProject.addCompilationUnit("ai.platon", "name", compilationUnit2);
   }
 
   @Test
@@ -121,8 +121,8 @@ public class SourceProjectImplTest extends EasyMockSupport {
 
     replayAll();
 
-    sourceProject.addCompilationUnit("com.github.kklisura", "name", compilationUnit1);
-    sourceProject.addCompilationUnit("com.github.kklisura", "name", compilationUnit1);
+    sourceProject.addCompilationUnit("ai.platon", "name", compilationUnit1);
+    sourceProject.addCompilationUnit("ai.platon", "name", compilationUnit1);
 
     verifyAll();
 
@@ -142,7 +142,7 @@ public class SourceProjectImplTest extends EasyMockSupport {
 
     Path path = Files.createTempDirectory("cdt-test-dir");
     sourceProject = new SourceProjectImpl(path);
-    sourceProject.addCompilationUnit("com.github.kklisura", "TestClass", compilationUnit);
+    sourceProject.addCompilationUnit("ai.platon", "TestClass", compilationUnit);
     sourceProject.saveAll();
 
     File file = path.resolve("com/github/kklisura/TestClass.java").toFile();

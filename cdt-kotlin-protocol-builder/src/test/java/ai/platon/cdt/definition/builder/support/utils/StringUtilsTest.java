@@ -45,7 +45,7 @@ public class StringUtilsTest {
 
   @Test
   public void testBuildPackageName() {
-    assertEquals("com.github.kklisura", StringUtils.buildPackageName("com.github", "kklisura"));
+    assertEquals("ai.platon", StringUtils.buildPackageName("com.github", "kklisura"));
   }
 
   @Test

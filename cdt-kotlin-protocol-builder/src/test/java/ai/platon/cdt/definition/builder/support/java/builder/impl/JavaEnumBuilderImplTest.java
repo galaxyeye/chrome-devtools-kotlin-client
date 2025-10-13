@@ -44,7 +44,7 @@ import org.junit.runner.RunWith;
  */
 @RunWith(EasyMockRunner.class)
 public class JavaEnumBuilderImplTest extends EasyMockSupport {
-  private static final String PACKAGE = "com.github.kklisura";
+  private static final String PACKAGE = "ai.platon";
   private static final String NAME = "EnumName";
 
   private JavaEnumBuilderImpl javaEnumBuilder;
@@ -74,7 +74,7 @@ public class JavaEnumBuilderImplTest extends EasyMockSupport {
 
   String actual = normalize(compilationUnitCapture.getValue().toString());
   assertEquals(
-        "package com.github.kklisura;\n"
+        "package ai.platon;\n"
             + "\n"
             + "import com.fasterxml.jackson.annotation.JsonProperty;\n"
             + "\n"
@@ -100,7 +100,7 @@ public class JavaEnumBuilderImplTest extends EasyMockSupport {
 
     String actual = normalize(compilationUnitCapture.getValue().toString());
     assertEquals(
-        "package com.github.kklisura;\n"
+        "package ai.platon;\n"
             + "\n"
             + "import com.fasterxml.jackson.annotation.JsonProperty;\n"
             + "\n"

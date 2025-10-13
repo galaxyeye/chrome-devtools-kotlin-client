@@ -60,10 +60,10 @@ import org.junit.runner.RunWith;
 @RunWith(EasyMockRunner.class)
 public class CommandBuilderTest extends EasyMockSupport {
 
-  private static final String BASE_PACKAGE_NAME = "com.github.kklisura.test";
-  private static final String TYPE_PACKAGE_NAME = "com.github.kklisura.types";
-  private static final String EVENTS_PACKAGE_NAME = "com.github.kklisura.events";
-  private static final String SUPPORT_TYPES_PACKAGE_NAME = "com.github.kklisura.support.types";
+  private static final String BASE_PACKAGE_NAME = "ai.platon.test";
+  private static final String TYPE_PACKAGE_NAME = "ai.platon.types";
+  private static final String EVENTS_PACKAGE_NAME = "ai.platon.events";
+  private static final String SUPPORT_TYPES_PACKAGE_NAME = "ai.platon.support.types";
 
   @Mock private JavaBuilderFactory javaBuilderFactory;
 
@@ -277,7 +277,7 @@ public class CommandBuilderTest extends EasyMockSupport {
 
     expect(
             javaBuilderFactory.createEnumBuilder(
-                "com.github.kklisura.types.domainname", "EnumParam1"))
+                "ai.platon.types.domainname", "EnumParam1"))
         .andReturn(javaEnumBuilder);
 
     javaEnumBuilder.addEnumConstant("ENUM_1", "enum1");
@@ -310,10 +310,10 @@ public class CommandBuilderTest extends EasyMockSupport {
 
     expect(resolver.resolve("domainName", "TestRef")).andReturn(resolvedRefType).times(2);
 
-    interfaceBuilder.addImport("com.github.kklisura.types.domainname", "TestRef");
+    interfaceBuilder.addImport("ai.platon.types.domainname", "TestRef");
     expectLastCall().times(2);
     interfaceBuilder.addImport("java.util", "List");
-    interfaceBuilder.addImport("com.github.kklisura.types.domainname", "EnumParam1");
+    interfaceBuilder.addImport("ai.platon.types.domainname", "EnumParam1");
 
     interfaceBuilder.addParametrizedMethodAnnotation("command", "Returns", "booleanReturnValue");
     interfaceBuilder.addParametrizedMethodAnnotation("command", "Returns", "booleanReturnValue");
@@ -541,7 +541,7 @@ public class CommandBuilderTest extends EasyMockSupport {
     expect(resolver.resolve("domainName", "TestRefArrayItem")).andReturn(resolvedRefType2);
     expect(resolver.resolve("SomeOtherDomain", "TestRefArrayItem2")).andReturn(objectType);
 
-    interfaceBuilder.addImport("com.github.kklisura.types.someotherdomain", "TestRefArrayItem2");
+    interfaceBuilder.addImport("ai.platon.types.someotherdomain", "TestRefArrayItem2");
 
     interfaceBuilder.addImport("java.util", "List");
     expectLastCall().times(3);
@@ -609,7 +609,7 @@ public class CommandBuilderTest extends EasyMockSupport {
         capture(methodParamCapture),
         eq("CommandSomeResult"));
 
-    interfaceBuilder.addImport("com.github.kklisura.types.domainname", "CommandSomeResult");
+    interfaceBuilder.addImport("ai.platon.types.domainname", "CommandSomeResult");
 
     replayAll();
 
@@ -759,7 +759,7 @@ public class CommandBuilderTest extends EasyMockSupport {
     expect(resolver.resolve("domainName", "Metrics")).andReturn(resolvedRefType);
 
     interfaceBuilder.addImport("java.util", "List");
-    interfaceBuilder.addImport("com.github.kklisura.types.domainname", "Metrics");
+    interfaceBuilder.addImport("ai.platon.types.domainname", "Metrics");
 
     interfaceBuilder.addMethod(
         eq("getMetricsList"),
@@ -804,7 +804,7 @@ public class CommandBuilderTest extends EasyMockSupport {
 
     expect(
             javaBuilderFactory.createEnumBuilder(
-                "com.github.kklisura.types.domainname", "EnumListProperty"))
+                "ai.platon.types.domainname", "EnumListProperty"))
         .andReturn(javaEnumBuilder);
     javaEnumBuilder.addEnumConstant("A", "A");
     javaEnumBuilder.addEnumConstant("B", "B");
@@ -813,7 +813,7 @@ public class CommandBuilderTest extends EasyMockSupport {
         .andReturn(interfaceBuilder);
 
     interfaceBuilder.addImport("java.util", "List");
-    interfaceBuilder.addImport("com.github.kklisura.types.domainname", "EnumListProperty");
+    interfaceBuilder.addImport("ai.platon.types.domainname", "EnumListProperty");
 
     interfaceBuilder.addMethod(
         eq("getEnumList"),
@@ -858,13 +858,13 @@ public class CommandBuilderTest extends EasyMockSupport {
         .andReturn(interfaceBuilder);
     interfaceBuilder.setJavaDoc("Description");
 
-    interfaceBuilder.addImport("com.github.kklisura.support.types", "EventListener");
-    interfaceBuilder.addImport("com.github.kklisura.support.types", "EventHandler");
-    interfaceBuilder.addImport("com.github.kklisura.events.domainname", "SomeEvent");
+    interfaceBuilder.addImport("ai.platon.support.types", "EventListener");
+    interfaceBuilder.addImport("ai.platon.support.types", "EventHandler");
+    interfaceBuilder.addImport("ai.platon.events.domainname", "SomeEvent");
 
-    interfaceBuilder.addImport("com.github.kklisura.support.types", "EventListener");
-    interfaceBuilder.addImport("com.github.kklisura.support.types", "EventHandler");
-    interfaceBuilder.addImport("com.github.kklisura.events.domainname", "SomeEvent1");
+    interfaceBuilder.addImport("ai.platon.support.types", "EventListener");
+    interfaceBuilder.addImport("ai.platon.support.types", "EventHandler");
+    interfaceBuilder.addImport("ai.platon.events.domainname", "SomeEvent1");
 
     Capture<List<MethodParam>> methodParamCapture = Capture.newInstance();
     interfaceBuilder.addMethod(

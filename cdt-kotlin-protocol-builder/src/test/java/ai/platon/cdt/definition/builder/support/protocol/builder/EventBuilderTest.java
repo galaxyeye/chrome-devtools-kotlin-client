@@ -52,8 +52,8 @@ import org.junit.runner.RunWith;
  */
 @RunWith(EasyMockRunner.class)
 public class EventBuilderTest extends EasyMockSupport {
-  private static final String BASE_PACKAGE_NAME = "com.github.kklisura.events";
-  private static final String TYPES_PACKAGE_NAME = "com.github.kklisura.types";
+  private static final String BASE_PACKAGE_NAME = "ai.platon.events";
+  private static final String TYPES_PACKAGE_NAME = "ai.platon.types";
 
   @Mock private JavaBuilderFactory javaBuilderFactory;
 

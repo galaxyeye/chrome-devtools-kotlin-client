@@ -44,9 +44,9 @@ import org.junit.runner.RunWith;
  */
 @RunWith(EasyMockRunner.class)
 public class JavaClassBuilderImplTest extends EasyMockSupport {
-  private static final String PACKAGE_NAME = "com.github.kklisura";
+  private static final String PACKAGE_NAME = "ai.platon";
   private static final String CLASS_NAME = "ClassName";
-  private static final String ANNOTATIONS_PACKAGE_NAME = "com.github.kklisura.annotations";
+  private static final String ANNOTATIONS_PACKAGE_NAME = "ai.platon.annotations";
 
   @Mock private SourceProject sourceProject;
 
@@ -76,7 +76,7 @@ public class JavaClassBuilderImplTest extends EasyMockSupport {
 
     String actual = normalize(compilationUnitCapture.getValue().toString());
     assertEquals(
-        "package com.github.kklisura;\n" + "\n" + "public class ClassName {\n" + "}\n" + "",
+        "package ai.platon;\n" + "\n" + "public class ClassName {\n" + "}\n" + "",
         actual);
 
     verifyAll();
@@ -98,9 +98,9 @@ public class JavaClassBuilderImplTest extends EasyMockSupport {
 
     String actual = normalize(compilationUnitCapture.getValue().toString());
     assertEquals(
-        "package com.github.kklisura;\n"
+        "package ai.platon;\n"
             + "\n"
-            + "import com.github.kklisura.annotations.Annotation;\n"
+            + "import ai.platon.annotations.Annotation;\n"
             + "\n"
             + "@Annotation\n"
             + "@Deprecated\n"
@@ -127,7 +127,7 @@ public class JavaClassBuilderImplTest extends EasyMockSupport {
 
     String actual = normalize(compilationUnitCapture.getValue().toString());
     assertEquals(
-        "package com.github.kklisura;\n"
+        "package ai.platon;\n"
             + "\n"
             + "/**\n"
             + " * Java doc.\n"
@@ -156,7 +156,7 @@ public class JavaClassBuilderImplTest extends EasyMockSupport {
 
     String actual = normalize(compilationUnitCapture.getValue().toString());
     assertEquals(
-        "package com.github.kklisura;\n\n"
+        "package ai.platon;\n\n"
             + "import java.util.List;\n"
             + "\n"
             + "public class ClassName {\n"
@@ -183,7 +183,7 @@ public class JavaClassBuilderImplTest extends EasyMockSupport {
 
     String actual = normalize(compilationUnitCapture.getValue().toString());
     assertEquals(
-        "package com.github.kklisura;\n\n"
+        "package ai.platon;\n\n"
             + "import java.util.List;\n"
             + "\n"
             + "public class ClassName {\n"
@@ -211,7 +211,7 @@ public class JavaClassBuilderImplTest extends EasyMockSupport {
 
     String actual = normalize(compilationUnitCapture.getValue().toString());
     assertEquals(
-        "package com.github.kklisura;\n"
+        "package ai.platon;\n"
             + "\n"
             + "public class ClassName {\n"
             + "\n"
@@ -256,10 +256,10 @@ public class JavaClassBuilderImplTest extends EasyMockSupport {
 
     String actual = normalize(compilationUnitCapture.getValue().toString());
     assertEquals(
-        "package com.github.kklisura;\n"
+        "package ai.platon;\n"
             + "\n"
-            + "import com.github.kklisura.annotations.Annotation;\n"
-            + "import com.github.kklisura.annotations.Annotation1;\n"
+            + "import ai.platon.annotations.Annotation;\n"
+            + "import ai.platon.annotations.Annotation1;\n"
             + "\n"
             + "@Annotation\n"
             + "public class ClassName {\n"

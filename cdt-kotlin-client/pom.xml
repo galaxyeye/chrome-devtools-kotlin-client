@@ -361,6 +361,7 @@
                     <failOnMissing>true</failOnMissing>
                     <licenseName>apache_v2</licenseName>
                     <useMissingFile>true</useMissingFile>
+                    <skipUpdateLicense>true</skipUpdateLicense>
                     <excludes>
                         <exclude>**/*.json</exclude>
                     </excludes>

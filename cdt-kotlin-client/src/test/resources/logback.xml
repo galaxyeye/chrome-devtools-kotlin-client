@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  cdt-kotlin-client
+  %%
+  Copyright (C) 2025 platon.ai
+  %%
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  #L%
+  -->
+
+
+<configuration scan="true" scanPeriod="30 seconds" debug="false">
+    <property name="logging.dir" value="${logging.dir:-logs}" />
+    <property name="logging.file" value="${logging.file:-pulsar.log}" />
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{HH:mm:ss.SSS} [%.10thread] %-5level %logger{36} - %msg%n</pattern>
+        </layout>
+    </appender>
+
+    <root level="${log.level:-WARN}">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+    <!-- Stop logback status INFO at the start -->
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+
+    <logger name="ai.platon.pulsar.browser.driver.chrome" level="TRACE"/>
+
+</configuration>

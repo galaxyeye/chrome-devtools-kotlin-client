@@ -23,11 +23,10 @@ import java.time.Instant
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.atomic.AtomicBoolean
-import kotlin.code
 import kotlin.reflect.KClass
 
-class CachedDevToolsInvocationHandlerProxies : KInvocationHandler {
-    val commandHandler: DevToolsInvocationHandler = DevToolsInvocationHandler()
+class CachedDevToolsInvocationHandlerProxies(impl: Any) : SuspendAwareHandler(impl) {
+    val commandHandler: DevToolsInvocationHandler = DevToolsInvocationHandler(impl)
     val commands: MutableMap<Method, Any> = ConcurrentHashMap()
 
     init {
@@ -39,7 +38,7 @@ class CachedDevToolsInvocationHandlerProxies : KInvocationHandler {
     // Typical methods:
     //   - public abstract void com.github.kklisura.cdt.protocol.v2023.commands.Page.enable()
     //   - public abstract com...page.Navigate com...Page.navigate(java.lang.String)
-    override suspend fun invoke(proxy: Any, method: Method, args: Array<Any>?): Any? {
+    override fun invoke(proxy: Any, method: Method, args: Array<out Any>?): Any? {
         return commands.computeIfAbsent(method) {
             ProxyClasses.createProxy(method.returnType, commandHandler)
         }

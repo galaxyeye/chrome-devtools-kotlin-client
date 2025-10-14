@@ -30,7 +30,7 @@
         </layout>
     </appender>
 
-    <root level="${log.level:-WARN}">
+    <root level="${log.level:-DEBUG}">
         <appender-ref ref="CONSOLE"/>
     </root>
 

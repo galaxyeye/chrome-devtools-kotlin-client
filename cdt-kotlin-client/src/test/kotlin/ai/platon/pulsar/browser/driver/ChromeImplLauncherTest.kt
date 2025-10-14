@@ -31,7 +31,6 @@ import org.junit.jupiter.api.Tag
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
-@Tag("SkippableLowerLevelTest")
 class ChromeImplLauncherTest {
     private val USER_DATA_DIR_REGEX = ".+pulsar-.+/context/cx.+".toRegex()
 

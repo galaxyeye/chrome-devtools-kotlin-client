@@ -11,12 +11,13 @@ import ai.platon.pulsar.browser.driver.chrome.RemoteDevTools
 import ai.platon.pulsar.browser.driver.chrome.impl.EventDispatcher.Companion.ID_PROPERTY
 import ai.platon.pulsar.browser.driver.chrome.util.ChromeIOException
 import ai.platon.pulsar.browser.driver.chrome.util.ChromeRPCException
-import ai.platon.pulsar.browser.driver.chrome.util.KInvocationHandler
+import ai.platon.pulsar.browser.driver.chrome.util.SuspendAwareHandler
+import kotlinx.coroutines.runBlocking
 import java.lang.reflect.Method
 import java.lang.reflect.ParameterizedType
 import java.util.concurrent.atomic.AtomicLong
 
-class DevToolsInvocationHandler: KInvocationHandler {
+class DevToolsInvocationHandler(impl: Any): SuspendAwareHandler(impl) {
     companion object {
         private const val EVENT_LISTENER_PREFIX = "on"
         private val ID_SUPPLIER = AtomicLong(1L)
@@ -35,13 +36,13 @@ class DevToolsInvocationHandler: KInvocationHandler {
             return MethodInvocation(methodId, method, params1)
         }
 
-        fun createMethodInvocation(method: Method, args: Array<Any>? = null): MethodInvocation {
+        fun createMethodInvocation(method: Method, args: Array<out Any>? = null): MethodInvocation {
             val domainName = method.declaringClass.simpleName
             val methodName = method.name
             return MethodInvocation(nextId(), "$domainName.$methodName", buildMethodParams(method, args))
         }
 
-        private fun buildMethodParams(method: Method, args: Array<Any>? = null): Map<String, Any> {
+        private fun buildMethodParams(method: Method, args: Array<out Any>? = null): Map<String, Any> {
             val params: MutableMap<String, Any> = HashMap()
             val parameters = method.parameters
             if (args != null) {
@@ -55,8 +56,9 @@ class DevToolsInvocationHandler: KInvocationHandler {
 
     lateinit var devTools: RemoteDevTools
 
+
     @Throws(ChromeIOException::class, ChromeRPCException::class)
-    override suspend fun invoke(target: Any, method: Method, args: Array<Any>?): Any? {
+    override fun invoke(target: Any, method: Method, args: Array<out Any>?): Any? {
         if (isEventSubscription(method)) {
             return handleEventSubscription(target, method, args)
         }
@@ -65,13 +67,15 @@ class DevToolsInvocationHandler: KInvocationHandler {
         val returnTypeClasses = method.getAnnotation(ReturnTypeParameter::class.java)
                 ?.value?.map { it.java }?.toTypedArray()
         val returnProperty = method.getAnnotation(Returns::class.java)?.value
-        val methodInvocation = createMethodInvocation(method, args)
 
-        // Invokes a remote method and returns the result.
-        return devTools.invoke(returnType, returnProperty, returnTypeClasses, methodInvocation)
+        val methodInvocation = createMethodInvocation(method, args)
+        return runBlocking {
+            // Invokes a remote method and returns the result.
+            devTools.invoke(returnType, returnProperty, returnTypeClasses, methodInvocation)
+        }
     }
 
-    private fun handleEventSubscription(target: Any, method: Method, args: Array<Any>?): EventListener {
+    private fun handleEventSubscription(target: Any, method: Method, args: Array<out Any>?): EventListener {
         val domainName = method.declaringClass.simpleName
         val eventName: String = getEventName(method)
         val eventHandlerType: Class<*> = getEventHandlerType(method)

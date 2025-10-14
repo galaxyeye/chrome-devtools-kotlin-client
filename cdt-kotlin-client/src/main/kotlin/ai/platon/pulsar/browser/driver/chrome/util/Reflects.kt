@@ -1,21 +1,48 @@
 package ai.platon.pulsar.browser.driver.chrome.util
 
+import ai.platon.pulsar.common.alwaysTrue
 import ai.platon.pulsar.common.getLogger
 import javassist.Modifier
 import javassist.util.proxy.ProxyFactory
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
 import java.lang.reflect.Proxy
+import kotlin.coroutines.Continuation
+import kotlin.coroutines.intrinsics.COROUTINE_SUSPENDED
+import kotlin.coroutines.resume
+import kotlin.reflect.full.callSuspend
+import kotlin.reflect.full.declaredFunctions
 
-interface KInvocationHandler {
-    suspend fun invoke(proxy: Any, method: Method, args: Array<Any>?): Any?
+//interface SuspendAwareHandler {
+//    suspend fun invoke(proxy: Any, method: Method, args: Array<Any>?): Any?
+//}
+
+open class SuspendAwareHandler(private val impl: Any) : InvocationHandler {
+    private val eventHandlerScope = CoroutineScope(Dispatchers.Default) + CoroutineName("CDTHandler")
+
+    override fun invoke(proxy: Any, method: Method, args: Array<out Any>?): Any? {
+        val kFunc = impl::class.declaredFunctions.find { it.name == method.name } ?: return null
+        val realArgs = args ?: emptyArray()
+
+        // 检查是否是 suspend 函数
+        return if (kFunc.isSuspend) {
+            val cont = realArgs.last() as Continuation<Any?>
+            eventHandlerScope.launch(cont.context) {
+                val result = kFunc.callSuspend(impl, *realArgs.dropLast(1).toTypedArray())
+                cont.resume(result)
+            }
+            COROUTINE_SUSPENDED
+        } else {
+            kFunc.call(impl, *realArgs)
+        }
+    }
 }
 
 object ProxyClasses {
     private val logger = getLogger(this)
 
-    private val isDebugEnabled get() = logger.isDebugEnabled
+    private val isDebugEnabled get() = alwaysTrue() || logger.isDebugEnabled
 
     /**
      * Creates a proxy class to a given abstract clazz supplied with invocation handler for
@@ -63,7 +90,7 @@ object ProxyClasses {
     @Throws(Exception::class)
     fun <T> createCoroutineSupportedProxyFromAbstract(
         clazz: Class<T>, paramTypes: Array<Class<*>>, args: Array<Any>? = null,
-        invocationHandler: KInvocationHandler
+        invocationHandler: SuspendAwareHandler
     ): T {
         if (isDebugEnabled) {
             debugParameters(clazz, paramTypes, args)
@@ -82,7 +109,7 @@ object ProxyClasses {
      * @param <T> Class type.
      * @return Proxy instance.
      */
-    fun <T> createProxy(clazz: Class<T>, invocationHandler: KInvocationHandler?): T {
+    fun <T> createProxy(clazz: Class<T>, invocationHandler: SuspendAwareHandler?): T {
         val bridgeHandler = toJvmInvocationHandler(invocationHandler)
 
         if (isDebugEnabled) {
@@ -102,7 +129,12 @@ class: ${clazz.name}
         return proxy as T
     }
 
-    fun toJvmInvocationHandler(handler: KInvocationHandler?): InvocationHandler? {
+    fun toJvmInvocationHandler(handler: SuspendAwareHandler?): InvocationHandler? {
+        if (alwaysTrue()) {
+            return handler
+        }
+
+
         if (handler == null) {
             return null
         }

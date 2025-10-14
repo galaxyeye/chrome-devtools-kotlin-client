@@ -32,7 +32,6 @@ import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Tag
 import kotlin.test.*
 
-@Tag("SkippableLowerLevelTest")
 class ChromeDevToolsTest {
 
     private lateinit var launcher: ChromeLauncher

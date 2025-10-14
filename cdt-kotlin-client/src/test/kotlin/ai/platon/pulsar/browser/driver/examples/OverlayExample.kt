@@ -20,14 +20,11 @@
 package ai.platon.pulsar.browser.driver.examples
 
 import ai.platon.cdt.kt.protocol.events.overlay.ScreenshotRequested
-import com.google.gson.GsonBuilder
-import ai.platon.cdt.kt.protocol.support.types.EventHandler
-import ai.platon.cdt.kt.protocol.support.types.EventListener
 import ai.platon.cdt.kt.protocol.types.dom.RGBA
 import ai.platon.cdt.kt.protocol.types.overlay.HighlightConfig
-import kotlinx.coroutines.runBlocking
+import com.google.gson.GsonBuilder
 
-class OverlayExample: BrowserExampleBase() {
+class OverlayExample : BrowserExampleBase() {
 
     override val testUrl: String = "https://www.amazon.com/"
 
@@ -35,13 +32,6 @@ class OverlayExample: BrowserExampleBase() {
         page.enable()
         dom.enable()
         overlay.enable()
-
-        overlay.onScreenshotRequested(object: EventHandler<ScreenshotRequested> {
-            override suspend fun onEvent(event: ScreenshotRequested) {
-                val v = event.viewport
-                overlay.highlightRect(v.x.toInt(), v.y.toInt(), v.width.toInt(), v.height.toInt())
-            }
-        })
 
         overlay.onScreenshotRequested { screenshot: ScreenshotRequested ->
             val v = screenshot.viewport
@@ -64,13 +54,13 @@ class OverlayExample: BrowserExampleBase() {
     private suspend fun highlight(selector: String) {
         val documentId = dom.getDocument().nodeId
         val nodeId = dom.querySelector(documentId, selector)
-        val highlightConfig = HighlightConfig().apply {
-            showInfo = true
-            showRulers = true
-            showStyles = true
-            showExtensionLines = true
+        val highlightConfig = HighlightConfig(
+            showInfo = true,
+            showRulers = true,
+            showStyles = true,
+            showExtensionLines = true,
             shapeColor = RGBA(255, 0, 0, 1.0)
-        }
+        )
 
         overlay.highlightRect(300, 400, 500, 500)
 //        Thread.sleep(5000)

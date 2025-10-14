@@ -4,7 +4,7 @@ package ai.platon.cdt.definition.builder.support.protocol.builder;
  * #%L
  * cdt-java-protocol-builder
  * %%
- * Copyright (C) 2025 platon.ai
+ * Copyright (C) 2018 - 2025 platon.ai
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -275,9 +275,7 @@ public class CommandBuilderTest extends EasyMockSupport {
 
     domain.setCommands(Collections.singletonList(command));
 
-    expect(
-            javaBuilderFactory.createEnumBuilder(
-                "ai.platon.types.domainname", "EnumParam1"))
+    expect(javaBuilderFactory.createEnumBuilder("ai.platon.types.domainname", "EnumParam1"))
         .andReturn(javaEnumBuilder);
 
     javaEnumBuilder.addEnumConstant("ENUM_1", "enum1");
@@ -802,9 +800,7 @@ public class CommandBuilderTest extends EasyMockSupport {
     command.setReturns(Collections.singletonList(arrayStringProperty));
     domain.setCommands(Collections.singletonList(command));
 
-    expect(
-            javaBuilderFactory.createEnumBuilder(
-                "ai.platon.types.domainname", "EnumListProperty"))
+    expect(javaBuilderFactory.createEnumBuilder("ai.platon.types.domainname", "EnumListProperty"))
         .andReturn(javaEnumBuilder);
     javaEnumBuilder.addEnumConstant("A", "A");
     javaEnumBuilder.addEnumConstant("B", "B");

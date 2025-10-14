@@ -23,7 +23,6 @@ package ai.platon.cdt.services.impl;
 import static org.easymock.EasyMock.*;
 import static org.junit.Assert.*;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import ai.platon.cdt.protocol.support.types.EventHandler;
 import ai.platon.cdt.protocol.support.types.EventListener;
 import ai.platon.cdt.services.WebSocketService;
@@ -35,6 +34,7 @@ import ai.platon.cdt.services.types.ChromeTab;
 import ai.platon.cdt.services.types.EventListenerImpl;
 import ai.platon.cdt.services.types.MethodInvocation;
 import ai.platon.cdt.services.utils.ProxyUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;

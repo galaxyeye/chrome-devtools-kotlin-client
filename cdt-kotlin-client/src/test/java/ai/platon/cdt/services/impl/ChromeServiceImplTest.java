@@ -25,7 +25,6 @@ import static org.easymock.EasyMock.anyObject;
 import static org.easymock.EasyMock.expect;
 import static org.junit.Assert.*;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import ai.platon.cdt.protocol.ChromeDevTools;
 import ai.platon.cdt.protocol.commands.Network;
 import ai.platon.cdt.services.WebSocketService;
@@ -34,6 +33,7 @@ import ai.platon.cdt.services.exceptions.WebSocketServiceException;
 import ai.platon.cdt.services.factory.WebSocketServiceFactory;
 import ai.platon.cdt.services.types.ChromeTab;
 import ai.platon.cdt.services.types.ChromeVersion;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.mockwebserver.MockResponse;
 import com.squareup.okhttp.mockwebserver.MockWebServer;
 import com.squareup.okhttp.mockwebserver.RecordedRequest;

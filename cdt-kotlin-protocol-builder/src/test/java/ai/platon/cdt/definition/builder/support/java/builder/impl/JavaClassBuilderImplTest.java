@@ -4,7 +4,7 @@ package ai.platon.cdt.definition.builder.support.java.builder.impl;
  * #%L
  * cdt-java-protocol-builder
  * %%
- * Copyright (C) 2025 platon.ai
+ * Copyright (C) 2018 - 2025 platon.ai
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,8 +50,8 @@ public class JavaClassBuilderImplTest extends EasyMockSupport {
 
   @Mock private SourceProject sourceProject;
 
-    @SuppressWarnings("unused")
-    private Path rootPath;
+  @SuppressWarnings("unused")
+  private Path rootPath;
 
   private JavaClassBuilderImpl javaClassBuilder;
 
@@ -75,9 +75,7 @@ public class JavaClassBuilderImplTest extends EasyMockSupport {
     javaClassBuilder.build(sourceProject);
 
     String actual = normalize(compilationUnitCapture.getValue().toString());
-    assertEquals(
-        "package ai.platon;\n" + "\n" + "public class ClassName {\n" + "}\n" + "",
-        actual);
+    assertEquals("package ai.platon;\n" + "\n" + "public class ClassName {\n" + "}\n" + "", actual);
 
     verifyAll();
   }
@@ -269,12 +267,12 @@ public class JavaClassBuilderImplTest extends EasyMockSupport {
             + "    @Deprecated\n"
             + "    private String privateField;\n"
             + "}\n",
-                actual);
+        actual);
 
-        verifyAll();
-    }
+    verifyAll();
+  }
 
-    private static String normalize(String source) {
-        return source.replace("\r\n", "\n").replace("\r", "\n");
-    }
+  private static String normalize(String source) {
+    return source.replace("\r\n", "\n").replace("\r", "\n");
+  }
 }

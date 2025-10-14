@@ -45,8 +45,8 @@ public interface ApplicationCache {
    *     retrieved.
    */
   @Returns("applicationCache")
-  ai.platon.cdt.protocol.types.applicationcache.ApplicationCache
-      getApplicationCacheForFrame(@ParamName("frameId") String frameId);
+  ai.platon.cdt.protocol.types.applicationcache.ApplicationCache getApplicationCacheForFrame(
+      @ParamName("frameId") String frameId);
 
   /**
    * Returns array of frame identifiers with manifest urls for each frame containing a document

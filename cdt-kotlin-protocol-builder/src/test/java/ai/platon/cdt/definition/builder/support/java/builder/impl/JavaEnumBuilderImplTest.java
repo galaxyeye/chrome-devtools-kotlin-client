@@ -4,7 +4,7 @@ package ai.platon.cdt.definition.builder.support.java.builder.impl;
  * #%L
  * cdt-java-protocol-builder
  * %%
- * Copyright (C) 2025 platon.ai
+ * Copyright (C) 2018 - 2025 platon.ai
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -70,17 +70,17 @@ public class JavaEnumBuilderImplTest extends EasyMockSupport {
 
     replayAll();
 
-  javaEnumBuilder.build(sourceProject);
+    javaEnumBuilder.build(sourceProject);
 
-  String actual = normalize(compilationUnitCapture.getValue().toString());
-  assertEquals(
+    String actual = normalize(compilationUnitCapture.getValue().toString());
+    assertEquals(
         "package ai.platon;\n"
             + "\n"
             + "import com.fasterxml.jackson.annotation.JsonProperty;\n"
             + "\n"
             + "public enum EnumName {\n"
             + "}\n",
-    actual);
+        actual);
 
     verifyAll();
   }

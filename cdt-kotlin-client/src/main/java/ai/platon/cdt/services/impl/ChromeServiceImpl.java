@@ -20,7 +20,6 @@ package ai.platon.cdt.services.impl;
  * #L%
  */
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import ai.platon.cdt.services.ChromeDevToolsService;
 import ai.platon.cdt.services.ChromeService;
 import ai.platon.cdt.services.WebSocketService;
@@ -32,6 +31,7 @@ import ai.platon.cdt.services.invocation.CommandInvocationHandler;
 import ai.platon.cdt.services.types.ChromeTab;
 import ai.platon.cdt.services.types.ChromeVersion;
 import ai.platon.cdt.services.utils.ProxyUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;

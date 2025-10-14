@@ -4,7 +4,7 @@ package ai.platon.cdt.definition.builder.support.java.builder.impl;
  * #%L
  * cdt-java-protocol-builder
  * %%
- * Copyright (C) 2025 platon.ai
+ * Copyright (C) 2018 - 2025 platon.ai
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,9 +43,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-/**
- * Java interface builder test.
- */
+/** Java interface builder test. */
 @RunWith(EasyMockRunner.class)
 public class JavaInterfaceBuilderImplTest extends EasyMockSupport {
   private static final String NAME = "InterfaceTest";
@@ -80,10 +78,7 @@ public class JavaInterfaceBuilderImplTest extends EasyMockSupport {
     interfaceBuilder.build(sourceProject);
 
     assertGeneratedEquals(
-        "package ai.platon;\n"
-            + "\n"
-            + "public interface InterfaceTest {\n"
-            + "}\n",
+        "package ai.platon;\n" + "\n" + "public interface InterfaceTest {\n" + "}\n",
         compilationUnitCapture);
 
     verifyAll();

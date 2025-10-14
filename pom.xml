@@ -27,6 +27,10 @@
 
     <developers>
         <developer>
+            <name>Kenan Klisura</name>
+            <email>kklisura@hotmail.com</email>
+        </developer>
+        <developer>
             <name>Vincent Zhang</name>
             <email>ivincent.zhang@gmail.com</email>
             <organization>platon.ai</organization>
@@ -232,7 +236,7 @@
         <!-- Build properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <project.inceptionYear>2025</project.inceptionYear>
+        <project.inceptionYear>2018</project.inceptionYear>
 
         <ktor.version>2.3.11</ktor.version>
 

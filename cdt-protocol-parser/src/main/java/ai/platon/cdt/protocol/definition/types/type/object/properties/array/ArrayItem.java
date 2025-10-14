@@ -4,14 +4,14 @@ package ai.platon.cdt.protocol.definition.types.type.object.properties.array;
  * #%L
  * cdt-java-protocol-builder
  * %%
- * Copyright (C) 2025 platon.ai
+ * Copyright (C) 2018 - 2025 platon.ai
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,8 +20,6 @@ package ai.platon.cdt.protocol.definition.types.type.object.properties.array;
  * #L%
  */
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import ai.platon.cdt.protocol.definition.deserializers.impl.properties.PropertyArrayItemSubTypeJsonDeserializer;
 import ai.platon.cdt.protocol.definition.types.type.object.properties.array.items.AnyArrayItem;
 import ai.platon.cdt.protocol.definition.types.type.object.properties.array.items.EnumArrayItem;
@@ -30,6 +28,8 @@ import ai.platon.cdt.protocol.definition.types.type.object.properties.array.item
 import ai.platon.cdt.protocol.definition.types.type.object.properties.array.items.ObjectArrayItem;
 import ai.platon.cdt.protocol.definition.types.type.object.properties.array.items.RefArrayItem;
 import ai.platon.cdt.protocol.definition.types.type.object.properties.array.items.StringArrayItem;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Getter;
 import lombok.Setter;
 

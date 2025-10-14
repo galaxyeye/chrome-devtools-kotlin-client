@@ -4,7 +4,7 @@ package ai.platon.cdt.examples;
  * #%L
  * cdt-examples
  * %%
- * Copyright (C) 2018 - 2021 Kenan Klisura
+ * Copyright (C) 2018 - 2025 platon.ai
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,25 +20,25 @@ package ai.platon.cdt.examples;
  * #L%
  */
 
-import ch.qos.logback.classic.Level;
-import ch.qos.logback.classic.LoggerContext;
 import ai.platon.cdt.launch.ChromeArguments;
 import ai.platon.cdt.launch.ChromeLauncher;
 import ai.platon.cdt.services.ChromeDevToolsService;
 import ai.platon.cdt.services.ChromeService;
 import ai.platon.cdt.services.types.ChromeTab;
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.LoggerContext;
 import org.slf4j.LoggerFactory;
 
 /**
- * By setting logger `ai.platon.cdt.launch.chrome.output` to DEBUG level, either
- * programmatically or via logging configuration (see logback.xml in the example) and by introducing
- * arguments to chrome to enable more verbose logging one can observe detailed chrome output. This
- * should be used to debug some issues with chrome and should not generally not be used in normal
- * course of operations. Note that, when you set this logger to DEBUG, a
- * chrome-launcher:read-line-thread thread will be alive, until browser gets closed.
+ * By setting logger `ai.platon.cdt.launch.chrome.output` to DEBUG level, either programmatically or
+ * via logging configuration (see logback.xml in the example) and by introducing arguments to chrome
+ * to enable more verbose logging one can observe detailed chrome output. This should be used to
+ * debug some issues with chrome and should not generally not be used in normal course of
+ * operations. Note that, when you set this logger to DEBUG, a chrome-launcher:read-line-thread
+ * thread will be alive, until browser gets closed.
  *
- * <p>Logger `ai.platon.cdt.launch.chrome.output` can be set to DEBUG level
- * programmatically as in an example below (enableDebugChromeOutput method) or by introducing
+ * <p>Logger `ai.platon.cdt.launch.chrome.output` can be set to DEBUG level programmatically as in
+ * an example below (enableDebugChromeOutput method) or by introducing
  *
  * <pre>
  *   <logger name="ai.platon.cdt.launch.chrome.output" level="DEBUG" />
@@ -51,8 +51,8 @@ import org.slf4j.LoggerFactory;
 public class ChromeLoggingExample {
 
   /**
-   * Programmatically set `ai.platon.cdt.launch.chrome.output` to DEBUG level so chrome
-   * output can be observed.
+   * Programmatically set `ai.platon.cdt.launch.chrome.output` to DEBUG level so chrome output can
+   * be observed.
    */
   private static void enableDebugChromeOutput() {
     LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();

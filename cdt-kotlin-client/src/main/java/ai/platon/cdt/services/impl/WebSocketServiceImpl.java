@@ -192,8 +192,8 @@ public class WebSocketServiceImpl implements WebSocketService {
 
   /**
    * Returns a WebSocketContainer retrieved from class defined in system property
-   * ai.platon.cdt.services.config.webSocketContainerProvider. The default value for this
-   * property is GrizzlyContainerProvider class FQN.
+   * ai.platon.cdt.services.config.webSocketContainerProvider. The default value for this property
+   * is GrizzlyContainerProvider class FQN.
    *
    * @return WebSocketContainer.
    */

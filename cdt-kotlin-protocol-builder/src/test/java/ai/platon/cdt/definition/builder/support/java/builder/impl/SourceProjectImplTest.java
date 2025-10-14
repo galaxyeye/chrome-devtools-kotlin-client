@@ -4,7 +4,7 @@ package ai.platon.cdt.definition.builder.support.java.builder.impl;
  * #%L
  * cdt-java-protocol-builder
  * %%
- * Copyright (C) 2025 platon.ai
+ * Copyright (C) 2018 - 2025 platon.ai
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,8 +65,10 @@ public class SourceProjectImplTest extends EasyMockSupport {
   public void testAddCompilationUnit() {
     CompilationUnit compilationUnit1 = new CompilationUnit();
 
-    expect(path.resolve("com/github/kklisura"))
-        .andReturn(Paths.get("source-project/main/com/github/kklisura"));
+    String packagePath = Paths.get("ai", "platon").toString();
+    Path resolvedPath = Paths.get("source-project", "main", "ai", "platon");
+
+    expect(path.resolve(packagePath)).andReturn(resolvedPath);
 
     expect(sourceRoot.getRoot()).andReturn(path);
 
@@ -83,7 +85,7 @@ public class SourceProjectImplTest extends EasyMockSupport {
             .getStorage()
             .get()
             .getPath()
-            .endsWith("source-project/main/com/github/kklisura/name.java"));
+            .endsWith(Paths.get("source-project", "main", "ai", "platon", "name.java")));
   }
 
   @Test(expected = RuntimeException.class)
@@ -92,9 +94,10 @@ public class SourceProjectImplTest extends EasyMockSupport {
     CompilationUnit compilationUnit2 = new CompilationUnit();
     compilationUnit2.addClass("TestClass");
 
-    expect(path.resolve("com/github/kklisura"))
-        .andReturn(Paths.get("source-project/main/com/github/kklisura"))
-        .times(2);
+    String packagePath = Paths.get("ai", "platon").toString();
+    Path resolvedPath = Paths.get("source-project", "main", "ai", "platon");
+
+    expect(path.resolve(packagePath)).andReturn(resolvedPath).times(2);
 
     expect(sourceRoot.getRoot()).andReturn(path).times(2);
 
@@ -111,9 +114,10 @@ public class SourceProjectImplTest extends EasyMockSupport {
   public void testAddCompilationUnitAddingDuplicateCompilationUnit() {
     CompilationUnit compilationUnit1 = new CompilationUnit();
 
-    expect(path.resolve("com/github/kklisura"))
-        .andReturn(Paths.get("source-project/main/com/github/kklisura"))
-        .times(2);
+    String packagePath = Paths.get("ai", "platon").toString();
+    Path resolvedPath = Paths.get("source-project", "main", "ai", "platon");
+
+    expect(path.resolve(packagePath)).andReturn(resolvedPath).times(2);
 
     expect(sourceRoot.getRoot()).andReturn(path).times(2);
 
@@ -131,7 +135,7 @@ public class SourceProjectImplTest extends EasyMockSupport {
             .getStorage()
             .get()
             .getPath()
-            .endsWith("source-project/main/com/github/kklisura/name.java"));
+            .endsWith(Paths.get("source-project", "main", "ai", "platon", "name.java")));
   }
 
   @Test
@@ -145,32 +149,34 @@ public class SourceProjectImplTest extends EasyMockSupport {
     sourceProject.addCompilationUnit("ai.platon", "TestClass", compilationUnit);
     sourceProject.saveAll();
 
-    File file = path.resolve("com/github/kklisura/TestClass.java").toFile();
+    File file = path.resolve(Paths.get("ai", "platon", "TestClass.java")).toFile();
     assertNotNull(file);
 
-    try {
-      FileInputStream fileInputStream = new FileInputStream(file);
-
+    try (FileInputStream fileInputStream = new FileInputStream(file);
+        ByteArrayOutputStream result = new ByteArrayOutputStream()) {
       int length;
       byte[] buffer = new byte[1024];
-      ByteArrayOutputStream result = new ByteArrayOutputStream();
 
       while ((length = fileInputStream.read(buffer)) != -1) {
         result.write(buffer, 0, length);
       }
 
       String outputFile = result.toString("UTF-8");
+      String newline = System.lineSeparator();
+      String expected =
+          String.join(
+                  newline,
+                  "public class TestClass {",
+                  "",
+                  "  private FieldType fieldName;",
+                  "",
+                  "  public FieldType getFieldName() {",
+                  "    return fieldName;",
+                  "  }",
+                  "}")
+              + newline;
 
-      assertEquals(
-          "public class TestClass {\n"
-              + "\n"
-              + "  private FieldType fieldName;\n"
-              + "\n"
-              + "  public FieldType getFieldName() {\n"
-              + "    return fieldName;\n"
-              + "  }\n"
-              + "}\n",
-          outputFile);
+      assertEquals(expected, outputFile);
     } finally {
       file.delete();
     }

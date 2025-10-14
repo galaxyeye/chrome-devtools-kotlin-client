@@ -4,7 +4,7 @@ package ai.platon.cdt.examples;
  * #%L
  * cdt-examples
  * %%
- * Copyright (C) 2018 - 2021 Kenan Klisura
+ * Copyright (C) 2018 - 2025 platon.ai
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,13 +20,13 @@ package ai.platon.cdt.examples;
  * #L%
  */
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import ai.platon.cdt.launch.ChromeLauncher;
 import ai.platon.cdt.protocol.commands.Page;
 import ai.platon.cdt.protocol.commands.Tracing;
 import ai.platon.cdt.services.ChromeDevToolsService;
 import ai.platon.cdt.services.ChromeService;
 import ai.platon.cdt.services.types.ChromeTab;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;

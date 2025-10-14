@@ -4,7 +4,7 @@ package ai.platon.cdt.definition.builder.support.kotlin;
  * #%L
  * cdt-java-protocol-builder
  * %%
- * Copyright (C) 2025 platon.ai
+ * Copyright (C) 2018 - 2025 platon.ai
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +20,8 @@ package ai.platon.cdt.definition.builder.support.kotlin;
  * #L%
  */
 
+import com.squareup.kotlinpoet.FileSpec;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -44,7 +43,7 @@ public class KotlinSourceProjectImpl implements KotlinSourceProject {
     }
     String key = file.getPackageName() + "." + file.getFileName();
     KotlinSourceFile existing = files.get(key);
-    if (existing != null && !Objects.equals(existing.getContent(), file.getContent())) {
+    if (existing != null && !contentMatches(existing, file)) {
       throw new IllegalStateException(
           "Duplicate Kotlin file generated for " + key + " with conflicting content");
     }
@@ -54,12 +53,19 @@ public class KotlinSourceProjectImpl implements KotlinSourceProject {
   @Override
   public void writeAll() throws IOException {
     for (KotlinSourceFile file : files.values()) {
-      Path packageRoot =
-          outputRoot.resolve(file.getPackageName().replace('.', java.io.File.separatorChar));
-      Files.createDirectories(packageRoot);
-
-      Path destination = packageRoot.resolve(file.getFileName() + ".kt");
-      Files.write(destination, file.getContent().getBytes(StandardCharsets.UTF_8));
+      file.writeTo(outputRoot);
     }
+  }
+
+  private static boolean contentMatches(KotlinSourceFile first, KotlinSourceFile second) {
+    FileSpec firstSpec = first.getFileSpec();
+    FileSpec secondSpec = second.getFileSpec();
+    if (firstSpec != null && secondSpec != null) {
+      return Objects.equals(firstSpec.toString(), secondSpec.toString());
+    }
+    if (firstSpec == null && secondSpec == null) {
+      return Objects.equals(first.getRawContent(), second.getRawContent());
+    }
+    return false;
   }
 }

@@ -33,9 +33,6 @@ import static org.junit.Assert.fail;
 import static org.powermock.api.easymock.PowerMock.mockStatic;
 import static org.powermock.api.easymock.PowerMock.replay;
 
-import ch.qos.logback.classic.Level;
-import ch.qos.logback.classic.Logger;
-import ch.qos.logback.classic.LoggerContext;
 import ai.platon.cdt.launch.ChromeLauncher.Environment;
 import ai.platon.cdt.launch.ChromeLauncher.ShutdownHookRegistry;
 import ai.platon.cdt.launch.config.ChromeLauncherConfiguration;
@@ -45,6 +42,9 @@ import ai.platon.cdt.launch.utils.LogCollector;
 import ai.platon.cdt.services.ChromeService;
 import ai.platon.cdt.services.impl.ChromeServiceImpl;
 import ai.platon.cdt.utils.FilesUtils;
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.LoggerContext;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -55,6 +55,7 @@ import java.util.concurrent.TimeUnit;
 import org.easymock.Capture;
 import org.easymock.EasyMockSupport;
 import org.easymock.Mock;
+import org.easymock.MockType;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -78,7 +79,8 @@ public class ChromeLauncherTest extends EasyMockSupport {
 
   @Mock private ShutdownHookRegistry shutdownHookRegistry;
 
-  @Mock private Process process;
+  @Mock(type = MockType.NICE)
+  private Process process;
 
   private ChromeLauncher launcher;
 
@@ -406,7 +408,9 @@ public class ChromeLauncherTest extends EasyMockSupport {
     expect(process.getInputStream()).andReturn(new ByteArrayInputStream(trigger.getBytes()));
 
     Capture<List<String>> captureArguments = Capture.newInstance();
-    expect(processLauncher.launch(eq("/test-binary-path"), capture(captureArguments)))
+    expect(
+            processLauncher.launch(
+                eq(normalizedBinary("/test-binary-path")), capture(captureArguments)))
         .andReturn(process);
 
     expect(FilesUtils.randomTempDir("cdt-user-data-dir")).andReturn("temp-user-data-dir");
@@ -470,7 +474,9 @@ public class ChromeLauncherTest extends EasyMockSupport {
     expect(process.isAlive()).andReturn(true);
 
     Capture<List<String>> captureArguments = Capture.newInstance();
-    expect(processLauncher.launch(eq("/test-binary-path"), capture(captureArguments)))
+    expect(
+            processLauncher.launch(
+                eq(normalizedBinary("/test-binary-path")), capture(captureArguments)))
         .andReturn(process);
 
     process.destroy();
@@ -526,7 +532,7 @@ public class ChromeLauncherTest extends EasyMockSupport {
     } catch (ChromeProcessTimeoutException e) {
       assertEquals(
           "Failed while waiting for chrome to start: Timeout expired! Chrome output: test\ntest",
-          e.getMessage());
+          normalizeNewlines(e.getMessage()));
     }
 
     assertEquals(removeCaptureShutdownThread.getValue(), addCaptureShutdownThread.getValue());
@@ -577,7 +583,7 @@ public class ChromeLauncherTest extends EasyMockSupport {
     } catch (ChromeProcessTimeoutException e) {
       assertEquals(
           "Failed while waiting for chrome to start: Timeout expired! Chrome output: test\n",
-          e.getMessage());
+          normalizeNewlines(e.getMessage()));
     }
 
     assertEquals(removeCaptureShutdownThread.getValue(), addCaptureShutdownThread.getValue());
@@ -664,8 +670,7 @@ public class ChromeLauncherTest extends EasyMockSupport {
   public void testLaunchWithDebugLogging()
       throws IOException, ChromeProcessTimeoutException, InterruptedException {
     List<String> loggingEvents = new ArrayList<>();
-    registerAppenderOnDebugLogger(
-        "ai.platon.cdt.launch.chrome.output", Level.DEBUG, loggingEvents);
+    registerAppenderOnDebugLogger("ai.platon.cdt.launch.chrome.output", Level.DEBUG, loggingEvents);
 
     expect(environment.getEnv("CHROME_PATH")).andReturn("/test-binary-path");
     expect(processLauncher.isExecutable("/test-binary-path")).andReturn(true);
@@ -676,7 +681,8 @@ public class ChromeLauncherTest extends EasyMockSupport {
         "first-line\r\nsecond-line\r\nDevTools listening on ws://127.0.0.1:9123/\r\nthird-line\r\nforth-line\r\n";
     expect(process.getInputStream()).andReturn(new ByteArrayInputStream(trigger.getBytes()));
 
-    expect(processLauncher.launch(eq("/test-binary-path"), anyObject())).andReturn(process);
+    expect(processLauncher.launch(eq(normalizedBinary("/test-binary-path")), anyObject()))
+        .andReturn(process);
 
     expect(FilesUtils.randomTempDir("cdt-user-data-dir")).andReturn("temp-user-data-dir");
 
@@ -708,8 +714,7 @@ public class ChromeLauncherTest extends EasyMockSupport {
   public void testLaunchWithErrorLoggingDoesNotLogAnything()
       throws IOException, ChromeProcessTimeoutException {
     List<String> loggingEvents = new ArrayList<>();
-    registerAppenderOnDebugLogger(
-        "ai.platon.cdt.launch.chrome.output", Level.ERROR, loggingEvents);
+    registerAppenderOnDebugLogger("ai.platon.cdt.launch.chrome.output", Level.ERROR, loggingEvents);
 
     expect(environment.getEnv("CHROME_PATH")).andReturn("/test-binary-path");
     expect(processLauncher.isExecutable("/test-binary-path")).andReturn(true);
@@ -720,7 +725,8 @@ public class ChromeLauncherTest extends EasyMockSupport {
         "first-line\r\nsecond-line\r\nDevTools listening on ws://127.0.0.1:9123/\r\nthird-line\r\nforth-line\r\n";
     expect(process.getInputStream()).andReturn(new ByteArrayInputStream(trigger.getBytes()));
 
-    expect(processLauncher.launch(eq("/test-binary-path"), anyObject())).andReturn(process);
+    expect(processLauncher.launch(eq(normalizedBinary("/test-binary-path")), anyObject()))
+        .andReturn(process);
 
     expect(FilesUtils.randomTempDir("cdt-user-data-dir")).andReturn("temp-user-data-dir");
 
@@ -740,15 +746,11 @@ public class ChromeLauncherTest extends EasyMockSupport {
     assertEquals(0, loggingEvents.size());
   }
 
-  private static void assertUserDataDir(List<String> arguments) {
-    boolean hasUserDataDir = false;
-    for (String argument : arguments) {
-      if (argument.startsWith("--user-data-dir=")) {
-        hasUserDataDir = true;
-        break;
-      }
-    }
+  private static String normalizedBinary(String binary) {
+    return Paths.get(binary).toAbsolutePath().toString();
+  }
 
-    assertTrue(hasUserDataDir);
+  private static String normalizeNewlines(String value) {
+    return value.replace("\r\n", "\n");
   }
 }

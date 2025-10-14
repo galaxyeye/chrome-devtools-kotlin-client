@@ -30,7 +30,7 @@
     <dependencies>
         <dependency>
             <groupId>ai.platon.cdt</groupId>
-            <artifactId>cdt-java-client</artifactId>
+            <artifactId>cdt-kotlin-client</artifactId>
             <version>4.0.0</version>
         </dependency>
 

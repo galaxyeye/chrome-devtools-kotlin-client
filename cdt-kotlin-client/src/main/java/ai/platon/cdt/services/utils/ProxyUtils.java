@@ -68,18 +68,50 @@ public final class ProxyUtils {
   @SuppressWarnings("unchecked")
   public static <T> T createProxyFromAbstract(
       Class<T> clazz, Class[] paramTypes, Object[] args, InvocationHandler invocationHandler) {
+    Class<?>[] constructorParamTypes = paramTypes != null ? paramTypes : new Class[0];
+    Object[] constructorArgs = args != null ? args : new Object[0];
+
+    if (constructorParamTypes.length != constructorArgs.length) {
+      throw new IllegalArgumentException(
+          "Constructor parameter types and argument values differ in length");
+    }
+
     ProxyFactory proxyFactory = new ProxyFactory();
     proxyFactory.setSuperclass(clazz);
     proxyFactory.setFilter(method -> Modifier.isAbstract(method.getModifiers()));
+
+    try {
+      clazz.getConstructor(constructorParamTypes);
+    } catch (NoSuchMethodException e) {
+      String signature = buildConstructorSignature(clazz, constructorParamTypes);
+      LOGGER.error(
+          "Failed creating proxy from abstract class - constructor {} not found", signature);
+      throw new RuntimeException(
+          "Failed creating proxy from abstract class - constructor " + signature + " not found", e);
+    }
+
     try {
       return (T)
           proxyFactory.create(
-              paramTypes,
-              args,
+              constructorParamTypes,
+              constructorArgs,
               (o, method, method1, objects) -> invocationHandler.invoke(o, method, objects));
     } catch (Exception e) {
       LOGGER.error("Failed creating proxy from abstract class", e);
       throw new RuntimeException("Failed creating proxy from abstract class", e);
     }
+  }
+
+  private static String buildConstructorSignature(
+      Class<?> clazz, Class<?>[] constructorParamTypes) {
+    StringBuilder builder = new StringBuilder(clazz.getName()).append('(');
+    for (int i = 0; i < constructorParamTypes.length; i++) {
+      if (i > 0) {
+        builder.append(", ");
+      }
+      builder.append(constructorParamTypes[i].getName());
+    }
+    builder.append(')');
+    return builder.toString();
   }
 }

@@ -4,7 +4,7 @@ package ai.platon.cdt.definition.builder.support.utils;
  * #%L
  * cdt-java-protocol-builder
  * %%
- * Copyright (C) 2025 platon.ai
+ * Copyright (C) 2018 - 2025 platon.ai
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,7 +45,7 @@ public class StringUtilsTest {
 
   @Test
   public void testBuildPackageName() {
-    assertEquals("ai.platon", StringUtils.buildPackageName("com.github", "kklisura"));
+    assertEquals("ai.platon", StringUtils.buildPackageName("ai", "platon"));
   }
 
   @Test

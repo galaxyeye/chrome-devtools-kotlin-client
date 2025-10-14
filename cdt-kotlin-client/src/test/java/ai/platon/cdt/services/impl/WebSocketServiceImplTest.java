@@ -71,7 +71,11 @@ public class WebSocketServiceImplTest extends EasyMockSupport {
         WebSocketServiceImpl.create(createURI(server.getPort()));
 
     webSocketService.send(EMIT_LARGE_MESSAGE);
-    sleep(500);
+
+    // Poll briefly because closing is asynchronous when buffers overflow.
+    for (int i = 0; i < 10 && !webSocketService.closed(); i++) {
+      sleep(200);
+    }
 
     assertTrue(webSocketService.closed());
 

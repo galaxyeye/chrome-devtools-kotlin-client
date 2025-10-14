@@ -30,8 +30,7 @@ import ai.platon.cdt.services.utils.ConfigurationUtils;
  * @author Kenan Klisura
  */
 public class ChromeDevToolsServiceConfiguration {
-  private static final String READ_TIMEOUT_PROPERTY =
-      "ai.platon.cdt.services.config.readTimeout";
+  private static final String READ_TIMEOUT_PROPERTY = "ai.platon.cdt.services.config.readTimeout";
 
   private static final long READ_TIMEOUT =
       ConfigurationUtils.systemProperty(READ_TIMEOUT_PROPERTY, 0);

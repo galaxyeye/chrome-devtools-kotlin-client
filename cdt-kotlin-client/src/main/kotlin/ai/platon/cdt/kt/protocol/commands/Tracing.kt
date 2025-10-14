@@ -99,6 +99,12 @@ public interface Tracing {
   @EventName("dataCollected")
   public fun onDataCollected(eventListener: EventHandler<DataCollected>): EventListener
 
+    @EventName("dataCollected")
+    public fun onDataCollected(eventListener: (DataCollected) -> Unit): EventListener
+
   @EventName("tracingComplete")
   public fun onTracingComplete(eventListener: EventHandler<TracingComplete>): EventListener
+
+    @EventName("tracingComplete")
+    public fun onTracingComplete(eventListener: suspend (TracingComplete) -> Unit): EventListener
 }

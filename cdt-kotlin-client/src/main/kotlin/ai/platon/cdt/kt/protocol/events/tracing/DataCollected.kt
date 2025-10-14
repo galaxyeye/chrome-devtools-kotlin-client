@@ -12,5 +12,5 @@ import kotlin.collections.Map
  */
 public data class DataCollected(
   @JsonProperty("value")
-  public val `value`: List<Map<String, Any?>>,
+  public val `value`: List<Map<String, Any?>>?,
 )

@@ -4,7 +4,7 @@
 
     <parent>
         <groupId>ai.platon.cdt</groupId>
-    <artifactId>cdt-kotlin-client-root</artifactId>
+        <artifactId>cdt-kotlin-client-root</artifactId>
         <version>0.0.0-SNAPSHOT</version>
     </parent>
 
@@ -21,20 +21,20 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
-    <java.parser.core.version>3.5.11</java.parser.core.version>
-    <jackson.version>2.19.2</jackson.version>
-    <apache.collections.version>4.1</apache.collections.version>
-    <apache.lang3.version>3.18.0</apache.lang3.version>
-    <kotlin.version>1.9.24</kotlin.version>
-    <kotlinpoet.version>2.2.0</kotlinpoet.version>
+        <java.parser.core.version>3.5.11</java.parser.core.version>
+        <jackson.version>2.19.2</jackson.version>
+        <apache.collections.version>4.1</apache.collections.version>
+        <apache.lang3.version>3.18.0</apache.lang3.version>
+        <kotlin.version>1.9.24</kotlin.version>
+        <kotlinpoet.version>1.18.1</kotlinpoet.version>
         <!-- Updated to a version compatible with modern JDKs -->
         <lombok.version>1.18.34</lombok.version>
         <logback.version>1.5.13</logback.version>
         <args4j.version>2.33</args4j.version>
-    <google.java.format.version>1.5</google.java.format.version>
+        <google.java.format.version>1.5</google.java.format.version>
 
         <junit.version>4.13.1</junit.version>
-    <jacoco.version>0.8.12</jacoco.version>
+        <jacoco.version>0.8.12</jacoco.version>
         <easy.mock.version>3.4</easy.mock.version>
         <jsonassert.version>1.5.0</jsonassert.version>
     </properties>
@@ -233,7 +233,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
-                    <argLine>${jacoco.agent.argLine} --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.lang.invoke=ALL-UNNAMED</argLine>
+                    <argLine>${jacoco.agent.argLine} --add-opens java.base/java.lang=ALL-UNNAMED --add-opens
+                        java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.lang.invoke=ALL-UNNAMED
+                    </argLine>
                 </configuration>
             </plugin>
             <plugin>

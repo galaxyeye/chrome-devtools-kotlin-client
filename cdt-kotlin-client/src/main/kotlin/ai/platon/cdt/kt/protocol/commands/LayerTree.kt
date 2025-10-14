@@ -105,7 +105,7 @@ public interface LayerTree {
    * @param snapshotId The id of the layer snapshot.
    */
   @Returns("commandLog")
-  @ReturnTypeParameter([String::class, Any?::class])
+  @ReturnTypeParameter(String::class, Any::class)
   public suspend fun snapshotCommandLog(@ParamName("snapshotId") snapshotId: String):
       List<Map<String, Any?>>
 

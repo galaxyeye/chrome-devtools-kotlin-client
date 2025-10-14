@@ -9,58 +9,58 @@ import kotlin.Boolean
  * Configuration data for the highlighting of page elements.
  */
 public data class HighlightConfig(
-  @JsonProperty("showInfo")
+    @JsonProperty("showInfo")
   @Optional
-  public val showInfo: Boolean? = null,
-  @JsonProperty("showStyles")
+  public var showInfo: Boolean? = null,
+    @JsonProperty("showStyles")
   @Optional
-  public val showStyles: Boolean? = null,
-  @JsonProperty("showRulers")
+  public var showStyles: Boolean? = null,
+    @JsonProperty("showRulers")
   @Optional
-  public val showRulers: Boolean? = null,
-  @JsonProperty("showAccessibilityInfo")
+  public var showRulers: Boolean? = null,
+    @JsonProperty("showAccessibilityInfo")
   @Optional
   public val showAccessibilityInfo: Boolean? = null,
-  @JsonProperty("showExtensionLines")
+    @JsonProperty("showExtensionLines")
   @Optional
-  public val showExtensionLines: Boolean? = null,
-  @JsonProperty("contentColor")
+  public var showExtensionLines: Boolean? = null,
+    @JsonProperty("contentColor")
   @Optional
   public val contentColor: RGBA? = null,
-  @JsonProperty("paddingColor")
+    @JsonProperty("paddingColor")
   @Optional
   public val paddingColor: RGBA? = null,
-  @JsonProperty("borderColor")
+    @JsonProperty("borderColor")
   @Optional
   public val borderColor: RGBA? = null,
-  @JsonProperty("marginColor")
+    @JsonProperty("marginColor")
   @Optional
   public val marginColor: RGBA? = null,
-  @JsonProperty("eventTargetColor")
+    @JsonProperty("eventTargetColor")
   @Optional
   public val eventTargetColor: RGBA? = null,
-  @JsonProperty("shapeColor")
+    @JsonProperty("shapeColor")
   @Optional
-  public val shapeColor: RGBA? = null,
-  @JsonProperty("shapeMarginColor")
+  public var shapeColor: RGBA? = null,
+    @JsonProperty("shapeMarginColor")
   @Optional
   public val shapeMarginColor: RGBA? = null,
-  @JsonProperty("cssGridColor")
+    @JsonProperty("cssGridColor")
   @Optional
   public val cssGridColor: RGBA? = null,
-  @JsonProperty("colorFormat")
+    @JsonProperty("colorFormat")
   @Optional
   public val colorFormat: ColorFormat? = null,
-  @JsonProperty("gridHighlightConfig")
+    @JsonProperty("gridHighlightConfig")
   @Optional
   public val gridHighlightConfig: GridHighlightConfig? = null,
-  @JsonProperty("flexContainerHighlightConfig")
+    @JsonProperty("flexContainerHighlightConfig")
   @Optional
   public val flexContainerHighlightConfig: FlexContainerHighlightConfig? = null,
-  @JsonProperty("flexItemHighlightConfig")
+    @JsonProperty("flexItemHighlightConfig")
   @Optional
   public val flexItemHighlightConfig: FlexItemHighlightConfig? = null,
-  @JsonProperty("contrastAlgorithm")
+    @JsonProperty("contrastAlgorithm")
   @Optional
   public val contrastAlgorithm: ContrastAlgorithm? = null,
 )

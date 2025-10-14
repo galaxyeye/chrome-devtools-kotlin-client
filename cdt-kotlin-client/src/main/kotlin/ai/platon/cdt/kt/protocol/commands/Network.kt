@@ -475,6 +475,9 @@ public interface Network {
   @EventName("loadingFinished")
   public fun onLoadingFinished(eventListener: EventHandler<LoadingFinished>): EventListener
 
+    @EventName("loadingFinished")
+    public fun onLoadingFinished(eventListener: suspend (LoadingFinished) -> Unit): EventListener
+
   @EventName("requestIntercepted")
   @Deprecated
   @Experimental
@@ -486,6 +489,9 @@ public interface Network {
 
   @EventName("requestWillBeSent")
   public fun onRequestWillBeSent(eventListener: EventHandler<RequestWillBeSent>): EventListener
+
+    @EventName("requestWillBeSent")
+    public fun onRequestWillBeSent(eventListener: suspend (RequestWillBeSent) -> Unit): EventListener
 
   @EventName("resourceChangedPriority")
   @Experimental
@@ -499,6 +505,9 @@ public interface Network {
 
   @EventName("responseReceived")
   public fun onResponseReceived(eventListener: EventHandler<ResponseReceived>): EventListener
+
+    @EventName("responseReceived")
+    public fun onResponseReceived(eventListener: suspend (ResponseReceived) -> Unit): EventListener
 
   @EventName("webSocketClosed")
   public fun onWebSocketClosed(eventListener: EventHandler<WebSocketClosed>): EventListener

@@ -10,20 +10,22 @@
     <version>4.0.0</version>
     <packaging>jar</packaging>
 
-    <name>cdt-java-client</name>
-    <description>Chrome DevTools java client</description>
-    <url>https://github.com/kklisura/chrome-devtools-java-client</url>
+    <name>cdt-kotlin-client</name>
+    <description>Chrome DevTools Kotlin client</description>
+    <url>https://github.com/galaxyeye/chrome-devtools-kotlin-client</url>
 
     <developers>
         <developer>
-            <name>Kenan Klisura</name>
-            <email>kklisura@hotmail.com</email>
+            <name>Vincent Zhang</name>
+            <email>ivincent.zhang@gmail.com</email>
+            <organization>platon.ai</organization>
+            <timezone>+8</timezone>
         </developer>
     </developers>
 
     <organization>
-        <name>Kenan Klisura</name>
-        <url>https://kklisura.com</url>
+        <name>platon.ai</name>
+        <url>https://platon.ai</url>
     </organization>
 
     <licenses>
@@ -60,9 +62,9 @@
 
         <jackson.version>2.15.0</jackson.version>
         <websocket.api.version>1.1</websocket.api.version>
-        <tyrus.version>1.13.1</tyrus.version>
         <javassist.version>3.24.1-GA</javassist.version>
         <slf4j.version>1.7.25</slf4j.version>
+        <ktor.version>2.3.13</ktor.version>
 
         <logback.version>1.5.13</logback.version>
         <junit.version>4.13.1</junit.version>
@@ -76,21 +78,22 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>ai.platon.pulsar</groupId>
+            <artifactId>pulsar-common</artifactId>
+            <version>3.0.14</version>
+        </dependency>
+        <dependency>
+            <groupId>io.dropwizard.metrics</groupId>
+            <artifactId>metrics-core</artifactId>
+            <version>4.2.12</version>
+        </dependency>
+
         <dependency>
             <groupId>javax.websocket</groupId>
             <artifactId>javax.websocket-api</artifactId>
             <version>${websocket.api.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.tyrus</groupId>
-            <artifactId>tyrus-container-grizzly-client</artifactId>
-            <version>${tyrus.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.tyrus</groupId>
-            <artifactId>tyrus-container-grizzly-server</artifactId>
-            <version>${tyrus.version}</version>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -158,12 +161,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.glassfish.tyrus</groupId>
-            <artifactId>tyrus-server</artifactId>
-            <version>${tyrus.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>com.squareup.okhttp</groupId>
             <artifactId>mockwebserver</artifactId>
             <version>${mockwebserver.version}</version>
@@ -176,6 +173,41 @@
             <scope>test</scope>
             <version>${jacoco.version}</version>
         </dependency>
+
+
+
+
+
+
+
+        <!-- Ktor client for coroutine-friendly WebSocket transport -->
+        <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-client-core</artifactId>
+            <version>${ktor.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-client-core-jvm</artifactId>
+            <version>${ktor.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-client-cio</artifactId>
+            <version>${ktor.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-client-cio-jvm</artifactId>
+            <version>${ktor.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-client-websockets</artifactId>
+            <version>${ktor.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib-jdk8</artifactId>
@@ -185,6 +217,12 @@
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-test-junit</artifactId>
             <version>${kotlin.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.8.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -240,7 +278,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
-                        <version>3.0.1</version>
+                        <version>3.3.1</version>
                         <executions>
                             <execution>
                                 <id>attach-sources</id>
@@ -253,7 +291,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.0.0</version>
+                        <version>3.6.3</version>
                         <executions>
                             <execution>
                                 <id>attach-javadocs</id>
@@ -269,7 +307,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
+                        <version>3.1.0</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -420,6 +458,14 @@
                 </executions>
                 <configuration>
                     <jvmTarget>${maven.compiler.target}</jvmTarget>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
                 </configuration>
             </plugin>
         </plugins>

@@ -585,11 +585,18 @@ public interface Page {
   public fun onDomContentEventFired(eventListener: EventHandler<DomContentEventFired>):
       EventListener
 
-  @EventName("fileChooserOpened")
+    @EventName("domContentEventFired")
+    public fun onDomContentEventFired(eventListener: suspend (DomContentEventFired) -> Unit):
+            EventListener
+
+    @EventName("fileChooserOpened")
   public fun onFileChooserOpened(eventListener: EventHandler<FileChooserOpened>): EventListener
 
   @EventName("frameAttached")
   public fun onFrameAttached(eventListener: EventHandler<FrameAttached>): EventListener
+
+    @EventName("frameAttached")
+    public fun onFrameAttached(eventListener: suspend (FrameAttached) -> Unit): EventListener
 
   @EventName("frameClearedScheduledNavigation")
   @Deprecated
@@ -600,12 +607,22 @@ public interface Page {
   @EventName("frameDetached")
   public fun onFrameDetached(eventListener: EventHandler<FrameDetached>): EventListener
 
+    @EventName("frameDetached")
+    public fun onFrameDetached(eventListener: suspend (FrameDetached) -> Unit): EventListener
+
   @EventName("frameNavigated")
   public fun onFrameNavigated(eventListener: EventHandler<FrameNavigated>): EventListener
+
+    @EventName("frameNavigated")
+    public fun onFrameNavigated(eventListener: suspend (FrameNavigated) -> Unit): EventListener
 
   @EventName("documentOpened")
   @Experimental
   public fun onDocumentOpened(eventListener: EventHandler<DocumentOpened>): EventListener
+
+    @EventName("documentOpened")
+    @Experimental
+    public fun onDocumentOpened(eventListener: suspend (DocumentOpened) -> Unit): EventListener
 
   @EventName("frameResized")
   @Experimental
@@ -625,9 +642,17 @@ public interface Page {
   @Experimental
   public fun onFrameStartedLoading(eventListener: EventHandler<FrameStartedLoading>): EventListener
 
+    @EventName("frameStartedLoading")
+    @Experimental
+    public fun onFrameStartedLoading(eventListener: suspend (FrameStartedLoading) -> Unit): EventListener
+
   @EventName("frameStoppedLoading")
   @Experimental
   public fun onFrameStoppedLoading(eventListener: EventHandler<FrameStoppedLoading>): EventListener
+
+    @EventName("frameStoppedLoading")
+    @Experimental
+    public fun onFrameStoppedLoading(eventListener: suspend (FrameStoppedLoading) -> Unit): EventListener
 
   @EventName("downloadWillBegin")
   @Deprecated
@@ -663,6 +688,9 @@ public interface Page {
 
   @EventName("loadEventFired")
   public fun onLoadEventFired(eventListener: EventHandler<LoadEventFired>): EventListener
+
+    @EventName("loadEventFired")
+    public fun onLoadEventFired(eventListener: suspend (LoadEventFired) -> Unit): EventListener
 
   @EventName("navigatedWithinDocument")
   @Experimental

@@ -1,7 +1,18 @@
 package ai.platon.cdt.kt.protocol.support.types
 
-public fun interface EventHandler<T> {
-  public fun handle(event: T)
+interface EventHandler<T> {
+    /**
+     * Handles the event of type T.
+     *
+     * @param event Event
+     */
+    suspend fun onEvent(event: T)
 }
 
-public interface EventListener
+interface EventListener {
+    /** Alias to unsubscribe.  */
+    fun off()
+
+    /** Unsubscribe this event listener.  */
+    fun unsubscribe()
+}

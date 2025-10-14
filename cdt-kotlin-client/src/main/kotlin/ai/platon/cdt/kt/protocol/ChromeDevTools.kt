@@ -47,96 +47,96 @@ import ai.platon.cdt.kt.protocol.commands.Tracing
 import ai.platon.cdt.kt.protocol.commands.WebAudio
 import ai.platon.cdt.kt.protocol.commands.WebAuthn
 
-public interface ChromeDevTools {
-  public fun getConsole(): Console
+interface ChromeDevTools {
+  val console: Console
 
-  public fun getDebugger(): Debugger
+  val debugger: Debugger
 
-  public fun getHeapProfiler(): HeapProfiler
+  val heapProfiler: HeapProfiler
 
-  public fun getProfiler(): Profiler
+  val profiler: Profiler
 
-  public fun getRuntime(): Runtime
+  val runtime: Runtime
 
-  public fun getSchema(): Schema
+  val schema: Schema
 
-  public fun getAccessibility(): Accessibility
+  val accessibility: Accessibility
 
-  public fun getAnimation(): Animation
+  val animation: Animation
 
-  public fun getApplicationCache(): ApplicationCache
+  val applicationCache: ApplicationCache
 
-  public fun getAudits(): Audits
+  val audits: Audits
 
-  public fun getBackgroundService(): BackgroundService
+  val backgroundService: BackgroundService
 
-  public fun getBrowser(): Browser
+  val browser: Browser
 
-  public fun getCSS(): CSS
+  val css: CSS
 
-  public fun getCacheStorage(): CacheStorage
+  val cacheStorage: CacheStorage
 
-  public fun getCast(): Cast
+  val cast: Cast
 
-  public fun getDOM(): DOM
+  val dom: DOM
 
-  public fun getDOMDebugger(): DOMDebugger
+  val domDebugger: DOMDebugger
 
-  public fun getDOMSnapshot(): DOMSnapshot
+  val domSnapshot: DOMSnapshot
 
-  public fun getDOMStorage(): DOMStorage
+  val domStorage: DOMStorage
 
-  public fun getDatabase(): Database
+  val database: Database
 
-  public fun getDeviceOrientation(): DeviceOrientation
+  val deviceOrientation: DeviceOrientation
 
-  public fun getEmulation(): Emulation
+  val emulation: Emulation
 
-  public fun getHeadlessExperimental(): HeadlessExperimental
+  val headlessExperimental: HeadlessExperimental
 
-  public fun getIO(): IO
+  val io: IO
 
-  public fun getIndexedDB(): IndexedDB
+  val indexedDB: IndexedDB
 
-  public fun getInput(): Input
+  val input: Input
 
-  public fun getInspector(): Inspector
+  val inspector: Inspector
 
-  public fun getLayerTree(): LayerTree
+  val layerTree: LayerTree
 
-  public fun getLog(): Log
+  val log: Log
 
-  public fun getMemory(): Memory
+  val memory: Memory
 
-  public fun getNetwork(): Network
+  val network: Network
 
-  public fun getOverlay(): Overlay
+  val overlay: Overlay
 
-  public fun getPage(): Page
+  val page: Page
 
-  public fun getPerformance(): Performance
+  val performance: Performance
 
-  public fun getPerformanceTimeline(): PerformanceTimeline
+  val performanceTimeline: PerformanceTimeline
 
-  public fun getSecurity(): Security
+  val security: Security
 
-  public fun getServiceWorker(): ServiceWorker
+  val serviceWorker: ServiceWorker
 
-  public fun getStorage(): Storage
+  val storage: Storage
 
-  public fun getSystemInfo(): SystemInfo
+  val systemInfo: SystemInfo
 
-  public fun getTarget(): Target
+  val target: Target
 
-  public fun getTethering(): Tethering
+  val tethering: Tethering
 
-  public fun getTracing(): Tracing
+  val tracing: Tracing
 
-  public fun getFetch(): Fetch
+  val fetch: Fetch
 
-  public fun getWebAudio(): WebAudio
+  val webAudio: WebAudio
 
-  public fun getWebAuthn(): WebAuthn
+  val webAuthn: WebAuthn
 
-  public fun getMedia(): Media
+  val media: Media
 }

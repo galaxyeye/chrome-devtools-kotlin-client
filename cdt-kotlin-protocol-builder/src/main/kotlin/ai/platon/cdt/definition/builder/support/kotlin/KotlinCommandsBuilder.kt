@@ -71,12 +71,15 @@ class KotlinCommandsBuilder(
                 .addAnnotation(eventNameAnnotation)
 
             if (event.deprecated == java.lang.Boolean.TRUE) {
+                funBuilder.addAnnotation(context.deprecatedAnnotation)
                 suspendFunBuilder.addAnnotation(context.deprecatedAnnotation)
             }
             if (event.experimental == java.lang.Boolean.TRUE) {
+                funBuilder.addAnnotation(context.experimentalAnnotation)
                 suspendFunBuilder.addAnnotation(context.experimentalAnnotation)
             }
 
+            interfaceBuilder.addFunction(funBuilder.build())
             interfaceBuilder.addFunction(suspendFunBuilder.build())
         }
 
@@ -214,7 +217,7 @@ class KotlinCommandsBuilder(
                 if (members.size == 1) {
                     builder.addMember("%L", members.first())
                 } else {
-                    builder.addMember("[%L]", members.joinToCode(separator = ", "))
+                    builder.addMember("%L", members.joinToCode(separator = ", "))
                 }
                 builder.build()
             }

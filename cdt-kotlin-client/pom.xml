@@ -58,13 +58,13 @@
 
         <project.inceptionYear>2025</project.inceptionYear>
 
-        <jackson.version>2.11.3</jackson.version>
+        <jackson.version>2.15.0</jackson.version>
         <websocket.api.version>1.1</websocket.api.version>
         <tyrus.version>1.13.1</tyrus.version>
         <javassist.version>3.24.1-GA</javassist.version>
         <slf4j.version>1.7.25</slf4j.version>
 
-        <logback.version>1.2.3</logback.version>
+        <logback.version>1.5.13</logback.version>
         <junit.version>4.13.1</junit.version>
         <jacoco.version>0.8.12</jacoco.version>
         <easy.mock.version>3.4</easy.mock.version>
@@ -183,7 +183,7 @@
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-test</artifactId>
+            <artifactId>kotlin-test-junit</artifactId>
             <version>${kotlin.version}</version>
             <scope>test</scope>
         </dependency>

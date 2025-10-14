@@ -87,10 +87,7 @@ class KotlinProtocolGenerator(
             val builder = TypeSpec.annotationBuilder(name)
             // Use fully qualified kotlin.annotation.* meta-annotations so KotlinPoet treats them as default imports and does not emit import statements.
             val targetAnn = AnnotationSpec.builder(ClassName("kotlin.annotation", "Target"))
-                .addMember(
-                    targets.joinToString(",\n") { "AnnotationTarget.%L" },
-                    *targets.map { it.name }.toTypedArray()
-                )
+                .addMember(targets.joinToString(",\n") { "AnnotationTarget.%L" }, *targets.map { it.name }.toTypedArray())
                 .build()
             builder.addAnnotation(targetAnn)
             val retentionAnn = AnnotationSpec.builder(ClassName("kotlin.annotation", "Retention"))

@@ -1,8 +1,8 @@
-# Chrome DevTools Java Protocol Builder
+# Chrome DevTools Kotlin Protocol Builder
 
 ## Description
 
-Chrome DevTools Java Protocol Builder parses DevTools `protocol.json` - a protocol definition file and outputs the java classes and interfaces.
+Chrome DevTools Kotlin Protocol Builder parses DevTools `protocol.json` - a protocol definition file and outputs the Kotlin classes and interfaces.
  
 ## Building
 
@@ -13,12 +13,12 @@ To build jar file either run:
 ## Running
 
 ```
-java -jar target/cdt-java-protocol-builder.jar --base-package="ai.platon.cdt.protocol" \
-  --output=../cdt-java-client \
+java -jar target/cdt-kotlin-protocol-builder.jar --base-package="ai.platon.cdt.protocol" \
+  --output=../cdt-kotlin-client \
   --protocol=../protocol.json
 ```
 
-This would parse `./protocol.json` file and it would create classes, interfaces, enums in `../cdt-java-client` with a package name of `ai.platon.cdt.protocol`.
+This would parse `./protocol.json` file and it would create classes, interfaces, enums in `../cdt-kotlin-client` with a package name of `ai.platon.cdt.protocol`.
 
 ## Running unit tests
 
@@ -30,4 +30,4 @@ This would parse `./protocol.json` file and it would create classes, interfaces,
 
 ## License
 
-Chrome DevTools Java Protocol Builder is licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE.txt) for the full license text.
+Chrome DevTools Kotlin Protocol Builder is licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE.txt) for the full license text.

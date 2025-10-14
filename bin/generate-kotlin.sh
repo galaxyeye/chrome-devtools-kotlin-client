@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-BASE_PACKAGE="ai.platon.cdt.protocol"
+BASE_PACKAGE="ai.platon.cdt.kt.protocol"
 OUTPUT_PROJECT="cdt-kotlin-client"
 JS_PROTOCOL="js_protocol.json"
 BROWSER_PROTOCOL="browser_protocol.json"

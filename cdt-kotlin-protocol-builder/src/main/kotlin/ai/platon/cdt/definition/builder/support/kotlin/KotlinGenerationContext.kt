@@ -79,8 +79,10 @@ class KotlinGenerationContext(
   fun eventDomainPackage(domain: Domain): String =
       StringUtils.buildPackageName(eventsPackage, domain.domain.lowercase(Locale.ROOT))
 
-  fun commandDomainPackage(domain: Domain): String =
-      StringUtils.buildPackageName(commandsPackage, domain.domain.lowercase(Locale.ROOT))
+  fun commandDomainPackage(domain: Domain): String {
+      // StringUtils.buildPackageName(commandsPackage, domain.domain.lowercase(Locale.ROOT))
+      return commandsPackage
+  }
 }
 
 /**

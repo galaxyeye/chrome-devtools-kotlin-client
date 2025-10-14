@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param(
-    [string]$BasePackage = "ai.platon.cdt.protocol",
+    [string]$BasePackage = "ai.platon.cdt.kt.protocol",
     [string]$OutputProject = "cdt-kotlin-client",
     [string]$JsProtocol = "js_protocol.json",
     [string]$BrowserProtocol = "browser_protocol.json",

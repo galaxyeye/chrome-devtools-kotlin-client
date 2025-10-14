@@ -13,6 +13,7 @@ import ai.platon.cdt.kt.protocol.types.performance.EnableTimeDomain
 import ai.platon.cdt.kt.protocol.types.performance.Metric
 import ai.platon.cdt.kt.protocol.types.performance.SetTimeDomainTimeDomain
 import java.lang.Deprecated
+import kotlin.Unit
 import kotlin.collections.List
 
 public interface Performance {
@@ -50,4 +51,7 @@ public interface Performance {
 
   @EventName("metrics")
   public fun onMetrics(eventListener: EventHandler<Metrics>): EventListener
+
+  @EventName("metrics")
+  public fun onMetrics(eventListener: suspend (Metrics) -> Unit): EventListener
 }

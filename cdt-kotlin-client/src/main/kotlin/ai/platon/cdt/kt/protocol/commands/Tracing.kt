@@ -22,6 +22,7 @@ import java.lang.Deprecated
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.String
+import kotlin.Unit
 import kotlin.collections.List
 
 @Experimental
@@ -96,15 +97,18 @@ public interface Tracing {
   @EventName("bufferUsage")
   public fun onBufferUsage(eventListener: EventHandler<BufferUsage>): EventListener
 
+  @EventName("bufferUsage")
+  public fun onBufferUsage(eventListener: suspend (BufferUsage) -> Unit): EventListener
+
   @EventName("dataCollected")
   public fun onDataCollected(eventListener: EventHandler<DataCollected>): EventListener
 
-    @EventName("dataCollected")
-    public fun onDataCollected(eventListener: (DataCollected) -> Unit): EventListener
+  @EventName("dataCollected")
+  public fun onDataCollected(eventListener: suspend (DataCollected) -> Unit): EventListener
 
   @EventName("tracingComplete")
   public fun onTracingComplete(eventListener: EventHandler<TracingComplete>): EventListener
 
-    @EventName("tracingComplete")
-    public fun onTracingComplete(eventListener: suspend (TracingComplete) -> Unit): EventListener
+  @EventName("tracingComplete")
+  public fun onTracingComplete(eventListener: suspend (TracingComplete) -> Unit): EventListener
 }

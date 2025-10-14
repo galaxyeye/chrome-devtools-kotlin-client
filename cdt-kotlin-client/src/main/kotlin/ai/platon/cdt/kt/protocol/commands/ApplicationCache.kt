@@ -11,6 +11,7 @@ import ai.platon.cdt.kt.protocol.support.types.EventHandler
 import ai.platon.cdt.kt.protocol.support.types.EventListener
 import ai.platon.cdt.kt.protocol.types.applicationcache.FrameWithManifest
 import kotlin.String
+import kotlin.Unit
 import kotlin.collections.List
 
 @Experimental
@@ -49,6 +50,15 @@ public interface ApplicationCache {
       fun onApplicationCacheStatusUpdated(eventListener: EventHandler<ApplicationCacheStatusUpdated>):
       EventListener
 
+  @EventName("applicationCacheStatusUpdated")
+  public
+      fun onApplicationCacheStatusUpdated(eventListener: suspend (ApplicationCacheStatusUpdated) -> Unit):
+      EventListener
+
   @EventName("networkStateUpdated")
   public fun onNetworkStateUpdated(eventListener: EventHandler<NetworkStateUpdated>): EventListener
+
+  @EventName("networkStateUpdated")
+  public fun onNetworkStateUpdated(eventListener: suspend (NetworkStateUpdated) -> Unit):
+      EventListener
 }

@@ -19,6 +19,7 @@ import ai.platon.cdt.kt.protocol.types.storage.UsageAndQuota
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.String
+import kotlin.Unit
 import kotlin.collections.List
 
 @Experimental
@@ -141,15 +142,32 @@ public interface Storage {
   public fun onCacheStorageContentUpdated(eventListener: EventHandler<CacheStorageContentUpdated>):
       EventListener
 
+  @EventName("cacheStorageContentUpdated")
+  public
+      fun onCacheStorageContentUpdated(eventListener: suspend (CacheStorageContentUpdated) -> Unit):
+      EventListener
+
   @EventName("cacheStorageListUpdated")
   public fun onCacheStorageListUpdated(eventListener: EventHandler<CacheStorageListUpdated>):
+      EventListener
+
+  @EventName("cacheStorageListUpdated")
+  public fun onCacheStorageListUpdated(eventListener: suspend (CacheStorageListUpdated) -> Unit):
       EventListener
 
   @EventName("indexedDBContentUpdated")
   public fun onIndexedDBContentUpdated(eventListener: EventHandler<IndexedDBContentUpdated>):
       EventListener
 
+  @EventName("indexedDBContentUpdated")
+  public fun onIndexedDBContentUpdated(eventListener: suspend (IndexedDBContentUpdated) -> Unit):
+      EventListener
+
   @EventName("indexedDBListUpdated")
   public fun onIndexedDBListUpdated(eventListener: EventHandler<IndexedDBListUpdated>):
+      EventListener
+
+  @EventName("indexedDBListUpdated")
+  public fun onIndexedDBListUpdated(eventListener: suspend (IndexedDBListUpdated) -> Unit):
       EventListener
 }

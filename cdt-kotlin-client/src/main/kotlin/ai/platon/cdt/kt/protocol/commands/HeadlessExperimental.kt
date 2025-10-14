@@ -12,6 +12,7 @@ import ai.platon.cdt.kt.protocol.types.headlessexperimental.ScreenshotParams
 import java.lang.Deprecated
 import kotlin.Boolean
 import kotlin.Double
+import kotlin.Unit
 
 /**
  * This domain provides experimental commands only supported in headless mode.
@@ -63,5 +64,10 @@ public interface HeadlessExperimental {
   @EventName("needsBeginFramesChanged")
   @Deprecated
   public fun onNeedsBeginFramesChanged(eventListener: EventHandler<NeedsBeginFramesChanged>):
+      EventListener
+
+  @EventName("needsBeginFramesChanged")
+  @Deprecated
+  public fun onNeedsBeginFramesChanged(eventListener: suspend (NeedsBeginFramesChanged) -> Unit):
       EventListener
 }

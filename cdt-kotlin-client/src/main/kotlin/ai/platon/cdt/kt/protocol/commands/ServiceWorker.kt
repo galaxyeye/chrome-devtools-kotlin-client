@@ -10,6 +10,7 @@ import ai.platon.cdt.kt.protocol.support.types.EventHandler
 import ai.platon.cdt.kt.protocol.support.types.EventListener
 import kotlin.Boolean
 import kotlin.String
+import kotlin.Unit
 
 @Experimental
 public interface ServiceWorker {
@@ -93,11 +94,24 @@ public interface ServiceWorker {
   @EventName("workerErrorReported")
   public fun onWorkerErrorReported(eventListener: EventHandler<WorkerErrorReported>): EventListener
 
+  @EventName("workerErrorReported")
+  public fun onWorkerErrorReported(eventListener: suspend (WorkerErrorReported) -> Unit):
+      EventListener
+
   @EventName("workerRegistrationUpdated")
   public fun onWorkerRegistrationUpdated(eventListener: EventHandler<WorkerRegistrationUpdated>):
       EventListener
 
+  @EventName("workerRegistrationUpdated")
+  public
+      fun onWorkerRegistrationUpdated(eventListener: suspend (WorkerRegistrationUpdated) -> Unit):
+      EventListener
+
   @EventName("workerVersionUpdated")
   public fun onWorkerVersionUpdated(eventListener: EventHandler<WorkerVersionUpdated>):
+      EventListener
+
+  @EventName("workerVersionUpdated")
+  public fun onWorkerVersionUpdated(eventListener: suspend (WorkerVersionUpdated) -> Unit):
       EventListener
 }

@@ -35,6 +35,7 @@ import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlin.Unit
 import kotlin.collections.List
 
 /**
@@ -421,15 +422,32 @@ public interface Debugger {
   @EventName("breakpointResolved")
   public fun onBreakpointResolved(eventListener: EventHandler<BreakpointResolved>): EventListener
 
+  @EventName("breakpointResolved")
+  public fun onBreakpointResolved(eventListener: suspend (BreakpointResolved) -> Unit):
+      EventListener
+
   @EventName("paused")
   public fun onPaused(eventListener: EventHandler<Paused>): EventListener
+
+  @EventName("paused")
+  public fun onPaused(eventListener: suspend (Paused) -> Unit): EventListener
 
   @EventName("resumed")
   public fun onResumed(eventListener: EventHandler<Resumed>): EventListener
 
+  @EventName("resumed")
+  public fun onResumed(eventListener: suspend (Resumed) -> Unit): EventListener
+
   @EventName("scriptFailedToParse")
   public fun onScriptFailedToParse(eventListener: EventHandler<ScriptFailedToParse>): EventListener
 
+  @EventName("scriptFailedToParse")
+  public fun onScriptFailedToParse(eventListener: suspend (ScriptFailedToParse) -> Unit):
+      EventListener
+
   @EventName("scriptParsed")
   public fun onScriptParsed(eventListener: EventHandler<ScriptParsed>): EventListener
+
+  @EventName("scriptParsed")
+  public fun onScriptParsed(eventListener: suspend (ScriptParsed) -> Unit): EventListener
 }

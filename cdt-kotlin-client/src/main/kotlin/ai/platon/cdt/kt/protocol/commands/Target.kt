@@ -21,6 +21,7 @@ import java.lang.Deprecated
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlin.Unit
 import kotlin.collections.List
 
 /**
@@ -251,23 +252,49 @@ public interface Target {
   @Experimental
   public fun onAttachedToTarget(eventListener: EventHandler<AttachedToTarget>): EventListener
 
+  @EventName("attachedToTarget")
+  @Experimental
+  public fun onAttachedToTarget(eventListener: suspend (AttachedToTarget) -> Unit): EventListener
+
   @EventName("detachedFromTarget")
   @Experimental
   public fun onDetachedFromTarget(eventListener: EventHandler<DetachedFromTarget>): EventListener
+
+  @EventName("detachedFromTarget")
+  @Experimental
+  public fun onDetachedFromTarget(eventListener: suspend (DetachedFromTarget) -> Unit):
+      EventListener
 
   @EventName("receivedMessageFromTarget")
   public fun onReceivedMessageFromTarget(eventListener: EventHandler<ReceivedMessageFromTarget>):
       EventListener
 
+  @EventName("receivedMessageFromTarget")
+  public
+      fun onReceivedMessageFromTarget(eventListener: suspend (ReceivedMessageFromTarget) -> Unit):
+      EventListener
+
   @EventName("targetCreated")
   public fun onTargetCreated(eventListener: EventHandler<TargetCreated>): EventListener
+
+  @EventName("targetCreated")
+  public fun onTargetCreated(eventListener: suspend (TargetCreated) -> Unit): EventListener
 
   @EventName("targetDestroyed")
   public fun onTargetDestroyed(eventListener: EventHandler<TargetDestroyed>): EventListener
 
+  @EventName("targetDestroyed")
+  public fun onTargetDestroyed(eventListener: suspend (TargetDestroyed) -> Unit): EventListener
+
   @EventName("targetCrashed")
   public fun onTargetCrashed(eventListener: EventHandler<TargetCrashed>): EventListener
 
+  @EventName("targetCrashed")
+  public fun onTargetCrashed(eventListener: suspend (TargetCrashed) -> Unit): EventListener
+
   @EventName("targetInfoChanged")
   public fun onTargetInfoChanged(eventListener: EventHandler<TargetInfoChanged>): EventListener
+
+  @EventName("targetInfoChanged")
+  public fun onTargetInfoChanged(eventListener: suspend (TargetInfoChanged) -> Unit): EventListener
 }

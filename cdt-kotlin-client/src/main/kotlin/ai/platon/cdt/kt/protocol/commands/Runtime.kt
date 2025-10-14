@@ -29,6 +29,7 @@ import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlin.Unit
 import kotlin.collections.List
 
 /**
@@ -388,27 +389,56 @@ public interface Runtime {
   @Experimental
   public fun onBindingCalled(eventListener: EventHandler<BindingCalled>): EventListener
 
+  @EventName("bindingCalled")
+  @Experimental
+  public fun onBindingCalled(eventListener: suspend (BindingCalled) -> Unit): EventListener
+
   @EventName("consoleAPICalled")
   public fun onConsoleAPICalled(eventListener: EventHandler<ConsoleAPICalled>): EventListener
+
+  @EventName("consoleAPICalled")
+  public fun onConsoleAPICalled(eventListener: suspend (ConsoleAPICalled) -> Unit): EventListener
 
   @EventName("exceptionRevoked")
   public fun onExceptionRevoked(eventListener: EventHandler<ExceptionRevoked>): EventListener
 
+  @EventName("exceptionRevoked")
+  public fun onExceptionRevoked(eventListener: suspend (ExceptionRevoked) -> Unit): EventListener
+
   @EventName("exceptionThrown")
   public fun onExceptionThrown(eventListener: EventHandler<ExceptionThrown>): EventListener
 
+  @EventName("exceptionThrown")
+  public fun onExceptionThrown(eventListener: suspend (ExceptionThrown) -> Unit): EventListener
+
   @EventName("executionContextCreated")
   public fun onExecutionContextCreated(eventListener: EventHandler<ExecutionContextCreated>):
+      EventListener
+
+  @EventName("executionContextCreated")
+  public fun onExecutionContextCreated(eventListener: suspend (ExecutionContextCreated) -> Unit):
       EventListener
 
   @EventName("executionContextDestroyed")
   public fun onExecutionContextDestroyed(eventListener: EventHandler<ExecutionContextDestroyed>):
       EventListener
 
+  @EventName("executionContextDestroyed")
+  public
+      fun onExecutionContextDestroyed(eventListener: suspend (ExecutionContextDestroyed) -> Unit):
+      EventListener
+
   @EventName("executionContextsCleared")
   public fun onExecutionContextsCleared(eventListener: EventHandler<ExecutionContextsCleared>):
       EventListener
 
+  @EventName("executionContextsCleared")
+  public fun onExecutionContextsCleared(eventListener: suspend (ExecutionContextsCleared) -> Unit):
+      EventListener
+
   @EventName("inspectRequested")
   public fun onInspectRequested(eventListener: EventHandler<InspectRequested>): EventListener
+
+  @EventName("inspectRequested")
+  public fun onInspectRequested(eventListener: suspend (InspectRequested) -> Unit): EventListener
 }

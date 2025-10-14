@@ -10,6 +10,7 @@ import ai.platon.cdt.kt.protocol.support.types.EventHandler
 import ai.platon.cdt.kt.protocol.support.types.EventListener
 import ai.platon.cdt.kt.protocol.types.database.ExecuteSQL
 import kotlin.String
+import kotlin.Unit
 import kotlin.collections.List
 
 @Experimental
@@ -41,4 +42,7 @@ public interface Database {
 
   @EventName("addDatabase")
   public fun onAddDatabase(eventListener: EventHandler<AddDatabase>): EventListener
+
+  @EventName("addDatabase")
+  public fun onAddDatabase(eventListener: suspend (AddDatabase) -> Unit): EventListener
 }

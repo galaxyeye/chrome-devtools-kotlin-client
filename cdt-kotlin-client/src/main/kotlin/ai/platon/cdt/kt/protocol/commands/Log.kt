@@ -6,6 +6,7 @@ import ai.platon.cdt.kt.protocol.support.annotations.ParamName
 import ai.platon.cdt.kt.protocol.support.types.EventHandler
 import ai.platon.cdt.kt.protocol.support.types.EventListener
 import ai.platon.cdt.kt.protocol.types.log.ViolationSetting
+import kotlin.Unit
 import kotlin.collections.List
 
 /**
@@ -41,4 +42,7 @@ public interface Log {
 
   @EventName("entryAdded")
   public fun onEntryAdded(eventListener: EventHandler<EntryAdded>): EventListener
+
+  @EventName("entryAdded")
+  public fun onEntryAdded(eventListener: suspend (EntryAdded) -> Unit): EventListener
 }

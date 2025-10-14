@@ -17,6 +17,7 @@ import ai.platon.cdt.kt.protocol.types.runtime.RemoteObject
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.String
+import kotlin.Unit
 
 @Experimental
 public interface HeapProfiler {
@@ -114,16 +115,34 @@ public interface HeapProfiler {
   public fun onAddHeapSnapshotChunk(eventListener: EventHandler<AddHeapSnapshotChunk>):
       EventListener
 
+  @EventName("addHeapSnapshotChunk")
+  public fun onAddHeapSnapshotChunk(eventListener: suspend (AddHeapSnapshotChunk) -> Unit):
+      EventListener
+
   @EventName("heapStatsUpdate")
   public fun onHeapStatsUpdate(eventListener: EventHandler<HeapStatsUpdate>): EventListener
 
+  @EventName("heapStatsUpdate")
+  public fun onHeapStatsUpdate(eventListener: suspend (HeapStatsUpdate) -> Unit): EventListener
+
   @EventName("lastSeenObjectId")
   public fun onLastSeenObjectId(eventListener: EventHandler<LastSeenObjectId>): EventListener
+
+  @EventName("lastSeenObjectId")
+  public fun onLastSeenObjectId(eventListener: suspend (LastSeenObjectId) -> Unit): EventListener
 
   @EventName("reportHeapSnapshotProgress")
   public fun onReportHeapSnapshotProgress(eventListener: EventHandler<ReportHeapSnapshotProgress>):
       EventListener
 
+  @EventName("reportHeapSnapshotProgress")
+  public
+      fun onReportHeapSnapshotProgress(eventListener: suspend (ReportHeapSnapshotProgress) -> Unit):
+      EventListener
+
   @EventName("resetProfiles")
   public fun onResetProfiles(eventListener: EventHandler<ResetProfiles>): EventListener
+
+  @EventName("resetProfiles")
+  public fun onResetProfiles(eventListener: suspend (ResetProfiles) -> Unit): EventListener
 }

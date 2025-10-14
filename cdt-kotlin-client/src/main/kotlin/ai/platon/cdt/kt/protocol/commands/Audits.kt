@@ -12,6 +12,7 @@ import ai.platon.cdt.kt.protocol.types.audits.GetEncodedResponseEncoding
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.String
+import kotlin.Unit
 
 /**
  * Audits domain allows investigation of page violations and possible improvements.
@@ -62,4 +63,7 @@ public interface Audits {
 
   @EventName("issueAdded")
   public fun onIssueAdded(eventListener: EventHandler<IssueAdded>): EventListener
+
+  @EventName("issueAdded")
+  public fun onIssueAdded(eventListener: suspend (IssueAdded) -> Unit): EventListener
 }

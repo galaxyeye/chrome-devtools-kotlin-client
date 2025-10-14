@@ -29,6 +29,7 @@ import ai.platon.cdt.kt.protocol.types.css.Value
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlin.Unit
 import kotlin.collections.List
 
 /**
@@ -265,16 +266,32 @@ public interface CSS {
   @EventName("fontsUpdated")
   public fun onFontsUpdated(eventListener: EventHandler<FontsUpdated>): EventListener
 
+  @EventName("fontsUpdated")
+  public fun onFontsUpdated(eventListener: suspend (FontsUpdated) -> Unit): EventListener
+
   @EventName("mediaQueryResultChanged")
   public fun onMediaQueryResultChanged(eventListener: EventHandler<MediaQueryResultChanged>):
+      EventListener
+
+  @EventName("mediaQueryResultChanged")
+  public fun onMediaQueryResultChanged(eventListener: suspend (MediaQueryResultChanged) -> Unit):
       EventListener
 
   @EventName("styleSheetAdded")
   public fun onStyleSheetAdded(eventListener: EventHandler<StyleSheetAdded>): EventListener
 
+  @EventName("styleSheetAdded")
+  public fun onStyleSheetAdded(eventListener: suspend (StyleSheetAdded) -> Unit): EventListener
+
   @EventName("styleSheetChanged")
   public fun onStyleSheetChanged(eventListener: EventHandler<StyleSheetChanged>): EventListener
 
+  @EventName("styleSheetChanged")
+  public fun onStyleSheetChanged(eventListener: suspend (StyleSheetChanged) -> Unit): EventListener
+
   @EventName("styleSheetRemoved")
   public fun onStyleSheetRemoved(eventListener: EventHandler<StyleSheetRemoved>): EventListener
+
+  @EventName("styleSheetRemoved")
+  public fun onStyleSheetRemoved(eventListener: suspend (StyleSheetRemoved) -> Unit): EventListener
 }

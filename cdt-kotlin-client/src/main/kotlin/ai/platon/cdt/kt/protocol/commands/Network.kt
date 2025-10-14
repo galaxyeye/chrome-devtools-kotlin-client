@@ -53,6 +53,7 @@ import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlin.Unit
 import kotlin.collections.List
 import kotlin.collections.Map
 
@@ -465,37 +466,63 @@ public interface Network {
   @EventName("dataReceived")
   public fun onDataReceived(eventListener: EventHandler<DataReceived>): EventListener
 
+  @EventName("dataReceived")
+  public fun onDataReceived(eventListener: suspend (DataReceived) -> Unit): EventListener
+
   @EventName("eventSourceMessageReceived")
   public fun onEventSourceMessageReceived(eventListener: EventHandler<EventSourceMessageReceived>):
+      EventListener
+
+  @EventName("eventSourceMessageReceived")
+  public
+      fun onEventSourceMessageReceived(eventListener: suspend (EventSourceMessageReceived) -> Unit):
       EventListener
 
   @EventName("loadingFailed")
   public fun onLoadingFailed(eventListener: EventHandler<LoadingFailed>): EventListener
 
+  @EventName("loadingFailed")
+  public fun onLoadingFailed(eventListener: suspend (LoadingFailed) -> Unit): EventListener
+
   @EventName("loadingFinished")
   public fun onLoadingFinished(eventListener: EventHandler<LoadingFinished>): EventListener
 
-    @EventName("loadingFinished")
-    public fun onLoadingFinished(eventListener: suspend (LoadingFinished) -> Unit): EventListener
+  @EventName("loadingFinished")
+  public fun onLoadingFinished(eventListener: suspend (LoadingFinished) -> Unit): EventListener
 
   @EventName("requestIntercepted")
   @Deprecated
   @Experimental
   public fun onRequestIntercepted(eventListener: EventHandler<RequestIntercepted>): EventListener
 
+  @EventName("requestIntercepted")
+  @Deprecated
+  @Experimental
+  public fun onRequestIntercepted(eventListener: suspend (RequestIntercepted) -> Unit):
+      EventListener
+
   @EventName("requestServedFromCache")
   public fun onRequestServedFromCache(eventListener: EventHandler<RequestServedFromCache>):
+      EventListener
+
+  @EventName("requestServedFromCache")
+  public fun onRequestServedFromCache(eventListener: suspend (RequestServedFromCache) -> Unit):
       EventListener
 
   @EventName("requestWillBeSent")
   public fun onRequestWillBeSent(eventListener: EventHandler<RequestWillBeSent>): EventListener
 
-    @EventName("requestWillBeSent")
-    public fun onRequestWillBeSent(eventListener: suspend (RequestWillBeSent) -> Unit): EventListener
+  @EventName("requestWillBeSent")
+  public fun onRequestWillBeSent(eventListener: suspend (RequestWillBeSent) -> Unit): EventListener
 
   @EventName("resourceChangedPriority")
   @Experimental
   public fun onResourceChangedPriority(eventListener: EventHandler<ResourceChangedPriority>):
+      EventListener
+
+  @EventName("resourceChangedPriority")
+  @Experimental
+  public fun onResourceChangedPriority(eventListener: suspend (ResourceChangedPriority) -> Unit):
       EventListener
 
   @EventName("signedExchangeReceived")
@@ -503,31 +530,59 @@ public interface Network {
   public fun onSignedExchangeReceived(eventListener: EventHandler<SignedExchangeReceived>):
       EventListener
 
+  @EventName("signedExchangeReceived")
+  @Experimental
+  public fun onSignedExchangeReceived(eventListener: suspend (SignedExchangeReceived) -> Unit):
+      EventListener
+
   @EventName("responseReceived")
   public fun onResponseReceived(eventListener: EventHandler<ResponseReceived>): EventListener
 
-    @EventName("responseReceived")
-    public fun onResponseReceived(eventListener: suspend (ResponseReceived) -> Unit): EventListener
+  @EventName("responseReceived")
+  public fun onResponseReceived(eventListener: suspend (ResponseReceived) -> Unit): EventListener
 
   @EventName("webSocketClosed")
   public fun onWebSocketClosed(eventListener: EventHandler<WebSocketClosed>): EventListener
 
+  @EventName("webSocketClosed")
+  public fun onWebSocketClosed(eventListener: suspend (WebSocketClosed) -> Unit): EventListener
+
   @EventName("webSocketCreated")
   public fun onWebSocketCreated(eventListener: EventHandler<WebSocketCreated>): EventListener
 
+  @EventName("webSocketCreated")
+  public fun onWebSocketCreated(eventListener: suspend (WebSocketCreated) -> Unit): EventListener
+
   @EventName("webSocketFrameError")
   public fun onWebSocketFrameError(eventListener: EventHandler<WebSocketFrameError>): EventListener
+
+  @EventName("webSocketFrameError")
+  public fun onWebSocketFrameError(eventListener: suspend (WebSocketFrameError) -> Unit):
+      EventListener
 
   @EventName("webSocketFrameReceived")
   public fun onWebSocketFrameReceived(eventListener: EventHandler<WebSocketFrameReceived>):
       EventListener
 
+  @EventName("webSocketFrameReceived")
+  public fun onWebSocketFrameReceived(eventListener: suspend (WebSocketFrameReceived) -> Unit):
+      EventListener
+
   @EventName("webSocketFrameSent")
   public fun onWebSocketFrameSent(eventListener: EventHandler<WebSocketFrameSent>): EventListener
+
+  @EventName("webSocketFrameSent")
+  public fun onWebSocketFrameSent(eventListener: suspend (WebSocketFrameSent) -> Unit):
+      EventListener
 
   @EventName("webSocketHandshakeResponseReceived")
   public
       fun onWebSocketHandshakeResponseReceived(eventListener: EventHandler<WebSocketHandshakeResponseReceived>):
+      EventListener
+
+  @EventName("webSocketHandshakeResponseReceived")
+  public
+      fun onWebSocketHandshakeResponseReceived(eventListener: suspend (WebSocketHandshakeResponseReceived) -> Unit):
       EventListener
 
   @EventName("webSocketWillSendHandshakeRequest")
@@ -535,20 +590,44 @@ public interface Network {
       fun onWebSocketWillSendHandshakeRequest(eventListener: EventHandler<WebSocketWillSendHandshakeRequest>):
       EventListener
 
+  @EventName("webSocketWillSendHandshakeRequest")
+  public
+      fun onWebSocketWillSendHandshakeRequest(eventListener: suspend (WebSocketWillSendHandshakeRequest) -> Unit):
+      EventListener
+
   @EventName("webTransportCreated")
   public fun onWebTransportCreated(eventListener: EventHandler<WebTransportCreated>): EventListener
+
+  @EventName("webTransportCreated")
+  public fun onWebTransportCreated(eventListener: suspend (WebTransportCreated) -> Unit):
+      EventListener
 
   @EventName("webTransportConnectionEstablished")
   public
       fun onWebTransportConnectionEstablished(eventListener: EventHandler<WebTransportConnectionEstablished>):
       EventListener
 
+  @EventName("webTransportConnectionEstablished")
+  public
+      fun onWebTransportConnectionEstablished(eventListener: suspend (WebTransportConnectionEstablished) -> Unit):
+      EventListener
+
   @EventName("webTransportClosed")
   public fun onWebTransportClosed(eventListener: EventHandler<WebTransportClosed>): EventListener
+
+  @EventName("webTransportClosed")
+  public fun onWebTransportClosed(eventListener: suspend (WebTransportClosed) -> Unit):
+      EventListener
 
   @EventName("requestWillBeSentExtraInfo")
   @Experimental
   public fun onRequestWillBeSentExtraInfo(eventListener: EventHandler<RequestWillBeSentExtraInfo>):
+      EventListener
+
+  @EventName("requestWillBeSentExtraInfo")
+  @Experimental
+  public
+      fun onRequestWillBeSentExtraInfo(eventListener: suspend (RequestWillBeSentExtraInfo) -> Unit):
       EventListener
 
   @EventName("responseReceivedExtraInfo")
@@ -556,8 +635,19 @@ public interface Network {
   public fun onResponseReceivedExtraInfo(eventListener: EventHandler<ResponseReceivedExtraInfo>):
       EventListener
 
+  @EventName("responseReceivedExtraInfo")
+  @Experimental
+  public
+      fun onResponseReceivedExtraInfo(eventListener: suspend (ResponseReceivedExtraInfo) -> Unit):
+      EventListener
+
   @EventName("trustTokenOperationDone")
   @Experimental
   public fun onTrustTokenOperationDone(eventListener: EventHandler<TrustTokenOperationDone>):
+      EventListener
+
+  @EventName("trustTokenOperationDone")
+  @Experimental
+  public fun onTrustTokenOperationDone(eventListener: suspend (TrustTokenOperationDone) -> Unit):
       EventListener
 }

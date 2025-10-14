@@ -17,6 +17,7 @@ import kotlin.Any
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlin.Unit
 import kotlin.collections.List
 import kotlin.collections.Map
 
@@ -112,6 +113,13 @@ public interface LayerTree {
   @EventName("layerPainted")
   public fun onLayerPainted(eventListener: EventHandler<LayerPainted>): EventListener
 
+  @EventName("layerPainted")
+  public fun onLayerPainted(eventListener: suspend (LayerPainted) -> Unit): EventListener
+
   @EventName("layerTreeDidChange")
   public fun onLayerTreeDidChange(eventListener: EventHandler<LayerTreeDidChange>): EventListener
+
+  @EventName("layerTreeDidChange")
+  public fun onLayerTreeDidChange(eventListener: suspend (LayerTreeDidChange) -> Unit):
+      EventListener
 }

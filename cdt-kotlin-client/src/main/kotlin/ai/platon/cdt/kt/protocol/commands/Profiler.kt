@@ -20,6 +20,7 @@ import ai.platon.cdt.kt.protocol.types.profiler.TakePreciseCoverage
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
+import kotlin.Unit
 import kotlin.collections.List
 
 public interface Profiler {
@@ -144,12 +145,26 @@ public interface Profiler {
   public fun onConsoleProfileFinished(eventListener: EventHandler<ConsoleProfileFinished>):
       EventListener
 
+  @EventName("consoleProfileFinished")
+  public fun onConsoleProfileFinished(eventListener: suspend (ConsoleProfileFinished) -> Unit):
+      EventListener
+
   @EventName("consoleProfileStarted")
   public fun onConsoleProfileStarted(eventListener: EventHandler<ConsoleProfileStarted>):
+      EventListener
+
+  @EventName("consoleProfileStarted")
+  public fun onConsoleProfileStarted(eventListener: suspend (ConsoleProfileStarted) -> Unit):
       EventListener
 
   @EventName("preciseCoverageDeltaUpdate")
   @Experimental
   public fun onPreciseCoverageDeltaUpdate(eventListener: EventHandler<PreciseCoverageDeltaUpdate>):
+      EventListener
+
+  @EventName("preciseCoverageDeltaUpdate")
+  @Experimental
+  public
+      fun onPreciseCoverageDeltaUpdate(eventListener: suspend (PreciseCoverageDeltaUpdate) -> Unit):
       EventListener
 }

@@ -23,6 +23,7 @@ import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlin.Unit
 import kotlin.collections.List
 
 /**
@@ -337,5 +338,10 @@ public interface Emulation {
   @EventName("virtualTimeBudgetExpired")
   @Experimental
   public fun onVirtualTimeBudgetExpired(eventListener: EventHandler<VirtualTimeBudgetExpired>):
+      EventListener
+
+  @EventName("virtualTimeBudgetExpired")
+  @Experimental
+  public fun onVirtualTimeBudgetExpired(eventListener: suspend (VirtualTimeBudgetExpired) -> Unit):
       EventListener
 }

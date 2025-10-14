@@ -16,6 +16,7 @@ import ai.platon.cdt.kt.protocol.types.network.ErrorReason
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlin.Unit
 import kotlin.collections.List
 
 /**
@@ -138,6 +139,12 @@ public interface Fetch {
   @EventName("requestPaused")
   public fun onRequestPaused(eventListener: EventHandler<RequestPaused>): EventListener
 
+  @EventName("requestPaused")
+  public fun onRequestPaused(eventListener: suspend (RequestPaused) -> Unit): EventListener
+
   @EventName("authRequired")
   public fun onAuthRequired(eventListener: EventHandler<AuthRequired>): EventListener
+
+  @EventName("authRequired")
+  public fun onAuthRequired(eventListener: suspend (AuthRequired) -> Unit): EventListener
 }

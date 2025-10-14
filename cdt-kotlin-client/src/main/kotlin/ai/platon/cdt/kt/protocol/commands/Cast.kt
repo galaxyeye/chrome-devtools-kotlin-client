@@ -9,6 +9,7 @@ import ai.platon.cdt.kt.protocol.support.annotations.ParamName
 import ai.platon.cdt.kt.protocol.support.types.EventHandler
 import ai.platon.cdt.kt.protocol.support.types.EventListener
 import kotlin.String
+import kotlin.Unit
 
 /**
  * A domain for interacting with Cast, Presentation API, and Remote Playback API
@@ -57,6 +58,12 @@ public interface Cast {
   @EventName("sinksUpdated")
   public fun onSinksUpdated(eventListener: EventHandler<SinksUpdated>): EventListener
 
+  @EventName("sinksUpdated")
+  public fun onSinksUpdated(eventListener: suspend (SinksUpdated) -> Unit): EventListener
+
   @EventName("issueUpdated")
   public fun onIssueUpdated(eventListener: EventHandler<IssueUpdated>): EventListener
+
+  @EventName("issueUpdated")
+  public fun onIssueUpdated(eventListener: suspend (IssueUpdated) -> Unit): EventListener
 }

@@ -12,6 +12,7 @@ import ai.platon.cdt.kt.protocol.types.security.CertificateErrorAction
 import java.lang.Deprecated
 import kotlin.Boolean
 import kotlin.Int
+import kotlin.Unit
 
 /**
  * Security
@@ -56,13 +57,27 @@ public interface Security {
   @Deprecated
   public fun onCertificateError(eventListener: EventHandler<CertificateError>): EventListener
 
+  @EventName("certificateError")
+  @Deprecated
+  public fun onCertificateError(eventListener: suspend (CertificateError) -> Unit): EventListener
+
   @EventName("visibleSecurityStateChanged")
   @Experimental
   public
       fun onVisibleSecurityStateChanged(eventListener: EventHandler<VisibleSecurityStateChanged>):
       EventListener
 
+  @EventName("visibleSecurityStateChanged")
+  @Experimental
+  public
+      fun onVisibleSecurityStateChanged(eventListener: suspend (VisibleSecurityStateChanged) -> Unit):
+      EventListener
+
   @EventName("securityStateChanged")
   public fun onSecurityStateChanged(eventListener: EventHandler<SecurityStateChanged>):
+      EventListener
+
+  @EventName("securityStateChanged")
+  public fun onSecurityStateChanged(eventListener: suspend (SecurityStateChanged) -> Unit):
       EventListener
 }

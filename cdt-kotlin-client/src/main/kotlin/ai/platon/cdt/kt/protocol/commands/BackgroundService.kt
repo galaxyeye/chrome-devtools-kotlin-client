@@ -9,6 +9,7 @@ import ai.platon.cdt.kt.protocol.support.types.EventHandler
 import ai.platon.cdt.kt.protocol.support.types.EventListener
 import ai.platon.cdt.kt.protocol.types.backgroundservice.ServiceName
 import kotlin.Boolean
+import kotlin.Unit
 
 /**
  * Defines events for background web platform features.
@@ -45,8 +46,17 @@ public interface BackgroundService {
   public fun onRecordingStateChanged(eventListener: EventHandler<RecordingStateChanged>):
       EventListener
 
+  @EventName("recordingStateChanged")
+  public fun onRecordingStateChanged(eventListener: suspend (RecordingStateChanged) -> Unit):
+      EventListener
+
   @EventName("backgroundServiceEventReceived")
   public
       fun onBackgroundServiceEventReceived(eventListener: EventHandler<BackgroundServiceEventReceived>):
+      EventListener
+
+  @EventName("backgroundServiceEventReceived")
+  public
+      fun onBackgroundServiceEventReceived(eventListener: suspend (BackgroundServiceEventReceived) -> Unit):
       EventListener
 }

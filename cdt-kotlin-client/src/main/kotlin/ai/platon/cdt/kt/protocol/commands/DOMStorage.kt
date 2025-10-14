@@ -13,6 +13,7 @@ import ai.platon.cdt.kt.protocol.support.types.EventHandler
 import ai.platon.cdt.kt.protocol.support.types.EventListener
 import ai.platon.cdt.kt.protocol.types.domstorage.StorageId
 import kotlin.String
+import kotlin.Unit
 import kotlin.collections.List
 
 /**
@@ -64,15 +65,31 @@ public interface DOMStorage {
   @EventName("domStorageItemAdded")
   public fun onDomStorageItemAdded(eventListener: EventHandler<DomStorageItemAdded>): EventListener
 
+  @EventName("domStorageItemAdded")
+  public fun onDomStorageItemAdded(eventListener: suspend (DomStorageItemAdded) -> Unit):
+      EventListener
+
   @EventName("domStorageItemRemoved")
   public fun onDomStorageItemRemoved(eventListener: EventHandler<DomStorageItemRemoved>):
+      EventListener
+
+  @EventName("domStorageItemRemoved")
+  public fun onDomStorageItemRemoved(eventListener: suspend (DomStorageItemRemoved) -> Unit):
       EventListener
 
   @EventName("domStorageItemUpdated")
   public fun onDomStorageItemUpdated(eventListener: EventHandler<DomStorageItemUpdated>):
       EventListener
 
+  @EventName("domStorageItemUpdated")
+  public fun onDomStorageItemUpdated(eventListener: suspend (DomStorageItemUpdated) -> Unit):
+      EventListener
+
   @EventName("domStorageItemsCleared")
   public fun onDomStorageItemsCleared(eventListener: EventHandler<DomStorageItemsCleared>):
+      EventListener
+
+  @EventName("domStorageItemsCleared")
+  public fun onDomStorageItemsCleared(eventListener: suspend (DomStorageItemsCleared) -> Unit):
       EventListener
 }

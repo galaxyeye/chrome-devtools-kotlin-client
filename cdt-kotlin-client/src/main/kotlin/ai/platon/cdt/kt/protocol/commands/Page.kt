@@ -62,6 +62,7 @@ import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlin.Unit
 import kotlin.collections.List
 
 /**
@@ -585,18 +586,21 @@ public interface Page {
   public fun onDomContentEventFired(eventListener: EventHandler<DomContentEventFired>):
       EventListener
 
-    @EventName("domContentEventFired")
-    public fun onDomContentEventFired(eventListener: suspend (DomContentEventFired) -> Unit):
-            EventListener
+  @EventName("domContentEventFired")
+  public fun onDomContentEventFired(eventListener: suspend (DomContentEventFired) -> Unit):
+      EventListener
 
-    @EventName("fileChooserOpened")
+  @EventName("fileChooserOpened")
   public fun onFileChooserOpened(eventListener: EventHandler<FileChooserOpened>): EventListener
+
+  @EventName("fileChooserOpened")
+  public fun onFileChooserOpened(eventListener: suspend (FileChooserOpened) -> Unit): EventListener
 
   @EventName("frameAttached")
   public fun onFrameAttached(eventListener: EventHandler<FrameAttached>): EventListener
 
-    @EventName("frameAttached")
-    public fun onFrameAttached(eventListener: suspend (FrameAttached) -> Unit): EventListener
+  @EventName("frameAttached")
+  public fun onFrameAttached(eventListener: suspend (FrameAttached) -> Unit): EventListener
 
   @EventName("frameClearedScheduledNavigation")
   @Deprecated
@@ -604,33 +608,48 @@ public interface Page {
       fun onFrameClearedScheduledNavigation(eventListener: EventHandler<FrameClearedScheduledNavigation>):
       EventListener
 
+  @EventName("frameClearedScheduledNavigation")
+  @Deprecated
+  public
+      fun onFrameClearedScheduledNavigation(eventListener: suspend (FrameClearedScheduledNavigation) -> Unit):
+      EventListener
+
   @EventName("frameDetached")
   public fun onFrameDetached(eventListener: EventHandler<FrameDetached>): EventListener
 
-    @EventName("frameDetached")
-    public fun onFrameDetached(eventListener: suspend (FrameDetached) -> Unit): EventListener
+  @EventName("frameDetached")
+  public fun onFrameDetached(eventListener: suspend (FrameDetached) -> Unit): EventListener
 
   @EventName("frameNavigated")
   public fun onFrameNavigated(eventListener: EventHandler<FrameNavigated>): EventListener
 
-    @EventName("frameNavigated")
-    public fun onFrameNavigated(eventListener: suspend (FrameNavigated) -> Unit): EventListener
+  @EventName("frameNavigated")
+  public fun onFrameNavigated(eventListener: suspend (FrameNavigated) -> Unit): EventListener
 
   @EventName("documentOpened")
   @Experimental
   public fun onDocumentOpened(eventListener: EventHandler<DocumentOpened>): EventListener
 
-    @EventName("documentOpened")
-    @Experimental
-    public fun onDocumentOpened(eventListener: suspend (DocumentOpened) -> Unit): EventListener
+  @EventName("documentOpened")
+  @Experimental
+  public fun onDocumentOpened(eventListener: suspend (DocumentOpened) -> Unit): EventListener
 
   @EventName("frameResized")
   @Experimental
   public fun onFrameResized(eventListener: EventHandler<FrameResized>): EventListener
 
+  @EventName("frameResized")
+  @Experimental
+  public fun onFrameResized(eventListener: suspend (FrameResized) -> Unit): EventListener
+
   @EventName("frameRequestedNavigation")
   @Experimental
   public fun onFrameRequestedNavigation(eventListener: EventHandler<FrameRequestedNavigation>):
+      EventListener
+
+  @EventName("frameRequestedNavigation")
+  @Experimental
+  public fun onFrameRequestedNavigation(eventListener: suspend (FrameRequestedNavigation) -> Unit):
       EventListener
 
   @EventName("frameScheduledNavigation")
@@ -638,68 +657,117 @@ public interface Page {
   public fun onFrameScheduledNavigation(eventListener: EventHandler<FrameScheduledNavigation>):
       EventListener
 
+  @EventName("frameScheduledNavigation")
+  @Deprecated
+  public fun onFrameScheduledNavigation(eventListener: suspend (FrameScheduledNavigation) -> Unit):
+      EventListener
+
   @EventName("frameStartedLoading")
   @Experimental
   public fun onFrameStartedLoading(eventListener: EventHandler<FrameStartedLoading>): EventListener
 
-    @EventName("frameStartedLoading")
-    @Experimental
-    public fun onFrameStartedLoading(eventListener: suspend (FrameStartedLoading) -> Unit): EventListener
+  @EventName("frameStartedLoading")
+  @Experimental
+  public fun onFrameStartedLoading(eventListener: suspend (FrameStartedLoading) -> Unit):
+      EventListener
 
   @EventName("frameStoppedLoading")
   @Experimental
   public fun onFrameStoppedLoading(eventListener: EventHandler<FrameStoppedLoading>): EventListener
 
-    @EventName("frameStoppedLoading")
-    @Experimental
-    public fun onFrameStoppedLoading(eventListener: suspend (FrameStoppedLoading) -> Unit): EventListener
+  @EventName("frameStoppedLoading")
+  @Experimental
+  public fun onFrameStoppedLoading(eventListener: suspend (FrameStoppedLoading) -> Unit):
+      EventListener
 
   @EventName("downloadWillBegin")
   @Deprecated
   @Experimental
   public fun onDownloadWillBegin(eventListener: EventHandler<DownloadWillBegin>): EventListener
 
+  @EventName("downloadWillBegin")
+  @Deprecated
+  @Experimental
+  public fun onDownloadWillBegin(eventListener: suspend (DownloadWillBegin) -> Unit): EventListener
+
   @EventName("downloadProgress")
   @Deprecated
   @Experimental
   public fun onDownloadProgress(eventListener: EventHandler<DownloadProgress>): EventListener
 
+  @EventName("downloadProgress")
+  @Deprecated
+  @Experimental
+  public fun onDownloadProgress(eventListener: suspend (DownloadProgress) -> Unit): EventListener
+
   @EventName("interstitialHidden")
   public fun onInterstitialHidden(eventListener: EventHandler<InterstitialHidden>): EventListener
+
+  @EventName("interstitialHidden")
+  public fun onInterstitialHidden(eventListener: suspend (InterstitialHidden) -> Unit):
+      EventListener
 
   @EventName("interstitialShown")
   public fun onInterstitialShown(eventListener: EventHandler<InterstitialShown>): EventListener
 
+  @EventName("interstitialShown")
+  public fun onInterstitialShown(eventListener: suspend (InterstitialShown) -> Unit): EventListener
+
   @EventName("javascriptDialogClosed")
   public fun onJavascriptDialogClosed(eventListener: EventHandler<JavascriptDialogClosed>):
+      EventListener
+
+  @EventName("javascriptDialogClosed")
+  public fun onJavascriptDialogClosed(eventListener: suspend (JavascriptDialogClosed) -> Unit):
       EventListener
 
   @EventName("javascriptDialogOpening")
   public fun onJavascriptDialogOpening(eventListener: EventHandler<JavascriptDialogOpening>):
       EventListener
 
+  @EventName("javascriptDialogOpening")
+  public fun onJavascriptDialogOpening(eventListener: suspend (JavascriptDialogOpening) -> Unit):
+      EventListener
+
   @EventName("lifecycleEvent")
   public fun onLifecycleEvent(eventListener: EventHandler<LifecycleEvent>): EventListener
+
+  @EventName("lifecycleEvent")
+  public fun onLifecycleEvent(eventListener: suspend (LifecycleEvent) -> Unit): EventListener
 
   @EventName("backForwardCacheNotUsed")
   @Experimental
   public fun onBackForwardCacheNotUsed(eventListener: EventHandler<BackForwardCacheNotUsed>):
       EventListener
 
+  @EventName("backForwardCacheNotUsed")
+  @Experimental
+  public fun onBackForwardCacheNotUsed(eventListener: suspend (BackForwardCacheNotUsed) -> Unit):
+      EventListener
+
   @EventName("loadEventFired")
   public fun onLoadEventFired(eventListener: EventHandler<LoadEventFired>): EventListener
 
-    @EventName("loadEventFired")
-    public fun onLoadEventFired(eventListener: suspend (LoadEventFired) -> Unit): EventListener
+  @EventName("loadEventFired")
+  public fun onLoadEventFired(eventListener: suspend (LoadEventFired) -> Unit): EventListener
 
   @EventName("navigatedWithinDocument")
   @Experimental
   public fun onNavigatedWithinDocument(eventListener: EventHandler<NavigatedWithinDocument>):
       EventListener
 
+  @EventName("navigatedWithinDocument")
+  @Experimental
+  public fun onNavigatedWithinDocument(eventListener: suspend (NavigatedWithinDocument) -> Unit):
+      EventListener
+
   @EventName("screencastFrame")
   @Experimental
   public fun onScreencastFrame(eventListener: EventHandler<ScreencastFrame>): EventListener
+
+  @EventName("screencastFrame")
+  @Experimental
+  public fun onScreencastFrame(eventListener: suspend (ScreencastFrame) -> Unit): EventListener
 
   @EventName("screencastVisibilityChanged")
   @Experimental
@@ -707,11 +775,25 @@ public interface Page {
       fun onScreencastVisibilityChanged(eventListener: EventHandler<ScreencastVisibilityChanged>):
       EventListener
 
+  @EventName("screencastVisibilityChanged")
+  @Experimental
+  public
+      fun onScreencastVisibilityChanged(eventListener: suspend (ScreencastVisibilityChanged) -> Unit):
+      EventListener
+
   @EventName("windowOpen")
   public fun onWindowOpen(eventListener: EventHandler<WindowOpen>): EventListener
+
+  @EventName("windowOpen")
+  public fun onWindowOpen(eventListener: suspend (WindowOpen) -> Unit): EventListener
 
   @EventName("compilationCacheProduced")
   @Experimental
   public fun onCompilationCacheProduced(eventListener: EventHandler<CompilationCacheProduced>):
+      EventListener
+
+  @EventName("compilationCacheProduced")
+  @Experimental
+  public fun onCompilationCacheProduced(eventListener: suspend (CompilationCacheProduced) -> Unit):
       EventListener
 }

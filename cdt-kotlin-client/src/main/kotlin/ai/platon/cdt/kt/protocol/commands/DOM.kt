@@ -36,6 +36,7 @@ import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlin.Unit
 import kotlin.collections.List
 
 /**
@@ -626,53 +627,107 @@ public interface DOM {
   @EventName("attributeModified")
   public fun onAttributeModified(eventListener: EventHandler<AttributeModified>): EventListener
 
+  @EventName("attributeModified")
+  public fun onAttributeModified(eventListener: suspend (AttributeModified) -> Unit): EventListener
+
   @EventName("attributeRemoved")
   public fun onAttributeRemoved(eventListener: EventHandler<AttributeRemoved>): EventListener
 
+  @EventName("attributeRemoved")
+  public fun onAttributeRemoved(eventListener: suspend (AttributeRemoved) -> Unit): EventListener
+
   @EventName("characterDataModified")
   public fun onCharacterDataModified(eventListener: EventHandler<CharacterDataModified>):
+      EventListener
+
+  @EventName("characterDataModified")
+  public fun onCharacterDataModified(eventListener: suspend (CharacterDataModified) -> Unit):
       EventListener
 
   @EventName("childNodeCountUpdated")
   public fun onChildNodeCountUpdated(eventListener: EventHandler<ChildNodeCountUpdated>):
       EventListener
 
+  @EventName("childNodeCountUpdated")
+  public fun onChildNodeCountUpdated(eventListener: suspend (ChildNodeCountUpdated) -> Unit):
+      EventListener
+
   @EventName("childNodeInserted")
   public fun onChildNodeInserted(eventListener: EventHandler<ChildNodeInserted>): EventListener
 
+  @EventName("childNodeInserted")
+  public fun onChildNodeInserted(eventListener: suspend (ChildNodeInserted) -> Unit): EventListener
+
   @EventName("childNodeRemoved")
   public fun onChildNodeRemoved(eventListener: EventHandler<ChildNodeRemoved>): EventListener
+
+  @EventName("childNodeRemoved")
+  public fun onChildNodeRemoved(eventListener: suspend (ChildNodeRemoved) -> Unit): EventListener
 
   @EventName("distributedNodesUpdated")
   @Experimental
   public fun onDistributedNodesUpdated(eventListener: EventHandler<DistributedNodesUpdated>):
       EventListener
 
+  @EventName("distributedNodesUpdated")
+  @Experimental
+  public fun onDistributedNodesUpdated(eventListener: suspend (DistributedNodesUpdated) -> Unit):
+      EventListener
+
   @EventName("documentUpdated")
   public fun onDocumentUpdated(eventListener: EventHandler<DocumentUpdated>): EventListener
+
+  @EventName("documentUpdated")
+  public fun onDocumentUpdated(eventListener: suspend (DocumentUpdated) -> Unit): EventListener
 
   @EventName("inlineStyleInvalidated")
   @Experimental
   public fun onInlineStyleInvalidated(eventListener: EventHandler<InlineStyleInvalidated>):
       EventListener
 
+  @EventName("inlineStyleInvalidated")
+  @Experimental
+  public fun onInlineStyleInvalidated(eventListener: suspend (InlineStyleInvalidated) -> Unit):
+      EventListener
+
   @EventName("pseudoElementAdded")
   @Experimental
   public fun onPseudoElementAdded(eventListener: EventHandler<PseudoElementAdded>): EventListener
+
+  @EventName("pseudoElementAdded")
+  @Experimental
+  public fun onPseudoElementAdded(eventListener: suspend (PseudoElementAdded) -> Unit):
+      EventListener
 
   @EventName("pseudoElementRemoved")
   @Experimental
   public fun onPseudoElementRemoved(eventListener: EventHandler<PseudoElementRemoved>):
       EventListener
 
+  @EventName("pseudoElementRemoved")
+  @Experimental
+  public fun onPseudoElementRemoved(eventListener: suspend (PseudoElementRemoved) -> Unit):
+      EventListener
+
   @EventName("setChildNodes")
   public fun onSetChildNodes(eventListener: EventHandler<SetChildNodes>): EventListener
+
+  @EventName("setChildNodes")
+  public fun onSetChildNodes(eventListener: suspend (SetChildNodes) -> Unit): EventListener
 
   @EventName("shadowRootPopped")
   @Experimental
   public fun onShadowRootPopped(eventListener: EventHandler<ShadowRootPopped>): EventListener
 
+  @EventName("shadowRootPopped")
+  @Experimental
+  public fun onShadowRootPopped(eventListener: suspend (ShadowRootPopped) -> Unit): EventListener
+
   @EventName("shadowRootPushed")
   @Experimental
   public fun onShadowRootPushed(eventListener: EventHandler<ShadowRootPushed>): EventListener
+
+  @EventName("shadowRootPushed")
+  @Experimental
+  public fun onShadowRootPushed(eventListener: suspend (ShadowRootPushed) -> Unit): EventListener
 }

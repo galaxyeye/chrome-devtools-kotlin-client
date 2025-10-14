@@ -7,6 +7,7 @@ import ai.platon.cdt.kt.protocol.support.annotations.ParamName
 import ai.platon.cdt.kt.protocol.support.types.EventHandler
 import ai.platon.cdt.kt.protocol.support.types.EventListener
 import kotlin.Int
+import kotlin.Unit
 
 /**
  * The Tethering domain defines methods and events for browser port binding.
@@ -27,4 +28,7 @@ public interface Tethering {
 
   @EventName("accepted")
   public fun onAccepted(eventListener: EventHandler<Accepted>): EventListener
+
+  @EventName("accepted")
+  public fun onAccepted(eventListener: suspend (Accepted) -> Unit): EventListener
 }

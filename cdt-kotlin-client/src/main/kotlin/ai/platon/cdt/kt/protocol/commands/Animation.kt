@@ -13,6 +13,7 @@ import ai.platon.cdt.kt.protocol.types.runtime.RemoteObject
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.String
+import kotlin.Unit
 import kotlin.collections.List
 
 @Experimental
@@ -90,9 +91,18 @@ public interface Animation {
   @EventName("animationCanceled")
   public fun onAnimationCanceled(eventListener: EventHandler<AnimationCanceled>): EventListener
 
+  @EventName("animationCanceled")
+  public fun onAnimationCanceled(eventListener: suspend (AnimationCanceled) -> Unit): EventListener
+
   @EventName("animationCreated")
   public fun onAnimationCreated(eventListener: EventHandler<AnimationCreated>): EventListener
 
+  @EventName("animationCreated")
+  public fun onAnimationCreated(eventListener: suspend (AnimationCreated) -> Unit): EventListener
+
   @EventName("animationStarted")
   public fun onAnimationStarted(eventListener: EventHandler<AnimationStarted>): EventListener
+
+  @EventName("animationStarted")
+  public fun onAnimationStarted(eventListener: suspend (AnimationStarted) -> Unit): EventListener
 }

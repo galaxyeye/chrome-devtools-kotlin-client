@@ -21,6 +21,7 @@ import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlin.Unit
 import kotlin.collections.List
 
 public interface Input {
@@ -353,4 +354,8 @@ public interface Input {
   @EventName("dragIntercepted")
   @Experimental
   public fun onDragIntercepted(eventListener: EventHandler<DragIntercepted>): EventListener
+
+  @EventName("dragIntercepted")
+  @Experimental
+  public fun onDragIntercepted(eventListener: suspend (DragIntercepted) -> Unit): EventListener
 }

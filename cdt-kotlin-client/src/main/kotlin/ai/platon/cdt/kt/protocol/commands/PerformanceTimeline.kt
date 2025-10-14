@@ -7,6 +7,7 @@ import ai.platon.cdt.kt.protocol.support.annotations.ParamName
 import ai.platon.cdt.kt.protocol.support.types.EventHandler
 import ai.platon.cdt.kt.protocol.support.types.EventListener
 import kotlin.String
+import kotlin.Unit
 import kotlin.collections.List
 
 /**
@@ -28,4 +29,8 @@ public interface PerformanceTimeline {
 
   @EventName("timelineEventAdded")
   public fun onTimelineEventAdded(eventListener: EventHandler<TimelineEventAdded>): EventListener
+
+  @EventName("timelineEventAdded")
+  public fun onTimelineEventAdded(eventListener: suspend (TimelineEventAdded) -> Unit):
+      EventListener
 }

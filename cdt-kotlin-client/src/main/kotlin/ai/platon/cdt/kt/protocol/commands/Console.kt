@@ -5,6 +5,7 @@ import ai.platon.cdt.kt.protocol.support.annotations.EventName
 import ai.platon.cdt.kt.protocol.support.types.EventHandler
 import ai.platon.cdt.kt.protocol.support.types.EventListener
 import java.lang.Deprecated
+import kotlin.Unit
 
 /**
  * This domain is deprecated - use Runtime or Log instead.
@@ -29,4 +30,7 @@ public interface Console {
 
   @EventName("messageAdded")
   public fun onMessageAdded(eventListener: EventHandler<MessageAdded>): EventListener
+
+  @EventName("messageAdded")
+  public fun onMessageAdded(eventListener: suspend (MessageAdded) -> Unit): EventListener
 }

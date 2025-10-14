@@ -22,6 +22,7 @@ import ai.platon.cdt.kt.protocol.types.browser.WindowForTarget
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlin.Unit
 import kotlin.collections.List
 
 /**
@@ -249,7 +250,15 @@ public interface Browser {
   @Experimental
   public fun onDownloadWillBegin(eventListener: EventHandler<DownloadWillBegin>): EventListener
 
+  @EventName("downloadWillBegin")
+  @Experimental
+  public fun onDownloadWillBegin(eventListener: suspend (DownloadWillBegin) -> Unit): EventListener
+
   @EventName("downloadProgress")
   @Experimental
   public fun onDownloadProgress(eventListener: EventHandler<DownloadProgress>): EventListener
+
+  @EventName("downloadProgress")
+  @Experimental
+  public fun onDownloadProgress(eventListener: suspend (DownloadProgress) -> Unit): EventListener
 }

@@ -21,12 +21,12 @@ import ai.platon.cdt.kt.protocol.types.overlay.HingeConfig
 import ai.platon.cdt.kt.protocol.types.overlay.InspectMode
 import ai.platon.cdt.kt.protocol.types.overlay.ScrollSnapHighlightConfig
 import ai.platon.cdt.kt.protocol.types.overlay.SourceOrderConfig
-import java.util.function.Consumer
 import kotlin.Any
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlin.Unit
 import kotlin.collections.List
 import kotlin.collections.Map
 
@@ -307,16 +307,29 @@ public interface Overlay {
   public fun onInspectNodeRequested(eventListener: EventHandler<InspectNodeRequested>):
       EventListener
 
+  @EventName("inspectNodeRequested")
+  public fun onInspectNodeRequested(eventListener: suspend (InspectNodeRequested) -> Unit):
+      EventListener
+
   @EventName("nodeHighlightRequested")
   public fun onNodeHighlightRequested(eventListener: EventHandler<NodeHighlightRequested>):
+      EventListener
+
+  @EventName("nodeHighlightRequested")
+  public fun onNodeHighlightRequested(eventListener: suspend (NodeHighlightRequested) -> Unit):
       EventListener
 
   @EventName("screenshotRequested")
   public fun onScreenshotRequested(eventListener: EventHandler<ScreenshotRequested>): EventListener
 
-    @EventName("screenshotRequested")
-    public fun onScreenshotRequested(eventListener: suspend (ScreenshotRequested) -> Unit): EventListener
+  @EventName("screenshotRequested")
+  public fun onScreenshotRequested(eventListener: suspend (ScreenshotRequested) -> Unit):
+      EventListener
 
   @EventName("inspectModeCanceled")
   public fun onInspectModeCanceled(eventListener: EventHandler<InspectModeCanceled>): EventListener
+
+  @EventName("inspectModeCanceled")
+  public fun onInspectModeCanceled(eventListener: suspend (InspectModeCanceled) -> Unit):
+      EventListener
 }

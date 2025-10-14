@@ -7,7 +7,6 @@ import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import java.io.IOException
 import java.nio.file.Path
-import kotlin.jvm.Throws
 
 /**
  * Kotlin protocol generator entry point.
@@ -21,186 +20,190 @@ class KotlinProtocolGenerator(
     supportAnnotationsPackageName: String,
     private val outputRoot: Path
 ) {
-  private val context =
-      KotlinGenerationContext(
-          basePackage,
-          typesPackageName,
-          eventPackageName,
-          commandPackageName,
-          supportTypesPackageName,
-          supportAnnotationsPackageName)
-  private val mapper = KotlinTypeMapper(context)
-  private val typesBuilder = KotlinTypesBuilder(context, mapper)
-  private val eventsBuilder = KotlinEventsBuilder(context, mapper)
-  private val commandsBuilder = KotlinCommandsBuilder(context, mapper, typesBuilder)
+    private val context =
+        KotlinGenerationContext(
+            basePackage,
+            typesPackageName,
+            eventPackageName,
+            commandPackageName,
+            supportTypesPackageName,
+            supportAnnotationsPackageName
+        )
+    private val mapper = KotlinTypeMapper(context)
+    private val typesBuilder = KotlinTypesBuilder(context, mapper)
+    private val eventsBuilder = KotlinEventsBuilder(context, mapper)
+    private val commandsBuilder = KotlinCommandsBuilder(context, mapper, typesBuilder)
 
-  @Throws(IOException::class)
-  fun generate(protocol: DevToolsProtocol, domainTypeResolver: DomainTypeResolver) {
-    val project: KotlinSourceProject = KotlinSourceProjectImpl(outputRoot)
+    @Throws(IOException::class)
+    fun generate(protocol: DevToolsProtocol, domainTypeResolver: DomainTypeResolver) {
+        val project: KotlinSourceProject = KotlinSourceProjectImpl(outputRoot)
 
-    protocol.domains?.forEach { domain ->
-      typesBuilder.build(domain, domainTypeResolver).forEach(project::addFile)
-      eventsBuilder.build(domain, domainTypeResolver).forEach(project::addFile)
-      commandsBuilder.build(domain, domainTypeResolver).forEach(project::addFile)
+        protocol.domains?.forEach { domain ->
+            typesBuilder.build(domain, domainTypeResolver).forEach(project::addFile)
+            eventsBuilder.build(domain, domainTypeResolver).forEach(project::addFile)
+            commandsBuilder.build(domain, domainTypeResolver).forEach(project::addFile)
+        }
+
+        project.addFile(buildChromeDevTools(protocol))
+
+        // Generate Kotlin-native support annotations and types under the same base package
+        generateKotlinSupportAnnotations(project)
+        generateKotlinSupportTypes(project)
+
+        project.writeAll()
     }
 
-    project.addFile(buildChromeDevTools(protocol))
-
-    // Generate Kotlin-native support annotations and types under the same base package
-    generateKotlinSupportAnnotations(project)
-    generateKotlinSupportTypes(project)
-
-    project.writeAll()
-  }
-
-  private fun buildChromeDevTools(protocol: DevToolsProtocol): KotlinSourceFile {
-    val interfaceBuilder = TypeSpec.interfaceBuilder("ChromeDevTools")
+    private fun buildChromeDevTools(protocol: DevToolsProtocol): KotlinSourceFile {
+        val interfaceBuilder = TypeSpec.interfaceBuilder("ChromeDevTools")
         // Kotlin default is public; avoid explicit public modifier in generated code
         // .addModifiers(KModifier.PUBLIC)
 
-    protocol.domains?.forEach { domain ->
-      val methodName = "get" + StringUtils.toEnumClass(domain.domain)
-      val returnType =
-        ClassName(context.commandDomainPackage(domain), StringUtils.toEnumClass(domain.domain))
-      val funSpec = FunSpec.builder(methodName)
-          .addModifiers(KModifier.ABSTRACT)
-          .returns(returnType)
-          .build()
-      interfaceBuilder.addFunction(funSpec)
+        protocol.domains?.forEach { domain ->
+            val methodName = "get" + StringUtils.toEnumClass(domain.domain)
+            val returnType =
+                ClassName(context.commandDomainPackage(domain), StringUtils.toEnumClass(domain.domain))
+            val funSpec = FunSpec.builder(methodName)
+                .addModifiers(KModifier.ABSTRACT)
+                .returns(returnType)
+                .build()
+            interfaceBuilder.addFunction(funSpec)
+        }
+
+        val file = FileSpec.builder(context.basePackage, "ChromeDevTools")
+            .addType(interfaceBuilder.build())
+            .build()
+        return KotlinSourceFile(file)
     }
 
-    val file = FileSpec.builder(context.basePackage, "ChromeDevTools")
-        .addType(interfaceBuilder.build())
-        .build()
-    return KotlinSourceFile(file)
-  }
+    private fun generateKotlinSupportAnnotations(project: KotlinSourceProject) {
+        val annotationsPkg = context.supportAnnotationsPackage
 
-  private fun generateKotlinSupportAnnotations(project: KotlinSourceProject) {
-    val annotationsPkg = context.supportAnnotationsPackage
+        fun annotationType(
+            name: String,
+            targets: List<AnnotationTarget>,
+            retention: AnnotationRetention,
+            params: List<ParameterSpec> = emptyList()
+        ): TypeSpec {
+            val builder = TypeSpec.annotationBuilder(name)
+            // Use fully qualified kotlin.annotation.* meta-annotations so KotlinPoet treats them as default imports and does not emit import statements.
+            val targetAnn = AnnotationSpec.builder(ClassName("kotlin.annotation", "Target"))
+                .addMember(
+                    targets.joinToString(",\n") { "AnnotationTarget.%L" },
+                    *targets.map { it.name }.toTypedArray()
+                )
+                .build()
+            builder.addAnnotation(targetAnn)
+            val retentionAnn = AnnotationSpec.builder(ClassName("kotlin.annotation", "Retention"))
+                .addMember("AnnotationRetention.%L", retention.name)
+                .build()
+            builder.addAnnotation(retentionAnn)
+            // params
+            params.forEach { p ->
+                builder.addProperty(PropertySpec.builder(p.name, p.type).initializer(p.name).build())
+                builder.primaryConstructor(FunSpec.constructorBuilder().addParameters(params).build())
+            }
+            return builder.build()
+        }
 
-    fun annotationType(
-      name: String,
-      targets: List<AnnotationTarget>,
-      retention: AnnotationRetention,
-      params: List<ParameterSpec> = emptyList()
-    ): TypeSpec {
-      val builder = TypeSpec.annotationBuilder(name)
-      // @Target
-      val targetAnn = AnnotationSpec.builder(ClassName("kotlin", "Target"))
-          .addMember(targets.joinToString(prefix = "[", postfix = "]") { "AnnotationTarget.%L" }, *targets.map { it.name }.toTypedArray())
-          .build()
-      builder.addAnnotation(targetAnn)
-      // @Retention
-      val retentionAnn = AnnotationSpec.builder(ClassName("kotlin", "Retention"))
-          .addMember("AnnotationRetention.%L", retention.name)
-          .build()
-      builder.addAnnotation(retentionAnn)
-      // params
-      params.forEach { p ->
-        builder.addProperty(PropertySpec.builder(p.name, p.type).initializer(p.name).build())
-        builder.primaryConstructor(FunSpec.constructorBuilder().addParameters(params).build())
-      }
-      return builder.build()
+        val files = mutableListOf<FileSpec>()
+
+        // Build annotations in a single file
+        val fileBuilder = FileSpec.builder(annotationsPkg, "SupportAnnotations")
+
+        // Optional
+        fileBuilder.addType(
+            annotationType(
+                name = "Optional",
+                targets = listOf(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.PROPERTY),
+                retention = AnnotationRetention.RUNTIME
+            )
+        )
+        // Experimental
+        fileBuilder.addType(
+            annotationType(
+                name = "Experimental",
+                targets = listOf(
+                    AnnotationTarget.FUNCTION,
+                    AnnotationTarget.CLASS,
+                    AnnotationTarget.PROPERTY,
+                    AnnotationTarget.VALUE_PARAMETER,
+                    AnnotationTarget.PROPERTY_GETTER,
+                    AnnotationTarget.PROPERTY_SETTER
+                ),
+                retention = AnnotationRetention.RUNTIME
+            )
+        )
+        // ParamName(val value: String)
+        val paramNameCtor = listOf(ParameterSpec.builder("value", STRING).build())
+        fileBuilder.addType(
+            annotationType(
+                name = "ParamName",
+                targets = listOf(AnnotationTarget.VALUE_PARAMETER),
+                retention = AnnotationRetention.RUNTIME,
+                params = paramNameCtor
+            )
+        )
+        // Returns(val value: String)
+        val returnsCtor = listOf(ParameterSpec.builder("value", STRING).build())
+        fileBuilder.addType(
+            annotationType(
+                name = "Returns",
+                targets = listOf(AnnotationTarget.FUNCTION),
+                retention = AnnotationRetention.RUNTIME,
+                params = returnsCtor
+            )
+        )
+        // ReturnTypeParameter(vararg val value: KClass<*>)
+        val kClassStar = ClassName("kotlin.reflect", "KClass").parameterizedBy(STAR)
+        val rtpCtor = listOf(ParameterSpec.builder("value", kClassStar).addModifiers(KModifier.VARARG).build())
+        fileBuilder.addType(
+            annotationType(
+                name = "ReturnTypeParameter",
+                targets = listOf(AnnotationTarget.FUNCTION),
+                retention = AnnotationRetention.RUNTIME,
+                params = rtpCtor
+            )
+        )
+        // EventName(val value: String)
+        val eventNameCtor = listOf(ParameterSpec.builder("value", STRING).build())
+        fileBuilder.addType(
+            annotationType(
+                name = "EventName",
+                targets = listOf(AnnotationTarget.FUNCTION),
+                retention = AnnotationRetention.RUNTIME,
+                params = eventNameCtor
+            )
+        )
+
+        files.add(fileBuilder.build())
+
+        files.distinctBy { it.packageName + "." + it.name }
+            .map(::KotlinSourceFile)
+            .forEach(project::addFile)
     }
 
-    val files = mutableListOf<FileSpec>()
+    private fun generateKotlinSupportTypes(project: KotlinSourceProject) {
+        val typesPkg = context.supportTypesPackage
 
-    // Build annotations in a single file
-    val fileBuilder = FileSpec.builder(annotationsPkg, "SupportAnnotations")
+        val fileBuilder = FileSpec.builder(typesPkg, "SupportTypes")
 
-    // Optional
-    fileBuilder.addType(
-      annotationType(
-        name = "Optional",
-        targets = listOf(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.PROPERTY),
-        retention = AnnotationRetention.RUNTIME
-      )
-    )
-    // Experimental
-    fileBuilder.addType(
-      annotationType(
-        name = "Experimental",
-        targets = listOf(    AnnotationTarget.FUNCTION,
-            AnnotationTarget.CLASS,
-            AnnotationTarget.PROPERTY,
-            AnnotationTarget.VALUE_PARAMETER,
-            AnnotationTarget.PROPERTY_GETTER,
-            AnnotationTarget.PROPERTY_SETTER
-        ),
-        retention = AnnotationRetention.RUNTIME
-      )
-    )
-    // ParamName(val value: String)
-    val paramNameCtor = listOf(ParameterSpec.builder("value", STRING).build())
-    fileBuilder.addType(
-      annotationType(
-        name = "ParamName",
-        targets = listOf(AnnotationTarget.VALUE_PARAMETER),
-        retention = AnnotationRetention.RUNTIME,
-        params = paramNameCtor
-      )
-    )
-    // Returns(val value: String)
-    val returnsCtor = listOf(ParameterSpec.builder("value", STRING).build())
-    fileBuilder.addType(
-      annotationType(
-        name = "Returns",
-        targets = listOf(AnnotationTarget.FUNCTION),
-        retention = AnnotationRetention.RUNTIME,
-        params = returnsCtor
-      )
-    )
-    // ReturnTypeParameter(vararg val value: KClass<*>)
-    val kClassStar = ClassName("kotlin.reflect", "KClass").parameterizedBy(STAR)
-    val rtpCtor = listOf(ParameterSpec.builder("value", kClassStar).addModifiers(KModifier.VARARG).build())
-    fileBuilder.addType(
-      annotationType(
-        name = "ReturnTypeParameter",
-        targets = listOf(AnnotationTarget.FUNCTION),
-        retention = AnnotationRetention.RUNTIME,
-        params = rtpCtor
-      )
-    )
-    // EventName(val value: String)
-    val eventNameCtor = listOf(ParameterSpec.builder("value", STRING).build())
-    fileBuilder.addType(
-      annotationType(
-        name = "EventName",
-        targets = listOf(AnnotationTarget.FUNCTION),
-        retention = AnnotationRetention.RUNTIME,
-        params = eventNameCtor
-      )
-    )
+        // fun interface EventHandler<T> { fun handle(event: T) }
+        val tType = TypeVariableName("T")
+        val handleFun = FunSpec.builder("handle")
+            .addModifiers(KModifier.ABSTRACT)
+            .addParameter("event", tType)
+            .build()
+        val eventHandler = TypeSpec.interfaceBuilder("EventHandler")
+            .addTypeVariable(tType)
+            .addModifiers(KModifier.FUN)
+            .addFunction(handleFun)
+            .build()
+        fileBuilder.addType(eventHandler)
 
-    files.add(fileBuilder.build())
+        // interface EventListener
+        val eventListener = TypeSpec.interfaceBuilder("EventListener").build()
+        fileBuilder.addType(eventListener)
 
-    files.distinctBy { it.packageName + "." + it.name }
-        .map(::KotlinSourceFile)
-        .forEach(project::addFile)
-  }
-
-  private fun generateKotlinSupportTypes(project: KotlinSourceProject) {
-    val typesPkg = context.supportTypesPackage
-
-    val fileBuilder = FileSpec.builder(typesPkg, "SupportTypes")
-
-    // fun interface EventHandler<T> { fun handle(event: T) }
-    val tType = TypeVariableName("T")
-    val handleFun = FunSpec.builder("handle")
-        .addModifiers(KModifier.ABSTRACT)
-        .addParameter("event", tType)
-        .build()
-    val eventHandler = TypeSpec.interfaceBuilder("EventHandler")
-        .addTypeVariable(tType)
-        .addModifiers(KModifier.FUN)
-        .addFunction(handleFun)
-        .build()
-    fileBuilder.addType(eventHandler)
-
-    // interface EventListener
-    val eventListener = TypeSpec.interfaceBuilder("EventListener").build()
-    fileBuilder.addType(eventListener)
-
-    KotlinSourceFile(fileBuilder.build()).also(project::addFile)
-  }
+        KotlinSourceFile(fileBuilder.build()).also(project::addFile)
+    }
 }

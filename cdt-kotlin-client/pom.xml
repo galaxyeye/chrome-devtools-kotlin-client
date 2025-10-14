@@ -37,9 +37,9 @@
     </licenses>
 
     <scm>
-        <connection>scm:git:git://github.com/kklisura/chrome-devtools-java-client.git</connection>
-        <developerConnection>scm:git:ssh://github.com:kklisura/chrome-devtools-java-client.git</developerConnection>
-        <url>http://github.com/kklisura/chrome-devtools-java-client/tree/master</url>
+        <connection>scm:git:git://github.com/galaxyeye/chrome-devtools-kotlin-client.git</connection>
+        <developerConnection>scm:git:ssh://github.com/galaxyeye/chrome-devtools-kotlin-client.git</developerConnection>
+        <url>http://github.com/galaxyeye/chrome-devtools-kotlin-client</url>
     </scm>
 
     <distributionManagement>
@@ -444,7 +444,6 @@
                         </goals>
                         <configuration>
                             <sourceDirs>
-                                <source>src/main/java</source>
                                 <source>src/main/kotlin</source>
                             </sourceDirs>
                         </configuration>

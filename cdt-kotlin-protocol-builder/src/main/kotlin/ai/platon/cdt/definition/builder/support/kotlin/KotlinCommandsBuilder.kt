@@ -59,12 +59,10 @@ class KotlinCommandsBuilder(
           ClassName(context.eventDomainPackage(domain), StringUtils.toEnumClass(event.name))
       val handlerType = context.eventHandlerClass.parameterizedBy(payloadClass)
 
-      val funBuilder = FunSpec.builder("on" + StringUtils.capitalize(event.name))
-          .returns(context.eventListenerClass)
-          .addParameter(ParameterSpec.builder("eventListener", handlerType).build())
-
-      event.description?.takeIf { it.isNotBlank() }?.let { funBuilder.addKdoc("%L", it) }
-
+    val funBuilder = FunSpec.builder("on" + StringUtils.capitalize(event.name))
+      .addModifiers(KModifier.ABSTRACT)
+      .returns(context.eventListenerClass)
+      .addParameter(ParameterSpec.builder("eventListener", handlerType).build())
       val eventNameAnnotation = AnnotationSpec.builder(context.eventNameAnnotation)
           .addMember("%S", event.name)
           .build()
@@ -109,8 +107,8 @@ class KotlinCommandsBuilder(
 
     val returnComputation = computeReturnType(domain, command, ownerForReturns, resolver)
 
-    val primaryMethod = FunSpec.builder(methodName)
-        .addModifiers(KModifier.SUSPEND)
+  val primaryMethod = FunSpec.builder(methodName)
+    .addModifiers(KModifier.SUSPEND, KModifier.ABSTRACT)
         .returns(returnComputation.returnType)
     commandParams.forEach { primaryMethod.addParameter(it.spec) }
 

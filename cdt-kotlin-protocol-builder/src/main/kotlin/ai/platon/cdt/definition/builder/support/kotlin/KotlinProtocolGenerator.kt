@@ -62,6 +62,7 @@ class KotlinProtocolGenerator(
     val returnType =
       ClassName(context.commandDomainPackage(domain), StringUtils.toEnumClass(domain.domain))
       val funSpec = FunSpec.builder(methodName)
+          .addModifiers(KModifier.ABSTRACT)
           .returns(returnType)
           .build()
       interfaceBuilder.addFunction(funSpec)

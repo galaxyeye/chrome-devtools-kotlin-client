@@ -31,6 +31,7 @@ import ai.platon.cdt.protocol.definition.types.type.`object`.properties.StringPr
 import ai.platon.cdt.protocol.definition.types.type.`object`.properties.array.items.StringArrayItem
 import com.tschuchort.compiletesting.KotlinCompilation
 import com.tschuchort.compiletesting.SourceFile
+import kotlin.reflect.KClass
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.util.stream.Collectors
@@ -39,6 +40,50 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class KotlinGeneratorsTest {
+  private val supportStubs = listOf(
+      SourceFile.kotlin(
+          "SupportAnnotations.kt",
+          """
+          package ai.platon.cdt.protocol.support.annotations
+
+          import kotlin.reflect.KClass
+
+          @Target(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.PROPERTY)
+          @Retention(AnnotationRetention.RUNTIME)
+          annotation class Optional
+
+          @Target(AnnotationTarget.FUNCTION, AnnotationTarget.CLASS)
+          @Retention(AnnotationRetention.RUNTIME)
+          annotation class Experimental
+
+          @Target(AnnotationTarget.VALUE_PARAMETER)
+          @Retention(AnnotationRetention.RUNTIME)
+          annotation class ParamName(val value: String)
+
+          @Target(AnnotationTarget.FUNCTION)
+          @Retention(AnnotationRetention.RUNTIME)
+          annotation class Returns(val value: String)
+
+          @Target(AnnotationTarget.FUNCTION)
+          @Retention(AnnotationRetention.RUNTIME)
+          annotation class ReturnTypeParameter(vararg val value: KClass<*>)
+
+          @Target(AnnotationTarget.FUNCTION)
+          @Retention(AnnotationRetention.RUNTIME)
+          annotation class EventName(val value: String)
+          """.trimIndent()),
+      SourceFile.kotlin(
+          "SupportTypes.kt",
+          """
+          package ai.platon.cdt.protocol.support.types
+
+          fun interface EventHandler<T> {
+            fun handle(event: T)
+          }
+
+          interface EventListener
+          """.trimIndent()))
+
   private val context = KotlinGenerationContext(
       basePackage = "ai.platon.cdt.protocol",
       typesPackage = "ai.platon.cdt.protocol.types",
@@ -190,8 +235,10 @@ class KotlinGeneratorsTest {
               val content = String(Files.readAllBytes(path), StandardCharsets.UTF_8)
               SourceFile.kotlin(path.fileName.toString(), content)
             }
-            .collect(Collectors.toList())
+            .collect(Collectors.toCollection { ArrayList<SourceFile>() })
       }
+
+      sources.addAll(supportStubs)
 
       assertTrue("Expected generated Kotlin sources", sources.isNotEmpty())
 

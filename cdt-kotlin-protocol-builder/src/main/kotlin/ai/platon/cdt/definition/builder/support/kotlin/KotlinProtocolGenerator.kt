@@ -120,7 +120,13 @@ class KotlinProtocolGenerator(
     fileBuilder.addType(
       annotationType(
         name = "Experimental",
-        targets = listOf(AnnotationTarget.FUNCTION, AnnotationTarget.CLASS),
+        targets = listOf(    AnnotationTarget.FUNCTION,
+            AnnotationTarget.CLASS,
+            AnnotationTarget.PROPERTY,
+            AnnotationTarget.VALUE_PARAMETER,
+            AnnotationTarget.PROPERTY_GETTER,
+            AnnotationTarget.PROPERTY_SETTER
+        ),
         retention = AnnotationRetention.RUNTIME
       )
     )

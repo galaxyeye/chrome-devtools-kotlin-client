@@ -216,7 +216,7 @@ class KotlinCommandsBuilder(
         val syntheticName = StringUtils.getReturnTypeFromGetter(command.name)
         val files = typesBuilder.buildSyntheticReturnType(domain, syntheticName, returns, resolver)
         val typeName = ClassName(context.typeDomainPackage(domain), syntheticName)
-        return CommandReturn(typeName, files.map { it.fileSpec })
+        return CommandReturn(typeName, files)
     }
 
     private fun createOverloadIfNeeded(

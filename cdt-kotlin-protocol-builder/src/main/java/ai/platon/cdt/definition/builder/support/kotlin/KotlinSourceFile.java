@@ -26,8 +26,10 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
+import lombok.Getter;
 
 /** Simple in-memory representation of a Kotlin source file backed by KotlinPoet. */
+@Getter
 public class KotlinSourceFile {
   private final FileSpec fileSpec;
   private final String packageName;
@@ -48,22 +50,6 @@ public class KotlinSourceFile {
     this.rawContent = Objects.requireNonNull(content, "content");
   }
 
-  public FileSpec getFileSpec() {
-    return fileSpec;
-  }
-
-  public String getPackageName() {
-    return packageName;
-  }
-
-  public String getFileName() {
-    return fileName;
-  }
-
-  public String getRawContent() {
-    return rawContent;
-  }
-
   public void writeTo(Path outputRoot) throws IOException {
     if (fileSpec != null) {
       fileSpec.writeTo(outputRoot);
@@ -72,7 +58,8 @@ public class KotlinSourceFile {
 
     Path packageDir = outputRoot.resolve(packageName.replace('.', java.io.File.separatorChar));
     Files.createDirectories(packageDir);
-    Path targetFile = packageDir.resolve(fileName + ".kt");
+    String outName = fileName.contains(".") ? fileName : fileName + ".kt";
+    Path targetFile = packageDir.resolve(outName);
     Files.writeString(targetFile, rawContent, StandardCharsets.UTF_8);
   }
 }

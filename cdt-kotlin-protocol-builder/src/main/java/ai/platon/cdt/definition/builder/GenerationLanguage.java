@@ -21,6 +21,7 @@ package ai.platon.cdt.definition.builder;
  */
 
 import java.util.Locale;
+import lombok.Getter;
 
 /** Supported generation languages. */
 public enum GenerationLanguage {
@@ -28,15 +29,11 @@ public enum GenerationLanguage {
   KOTLIN("kotlin", "src/main/kotlin");
 
   private final String cliToken;
-  private final String sourceFolder;
+  @Getter private final String sourceFolder;
 
   GenerationLanguage(String cliToken, String sourceFolder) {
     this.cliToken = cliToken;
     this.sourceFolder = sourceFolder;
-  }
-
-  public String getSourceFolder() {
-    return sourceFolder;
   }
 
   public static GenerationLanguage fromCliToken(String token) {

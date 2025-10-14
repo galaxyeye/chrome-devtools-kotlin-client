@@ -43,14 +43,19 @@ class KotlinTypesBuilder(
       name: String,
       properties: List<Property>,
       resolver: DomainTypeResolver
-  ): List<KotlinSourceFile> {
+  ): List<FileSpec> {
     val synthetic = ObjectType().apply {
       id = name
       this.properties = properties
     }
-    return buildObjectType(
-      domain,
-      synthetic,
-      resolver)
+    val result = mapper.buildObjectTypeSpec(
+        context.typeDomainPackage(domain),
+        domain,
+        synthetic,
+        resolver)
+    val files = mutableListOf<FileSpec>()
+    result.file?.let { files.add(it) }
+    files.addAll(result.additionalFiles)
+    return files
   }
 }

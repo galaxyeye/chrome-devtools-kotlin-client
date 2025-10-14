@@ -4,58 +4,54 @@
 
 Chrome DevTools Kotlin Protocol Builder parses DevTools `protocol.json` - a protocol definition file and outputs the kotlin classes and interfaces.
 
+修改Kotlin代码生成相关代码，解决本文中提到的问题。主要代码位于以下目录：
+`cdt-kotlin-protocol-builder/src/main/kotlin/ai/platon/cdt/definition/builder/support/kotlin/`
+
 ## Known Issues
 
-### annotation not applicable (RESOLVED)
+### Generate property instead of getter
 
-`@Experimental`
-- Original error: `This annotation is not applicable to target 'value parameter'. Applicable targets: function, class`
-- Root cause: The generated model types and command interfaces annotate constructor property parameters and interface methods with `@Experimental`, but the annotation declaration only targeted `FUNCTION` and `CLASS`. Kotlin differentiates between value parameters (`AnnotationTarget.VALUE_PARAMETER`) and the resulting properties (`AnnotationTarget.PROPERTY`).
-- Fix applied: Updated `SupportAnnotations.kt` so `@Experimental` now has
-  ```kotlin
-  @Target(
-    AnnotationTarget.FUNCTION,
-    AnnotationTarget.CLASS,
-    AnnotationTarget.PROPERTY,
-    AnnotationTarget.VALUE_PARAMETER,
-    AnnotationTarget.PROPERTY_GETTER,
-    AnnotationTarget.PROPERTY_SETTER,
-  )
-  annotation class Experimental
-  ```
-  (Also corrected older square-bracket array style `@Target([...])` to proper vararg usage.)
-- Result: All previous applicability compilation errors disappear after rebuild.
-- Future improvement: The generator can emit explicit use-site targets (`@param:Experimental` or `@property:Experimental`) for clarity and to avoid over-broad targets. Consider introducing a separate `@ExperimentalApi` annotation limited to `CLASS`, `FUNCTION`, and `PROPERTY` if parameter-level marking is not semantically needed.
+For example:
 
-### Argument type mismatch
-
-Error message:
-
-```text
-Argument type mismatch: actual type is 'Array<AnnotationTarget>', but 'AnnotationTarget' was expected.
+```kotlin
+interface ChromeDevTools {
+    val debugger: Debugger
+    val page: Page
+    // ...
+}
 ```
 
-Source file: 
+### Event EventListener Specification
 
-`cdt-kotlin-client/src/main/kotlin/ai/platon/cdt/kt/protocol/support/annotations/SupportAnnotations.kt`
+`EventListener` always is the following:
 
-Cause & Status:
-- Same root cause as above: usage of array literal with `@Target([...])`. Fixed by switching to vararg form.
+```kotlin
+interface EventListener {
+    /** Alias to unsubscribe.  */
+    fun off()
 
-### [暂缓处理] jackson usage
+    /** Unsubscribe this event listener.  */
+    fun unsubscribe()
+}
+```
 
-There are many `@JsonProperty` annotations, tell me why they are needed, for example, 
-all classes in package `ai.platon.cdt.kt.protocol.events`
+### Event Handler Enhancement
 
-Possible reason:
+For each event handler registration, also add a new register method version,
+the method takes a function as the parameter: `suspend () -> Y`.
 
-In ai.platon.cdt.kt.protocol.events (and similar packages), @JsonProperty is there to lock the exact CDP field names and 
-make deserialization/serialization deterministic across varied consumer setups. It’s a deliberate, generator-applied 
-safeguard for wire-compatibility, refactor safety, and resilience against configuration and tooling differences.
+For example:
 
-If you control the entire stack and want to reduce boilerplate, you can rely on jackson-module-kotlin and matching names, 
-but for a reusable CDP client, the explicit annotations are the safer choice.
+Original generated method:
 
-改进方案：
+```kotlin
+  @EventName("loadEventFired")
+  public fun onLoadEventFired(eventListener: EventHandler<LoadEventFired>): EventListener
+```
 
-- An explicit annotation use-site target is recommended.
+Newly added method:
+
+```kotlin
+@EventName("loadEventFired")
+public fun onLoadEventFired(eventListener: suspend (LoadEventFired) -> Unit): EventListener
+```

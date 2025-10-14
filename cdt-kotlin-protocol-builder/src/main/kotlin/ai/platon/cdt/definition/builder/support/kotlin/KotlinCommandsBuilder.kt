@@ -58,14 +58,26 @@ class KotlinCommandsBuilder(
                 .build()
             funBuilder.addAnnotation(eventNameAnnotation)
 
+            // Overload variant taking `suspend (Payload) -> Unit`
+            val suspendLambdaType = LambdaTypeName.get(
+                null,
+                parameters = arrayOf<TypeName>(payloadClass),
+                returnType = UNIT
+            ).copy(suspending = true)
+            val suspendFunBuilder = FunSpec.builder("on" + StringUtils.capitalize(event.name))
+                .addModifiers(KModifier.ABSTRACT)
+                .returns(context.eventListenerClass)
+                .addParameter(ParameterSpec.builder("eventListener", suspendLambdaType).build())
+                .addAnnotation(eventNameAnnotation)
+
             if (event.deprecated == java.lang.Boolean.TRUE) {
-                funBuilder.addAnnotation(context.deprecatedAnnotation)
+                suspendFunBuilder.addAnnotation(context.deprecatedAnnotation)
             }
             if (event.experimental == java.lang.Boolean.TRUE) {
-                funBuilder.addAnnotation(context.experimentalAnnotation)
+                suspendFunBuilder.addAnnotation(context.experimentalAnnotation)
             }
 
-            interfaceBuilder.addFunction(funBuilder.build())
+            interfaceBuilder.addFunction(suspendFunBuilder.build())
         }
 
         val interfaceFile = FileSpec.builder(packageName, interfaceName)
@@ -192,7 +204,8 @@ class KotlinCommandsBuilder(
             val returnsAnnotation = AnnotationSpec.builder(context.returnsAnnotation)
                 .addMember("%S", property.name)
                 .build()
-            val returnTypeArgs = mapper.collectReturnGenerics(resolution.typeName)
+            require(context is KotlinGenerationContext)
+            val returnTypeArgs = context.collectReturnGenerics(resolution.typeName)
             val returnTypeAnnotation = if (returnTypeArgs.isEmpty()) {
                 null
             } else {

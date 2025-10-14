@@ -198,7 +198,7 @@ class KotlinTypeMapper(private val context: KotlinGenerationContext) {
 
   private fun resolveArray(
       propertyName: String,
-      item: ArrayItem?,
+      item: ai.platon.cdt.protocol.definition.types.type.`object`.properties.array.ArrayItem?,
       domain: Domain,
       owner: ObjectType,
       resolver: DomainTypeResolver
@@ -405,20 +405,20 @@ class KotlinTypeMapper(private val context: KotlinGenerationContext) {
         .addType(enumBuilder.build())
         .build()
   }
+}
 
-  fun collectReturnGenerics(typeName: TypeName): List<TypeName> {
-    val result = mutableListOf<TypeName>()
-    collectReturnGenerics(typeName, result)
-    return result
-  }
+fun KotlinGenerationContext.collectReturnGenerics(typeName: TypeName): List<TypeName> {
+  val result = mutableListOf<TypeName>()
+  this.collectReturnGenerics(typeName, result)
+  return result
+}
 
-  private fun collectReturnGenerics(typeName: TypeName, acc: MutableList<TypeName>) {
-    if (typeName is com.squareup.kotlinpoet.ParameterizedTypeName) {
-      typeName.typeArguments.forEach { argument ->
-        collectReturnGenerics(argument, acc)
-        if (argument is ClassName) {
-          acc.add(argument)
-        }
+private fun KotlinGenerationContext.collectReturnGenerics(typeName: TypeName, acc: MutableList<TypeName>) {
+  if (typeName is com.squareup.kotlinpoet.ParameterizedTypeName) {
+    typeName.typeArguments.forEach { argument ->
+      this.collectReturnGenerics(argument, acc)
+      if (argument is ClassName) {
+        acc.add(argument)
       }
     }
   }

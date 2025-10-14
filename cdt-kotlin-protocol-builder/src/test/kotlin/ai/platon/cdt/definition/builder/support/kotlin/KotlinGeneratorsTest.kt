@@ -40,50 +40,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class KotlinGeneratorsTest {
-  private val supportStubs = listOf(
-      SourceFile.kotlin(
-          "SupportAnnotations.kt",
-          """
-          package ai.platon.cdt.protocol.support.annotations
-
-          import kotlin.reflect.KClass
-
-          @Target(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.PROPERTY)
-          @Retention(AnnotationRetention.RUNTIME)
-          annotation class Optional
-
-          @Target(AnnotationTarget.FUNCTION, AnnotationTarget.CLASS)
-          @Retention(AnnotationRetention.RUNTIME)
-          annotation class Experimental
-
-          @Target(AnnotationTarget.VALUE_PARAMETER)
-          @Retention(AnnotationRetention.RUNTIME)
-          annotation class ParamName(val value: String)
-
-          @Target(AnnotationTarget.FUNCTION)
-          @Retention(AnnotationRetention.RUNTIME)
-          annotation class Returns(val value: String)
-
-          @Target(AnnotationTarget.FUNCTION)
-          @Retention(AnnotationRetention.RUNTIME)
-          annotation class ReturnTypeParameter(vararg val value: KClass<*>)
-
-          @Target(AnnotationTarget.FUNCTION)
-          @Retention(AnnotationRetention.RUNTIME)
-          annotation class EventName(val value: String)
-          """.trimIndent()),
-      SourceFile.kotlin(
-          "SupportTypes.kt",
-          """
-          package ai.platon.cdt.protocol.support.types
-
-          fun interface EventHandler<T> {
-            fun handle(event: T)
-          }
-
-          interface EventListener
-          """.trimIndent()))
-
   private val context = KotlinGenerationContext(
       basePackage = "ai.platon.cdt.protocol",
       typesPackage = "ai.platon.cdt.protocol.types",
@@ -146,7 +102,8 @@ class KotlinGeneratorsTest {
   val hasReturnTypeParam = code.contains("@ReturnTypeParameter(String::class)")
   val hasOverload = code.contains("suspend fun getResponseBody(@ParamName(\"requestId\") requestId: String): List<String>")
   val hasReturnDelegate = code.contains("return getResponseBody(requestId, null)")
-  val hasEvent = code.contains("fun onResponseReceived(eventListener: EventHandler")
+  val hasEventHandlerVariant = code.contains("fun onResponseReceived(eventListener: EventHandler<ResponseReceived>): EventListener")
+  val hasSuspendLambdaVariant = code.contains("fun onResponseReceived(eventListener: suspend (ResponseReceived) -> Unit): EventListener")
 
   assertTrue(hasSuspend)
   assertTrue(hasParamName)
@@ -157,7 +114,8 @@ class KotlinGeneratorsTest {
   assertTrue(hasReturnTypeParam)
   assertTrue(hasOverload)
   assertTrue(hasReturnDelegate)
-  assertTrue(hasEvent)
+  assertTrue(hasEventHandlerVariant)
+  assertTrue(hasSuspendLambdaVariant)
   }
 
   @Test
@@ -238,7 +196,7 @@ class KotlinGeneratorsTest {
             .collect(Collectors.toCollection { ArrayList<SourceFile>() })
       }
 
-      sources.addAll(supportStubs)
+      // No manual support stubs added; generator already produced support types
 
       assertTrue("Expected generated Kotlin sources", sources.isNotEmpty())
 

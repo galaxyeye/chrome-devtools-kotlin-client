@@ -55,18 +55,13 @@ class KotlinProtocolGenerator(
 
     private fun buildChromeDevTools(protocol: DevToolsProtocol): KotlinSourceFile {
         val interfaceBuilder = TypeSpec.interfaceBuilder("ChromeDevTools")
-        // Kotlin default is public; avoid explicit public modifier in generated code
-        // .addModifiers(KModifier.PUBLIC)
-
+        // For each domain generate a Kotlin property instead of a Java-style getter
         protocol.domains?.forEach { domain ->
-            val methodName = "get" + StringUtils.toEnumClass(domain.domain)
-            val returnType =
-                ClassName(context.commandDomainPackage(domain), StringUtils.toEnumClass(domain.domain))
-            val funSpec = FunSpec.builder(methodName)
-                .addModifiers(KModifier.ABSTRACT)
-                .returns(returnType)
-                .build()
-            interfaceBuilder.addFunction(funSpec)
+            val typeName = ClassName(context.commandDomainPackage(domain), StringUtils.toEnumClass(domain.domain))
+            val propertyName = domain.domain.replaceFirstChar { it.lowercase() }
+            val propertyBuilder = PropertySpec.builder(propertyName, typeName)
+            domain.description?.takeIf { it.isNotBlank() }?.let { propertyBuilder.addKdoc("%L", it) }
+            interfaceBuilder.addProperty(propertyBuilder.build())
         }
 
         val file = FileSpec.builder(context.basePackage, "ChromeDevTools")
@@ -184,9 +179,9 @@ class KotlinProtocolGenerator(
 
         val fileBuilder = FileSpec.builder(typesPkg, "SupportTypes")
 
-        // fun interface EventHandler<T> { fun handle(event: T) }
+        // fun interface EventHandler<T> { fun onEvent(event: T) }
         val tType = TypeVariableName("T")
-        val handleFun = FunSpec.builder("handle")
+        val handleFun = FunSpec.builder("onEvent")
             .addModifiers(KModifier.ABSTRACT)
             .addParameter("event", tType)
             .build()
@@ -197,8 +192,19 @@ class KotlinProtocolGenerator(
             .build()
         fileBuilder.addType(eventHandler)
 
-        // interface EventListener
-        val eventListener = TypeSpec.interfaceBuilder("EventListener").build()
+        // interface EventListener with standard unsubscribe methods
+        val offFun = FunSpec.builder("off")
+            .addKdoc("Alias to unsubscribe.  ")
+            .addModifiers(KModifier.ABSTRACT)
+            .build()
+        val unsubscribeFun = FunSpec.builder("unsubscribe")
+            .addKdoc("Unsubscribe this event listener.  ")
+            .addModifiers(KModifier.ABSTRACT)
+            .build()
+        val eventListener = TypeSpec.interfaceBuilder("EventListener")
+            .addFunction(offFun)
+            .addFunction(unsubscribeFun)
+            .build()
         fileBuilder.addType(eventListener)
 
         KotlinSourceFile(fileBuilder.build()).also(project::addFile)

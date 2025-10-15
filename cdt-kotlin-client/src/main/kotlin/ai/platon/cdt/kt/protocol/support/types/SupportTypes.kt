@@ -1,7 +1,7 @@
 package ai.platon.cdt.kt.protocol.support.types
 
 public fun interface EventHandler<T> {
-  public fun onEvent(event: T)
+  public suspend fun onEvent(event: T)
 }
 
 public interface EventListener {

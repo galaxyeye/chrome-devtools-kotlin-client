@@ -17,13 +17,19 @@ import ai.platon.pulsar.common.serialize.json.prettyPulsarObjectMapper
 import org.apache.commons.io.FileUtils
 import org.apache.commons.lang3.SystemUtils
 import org.slf4j.LoggerFactory
-import java.io.*
+import java.io.BufferedReader
+import java.io.FileFilter
+import java.io.IOException
+import java.io.InputStreamReader
 import java.net.Socket
 import java.nio.channels.FileChannel
 import java.nio.channels.FileLockInterruptionException
 import java.nio.channels.OverlappingFileLockException
 import java.nio.charset.Charset
-import java.nio.file.*
+import java.nio.file.Files
+import java.nio.file.NoSuchFileException
+import java.nio.file.Path
+import java.nio.file.StandardOpenOption
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.concurrent.atomic.AtomicBoolean
@@ -37,7 +43,7 @@ import kotlin.time.toJavaDuration
  * The chrome launcher
  * */
 class ChromeLauncher constructor(
-    val userDataDir: Path,
+    val userDataDir: Path = AppPaths.CONTEXT_DEFAULT_DIR.resolve("chrome"),
     val options: LauncherOptions = LauncherOptions(),
     private val shutdownHookRegistry: ShutdownHookRegistry = RuntimeShutdownHookRegistry()
 ) : AutoCloseable {
@@ -52,6 +58,7 @@ class ChromeLauncher constructor(
     private val pidPath get() = userDataDir.resolveSibling(PID_FILE_NAME)
     private val portPath get() = userDataDir.resolveSibling(PORT_FILE_NAME)
     private val temporaryUddExpiry = BrowserFiles.TEMPORARY_UDD_EXPIRY
+
     // The number of recent temporary user data directories to keep, the browser has to be closed
     private val recentNToKeep = 10
     private var process: Process? = null
@@ -81,7 +88,7 @@ class ChromeLauncher constructor(
      * @throws ChromeLaunchException If an error occurs during the Chrome process launch.
      */
     @Throws(ChromeLaunchException::class)
-    fun launch(chromeBinaryPath: Path, options: ChromeOptions): RemoteChrome {
+    fun launch(chromeBinaryPath: Path, options: ChromeOptions): ChromeService {
         // Check if there's already a Chrome process using this userDataDir
         val existingPort = checkExistingChromeProcess()
         if (existingPort > 0) {
@@ -230,6 +237,7 @@ class ChromeLauncher constructor(
             false
         }
     }
+
     /**
      * Cleans up invalid port and PID files when the associated process is no longer alive.
      *
@@ -250,20 +258,20 @@ class ChromeLauncher constructor(
      * Launch chrome
      * */
     @Throws(ChromeLaunchException::class)
-    fun launch(options: ChromeOptions) = launch(Browsers.searchChromeBinary(), options)
+    fun launch(options: ChromeOptions): ChromeService = launch(Browsers.searchChromeBinary(), options)
 
     /**
      * Launch chrome
      * */
     @Throws(ChromeLaunchException::class)
-    fun launch(headless: Boolean) =
+    fun launch(headless: Boolean): ChromeService =
         launch(Browsers.searchChromeBinary(), ChromeOptions().also { it.headless = headless })
 
     /**
      * Launch chrome
      * */
     @Throws(ChromeLaunchException::class)
-    fun launch() = launch(true)
+    fun launch(): ChromeService = launch(true)
 
     /**
      * Destroy the chrome process forcibly.
@@ -643,7 +651,12 @@ Kill all Chrome processes and run the program again.
     /**
      * Builds comprehensive launch report data.
      */
-    private fun buildLaunchReportData(chromeBinaryPath: Path, options: ChromeOptions, port: Int, launchDuration: Long): Map<String, Any> {
+    private fun buildLaunchReportData(
+        chromeBinaryPath: Path,
+        options: ChromeOptions,
+        port: Int,
+        launchDuration: Long
+    ): Map<String, Any> {
         val currentProcess = process
         val reportData = mutableMapOf<String, Any>()
 
@@ -667,7 +680,8 @@ Kill all Chrome processes and run the program again.
         val chromeOptionsInfo = mutableMapOf<String, Any>()
         chromeOptionsInfo["headless"] = options.headless
         chromeOptionsInfo["arguments"] = options.toList()
-        chromeOptionsInfo["isSystemDefaultBrowser"] = userDataDir.startsWith(AppPaths.SYSTEM_DEFAULT_BROWSER_DATA_DIR_PLACEHOLDER)
+        chromeOptionsInfo["isSystemDefaultBrowser"] =
+            userDataDir.startsWith(AppPaths.SYSTEM_DEFAULT_BROWSER_DATA_DIR_PLACEHOLDER)
         reportData["chromeOptions"] = chromeOptionsInfo
 
         // System information

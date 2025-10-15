@@ -20,12 +20,10 @@ package ai.platon.cdt.examples;
  * #L%
  */
 
-import ai.platon.cdt.launch.ChromeLauncher;
-import ai.platon.cdt.protocol.commands.Network;
-import ai.platon.cdt.protocol.commands.Page;
-import ai.platon.cdt.services.ChromeDevToolsService;
-import ai.platon.cdt.services.ChromeService;
-import ai.platon.cdt.services.types.ChromeTab;
+import ai.platon.cdt.kt.protocol.commands.Network;
+import ai.platon.pulsar.browser.driver.chrome.ChromeLauncher;
+import ai.platon.pulsar.browser.driver.chrome.ChromeTab;
+
 import java.util.Arrays;
 
 /**
@@ -34,38 +32,38 @@ import java.util.Arrays;
  * @author Kenan Klisura
  */
 public class BlockUrlsExample {
-  public static void main(String[] args) {
-    // Create chrome launcher.
-    final ChromeLauncher launcher = new ChromeLauncher();
+    public static void main(String[] args) {
+        // Create chrome launcher.
+        final ChromeLauncher launcher = new ChromeLauncher();
 
-    // Launch chrome either as headless (true) or regular (false).
-    final ChromeService chromeService = launcher.launch(false);
+        // Launch chrome either as headless (true) or regular (false).
+        final ChromeService chromeService = launcher.launch(false);
 
-    // Create empty tab ie about:blank.
-    final ChromeTab tab = chromeService.createTab();
+        // Create empty tab ie about:blank.
+        final ChromeTab tab = chromeService.createTab();
 
-    // Get DevTools service to this tab
-    final ChromeDevToolsService devToolsService = chromeService.createDevToolsService(tab);
+        // Get DevTools service to this tab
+        final ChromeDevToolsService devToolsService = chromeService.createDevToolsService(tab);
 
-    // Get individual commands
-    final Page page = devToolsService.getPage();
-    final Network network = devToolsService.getNetwork();
+        // Get individual commands
+        final Page page = devToolsService.getPage();
+        final Network network = devToolsService.getNetwork();
 
-    network.setBlockedURLs(Arrays.asList("*.png", "*.css"));
-    page.onLoadEventFired(event -> devToolsService.close());
+        network.setBlockedURLs(Arrays.asList("*.png", "*.css"));
+        page.onLoadEventFired(event -> devToolsService.close());
 
-    network.enable();
+        network.enable();
 
-    // Enable page events.
-    page.enable();
+        // Enable page events.
+        page.enable();
 
-    // Navigate to github.com.
-    page.navigate("http://github.com");
+        // Navigate to github.com.
+        page.navigate("http://github.com");
 
-    devToolsService.waitUntilClosed();
-  }
+        devToolsService.waitUntilClosed();
+    }
 
-  public static boolean isBlocked(String url) {
-    return url.endsWith(".png") || url.endsWith(".css");
-  }
+    public static boolean isBlocked(String url) {
+        return url.endsWith(".png") || url.endsWith(".css");
+    }
 }

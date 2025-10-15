@@ -21,7 +21,7 @@ interface Transport : AutoCloseable {
     fun addMessageHandler(consumer: Consumer<String>)
 }
 
-interface RemoteChrome : AutoCloseable {
+interface ChromeService : AutoCloseable {
 
     val isActive: Boolean
 
@@ -49,10 +49,18 @@ interface RemoteChrome : AutoCloseable {
     fun closeTab(tab: ChromeTab)
 
     @Throws(ChromeServiceException::class)
-    fun createDevTools(tab: ChromeTab, config: DevToolsConfig = DevToolsConfig()): RemoteDevTools
+    fun createDevTools(tab: ChromeTab, config: DevToolsConfig = DevToolsConfig()): ChromeDevToolsService
+
+    // Compatibility
+    @Throws(ChromeServiceException::class)
+    fun createDevToolsService(tab: ChromeTab): ChromeDevToolsService = createDevTools(tab, DevToolsConfig())
+
+    // Compatibility
+    @Throws(ChromeServiceException::class)
+    fun createDevToolsService(tab: ChromeTab, config: DevToolsConfig = DevToolsConfig()): ChromeDevToolsService = createDevTools(tab, config)
 }
 
-interface RemoteDevTools : ChromeDevTools, AutoCloseable {
+interface ChromeDevToolsService : ChromeDevTools, AutoCloseable {
 
     val isOpen: Boolean
 
@@ -70,7 +78,6 @@ interface RemoteDevTools : ChromeDevTools, AutoCloseable {
         returnProperty: String? = null
     ): T?
 
-    @Throws(InterruptedException::class)
     fun awaitTermination()
 
     fun addEventListener(
@@ -81,8 +88,15 @@ interface RemoteDevTools : ChromeDevTools, AutoCloseable {
     ): EventListener
 
     fun removeEventListener(eventListener: EventListener)
+
+    // Compatibility
+    fun waitUntilClosed() = awaitTermination()
 }
 
 suspend inline operator fun <reified T : Any> RemoteDevTools.invoke(
     method: String, params: Map<String, Any?>?, returnProperty: String? = null
 ): T? = invoke(method, params, T::class, returnProperty)
+
+// Compatibility
+typealias RemoteChrome = ChromeService
+typealias RemoteDevTools = ChromeDevToolsService

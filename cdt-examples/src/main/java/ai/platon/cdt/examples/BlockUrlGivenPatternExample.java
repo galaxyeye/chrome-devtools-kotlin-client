@@ -20,12 +20,18 @@ package ai.platon.cdt.examples;
  * #L%
  */
 
-import ai.platon.cdt.launch.ChromeLauncher;
-import ai.platon.cdt.protocol.commands.Network;
-import ai.platon.cdt.protocol.commands.Page;
-import ai.platon.cdt.services.ChromeDevToolsService;
-import ai.platon.cdt.services.ChromeService;
-import ai.platon.cdt.services.types.ChromeTab;
+import ai.platon.cdt.kt.protocol.commands.Network;
+import ai.platon.cdt.kt.protocol.commands.Page;
+import ai.platon.cdt.kt.protocol.events.page.LoadEventFired;
+import ai.platon.cdt.kt.protocol.support.types.EventHandler;
+import ai.platon.pulsar.browser.driver.chrome.ChromeDevToolsService;
+import ai.platon.pulsar.browser.driver.chrome.ChromeLauncher;
+import ai.platon.pulsar.browser.driver.chrome.ChromeService;
+import ai.platon.pulsar.browser.driver.chrome.ChromeTab;
+import kotlin.coroutines.Continuation;
+import kotlin.coroutines.CoroutineContext;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 
 /**
@@ -51,24 +57,37 @@ public class BlockUrlGivenPatternExample {
     final Page page = devToolsService.getPage();
     final Network network = devToolsService.getNetwork();
 
+    final Continuation<Object> continuation = new Continuation<>() {
+        @NotNull
+        @Override
+        public CoroutineContext getContext() {
+            return null;
+        }
+
+        @Override
+        public void resumeWith(@NotNull Object o) {
+
+        }
+    };
+
     // Block some urls.
-    network.setBlockedURLs(Arrays.asList("**/*.css", "**/*.png", "**/*.svg"));
+    network.setBlockedURLs(Arrays.asList("**/*.css", "**/*.png", "**/*.svg"), continuation);
 
     // Enable network events
-    network.enable();
+    network.enable(continuation);
 
     // Wait for on load event
-    page.onLoadEventFired(
-        event -> {
+      page.onLoadEventFired((EventHandler<LoadEventFired>) (event, $completion) -> {
           // Close devtools.
-          devToolsService.close();
-        });
+          try { devToolsService.close(); } catch (Exception ignored) {}
+          return null;
+      });
 
     // Enable page events.
-    page.enable();
+    page.enable(continuation);
 
     // Navigate to github.com.
-    page.navigate("http://github.com");
+    page.navigate("http://github.com", continuation);
 
     // Wait until devtools is closed.
     devToolsService.waitUntilClosed();

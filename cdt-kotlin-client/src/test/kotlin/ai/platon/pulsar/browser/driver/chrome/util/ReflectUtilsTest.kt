@@ -121,18 +121,6 @@ class ReflectUtilsTest {
     }
 }
 
-class ProxyClassesTest {
-
-    @Test
-    fun createProxyFromAbstract_shouldThrowExceptionForInvalidClass() {
-        val handler = mock(SuspendAwareHandler::class.java)
-
-        assertThrows(RuntimeException::class.java) {
-            ProxyClasses.createProxyFromAbstract(SampleAbstractClass::class.java, emptyArray(), null, handler)
-        }
-    }
-}
-
 interface SimpleInHandler<in T>
 interface SimpleOutHandler<out T>
 

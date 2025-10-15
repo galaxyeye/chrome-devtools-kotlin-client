@@ -47,7 +47,7 @@ class OverlayExample : BrowserExampleBase() {
         page.navigate(testUrl)
         page.onDocumentOpened {
             page.captureScreenshot()
-            highlight("#nav-xshop")
+            highlight("#nav-global-location-slot")
         }
     }
 

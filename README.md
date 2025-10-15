@@ -8,6 +8,8 @@ For more information on DevTools, see https://chromedevtools.github.io/devtools-
 
 ## Usage
 
+> **Note**: This API retains full compatibility with the original chrome-devtools-java-client, but all methods are defined as suspend functions, making them non-blocking.
+
 ```kotlin
 
 suspend fun main() {

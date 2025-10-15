@@ -55,6 +55,8 @@ suspend fun main() {
 
 ```
 
+- [Examples](cdt-kotlin-client/src/test/kotlin/ai/platon/pulsar/browser/driver/examples)
+
 ## Running unit tests
 
 `make verify`

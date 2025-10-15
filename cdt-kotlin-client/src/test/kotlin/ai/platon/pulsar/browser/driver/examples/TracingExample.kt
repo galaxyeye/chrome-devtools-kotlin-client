@@ -37,9 +37,7 @@ class TracingExample: BrowserExampleBase() {
 
         // Add tracing data to dataCollectedList
         tracing.onDataCollected { event: DataCollected ->
-            if (event.value != null) {
-                dataCollectedList.addAll(event.value)
-            }
+            dataCollectedList.addAll(event.value)
         }
 
         // When tracing is complete, dump dataCollectedList to JSON file.

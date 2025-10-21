@@ -1,6 +1,6 @@
 
 Lists of 53 third-party dependencies.
-     (The Apache License, Version 2.0) cdt-protocol-parser (ai.platon.cdt:cdt-protocol-parser:0.0.0-SNAPSHOT - https://github.com/kklisura/chrome-devtools-java-client)
+     (The Apache License, Version 2.0) cdt-protocol-parser (ai.platon.cdt:cdt-protocol-parser:0.0.1-SNAPSHOT - https://github.com/kklisura/chrome-devtools-java-client)
      (MIT License) args4j (args4j:args4j:2.33 - http://args4j.kohsuke.org/args4j/)
      (Eclipse Public License - v 1.0) (GNU Lesser General Public License) Logback Classic Module (ch.qos.logback:logback-classic:1.5.13 - http://logback.qos.ch/logback-classic)
      (Eclipse Public License - v 1.0) (GNU Lesser General Public License) Logback Core Module (ch.qos.logback:logback-core:1.5.13 - http://logback.qos.ch/logback-core)

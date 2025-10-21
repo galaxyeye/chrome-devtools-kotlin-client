@@ -161,6 +161,8 @@ class KotlinCommandsBuilder(
 
         if (property.optional == java.lang.Boolean.TRUE) {
             paramBuilder.addAnnotation(context.optionalAnnotation)
+            // Set default to null for optional params so callers can omit them
+            paramBuilder.defaultValue("null")
         }
         if (property.deprecated == java.lang.Boolean.TRUE) {
             paramBuilder.addAnnotation(context.deprecatedAnnotation)

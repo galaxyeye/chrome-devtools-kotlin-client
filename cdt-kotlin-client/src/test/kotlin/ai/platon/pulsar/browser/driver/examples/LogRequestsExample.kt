@@ -41,9 +41,10 @@ class LogRequestsExample: BrowserExampleBase() {
         }
 
         network.onLoadingFinished {
+            println("Loading finished")
             // Close the tab and close the browser when loading finishes.
-            chrome.closeTab(tab)
-            launcher.close()
+//            chrome.closeTab(tab)
+//            launcher.close()
         }
 
         page.navigate(testUrl)

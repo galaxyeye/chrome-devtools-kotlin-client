@@ -31,5 +31,5 @@ class EventsExample: BrowserExampleBase() {
 }
 
 suspend fun main() {
-    BlockUrlsExample().use { it.run() }
+    EventsExample().use { it.run() }
 }

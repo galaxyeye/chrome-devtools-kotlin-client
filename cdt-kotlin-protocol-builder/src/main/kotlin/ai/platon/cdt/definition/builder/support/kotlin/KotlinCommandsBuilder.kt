@@ -28,7 +28,11 @@ class KotlinCommandsBuilder(
             interfaceBuilder.addAnnotation(context.experimentalAnnotation)
         }
         if (domain.deprecated == java.lang.Boolean.TRUE) {
-            interfaceBuilder.addAnnotation(context.deprecatedAnnotation)
+            interfaceBuilder.addAnnotation(
+                AnnotationSpec.builder(context.deprecatedAnnotation)
+                    .addMember("%S", "Deprecated by protocol")
+                    .build()
+            )
         }
 
         val additionalFiles = mutableListOf<FileSpec>()
@@ -71,8 +75,16 @@ class KotlinCommandsBuilder(
                 .addAnnotation(eventNameAnnotation)
 
             if (event.deprecated == java.lang.Boolean.TRUE) {
-                funBuilder.addAnnotation(context.deprecatedAnnotation)
-                suspendFunBuilder.addAnnotation(context.deprecatedAnnotation)
+                funBuilder.addAnnotation(
+                    AnnotationSpec.builder(context.deprecatedAnnotation)
+                        .addMember("%S", "Deprecated by protocol")
+                        .build()
+                )
+                suspendFunBuilder.addAnnotation(
+                    AnnotationSpec.builder(context.deprecatedAnnotation)
+                        .addMember("%S", "Deprecated by protocol")
+                        .build()
+                )
             }
             if (event.experimental == java.lang.Boolean.TRUE) {
                 funBuilder.addAnnotation(context.experimentalAnnotation)
@@ -123,10 +135,18 @@ class KotlinCommandsBuilder(
         }
 
         if (command.deprecated == java.lang.Boolean.TRUE) {
-            primaryMethod.addAnnotation(context.deprecatedAnnotation)
+            primaryMethod.addAnnotation(
+                AnnotationSpec.builder(context.deprecatedAnnotation)
+                    .addMember("%S", "Deprecated by protocol")
+                    .build()
+            )
         }
         if (command.experimental == java.lang.Boolean.TRUE) {
-            primaryMethod.addAnnotation(context.experimentalAnnotation)
+            primaryMethod.addAnnotation(
+                AnnotationSpec.builder(context.deprecatedAnnotation)
+                    .addMember("%S", "Deprecated by protocol")
+                    .build()
+            )
         }
 
         if (returnComputation.returnsAnnotation != null) {
@@ -165,7 +185,11 @@ class KotlinCommandsBuilder(
             paramBuilder.defaultValue("null")
         }
         if (property.deprecated == java.lang.Boolean.TRUE) {
-            paramBuilder.addAnnotation(context.deprecatedAnnotation)
+            paramBuilder.addAnnotation(
+                AnnotationSpec.builder(context.deprecatedAnnotation)
+                    .addMember("%S", "Deprecated by protocol")
+                    .build()
+            )
         }
         if (property.experimental == java.lang.Boolean.TRUE) {
             paramBuilder.addAnnotation(context.experimentalAnnotation)

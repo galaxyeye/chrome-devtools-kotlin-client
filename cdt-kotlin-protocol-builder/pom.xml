@@ -26,9 +26,9 @@
         <apache.collections.version>4.1</apache.collections.version>
         <apache.lang3.version>3.18.0</apache.lang3.version>
 
-        <kotlin.version>1.9.25</kotlin.version>
-        <!-- kotlinpoet-1.17.0: kotlin-stdlib: 1.9.24 -> 2.2.20 -->
-        <kotlinpoet.version>1.17.0</kotlinpoet.version>
+        <kotlin.version>2.2.20</kotlin.version>
+        <!-- kotlinpoet-2.2.0: kotlin-stdlib: 2.1.21 -> 2.2.20 -->
+        <kotlinpoet.version>2.2.0</kotlinpoet.version>
         <!-- kotlin-compile-testing:1.6.0: kotlin-compiler-embeddable: 1.9.24 -> 2.2.20 -->
         <kotlin-compile-testing>1.6.0</kotlin-compile-testing>
 

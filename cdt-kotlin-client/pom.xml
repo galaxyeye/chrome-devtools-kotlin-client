@@ -74,7 +74,7 @@
         <jsonassert.version>1.5.0</jsonassert.version>
         <mockwebserver.version>2.7.5</mockwebserver.version>
         <maven.surefire.plugin.version>3.2.5</maven.surefire.plugin.version>
-        <kotlin.version>1.9.25</kotlin.version>
+        <kotlin.version>2.2.20</kotlin.version>
     </properties>
 
     <dependencies>

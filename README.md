@@ -97,8 +97,8 @@ make update-copyright-license-header
 
 ## Release
 
-- 2.x - Kotlin 2.x
-- 1.x - Kotlin 1.x
+- 2.x - Kotlinpoet 2.x, Kotlin 2.x
+- 1.x - Kotlinpoet 1.7.x, Kotlin 1.x
 
 ## License
 

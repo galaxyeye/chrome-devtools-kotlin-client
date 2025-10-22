@@ -57,6 +57,52 @@ After:
       List<Map<String, Any?>>
 ```
 
+6) Redundant 'public' modifier
+
+There are redundant 'public' modifier in generated kotlin code.
+
+Before:
+```kotlin
+public data class BackendNode(
+  @field:JsonProperty("nodeType")
+  public val nodeType: Int,
+  @field:JsonProperty("nodeName")
+  public val nodeName: String,
+  @field:JsonProperty("backendNodeId")
+  public val backendNodeId: Int,
+)
+```
+
+After:
+```kotlin
+data class BackendNode(
+  @field:JsonProperty("nodeType")
+  val nodeType: Int,
+  @field:JsonProperty("nodeName")
+  val nodeName: String,
+  @field:JsonProperty("backendNodeId")
+  val backendNodeId: Int,
+)
+```
+
+7) suspend onEvent() method in EventHandler
+
+The generated `EventHandler` kotlin code should have a suspend `onEvent` method.
+
+Before:
+```kotlin
+fun interface EventHandler<T> {
+  fun onEvent(event: T)
+}
+```
+
+After:
+```kotlin
+fun interface EventHandler<T> {
+  suspend fun onEvent(event: T)
+}
+```
+
 Edge cases
 - Collections: `List<T>? = null`, `Map<K, V>? = null` are valid for optional collections.
 - Enums: `MyEnum? = null` when optional.

@@ -18,13 +18,13 @@ interface Tethering {
    * Request browser port binding.
    * @param port Port number to bind.
    */
-  public suspend fun bind(@ParamName("port") port: Int)
+  suspend fun bind(@ParamName("port") port: Int)
 
   /**
    * Request browser port unbinding.
    * @param port Port number to unbind.
    */
-  public suspend fun unbind(@ParamName("port") port: Int)
+  suspend fun unbind(@ParamName("port") port: Int)
 
   @EventName("accepted")
   fun onAccepted(eventListener: EventHandler<Accepted>): EventListener

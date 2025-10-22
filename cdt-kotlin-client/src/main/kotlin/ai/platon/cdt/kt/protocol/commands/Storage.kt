@@ -29,7 +29,7 @@ interface Storage {
    * @param origin Security origin.
    * @param storageTypes Comma separated list of StorageType to clear.
    */
-  public suspend fun clearDataForOrigin(@ParamName("origin") origin: String, @ParamName("storageTypes") storageTypes: String)
+  suspend fun clearDataForOrigin(@ParamName("origin") origin: String, @ParamName("storageTypes") storageTypes: String)
 
   /**
    * Returns all browser cookies.
@@ -37,11 +37,11 @@ interface Storage {
    */
   @Returns("cookies")
   @ReturnTypeParameter(Cookie::class)
-  public suspend fun getCookies(@ParamName("browserContextId") @Optional browserContextId: String? = null): List<Cookie>
+  suspend fun getCookies(@ParamName("browserContextId") @Optional browserContextId: String? = null): List<Cookie>
 
   @Returns("cookies")
   @ReturnTypeParameter(Cookie::class)
-  public suspend fun getCookies(): List<Cookie> {
+  suspend fun getCookies(): List<Cookie> {
     return getCookies(null)
   }
 
@@ -50,9 +50,9 @@ interface Storage {
    * @param cookies Cookies to be set.
    * @param browserContextId Browser context to use when called on the browser endpoint.
    */
-  public suspend fun setCookies(@ParamName("cookies") cookies: List<CookieParam>, @ParamName("browserContextId") @Optional browserContextId: String? = null)
+  suspend fun setCookies(@ParamName("cookies") cookies: List<CookieParam>, @ParamName("browserContextId") @Optional browserContextId: String? = null)
 
-  public suspend fun setCookies(@ParamName("cookies") cookies: List<CookieParam>) {
+  suspend fun setCookies(@ParamName("cookies") cookies: List<CookieParam>) {
     return setCookies(cookies, null)
   }
 
@@ -60,9 +60,9 @@ interface Storage {
    * Clears cookies.
    * @param browserContextId Browser context to use when called on the browser endpoint.
    */
-  public suspend fun clearCookies(@ParamName("browserContextId") @Optional browserContextId: String? = null)
+  suspend fun clearCookies(@ParamName("browserContextId") @Optional browserContextId: String? = null)
 
-  public suspend fun clearCookies() {
+  suspend fun clearCookies() {
     return clearCookies(null)
   }
 
@@ -70,7 +70,7 @@ interface Storage {
    * Returns usage and quota in bytes.
    * @param origin Security origin.
    */
-  public suspend fun getUsageAndQuota(@ParamName("origin") origin: String): UsageAndQuota
+  suspend fun getUsageAndQuota(@ParamName("origin") origin: String): UsageAndQuota
 
   /**
    * Override quota for the specified origin
@@ -84,10 +84,10 @@ interface Storage {
    * disabled (called without a quotaSize).
    */
   @Experimental
-  public suspend fun overrideQuotaForOrigin(@ParamName("origin") origin: String, @ParamName("quotaSize") @Optional quotaSize: Double? = null)
+  suspend fun overrideQuotaForOrigin(@ParamName("origin") origin: String, @ParamName("quotaSize") @Optional quotaSize: Double? = null)
 
   @Experimental
-  public suspend fun overrideQuotaForOrigin(@ParamName("origin") origin: String) {
+  suspend fun overrideQuotaForOrigin(@ParamName("origin") origin: String) {
     return overrideQuotaForOrigin(origin, null)
   }
 
@@ -95,25 +95,25 @@ interface Storage {
    * Registers origin to be notified when an update occurs to its cache storage list.
    * @param origin Security origin.
    */
-  public suspend fun trackCacheStorageForOrigin(@ParamName("origin") origin: String)
+  suspend fun trackCacheStorageForOrigin(@ParamName("origin") origin: String)
 
   /**
    * Registers origin to be notified when an update occurs to its IndexedDB.
    * @param origin Security origin.
    */
-  public suspend fun trackIndexedDBForOrigin(@ParamName("origin") origin: String)
+  suspend fun trackIndexedDBForOrigin(@ParamName("origin") origin: String)
 
   /**
    * Unregisters origin from receiving notifications for cache storage.
    * @param origin Security origin.
    */
-  public suspend fun untrackCacheStorageForOrigin(@ParamName("origin") origin: String)
+  suspend fun untrackCacheStorageForOrigin(@ParamName("origin") origin: String)
 
   /**
    * Unregisters origin from receiving notifications for IndexedDB.
    * @param origin Security origin.
    */
-  public suspend fun untrackIndexedDBForOrigin(@ParamName("origin") origin: String)
+  suspend fun untrackIndexedDBForOrigin(@ParamName("origin") origin: String)
 
   /**
    * Returns the number of stored Trust Tokens per issuer for the
@@ -122,7 +122,7 @@ interface Storage {
   @Experimental
   @Returns("tokens")
   @ReturnTypeParameter(TrustTokens::class)
-  public suspend fun getTrustTokens(): List<TrustTokens>
+  suspend fun getTrustTokens(): List<TrustTokens>
 
   /**
    * Removes all Trust Tokens issued by the provided issuerOrigin.
@@ -131,7 +131,7 @@ interface Storage {
    */
   @Experimental
   @Returns("didDeleteTokens")
-  public suspend fun clearTrustTokens(@ParamName("issuerOrigin") issuerOrigin: String): Boolean
+  suspend fun clearTrustTokens(@ParamName("issuerOrigin") issuerOrigin: String): Boolean
 
   @EventName("cacheStorageContentUpdated")
   fun onCacheStorageContentUpdated(eventListener: EventHandler<CacheStorageContentUpdated>): EventListener

@@ -67,44 +67,44 @@ interface Network {
    * @param encodings List of accepted content encodings.
    */
   @Experimental
-  public suspend fun setAcceptedEncodings(@ParamName("encodings") encodings: List<ContentEncoding>)
+  suspend fun setAcceptedEncodings(@ParamName("encodings") encodings: List<ContentEncoding>)
 
   /**
    * Clears accepted encodings set by setAcceptedEncodings
    */
   @Experimental
-  public suspend fun clearAcceptedEncodingsOverride()
+  suspend fun clearAcceptedEncodingsOverride()
 
   /**
    * Tells whether clearing browser cache is supported.
    */
   @Deprecated
   @Returns("result")
-  public suspend fun canClearBrowserCache(): Boolean
+  suspend fun canClearBrowserCache(): Boolean
 
   /**
    * Tells whether clearing browser cookies is supported.
    */
   @Deprecated
   @Returns("result")
-  public suspend fun canClearBrowserCookies(): Boolean
+  suspend fun canClearBrowserCookies(): Boolean
 
   /**
    * Tells whether emulation of network conditions is supported.
    */
   @Deprecated
   @Returns("result")
-  public suspend fun canEmulateNetworkConditions(): Boolean
+  suspend fun canEmulateNetworkConditions(): Boolean
 
   /**
    * Clears browser cache.
    */
-  public suspend fun clearBrowserCache()
+  suspend fun clearBrowserCache()
 
   /**
    * Clears browser cookies.
    */
-  public suspend fun clearBrowserCookies()
+  suspend fun clearBrowserCookies()
 
   /**
    * Response to Network.requestIntercepted which either modifies the request to continue with any
@@ -129,7 +129,7 @@ interface Network {
    */
   @Deprecated
   @Experimental
-  public suspend fun continueInterceptedRequest(
+  suspend fun continueInterceptedRequest(
     @ParamName("interceptionId") interceptionId: String,
     @ParamName("errorReason") @Optional errorReason: ErrorReason? = null,
     @ParamName("rawResponse") @Optional rawResponse: String? = null,
@@ -142,7 +142,7 @@ interface Network {
 
   @Deprecated
   @Experimental
-  public suspend fun continueInterceptedRequest(@ParamName("interceptionId") interceptionId: String) {
+  suspend fun continueInterceptedRequest(@ParamName("interceptionId") interceptionId: String) {
     return continueInterceptedRequest(interceptionId, null, null, null, null, null, null, null)
   }
 
@@ -154,21 +154,21 @@ interface Network {
    * @param domain If specified, deletes only cookies with the exact domain.
    * @param path If specified, deletes only cookies with the exact path.
    */
-  public suspend fun deleteCookies(
+  suspend fun deleteCookies(
     @ParamName("name") name: String,
     @ParamName("url") @Optional url: String? = null,
     @ParamName("domain") @Optional domain: String? = null,
     @ParamName("path") @Optional path: String? = null,
   )
 
-  public suspend fun deleteCookies(@ParamName("name") name: String) {
+  suspend fun deleteCookies(@ParamName("name") name: String) {
     return deleteCookies(name, null, null, null)
   }
 
   /**
    * Disables network tracking, prevents network events from being sent to the client.
    */
-  public suspend fun disable()
+  suspend fun disable()
 
   /**
    * Activates emulation of network conditions.
@@ -178,7 +178,7 @@ interface Network {
    * @param uploadThroughput Maximal aggregated upload throughput (bytes/sec).  -1 disables upload throttling.
    * @param connectionType Connection type if known.
    */
-  public suspend fun emulateNetworkConditions(
+  suspend fun emulateNetworkConditions(
     @ParamName("offline") offline: Boolean,
     @ParamName("latency") latency: Double,
     @ParamName("downloadThroughput") downloadThroughput: Double,
@@ -186,7 +186,7 @@ interface Network {
     @ParamName("connectionType") @Optional connectionType: ConnectionType? = null,
   )
 
-  public suspend fun emulateNetworkConditions(
+  suspend fun emulateNetworkConditions(
     @ParamName("offline") offline: Boolean,
     @ParamName("latency") latency: Double,
     @ParamName("downloadThroughput") downloadThroughput: Double,
@@ -201,13 +201,13 @@ interface Network {
    * @param maxResourceBufferSize Per-resource buffer size in bytes to use when preserving network payloads (XHRs, etc).
    * @param maxPostDataSize Longest post body size (in bytes) that would be included in requestWillBeSent notification
    */
-  public suspend fun enable(
+  suspend fun enable(
     @ParamName("maxTotalBufferSize") @Optional @Experimental maxTotalBufferSize: Int? = null,
     @ParamName("maxResourceBufferSize") @Optional @Experimental maxResourceBufferSize: Int? = null,
     @ParamName("maxPostDataSize") @Optional maxPostDataSize: Int? = null,
   )
 
-  public suspend fun enable() {
+  suspend fun enable() {
     return enable(null, null, null)
   }
 
@@ -217,7 +217,7 @@ interface Network {
    */
   @Returns("cookies")
   @ReturnTypeParameter(Cookie::class)
-  public suspend fun getAllCookies(): List<Cookie>
+  suspend fun getAllCookies(): List<Cookie>
 
   /**
    * Returns the DER-encoded certificate.
@@ -226,7 +226,7 @@ interface Network {
   @Experimental
   @Returns("tableNames")
   @ReturnTypeParameter(String::class)
-  public suspend fun getCertificate(@ParamName("origin") origin: String): List<String>
+  suspend fun getCertificate(@ParamName("origin") origin: String): List<String>
 
   /**
    * Returns all browser cookies for the current URL. Depending on the backend support, will return
@@ -237,11 +237,11 @@ interface Network {
    */
   @Returns("cookies")
   @ReturnTypeParameter(Cookie::class)
-  public suspend fun getCookies(@ParamName("urls") @Optional urls: List<String>? = null): List<Cookie>
+  suspend fun getCookies(@ParamName("urls") @Optional urls: List<String>? = null): List<Cookie>
 
   @Returns("cookies")
   @ReturnTypeParameter(Cookie::class)
-  public suspend fun getCookies(): List<Cookie> {
+  suspend fun getCookies(): List<Cookie> {
     return getCookies(null)
   }
 
@@ -249,21 +249,21 @@ interface Network {
    * Returns content served for the given request.
    * @param requestId Identifier of the network request to get content for.
    */
-  public suspend fun getResponseBody(@ParamName("requestId") requestId: String): ResponseBody
+  suspend fun getResponseBody(@ParamName("requestId") requestId: String): ResponseBody
 
   /**
    * Returns post data sent with the request. Returns an error when no data was sent with the request.
    * @param requestId Identifier of the network request to get content for.
    */
   @Returns("postData")
-  public suspend fun getRequestPostData(@ParamName("requestId") requestId: String): String
+  suspend fun getRequestPostData(@ParamName("requestId") requestId: String): String
 
   /**
    * Returns content served for the given currently intercepted request.
    * @param interceptionId Identifier for the intercepted request to get body for.
    */
   @Experimental
-  public suspend fun getResponseBodyForInterception(@ParamName("interceptionId") interceptionId: String): ResponseBodyForInterception
+  suspend fun getResponseBodyForInterception(@ParamName("interceptionId") interceptionId: String): ResponseBodyForInterception
 
   /**
    * Returns a handle to the stream representing the response body. Note that after this command,
@@ -274,7 +274,7 @@ interface Network {
    */
   @Experimental
   @Returns("stream")
-  public suspend fun takeResponseBodyForInterceptionAsStream(@ParamName("interceptionId") interceptionId: String): String
+  suspend fun takeResponseBodyForInterceptionAsStream(@ParamName("interceptionId") interceptionId: String): String
 
   /**
    * This method sends a new XMLHttpRequest which is identical to the original one. The following
@@ -283,7 +283,7 @@ interface Network {
    * @param requestId Identifier of XHR to replay.
    */
   @Experimental
-  public suspend fun replayXHR(@ParamName("requestId") requestId: String)
+  suspend fun replayXHR(@ParamName("requestId") requestId: String)
 
   /**
    * Searches for given string in response content.
@@ -295,7 +295,7 @@ interface Network {
   @Experimental
   @Returns("result")
   @ReturnTypeParameter(SearchMatch::class)
-  public suspend fun searchInResponseBody(
+  suspend fun searchInResponseBody(
     @ParamName("requestId") requestId: String,
     @ParamName("query") query: String,
     @ParamName("caseSensitive") @Optional caseSensitive: Boolean? = null,
@@ -305,7 +305,7 @@ interface Network {
   @Experimental
   @Returns("result")
   @ReturnTypeParameter(SearchMatch::class)
-  public suspend fun searchInResponseBody(@ParamName("requestId") requestId: String, @ParamName("query") query: String): List<SearchMatch> {
+  suspend fun searchInResponseBody(@ParamName("requestId") requestId: String, @ParamName("query") query: String): List<SearchMatch> {
     return searchInResponseBody(requestId, query, null, null)
   }
 
@@ -314,20 +314,20 @@ interface Network {
    * @param urls URL patterns to block. Wildcards ('*') are allowed.
    */
   @Experimental
-  public suspend fun setBlockedURLs(@ParamName("urls") urls: List<String>)
+  suspend fun setBlockedURLs(@ParamName("urls") urls: List<String>)
 
   /**
    * Toggles ignoring of service worker for each request.
    * @param bypass Bypass service worker and load from network.
    */
   @Experimental
-  public suspend fun setBypassServiceWorker(@ParamName("bypass") bypass: Boolean)
+  suspend fun setBypassServiceWorker(@ParamName("bypass") bypass: Boolean)
 
   /**
    * Toggles ignoring cache for each request. If `true`, cache will not be used.
    * @param cacheDisabled Cache disabled state.
    */
-  public suspend fun setCacheDisabled(@ParamName("cacheDisabled") cacheDisabled: Boolean)
+  suspend fun setCacheDisabled(@ParamName("cacheDisabled") cacheDisabled: Boolean)
 
   /**
    * Sets a cookie with the given cookie data; may overwrite equivalent cookies if they exist.
@@ -349,7 +349,7 @@ interface Network {
    * This is a temporary ability and it will be removed in the future.
    */
   @Returns("success")
-  public suspend fun setCookie(
+  suspend fun setCookie(
     @ParamName("name") name: String,
     @ParamName("value") `value`: String,
     @ParamName("url") @Optional url: String? = null,
@@ -366,7 +366,7 @@ interface Network {
   ): Boolean
 
   @Returns("success")
-  public suspend fun setCookie(@ParamName("name") name: String, @ParamName("value") `value`: String): Boolean {
+  suspend fun setCookie(@ParamName("name") name: String, @ParamName("value") `value`: String): Boolean {
     return setCookie(name, `value`, null, null, null, null, null, null, null, null, null, null, null)
   }
 
@@ -374,7 +374,7 @@ interface Network {
    * Sets given cookies.
    * @param cookies Cookies to be set.
    */
-  public suspend fun setCookies(@ParamName("cookies") cookies: List<CookieParam>)
+  suspend fun setCookies(@ParamName("cookies") cookies: List<CookieParam>)
 
   /**
    * For testing.
@@ -382,20 +382,20 @@ interface Network {
    * @param maxResourceSize Maximum per-resource size.
    */
   @Experimental
-  public suspend fun setDataSizeLimitsForTest(@ParamName("maxTotalSize") maxTotalSize: Int, @ParamName("maxResourceSize") maxResourceSize: Int)
+  suspend fun setDataSizeLimitsForTest(@ParamName("maxTotalSize") maxTotalSize: Int, @ParamName("maxResourceSize") maxResourceSize: Int)
 
   /**
    * Specifies whether to always send extra HTTP headers with the requests from this page.
    * @param headers Map with extra HTTP headers.
    */
-  public suspend fun setExtraHTTPHeaders(@ParamName("headers") headers: Map<String, Any?>)
+  suspend fun setExtraHTTPHeaders(@ParamName("headers") headers: Map<String, Any?>)
 
   /**
    * Specifies whether to attach a page script stack id in requests
    * @param enabled Whether to attach a page script stack for debugging purpose.
    */
   @Experimental
-  public suspend fun setAttachDebugStack(@ParamName("enabled") enabled: Boolean)
+  suspend fun setAttachDebugStack(@ParamName("enabled") enabled: Boolean)
 
   /**
    * Sets the requests to intercept that match the provided patterns and optionally resource types.
@@ -405,7 +405,7 @@ interface Network {
    */
   @Deprecated
   @Experimental
-  public suspend fun setRequestInterception(@ParamName("patterns") patterns: List<RequestPattern>)
+  suspend fun setRequestInterception(@ParamName("patterns") patterns: List<RequestPattern>)
 
   /**
    * Returns information about the COEP/COOP isolation status.
@@ -413,11 +413,11 @@ interface Network {
    */
   @Experimental
   @Returns("status")
-  public suspend fun getSecurityIsolationStatus(@ParamName("frameId") @Optional frameId: String? = null): SecurityIsolationStatus
+  suspend fun getSecurityIsolationStatus(@ParamName("frameId") @Optional frameId: String? = null): SecurityIsolationStatus
 
   @Experimental
   @Returns("status")
-  public suspend fun getSecurityIsolationStatus(): SecurityIsolationStatus {
+  suspend fun getSecurityIsolationStatus(): SecurityIsolationStatus {
     return getSecurityIsolationStatus(null)
   }
 
@@ -429,7 +429,7 @@ interface Network {
    */
   @Experimental
   @Returns("resource")
-  public suspend fun loadNetworkResource(
+  suspend fun loadNetworkResource(
     @ParamName("frameId") frameId: String,
     @ParamName("url") url: String,
     @ParamName("options") options: LoadNetworkResourceOptions,

@@ -48,16 +48,16 @@ interface Debugger {
    * @param location Location to continue to.
    * @param targetCallFrames
    */
-  public suspend fun continueToLocation(@ParamName("location") location: Location, @ParamName("targetCallFrames") @Optional targetCallFrames: ContinueToLocationTargetCallFrames? = null)
+  suspend fun continueToLocation(@ParamName("location") location: Location, @ParamName("targetCallFrames") @Optional targetCallFrames: ContinueToLocationTargetCallFrames? = null)
 
-  public suspend fun continueToLocation(@ParamName("location") location: Location) {
+  suspend fun continueToLocation(@ParamName("location") location: Location) {
     return continueToLocation(location, null)
   }
 
   /**
    * Disables debugger for given page.
    */
-  public suspend fun disable()
+  suspend fun disable()
 
   /**
    * Enables debugger for the given page. Clients should not assume that the debugging has been
@@ -66,10 +66,10 @@ interface Debugger {
    * the debugger can hold. Puts no limit if paramter is omitted.
    */
   @Returns("debuggerId")
-  public suspend fun enable(@ParamName("maxScriptsCacheSize") @Optional @Experimental maxScriptsCacheSize: Double? = null): String
+  suspend fun enable(@ParamName("maxScriptsCacheSize") @Optional @Experimental maxScriptsCacheSize: Double? = null): String
 
   @Returns("debuggerId")
-  public suspend fun enable(): String {
+  suspend fun enable(): String {
     return enable(null)
   }
 
@@ -88,7 +88,7 @@ interface Debugger {
    * @param throwOnSideEffect Whether to throw an exception if side effect cannot be ruled out during evaluation.
    * @param timeout Terminate execution after timing out (number of milliseconds).
    */
-  public suspend fun evaluateOnCallFrame(
+  suspend fun evaluateOnCallFrame(
     @ParamName("callFrameId") callFrameId: String,
     @ParamName("expression") expression: String,
     @ParamName("objectGroup") @Optional objectGroup: String? = null,
@@ -100,7 +100,7 @@ interface Debugger {
     @ParamName("timeout") @Optional @Experimental timeout: Double? = null,
   ): EvaluateOnCallFrame
 
-  public suspend fun evaluateOnCallFrame(@ParamName("callFrameId") callFrameId: String, @ParamName("expression") expression: String): EvaluateOnCallFrame {
+  suspend fun evaluateOnCallFrame(@ParamName("callFrameId") callFrameId: String, @ParamName("expression") expression: String): EvaluateOnCallFrame {
     return evaluateOnCallFrame(callFrameId, expression, null, null, null, null, null, null, null)
   }
 
@@ -114,7 +114,7 @@ interface Debugger {
    */
   @Returns("locations")
   @ReturnTypeParameter(BreakLocation::class)
-  public suspend fun getPossibleBreakpoints(
+  suspend fun getPossibleBreakpoints(
     @ParamName("start") start: Location,
     @ParamName("end") @Optional end: Location? = null,
     @ParamName("restrictToFunction") @Optional restrictToFunction: Boolean? = null,
@@ -122,7 +122,7 @@ interface Debugger {
 
   @Returns("locations")
   @ReturnTypeParameter(BreakLocation::class)
-  public suspend fun getPossibleBreakpoints(@ParamName("start") start: Location): List<BreakLocation> {
+  suspend fun getPossibleBreakpoints(@ParamName("start") start: Location): List<BreakLocation> {
     return getPossibleBreakpoints(start, null, null)
   }
 
@@ -130,7 +130,7 @@ interface Debugger {
    * Returns source for the script with given id.
    * @param scriptId Id of the script to get source for.
    */
-  public suspend fun getScriptSource(@ParamName("scriptId") scriptId: String): ScriptSource
+  suspend fun getScriptSource(@ParamName("scriptId") scriptId: String): ScriptSource
 
   /**
    * This command is deprecated. Use getScriptSource instead.
@@ -138,7 +138,7 @@ interface Debugger {
    */
   @Deprecated
   @Returns("bytecode")
-  public suspend fun getWasmBytecode(@ParamName("scriptId") scriptId: String): String
+  suspend fun getWasmBytecode(@ParamName("scriptId") scriptId: String): String
 
   /**
    * Returns stack trace with given `stackTraceId`.
@@ -146,31 +146,31 @@ interface Debugger {
    */
   @Experimental
   @Returns("stackTrace")
-  public suspend fun getStackTrace(@ParamName("stackTraceId") stackTraceId: StackTraceId): StackTrace
+  suspend fun getStackTrace(@ParamName("stackTraceId") stackTraceId: StackTraceId): StackTrace
 
   /**
    * Stops on the next JavaScript statement.
    */
-  public suspend fun pause()
+  suspend fun pause()
 
   /**
    * @param parentStackTraceId Debugger will pause when async call with given stack trace is started.
    */
   @Deprecated
   @Experimental
-  public suspend fun pauseOnAsyncCall(@ParamName("parentStackTraceId") parentStackTraceId: StackTraceId)
+  suspend fun pauseOnAsyncCall(@ParamName("parentStackTraceId") parentStackTraceId: StackTraceId)
 
   /**
    * Removes JavaScript breakpoint.
    * @param breakpointId
    */
-  public suspend fun removeBreakpoint(@ParamName("breakpointId") breakpointId: String)
+  suspend fun removeBreakpoint(@ParamName("breakpointId") breakpointId: String)
 
   /**
    * Restarts particular call frame from the beginning.
    * @param callFrameId Call frame identifier to evaluate on.
    */
-  public suspend fun restartFrame(@ParamName("callFrameId") callFrameId: String): RestartFrame
+  suspend fun restartFrame(@ParamName("callFrameId") callFrameId: String): RestartFrame
 
   /**
    * Resumes JavaScript execution.
@@ -180,9 +180,9 @@ interface Debugger {
    * is actually resumed, at which point termination is triggered.
    * If execution is currently not paused, this parameter has no effect.
    */
-  public suspend fun resume(@ParamName("terminateOnResume") @Optional terminateOnResume: Boolean? = null)
+  suspend fun resume(@ParamName("terminateOnResume") @Optional terminateOnResume: Boolean? = null)
 
-  public suspend fun resume() {
+  suspend fun resume() {
     return resume(null)
   }
 
@@ -195,7 +195,7 @@ interface Debugger {
    */
   @Returns("result")
   @ReturnTypeParameter(SearchMatch::class)
-  public suspend fun searchInContent(
+  suspend fun searchInContent(
     @ParamName("scriptId") scriptId: String,
     @ParamName("query") query: String,
     @ParamName("caseSensitive") @Optional caseSensitive: Boolean? = null,
@@ -204,7 +204,7 @@ interface Debugger {
 
   @Returns("result")
   @ReturnTypeParameter(SearchMatch::class)
-  public suspend fun searchInContent(@ParamName("scriptId") scriptId: String, @ParamName("query") query: String): List<SearchMatch> {
+  suspend fun searchInContent(@ParamName("scriptId") scriptId: String, @ParamName("query") query: String): List<SearchMatch> {
     return searchInContent(scriptId, query, null, null)
   }
 
@@ -213,7 +213,7 @@ interface Debugger {
    * @param maxDepth Maximum depth of async call stacks. Setting to `0` will effectively disable collecting async
    * call stacks (default).
    */
-  public suspend fun setAsyncCallStackDepth(@ParamName("maxDepth") maxDepth: Int)
+  suspend fun setAsyncCallStackDepth(@ParamName("maxDepth") maxDepth: Int)
 
   /**
    * Replace previous blackbox patterns with passed ones. Forces backend to skip stepping/pausing in
@@ -222,7 +222,7 @@ interface Debugger {
    * @param patterns Array of regexps that will be used to check script url for blackbox state.
    */
   @Experimental
-  public suspend fun setBlackboxPatterns(@ParamName("patterns") patterns: List<String>)
+  suspend fun setBlackboxPatterns(@ParamName("patterns") patterns: List<String>)
 
   /**
    * Makes backend skip steps in the script in blackboxed ranges. VM will try leave blacklisted
@@ -233,7 +233,7 @@ interface Debugger {
    * @param positions
    */
   @Experimental
-  public suspend fun setBlackboxedRanges(@ParamName("scriptId") scriptId: String, @ParamName("positions") positions: List<ScriptPosition>)
+  suspend fun setBlackboxedRanges(@ParamName("scriptId") scriptId: String, @ParamName("positions") positions: List<ScriptPosition>)
 
   /**
    * Sets JavaScript breakpoint at a given location.
@@ -241,9 +241,9 @@ interface Debugger {
    * @param condition Expression to use as a breakpoint condition. When specified, debugger will only stop on the
    * breakpoint if this expression evaluates to true.
    */
-  public suspend fun setBreakpoint(@ParamName("location") location: Location, @ParamName("condition") @Optional condition: String? = null): SetBreakpoint
+  suspend fun setBreakpoint(@ParamName("location") location: Location, @ParamName("condition") @Optional condition: String? = null): SetBreakpoint
 
-  public suspend fun setBreakpoint(@ParamName("location") location: Location): SetBreakpoint {
+  suspend fun setBreakpoint(@ParamName("location") location: Location): SetBreakpoint {
     return setBreakpoint(location, null)
   }
 
@@ -252,7 +252,7 @@ interface Debugger {
    * @param instrumentation Instrumentation name.
    */
   @Returns("breakpointId")
-  public suspend fun setInstrumentationBreakpoint(@ParamName("instrumentation") instrumentation: SetInstrumentationBreakpointInstrumentation): String
+  suspend fun setInstrumentationBreakpoint(@ParamName("instrumentation") instrumentation: SetInstrumentationBreakpointInstrumentation): String
 
   /**
    * Sets JavaScript breakpoint at given location specified either by URL or URL regex. Once this
@@ -268,7 +268,7 @@ interface Debugger {
    * @param condition Expression to use as a breakpoint condition. When specified, debugger will only stop on the
    * breakpoint if this expression evaluates to true.
    */
-  public suspend fun setBreakpointByUrl(
+  suspend fun setBreakpointByUrl(
     @ParamName("lineNumber") lineNumber: Int,
     @ParamName("url") @Optional url: String? = null,
     @ParamName("urlRegex") @Optional urlRegex: String? = null,
@@ -277,7 +277,7 @@ interface Debugger {
     @ParamName("condition") @Optional condition: String? = null,
   ): SetBreakpointByUrl
 
-  public suspend fun setBreakpointByUrl(@ParamName("lineNumber") lineNumber: Int): SetBreakpointByUrl {
+  suspend fun setBreakpointByUrl(@ParamName("lineNumber") lineNumber: Int): SetBreakpointByUrl {
     return setBreakpointByUrl(lineNumber, null, null, null, null, null)
   }
 
@@ -291,11 +291,11 @@ interface Debugger {
    */
   @Experimental
   @Returns("breakpointId")
-  public suspend fun setBreakpointOnFunctionCall(@ParamName("objectId") objectId: String, @ParamName("condition") @Optional condition: String? = null): String
+  suspend fun setBreakpointOnFunctionCall(@ParamName("objectId") objectId: String, @ParamName("condition") @Optional condition: String? = null): String
 
   @Experimental
   @Returns("breakpointId")
-  public suspend fun setBreakpointOnFunctionCall(@ParamName("objectId") objectId: String): String {
+  suspend fun setBreakpointOnFunctionCall(@ParamName("objectId") objectId: String): String {
     return setBreakpointOnFunctionCall(objectId, null)
   }
 
@@ -303,21 +303,21 @@ interface Debugger {
    * Activates / deactivates all breakpoints on the page.
    * @param active New value for breakpoints active state.
    */
-  public suspend fun setBreakpointsActive(@ParamName("active") active: Boolean)
+  suspend fun setBreakpointsActive(@ParamName("active") active: Boolean)
 
   /**
    * Defines pause on exceptions state. Can be set to stop on all exceptions, uncaught exceptions or
    * no exceptions. Initial pause on exceptions state is `none`.
    * @param state Pause on exceptions mode.
    */
-  public suspend fun setPauseOnExceptions(@ParamName("state") state: SetPauseOnExceptionsState)
+  suspend fun setPauseOnExceptions(@ParamName("state") state: SetPauseOnExceptionsState)
 
   /**
    * Changes return value in top frame. Available only at return break position.
    * @param newValue New return value.
    */
   @Experimental
-  public suspend fun setReturnValue(@ParamName("newValue") newValue: CallArgument)
+  suspend fun setReturnValue(@ParamName("newValue") newValue: CallArgument)
 
   /**
    * Edits JavaScript source live.
@@ -326,13 +326,13 @@ interface Debugger {
    * @param dryRun If true the change will not actually be applied. Dry run may be used to get result
    * description without actually modifying the code.
    */
-  public suspend fun setScriptSource(
+  suspend fun setScriptSource(
     @ParamName("scriptId") scriptId: String,
     @ParamName("scriptSource") scriptSource: String,
     @ParamName("dryRun") @Optional dryRun: Boolean? = null,
   ): SetScriptSource
 
-  public suspend fun setScriptSource(@ParamName("scriptId") scriptId: String, @ParamName("scriptSource") scriptSource: String): SetScriptSource {
+  suspend fun setScriptSource(@ParamName("scriptId") scriptId: String, @ParamName("scriptSource") scriptSource: String): SetScriptSource {
     return setScriptSource(scriptId, scriptSource, null)
   }
 
@@ -340,7 +340,7 @@ interface Debugger {
    * Makes page not interrupt on any pauses (breakpoint, exception, dom exception etc).
    * @param skip New value for skip pauses state.
    */
-  public suspend fun setSkipAllPauses(@ParamName("skip") skip: Boolean)
+  suspend fun setSkipAllPauses(@ParamName("skip") skip: Boolean)
 
   /**
    * Changes value of variable in a callframe. Object-based scopes are not supported and must be
@@ -351,7 +351,7 @@ interface Debugger {
    * @param newValue New variable value.
    * @param callFrameId Id of callframe that holds variable.
    */
-  public suspend fun setVariableValue(
+  suspend fun setVariableValue(
     @ParamName("scopeNumber") scopeNumber: Int,
     @ParamName("variableName") variableName: String,
     @ParamName("newValue") newValue: CallArgument,
@@ -364,24 +364,24 @@ interface Debugger {
    * before next pause.
    * @param skipList The skipList specifies location ranges that should be skipped on step into.
    */
-  public suspend fun stepInto(@ParamName("breakOnAsyncCall") @Optional @Experimental breakOnAsyncCall: Boolean? = null, @ParamName("skipList") @Optional @Experimental skipList: List<LocationRange>? = null)
+  suspend fun stepInto(@ParamName("breakOnAsyncCall") @Optional @Experimental breakOnAsyncCall: Boolean? = null, @ParamName("skipList") @Optional @Experimental skipList: List<LocationRange>? = null)
 
-  public suspend fun stepInto() {
+  suspend fun stepInto() {
     return stepInto(null, null)
   }
 
   /**
    * Steps out of the function call.
    */
-  public suspend fun stepOut()
+  suspend fun stepOut()
 
   /**
    * Steps over the statement.
    * @param skipList The skipList specifies location ranges that should be skipped on step over.
    */
-  public suspend fun stepOver(@ParamName("skipList") @Optional @Experimental skipList: List<LocationRange>? = null)
+  suspend fun stepOver(@ParamName("skipList") @Optional @Experimental skipList: List<LocationRange>? = null)
 
-  public suspend fun stepOver() {
+  suspend fun stepOver() {
     return stepOver(null)
   }
 

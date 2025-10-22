@@ -50,7 +50,7 @@ interface CSS {
    * @param location Text position of a new rule in the target style sheet.
    */
   @Returns("rule")
-  public suspend fun addRule(
+  suspend fun addRule(
     @ParamName("styleSheetId") styleSheetId: String,
     @ParamName("ruleText") ruleText: String,
     @ParamName("location") location: SourceRange,
@@ -62,25 +62,25 @@ interface CSS {
    */
   @Returns("classNames")
   @ReturnTypeParameter(String::class)
-  public suspend fun collectClassNames(@ParamName("styleSheetId") styleSheetId: String): List<String>
+  suspend fun collectClassNames(@ParamName("styleSheetId") styleSheetId: String): List<String>
 
   /**
    * Creates a new special "via-inspector" stylesheet in the frame with given `frameId`.
    * @param frameId Identifier of the frame where "via-inspector" stylesheet should be created.
    */
   @Returns("styleSheetId")
-  public suspend fun createStyleSheet(@ParamName("frameId") frameId: String): String
+  suspend fun createStyleSheet(@ParamName("frameId") frameId: String): String
 
   /**
    * Disables the CSS agent for the given page.
    */
-  public suspend fun disable()
+  suspend fun disable()
 
   /**
    * Enables the CSS agent for the given page. Clients should not assume that the CSS agent has been
    * enabled until the result of this command is received.
    */
-  public suspend fun enable()
+  suspend fun enable()
 
   /**
    * Ensures that the given node will have specified pseudo-classes whenever its style is computed by
@@ -88,12 +88,12 @@ interface CSS {
    * @param nodeId The element id for which to force the pseudo state.
    * @param forcedPseudoClasses Element pseudo classes to force when computing the element's style.
    */
-  public suspend fun forcePseudoState(@ParamName("nodeId") nodeId: Int, @ParamName("forcedPseudoClasses") forcedPseudoClasses: List<String>)
+  suspend fun forcePseudoState(@ParamName("nodeId") nodeId: Int, @ParamName("forcedPseudoClasses") forcedPseudoClasses: List<String>)
 
   /**
    * @param nodeId Id of the node to get background colors for.
    */
-  public suspend fun getBackgroundColors(@ParamName("nodeId") nodeId: Int): BackgroundColors
+  suspend fun getBackgroundColors(@ParamName("nodeId") nodeId: Int): BackgroundColors
 
   /**
    * Returns the computed style for a DOM node identified by `nodeId`.
@@ -101,27 +101,27 @@ interface CSS {
    */
   @Returns("computedStyle")
   @ReturnTypeParameter(CSSComputedStyleProperty::class)
-  public suspend fun getComputedStyleForNode(@ParamName("nodeId") nodeId: Int): List<CSSComputedStyleProperty>
+  suspend fun getComputedStyleForNode(@ParamName("nodeId") nodeId: Int): List<CSSComputedStyleProperty>
 
   /**
    * Returns the styles defined inline (explicitly in the "style" attribute and implicitly, using DOM
    * attributes) for a DOM node identified by `nodeId`.
    * @param nodeId
    */
-  public suspend fun getInlineStylesForNode(@ParamName("nodeId") nodeId: Int): InlineStylesForNode
+  suspend fun getInlineStylesForNode(@ParamName("nodeId") nodeId: Int): InlineStylesForNode
 
   /**
    * Returns requested styles for a DOM node identified by `nodeId`.
    * @param nodeId
    */
-  public suspend fun getMatchedStylesForNode(@ParamName("nodeId") nodeId: Int): MatchedStylesForNode
+  suspend fun getMatchedStylesForNode(@ParamName("nodeId") nodeId: Int): MatchedStylesForNode
 
   /**
    * Returns all media queries parsed by the rendering engine.
    */
   @Returns("medias")
   @ReturnTypeParameter(CSSMedia::class)
-  public suspend fun getMediaQueries(): List<CSSMedia>
+  suspend fun getMediaQueries(): List<CSSMedia>
 
   /**
    * Requests information about platform fonts which we used to render child TextNodes in the given
@@ -130,14 +130,14 @@ interface CSS {
    */
   @Returns("fonts")
   @ReturnTypeParameter(PlatformFontUsage::class)
-  public suspend fun getPlatformFontsForNode(@ParamName("nodeId") nodeId: Int): List<PlatformFontUsage>
+  suspend fun getPlatformFontsForNode(@ParamName("nodeId") nodeId: Int): List<PlatformFontUsage>
 
   /**
    * Returns the current textual content for a stylesheet.
    * @param styleSheetId
    */
   @Returns("text")
-  public suspend fun getStyleSheetText(@ParamName("styleSheetId") styleSheetId: String): String
+  suspend fun getStyleSheetText(@ParamName("styleSheetId") styleSheetId: String): String
 
   /**
    * Starts tracking the given computed styles for updates. The specified array of properties
@@ -149,7 +149,7 @@ interface CSS {
    * @param propertiesToTrack
    */
   @Experimental
-  public suspend fun trackComputedStyleUpdates(@ParamName("propertiesToTrack") propertiesToTrack: List<CSSComputedStyleProperty>)
+  suspend fun trackComputedStyleUpdates(@ParamName("propertiesToTrack") propertiesToTrack: List<CSSComputedStyleProperty>)
 
   /**
    * Polls the next batch of computed style updates.
@@ -157,7 +157,7 @@ interface CSS {
   @Experimental
   @Returns("nodeIds")
   @ReturnTypeParameter(Int::class)
-  public suspend fun takeComputedStyleUpdates(): List<Int>
+  suspend fun takeComputedStyleUpdates(): List<Int>
 
   /**
    * Find a rule with the given active property for the given node and set the new value for this
@@ -166,7 +166,7 @@ interface CSS {
    * @param propertyName
    * @param value
    */
-  public suspend fun setEffectivePropertyValueForNode(
+  suspend fun setEffectivePropertyValueForNode(
     @ParamName("nodeId") nodeId: Int,
     @ParamName("propertyName") propertyName: String,
     @ParamName("value") `value`: String,
@@ -179,7 +179,7 @@ interface CSS {
    * @param keyText
    */
   @Returns("keyText")
-  public suspend fun setKeyframeKey(
+  suspend fun setKeyframeKey(
     @ParamName("styleSheetId") styleSheetId: String,
     @ParamName("range") range: SourceRange,
     @ParamName("keyText") keyText: String,
@@ -192,7 +192,7 @@ interface CSS {
    * @param text
    */
   @Returns("media")
-  public suspend fun setMediaText(
+  suspend fun setMediaText(
     @ParamName("styleSheetId") styleSheetId: String,
     @ParamName("range") range: SourceRange,
     @ParamName("text") text: String,
@@ -205,7 +205,7 @@ interface CSS {
    * @param selector
    */
   @Returns("selectorList")
-  public suspend fun setRuleSelector(
+  suspend fun setRuleSelector(
     @ParamName("styleSheetId") styleSheetId: String,
     @ParamName("range") range: SourceRange,
     @ParamName("selector") selector: String,
@@ -217,7 +217,7 @@ interface CSS {
    * @param text
    */
   @Returns("sourceMapURL")
-  public suspend fun setStyleSheetText(@ParamName("styleSheetId") styleSheetId: String, @ParamName("text") text: String): String?
+  suspend fun setStyleSheetText(@ParamName("styleSheetId") styleSheetId: String, @ParamName("text") text: String): String?
 
   /**
    * Applies specified style edits one after another in the given order.
@@ -225,12 +225,12 @@ interface CSS {
    */
   @Returns("styles")
   @ReturnTypeParameter(CSSStyle::class)
-  public suspend fun setStyleTexts(@ParamName("edits") edits: List<StyleDeclarationEdit>): List<CSSStyle>
+  suspend fun setStyleTexts(@ParamName("edits") edits: List<StyleDeclarationEdit>): List<CSSStyle>
 
   /**
    * Enables the selector recording.
    */
-  public suspend fun startRuleUsageTracking()
+  suspend fun startRuleUsageTracking()
 
   /**
    * Stop tracking rule usage and return the list of rules that were used since last call to
@@ -238,20 +238,20 @@ interface CSS {
    */
   @Returns("ruleUsage")
   @ReturnTypeParameter(RuleUsage::class)
-  public suspend fun stopRuleUsageTracking(): List<RuleUsage>
+  suspend fun stopRuleUsageTracking(): List<RuleUsage>
 
   /**
    * Obtain list of rules that became used since last call to this method (or since start of coverage
    * instrumentation)
    */
-  public suspend fun takeCoverageDelta(): TakeCoverageDelta
+  suspend fun takeCoverageDelta(): TakeCoverageDelta
 
   /**
    * Enables/disables rendering of local CSS fonts (enabled by default).
    * @param enabled Whether rendering of local fonts is enabled.
    */
   @Experimental
-  public suspend fun setLocalFontsEnabled(@ParamName("enabled") enabled: Boolean)
+  suspend fun setLocalFontsEnabled(@ParamName("enabled") enabled: Boolean)
 
   @EventName("fontsUpdated")
   fun onFontsUpdated(eventListener: EventHandler<FontsUpdated>): EventListener

@@ -19,13 +19,13 @@ interface ServiceWorker {
    * @param registrationId
    * @param data
    */
-  public suspend fun deliverPushMessage(
+  suspend fun deliverPushMessage(
     @ParamName("origin") origin: String,
     @ParamName("registrationId") registrationId: String,
     @ParamName("data") `data`: String,
   )
 
-  public suspend fun disable()
+  suspend fun disable()
 
   /**
    * @param origin
@@ -33,7 +33,7 @@ interface ServiceWorker {
    * @param tag
    * @param lastChance
    */
-  public suspend fun dispatchSyncEvent(
+  suspend fun dispatchSyncEvent(
     @ParamName("origin") origin: String,
     @ParamName("registrationId") registrationId: String,
     @ParamName("tag") tag: String,
@@ -45,50 +45,50 @@ interface ServiceWorker {
    * @param registrationId
    * @param tag
    */
-  public suspend fun dispatchPeriodicSyncEvent(
+  suspend fun dispatchPeriodicSyncEvent(
     @ParamName("origin") origin: String,
     @ParamName("registrationId") registrationId: String,
     @ParamName("tag") tag: String,
   )
 
-  public suspend fun enable()
+  suspend fun enable()
 
   /**
    * @param versionId
    */
-  public suspend fun inspectWorker(@ParamName("versionId") versionId: String)
+  suspend fun inspectWorker(@ParamName("versionId") versionId: String)
 
   /**
    * @param forceUpdateOnPageLoad
    */
-  public suspend fun setForceUpdateOnPageLoad(@ParamName("forceUpdateOnPageLoad") forceUpdateOnPageLoad: Boolean)
+  suspend fun setForceUpdateOnPageLoad(@ParamName("forceUpdateOnPageLoad") forceUpdateOnPageLoad: Boolean)
 
   /**
    * @param scopeURL
    */
-  public suspend fun skipWaiting(@ParamName("scopeURL") scopeURL: String)
+  suspend fun skipWaiting(@ParamName("scopeURL") scopeURL: String)
 
   /**
    * @param scopeURL
    */
-  public suspend fun startWorker(@ParamName("scopeURL") scopeURL: String)
+  suspend fun startWorker(@ParamName("scopeURL") scopeURL: String)
 
-  public suspend fun stopAllWorkers()
+  suspend fun stopAllWorkers()
 
   /**
    * @param versionId
    */
-  public suspend fun stopWorker(@ParamName("versionId") versionId: String)
+  suspend fun stopWorker(@ParamName("versionId") versionId: String)
 
   /**
    * @param scopeURL
    */
-  public suspend fun unregister(@ParamName("scopeURL") scopeURL: String)
+  suspend fun unregister(@ParamName("scopeURL") scopeURL: String)
 
   /**
    * @param scopeURL
    */
-  public suspend fun updateRegistration(@ParamName("scopeURL") scopeURL: String)
+  suspend fun updateRegistration(@ParamName("scopeURL") scopeURL: String)
 
   @EventName("workerErrorReported")
   fun onWorkerErrorReported(eventListener: EventHandler<WorkerErrorReported>): EventListener

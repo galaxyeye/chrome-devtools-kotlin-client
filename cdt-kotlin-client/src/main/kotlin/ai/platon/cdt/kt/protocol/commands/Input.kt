@@ -36,7 +36,7 @@ interface Input {
    * (default: 0).
    */
   @Experimental
-  public suspend fun dispatchDragEvent(
+  suspend fun dispatchDragEvent(
     @ParamName("type") type: DispatchDragEventType,
     @ParamName("x") x: Double,
     @ParamName("y") y: Double,
@@ -45,7 +45,7 @@ interface Input {
   )
 
   @Experimental
-  public suspend fun dispatchDragEvent(
+  suspend fun dispatchDragEvent(
     @ParamName("type") type: DispatchDragEventType,
     @ParamName("x") x: Double,
     @ParamName("y") y: Double,
@@ -79,7 +79,7 @@ interface Input {
    * These are related to but not equal the command names used in `document.execCommand` and NSStandardKeyBindingResponding.
    * See https://source.chromium.org/chromium/chromium/src/+/master:third_party/blink/renderer/core/editing/commands/editor_command_names.h for valid command names.
    */
-  public suspend fun dispatchKeyEvent(
+  suspend fun dispatchKeyEvent(
     @ParamName("type") type: DispatchKeyEventType,
     @ParamName("modifiers") @Optional modifiers: Int? = null,
     @ParamName("timestamp") @Optional timestamp: Double? = null,
@@ -97,7 +97,7 @@ interface Input {
     @ParamName("commands") @Optional @Experimental commands: List<String>? = null,
   )
 
-  public suspend fun dispatchKeyEvent(@ParamName("type") type: DispatchKeyEventType) {
+  suspend fun dispatchKeyEvent(@ParamName("type") type: DispatchKeyEventType) {
     return dispatchKeyEvent(type, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
   }
 
@@ -107,7 +107,7 @@ interface Input {
    * @param text The text to insert.
    */
   @Experimental
-  public suspend fun insertText(@ParamName("text") text: String)
+  suspend fun insertText(@ParamName("text") text: String)
 
   /**
    * Dispatches a mouse event to the page.
@@ -131,7 +131,7 @@ interface Input {
    * @param deltaY Y delta in CSS pixels for mouse wheel event (default: 0).
    * @param pointerType Pointer type (default: "mouse").
    */
-  public suspend fun dispatchMouseEvent(
+  suspend fun dispatchMouseEvent(
     @ParamName("type") type: DispatchMouseEventType,
     @ParamName("x") x: Double,
     @ParamName("y") y: Double,
@@ -150,7 +150,7 @@ interface Input {
     @ParamName("pointerType") @Optional pointerType: DispatchMouseEventPointerType? = null,
   )
 
-  public suspend fun dispatchMouseEvent(
+  suspend fun dispatchMouseEvent(
     @ParamName("type") type: DispatchMouseEventType,
     @ParamName("x") x: Double,
     @ParamName("y") y: Double,
@@ -169,14 +169,14 @@ interface Input {
    * (default: 0).
    * @param timestamp Time at which the event occurred.
    */
-  public suspend fun dispatchTouchEvent(
+  suspend fun dispatchTouchEvent(
     @ParamName("type") type: DispatchTouchEventType,
     @ParamName("touchPoints") touchPoints: List<TouchPoint>,
     @ParamName("modifiers") @Optional modifiers: Int? = null,
     @ParamName("timestamp") @Optional timestamp: Double? = null,
   )
 
-  public suspend fun dispatchTouchEvent(@ParamName("type") type: DispatchTouchEventType, @ParamName("touchPoints") touchPoints: List<TouchPoint>) {
+  suspend fun dispatchTouchEvent(@ParamName("type") type: DispatchTouchEventType, @ParamName("touchPoints") touchPoints: List<TouchPoint>) {
     return dispatchTouchEvent(type, touchPoints, null, null)
   }
 
@@ -194,7 +194,7 @@ interface Input {
    * @param clickCount Number of times the mouse button was clicked (default: 0).
    */
   @Experimental
-  public suspend fun emulateTouchFromMouseEvent(
+  suspend fun emulateTouchFromMouseEvent(
     @ParamName("type") type: EmulateTouchFromMouseEventType,
     @ParamName("x") x: Int,
     @ParamName("y") y: Int,
@@ -207,7 +207,7 @@ interface Input {
   )
 
   @Experimental
-  public suspend fun emulateTouchFromMouseEvent(
+  suspend fun emulateTouchFromMouseEvent(
     @ParamName("type") type: EmulateTouchFromMouseEventType,
     @ParamName("x") x: Int,
     @ParamName("y") y: Int,
@@ -220,7 +220,7 @@ interface Input {
    * Ignores input events (useful while auditing page).
    * @param ignore Ignores input events processing when set to true.
    */
-  public suspend fun setIgnoreInputEvents(@ParamName("ignore") ignore: Boolean)
+  suspend fun setIgnoreInputEvents(@ParamName("ignore") ignore: Boolean)
 
   /**
    * Prevents default drag and drop behavior and instead emits `Input.dragIntercepted` events.
@@ -228,7 +228,7 @@ interface Input {
    * @param enabled
    */
   @Experimental
-  public suspend fun setInterceptDrags(@ParamName("enabled") enabled: Boolean)
+  suspend fun setInterceptDrags(@ParamName("enabled") enabled: Boolean)
 
   /**
    * Synthesizes a pinch gesture over a time period by issuing appropriate touch events.
@@ -240,7 +240,7 @@ interface Input {
    * for the preferred input type).
    */
   @Experimental
-  public suspend fun synthesizePinchGesture(
+  suspend fun synthesizePinchGesture(
     @ParamName("x") x: Double,
     @ParamName("y") y: Double,
     @ParamName("scaleFactor") scaleFactor: Double,
@@ -249,7 +249,7 @@ interface Input {
   )
 
   @Experimental
-  public suspend fun synthesizePinchGesture(
+  suspend fun synthesizePinchGesture(
     @ParamName("x") x: Double,
     @ParamName("y") y: Double,
     @ParamName("scaleFactor") scaleFactor: Double,
@@ -276,7 +276,7 @@ interface Input {
    * @param interactionMarkerName The name of the interaction markers to generate, if not empty (default: "").
    */
   @Experimental
-  public suspend fun synthesizeScrollGesture(
+  suspend fun synthesizeScrollGesture(
     @ParamName("x") x: Double,
     @ParamName("y") y: Double,
     @ParamName("xDistance") @Optional xDistance: Double? = null,
@@ -292,7 +292,7 @@ interface Input {
   )
 
   @Experimental
-  public suspend fun synthesizeScrollGesture(@ParamName("x") x: Double, @ParamName("y") y: Double) {
+  suspend fun synthesizeScrollGesture(@ParamName("x") x: Double, @ParamName("y") y: Double) {
     return synthesizeScrollGesture(x, y, null, null, null, null, null, null, null, null, null, null)
   }
 
@@ -306,7 +306,7 @@ interface Input {
    * for the preferred input type).
    */
   @Experimental
-  public suspend fun synthesizeTapGesture(
+  suspend fun synthesizeTapGesture(
     @ParamName("x") x: Double,
     @ParamName("y") y: Double,
     @ParamName("duration") @Optional duration: Int? = null,
@@ -315,7 +315,7 @@ interface Input {
   )
 
   @Experimental
-  public suspend fun synthesizeTapGesture(@ParamName("x") x: Double, @ParamName("y") y: Double) {
+  suspend fun synthesizeTapGesture(@ParamName("x") x: Double, @ParamName("y") y: Double) {
     return synthesizeTapGesture(x, y, null, null, null)
   }
 

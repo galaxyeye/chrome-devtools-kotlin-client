@@ -15,18 +15,18 @@ interface Console {
   /**
    * Does nothing.
    */
-  public suspend fun clearMessages()
+  suspend fun clearMessages()
 
   /**
    * Disables console domain, prevents further console messages from being reported to the client.
    */
-  public suspend fun disable()
+  suspend fun disable()
 
   /**
    * Enables console domain, sends the messages collected so far to the client by means of the
    * `messageAdded` notification.
    */
-  public suspend fun enable()
+  suspend fun enable()
 
   @EventName("messageAdded")
   fun onMessageAdded(eventListener: EventHandler<MessageAdded>): EventListener

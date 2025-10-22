@@ -21,19 +21,19 @@ interface Security {
   /**
    * Disables tracking security state changes.
    */
-  public suspend fun disable()
+  suspend fun disable()
 
   /**
    * Enables tracking security state changes.
    */
-  public suspend fun enable()
+  suspend fun enable()
 
   /**
    * Enable/disable whether all certificate errors should be ignored.
    * @param ignore If true, all certificate errors will be ignored.
    */
   @Experimental
-  public suspend fun setIgnoreCertificateErrors(@ParamName("ignore") ignore: Boolean)
+  suspend fun setIgnoreCertificateErrors(@ParamName("ignore") ignore: Boolean)
 
   /**
    * Handles a certificate error that fired a certificateError event.
@@ -41,7 +41,7 @@ interface Security {
    * @param action The action to take on the certificate error.
    */
   @Deprecated
-  public suspend fun handleCertificateError(@ParamName("eventId") eventId: Int, @ParamName("action") action: CertificateErrorAction)
+  suspend fun handleCertificateError(@ParamName("eventId") eventId: Int, @ParamName("action") action: CertificateErrorAction)
 
   /**
    * Enable/disable overriding certificate errors. If enabled, all certificate error events need to
@@ -49,7 +49,7 @@ interface Security {
    * @param override If true, certificate errors will be overridden.
    */
   @Deprecated
-  public suspend fun setOverrideCertificateErrors(@ParamName("override") `override`: Boolean)
+  suspend fun setOverrideCertificateErrors(@ParamName("override") `override`: Boolean)
 
   @EventName("certificateError")
   @Deprecated

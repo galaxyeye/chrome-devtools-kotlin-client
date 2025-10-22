@@ -26,65 +26,65 @@ interface HeapProfiler {
    * $x functions).
    * @param heapObjectId Heap snapshot object id to be accessible by means of $x command line API.
    */
-  public suspend fun addInspectedHeapObject(@ParamName("heapObjectId") heapObjectId: String)
+  suspend fun addInspectedHeapObject(@ParamName("heapObjectId") heapObjectId: String)
 
-  public suspend fun collectGarbage()
+  suspend fun collectGarbage()
 
-  public suspend fun disable()
+  suspend fun disable()
 
-  public suspend fun enable()
+  suspend fun enable()
 
   /**
    * @param objectId Identifier of the object to get heap object id for.
    */
   @Returns("heapSnapshotObjectId")
-  public suspend fun getHeapObjectId(@ParamName("objectId") objectId: String): String
+  suspend fun getHeapObjectId(@ParamName("objectId") objectId: String): String
 
   /**
    * @param objectId
    * @param objectGroup Symbolic group name that can be used to release multiple objects.
    */
   @Returns("result")
-  public suspend fun getObjectByHeapObjectId(@ParamName("objectId") objectId: String, @ParamName("objectGroup") @Optional objectGroup: String? = null): RemoteObject
+  suspend fun getObjectByHeapObjectId(@ParamName("objectId") objectId: String, @ParamName("objectGroup") @Optional objectGroup: String? = null): RemoteObject
 
   @Returns("result")
-  public suspend fun getObjectByHeapObjectId(@ParamName("objectId") objectId: String): RemoteObject {
+  suspend fun getObjectByHeapObjectId(@ParamName("objectId") objectId: String): RemoteObject {
     return getObjectByHeapObjectId(objectId, null)
   }
 
   @Returns("profile")
-  public suspend fun getSamplingProfile(): SamplingHeapProfile
+  suspend fun getSamplingProfile(): SamplingHeapProfile
 
   /**
    * @param samplingInterval Average sample interval in bytes. Poisson distribution is used for the intervals. The
    * default value is 32768 bytes.
    */
-  public suspend fun startSampling(@ParamName("samplingInterval") @Optional samplingInterval: Double? = null)
+  suspend fun startSampling(@ParamName("samplingInterval") @Optional samplingInterval: Double? = null)
 
-  public suspend fun startSampling() {
+  suspend fun startSampling() {
     return startSampling(null)
   }
 
   /**
    * @param trackAllocations
    */
-  public suspend fun startTrackingHeapObjects(@ParamName("trackAllocations") @Optional trackAllocations: Boolean? = null)
+  suspend fun startTrackingHeapObjects(@ParamName("trackAllocations") @Optional trackAllocations: Boolean? = null)
 
-  public suspend fun startTrackingHeapObjects() {
+  suspend fun startTrackingHeapObjects() {
     return startTrackingHeapObjects(null)
   }
 
   @Returns("profile")
-  public suspend fun stopSampling(): SamplingHeapProfile
+  suspend fun stopSampling(): SamplingHeapProfile
 
   /**
    * @param reportProgress If true 'reportHeapSnapshotProgress' events will be generated while snapshot is being taken
    * when the tracking is stopped.
    * @param treatGlobalObjectsAsRoots
    */
-  public suspend fun stopTrackingHeapObjects(@ParamName("reportProgress") @Optional reportProgress: Boolean? = null, @ParamName("treatGlobalObjectsAsRoots") @Optional treatGlobalObjectsAsRoots: Boolean? = null)
+  suspend fun stopTrackingHeapObjects(@ParamName("reportProgress") @Optional reportProgress: Boolean? = null, @ParamName("treatGlobalObjectsAsRoots") @Optional treatGlobalObjectsAsRoots: Boolean? = null)
 
-  public suspend fun stopTrackingHeapObjects() {
+  suspend fun stopTrackingHeapObjects() {
     return stopTrackingHeapObjects(null, null)
   }
 
@@ -92,9 +92,9 @@ interface HeapProfiler {
    * @param reportProgress If true 'reportHeapSnapshotProgress' events will be generated while snapshot is being taken.
    * @param treatGlobalObjectsAsRoots If true, a raw snapshot without artifical roots will be generated
    */
-  public suspend fun takeHeapSnapshot(@ParamName("reportProgress") @Optional reportProgress: Boolean? = null, @ParamName("treatGlobalObjectsAsRoots") @Optional treatGlobalObjectsAsRoots: Boolean? = null)
+  suspend fun takeHeapSnapshot(@ParamName("reportProgress") @Optional reportProgress: Boolean? = null, @ParamName("treatGlobalObjectsAsRoots") @Optional treatGlobalObjectsAsRoots: Boolean? = null)
 
-  public suspend fun takeHeapSnapshot() {
+  suspend fun takeHeapSnapshot() {
     return takeHeapSnapshot(null, null)
   }
 

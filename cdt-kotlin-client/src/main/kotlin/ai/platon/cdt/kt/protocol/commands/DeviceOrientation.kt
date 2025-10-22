@@ -9,7 +9,7 @@ interface DeviceOrientation {
   /**
    * Clears the overridden Device Orientation.
    */
-  public suspend fun clearDeviceOrientationOverride()
+  suspend fun clearDeviceOrientationOverride()
 
   /**
    * Overrides the Device Orientation.
@@ -17,7 +17,7 @@ interface DeviceOrientation {
    * @param beta Mock beta
    * @param gamma Mock gamma
    */
-  public suspend fun setDeviceOrientationOverride(
+  suspend fun setDeviceOrientationOverride(
     @ParamName("alpha") alpha: Double,
     @ParamName("beta") beta: Double,
     @ParamName("gamma") gamma: Double,

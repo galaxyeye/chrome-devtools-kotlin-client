@@ -30,29 +30,29 @@ interface Tracing {
   /**
    * Stop trace events collection.
    */
-  public suspend fun end()
+  suspend fun end()
 
   /**
    * Gets supported tracing categories.
    */
   @Returns("categories")
   @ReturnTypeParameter(String::class)
-  public suspend fun getCategories(): List<String>
+  suspend fun getCategories(): List<String>
 
   /**
    * Record a clock sync marker in the trace.
    * @param syncId The ID of this clock sync marker
    */
-  public suspend fun recordClockSyncMarker(@ParamName("syncId") syncId: String)
+  suspend fun recordClockSyncMarker(@ParamName("syncId") syncId: String)
 
   /**
    * Request a global memory dump.
    * @param deterministic Enables more deterministic results by forcing garbage collection
    * @param levelOfDetail Specifies level of details in memory dump. Defaults to "detailed".
    */
-  public suspend fun requestMemoryDump(@ParamName("deterministic") @Optional deterministic: Boolean? = null, @ParamName("levelOfDetail") @Optional levelOfDetail: MemoryDumpLevelOfDetail? = null): RequestMemoryDump
+  suspend fun requestMemoryDump(@ParamName("deterministic") @Optional deterministic: Boolean? = null, @ParamName("levelOfDetail") @Optional levelOfDetail: MemoryDumpLevelOfDetail? = null): RequestMemoryDump
 
-  public suspend fun requestMemoryDump(): RequestMemoryDump {
+  suspend fun requestMemoryDump(): RequestMemoryDump {
     return requestMemoryDump(null, null)
   }
 
@@ -73,7 +73,7 @@ interface Tracing {
    * are ignored. (Encoded as a base64 string when passed over JSON)
    * @param tracingBackend Backend type (defaults to `auto`)
    */
-  public suspend fun start(
+  suspend fun start(
     @ParamName("categories") @Optional @Deprecated categories: String? = null,
     @ParamName("options") @Optional @Deprecated options: String? = null,
     @ParamName("bufferUsageReportingInterval") @Optional bufferUsageReportingInterval: Double? = null,
@@ -85,7 +85,7 @@ interface Tracing {
     @ParamName("tracingBackend") @Optional tracingBackend: TracingBackend? = null,
   )
 
-  public suspend fun start() {
+  suspend fun start() {
     return start(null, null, null, null, null, null, null, null, null)
   }
 

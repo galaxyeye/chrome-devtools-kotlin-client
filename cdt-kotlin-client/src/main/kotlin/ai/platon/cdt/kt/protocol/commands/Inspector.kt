@@ -14,12 +14,12 @@ interface Inspector {
   /**
    * Disables inspector domain notifications.
    */
-  public suspend fun disable()
+  suspend fun disable()
 
   /**
    * Enables inspector domain notifications.
    */
-  public suspend fun enable()
+  suspend fun enable()
 
   @EventName("detached")
   fun onDetached(eventListener: EventHandler<Detached>): EventListener

@@ -20,26 +20,26 @@ interface BackgroundService {
    * Enables event updates for the service.
    * @param service
    */
-  public suspend fun startObserving(@ParamName("service") service: ServiceName)
+  suspend fun startObserving(@ParamName("service") service: ServiceName)
 
   /**
    * Disables event updates for the service.
    * @param service
    */
-  public suspend fun stopObserving(@ParamName("service") service: ServiceName)
+  suspend fun stopObserving(@ParamName("service") service: ServiceName)
 
   /**
    * Set the recording state for the service.
    * @param shouldRecord
    * @param service
    */
-  public suspend fun setRecording(@ParamName("shouldRecord") shouldRecord: Boolean, @ParamName("service") service: ServiceName)
+  suspend fun setRecording(@ParamName("shouldRecord") shouldRecord: Boolean, @ParamName("service") service: ServiceName)
 
   /**
    * Clears all stored data for the service.
    * @param service
    */
-  public suspend fun clearEvents(@ParamName("service") service: ServiceName)
+  suspend fun clearEvents(@ParamName("service") service: ServiceName)
 
   @EventName("recordingStateChanged")
   fun onRecordingStateChanged(eventListener: EventHandler<RecordingStateChanged>): EventListener

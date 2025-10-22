@@ -16,5 +16,5 @@ interface Schema {
    */
   @Returns("domains")
   @ReturnTypeParameter(Domain::class)
-  public suspend fun getDomains(): List<Domain>
+  suspend fun getDomains(): List<Domain>
 }

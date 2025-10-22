@@ -27,36 +27,36 @@ interface Audits {
    * @param quality The quality of the encoding (0-1). (defaults to 1)
    * @param sizeOnly Whether to only return the size information (defaults to false).
    */
-  public suspend fun getEncodedResponse(
+  suspend fun getEncodedResponse(
     @ParamName("requestId") requestId: String,
     @ParamName("encoding") encoding: GetEncodedResponseEncoding,
     @ParamName("quality") @Optional quality: Double? = null,
     @ParamName("sizeOnly") @Optional sizeOnly: Boolean? = null,
   ): EncodedResponse
 
-  public suspend fun getEncodedResponse(@ParamName("requestId") requestId: String, @ParamName("encoding") encoding: GetEncodedResponseEncoding): EncodedResponse {
+  suspend fun getEncodedResponse(@ParamName("requestId") requestId: String, @ParamName("encoding") encoding: GetEncodedResponseEncoding): EncodedResponse {
     return getEncodedResponse(requestId, encoding, null, null)
   }
 
   /**
    * Disables issues domain, prevents further issues from being reported to the client.
    */
-  public suspend fun disable()
+  suspend fun disable()
 
   /**
    * Enables issues domain, sends the issues collected so far to the client by means of the
    * `issueAdded` event.
    */
-  public suspend fun enable()
+  suspend fun enable()
 
   /**
    * Runs the contrast check for the target page. Found issues are reported
    * using Audits.issueAdded event.
    * @param reportAAA Whether to report WCAG AAA level issues. Default is false.
    */
-  public suspend fun checkContrast(@ParamName("reportAAA") @Optional reportAAA: Boolean? = null)
+  suspend fun checkContrast(@ParamName("reportAAA") @Optional reportAAA: Boolean? = null)
 
-  public suspend fun checkContrast() {
+  suspend fun checkContrast() {
     return checkContrast(null)
   }
 

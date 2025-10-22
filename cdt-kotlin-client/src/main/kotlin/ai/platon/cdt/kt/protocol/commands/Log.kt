@@ -16,29 +16,29 @@ interface Log {
   /**
    * Clears the log.
    */
-  public suspend fun clear()
+  suspend fun clear()
 
   /**
    * Disables log domain, prevents further log entries from being reported to the client.
    */
-  public suspend fun disable()
+  suspend fun disable()
 
   /**
    * Enables log domain, sends the entries collected so far to the client by means of the
    * `entryAdded` notification.
    */
-  public suspend fun enable()
+  suspend fun enable()
 
   /**
    * start violation reporting.
    * @param config Configuration for violations.
    */
-  public suspend fun startViolationsReport(@ParamName("config") config: List<ViolationSetting>)
+  suspend fun startViolationsReport(@ParamName("config") config: List<ViolationSetting>)
 
   /**
    * Stop violation reporting.
    */
-  public suspend fun stopViolationsReport()
+  suspend fun stopViolationsReport()
 
   @EventName("entryAdded")
   fun onEntryAdded(eventListener: EventHandler<EntryAdded>): EventListener

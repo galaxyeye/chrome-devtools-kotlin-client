@@ -27,31 +27,31 @@ interface LayerTree {
    * Provides the reasons why the given layer was composited.
    * @param layerId The id of the layer for which we want to get the reasons it was composited.
    */
-  public suspend fun compositingReasons(@ParamName("layerId") layerId: String): CompositingReasons
+  suspend fun compositingReasons(@ParamName("layerId") layerId: String): CompositingReasons
 
   /**
    * Disables compositing tree inspection.
    */
-  public suspend fun disable()
+  suspend fun disable()
 
   /**
    * Enables compositing tree inspection.
    */
-  public suspend fun enable()
+  suspend fun enable()
 
   /**
    * Returns the snapshot identifier.
    * @param tiles An array of tiles composing the snapshot.
    */
   @Returns("snapshotId")
-  public suspend fun loadSnapshot(@ParamName("tiles") tiles: List<PictureTile>): String
+  suspend fun loadSnapshot(@ParamName("tiles") tiles: List<PictureTile>): String
 
   /**
    * Returns the layer snapshot identifier.
    * @param layerId The id of the layer.
    */
   @Returns("snapshotId")
-  public suspend fun makeSnapshot(@ParamName("layerId") layerId: String): String
+  suspend fun makeSnapshot(@ParamName("layerId") layerId: String): String
 
   /**
    * @param snapshotId The id of the layer snapshot.
@@ -61,7 +61,7 @@ interface LayerTree {
    */
   @Returns("timings")
   @ReturnTypeParameter(Double::class)
-  public suspend fun profileSnapshot(
+  suspend fun profileSnapshot(
     @ParamName("snapshotId") snapshotId: String,
     @ParamName("minRepeatCount") @Optional minRepeatCount: Int? = null,
     @ParamName("minDuration") @Optional minDuration: Double? = null,
@@ -70,7 +70,7 @@ interface LayerTree {
 
   @Returns("timings")
   @ReturnTypeParameter(Double::class)
-  public suspend fun profileSnapshot(@ParamName("snapshotId") snapshotId: String): List<List<Double>> {
+  suspend fun profileSnapshot(@ParamName("snapshotId") snapshotId: String): List<List<Double>> {
     return profileSnapshot(snapshotId, null, null, null)
   }
 
@@ -78,7 +78,7 @@ interface LayerTree {
    * Releases layer snapshot captured by the back-end.
    * @param snapshotId The id of the layer snapshot.
    */
-  public suspend fun releaseSnapshot(@ParamName("snapshotId") snapshotId: String)
+  suspend fun releaseSnapshot(@ParamName("snapshotId") snapshotId: String)
 
   /**
    * Replays the layer snapshot and returns the resulting bitmap.
@@ -88,7 +88,7 @@ interface LayerTree {
    * @param scale The scale to apply while replaying (defaults to 1).
    */
   @Returns("dataURL")
-  public suspend fun replaySnapshot(
+  suspend fun replaySnapshot(
     @ParamName("snapshotId") snapshotId: String,
     @ParamName("fromStep") @Optional fromStep: Int? = null,
     @ParamName("toStep") @Optional toStep: Int? = null,
@@ -96,7 +96,7 @@ interface LayerTree {
   ): String
 
   @Returns("dataURL")
-  public suspend fun replaySnapshot(@ParamName("snapshotId") snapshotId: String): String {
+  suspend fun replaySnapshot(@ParamName("snapshotId") snapshotId: String): String {
     return replaySnapshot(snapshotId, null, null, null)
   }
 
@@ -106,7 +106,7 @@ interface LayerTree {
    */
   @Returns("commandLog")
   @ReturnTypeParameter(String::class, Any::class)
-  public suspend fun snapshotCommandLog(@ParamName("snapshotId") snapshotId: String): List<Map<String, Any?>>
+  suspend fun snapshotCommandLog(@ParamName("snapshotId") snapshotId: String): List<Map<String, Any?>>
 
   @EventName("layerPainted")
   fun onLayerPainted(eventListener: EventHandler<LayerPainted>): EventListener

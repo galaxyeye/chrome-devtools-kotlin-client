@@ -28,7 +28,7 @@ interface DOMDebugger {
    */
   @Returns("listeners")
   @ReturnTypeParameter(EventListener::class)
-  public suspend fun getEventListeners(
+  suspend fun getEventListeners(
     @ParamName("objectId") objectId: String,
     @ParamName("depth") @Optional depth: Int? = null,
     @ParamName("pierce") @Optional pierce: Boolean? = null,
@@ -36,7 +36,7 @@ interface DOMDebugger {
 
   @Returns("listeners")
   @ReturnTypeParameter(EventListener::class)
-  public suspend fun getEventListeners(@ParamName("objectId") objectId: String): List<EventListener> {
+  suspend fun getEventListeners(@ParamName("objectId") objectId: String): List<EventListener> {
     return getEventListeners(objectId, null, null)
   }
 
@@ -45,16 +45,16 @@ interface DOMDebugger {
    * @param nodeId Identifier of the node to remove breakpoint from.
    * @param type Type of the breakpoint to remove.
    */
-  public suspend fun removeDOMBreakpoint(@ParamName("nodeId") nodeId: Int, @ParamName("type") type: DOMBreakpointType)
+  suspend fun removeDOMBreakpoint(@ParamName("nodeId") nodeId: Int, @ParamName("type") type: DOMBreakpointType)
 
   /**
    * Removes breakpoint on particular DOM event.
    * @param eventName Event name.
    * @param targetName EventTarget interface name.
    */
-  public suspend fun removeEventListenerBreakpoint(@ParamName("eventName") eventName: String, @ParamName("targetName") @Optional @Experimental targetName: String? = null)
+  suspend fun removeEventListenerBreakpoint(@ParamName("eventName") eventName: String, @ParamName("targetName") @Optional @Experimental targetName: String? = null)
 
-  public suspend fun removeEventListenerBreakpoint(@ParamName("eventName") eventName: String) {
+  suspend fun removeEventListenerBreakpoint(@ParamName("eventName") eventName: String) {
     return removeEventListenerBreakpoint(eventName, null)
   }
 
@@ -63,27 +63,27 @@ interface DOMDebugger {
    * @param eventName Instrumentation name to stop on.
    */
   @Experimental
-  public suspend fun removeInstrumentationBreakpoint(@ParamName("eventName") eventName: String)
+  suspend fun removeInstrumentationBreakpoint(@ParamName("eventName") eventName: String)
 
   /**
    * Removes breakpoint from XMLHttpRequest.
    * @param url Resource URL substring.
    */
-  public suspend fun removeXHRBreakpoint(@ParamName("url") url: String)
+  suspend fun removeXHRBreakpoint(@ParamName("url") url: String)
 
   /**
    * Sets breakpoint on particular CSP violations.
    * @param violationTypes CSP Violations to stop upon.
    */
   @Experimental
-  public suspend fun setBreakOnCSPViolation(@ParamName("violationTypes") violationTypes: List<CSPViolationType>)
+  suspend fun setBreakOnCSPViolation(@ParamName("violationTypes") violationTypes: List<CSPViolationType>)
 
   /**
    * Sets breakpoint on particular operation with DOM.
    * @param nodeId Identifier of the node to set breakpoint on.
    * @param type Type of the operation to stop upon.
    */
-  public suspend fun setDOMBreakpoint(@ParamName("nodeId") nodeId: Int, @ParamName("type") type: DOMBreakpointType)
+  suspend fun setDOMBreakpoint(@ParamName("nodeId") nodeId: Int, @ParamName("type") type: DOMBreakpointType)
 
   /**
    * Sets breakpoint on particular DOM event.
@@ -91,9 +91,9 @@ interface DOMDebugger {
    * @param targetName EventTarget interface name to stop on. If equal to `"*"` or not provided, will stop on any
    * EventTarget.
    */
-  public suspend fun setEventListenerBreakpoint(@ParamName("eventName") eventName: String, @ParamName("targetName") @Optional @Experimental targetName: String? = null)
+  suspend fun setEventListenerBreakpoint(@ParamName("eventName") eventName: String, @ParamName("targetName") @Optional @Experimental targetName: String? = null)
 
-  public suspend fun setEventListenerBreakpoint(@ParamName("eventName") eventName: String) {
+  suspend fun setEventListenerBreakpoint(@ParamName("eventName") eventName: String) {
     return setEventListenerBreakpoint(eventName, null)
   }
 
@@ -102,11 +102,11 @@ interface DOMDebugger {
    * @param eventName Instrumentation name to stop on.
    */
   @Experimental
-  public suspend fun setInstrumentationBreakpoint(@ParamName("eventName") eventName: String)
+  suspend fun setInstrumentationBreakpoint(@ParamName("eventName") eventName: String)
 
   /**
    * Sets breakpoint on XMLHttpRequest.
    * @param url Resource URL substring. All XHRs having this substring in the URL will get stopped upon.
    */
-  public suspend fun setXHRBreakpoint(@ParamName("url") url: String)
+  suspend fun setXHRBreakpoint(@ParamName("url") url: String)
 }

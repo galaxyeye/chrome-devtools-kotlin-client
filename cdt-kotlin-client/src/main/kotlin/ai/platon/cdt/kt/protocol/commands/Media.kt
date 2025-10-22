@@ -19,12 +19,12 @@ interface Media {
   /**
    * Enables the Media domain
    */
-  public suspend fun enable()
+  suspend fun enable()
 
   /**
    * Disables the Media domain.
    */
-  public suspend fun disable()
+  suspend fun disable()
 
   @EventName("playerPropertiesChanged")
   fun onPlayerPropertiesChanged(eventListener: EventHandler<PlayerPropertiesChanged>): EventListener

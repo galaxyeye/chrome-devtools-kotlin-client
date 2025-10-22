@@ -37,7 +37,7 @@ interface Browser {
    * @param browserContextId Context to override. When omitted, default browser context is used.
    */
   @Experimental
-  public suspend fun setPermission(
+  suspend fun setPermission(
     @ParamName("permission") permission: PermissionDescriptor,
     @ParamName("setting") setting: PermissionSetting,
     @ParamName("origin") @Optional origin: String? = null,
@@ -45,7 +45,7 @@ interface Browser {
   )
 
   @Experimental
-  public suspend fun setPermission(@ParamName("permission") permission: PermissionDescriptor, @ParamName("setting") setting: PermissionSetting) {
+  suspend fun setPermission(@ParamName("permission") permission: PermissionDescriptor, @ParamName("setting") setting: PermissionSetting) {
     return setPermission(permission, setting, null, null)
   }
 
@@ -56,14 +56,14 @@ interface Browser {
    * @param browserContextId BrowserContext to override permissions. When omitted, default browser context is used.
    */
   @Experimental
-  public suspend fun grantPermissions(
+  suspend fun grantPermissions(
     @ParamName("permissions") permissions: List<PermissionType>,
     @ParamName("origin") @Optional origin: String? = null,
     @ParamName("browserContextId") @Optional browserContextId: String? = null,
   )
 
   @Experimental
-  public suspend fun grantPermissions(@ParamName("permissions") permissions: List<PermissionType>) {
+  suspend fun grantPermissions(@ParamName("permissions") permissions: List<PermissionType>) {
     return grantPermissions(permissions, null, null)
   }
 
@@ -72,10 +72,10 @@ interface Browser {
    * @param browserContextId BrowserContext to reset permissions. When omitted, default browser context is used.
    */
   @Experimental
-  public suspend fun resetPermissions(@ParamName("browserContextId") @Optional browserContextId: String? = null)
+  suspend fun resetPermissions(@ParamName("browserContextId") @Optional browserContextId: String? = null)
 
   @Experimental
-  public suspend fun resetPermissions() {
+  suspend fun resetPermissions() {
     return resetPermissions(null)
   }
 
@@ -90,7 +90,7 @@ interface Browser {
    * @param eventsEnabled Whether to emit download events (defaults to false).
    */
   @Experimental
-  public suspend fun setDownloadBehavior(
+  suspend fun setDownloadBehavior(
     @ParamName("behavior") behavior: SetDownloadBehaviorBehavior,
     @ParamName("browserContextId") @Optional browserContextId: String? = null,
     @ParamName("downloadPath") @Optional downloadPath: String? = null,
@@ -98,7 +98,7 @@ interface Browser {
   )
 
   @Experimental
-  public suspend fun setDownloadBehavior(@ParamName("behavior") behavior: SetDownloadBehaviorBehavior) {
+  suspend fun setDownloadBehavior(@ParamName("behavior") behavior: SetDownloadBehaviorBehavior) {
     return setDownloadBehavior(behavior, null, null, null)
   }
 
@@ -108,34 +108,34 @@ interface Browser {
    * @param browserContextId BrowserContext to perform the action in. When omitted, default browser context is used.
    */
   @Experimental
-  public suspend fun cancelDownload(@ParamName("guid") guid: String, @ParamName("browserContextId") @Optional browserContextId: String? = null)
+  suspend fun cancelDownload(@ParamName("guid") guid: String, @ParamName("browserContextId") @Optional browserContextId: String? = null)
 
   @Experimental
-  public suspend fun cancelDownload(@ParamName("guid") guid: String) {
+  suspend fun cancelDownload(@ParamName("guid") guid: String) {
     return cancelDownload(guid, null)
   }
 
   /**
    * Close browser gracefully.
    */
-  public suspend fun close()
+  suspend fun close()
 
   /**
    * Crashes browser on the main thread.
    */
   @Experimental
-  public suspend fun crash()
+  suspend fun crash()
 
   /**
    * Crashes GPU process.
    */
   @Experimental
-  public suspend fun crashGpuProcess()
+  suspend fun crashGpuProcess()
 
   /**
    * Returns version information.
    */
-  public suspend fun getVersion(): Version
+  suspend fun getVersion(): Version
 
   /**
    * Returns the command line switches for the browser process if, and only if
@@ -144,7 +144,7 @@ interface Browser {
   @Experimental
   @Returns("arguments")
   @ReturnTypeParameter(String::class)
-  public suspend fun getBrowserCommandLine(): List<String>
+  suspend fun getBrowserCommandLine(): List<String>
 
   /**
    * Get Chrome histograms.
@@ -156,12 +156,12 @@ interface Browser {
   @Experimental
   @Returns("histograms")
   @ReturnTypeParameter(Histogram::class)
-  public suspend fun getHistograms(@ParamName("query") @Optional query: String? = null, @ParamName("delta") @Optional delta: Boolean? = null): List<Histogram>
+  suspend fun getHistograms(@ParamName("query") @Optional query: String? = null, @ParamName("delta") @Optional delta: Boolean? = null): List<Histogram>
 
   @Experimental
   @Returns("histograms")
   @ReturnTypeParameter(Histogram::class)
-  public suspend fun getHistograms(): List<Histogram> {
+  suspend fun getHistograms(): List<Histogram> {
     return getHistograms(null, null)
   }
 
@@ -172,11 +172,11 @@ interface Browser {
    */
   @Experimental
   @Returns("histogram")
-  public suspend fun getHistogram(@ParamName("name") name: String, @ParamName("delta") @Optional delta: Boolean? = null): Histogram
+  suspend fun getHistogram(@ParamName("name") name: String, @ParamName("delta") @Optional delta: Boolean? = null): Histogram
 
   @Experimental
   @Returns("histogram")
-  public suspend fun getHistogram(@ParamName("name") name: String): Histogram {
+  suspend fun getHistogram(@ParamName("name") name: String): Histogram {
     return getHistogram(name, null)
   }
 
@@ -186,17 +186,17 @@ interface Browser {
    */
   @Experimental
   @Returns("bounds")
-  public suspend fun getWindowBounds(@ParamName("windowId") windowId: Int): Bounds
+  suspend fun getWindowBounds(@ParamName("windowId") windowId: Int): Bounds
 
   /**
    * Get the browser window that contains the devtools target.
    * @param targetId Devtools agent host id. If called as a part of the session, associated targetId is used.
    */
   @Experimental
-  public suspend fun getWindowForTarget(@ParamName("targetId") @Optional targetId: String? = null): WindowForTarget
+  suspend fun getWindowForTarget(@ParamName("targetId") @Optional targetId: String? = null): WindowForTarget
 
   @Experimental
-  public suspend fun getWindowForTarget(): WindowForTarget {
+  suspend fun getWindowForTarget(): WindowForTarget {
     return getWindowForTarget(null)
   }
 
@@ -207,7 +207,7 @@ interface Browser {
    * with 'left', 'top', 'width' or 'height'. Leaves unspecified fields unchanged.
    */
   @Experimental
-  public suspend fun setWindowBounds(@ParamName("windowId") windowId: Int, @ParamName("bounds") bounds: Bounds)
+  suspend fun setWindowBounds(@ParamName("windowId") windowId: Int, @ParamName("bounds") bounds: Bounds)
 
   /**
    * Set dock tile details, platform-specific.
@@ -215,10 +215,10 @@ interface Browser {
    * @param image Png encoded image. (Encoded as a base64 string when passed over JSON)
    */
   @Experimental
-  public suspend fun setDockTile(@ParamName("badgeLabel") @Optional badgeLabel: String? = null, @ParamName("image") @Optional image: String? = null)
+  suspend fun setDockTile(@ParamName("badgeLabel") @Optional badgeLabel: String? = null, @ParamName("image") @Optional image: String? = null)
 
   @Experimental
-  public suspend fun setDockTile() {
+  suspend fun setDockTile() {
     return setDockTile(null, null)
   }
 
@@ -227,7 +227,7 @@ interface Browser {
    * @param commandId
    */
   @Experimental
-  public suspend fun executeBrowserCommand(@ParamName("commandId") commandId: BrowserCommandId)
+  suspend fun executeBrowserCommand(@ParamName("commandId") commandId: BrowserCommandId)
 
   @EventName("downloadWillBegin")
   @Experimental

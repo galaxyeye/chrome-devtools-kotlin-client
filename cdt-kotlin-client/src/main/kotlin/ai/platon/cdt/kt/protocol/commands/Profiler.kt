@@ -24,9 +24,9 @@ import kotlin.Unit
 import kotlin.collections.List
 
 interface Profiler {
-  public suspend fun disable()
+  suspend fun disable()
 
-  public suspend fun enable()
+  suspend fun enable()
 
   /**
    * Collect coverage data for the current isolate. The coverage data may be incomplete due to
@@ -34,15 +34,15 @@ interface Profiler {
    */
   @Returns("result")
   @ReturnTypeParameter(ScriptCoverage::class)
-  public suspend fun getBestEffortCoverage(): List<ScriptCoverage>
+  suspend fun getBestEffortCoverage(): List<ScriptCoverage>
 
   /**
    * Changes CPU profiler sampling interval. Must be called before CPU profiles recording started.
    * @param interval New sampling interval in microseconds.
    */
-  public suspend fun setSamplingInterval(@ParamName("interval") interval: Int)
+  suspend fun setSamplingInterval(@ParamName("interval") interval: Int)
 
-  public suspend fun start()
+  suspend fun start()
 
   /**
    * Enable precise code coverage. Coverage data for JavaScript executed before enabling precise code
@@ -53,14 +53,14 @@ interface Profiler {
    * @param allowTriggeredUpdates Allow the backend to send updates on its own initiative
    */
   @Returns("timestamp")
-  public suspend fun startPreciseCoverage(
+  suspend fun startPreciseCoverage(
     @ParamName("callCount") @Optional callCount: Boolean? = null,
     @ParamName("detailed") @Optional detailed: Boolean? = null,
     @ParamName("allowTriggeredUpdates") @Optional allowTriggeredUpdates: Boolean? = null,
   ): Double
 
   @Returns("timestamp")
-  public suspend fun startPreciseCoverage(): Double {
+  suspend fun startPreciseCoverage(): Double {
     return startPreciseCoverage(null, null, null)
   }
 
@@ -68,28 +68,28 @@ interface Profiler {
    * Enable type profile.
    */
   @Experimental
-  public suspend fun startTypeProfile()
+  suspend fun startTypeProfile()
 
   @Returns("profile")
-  public suspend fun stop(): Profile
+  suspend fun stop(): Profile
 
   /**
    * Disable precise code coverage. Disabling releases unnecessary execution count records and allows
    * executing optimized code.
    */
-  public suspend fun stopPreciseCoverage()
+  suspend fun stopPreciseCoverage()
 
   /**
    * Disable type profile. Disabling releases type profile data collected so far.
    */
   @Experimental
-  public suspend fun stopTypeProfile()
+  suspend fun stopTypeProfile()
 
   /**
    * Collect coverage data for the current isolate, and resets execution counters. Precise code
    * coverage needs to have started.
    */
-  public suspend fun takePreciseCoverage(): TakePreciseCoverage
+  suspend fun takePreciseCoverage(): TakePreciseCoverage
 
   /**
    * Collect type profile.
@@ -97,19 +97,19 @@ interface Profiler {
   @Experimental
   @Returns("result")
   @ReturnTypeParameter(ScriptTypeProfile::class)
-  public suspend fun takeTypeProfile(): List<ScriptTypeProfile>
+  suspend fun takeTypeProfile(): List<ScriptTypeProfile>
 
   /**
    * Enable counters collection.
    */
   @Experimental
-  public suspend fun enableCounters()
+  suspend fun enableCounters()
 
   /**
    * Disable counters collection.
    */
   @Experimental
-  public suspend fun disableCounters()
+  suspend fun disableCounters()
 
   /**
    * Retrieve counters.
@@ -117,19 +117,19 @@ interface Profiler {
   @Experimental
   @Returns("result")
   @ReturnTypeParameter(CounterInfo::class)
-  public suspend fun getCounters(): List<CounterInfo>
+  suspend fun getCounters(): List<CounterInfo>
 
   /**
    * Enable run time call stats collection.
    */
   @Experimental
-  public suspend fun enableRuntimeCallStats()
+  suspend fun enableRuntimeCallStats()
 
   /**
    * Disable run time call stats collection.
    */
   @Experimental
-  public suspend fun disableRuntimeCallStats()
+  suspend fun disableRuntimeCallStats()
 
   /**
    * Retrieve run time call stats.
@@ -137,7 +137,7 @@ interface Profiler {
   @Experimental
   @Returns("result")
   @ReturnTypeParameter(RuntimeCallCounterInfo::class)
-  public suspend fun getRuntimeCallStats(): List<RuntimeCallCounterInfo>
+  suspend fun getRuntimeCallStats(): List<RuntimeCallCounterInfo>
 
   @EventName("consoleProfileFinished")
   fun onConsoleProfileFinished(eventListener: EventHandler<ConsoleProfileFinished>): EventListener

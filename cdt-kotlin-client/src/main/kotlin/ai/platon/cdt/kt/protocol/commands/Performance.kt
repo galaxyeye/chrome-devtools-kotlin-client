@@ -20,15 +20,15 @@ interface Performance {
   /**
    * Disable collecting and reporting metrics.
    */
-  public suspend fun disable()
+  suspend fun disable()
 
   /**
    * Enable collecting and reporting metrics.
    * @param timeDomain Time domain to use for collecting and reporting duration metrics.
    */
-  public suspend fun enable(@ParamName("timeDomain") @Optional timeDomain: EnableTimeDomain? = null)
+  suspend fun enable(@ParamName("timeDomain") @Optional timeDomain: EnableTimeDomain? = null)
 
-  public suspend fun enable() {
+  suspend fun enable() {
     return enable(null)
   }
 
@@ -40,14 +40,14 @@ interface Performance {
    */
   @Deprecated
   @Experimental
-  public suspend fun setTimeDomain(@ParamName("timeDomain") timeDomain: SetTimeDomainTimeDomain)
+  suspend fun setTimeDomain(@ParamName("timeDomain") timeDomain: SetTimeDomainTimeDomain)
 
   /**
    * Retrieve current values of run-time metrics.
    */
   @Returns("metrics")
   @ReturnTypeParameter(Metric::class)
-  public suspend fun getMetrics(): List<Metric>
+  suspend fun getMetrics(): List<Metric>
 
   @EventName("metrics")
   fun onMetrics(eventListener: EventHandler<Metrics>): EventListener

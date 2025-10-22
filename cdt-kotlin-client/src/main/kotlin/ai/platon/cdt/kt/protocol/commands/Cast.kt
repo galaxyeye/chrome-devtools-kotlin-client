@@ -25,35 +25,35 @@ interface Cast {
    * an |issueUpdated| event is fired.
    * @param presentationUrl
    */
-  public suspend fun enable(@ParamName("presentationUrl") @Optional presentationUrl: String? = null)
+  suspend fun enable(@ParamName("presentationUrl") @Optional presentationUrl: String? = null)
 
-  public suspend fun enable() {
+  suspend fun enable() {
     return enable(null)
   }
 
   /**
    * Stops observing for sinks and issues.
    */
-  public suspend fun disable()
+  suspend fun disable()
 
   /**
    * Sets a sink to be used when the web page requests the browser to choose a
    * sink via Presentation API, Remote Playback API, or Cast SDK.
    * @param sinkName
    */
-  public suspend fun setSinkToUse(@ParamName("sinkName") sinkName: String)
+  suspend fun setSinkToUse(@ParamName("sinkName") sinkName: String)
 
   /**
    * Starts mirroring the tab to the sink.
    * @param sinkName
    */
-  public suspend fun startTabMirroring(@ParamName("sinkName") sinkName: String)
+  suspend fun startTabMirroring(@ParamName("sinkName") sinkName: String)
 
   /**
    * Stops the active Cast session on the sink.
    * @param sinkName
    */
-  public suspend fun stopCasting(@ParamName("sinkName") sinkName: String)
+  suspend fun stopCasting(@ParamName("sinkName") sinkName: String)
 
   @EventName("sinksUpdated")
   fun onSinksUpdated(eventListener: EventHandler<SinksUpdated>): EventListener

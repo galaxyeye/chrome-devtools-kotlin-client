@@ -32,19 +32,19 @@ interface WebAudio {
   /**
    * Enables the WebAudio domain and starts sending context lifetime events.
    */
-  public suspend fun enable()
+  suspend fun enable()
 
   /**
    * Disables the WebAudio domain.
    */
-  public suspend fun disable()
+  suspend fun disable()
 
   /**
    * Fetch the realtime data from the registered contexts.
    * @param contextId
    */
   @Returns("realtimeData")
-  public suspend fun getRealtimeData(@ParamName("contextId") contextId: String): ContextRealtimeData
+  suspend fun getRealtimeData(@ParamName("contextId") contextId: String): ContextRealtimeData
 
   @EventName("contextCreated")
   fun onContextCreated(eventListener: EventHandler<ContextCreated>): EventListener

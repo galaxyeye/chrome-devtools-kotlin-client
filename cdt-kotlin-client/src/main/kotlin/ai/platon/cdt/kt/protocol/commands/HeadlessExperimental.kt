@@ -35,26 +35,26 @@ interface HeadlessExperimental {
    * no screenshot will be captured. Note that capturing a screenshot can fail, for example,
    * during renderer initialization. In such a case, no screenshot data will be returned.
    */
-  public suspend fun beginFrame(
+  suspend fun beginFrame(
     @ParamName("frameTimeTicks") @Optional frameTimeTicks: Double? = null,
     @ParamName("interval") @Optional interval: Double? = null,
     @ParamName("noDisplayUpdates") @Optional noDisplayUpdates: Boolean? = null,
     @ParamName("screenshot") @Optional screenshot: ScreenshotParams? = null,
   ): BeginFrame
 
-  public suspend fun beginFrame(): BeginFrame {
+  suspend fun beginFrame(): BeginFrame {
     return beginFrame(null, null, null, null)
   }
 
   /**
    * Disables headless events for the target.
    */
-  public suspend fun disable()
+  suspend fun disable()
 
   /**
    * Enables headless events for the target.
    */
-  public suspend fun enable()
+  suspend fun enable()
 
   @EventName("needsBeginFramesChanged")
   @Deprecated

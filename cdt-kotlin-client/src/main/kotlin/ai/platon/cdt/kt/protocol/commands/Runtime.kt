@@ -46,13 +46,13 @@ interface Runtime {
    * @param returnByValue Whether the result is expected to be a JSON object that should be sent by value.
    * @param generatePreview Whether preview should be generated for the result.
    */
-  public suspend fun awaitPromise(
+  suspend fun awaitPromise(
     @ParamName("promiseObjectId") promiseObjectId: String,
     @ParamName("returnByValue") @Optional returnByValue: Boolean? = null,
     @ParamName("generatePreview") @Optional generatePreview: Boolean? = null,
   ): AwaitPromise
 
-  public suspend fun awaitPromise(@ParamName("promiseObjectId") promiseObjectId: String): AwaitPromise {
+  suspend fun awaitPromise(@ParamName("promiseObjectId") promiseObjectId: String): AwaitPromise {
     return awaitPromise(promiseObjectId, null, null)
   }
 
@@ -76,7 +76,7 @@ interface Runtime {
    * @param objectGroup Symbolic group name that can be used to release multiple objects. If objectGroup is not
    * specified and objectId is, objectGroup will be inherited from object.
    */
-  public suspend fun callFunctionOn(
+  suspend fun callFunctionOn(
     @ParamName("functionDeclaration") functionDeclaration: String,
     @ParamName("objectId") @Optional objectId: String? = null,
     @ParamName("arguments") @Optional arguments: List<CallArgument>? = null,
@@ -89,7 +89,7 @@ interface Runtime {
     @ParamName("objectGroup") @Optional objectGroup: String? = null,
   ): CallFunctionOn
 
-  public suspend fun callFunctionOn(@ParamName("functionDeclaration") functionDeclaration: String): CallFunctionOn {
+  suspend fun callFunctionOn(@ParamName("functionDeclaration") functionDeclaration: String): CallFunctionOn {
     return callFunctionOn(functionDeclaration, null, null, null, null, null, null, null, null, null)
   }
 
@@ -101,14 +101,14 @@ interface Runtime {
    * @param executionContextId Specifies in which execution context to perform script run. If the parameter is omitted the
    * evaluation will be performed in the context of the inspected page.
    */
-  public suspend fun compileScript(
+  suspend fun compileScript(
     @ParamName("expression") expression: String,
     @ParamName("sourceURL") sourceURL: String,
     @ParamName("persistScript") persistScript: Boolean,
     @ParamName("executionContextId") @Optional executionContextId: Int? = null,
   ): CompileScript
 
-  public suspend fun compileScript(
+  suspend fun compileScript(
     @ParamName("expression") expression: String,
     @ParamName("sourceURL") sourceURL: String,
     @ParamName("persistScript") persistScript: Boolean,
@@ -119,19 +119,19 @@ interface Runtime {
   /**
    * Disables reporting of execution contexts creation.
    */
-  public suspend fun disable()
+  suspend fun disable()
 
   /**
    * Discards collected exceptions and console API calls.
    */
-  public suspend fun discardConsoleEntries()
+  suspend fun discardConsoleEntries()
 
   /**
    * Enables reporting of execution contexts creation by means of `executionContextCreated` event.
    * When the reporting gets enabled the event will be sent immediately for each existing execution
    * context.
    */
-  public suspend fun enable()
+  suspend fun enable()
 
   /**
    * Evaluates expression on global object.
@@ -168,7 +168,7 @@ interface Runtime {
    * boundaries).
    * This is mutually exclusive with `contextId`.
    */
-  public suspend fun evaluate(
+  suspend fun evaluate(
     @ParamName("expression") expression: String,
     @ParamName("objectGroup") @Optional objectGroup: String? = null,
     @ParamName("includeCommandLineAPI") @Optional includeCommandLineAPI: Boolean? = null,
@@ -186,7 +186,7 @@ interface Runtime {
     @ParamName("uniqueContextId") @Optional @Experimental uniqueContextId: String? = null,
   ): Evaluate
 
-  public suspend fun evaluate(@ParamName("expression") expression: String): Evaluate {
+  suspend fun evaluate(@ParamName("expression") expression: String): Evaluate {
     return evaluate(expression, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
   }
 
@@ -195,14 +195,14 @@ interface Runtime {
    */
   @Experimental
   @Returns("id")
-  public suspend fun getIsolateId(): String
+  suspend fun getIsolateId(): String
 
   /**
    * Returns the JavaScript heap usage.
    * It is the total usage of the corresponding isolate not scoped to a particular Runtime.
    */
   @Experimental
-  public suspend fun getHeapUsage(): HeapUsage
+  suspend fun getHeapUsage(): HeapUsage
 
   /**
    * Returns properties of a given object. Object group of the result is inherited from the target
@@ -214,14 +214,14 @@ interface Runtime {
    * returned either.
    * @param generatePreview Whether preview should be generated for the results.
    */
-  public suspend fun getProperties(
+  suspend fun getProperties(
     @ParamName("objectId") objectId: String,
     @ParamName("ownProperties") @Optional ownProperties: Boolean? = null,
     @ParamName("accessorPropertiesOnly") @Optional @Experimental accessorPropertiesOnly: Boolean? = null,
     @ParamName("generatePreview") @Optional @Experimental generatePreview: Boolean? = null,
   ): Properties
 
-  public suspend fun getProperties(@ParamName("objectId") objectId: String): Properties {
+  suspend fun getProperties(@ParamName("objectId") objectId: String): Properties {
     return getProperties(objectId, null, null, null)
   }
 
@@ -231,11 +231,11 @@ interface Runtime {
    */
   @Returns("names")
   @ReturnTypeParameter(String::class)
-  public suspend fun globalLexicalScopeNames(@ParamName("executionContextId") @Optional executionContextId: Int? = null): List<String>
+  suspend fun globalLexicalScopeNames(@ParamName("executionContextId") @Optional executionContextId: Int? = null): List<String>
 
   @Returns("names")
   @ReturnTypeParameter(String::class)
-  public suspend fun globalLexicalScopeNames(): List<String> {
+  suspend fun globalLexicalScopeNames(): List<String> {
     return globalLexicalScopeNames(null)
   }
 
@@ -244,10 +244,10 @@ interface Runtime {
    * @param objectGroup Symbolic group name that can be used to release the results.
    */
   @Returns("objects")
-  public suspend fun queryObjects(@ParamName("prototypeObjectId") prototypeObjectId: String, @ParamName("objectGroup") @Optional objectGroup: String? = null): RemoteObject
+  suspend fun queryObjects(@ParamName("prototypeObjectId") prototypeObjectId: String, @ParamName("objectGroup") @Optional objectGroup: String? = null): RemoteObject
 
   @Returns("objects")
-  public suspend fun queryObjects(@ParamName("prototypeObjectId") prototypeObjectId: String): RemoteObject {
+  suspend fun queryObjects(@ParamName("prototypeObjectId") prototypeObjectId: String): RemoteObject {
     return queryObjects(prototypeObjectId, null)
   }
 
@@ -255,18 +255,18 @@ interface Runtime {
    * Releases remote object with given id.
    * @param objectId Identifier of the object to release.
    */
-  public suspend fun releaseObject(@ParamName("objectId") objectId: String)
+  suspend fun releaseObject(@ParamName("objectId") objectId: String)
 
   /**
    * Releases all remote objects that belong to a given group.
    * @param objectGroup Symbolic object group name.
    */
-  public suspend fun releaseObjectGroup(@ParamName("objectGroup") objectGroup: String)
+  suspend fun releaseObjectGroup(@ParamName("objectGroup") objectGroup: String)
 
   /**
    * Tells inspected instance to run if it was waiting for debugger to attach.
    */
-  public suspend fun runIfWaitingForDebugger()
+  suspend fun runIfWaitingForDebugger()
 
   /**
    * Runs script with given id in a given context.
@@ -282,7 +282,7 @@ interface Runtime {
    * @param awaitPromise Whether execution should `await` for resulting value and return once awaited promise is
    * resolved.
    */
-  public suspend fun runScript(
+  suspend fun runScript(
     @ParamName("scriptId") scriptId: String,
     @ParamName("executionContextId") @Optional executionContextId: Int? = null,
     @ParamName("objectGroup") @Optional objectGroup: String? = null,
@@ -293,7 +293,7 @@ interface Runtime {
     @ParamName("awaitPromise") @Optional awaitPromise: Boolean? = null,
   ): RunScript
 
-  public suspend fun runScript(@ParamName("scriptId") scriptId: String): RunScript {
+  suspend fun runScript(@ParamName("scriptId") scriptId: String): RunScript {
     return runScript(scriptId, null, null, null, null, null, null, null)
   }
 
@@ -301,20 +301,20 @@ interface Runtime {
    * @param enabled
    */
   @Experimental
-  public suspend fun setCustomObjectFormatterEnabled(@ParamName("enabled") enabled: Boolean)
+  suspend fun setCustomObjectFormatterEnabled(@ParamName("enabled") enabled: Boolean)
 
   /**
    * @param size
    */
   @Experimental
-  public suspend fun setMaxCallStackSizeToCapture(@ParamName("size") size: Int)
+  suspend fun setMaxCallStackSizeToCapture(@ParamName("size") size: Int)
 
   /**
    * Terminate current or next JavaScript execution.
    * Will cancel the termination when the outer-most script execution ends.
    */
   @Experimental
-  public suspend fun terminateExecution()
+  suspend fun terminateExecution()
 
   /**
    * If executionContextId is empty, adds binding with the given name on the
@@ -335,14 +335,14 @@ interface Runtime {
    * This parameter is mutually exclusive with `executionContextId`.
    */
   @Experimental
-  public suspend fun addBinding(
+  suspend fun addBinding(
     @ParamName("name") name: String,
     @ParamName("executionContextId") @Optional executionContextId: Int? = null,
     @ParamName("executionContextName") @Optional @Experimental executionContextName: String? = null,
   )
 
   @Experimental
-  public suspend fun addBinding(@ParamName("name") name: String) {
+  suspend fun addBinding(@ParamName("name") name: String) {
     return addBinding(name, null, null)
   }
 
@@ -352,7 +352,7 @@ interface Runtime {
    * @param name
    */
   @Experimental
-  public suspend fun removeBinding(@ParamName("name") name: String)
+  suspend fun removeBinding(@ParamName("name") name: String)
 
   @EventName("bindingCalled")
   @Experimental

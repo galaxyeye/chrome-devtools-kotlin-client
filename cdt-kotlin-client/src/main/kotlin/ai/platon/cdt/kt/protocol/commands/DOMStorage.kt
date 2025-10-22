@@ -24,37 +24,37 @@ interface DOMStorage {
   /**
    * @param storageId
    */
-  public suspend fun clear(@ParamName("storageId") storageId: StorageId)
+  suspend fun clear(@ParamName("storageId") storageId: StorageId)
 
   /**
    * Disables storage tracking, prevents storage events from being sent to the client.
    */
-  public suspend fun disable()
+  suspend fun disable()
 
   /**
    * Enables storage tracking, storage events will now be delivered to the client.
    */
-  public suspend fun enable()
+  suspend fun enable()
 
   /**
    * @param storageId
    */
   @Returns("entries")
   @ReturnTypeParameter(String::class)
-  public suspend fun getDOMStorageItems(@ParamName("storageId") storageId: StorageId): List<List<String>>
+  suspend fun getDOMStorageItems(@ParamName("storageId") storageId: StorageId): List<List<String>>
 
   /**
    * @param storageId
    * @param key
    */
-  public suspend fun removeDOMStorageItem(@ParamName("storageId") storageId: StorageId, @ParamName("key") key: String)
+  suspend fun removeDOMStorageItem(@ParamName("storageId") storageId: StorageId, @ParamName("key") key: String)
 
   /**
    * @param storageId
    * @param key
    * @param value
    */
-  public suspend fun setDOMStorageItem(
+  suspend fun setDOMStorageItem(
     @ParamName("storageId") storageId: StorageId,
     @ParamName("key") key: String,
     @ParamName("value") `value`: String,

@@ -25,7 +25,7 @@ interface PerformanceTimeline {
    * filter disables recording.
    * Note that not all types exposed to the web platform are currently supported.
    */
-  public suspend fun enable(@ParamName("eventTypes") eventTypes: List<String>)
+  suspend fun enable(@ParamName("eventTypes") eventTypes: List<String>)
 
   @EventName("timelineEventAdded")
   fun onTimelineEventAdded(eventListener: EventHandler<TimelineEventAdded>): EventListener

@@ -18,12 +18,12 @@ interface DOMSnapshot {
   /**
    * Disables DOM snapshot agent for the given page.
    */
-  public suspend fun disable()
+  suspend fun disable()
 
   /**
    * Enables DOM snapshot agent for the given page.
    */
-  public suspend fun enable()
+  suspend fun enable()
 
   /**
    * Returns a document snapshot, including the full DOM tree of the root node (including iframes,
@@ -36,7 +36,7 @@ interface DOMSnapshot {
    * @param includeUserAgentShadowTree Whether to include UA shadow tree in the snapshot (default false).
    */
   @Deprecated
-  public suspend fun getSnapshot(
+  suspend fun getSnapshot(
     @ParamName("computedStyleWhitelist") computedStyleWhitelist: List<String>,
     @ParamName("includeEventListeners") @Optional includeEventListeners: Boolean? = null,
     @ParamName("includePaintOrder") @Optional includePaintOrder: Boolean? = null,
@@ -44,7 +44,7 @@ interface DOMSnapshot {
   ): Snapshot
 
   @Deprecated
-  public suspend fun getSnapshot(@ParamName("computedStyleWhitelist") computedStyleWhitelist: List<String>): Snapshot {
+  suspend fun getSnapshot(@ParamName("computedStyleWhitelist") computedStyleWhitelist: List<String>): Snapshot {
     return getSnapshot(computedStyleWhitelist, null, null, null)
   }
 
@@ -63,7 +63,7 @@ interface DOMSnapshot {
    * An element might have the opacity property set that affects the text color of the element.
    * The final text color opacity is computed based on the opacity of all overlapping elements.
    */
-  public suspend fun captureSnapshot(
+  suspend fun captureSnapshot(
     @ParamName("computedStyles") computedStyles: List<String>,
     @ParamName("includePaintOrder") @Optional includePaintOrder: Boolean? = null,
     @ParamName("includeDOMRects") @Optional includeDOMRects: Boolean? = null,
@@ -71,7 +71,7 @@ interface DOMSnapshot {
     @ParamName("includeTextColorOpacities") @Optional @Experimental includeTextColorOpacities: Boolean? = null,
   ): CaptureSnapshot
 
-  public suspend fun captureSnapshot(@ParamName("computedStyles") computedStyles: List<String>): CaptureSnapshot {
+  suspend fun captureSnapshot(@ParamName("computedStyles") computedStyles: List<String>): CaptureSnapshot {
     return captureSnapshot(computedStyles, null, null, null, null)
   }
 }

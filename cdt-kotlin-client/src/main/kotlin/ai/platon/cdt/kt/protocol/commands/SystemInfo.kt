@@ -15,12 +15,12 @@ interface SystemInfo {
   /**
    * Returns information about the system.
    */
-  public suspend fun getInfo(): Info
+  suspend fun getInfo(): Info
 
   /**
    * Returns information about all running processes.
    */
   @Returns("processInfo")
   @ReturnTypeParameter(ProcessInfo::class)
-  public suspend fun getProcessInfo(): List<ProcessInfo>
+  suspend fun getProcessInfo(): List<ProcessInfo>
 }

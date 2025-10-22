@@ -32,7 +32,7 @@ interface Target {
    * Activates (focuses) the target.
    * @param targetId
    */
-  public suspend fun activateTarget(@ParamName("targetId") targetId: String)
+  suspend fun activateTarget(@ParamName("targetId") targetId: String)
 
   /**
    * Attaches to the target with given id.
@@ -42,10 +42,10 @@ interface Target {
    * and eventually retire it. See crbug.com/991325.
    */
   @Returns("sessionId")
-  public suspend fun attachToTarget(@ParamName("targetId") targetId: String, @ParamName("flatten") @Optional flatten: Boolean? = null): String
+  suspend fun attachToTarget(@ParamName("targetId") targetId: String, @ParamName("flatten") @Optional flatten: Boolean? = null): String
 
   @Returns("sessionId")
-  public suspend fun attachToTarget(@ParamName("targetId") targetId: String): String {
+  suspend fun attachToTarget(@ParamName("targetId") targetId: String): String {
     return attachToTarget(targetId, null)
   }
 
@@ -54,14 +54,14 @@ interface Target {
    */
   @Experimental
   @Returns("sessionId")
-  public suspend fun attachToBrowserTarget(): String
+  suspend fun attachToBrowserTarget(): String
 
   /**
    * Closes the target. If the target is a page that gets closed too.
    * @param targetId
    */
   @Returns("success")
-  public suspend fun closeTarget(@ParamName("targetId") targetId: String): Boolean
+  suspend fun closeTarget(@ParamName("targetId") targetId: String): Boolean
 
   /**
    * Inject object to the target's main frame that provides a communication
@@ -76,10 +76,10 @@ interface Target {
    * @param bindingName Binding name, 'cdp' if not specified.
    */
   @Experimental
-  public suspend fun exposeDevToolsProtocol(@ParamName("targetId") targetId: String, @ParamName("bindingName") @Optional bindingName: String? = null)
+  suspend fun exposeDevToolsProtocol(@ParamName("targetId") targetId: String, @ParamName("bindingName") @Optional bindingName: String? = null)
 
   @Experimental
-  public suspend fun exposeDevToolsProtocol(@ParamName("targetId") targetId: String) {
+  suspend fun exposeDevToolsProtocol(@ParamName("targetId") targetId: String) {
     return exposeDevToolsProtocol(targetId, null)
   }
 
@@ -92,7 +92,7 @@ interface Target {
    */
   @Experimental
   @Returns("browserContextId")
-  public suspend fun createBrowserContext(
+  suspend fun createBrowserContext(
     @ParamName("disposeOnDetach") @Optional disposeOnDetach: Boolean? = null,
     @ParamName("proxyServer") @Optional proxyServer: String? = null,
     @ParamName("proxyBypassList") @Optional proxyBypassList: String? = null,
@@ -100,7 +100,7 @@ interface Target {
 
   @Experimental
   @Returns("browserContextId")
-  public suspend fun createBrowserContext(): String {
+  suspend fun createBrowserContext(): String {
     return createBrowserContext(null, null, null)
   }
 
@@ -110,7 +110,7 @@ interface Target {
   @Experimental
   @Returns("browserContextIds")
   @ReturnTypeParameter(String::class)
-  public suspend fun getBrowserContexts(): List<String>
+  suspend fun getBrowserContexts(): List<String>
 
   /**
    * Creates a new page.
@@ -125,7 +125,7 @@ interface Target {
    * false by default).
    */
   @Returns("targetId")
-  public suspend fun createTarget(
+  suspend fun createTarget(
     @ParamName("url") url: String,
     @ParamName("width") @Optional width: Int? = null,
     @ParamName("height") @Optional height: Int? = null,
@@ -136,7 +136,7 @@ interface Target {
   ): String
 
   @Returns("targetId")
-  public suspend fun createTarget(@ParamName("url") url: String): String {
+  suspend fun createTarget(@ParamName("url") url: String): String {
     return createTarget(url, null, null, null, null, null, null)
   }
 
@@ -145,9 +145,9 @@ interface Target {
    * @param sessionId Session to detach.
    * @param targetId Deprecated.
    */
-  public suspend fun detachFromTarget(@ParamName("sessionId") @Optional sessionId: String? = null, @ParamName("targetId") @Optional @Deprecated targetId: String? = null)
+  suspend fun detachFromTarget(@ParamName("sessionId") @Optional sessionId: String? = null, @ParamName("targetId") @Optional @Deprecated targetId: String? = null)
 
-  public suspend fun detachFromTarget() {
+  suspend fun detachFromTarget() {
     return detachFromTarget(null, null)
   }
 
@@ -157,7 +157,7 @@ interface Target {
    * @param browserContextId
    */
   @Experimental
-  public suspend fun disposeBrowserContext(@ParamName("browserContextId") browserContextId: String)
+  suspend fun disposeBrowserContext(@ParamName("browserContextId") browserContextId: String)
 
   /**
    * Returns information about a target.
@@ -165,11 +165,11 @@ interface Target {
    */
   @Experimental
   @Returns("targetInfo")
-  public suspend fun getTargetInfo(@ParamName("targetId") @Optional targetId: String? = null): TargetInfo
+  suspend fun getTargetInfo(@ParamName("targetId") @Optional targetId: String? = null): TargetInfo
 
   @Experimental
   @Returns("targetInfo")
-  public suspend fun getTargetInfo(): TargetInfo {
+  suspend fun getTargetInfo(): TargetInfo {
     return getTargetInfo(null)
   }
 
@@ -178,7 +178,7 @@ interface Target {
    */
   @Returns("targetInfos")
   @ReturnTypeParameter(TargetInfo::class)
-  public suspend fun getTargets(): List<TargetInfo>
+  suspend fun getTargets(): List<TargetInfo>
 
   /**
    * Sends protocol message over session with given id.
@@ -189,14 +189,14 @@ interface Target {
    * @param targetId Deprecated.
    */
   @Deprecated
-  public suspend fun sendMessageToTarget(
+  suspend fun sendMessageToTarget(
     @ParamName("message") message: String,
     @ParamName("sessionId") @Optional sessionId: String? = null,
     @ParamName("targetId") @Optional @Deprecated targetId: String? = null,
   )
 
   @Deprecated
-  public suspend fun sendMessageToTarget(@ParamName("message") message: String) {
+  suspend fun sendMessageToTarget(@ParamName("message") message: String) {
     return sendMessageToTarget(message, null, null)
   }
 
@@ -212,14 +212,14 @@ interface Target {
    * and eventually retire it. See crbug.com/991325.
    */
   @Experimental
-  public suspend fun setAutoAttach(
+  suspend fun setAutoAttach(
     @ParamName("autoAttach") autoAttach: Boolean,
     @ParamName("waitForDebuggerOnStart") waitForDebuggerOnStart: Boolean,
     @ParamName("flatten") @Optional flatten: Boolean? = null,
   )
 
   @Experimental
-  public suspend fun setAutoAttach(@ParamName("autoAttach") autoAttach: Boolean, @ParamName("waitForDebuggerOnStart") waitForDebuggerOnStart: Boolean) {
+  suspend fun setAutoAttach(@ParamName("autoAttach") autoAttach: Boolean, @ParamName("waitForDebuggerOnStart") waitForDebuggerOnStart: Boolean) {
     return setAutoAttach(autoAttach, waitForDebuggerOnStart, null)
   }
 
@@ -228,7 +228,7 @@ interface Target {
    * `targetCreated/targetInfoChanged/targetDestroyed` events.
    * @param discover Whether to discover available targets.
    */
-  public suspend fun setDiscoverTargets(@ParamName("discover") discover: Boolean)
+  suspend fun setDiscoverTargets(@ParamName("discover") discover: Boolean)
 
   /**
    * Enables target discovery for the specified locations, when `setDiscoverTargets` was set to
@@ -236,7 +236,7 @@ interface Target {
    * @param locations List of remote locations.
    */
   @Experimental
-  public suspend fun setRemoteLocations(@ParamName("locations") locations: List<RemoteLocation>)
+  suspend fun setRemoteLocations(@ParamName("locations") locations: List<RemoteLocation>)
 
   @EventName("attachedToTarget")
   @Experimental

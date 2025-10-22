@@ -26,7 +26,7 @@ interface Fetch {
   /**
    * Disables the fetch domain.
    */
-  public suspend fun disable()
+  suspend fun disable()
 
   /**
    * Enables issuing of requestPaused events. A request will be paused until client
@@ -37,9 +37,9 @@ interface Fetch {
    * @param handleAuthRequests If true, authRequired events will be issued and requests will be paused
    * expecting a call to continueWithAuth.
    */
-  public suspend fun enable(@ParamName("patterns") @Optional patterns: List<RequestPattern>? = null, @ParamName("handleAuthRequests") @Optional handleAuthRequests: Boolean? = null)
+  suspend fun enable(@ParamName("patterns") @Optional patterns: List<RequestPattern>? = null, @ParamName("handleAuthRequests") @Optional handleAuthRequests: Boolean? = null)
 
-  public suspend fun enable() {
+  suspend fun enable() {
     return enable(null, null)
   }
 
@@ -48,7 +48,7 @@ interface Fetch {
    * @param requestId An id the client received in requestPaused event.
    * @param errorReason Causes the request to fail with the given reason.
    */
-  public suspend fun failRequest(@ParamName("requestId") requestId: String, @ParamName("errorReason") errorReason: ErrorReason)
+  suspend fun failRequest(@ParamName("requestId") requestId: String, @ParamName("errorReason") errorReason: ErrorReason)
 
   /**
    * Provides response to the request.
@@ -63,7 +63,7 @@ interface Fetch {
    * @param responsePhrase A textual representation of responseCode.
    * If absent, a standard phrase matching responseCode is used.
    */
-  public suspend fun fulfillRequest(
+  suspend fun fulfillRequest(
     @ParamName("requestId") requestId: String,
     @ParamName("responseCode") responseCode: Int,
     @ParamName("responseHeaders") @Optional responseHeaders: List<HeaderEntry>? = null,
@@ -72,7 +72,7 @@ interface Fetch {
     @ParamName("responsePhrase") @Optional responsePhrase: String? = null,
   )
 
-  public suspend fun fulfillRequest(@ParamName("requestId") requestId: String, @ParamName("responseCode") responseCode: Int) {
+  suspend fun fulfillRequest(@ParamName("requestId") requestId: String, @ParamName("responseCode") responseCode: Int) {
     return fulfillRequest(requestId, responseCode, null, null, null, null)
   }
 
@@ -84,7 +84,7 @@ interface Fetch {
    * @param postData If set, overrides the post data in the request. (Encoded as a base64 string when passed over JSON)
    * @param headers If set, overrides the request headers.
    */
-  public suspend fun continueRequest(
+  suspend fun continueRequest(
     @ParamName("requestId") requestId: String,
     @ParamName("url") @Optional url: String? = null,
     @ParamName("method") @Optional method: String? = null,
@@ -92,7 +92,7 @@ interface Fetch {
     @ParamName("headers") @Optional headers: List<HeaderEntry>? = null,
   )
 
-  public suspend fun continueRequest(@ParamName("requestId") requestId: String) {
+  suspend fun continueRequest(@ParamName("requestId") requestId: String) {
     return continueRequest(requestId, null, null, null, null)
   }
 
@@ -101,7 +101,7 @@ interface Fetch {
    * @param requestId An id the client received in authRequired event.
    * @param authChallengeResponse Response to  with an authChallenge.
    */
-  public suspend fun continueWithAuth(@ParamName("requestId") requestId: String, @ParamName("authChallengeResponse") authChallengeResponse: AuthChallengeResponse)
+  suspend fun continueWithAuth(@ParamName("requestId") requestId: String, @ParamName("authChallengeResponse") authChallengeResponse: AuthChallengeResponse)
 
   /**
    * Causes the body of the response to be received from the server and
@@ -112,7 +112,7 @@ interface Fetch {
    * results in an undefined behavior.
    * @param requestId Identifier for the intercepted request to get body for.
    */
-  public suspend fun getResponseBody(@ParamName("requestId") requestId: String): ResponseBody
+  suspend fun getResponseBody(@ParamName("requestId") requestId: String): ResponseBody
 
   /**
    * Returns a handle to the stream representing the response body.
@@ -128,7 +128,7 @@ interface Fetch {
    * @param requestId
    */
   @Returns("stream")
-  public suspend fun takeResponseBodyAsStream(@ParamName("requestId") requestId: String): String
+  suspend fun takeResponseBodyAsStream(@ParamName("requestId") requestId: String): String
 
   @EventName("requestPaused")
   fun onRequestPaused(eventListener: EventHandler<RequestPaused>): EventListener

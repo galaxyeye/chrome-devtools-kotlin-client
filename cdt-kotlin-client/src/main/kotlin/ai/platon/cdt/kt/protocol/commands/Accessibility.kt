@@ -16,13 +16,13 @@ interface Accessibility {
   /**
    * Disables the accessibility domain.
    */
-  public suspend fun disable()
+  suspend fun disable()
 
   /**
    * Enables the accessibility domain which causes `AXNodeId`s to remain consistent between method calls.
    * This turns on accessibility for the page, which can impact performance until accessibility is disabled.
    */
-  public suspend fun enable()
+  suspend fun enable()
 
   /**
    * Fetches the accessibility node and partial accessibility tree for this DOM node, if it exists.
@@ -34,7 +34,7 @@ interface Accessibility {
   @Experimental
   @Returns("nodes")
   @ReturnTypeParameter(AXNode::class)
-  public suspend fun getPartialAXTree(
+  suspend fun getPartialAXTree(
     @ParamName("nodeId") @Optional nodeId: Int? = null,
     @ParamName("backendNodeId") @Optional backendNodeId: Int? = null,
     @ParamName("objectId") @Optional objectId: String? = null,
@@ -44,7 +44,7 @@ interface Accessibility {
   @Experimental
   @Returns("nodes")
   @ReturnTypeParameter(AXNode::class)
-  public suspend fun getPartialAXTree(): List<AXNode> {
+  suspend fun getPartialAXTree(): List<AXNode> {
     return getPartialAXTree(null, null, null, null)
   }
 
@@ -56,12 +56,12 @@ interface Accessibility {
   @Experimental
   @Returns("nodes")
   @ReturnTypeParameter(AXNode::class)
-  public suspend fun getFullAXTree(@ParamName("max_depth") @Optional max_depth: Int? = null): List<AXNode>
+  suspend fun getFullAXTree(@ParamName("max_depth") @Optional max_depth: Int? = null): List<AXNode>
 
   @Experimental
   @Returns("nodes")
   @ReturnTypeParameter(AXNode::class)
-  public suspend fun getFullAXTree(): List<AXNode> {
+  suspend fun getFullAXTree(): List<AXNode> {
     return getFullAXTree(null)
   }
 
@@ -73,7 +73,7 @@ interface Accessibility {
   @Experimental
   @Returns("nodes")
   @ReturnTypeParameter(AXNode::class)
-  public suspend fun getChildAXNodes(@ParamName("id") id: String): List<AXNode>
+  suspend fun getChildAXNodes(@ParamName("id") id: String): List<AXNode>
 
   /**
    * Query a DOM node's accessibility subtree for accessible name and role.
@@ -90,7 +90,7 @@ interface Accessibility {
   @Experimental
   @Returns("nodes")
   @ReturnTypeParameter(AXNode::class)
-  public suspend fun queryAXTree(
+  suspend fun queryAXTree(
     @ParamName("nodeId") @Optional nodeId: Int? = null,
     @ParamName("backendNodeId") @Optional backendNodeId: Int? = null,
     @ParamName("objectId") @Optional objectId: String? = null,
@@ -101,7 +101,7 @@ interface Accessibility {
   @Experimental
   @Returns("nodes")
   @ReturnTypeParameter(AXNode::class)
-  public suspend fun queryAXTree(): List<AXNode> {
+  suspend fun queryAXTree(): List<AXNode> {
     return queryAXTree(null, null, null, null, null)
   }
 }

@@ -56,7 +56,7 @@ interface DOM {
   @Experimental
   @Returns("classNames")
   @ReturnTypeParameter(String::class)
-  public suspend fun collectClassNamesFromSubtree(@ParamName("nodeId") nodeId: Int): List<String>
+  suspend fun collectClassNamesFromSubtree(@ParamName("nodeId") nodeId: Int): List<String>
 
   /**
    * Creates a deep copy of the specified node and places it into the target container before the
@@ -68,7 +68,7 @@ interface DOM {
    */
   @Experimental
   @Returns("nodeId")
-  public suspend fun copyTo(
+  suspend fun copyTo(
     @ParamName("nodeId") nodeId: Int,
     @ParamName("targetNodeId") targetNodeId: Int,
     @ParamName("insertBeforeNodeId") @Optional insertBeforeNodeId: Int? = null,
@@ -76,7 +76,7 @@ interface DOM {
 
   @Experimental
   @Returns("nodeId")
-  public suspend fun copyTo(@ParamName("nodeId") nodeId: Int, @ParamName("targetNodeId") targetNodeId: Int): Int {
+  suspend fun copyTo(@ParamName("nodeId") nodeId: Int, @ParamName("targetNodeId") targetNodeId: Int): Int {
     return copyTo(nodeId, targetNodeId, null)
   }
 
@@ -92,7 +92,7 @@ interface DOM {
    * (default is false).
    */
   @Returns("node")
-  public suspend fun describeNode(
+  suspend fun describeNode(
     @ParamName("nodeId") @Optional nodeId: Int? = null,
     @ParamName("backendNodeId") @Optional backendNodeId: Int? = null,
     @ParamName("objectId") @Optional objectId: String? = null,
@@ -101,7 +101,7 @@ interface DOM {
   ): Node
 
   @Returns("node")
-  public suspend fun describeNode(): Node {
+  suspend fun describeNode(): Node {
     return describeNode(null, null, null, null, null)
   }
 
@@ -116,7 +116,7 @@ interface DOM {
    * When omitted, center of the node will be used, similar to Element.scrollIntoView.
    */
   @Experimental
-  public suspend fun scrollIntoViewIfNeeded(
+  suspend fun scrollIntoViewIfNeeded(
     @ParamName("nodeId") @Optional nodeId: Int? = null,
     @ParamName("backendNodeId") @Optional backendNodeId: Int? = null,
     @ParamName("objectId") @Optional objectId: String? = null,
@@ -124,14 +124,14 @@ interface DOM {
   )
 
   @Experimental
-  public suspend fun scrollIntoViewIfNeeded() {
+  suspend fun scrollIntoViewIfNeeded() {
     return scrollIntoViewIfNeeded(null, null, null, null)
   }
 
   /**
    * Disables DOM agent for the given page.
    */
-  public suspend fun disable()
+  suspend fun disable()
 
   /**
    * Discards search results from the session with the given id. `getSearchResults` should no longer
@@ -139,12 +139,12 @@ interface DOM {
    * @param searchId Unique search session identifier.
    */
   @Experimental
-  public suspend fun discardSearchResults(@ParamName("searchId") searchId: String)
+  suspend fun discardSearchResults(@ParamName("searchId") searchId: String)
 
   /**
    * Enables DOM agent for the given page.
    */
-  public suspend fun enable()
+  suspend fun enable()
 
   /**
    * Focuses the given element.
@@ -152,13 +152,13 @@ interface DOM {
    * @param backendNodeId Identifier of the backend node.
    * @param objectId JavaScript object id of the node wrapper.
    */
-  public suspend fun focus(
+  suspend fun focus(
     @ParamName("nodeId") @Optional nodeId: Int? = null,
     @ParamName("backendNodeId") @Optional backendNodeId: Int? = null,
     @ParamName("objectId") @Optional objectId: String? = null,
   )
 
-  public suspend fun focus() {
+  suspend fun focus() {
     return focus(null, null, null)
   }
 
@@ -168,7 +168,7 @@ interface DOM {
    */
   @Returns("attributes")
   @ReturnTypeParameter(String::class)
-  public suspend fun getAttributes(@ParamName("nodeId") nodeId: Int): List<String>
+  suspend fun getAttributes(@ParamName("nodeId") nodeId: Int): List<String>
 
   /**
    * Returns boxes for the given node.
@@ -177,14 +177,14 @@ interface DOM {
    * @param objectId JavaScript object id of the node wrapper.
    */
   @Returns("model")
-  public suspend fun getBoxModel(
+  suspend fun getBoxModel(
     @ParamName("nodeId") @Optional nodeId: Int? = null,
     @ParamName("backendNodeId") @Optional backendNodeId: Int? = null,
     @ParamName("objectId") @Optional objectId: String? = null,
   ): BoxModel
 
   @Returns("model")
-  public suspend fun getBoxModel(): BoxModel {
+  suspend fun getBoxModel(): BoxModel {
     return getBoxModel(null, null, null)
   }
 
@@ -198,7 +198,7 @@ interface DOM {
   @Experimental
   @Returns("quads")
   @ReturnTypeParameter(Double::class)
-  public suspend fun getContentQuads(
+  suspend fun getContentQuads(
     @ParamName("nodeId") @Optional nodeId: Int? = null,
     @ParamName("backendNodeId") @Optional backendNodeId: Int? = null,
     @ParamName("objectId") @Optional objectId: String? = null,
@@ -207,7 +207,7 @@ interface DOM {
   @Experimental
   @Returns("quads")
   @ReturnTypeParameter(Double::class)
-  public suspend fun getContentQuads(): List<List<Double>> {
+  suspend fun getContentQuads(): List<List<Double>> {
     return getContentQuads(null, null, null)
   }
 
@@ -219,10 +219,10 @@ interface DOM {
    * (default is false).
    */
   @Returns("root")
-  public suspend fun getDocument(@ParamName("depth") @Optional depth: Int? = null, @ParamName("pierce") @Optional pierce: Boolean? = null): Node
+  suspend fun getDocument(@ParamName("depth") @Optional depth: Int? = null, @ParamName("pierce") @Optional pierce: Boolean? = null): Node
 
   @Returns("root")
-  public suspend fun getDocument(): Node {
+  suspend fun getDocument(): Node {
     return getDocument(null, null)
   }
 
@@ -238,12 +238,12 @@ interface DOM {
   @Deprecated
   @Returns("nodes")
   @ReturnTypeParameter(Node::class)
-  public suspend fun getFlattenedDocument(@ParamName("depth") @Optional depth: Int? = null, @ParamName("pierce") @Optional pierce: Boolean? = null): List<Node>
+  suspend fun getFlattenedDocument(@ParamName("depth") @Optional depth: Int? = null, @ParamName("pierce") @Optional pierce: Boolean? = null): List<Node>
 
   @Deprecated
   @Returns("nodes")
   @ReturnTypeParameter(Node::class)
-  public suspend fun getFlattenedDocument(): List<Node> {
+  suspend fun getFlattenedDocument(): List<Node> {
     return getFlattenedDocument(null, null)
   }
 
@@ -257,7 +257,7 @@ interface DOM {
   @Experimental
   @Returns("nodeIds")
   @ReturnTypeParameter(Int::class)
-  public suspend fun getNodesForSubtreeByStyle(
+  suspend fun getNodesForSubtreeByStyle(
     @ParamName("nodeId") nodeId: Int,
     @ParamName("computedStyles") computedStyles: List<CSSComputedStyleProperty>,
     @ParamName("pierce") @Optional pierce: Boolean? = null,
@@ -266,7 +266,7 @@ interface DOM {
   @Experimental
   @Returns("nodeIds")
   @ReturnTypeParameter(Int::class)
-  public suspend fun getNodesForSubtreeByStyle(@ParamName("nodeId") nodeId: Int, @ParamName("computedStyles") computedStyles: List<CSSComputedStyleProperty>): List<Int> {
+  suspend fun getNodesForSubtreeByStyle(@ParamName("nodeId") nodeId: Int, @ParamName("computedStyles") computedStyles: List<CSSComputedStyleProperty>): List<Int> {
     return getNodesForSubtreeByStyle(nodeId, computedStyles, null)
   }
 
@@ -278,14 +278,14 @@ interface DOM {
    * @param includeUserAgentShadowDOM False to skip to the nearest non-UA shadow root ancestor (default: false).
    * @param ignorePointerEventsNone Whether to ignore pointer-events: none on elements and hit test them.
    */
-  public suspend fun getNodeForLocation(
+  suspend fun getNodeForLocation(
     @ParamName("x") x: Int,
     @ParamName("y") y: Int,
     @ParamName("includeUserAgentShadowDOM") @Optional includeUserAgentShadowDOM: Boolean? = null,
     @ParamName("ignorePointerEventsNone") @Optional ignorePointerEventsNone: Boolean? = null,
   ): NodeForLocation
 
-  public suspend fun getNodeForLocation(@ParamName("x") x: Int, @ParamName("y") y: Int): NodeForLocation {
+  suspend fun getNodeForLocation(@ParamName("x") x: Int, @ParamName("y") y: Int): NodeForLocation {
     return getNodeForLocation(x, y, null, null)
   }
 
@@ -296,14 +296,14 @@ interface DOM {
    * @param objectId JavaScript object id of the node wrapper.
    */
   @Returns("outerHTML")
-  public suspend fun getOuterHTML(
+  suspend fun getOuterHTML(
     @ParamName("nodeId") @Optional nodeId: Int? = null,
     @ParamName("backendNodeId") @Optional backendNodeId: Int? = null,
     @ParamName("objectId") @Optional objectId: String? = null,
   ): String
 
   @Returns("outerHTML")
-  public suspend fun getOuterHTML(): String {
+  suspend fun getOuterHTML(): String {
     return getOuterHTML(null, null, null)
   }
 
@@ -313,7 +313,7 @@ interface DOM {
    */
   @Experimental
   @Returns("nodeId")
-  public suspend fun getRelayoutBoundary(@ParamName("nodeId") nodeId: Int): Int
+  suspend fun getRelayoutBoundary(@ParamName("nodeId") nodeId: Int): Int
 
   /**
    * Returns search results from given `fromIndex` to given `toIndex` from the search with the given
@@ -325,7 +325,7 @@ interface DOM {
   @Experimental
   @Returns("nodeIds")
   @ReturnTypeParameter(Int::class)
-  public suspend fun getSearchResults(
+  suspend fun getSearchResults(
     @ParamName("searchId") searchId: String,
     @ParamName("fromIndex") fromIndex: Int,
     @ParamName("toIndex") toIndex: Int,
@@ -335,7 +335,7 @@ interface DOM {
    * Marks last undoable state.
    */
   @Experimental
-  public suspend fun markUndoableState()
+  suspend fun markUndoableState()
 
   /**
    * Moves node into the new container, places it before the given anchor.
@@ -345,14 +345,14 @@ interface DOM {
    * `targetNodeId`).
    */
   @Returns("nodeId")
-  public suspend fun moveTo(
+  suspend fun moveTo(
     @ParamName("nodeId") nodeId: Int,
     @ParamName("targetNodeId") targetNodeId: Int,
     @ParamName("insertBeforeNodeId") @Optional insertBeforeNodeId: Int? = null,
   ): Int
 
   @Returns("nodeId")
-  public suspend fun moveTo(@ParamName("nodeId") nodeId: Int, @ParamName("targetNodeId") targetNodeId: Int): Int {
+  suspend fun moveTo(@ParamName("nodeId") nodeId: Int, @ParamName("targetNodeId") targetNodeId: Int): Int {
     return moveTo(nodeId, targetNodeId, null)
   }
 
@@ -363,10 +363,10 @@ interface DOM {
    * @param includeUserAgentShadowDOM True to search in user agent shadow DOM.
    */
   @Experimental
-  public suspend fun performSearch(@ParamName("query") query: String, @ParamName("includeUserAgentShadowDOM") @Optional includeUserAgentShadowDOM: Boolean? = null): PerformSearch
+  suspend fun performSearch(@ParamName("query") query: String, @ParamName("includeUserAgentShadowDOM") @Optional includeUserAgentShadowDOM: Boolean? = null): PerformSearch
 
   @Experimental
-  public suspend fun performSearch(@ParamName("query") query: String): PerformSearch {
+  suspend fun performSearch(@ParamName("query") query: String): PerformSearch {
     return performSearch(query, null)
   }
 
@@ -376,7 +376,7 @@ interface DOM {
    */
   @Experimental
   @Returns("nodeId")
-  public suspend fun pushNodeByPathToFrontend(@ParamName("path") path: String): Int
+  suspend fun pushNodeByPathToFrontend(@ParamName("path") path: String): Int
 
   /**
    * Requests that a batch of nodes is sent to the caller given their backend node ids.
@@ -385,7 +385,7 @@ interface DOM {
   @Experimental
   @Returns("nodeIds")
   @ReturnTypeParameter(Int::class)
-  public suspend fun pushNodesByBackendIdsToFrontend(@ParamName("backendNodeIds") backendNodeIds: List<Int>): List<Int>
+  suspend fun pushNodesByBackendIdsToFrontend(@ParamName("backendNodeIds") backendNodeIds: List<Int>): List<Int>
 
   /**
    * Executes `querySelector` on a given node.
@@ -393,7 +393,7 @@ interface DOM {
    * @param selector Selector string.
    */
   @Returns("nodeId")
-  public suspend fun querySelector(@ParamName("nodeId") nodeId: Int, @ParamName("selector") selector: String): Int
+  suspend fun querySelector(@ParamName("nodeId") nodeId: Int, @ParamName("selector") selector: String): Int
 
   /**
    * Executes `querySelectorAll` on a given node.
@@ -402,26 +402,26 @@ interface DOM {
    */
   @Returns("nodeIds")
   @ReturnTypeParameter(Int::class)
-  public suspend fun querySelectorAll(@ParamName("nodeId") nodeId: Int, @ParamName("selector") selector: String): List<Int>
+  suspend fun querySelectorAll(@ParamName("nodeId") nodeId: Int, @ParamName("selector") selector: String): List<Int>
 
   /**
    * Re-does the last undone action.
    */
   @Experimental
-  public suspend fun redo()
+  suspend fun redo()
 
   /**
    * Removes attribute with given name from an element with given id.
    * @param nodeId Id of the element to remove attribute from.
    * @param name Name of the attribute to remove.
    */
-  public suspend fun removeAttribute(@ParamName("nodeId") nodeId: Int, @ParamName("name") name: String)
+  suspend fun removeAttribute(@ParamName("nodeId") nodeId: Int, @ParamName("name") name: String)
 
   /**
    * Removes node with given id.
    * @param nodeId Id of the node to remove.
    */
-  public suspend fun removeNode(@ParamName("nodeId") nodeId: Int)
+  suspend fun removeNode(@ParamName("nodeId") nodeId: Int)
 
   /**
    * Requests that children of the node with given id are returned to the caller in form of
@@ -433,13 +433,13 @@ interface DOM {
    * @param pierce Whether or not iframes and shadow roots should be traversed when returning the sub-tree
    * (default is false).
    */
-  public suspend fun requestChildNodes(
+  suspend fun requestChildNodes(
     @ParamName("nodeId") nodeId: Int,
     @ParamName("depth") @Optional depth: Int? = null,
     @ParamName("pierce") @Optional pierce: Boolean? = null,
   )
 
-  public suspend fun requestChildNodes(@ParamName("nodeId") nodeId: Int) {
+  suspend fun requestChildNodes(@ParamName("nodeId") nodeId: Int) {
     return requestChildNodes(nodeId, null, null)
   }
 
@@ -450,7 +450,7 @@ interface DOM {
    * @param objectId JavaScript object id to convert into node.
    */
   @Returns("nodeId")
-  public suspend fun requestNode(@ParamName("objectId") objectId: String): Int
+  suspend fun requestNode(@ParamName("objectId") objectId: String): Int
 
   /**
    * Resolves the JavaScript node object for a given NodeId or BackendNodeId.
@@ -460,7 +460,7 @@ interface DOM {
    * @param executionContextId Execution context in which to resolve the node.
    */
   @Returns("object")
-  public suspend fun resolveNode(
+  suspend fun resolveNode(
     @ParamName("nodeId") @Optional nodeId: Int? = null,
     @ParamName("backendNodeId") @Optional backendNodeId: Int? = null,
     @ParamName("objectGroup") @Optional objectGroup: String? = null,
@@ -468,7 +468,7 @@ interface DOM {
   ): RemoteObject
 
   @Returns("object")
-  public suspend fun resolveNode(): RemoteObject {
+  suspend fun resolveNode(): RemoteObject {
     return resolveNode(null, null, null, null)
   }
 
@@ -478,7 +478,7 @@ interface DOM {
    * @param name Attribute name.
    * @param value Attribute value.
    */
-  public suspend fun setAttributeValue(
+  suspend fun setAttributeValue(
     @ParamName("nodeId") nodeId: Int,
     @ParamName("name") name: String,
     @ParamName("value") `value`: String,
@@ -492,13 +492,13 @@ interface DOM {
    * @param name Attribute name to replace with new attributes derived from text in case text parsed
    * successfully.
    */
-  public suspend fun setAttributesAsText(
+  suspend fun setAttributesAsText(
     @ParamName("nodeId") nodeId: Int,
     @ParamName("text") text: String,
     @ParamName("name") @Optional name: String? = null,
   )
 
-  public suspend fun setAttributesAsText(@ParamName("nodeId") nodeId: Int, @ParamName("text") text: String) {
+  suspend fun setAttributesAsText(@ParamName("nodeId") nodeId: Int, @ParamName("text") text: String) {
     return setAttributesAsText(nodeId, text, null)
   }
 
@@ -509,14 +509,14 @@ interface DOM {
    * @param backendNodeId Identifier of the backend node.
    * @param objectId JavaScript object id of the node wrapper.
    */
-  public suspend fun setFileInputFiles(
+  suspend fun setFileInputFiles(
     @ParamName("files") files: List<String>,
     @ParamName("nodeId") @Optional nodeId: Int? = null,
     @ParamName("backendNodeId") @Optional backendNodeId: Int? = null,
     @ParamName("objectId") @Optional objectId: String? = null,
   )
 
-  public suspend fun setFileInputFiles(@ParamName("files") files: List<String>) {
+  suspend fun setFileInputFiles(@ParamName("files") files: List<String>) {
     return setFileInputFiles(files, null, null, null)
   }
 
@@ -525,7 +525,7 @@ interface DOM {
    * @param enable Enable or disable.
    */
   @Experimental
-  public suspend fun setNodeStackTracesEnabled(@ParamName("enable") enable: Boolean)
+  suspend fun setNodeStackTracesEnabled(@ParamName("enable") enable: Boolean)
 
   /**
    * Gets stack traces associated with a Node. As of now, only provides stack trace for Node creation.
@@ -533,7 +533,7 @@ interface DOM {
    */
   @Experimental
   @Returns("creation")
-  public suspend fun getNodeStackTraces(@ParamName("nodeId") nodeId: Int): StackTrace?
+  suspend fun getNodeStackTraces(@ParamName("nodeId") nodeId: Int): StackTrace?
 
   /**
    * Returns file information for the given
@@ -542,7 +542,7 @@ interface DOM {
    */
   @Experimental
   @Returns("path")
-  public suspend fun getFileInfo(@ParamName("objectId") objectId: String): String
+  suspend fun getFileInfo(@ParamName("objectId") objectId: String): String
 
   /**
    * Enables console to refer to the node with given id via $x (see Command Line API for more details
@@ -550,7 +550,7 @@ interface DOM {
    * @param nodeId DOM node id to be accessible by means of $x command line API.
    */
   @Experimental
-  public suspend fun setInspectedNode(@ParamName("nodeId") nodeId: Int)
+  suspend fun setInspectedNode(@ParamName("nodeId") nodeId: Int)
 
   /**
    * Sets node name for a node with given id.
@@ -558,34 +558,34 @@ interface DOM {
    * @param name New node's name.
    */
   @Returns("nodeId")
-  public suspend fun setNodeName(@ParamName("nodeId") nodeId: Int, @ParamName("name") name: String): Int
+  suspend fun setNodeName(@ParamName("nodeId") nodeId: Int, @ParamName("name") name: String): Int
 
   /**
    * Sets node value for a node with given id.
    * @param nodeId Id of the node to set value for.
    * @param value New node's value.
    */
-  public suspend fun setNodeValue(@ParamName("nodeId") nodeId: Int, @ParamName("value") `value`: String)
+  suspend fun setNodeValue(@ParamName("nodeId") nodeId: Int, @ParamName("value") `value`: String)
 
   /**
    * Sets node HTML markup, returns new node id.
    * @param nodeId Id of the node to set markup for.
    * @param outerHTML Outer HTML markup to set.
    */
-  public suspend fun setOuterHTML(@ParamName("nodeId") nodeId: Int, @ParamName("outerHTML") outerHTML: String)
+  suspend fun setOuterHTML(@ParamName("nodeId") nodeId: Int, @ParamName("outerHTML") outerHTML: String)
 
   /**
    * Undoes the last performed action.
    */
   @Experimental
-  public suspend fun undo()
+  suspend fun undo()
 
   /**
    * Returns iframe node that owns iframe with the given domain.
    * @param frameId
    */
   @Experimental
-  public suspend fun getFrameOwner(@ParamName("frameId") frameId: String): FrameOwner
+  suspend fun getFrameOwner(@ParamName("frameId") frameId: String): FrameOwner
 
   @EventName("attributeModified")
   fun onAttributeModified(eventListener: EventHandler<AttributeModified>): EventListener

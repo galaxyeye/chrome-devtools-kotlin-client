@@ -21,7 +21,7 @@ interface IndexedDB {
    * @param databaseName Database name.
    * @param objectStoreName Object store name.
    */
-  public suspend fun clearObjectStore(
+  suspend fun clearObjectStore(
     @ParamName("securityOrigin") securityOrigin: String,
     @ParamName("databaseName") databaseName: String,
     @ParamName("objectStoreName") objectStoreName: String,
@@ -32,7 +32,7 @@ interface IndexedDB {
    * @param securityOrigin Security origin.
    * @param databaseName Database name.
    */
-  public suspend fun deleteDatabase(@ParamName("securityOrigin") securityOrigin: String, @ParamName("databaseName") databaseName: String)
+  suspend fun deleteDatabase(@ParamName("securityOrigin") securityOrigin: String, @ParamName("databaseName") databaseName: String)
 
   /**
    * Delete a range of entries from an object store
@@ -41,7 +41,7 @@ interface IndexedDB {
    * @param objectStoreName
    * @param keyRange Range of entry keys to delete
    */
-  public suspend fun deleteObjectStoreEntries(
+  suspend fun deleteObjectStoreEntries(
     @ParamName("securityOrigin") securityOrigin: String,
     @ParamName("databaseName") databaseName: String,
     @ParamName("objectStoreName") objectStoreName: String,
@@ -51,12 +51,12 @@ interface IndexedDB {
   /**
    * Disables events from backend.
    */
-  public suspend fun disable()
+  suspend fun disable()
 
   /**
    * Enables events from backend.
    */
-  public suspend fun enable()
+  suspend fun enable()
 
   /**
    * Requests data from object store or index.
@@ -68,7 +68,7 @@ interface IndexedDB {
    * @param pageSize Number of records to fetch.
    * @param keyRange Key range.
    */
-  public suspend fun requestData(
+  suspend fun requestData(
     @ParamName("securityOrigin") securityOrigin: String,
     @ParamName("databaseName") databaseName: String,
     @ParamName("objectStoreName") objectStoreName: String,
@@ -78,7 +78,7 @@ interface IndexedDB {
     @ParamName("keyRange") @Optional keyRange: KeyRange? = null,
   ): RequestData
 
-  public suspend fun requestData(
+  suspend fun requestData(
     @ParamName("securityOrigin") securityOrigin: String,
     @ParamName("databaseName") databaseName: String,
     @ParamName("objectStoreName") objectStoreName: String,
@@ -95,7 +95,7 @@ interface IndexedDB {
    * @param databaseName Database name.
    * @param objectStoreName Object store name.
    */
-  public suspend fun getMetadata(
+  suspend fun getMetadata(
     @ParamName("securityOrigin") securityOrigin: String,
     @ParamName("databaseName") databaseName: String,
     @ParamName("objectStoreName") objectStoreName: String,
@@ -107,7 +107,7 @@ interface IndexedDB {
    * @param databaseName Database name.
    */
   @Returns("databaseWithObjectStores")
-  public suspend fun requestDatabase(@ParamName("securityOrigin") securityOrigin: String, @ParamName("databaseName") databaseName: String): DatabaseWithObjectStores
+  suspend fun requestDatabase(@ParamName("securityOrigin") securityOrigin: String, @ParamName("databaseName") databaseName: String): DatabaseWithObjectStores
 
   /**
    * Requests database names for given security origin.
@@ -115,5 +115,5 @@ interface IndexedDB {
    */
   @Returns("databaseNames")
   @ReturnTypeParameter(String::class)
-  public suspend fun requestDatabaseNames(@ParamName("securityOrigin") securityOrigin: String): List<String>
+  suspend fun requestDatabaseNames(@ParamName("securityOrigin") securityOrigin: String): List<String>
 }

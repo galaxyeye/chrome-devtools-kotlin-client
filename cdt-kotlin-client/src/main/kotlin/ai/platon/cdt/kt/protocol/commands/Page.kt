@@ -76,7 +76,7 @@ interface Page {
   @Deprecated
   @Experimental
   @Returns("identifier")
-  public suspend fun addScriptToEvaluateOnLoad(@ParamName("scriptSource") scriptSource: String): String
+  suspend fun addScriptToEvaluateOnLoad(@ParamName("scriptSource") scriptSource: String): String
 
   /**
    * Evaluates given script in every frame upon creation (before loading frame's scripts).
@@ -86,17 +86,17 @@ interface Page {
    * event is emitted.
    */
   @Returns("identifier")
-  public suspend fun addScriptToEvaluateOnNewDocument(@ParamName("source") source: String, @ParamName("worldName") @Optional @Experimental worldName: String? = null): String
+  suspend fun addScriptToEvaluateOnNewDocument(@ParamName("source") source: String, @ParamName("worldName") @Optional @Experimental worldName: String? = null): String
 
   @Returns("identifier")
-  public suspend fun addScriptToEvaluateOnNewDocument(@ParamName("source") source: String): String {
+  suspend fun addScriptToEvaluateOnNewDocument(@ParamName("source") source: String): String {
     return addScriptToEvaluateOnNewDocument(source, null)
   }
 
   /**
    * Brings page to front (activates tab).
    */
-  public suspend fun bringToFront()
+  suspend fun bringToFront()
 
   /**
    * Capture page screenshot.
@@ -107,7 +107,7 @@ interface Page {
    * @param captureBeyondViewport Capture the screenshot beyond the viewport. Defaults to false.
    */
   @Returns("data")
-  public suspend fun captureScreenshot(
+  suspend fun captureScreenshot(
     @ParamName("format") @Optional format: CaptureScreenshotFormat? = null,
     @ParamName("quality") @Optional quality: Int? = null,
     @ParamName("clip") @Optional clip: Viewport? = null,
@@ -116,7 +116,7 @@ interface Page {
   ): String
 
   @Returns("data")
-  public suspend fun captureScreenshot(): String {
+  suspend fun captureScreenshot(): String {
     return captureScreenshot(null, null, null, null, null)
   }
 
@@ -127,11 +127,11 @@ interface Page {
    */
   @Experimental
   @Returns("data")
-  public suspend fun captureSnapshot(@ParamName("format") @Optional format: CaptureSnapshotFormat? = null): String
+  suspend fun captureSnapshot(@ParamName("format") @Optional format: CaptureSnapshotFormat? = null): String
 
   @Experimental
   @Returns("data")
-  public suspend fun captureSnapshot(): String {
+  suspend fun captureSnapshot(): String {
     return captureSnapshot(null)
   }
 
@@ -143,58 +143,58 @@ interface Page {
    * option, use with caution.
    */
   @Returns("executionContextId")
-  public suspend fun createIsolatedWorld(
+  suspend fun createIsolatedWorld(
     @ParamName("frameId") frameId: String,
     @ParamName("worldName") @Optional worldName: String? = null,
     @ParamName("grantUniveralAccess") @Optional grantUniveralAccess: Boolean? = null,
   ): Int
 
   @Returns("executionContextId")
-  public suspend fun createIsolatedWorld(@ParamName("frameId") frameId: String): Int {
+  suspend fun createIsolatedWorld(@ParamName("frameId") frameId: String): Int {
     return createIsolatedWorld(frameId, null, null)
   }
 
   /**
    * Disables page domain notifications.
    */
-  public suspend fun disable()
+  suspend fun disable()
 
   /**
    * Enables page domain notifications.
    */
-  public suspend fun enable()
+  suspend fun enable()
 
-  public suspend fun getAppManifest(): AppManifest
+  suspend fun getAppManifest(): AppManifest
 
   @Experimental
   @Returns("installabilityErrors")
   @ReturnTypeParameter(InstallabilityError::class)
-  public suspend fun getInstallabilityErrors(): List<InstallabilityError>
+  suspend fun getInstallabilityErrors(): List<InstallabilityError>
 
   @Experimental
   @Returns("primaryIcon")
-  public suspend fun getManifestIcons(): String?
+  suspend fun getManifestIcons(): String?
 
   /**
    * Returns present frame tree structure.
    */
   @Returns("frameTree")
-  public suspend fun getFrameTree(): FrameTree
+  suspend fun getFrameTree(): FrameTree
 
   /**
    * Returns metrics relating to the layouting of the page, such as viewport bounds/scale.
    */
-  public suspend fun getLayoutMetrics(): LayoutMetrics
+  suspend fun getLayoutMetrics(): LayoutMetrics
 
   /**
    * Returns navigation history for the current page.
    */
-  public suspend fun getNavigationHistory(): NavigationHistory
+  suspend fun getNavigationHistory(): NavigationHistory
 
   /**
    * Resets navigation history for the current page.
    */
-  public suspend fun resetNavigationHistory()
+  suspend fun resetNavigationHistory()
 
   /**
    * Returns content of the given resource.
@@ -202,14 +202,14 @@ interface Page {
    * @param url URL of the resource to get content for.
    */
   @Experimental
-  public suspend fun getResourceContent(@ParamName("frameId") frameId: String, @ParamName("url") url: String): ResourceContent
+  suspend fun getResourceContent(@ParamName("frameId") frameId: String, @ParamName("url") url: String): ResourceContent
 
   /**
    * Returns present frame / resource tree structure.
    */
   @Experimental
   @Returns("frameTree")
-  public suspend fun getResourceTree(): FrameResourceTree
+  suspend fun getResourceTree(): FrameResourceTree
 
   /**
    * Accepts or dismisses a JavaScript initiated dialog (alert, confirm, prompt, or onbeforeunload).
@@ -217,9 +217,9 @@ interface Page {
    * @param promptText The text to enter into the dialog prompt before accepting. Used only if this is a prompt
    * dialog.
    */
-  public suspend fun handleJavaScriptDialog(@ParamName("accept") accept: Boolean, @ParamName("promptText") @Optional promptText: String? = null)
+  suspend fun handleJavaScriptDialog(@ParamName("accept") accept: Boolean, @ParamName("promptText") @Optional promptText: String? = null)
 
-  public suspend fun handleJavaScriptDialog(@ParamName("accept") accept: Boolean) {
+  suspend fun handleJavaScriptDialog(@ParamName("accept") accept: Boolean) {
     return handleJavaScriptDialog(accept, null)
   }
 
@@ -231,7 +231,7 @@ interface Page {
    * @param frameId Frame id to navigate, if not specified navigates the top frame.
    * @param referrerPolicy Referrer-policy used for the navigation.
    */
-  public suspend fun navigate(
+  suspend fun navigate(
     @ParamName("url") url: String,
     @ParamName("referrer") @Optional referrer: String? = null,
     @ParamName("transitionType") @Optional transitionType: TransitionType? = null,
@@ -239,7 +239,7 @@ interface Page {
     @ParamName("referrerPolicy") @Optional @Experimental referrerPolicy: ReferrerPolicy? = null,
   ): Navigate
 
-  public suspend fun navigate(@ParamName("url") url: String): Navigate {
+  suspend fun navigate(@ParamName("url") url: String): Navigate {
     return navigate(url, null, null, null, null)
   }
 
@@ -247,7 +247,7 @@ interface Page {
    * Navigates current page to the given history entry.
    * @param entryId Unique id of the entry to navigate to.
    */
-  public suspend fun navigateToHistoryEntry(@ParamName("entryId") entryId: Int)
+  suspend fun navigateToHistoryEntry(@ParamName("entryId") entryId: Int)
 
   /**
    * Print page as PDF.
@@ -279,7 +279,7 @@ interface Page {
    * in which case the content will be scaled to fit the paper size.
    * @param transferMode return as stream
    */
-  public suspend fun printToPDF(
+  suspend fun printToPDF(
     @ParamName("landscape") @Optional landscape: Boolean? = null,
     @ParamName("displayHeaderFooter") @Optional displayHeaderFooter: Boolean? = null,
     @ParamName("printBackground") @Optional printBackground: Boolean? = null,
@@ -298,7 +298,7 @@ interface Page {
     @ParamName("transferMode") @Optional @Experimental transferMode: PrintToPDFTransferMode? = null,
   ): PrintToPDF
 
-  public suspend fun printToPDF(): PrintToPDF {
+  suspend fun printToPDF(): PrintToPDF {
     return printToPDF(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
   }
 
@@ -308,9 +308,9 @@ interface Page {
    * @param scriptToEvaluateOnLoad If set, the script will be injected into all frames of the inspected page after reload.
    * Argument will be ignored if reloading dataURL origin.
    */
-  public suspend fun reload(@ParamName("ignoreCache") @Optional ignoreCache: Boolean? = null, @ParamName("scriptToEvaluateOnLoad") @Optional scriptToEvaluateOnLoad: String? = null)
+  suspend fun reload(@ParamName("ignoreCache") @Optional ignoreCache: Boolean? = null, @ParamName("scriptToEvaluateOnLoad") @Optional scriptToEvaluateOnLoad: String? = null)
 
-  public suspend fun reload() {
+  suspend fun reload() {
     return reload(null, null)
   }
 
@@ -320,20 +320,20 @@ interface Page {
    */
   @Deprecated
   @Experimental
-  public suspend fun removeScriptToEvaluateOnLoad(@ParamName("identifier") identifier: String)
+  suspend fun removeScriptToEvaluateOnLoad(@ParamName("identifier") identifier: String)
 
   /**
    * Removes given script from the list.
    * @param identifier
    */
-  public suspend fun removeScriptToEvaluateOnNewDocument(@ParamName("identifier") identifier: String)
+  suspend fun removeScriptToEvaluateOnNewDocument(@ParamName("identifier") identifier: String)
 
   /**
    * Acknowledges that a screencast frame has been received by the frontend.
    * @param sessionId Frame number.
    */
   @Experimental
-  public suspend fun screencastFrameAck(@ParamName("sessionId") sessionId: Int)
+  suspend fun screencastFrameAck(@ParamName("sessionId") sessionId: Int)
 
   /**
    * Searches for given string in resource content.
@@ -346,7 +346,7 @@ interface Page {
   @Experimental
   @Returns("result")
   @ReturnTypeParameter(SearchMatch::class)
-  public suspend fun searchInResource(
+  suspend fun searchInResource(
     @ParamName("frameId") frameId: String,
     @ParamName("url") url: String,
     @ParamName("query") query: String,
@@ -357,7 +357,7 @@ interface Page {
   @Experimental
   @Returns("result")
   @ReturnTypeParameter(SearchMatch::class)
-  public suspend fun searchInResource(
+  suspend fun searchInResource(
     @ParamName("frameId") frameId: String,
     @ParamName("url") url: String,
     @ParamName("query") query: String,
@@ -370,14 +370,14 @@ interface Page {
    * @param enabled Whether to block ads.
    */
   @Experimental
-  public suspend fun setAdBlockingEnabled(@ParamName("enabled") enabled: Boolean)
+  suspend fun setAdBlockingEnabled(@ParamName("enabled") enabled: Boolean)
 
   /**
    * Enable page Content Security Policy by-passing.
    * @param enabled Whether to bypass page CSP.
    */
   @Experimental
-  public suspend fun setBypassCSP(@ParamName("enabled") enabled: Boolean)
+  suspend fun setBypassCSP(@ParamName("enabled") enabled: Boolean)
 
   /**
    * Get Permissions Policy state on given frame.
@@ -386,28 +386,28 @@ interface Page {
   @Experimental
   @Returns("states")
   @ReturnTypeParameter(PermissionsPolicyFeatureState::class)
-  public suspend fun getPermissionsPolicyState(@ParamName("frameId") frameId: String): List<PermissionsPolicyFeatureState>
+  suspend fun getPermissionsPolicyState(@ParamName("frameId") frameId: String): List<PermissionsPolicyFeatureState>
 
   /**
    * Set generic font families.
    * @param fontFamilies Specifies font families to set. If a font family is not specified, it won't be changed.
    */
   @Experimental
-  public suspend fun setFontFamilies(@ParamName("fontFamilies") fontFamilies: FontFamilies)
+  suspend fun setFontFamilies(@ParamName("fontFamilies") fontFamilies: FontFamilies)
 
   /**
    * Set default font sizes.
    * @param fontSizes Specifies font sizes to set. If a font size is not specified, it won't be changed.
    */
   @Experimental
-  public suspend fun setFontSizes(@ParamName("fontSizes") fontSizes: FontSizes)
+  suspend fun setFontSizes(@ParamName("fontSizes") fontSizes: FontSizes)
 
   /**
    * Sets given markup as the document's HTML.
    * @param frameId Frame id to set HTML for.
    * @param html HTML content to set.
    */
-  public suspend fun setDocumentContent(@ParamName("frameId") frameId: String, @ParamName("html") html: String)
+  suspend fun setDocumentContent(@ParamName("frameId") frameId: String, @ParamName("html") html: String)
 
   /**
    * Set the behavior when downloading a file.
@@ -417,11 +417,11 @@ interface Page {
    */
   @Deprecated
   @Experimental
-  public suspend fun setDownloadBehavior(@ParamName("behavior") behavior: SetDownloadBehaviorBehavior, @ParamName("downloadPath") @Optional downloadPath: String? = null)
+  suspend fun setDownloadBehavior(@ParamName("behavior") behavior: SetDownloadBehaviorBehavior, @ParamName("downloadPath") @Optional downloadPath: String? = null)
 
   @Deprecated
   @Experimental
-  public suspend fun setDownloadBehavior(@ParamName("behavior") behavior: SetDownloadBehaviorBehavior) {
+  suspend fun setDownloadBehavior(@ParamName("behavior") behavior: SetDownloadBehaviorBehavior) {
     return setDownloadBehavior(behavior, null)
   }
 
@@ -430,7 +430,7 @@ interface Page {
    * @param enabled If true, starts emitting lifecycle events.
    */
   @Experimental
-  public suspend fun setLifecycleEventsEnabled(@ParamName("enabled") enabled: Boolean)
+  suspend fun setLifecycleEventsEnabled(@ParamName("enabled") enabled: Boolean)
 
   /**
    * Starts sending each frame using the `screencastFrame` event.
@@ -441,7 +441,7 @@ interface Page {
    * @param everyNthFrame Send every n-th frame.
    */
   @Experimental
-  public suspend fun startScreencast(
+  suspend fun startScreencast(
     @ParamName("format") @Optional format: StartScreencastFormat? = null,
     @ParamName("quality") @Optional quality: Int? = null,
     @ParamName("maxWidth") @Optional maxWidth: Int? = null,
@@ -450,26 +450,26 @@ interface Page {
   )
 
   @Experimental
-  public suspend fun startScreencast() {
+  suspend fun startScreencast() {
     return startScreencast(null, null, null, null, null)
   }
 
   /**
    * Force the page stop all navigations and pending resource fetches.
    */
-  public suspend fun stopLoading()
+  suspend fun stopLoading()
 
   /**
    * Crashes renderer on the IO thread, generates minidumps.
    */
   @Experimental
-  public suspend fun crash()
+  suspend fun crash()
 
   /**
    * Tries to close page, running its beforeunload hooks, if any.
    */
   @Experimental
-  public suspend fun close()
+  suspend fun close()
 
   /**
    * Tries to update the web lifecycle state of the page.
@@ -478,13 +478,13 @@ interface Page {
    * @param state Target lifecycle state
    */
   @Experimental
-  public suspend fun setWebLifecycleState(@ParamName("state") state: SetWebLifecycleStateState)
+  suspend fun setWebLifecycleState(@ParamName("state") state: SetWebLifecycleStateState)
 
   /**
    * Stops sending each frame in the `screencastFrame`.
    */
   @Experimental
-  public suspend fun stopScreencast()
+  suspend fun stopScreencast()
 
   /**
    * Forces compilation cache to be generated for every subresource script.
@@ -492,7 +492,7 @@ interface Page {
    * @param enabled
    */
   @Experimental
-  public suspend fun setProduceCompilationCache(@ParamName("enabled") enabled: Boolean)
+  suspend fun setProduceCompilationCache(@ParamName("enabled") enabled: Boolean)
 
   /**
    * Requests backend to produce compilation cache for the specified scripts.
@@ -507,7 +507,7 @@ interface Page {
    * @param scripts
    */
   @Experimental
-  public suspend fun produceCompilationCache(@ParamName("scripts") scripts: List<CompilationCacheParams>)
+  suspend fun produceCompilationCache(@ParamName("scripts") scripts: List<CompilationCacheParams>)
 
   /**
    * Seeds compilation cache for given url. Compilation cache does not survive
@@ -516,13 +516,13 @@ interface Page {
    * @param data Base64-encoded data (Encoded as a base64 string when passed over JSON)
    */
   @Experimental
-  public suspend fun addCompilationCache(@ParamName("url") url: String, @ParamName("data") `data`: String)
+  suspend fun addCompilationCache(@ParamName("url") url: String, @ParamName("data") `data`: String)
 
   /**
    * Clears seeded compilation cache.
    */
   @Experimental
-  public suspend fun clearCompilationCache()
+  suspend fun clearCompilationCache()
 
   /**
    * Generates a report for testing.
@@ -530,10 +530,10 @@ interface Page {
    * @param group Specifies the endpoint group to deliver the report to.
    */
   @Experimental
-  public suspend fun generateTestReport(@ParamName("message") message: String, @ParamName("group") @Optional group: String? = null)
+  suspend fun generateTestReport(@ParamName("message") message: String, @ParamName("group") @Optional group: String? = null)
 
   @Experimental
-  public suspend fun generateTestReport(@ParamName("message") message: String) {
+  suspend fun generateTestReport(@ParamName("message") message: String) {
     return generateTestReport(message, null)
   }
 
@@ -541,7 +541,7 @@ interface Page {
    * Pauses page execution. Can be resumed using generic Runtime.runIfWaitingForDebugger.
    */
   @Experimental
-  public suspend fun waitForDebugger()
+  suspend fun waitForDebugger()
 
   /**
    * Intercept file chooser requests and transfer control to protocol clients.
@@ -550,7 +550,7 @@ interface Page {
    * @param enabled
    */
   @Experimental
-  public suspend fun setInterceptFileChooserDialog(@ParamName("enabled") enabled: Boolean)
+  suspend fun setInterceptFileChooserDialog(@ParamName("enabled") enabled: Boolean)
 
   @EventName("domContentEventFired")
   fun onDomContentEventFired(eventListener: EventHandler<DomContentEventFired>): EventListener

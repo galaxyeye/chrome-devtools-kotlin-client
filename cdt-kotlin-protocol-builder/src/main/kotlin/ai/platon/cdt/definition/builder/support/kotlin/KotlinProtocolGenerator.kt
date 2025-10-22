@@ -58,7 +58,7 @@ class KotlinProtocolGenerator(
         // For each domain generate a Kotlin property instead of a Java-style getter
         protocol.domains?.forEach { domain ->
             val typeName = ClassName(context.commandDomainPackage(domain), StringUtils.toEnumClass(domain.domain))
-            val propertyName = toCamelCase(domain.domain)
+            val propertyName = StringUtils.toCamelCase(domain.domain)
             val propertyBuilder = PropertySpec.builder(propertyName, typeName)
             domain.description?.takeIf { it.isNotBlank() }?.let { propertyBuilder.addKdoc("%L", it) }
             interfaceBuilder.addProperty(propertyBuilder.build())
@@ -68,38 +68,6 @@ class KotlinProtocolGenerator(
             .addType(interfaceBuilder.build())
             .build()
         return KotlinSourceFile(file)
-    }
-
-    /**
-     * Camel case means capitalize the first letter of each subsequent word and keep the first letter lowercase.
-     *
-     * When using acronyms like DOM, HTML, or URL in variable or property names,
-     * use lowercase for the acronym’s first letter in camelCase style.
-     *
-     * For example:
-     * val dom: DOM, val domDebugger: DOMDebugger, val htmlParser: HTMLParser.
-     *
-     * - "DOM" -> "dom"
-     * - "DOMDebugger" -> "domDebugger"
-     * - "Network" -> "network"
-     */
-    fun toCamelCase(input: String): String {
-        // 分割所有常见分隔符（_、-、空格）或大小写边界
-        val parts = input
-            .split(Regex("[_\\-\\s]+"))         // 根据下划线、横线、空格切分
-            .flatMap {                          // 再按大小写边界进一步切
-                Regex("(?<=[a-z0-9])(?=[A-Z])").split(it)
-            }
-            .filter { it.isNotBlank() }          // 移除空字符串
-
-        if (parts.isEmpty()) return input
-
-        val first = parts.first().lowercase()
-        val rest = parts.drop(1).joinToString("") {
-            it.lowercase().replaceFirstChar { c -> c.titlecase() }
-        }
-
-        return first + rest
     }
 
     private fun generateKotlinSupportAnnotations(project: KotlinSourceProject) {

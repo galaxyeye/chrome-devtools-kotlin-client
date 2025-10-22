@@ -145,9 +145,9 @@ class KotlinGeneratorsTest {
     val content = requestSpec.toString()
 
     assertTrue(content.contains("data class Request"))
-    assertTrue(content.contains("@JsonProperty(\"url\")"))
+    assertTrue(content.contains("@field:JsonProperty(\"url\")"))
     assertTrue(content.contains("val url: String"))
-    assertTrue(content.contains("@Optional"))
+    assertTrue(content.contains("@param:Optional"))
     assertTrue(content.contains("val mimeType: String?"))
     assertTrue(content.contains("mimeType: String? = null"))
   }
@@ -230,7 +230,7 @@ class KotlinGeneratorsTest {
     val code = eventSpec.toString()
 
     assertTrue(code.contains("data class DataAvailable"))
-    assertTrue(code.contains("@JsonProperty(\"state\")"))
+    assertTrue(code.contains("@field:JsonProperty(\"state\")"))
     assertTrue(code.contains("val state: String"))
   }
 }

@@ -20,7 +20,9 @@ package ai.platon.cdt.definition.builder.support.utils;
  * #L%
  */
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -109,6 +111,54 @@ public class StringUtils {
    */
   public static String capitalize(String value) {
     return org.apache.commons.lang3.StringUtils.capitalize(value);
+  }
+
+  /**
+   * Converts a string to camelCase form.
+   *
+   * <p>Camel case means capitalize the first letter of each subsequent word and keep the first
+   * letter lowercase.
+   *
+   * <p>When using acronyms like DOM, HTML, or URL in variable or property names, use lowercase for
+   * the acronym’s first letter in camelCase style.
+   *
+   * <p>For example: - "DOM" -> "dom" - "DOMDebugger" -> "domDebugger" - "Network" -> "network" -
+   * "user_name" -> "userName"
+   */
+  public static String toCamelCase(String input) {
+    if (input == null || input.trim().isEmpty()) {
+      return input;
+    }
+
+    // 按常见分隔符（下划线、横线、空格）分割
+    String[] rawParts = input.split("[_\\-\\s]+");
+
+    List<String> parts = new ArrayList<>();
+
+    // 拆分每个部分（识别缩写如 DOM、HTML）
+    Pattern pattern = Pattern.compile("[A-Z]?[a-z0-9]+|[A-Z]+(?![a-z])");
+    for (String part : rawParts) {
+      Matcher matcher = pattern.matcher(part);
+      while (matcher.find()) {
+        parts.add(matcher.group());
+      }
+    }
+
+    if (parts.isEmpty()) {
+      return input;
+    }
+
+    // 首个部分全部小写，其余部分首字母大写
+    StringBuilder result = new StringBuilder(parts.get(0).toLowerCase());
+    for (int i = 1; i < parts.size(); i++) {
+      String lower = parts.get(i).toLowerCase();
+      result.append(Character.toUpperCase(lower.charAt(0)));
+      if (lower.length() > 1) {
+        result.append(lower.substring(1));
+      }
+    }
+
+    return result.toString();
   }
 
   /**

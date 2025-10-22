@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.profiler
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -10,8 +11,8 @@ import kotlin.collections.List
  */
 @Experimental
 data class TypeProfileEntry(
-  @field:JsonProperty("offset")
+  @param:JsonProperty("offset")
   val offset: Int,
-  @field:JsonProperty("types")
+  @param:JsonProperty("types")
   val types: List<TypeObject>,
 )

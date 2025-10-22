@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.tethering
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -8,8 +9,8 @@ import kotlin.String
  * Informs that port was successfully bound and got a specified connection id.
  */
 data class Accepted(
-  @field:JsonProperty("port")
+  @param:JsonProperty("port")
   val port: Int,
-  @field:JsonProperty("connectionId")
+  @param:JsonProperty("connectionId")
   val connectionId: String,
 )

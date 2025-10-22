@@ -1,7 +1,8 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.security
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
-import java.lang.Deprecated
+import kotlin.Deprecated
 import kotlin.Int
 import kotlin.String
 
@@ -11,12 +12,12 @@ import kotlin.String
  * certificate error has been allowed internally. Only one client per target should override
  * certificate errors at the same time.
  */
-@Deprecated
+@Deprecated("Deprecated")
 data class CertificateError(
-  @field:JsonProperty("eventId")
+  @param:JsonProperty("eventId")
   val eventId: Int,
-  @field:JsonProperty("errorType")
+  @param:JsonProperty("errorType")
   val errorType: String,
-  @field:JsonProperty("requestURL")
+  @param:JsonProperty("requestURL")
   val requestURL: String,
 )

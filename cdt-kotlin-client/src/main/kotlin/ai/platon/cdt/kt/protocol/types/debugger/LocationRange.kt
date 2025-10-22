@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.debugger
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -9,10 +10,10 @@ import kotlin.String
  */
 @Experimental
 data class LocationRange(
-  @field:JsonProperty("scriptId")
+  @param:JsonProperty("scriptId")
   val scriptId: String,
-  @field:JsonProperty("start")
+  @param:JsonProperty("start")
   val start: ScriptPosition,
-  @field:JsonProperty("end")
+  @param:JsonProperty("end")
   val end: ScriptPosition,
 )

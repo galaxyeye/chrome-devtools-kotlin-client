@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.media
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -8,8 +9,8 @@ import kotlin.String
  * Corresponds to kMediaEventTriggered
  */
 data class PlayerEvent(
-  @field:JsonProperty("timestamp")
+  @param:JsonProperty("timestamp")
   val timestamp: Double,
-  @field:JsonProperty("value")
+  @param:JsonProperty("value")
   val `value`: String,
 )

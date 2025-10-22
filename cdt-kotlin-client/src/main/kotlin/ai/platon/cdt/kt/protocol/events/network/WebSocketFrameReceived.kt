@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.network
 
 import ai.platon.cdt.kt.protocol.types.network.WebSocketFrame
@@ -9,10 +10,10 @@ import kotlin.String
  * Fired when WebSocket message is received.
  */
 data class WebSocketFrameReceived(
-  @field:JsonProperty("requestId")
+  @param:JsonProperty("requestId")
   val requestId: String,
-  @field:JsonProperty("timestamp")
+  @param:JsonProperty("timestamp")
   val timestamp: Double,
-  @field:JsonProperty("response")
+  @param:JsonProperty("response")
   val response: WebSocketFrame,
 )

@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.debugger
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -17,58 +18,58 @@ import kotlin.collections.Map
  * scripts upon enabling debugger.
  */
 data class ScriptParsed(
-  @field:JsonProperty("scriptId")
+  @param:JsonProperty("scriptId")
   val scriptId: String,
-  @field:JsonProperty("url")
+  @param:JsonProperty("url")
   val url: String,
-  @field:JsonProperty("startLine")
+  @param:JsonProperty("startLine")
   val startLine: Int,
-  @field:JsonProperty("startColumn")
+  @param:JsonProperty("startColumn")
   val startColumn: Int,
-  @field:JsonProperty("endLine")
+  @param:JsonProperty("endLine")
   val endLine: Int,
-  @field:JsonProperty("endColumn")
+  @param:JsonProperty("endColumn")
   val endColumn: Int,
-  @field:JsonProperty("executionContextId")
+  @param:JsonProperty("executionContextId")
   val executionContextId: Int,
-  @field:JsonProperty("hash")
+  @param:JsonProperty("hash")
   val hash: String,
-  @field:JsonProperty("executionContextAuxData")
+  @param:JsonProperty("executionContextAuxData")
   @param:Optional
   val executionContextAuxData: Map<String, Any?>? = null,
-  @field:JsonProperty("isLiveEdit")
+  @param:JsonProperty("isLiveEdit")
   @param:Optional
   @param:Experimental
   val isLiveEdit: Boolean? = null,
-  @field:JsonProperty("sourceMapURL")
+  @param:JsonProperty("sourceMapURL")
   @param:Optional
   val sourceMapURL: String? = null,
-  @field:JsonProperty("hasSourceURL")
+  @param:JsonProperty("hasSourceURL")
   @param:Optional
   val hasSourceURL: Boolean? = null,
-  @field:JsonProperty("isModule")
+  @param:JsonProperty("isModule")
   @param:Optional
   val isModule: Boolean? = null,
-  @field:JsonProperty("length")
+  @param:JsonProperty("length")
   @param:Optional
   val length: Int? = null,
-  @field:JsonProperty("stackTrace")
+  @param:JsonProperty("stackTrace")
   @param:Optional
   @param:Experimental
   val stackTrace: StackTrace? = null,
-  @field:JsonProperty("codeOffset")
+  @param:JsonProperty("codeOffset")
   @param:Optional
   @param:Experimental
   val codeOffset: Int? = null,
-  @field:JsonProperty("scriptLanguage")
+  @param:JsonProperty("scriptLanguage")
   @param:Optional
   @param:Experimental
   val scriptLanguage: ScriptLanguage? = null,
-  @field:JsonProperty("debugSymbols")
+  @param:JsonProperty("debugSymbols")
   @param:Optional
   @param:Experimental
   val debugSymbols: DebugSymbols? = null,
-  @field:JsonProperty("embedderName")
+  @param:JsonProperty("embedderName")
   @param:Optional
   @param:Experimental
   val embedderName: String? = null,

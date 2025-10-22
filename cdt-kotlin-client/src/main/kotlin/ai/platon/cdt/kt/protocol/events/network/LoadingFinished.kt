@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.network
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -10,13 +11,13 @@ import kotlin.String
  * Fired when HTTP request has finished loading.
  */
 data class LoadingFinished(
-  @field:JsonProperty("requestId")
+  @param:JsonProperty("requestId")
   val requestId: String,
-  @field:JsonProperty("timestamp")
+  @param:JsonProperty("timestamp")
   val timestamp: Double,
-  @field:JsonProperty("encodedDataLength")
+  @param:JsonProperty("encodedDataLength")
   val encodedDataLength: Double,
-  @field:JsonProperty("shouldReportCorbBlocking")
+  @param:JsonProperty("shouldReportCorbBlocking")
   @param:Optional
   val shouldReportCorbBlocking: Boolean? = null,
 )

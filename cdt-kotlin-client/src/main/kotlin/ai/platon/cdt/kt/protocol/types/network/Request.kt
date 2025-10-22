@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.network
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -14,36 +15,36 @@ import kotlin.collections.Map
  * HTTP request data.
  */
 data class Request(
-  @field:JsonProperty("url")
+  @param:JsonProperty("url")
   val url: String,
-  @field:JsonProperty("urlFragment")
+  @param:JsonProperty("urlFragment")
   @param:Optional
   val urlFragment: String? = null,
-  @field:JsonProperty("method")
+  @param:JsonProperty("method")
   val method: String,
-  @field:JsonProperty("headers")
+  @param:JsonProperty("headers")
   val headers: Map<String, Any?>,
-  @field:JsonProperty("postData")
+  @param:JsonProperty("postData")
   @param:Optional
   val postData: String? = null,
-  @field:JsonProperty("hasPostData")
+  @param:JsonProperty("hasPostData")
   @param:Optional
   val hasPostData: Boolean? = null,
-  @field:JsonProperty("postDataEntries")
+  @param:JsonProperty("postDataEntries")
   @param:Optional
   @param:Experimental
   val postDataEntries: List<PostDataEntry>? = null,
-  @field:JsonProperty("mixedContentType")
+  @param:JsonProperty("mixedContentType")
   @param:Optional
   val mixedContentType: MixedContentType? = null,
-  @field:JsonProperty("initialPriority")
+  @param:JsonProperty("initialPriority")
   val initialPriority: ResourcePriority,
-  @field:JsonProperty("referrerPolicy")
+  @param:JsonProperty("referrerPolicy")
   val referrerPolicy: RequestReferrerPolicy,
-  @field:JsonProperty("isLinkPreload")
+  @param:JsonProperty("isLinkPreload")
   @param:Optional
   val isLinkPreload: Boolean? = null,
-  @field:JsonProperty("trustTokenParams")
+  @param:JsonProperty("trustTokenParams")
   @param:Optional
   @param:Experimental
   val trustTokenParams: TrustTokenParams? = null,

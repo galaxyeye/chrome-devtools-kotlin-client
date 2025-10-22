@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.network
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -9,12 +10,12 @@ import kotlin.String
  * Fired when data chunk was received over the network.
  */
 data class DataReceived(
-  @field:JsonProperty("requestId")
+  @param:JsonProperty("requestId")
   val requestId: String,
-  @field:JsonProperty("timestamp")
+  @param:JsonProperty("timestamp")
   val timestamp: Double,
-  @field:JsonProperty("dataLength")
+  @param:JsonProperty("dataLength")
   val dataLength: Int,
-  @field:JsonProperty("encodedDataLength")
+  @param:JsonProperty("encodedDataLength")
   val encodedDataLength: Int,
 )

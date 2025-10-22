@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.backgroundservice
 
 import ai.platon.cdt.kt.protocol.types.backgroundservice.ServiceName
@@ -8,8 +9,8 @@ import kotlin.Boolean
  * Called when the recording state for the service has been updated.
  */
 data class RecordingStateChanged(
-  @field:JsonProperty("isRecording")
+  @param:JsonProperty("isRecording")
   val isRecording: Boolean,
-  @field:JsonProperty("service")
+  @param:JsonProperty("service")
   val service: ServiceName,
 )

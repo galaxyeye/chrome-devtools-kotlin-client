@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.page
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -11,10 +12,10 @@ import kotlin.String
  */
 @Experimental
 data class ScreencastFrame(
-  @field:JsonProperty("data")
+  @param:JsonProperty("data")
   val `data`: String,
-  @field:JsonProperty("metadata")
+  @param:JsonProperty("metadata")
   val metadata: ScreencastFrameMetadata,
-  @field:JsonProperty("sessionId")
+  @param:JsonProperty("sessionId")
   val sessionId: Int,
 )

@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.audits
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -6,17 +7,17 @@ import kotlin.Int
 import kotlin.String
 
 data class TrustedWebActivityIssueDetails(
-  @field:JsonProperty("url")
+  @param:JsonProperty("url")
   val url: String,
-  @field:JsonProperty("violationType")
+  @param:JsonProperty("violationType")
   val violationType: TwaQualityEnforcementViolationType,
-  @field:JsonProperty("httpStatusCode")
+  @param:JsonProperty("httpStatusCode")
   @param:Optional
   val httpStatusCode: Int? = null,
-  @field:JsonProperty("packageName")
+  @param:JsonProperty("packageName")
   @param:Optional
   val packageName: String? = null,
-  @field:JsonProperty("signature")
+  @param:JsonProperty("signature")
   @param:Optional
   val signature: String? = null,
 )

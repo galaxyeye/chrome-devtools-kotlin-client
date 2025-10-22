@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.network
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -9,11 +10,11 @@ import kotlin.String
  * Fired upon WebSocket creation.
  */
 data class WebSocketCreated(
-  @field:JsonProperty("requestId")
+  @param:JsonProperty("requestId")
   val requestId: String,
-  @field:JsonProperty("url")
+  @param:JsonProperty("url")
   val url: String,
-  @field:JsonProperty("initiator")
+  @param:JsonProperty("initiator")
   @param:Optional
   val initiator: Initiator? = null,
 )

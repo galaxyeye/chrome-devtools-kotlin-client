@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.network
 
 import ai.platon.cdt.kt.protocol.types.network.WebSocketRequest
@@ -9,12 +10,12 @@ import kotlin.String
  * Fired when WebSocket is about to initiate handshake.
  */
 data class WebSocketWillSendHandshakeRequest(
-  @field:JsonProperty("requestId")
+  @param:JsonProperty("requestId")
   val requestId: String,
-  @field:JsonProperty("timestamp")
+  @param:JsonProperty("timestamp")
   val timestamp: Double,
-  @field:JsonProperty("wallTime")
+  @param:JsonProperty("wallTime")
   val wallTime: Double,
-  @field:JsonProperty("request")
+  @param:JsonProperty("request")
   val request: WebSocketRequest,
 )

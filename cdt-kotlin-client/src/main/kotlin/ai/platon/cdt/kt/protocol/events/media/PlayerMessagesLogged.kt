@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.media
 
 import ai.platon.cdt.kt.protocol.types.media.PlayerMessage
@@ -9,8 +10,8 @@ import kotlin.collections.List
  * Send a list of any messages that need to be delivered.
  */
 data class PlayerMessagesLogged(
-  @field:JsonProperty("playerId")
+  @param:JsonProperty("playerId")
   val playerId: String,
-  @field:JsonProperty("messages")
+  @param:JsonProperty("messages")
   val messages: List<PlayerMessage>,
 )

@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.commands
 
 import ai.platon.cdt.kt.protocol.events.page.BackForwardCacheNotUsed
@@ -57,8 +58,8 @@ import ai.platon.cdt.kt.protocol.types.page.SetWebLifecycleStateState
 import ai.platon.cdt.kt.protocol.types.page.StartScreencastFormat
 import ai.platon.cdt.kt.protocol.types.page.TransitionType
 import ai.platon.cdt.kt.protocol.types.page.Viewport
-import java.lang.Deprecated
 import kotlin.Boolean
+import kotlin.Deprecated
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
@@ -73,7 +74,7 @@ interface Page {
    * Deprecated, please use addScriptToEvaluateOnNewDocument instead.
    * @param scriptSource
    */
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   @Experimental
   @Returns("identifier")
   suspend fun addScriptToEvaluateOnLoad(@ParamName("scriptSource") scriptSource: String): String
@@ -318,7 +319,7 @@ interface Page {
    * Deprecated, please use removeScriptToEvaluateOnNewDocument instead.
    * @param identifier
    */
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   @Experimental
   suspend fun removeScriptToEvaluateOnLoad(@ParamName("identifier") identifier: String)
 
@@ -415,11 +416,11 @@ interface Page {
    * available (otherwise deny).
    * @param downloadPath The default path to save downloaded files to. This is required if behavior is set to 'allow'
    */
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   @Experimental
   suspend fun setDownloadBehavior(@ParamName("behavior") behavior: SetDownloadBehaviorBehavior, @ParamName("downloadPath") @Optional downloadPath: String? = null)
 
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   @Experimental
   suspend fun setDownloadBehavior(@ParamName("behavior") behavior: SetDownloadBehaviorBehavior) {
     return setDownloadBehavior(behavior, null)
@@ -571,11 +572,11 @@ interface Page {
   fun onFrameAttached(eventListener: suspend (FrameAttached) -> Unit): EventListener
 
   @EventName("frameClearedScheduledNavigation")
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   fun onFrameClearedScheduledNavigation(eventListener: EventHandler<FrameClearedScheduledNavigation>): EventListener
 
   @EventName("frameClearedScheduledNavigation")
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   fun onFrameClearedScheduledNavigation(eventListener: suspend (FrameClearedScheduledNavigation) -> Unit): EventListener
 
   @EventName("frameDetached")
@@ -615,11 +616,11 @@ interface Page {
   fun onFrameRequestedNavigation(eventListener: suspend (FrameRequestedNavigation) -> Unit): EventListener
 
   @EventName("frameScheduledNavigation")
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   fun onFrameScheduledNavigation(eventListener: EventHandler<FrameScheduledNavigation>): EventListener
 
   @EventName("frameScheduledNavigation")
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   fun onFrameScheduledNavigation(eventListener: suspend (FrameScheduledNavigation) -> Unit): EventListener
 
   @EventName("frameStartedLoading")
@@ -639,22 +640,22 @@ interface Page {
   fun onFrameStoppedLoading(eventListener: suspend (FrameStoppedLoading) -> Unit): EventListener
 
   @EventName("downloadWillBegin")
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   @Experimental
   fun onDownloadWillBegin(eventListener: EventHandler<DownloadWillBegin>): EventListener
 
   @EventName("downloadWillBegin")
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   @Experimental
   fun onDownloadWillBegin(eventListener: suspend (DownloadWillBegin) -> Unit): EventListener
 
   @EventName("downloadProgress")
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   @Experimental
   fun onDownloadProgress(eventListener: EventHandler<DownloadProgress>): EventListener
 
   @EventName("downloadProgress")
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   @Experimental
   fun onDownloadProgress(eventListener: suspend (DownloadProgress) -> Unit): EventListener
 

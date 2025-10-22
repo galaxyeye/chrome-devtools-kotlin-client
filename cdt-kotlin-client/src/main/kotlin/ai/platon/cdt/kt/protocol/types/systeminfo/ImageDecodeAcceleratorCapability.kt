@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.systeminfo
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -8,12 +9,12 @@ import kotlin.collections.List
  * maximum resolutions and subsampling.
  */
 data class ImageDecodeAcceleratorCapability(
-  @field:JsonProperty("imageType")
+  @param:JsonProperty("imageType")
   val imageType: ImageType,
-  @field:JsonProperty("maxDimensions")
+  @param:JsonProperty("maxDimensions")
   val maxDimensions: Size,
-  @field:JsonProperty("minDimensions")
+  @param:JsonProperty("minDimensions")
   val minDimensions: Size,
-  @field:JsonProperty("subsamplings")
+  @param:JsonProperty("subsamplings")
   val subsamplings: List<SubsamplingFormat>,
 )

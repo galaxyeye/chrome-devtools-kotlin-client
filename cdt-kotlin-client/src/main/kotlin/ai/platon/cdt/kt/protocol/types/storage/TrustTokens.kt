@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.storage
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -11,8 +12,8 @@ import kotlin.String
  */
 @Experimental
 data class TrustTokens(
-  @field:JsonProperty("issuerOrigin")
+  @param:JsonProperty("issuerOrigin")
   val issuerOrigin: String,
-  @field:JsonProperty("count")
+  @param:JsonProperty("count")
   val count: Double,
 )

@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.browser
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -9,10 +10,10 @@ import kotlin.Int
  */
 @Experimental
 data class Bucket(
-  @field:JsonProperty("low")
+  @param:JsonProperty("low")
   val low: Int,
-  @field:JsonProperty("high")
+  @param:JsonProperty("high")
   val high: Int,
-  @field:JsonProperty("count")
+  @param:JsonProperty("count")
   val count: Int,
 )

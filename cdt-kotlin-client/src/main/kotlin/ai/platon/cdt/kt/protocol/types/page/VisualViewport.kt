@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.page
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -8,21 +9,21 @@ import kotlin.Double
  * Visual viewport position, dimensions, and scale.
  */
 data class VisualViewport(
-  @field:JsonProperty("offsetX")
+  @param:JsonProperty("offsetX")
   val offsetX: Double,
-  @field:JsonProperty("offsetY")
+  @param:JsonProperty("offsetY")
   val offsetY: Double,
-  @field:JsonProperty("pageX")
+  @param:JsonProperty("pageX")
   val pageX: Double,
-  @field:JsonProperty("pageY")
+  @param:JsonProperty("pageY")
   val pageY: Double,
-  @field:JsonProperty("clientWidth")
+  @param:JsonProperty("clientWidth")
   val clientWidth: Double,
-  @field:JsonProperty("clientHeight")
+  @param:JsonProperty("clientHeight")
   val clientHeight: Double,
-  @field:JsonProperty("scale")
+  @param:JsonProperty("scale")
   val scale: Double,
-  @field:JsonProperty("zoom")
+  @param:JsonProperty("zoom")
   @param:Optional
   val zoom: Double? = null,
 )

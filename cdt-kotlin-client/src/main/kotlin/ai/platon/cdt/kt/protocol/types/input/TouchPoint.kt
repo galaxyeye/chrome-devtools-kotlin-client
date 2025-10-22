@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.input
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -7,39 +8,39 @@ import kotlin.Double
 import kotlin.Int
 
 data class TouchPoint(
-  @field:JsonProperty("x")
+  @param:JsonProperty("x")
   val x: Double,
-  @field:JsonProperty("y")
+  @param:JsonProperty("y")
   val y: Double,
-  @field:JsonProperty("radiusX")
+  @param:JsonProperty("radiusX")
   @param:Optional
   val radiusX: Double? = null,
-  @field:JsonProperty("radiusY")
+  @param:JsonProperty("radiusY")
   @param:Optional
   val radiusY: Double? = null,
-  @field:JsonProperty("rotationAngle")
+  @param:JsonProperty("rotationAngle")
   @param:Optional
   val rotationAngle: Double? = null,
-  @field:JsonProperty("force")
+  @param:JsonProperty("force")
   @param:Optional
   val force: Double? = null,
-  @field:JsonProperty("tangentialPressure")
+  @param:JsonProperty("tangentialPressure")
   @param:Optional
   @param:Experimental
   val tangentialPressure: Double? = null,
-  @field:JsonProperty("tiltX")
+  @param:JsonProperty("tiltX")
   @param:Optional
   @param:Experimental
   val tiltX: Int? = null,
-  @field:JsonProperty("tiltY")
+  @param:JsonProperty("tiltY")
   @param:Optional
   @param:Experimental
   val tiltY: Int? = null,
-  @field:JsonProperty("twist")
+  @param:JsonProperty("twist")
   @param:Optional
   @param:Experimental
   val twist: Int? = null,
-  @field:JsonProperty("id")
+  @param:JsonProperty("id")
   @param:Optional
   val id: Double? = null,
 )

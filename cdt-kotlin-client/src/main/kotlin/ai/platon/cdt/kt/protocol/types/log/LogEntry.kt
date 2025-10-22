@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.log
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -13,30 +14,30 @@ import kotlin.collections.List
  * Log entry.
  */
 data class LogEntry(
-  @field:JsonProperty("source")
+  @param:JsonProperty("source")
   val source: LogEntrySource,
-  @field:JsonProperty("level")
+  @param:JsonProperty("level")
   val level: LogEntryLevel,
-  @field:JsonProperty("text")
+  @param:JsonProperty("text")
   val text: String,
-  @field:JsonProperty("timestamp")
+  @param:JsonProperty("timestamp")
   val timestamp: Double,
-  @field:JsonProperty("url")
+  @param:JsonProperty("url")
   @param:Optional
   val url: String? = null,
-  @field:JsonProperty("lineNumber")
+  @param:JsonProperty("lineNumber")
   @param:Optional
   val lineNumber: Int? = null,
-  @field:JsonProperty("stackTrace")
+  @param:JsonProperty("stackTrace")
   @param:Optional
   val stackTrace: StackTrace? = null,
-  @field:JsonProperty("networkRequestId")
+  @param:JsonProperty("networkRequestId")
   @param:Optional
   val networkRequestId: String? = null,
-  @field:JsonProperty("workerId")
+  @param:JsonProperty("workerId")
   @param:Optional
   val workerId: String? = null,
-  @field:JsonProperty("args")
+  @param:JsonProperty("args")
   @param:Optional
   val args: List<RemoteObject>? = null,
 )

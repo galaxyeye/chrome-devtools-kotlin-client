@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.input
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -7,14 +8,14 @@ import kotlin.String
 
 @Experimental
 data class DragDataItem(
-  @field:JsonProperty("mimeType")
+  @param:JsonProperty("mimeType")
   val mimeType: String,
-  @field:JsonProperty("data")
+  @param:JsonProperty("data")
   val `data`: String,
-  @field:JsonProperty("title")
+  @param:JsonProperty("title")
   @param:Optional
   val title: String? = null,
-  @field:JsonProperty("baseURL")
+  @param:JsonProperty("baseURL")
   @param:Optional
   val baseURL: String? = null,
 )

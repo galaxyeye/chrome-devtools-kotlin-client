@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.domsnapshot
 
 import ai.platon.cdt.kt.protocol.types.dom.Rect
@@ -9,10 +10,10 @@ import kotlin.Int
  * stable and may change between versions.
  */
 data class InlineTextBox(
-  @field:JsonProperty("boundingBox")
+  @param:JsonProperty("boundingBox")
   val boundingBox: Rect,
-  @field:JsonProperty("startCharacterIndex")
+  @param:JsonProperty("startCharacterIndex")
   val startCharacterIndex: Int,
-  @field:JsonProperty("numCharacters")
+  @param:JsonProperty("numCharacters")
   val numCharacters: Int,
 )

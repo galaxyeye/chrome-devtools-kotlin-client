@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.commands
 
 import ai.platon.cdt.kt.protocol.events.emulation.VirtualTimeBudgetExpired
@@ -18,8 +19,8 @@ import ai.platon.cdt.kt.protocol.types.emulation.SetEmulatedVisionDeficiencyType
 import ai.platon.cdt.kt.protocol.types.emulation.UserAgentMetadata
 import ai.platon.cdt.kt.protocol.types.emulation.VirtualTimePolicy
 import ai.platon.cdt.kt.protocol.types.page.Viewport
-import java.lang.Deprecated
 import kotlin.Boolean
+import kotlin.Deprecated
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
@@ -201,7 +202,7 @@ interface Emulation {
    * Overrides value returned by the javascript navigator object.
    * @param platform The platform navigator.platform should return.
    */
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   @Experimental
   suspend fun setNavigatorOverrides(@ParamName("platform") platform: String)
 
@@ -285,7 +286,7 @@ interface Emulation {
    * @param width Frame width (DIP).
    * @param height Frame height (DIP).
    */
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   @Experimental
   suspend fun setVisibleSize(@ParamName("width") width: Int, @ParamName("height") height: Int)
 

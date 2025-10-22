@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.audits
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -5,19 +6,19 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
 data class MixedContentIssueDetails(
-  @field:JsonProperty("resourceType")
+  @param:JsonProperty("resourceType")
   @param:Optional
   val resourceType: MixedContentResourceType? = null,
-  @field:JsonProperty("resolutionStatus")
+  @param:JsonProperty("resolutionStatus")
   val resolutionStatus: MixedContentResolutionStatus,
-  @field:JsonProperty("insecureURL")
+  @param:JsonProperty("insecureURL")
   val insecureURL: String,
-  @field:JsonProperty("mainResourceURL")
+  @param:JsonProperty("mainResourceURL")
   val mainResourceURL: String,
-  @field:JsonProperty("request")
+  @param:JsonProperty("request")
   @param:Optional
   val request: AffectedRequest? = null,
-  @field:JsonProperty("frame")
+  @param:JsonProperty("frame")
   @param:Optional
   val frame: AffectedFrame? = null,
 )

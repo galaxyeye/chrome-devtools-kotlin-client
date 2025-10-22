@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.profiler
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -9,11 +10,11 @@ import kotlin.String
  * Sent when new profile recording is started using console.profile() call.
  */
 data class ConsoleProfileStarted(
-  @field:JsonProperty("id")
+  @param:JsonProperty("id")
   val id: String,
-  @field:JsonProperty("location")
+  @param:JsonProperty("location")
   val location: Location,
-  @field:JsonProperty("title")
+  @param:JsonProperty("title")
   @param:Optional
   val title: String? = null,
 )

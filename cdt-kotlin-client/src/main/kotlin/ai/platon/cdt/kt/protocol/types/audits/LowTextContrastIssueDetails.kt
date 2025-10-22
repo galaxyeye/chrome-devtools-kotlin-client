@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.audits
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -6,18 +7,18 @@ import kotlin.Int
 import kotlin.String
 
 data class LowTextContrastIssueDetails(
-  @field:JsonProperty("violatingNodeId")
+  @param:JsonProperty("violatingNodeId")
   val violatingNodeId: Int,
-  @field:JsonProperty("violatingNodeSelector")
+  @param:JsonProperty("violatingNodeSelector")
   val violatingNodeSelector: String,
-  @field:JsonProperty("contrastRatio")
+  @param:JsonProperty("contrastRatio")
   val contrastRatio: Double,
-  @field:JsonProperty("thresholdAA")
+  @param:JsonProperty("thresholdAA")
   val thresholdAA: Double,
-  @field:JsonProperty("thresholdAAA")
+  @param:JsonProperty("thresholdAAA")
   val thresholdAAA: Double,
-  @field:JsonProperty("fontSize")
+  @param:JsonProperty("fontSize")
   val fontSize: String,
-  @field:JsonProperty("fontWeight")
+  @param:JsonProperty("fontWeight")
   val fontWeight: String,
 )

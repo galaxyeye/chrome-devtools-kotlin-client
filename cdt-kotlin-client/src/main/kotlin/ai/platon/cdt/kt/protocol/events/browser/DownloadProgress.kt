@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.browser
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -11,12 +12,12 @@ import kotlin.String
  */
 @Experimental
 data class DownloadProgress(
-  @field:JsonProperty("guid")
+  @param:JsonProperty("guid")
   val guid: String,
-  @field:JsonProperty("totalBytes")
+  @param:JsonProperty("totalBytes")
   val totalBytes: Double,
-  @field:JsonProperty("receivedBytes")
+  @param:JsonProperty("receivedBytes")
   val receivedBytes: Double,
-  @field:JsonProperty("state")
+  @param:JsonProperty("state")
   val state: DownloadProgressState,
 )

@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.network
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -11,19 +12,19 @@ import kotlin.collections.Map
  * WebSocket response data.
  */
 data class WebSocketResponse(
-  @field:JsonProperty("status")
+  @param:JsonProperty("status")
   val status: Int,
-  @field:JsonProperty("statusText")
+  @param:JsonProperty("statusText")
   val statusText: String,
-  @field:JsonProperty("headers")
+  @param:JsonProperty("headers")
   val headers: Map<String, Any?>,
-  @field:JsonProperty("headersText")
+  @param:JsonProperty("headersText")
   @param:Optional
   val headersText: String? = null,
-  @field:JsonProperty("requestHeaders")
+  @param:JsonProperty("requestHeaders")
   @param:Optional
   val requestHeaders: Map<String, Any?>? = null,
-  @field:JsonProperty("requestHeadersText")
+  @param:JsonProperty("requestHeadersText")
   @param:Optional
   val requestHeadersText: String? = null,
 )

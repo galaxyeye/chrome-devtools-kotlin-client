@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.emulation
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -13,20 +14,20 @@ import kotlin.collections.List
  */
 @Experimental
 data class UserAgentMetadata(
-  @field:JsonProperty("brands")
+  @param:JsonProperty("brands")
   @param:Optional
   val brands: List<UserAgentBrandVersion>? = null,
-  @field:JsonProperty("fullVersion")
+  @param:JsonProperty("fullVersion")
   @param:Optional
   val fullVersion: String? = null,
-  @field:JsonProperty("platform")
+  @param:JsonProperty("platform")
   val platform: String,
-  @field:JsonProperty("platformVersion")
+  @param:JsonProperty("platformVersion")
   val platformVersion: String,
-  @field:JsonProperty("architecture")
+  @param:JsonProperty("architecture")
   val architecture: String,
-  @field:JsonProperty("model")
+  @param:JsonProperty("model")
   val model: String,
-  @field:JsonProperty("mobile")
+  @param:JsonProperty("mobile")
   val mobile: Boolean,
 )

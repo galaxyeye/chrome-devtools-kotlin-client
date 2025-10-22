@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.css
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -11,41 +12,41 @@ import kotlin.String
  * CSS stylesheet metainformation.
  */
 data class CSSStyleSheetHeader(
-  @field:JsonProperty("styleSheetId")
+  @param:JsonProperty("styleSheetId")
   val styleSheetId: String,
-  @field:JsonProperty("frameId")
+  @param:JsonProperty("frameId")
   val frameId: String,
-  @field:JsonProperty("sourceURL")
+  @param:JsonProperty("sourceURL")
   val sourceURL: String,
-  @field:JsonProperty("sourceMapURL")
+  @param:JsonProperty("sourceMapURL")
   @param:Optional
   val sourceMapURL: String? = null,
-  @field:JsonProperty("origin")
+  @param:JsonProperty("origin")
   val origin: StyleSheetOrigin,
-  @field:JsonProperty("title")
+  @param:JsonProperty("title")
   val title: String,
-  @field:JsonProperty("ownerNode")
+  @param:JsonProperty("ownerNode")
   @param:Optional
   val ownerNode: Int? = null,
-  @field:JsonProperty("disabled")
+  @param:JsonProperty("disabled")
   val disabled: Boolean,
-  @field:JsonProperty("hasSourceURL")
+  @param:JsonProperty("hasSourceURL")
   @param:Optional
   val hasSourceURL: Boolean? = null,
-  @field:JsonProperty("isInline")
+  @param:JsonProperty("isInline")
   val isInline: Boolean,
-  @field:JsonProperty("isMutable")
+  @param:JsonProperty("isMutable")
   val isMutable: Boolean,
-  @field:JsonProperty("isConstructed")
+  @param:JsonProperty("isConstructed")
   val isConstructed: Boolean,
-  @field:JsonProperty("startLine")
+  @param:JsonProperty("startLine")
   val startLine: Double,
-  @field:JsonProperty("startColumn")
+  @param:JsonProperty("startColumn")
   val startColumn: Double,
-  @field:JsonProperty("length")
+  @param:JsonProperty("length")
   val length: Double,
-  @field:JsonProperty("endLine")
+  @param:JsonProperty("endLine")
   val endLine: Double,
-  @field:JsonProperty("endColumn")
+  @param:JsonProperty("endColumn")
   val endColumn: Double,
 )

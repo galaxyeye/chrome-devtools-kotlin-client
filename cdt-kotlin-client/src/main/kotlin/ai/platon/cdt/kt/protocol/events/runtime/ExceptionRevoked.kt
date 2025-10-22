@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.runtime
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -8,8 +9,8 @@ import kotlin.String
  * Issued when unhandled exception was revoked.
  */
 data class ExceptionRevoked(
-  @field:JsonProperty("reason")
+  @param:JsonProperty("reason")
   val reason: String,
-  @field:JsonProperty("exceptionId")
+  @param:JsonProperty("exceptionId")
   val exceptionId: Int,
 )

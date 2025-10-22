@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.target
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -7,27 +8,27 @@ import kotlin.Boolean
 import kotlin.String
 
 data class TargetInfo(
-  @field:JsonProperty("targetId")
+  @param:JsonProperty("targetId")
   val targetId: String,
-  @field:JsonProperty("type")
+  @param:JsonProperty("type")
   val type: String,
-  @field:JsonProperty("title")
+  @param:JsonProperty("title")
   val title: String,
-  @field:JsonProperty("url")
+  @param:JsonProperty("url")
   val url: String,
-  @field:JsonProperty("attached")
+  @param:JsonProperty("attached")
   val attached: Boolean,
-  @field:JsonProperty("openerId")
+  @param:JsonProperty("openerId")
   @param:Optional
   val openerId: String? = null,
-  @field:JsonProperty("canAccessOpener")
+  @param:JsonProperty("canAccessOpener")
   @param:Experimental
   val canAccessOpener: Boolean,
-  @field:JsonProperty("openerFrameId")
+  @param:JsonProperty("openerFrameId")
   @param:Optional
   @param:Experimental
   val openerFrameId: String? = null,
-  @field:JsonProperty("browserContextId")
+  @param:JsonProperty("browserContextId")
   @param:Optional
   @param:Experimental
   val browserContextId: String? = null,

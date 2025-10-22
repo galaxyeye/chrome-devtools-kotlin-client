@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.dom
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -9,13 +10,13 @@ import kotlin.Int
  * A structure holding an RGBA color.
  */
 data class RGBA(
-  @field:JsonProperty("r")
+  @param:JsonProperty("r")
   val r: Int,
-  @field:JsonProperty("g")
+  @param:JsonProperty("g")
   val g: Int,
-  @field:JsonProperty("b")
+  @param:JsonProperty("b")
   val b: Int,
-  @field:JsonProperty("a")
+  @param:JsonProperty("a")
   @param:Optional
   val a: Double? = null,
 )

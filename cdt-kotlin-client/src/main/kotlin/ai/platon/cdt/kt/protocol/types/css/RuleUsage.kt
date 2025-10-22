@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.css
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -9,12 +10,12 @@ import kotlin.String
  * CSS coverage information.
  */
 data class RuleUsage(
-  @field:JsonProperty("styleSheetId")
+  @param:JsonProperty("styleSheetId")
   val styleSheetId: String,
-  @field:JsonProperty("startOffset")
+  @param:JsonProperty("startOffset")
   val startOffset: Double,
-  @field:JsonProperty("endOffset")
+  @param:JsonProperty("endOffset")
   val endOffset: Double,
-  @field:JsonProperty("used")
+  @param:JsonProperty("used")
   val used: Boolean,
 )

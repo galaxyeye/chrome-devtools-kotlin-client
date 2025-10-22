@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.performancetimeline
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -6,11 +7,11 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Int
 
 data class LayoutShiftAttribution(
-  @field:JsonProperty("previousRect")
+  @param:JsonProperty("previousRect")
   val previousRect: Rect,
-  @field:JsonProperty("currentRect")
+  @param:JsonProperty("currentRect")
   val currentRect: Rect,
-  @field:JsonProperty("nodeId")
+  @param:JsonProperty("nodeId")
   @param:Optional
   val nodeId: Int? = null,
 )

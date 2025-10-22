@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.commands
 
 import ai.platon.cdt.kt.protocol.events.target.AttachedToTarget
@@ -17,8 +18,8 @@ import ai.platon.cdt.kt.protocol.support.types.EventHandler
 import ai.platon.cdt.kt.protocol.support.types.EventListener
 import ai.platon.cdt.kt.protocol.types.target.RemoteLocation
 import ai.platon.cdt.kt.protocol.types.target.TargetInfo
-import java.lang.Deprecated
 import kotlin.Boolean
+import kotlin.Deprecated
 import kotlin.Int
 import kotlin.String
 import kotlin.Unit
@@ -145,7 +146,7 @@ interface Target {
    * @param sessionId Session to detach.
    * @param targetId Deprecated.
    */
-  suspend fun detachFromTarget(@ParamName("sessionId") @Optional sessionId: String? = null, @ParamName("targetId") @Optional @Deprecated targetId: String? = null)
+  suspend fun detachFromTarget(@ParamName("sessionId") @Optional sessionId: String? = null, @ParamName("targetId") @Optional targetId: String? = null)
 
   suspend fun detachFromTarget() {
     return detachFromTarget(null, null)
@@ -188,14 +189,14 @@ interface Target {
    * @param sessionId Identifier of the session.
    * @param targetId Deprecated.
    */
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   suspend fun sendMessageToTarget(
     @ParamName("message") message: String,
     @ParamName("sessionId") @Optional sessionId: String? = null,
-    @ParamName("targetId") @Optional @Deprecated targetId: String? = null,
+    @ParamName("targetId") @Optional targetId: String? = null,
   )
 
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   suspend fun sendMessageToTarget(@ParamName("message") message: String) {
     return sendMessageToTarget(message, null, null)
   }

@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.domsnapshot
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -10,12 +11,12 @@ import kotlin.collections.List
  * stable and may change between versions.
  */
 data class TextBoxSnapshot(
-  @field:JsonProperty("layoutIndex")
+  @param:JsonProperty("layoutIndex")
   val layoutIndex: List<Int>,
-  @field:JsonProperty("bounds")
+  @param:JsonProperty("bounds")
   val bounds: List<List<Double>>,
-  @field:JsonProperty("start")
+  @param:JsonProperty("start")
   val start: List<Int>,
-  @field:JsonProperty("length")
+  @param:JsonProperty("length")
   val length: List<Int>,
 )

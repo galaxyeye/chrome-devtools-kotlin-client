@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.dom
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -7,12 +8,12 @@ import kotlin.Double
  * Rectangle.
  */
 data class Rect(
-  @field:JsonProperty("x")
+  @param:JsonProperty("x")
   val x: Double,
-  @field:JsonProperty("y")
+  @param:JsonProperty("y")
   val y: Double,
-  @field:JsonProperty("width")
+  @param:JsonProperty("width")
   val width: Double,
-  @field:JsonProperty("height")
+  @param:JsonProperty("height")
   val height: Double,
 )

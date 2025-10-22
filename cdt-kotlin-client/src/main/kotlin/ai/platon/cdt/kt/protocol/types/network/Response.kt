@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.network
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -14,64 +15,64 @@ import kotlin.collections.Map
  * HTTP response data.
  */
 data class Response(
-  @field:JsonProperty("url")
+  @param:JsonProperty("url")
   val url: String,
-  @field:JsonProperty("status")
+  @param:JsonProperty("status")
   val status: Int,
-  @field:JsonProperty("statusText")
+  @param:JsonProperty("statusText")
   val statusText: String,
-  @field:JsonProperty("headers")
+  @param:JsonProperty("headers")
   val headers: Map<String, Any?>,
-  @field:JsonProperty("headersText")
+  @param:JsonProperty("headersText")
   @param:Optional
   val headersText: String? = null,
-  @field:JsonProperty("mimeType")
+  @param:JsonProperty("mimeType")
   val mimeType: String,
-  @field:JsonProperty("requestHeaders")
+  @param:JsonProperty("requestHeaders")
   @param:Optional
   val requestHeaders: Map<String, Any?>? = null,
-  @field:JsonProperty("requestHeadersText")
+  @param:JsonProperty("requestHeadersText")
   @param:Optional
   val requestHeadersText: String? = null,
-  @field:JsonProperty("connectionReused")
+  @param:JsonProperty("connectionReused")
   val connectionReused: Boolean,
-  @field:JsonProperty("connectionId")
+  @param:JsonProperty("connectionId")
   val connectionId: Double,
-  @field:JsonProperty("remoteIPAddress")
+  @param:JsonProperty("remoteIPAddress")
   @param:Optional
   val remoteIPAddress: String? = null,
-  @field:JsonProperty("remotePort")
+  @param:JsonProperty("remotePort")
   @param:Optional
   val remotePort: Int? = null,
-  @field:JsonProperty("fromDiskCache")
+  @param:JsonProperty("fromDiskCache")
   @param:Optional
   val fromDiskCache: Boolean? = null,
-  @field:JsonProperty("fromServiceWorker")
+  @param:JsonProperty("fromServiceWorker")
   @param:Optional
   val fromServiceWorker: Boolean? = null,
-  @field:JsonProperty("fromPrefetchCache")
+  @param:JsonProperty("fromPrefetchCache")
   @param:Optional
   val fromPrefetchCache: Boolean? = null,
-  @field:JsonProperty("encodedDataLength")
+  @param:JsonProperty("encodedDataLength")
   val encodedDataLength: Double,
-  @field:JsonProperty("timing")
+  @param:JsonProperty("timing")
   @param:Optional
   val timing: ResourceTiming? = null,
-  @field:JsonProperty("serviceWorkerResponseSource")
+  @param:JsonProperty("serviceWorkerResponseSource")
   @param:Optional
   val serviceWorkerResponseSource: ServiceWorkerResponseSource? = null,
-  @field:JsonProperty("responseTime")
+  @param:JsonProperty("responseTime")
   @param:Optional
   val responseTime: Double? = null,
-  @field:JsonProperty("cacheStorageCacheName")
+  @param:JsonProperty("cacheStorageCacheName")
   @param:Optional
   val cacheStorageCacheName: String? = null,
-  @field:JsonProperty("protocol")
+  @param:JsonProperty("protocol")
   @param:Optional
   val protocol: String? = null,
-  @field:JsonProperty("securityState")
+  @param:JsonProperty("securityState")
   val securityState: SecurityState,
-  @field:JsonProperty("securityDetails")
+  @param:JsonProperty("securityDetails")
   @param:Optional
   val securityDetails: SecurityDetails? = null,
 )

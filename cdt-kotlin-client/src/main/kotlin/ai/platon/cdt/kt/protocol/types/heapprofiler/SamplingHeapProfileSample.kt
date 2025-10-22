@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.heapprofiler
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -8,10 +9,10 @@ import kotlin.Int
  * A single sample from a sampling profile.
  */
 data class SamplingHeapProfileSample(
-  @field:JsonProperty("size")
+  @param:JsonProperty("size")
   val size: Double,
-  @field:JsonProperty("nodeId")
+  @param:JsonProperty("nodeId")
   val nodeId: Int,
-  @field:JsonProperty("ordinal")
+  @param:JsonProperty("ordinal")
   val ordinal: Double,
 )

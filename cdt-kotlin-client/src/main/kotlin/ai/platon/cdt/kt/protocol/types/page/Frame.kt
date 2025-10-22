@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.page
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -10,44 +11,44 @@ import kotlin.collections.List
  * Information about the Frame on the page.
  */
 data class Frame(
-  @field:JsonProperty("id")
+  @param:JsonProperty("id")
   val id: String,
-  @field:JsonProperty("parentId")
+  @param:JsonProperty("parentId")
   @param:Optional
   val parentId: String? = null,
-  @field:JsonProperty("loaderId")
+  @param:JsonProperty("loaderId")
   val loaderId: String,
-  @field:JsonProperty("name")
+  @param:JsonProperty("name")
   @param:Optional
   val name: String? = null,
-  @field:JsonProperty("url")
+  @param:JsonProperty("url")
   val url: String,
-  @field:JsonProperty("urlFragment")
+  @param:JsonProperty("urlFragment")
   @param:Optional
   @param:Experimental
   val urlFragment: String? = null,
-  @field:JsonProperty("domainAndRegistry")
+  @param:JsonProperty("domainAndRegistry")
   @param:Experimental
   val domainAndRegistry: String,
-  @field:JsonProperty("securityOrigin")
+  @param:JsonProperty("securityOrigin")
   val securityOrigin: String,
-  @field:JsonProperty("mimeType")
+  @param:JsonProperty("mimeType")
   val mimeType: String,
-  @field:JsonProperty("unreachableUrl")
+  @param:JsonProperty("unreachableUrl")
   @param:Optional
   @param:Experimental
   val unreachableUrl: String? = null,
-  @field:JsonProperty("adFrameType")
+  @param:JsonProperty("adFrameType")
   @param:Optional
   @param:Experimental
   val adFrameType: AdFrameType? = null,
-  @field:JsonProperty("secureContextType")
+  @param:JsonProperty("secureContextType")
   @param:Experimental
   val secureContextType: SecureContextType,
-  @field:JsonProperty("crossOriginIsolatedContextType")
+  @param:JsonProperty("crossOriginIsolatedContextType")
   @param:Experimental
   val crossOriginIsolatedContextType: CrossOriginIsolatedContextType,
-  @field:JsonProperty("gatedAPIFeatures")
+  @param:JsonProperty("gatedAPIFeatures")
   @param:Experimental
   val gatedAPIFeatures: List<GatedAPIFeatures>,
 )

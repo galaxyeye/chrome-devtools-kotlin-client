@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.security
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -9,6 +10,6 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  */
 @Experimental
 data class VisibleSecurityStateChanged(
-  @field:JsonProperty("visibleSecurityState")
+  @param:JsonProperty("visibleSecurityState")
   val visibleSecurityState: VisibleSecurityState,
 )

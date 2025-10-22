@@ -1,11 +1,12 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.runtime
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Double
 
 data class HeapUsage(
-  @field:JsonProperty("usedSize")
+  @param:JsonProperty("usedSize")
   val usedSize: Double,
-  @field:JsonProperty("totalSize")
+  @param:JsonProperty("totalSize")
   val totalSize: Double,
 )

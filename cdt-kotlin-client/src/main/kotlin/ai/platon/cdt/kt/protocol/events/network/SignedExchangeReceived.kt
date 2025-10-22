@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.network
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -10,8 +11,8 @@ import kotlin.String
  */
 @Experimental
 data class SignedExchangeReceived(
-  @field:JsonProperty("requestId")
+  @param:JsonProperty("requestId")
   val requestId: String,
-  @field:JsonProperty("info")
+  @param:JsonProperty("info")
   val info: SignedExchangeInfo,
 )

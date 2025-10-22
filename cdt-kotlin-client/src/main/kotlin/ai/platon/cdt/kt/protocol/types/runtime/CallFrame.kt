@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.runtime
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -8,14 +9,14 @@ import kotlin.String
  * Stack entry for runtime errors and assertions.
  */
 data class CallFrame(
-  @field:JsonProperty("functionName")
+  @param:JsonProperty("functionName")
   val functionName: String,
-  @field:JsonProperty("scriptId")
+  @param:JsonProperty("scriptId")
   val scriptId: String,
-  @field:JsonProperty("url")
+  @param:JsonProperty("url")
   val url: String,
-  @field:JsonProperty("lineNumber")
+  @param:JsonProperty("lineNumber")
   val lineNumber: Int,
-  @field:JsonProperty("columnNumber")
+  @param:JsonProperty("columnNumber")
   val columnNumber: Int,
 )

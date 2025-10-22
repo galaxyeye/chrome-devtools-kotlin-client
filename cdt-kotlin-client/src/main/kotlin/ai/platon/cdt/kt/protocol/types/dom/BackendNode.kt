@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.dom
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -8,10 +9,10 @@ import kotlin.String
  * Backend node with a friendly name.
  */
 data class BackendNode(
-  @field:JsonProperty("nodeType")
+  @param:JsonProperty("nodeType")
   val nodeType: Int,
-  @field:JsonProperty("nodeName")
+  @param:JsonProperty("nodeName")
   val nodeName: String,
-  @field:JsonProperty("backendNodeId")
+  @param:JsonProperty("backendNodeId")
   val backendNodeId: Int,
 )

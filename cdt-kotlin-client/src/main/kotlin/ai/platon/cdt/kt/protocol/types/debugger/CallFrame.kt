@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.debugger
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -10,22 +11,22 @@ import kotlin.collections.List
  * JavaScript call frame. Array of call frames form the call stack.
  */
 data class CallFrame(
-  @field:JsonProperty("callFrameId")
+  @param:JsonProperty("callFrameId")
   val callFrameId: String,
-  @field:JsonProperty("functionName")
+  @param:JsonProperty("functionName")
   val functionName: String,
-  @field:JsonProperty("functionLocation")
+  @param:JsonProperty("functionLocation")
   @param:Optional
   val functionLocation: Location? = null,
-  @field:JsonProperty("location")
+  @param:JsonProperty("location")
   val location: Location,
-  @field:JsonProperty("url")
+  @param:JsonProperty("url")
   val url: String,
-  @field:JsonProperty("scopeChain")
+  @param:JsonProperty("scopeChain")
   val scopeChain: List<Scope>,
-  @field:JsonProperty("this")
+  @param:JsonProperty("this")
   val `this`: RemoteObject,
-  @field:JsonProperty("returnValue")
+  @param:JsonProperty("returnValue")
   @param:Optional
   val returnValue: RemoteObject? = null,
 )

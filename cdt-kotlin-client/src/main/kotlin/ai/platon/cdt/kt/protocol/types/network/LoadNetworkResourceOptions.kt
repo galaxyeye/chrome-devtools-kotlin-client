@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.network
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -10,8 +11,8 @@ import kotlin.Boolean
  */
 @Experimental
 data class LoadNetworkResourceOptions(
-  @field:JsonProperty("disableCache")
+  @param:JsonProperty("disableCache")
   val disableCache: Boolean,
-  @field:JsonProperty("includeCredentials")
+  @param:JsonProperty("includeCredentials")
   val includeCredentials: Boolean,
 )

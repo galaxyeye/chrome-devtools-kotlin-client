@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.domdebugger
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -11,27 +12,27 @@ import kotlin.String
  * Object event listener.
  */
 data class EventListener(
-  @field:JsonProperty("type")
+  @param:JsonProperty("type")
   val type: String,
-  @field:JsonProperty("useCapture")
+  @param:JsonProperty("useCapture")
   val useCapture: Boolean,
-  @field:JsonProperty("passive")
+  @param:JsonProperty("passive")
   val passive: Boolean,
-  @field:JsonProperty("once")
+  @param:JsonProperty("once")
   val once: Boolean,
-  @field:JsonProperty("scriptId")
+  @param:JsonProperty("scriptId")
   val scriptId: String,
-  @field:JsonProperty("lineNumber")
+  @param:JsonProperty("lineNumber")
   val lineNumber: Int,
-  @field:JsonProperty("columnNumber")
+  @param:JsonProperty("columnNumber")
   val columnNumber: Int,
-  @field:JsonProperty("handler")
+  @param:JsonProperty("handler")
   @param:Optional
   val handler: RemoteObject? = null,
-  @field:JsonProperty("originalHandler")
+  @param:JsonProperty("originalHandler")
   @param:Optional
   val originalHandler: RemoteObject? = null,
-  @field:JsonProperty("backendNodeId")
+  @param:JsonProperty("backendNodeId")
   @param:Optional
   val backendNodeId: Int? = null,
 )

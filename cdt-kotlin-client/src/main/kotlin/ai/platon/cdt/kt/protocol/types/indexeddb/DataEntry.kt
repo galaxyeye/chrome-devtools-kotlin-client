@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.indexeddb
 
 import ai.platon.cdt.kt.protocol.types.runtime.RemoteObject
@@ -7,10 +8,10 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * Data entry.
  */
 data class DataEntry(
-  @field:JsonProperty("key")
+  @param:JsonProperty("key")
   val key: RemoteObject,
-  @field:JsonProperty("primaryKey")
+  @param:JsonProperty("primaryKey")
   val primaryKey: RemoteObject,
-  @field:JsonProperty("value")
+  @param:JsonProperty("value")
   val `value`: RemoteObject,
 )

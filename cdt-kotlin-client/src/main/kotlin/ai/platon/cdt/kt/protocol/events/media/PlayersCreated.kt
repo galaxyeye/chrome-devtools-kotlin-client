@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.media
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -10,6 +11,6 @@ import kotlin.collections.List
  * list of player ids and all events again.
  */
 data class PlayersCreated(
-  @field:JsonProperty("players")
+  @param:JsonProperty("players")
   val players: List<String>,
 )

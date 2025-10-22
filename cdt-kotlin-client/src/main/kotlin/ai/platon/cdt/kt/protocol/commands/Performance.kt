@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.commands
 
 import ai.platon.cdt.kt.protocol.events.performance.Metrics
@@ -12,7 +13,7 @@ import ai.platon.cdt.kt.protocol.support.types.EventListener
 import ai.platon.cdt.kt.protocol.types.performance.EnableTimeDomain
 import ai.platon.cdt.kt.protocol.types.performance.Metric
 import ai.platon.cdt.kt.protocol.types.performance.SetTimeDomainTimeDomain
-import java.lang.Deprecated
+import kotlin.Deprecated
 import kotlin.Unit
 import kotlin.collections.List
 
@@ -38,7 +39,7 @@ interface Performance {
    * this method while metrics collection is enabled returns an error.
    * @param timeDomain Time domain
    */
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   @Experimental
   suspend fun setTimeDomain(@ParamName("timeDomain") timeDomain: SetTimeDomainTimeDomain)
 

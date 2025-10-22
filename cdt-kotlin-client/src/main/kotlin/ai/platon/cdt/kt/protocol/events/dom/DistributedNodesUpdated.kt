@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.dom
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -11,8 +12,8 @@ import kotlin.collections.List
  */
 @Experimental
 data class DistributedNodesUpdated(
-  @field:JsonProperty("insertionPointId")
+  @param:JsonProperty("insertionPointId")
   val insertionPointId: Int,
-  @field:JsonProperty("distributedNodes")
+  @param:JsonProperty("distributedNodes")
   val distributedNodes: List<BackendNode>,
 )

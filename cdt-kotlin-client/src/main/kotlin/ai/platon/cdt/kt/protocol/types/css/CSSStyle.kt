@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.css
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -9,17 +10,17 @@ import kotlin.collections.List
  * CSS style representation.
  */
 data class CSSStyle(
-  @field:JsonProperty("styleSheetId")
+  @param:JsonProperty("styleSheetId")
   @param:Optional
   val styleSheetId: String? = null,
-  @field:JsonProperty("cssProperties")
+  @param:JsonProperty("cssProperties")
   val cssProperties: List<CSSProperty>,
-  @field:JsonProperty("shorthandEntries")
+  @param:JsonProperty("shorthandEntries")
   val shorthandEntries: List<ShorthandEntry>,
-  @field:JsonProperty("cssText")
+  @param:JsonProperty("cssText")
   @param:Optional
   val cssText: String? = null,
-  @field:JsonProperty("range")
+  @param:JsonProperty("range")
   @param:Optional
   val range: SourceRange? = null,
 )

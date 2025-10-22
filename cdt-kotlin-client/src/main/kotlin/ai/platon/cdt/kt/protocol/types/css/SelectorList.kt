@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.css
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -8,8 +9,8 @@ import kotlin.collections.List
  * Selector list data.
  */
 data class SelectorList(
-  @field:JsonProperty("selectors")
+  @param:JsonProperty("selectors")
   val selectors: List<Value>,
-  @field:JsonProperty("text")
+  @param:JsonProperty("text")
   val text: String,
 )

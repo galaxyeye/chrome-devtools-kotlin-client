@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.debugger
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -10,20 +11,20 @@ import kotlin.Boolean
 import kotlin.collections.List
 
 data class SetScriptSource(
-  @field:JsonProperty("callFrames")
+  @param:JsonProperty("callFrames")
   @param:Optional
   val callFrames: List<CallFrame>? = null,
-  @field:JsonProperty("stackChanged")
+  @param:JsonProperty("stackChanged")
   @param:Optional
   val stackChanged: Boolean? = null,
-  @field:JsonProperty("asyncStackTrace")
+  @param:JsonProperty("asyncStackTrace")
   @param:Optional
   val asyncStackTrace: StackTrace? = null,
-  @field:JsonProperty("asyncStackTraceId")
+  @param:JsonProperty("asyncStackTraceId")
   @param:Optional
   @param:Experimental
   val asyncStackTraceId: StackTraceId? = null,
-  @field:JsonProperty("exceptionDetails")
+  @param:JsonProperty("exceptionDetails")
   @param:Optional
   val exceptionDetails: ExceptionDetails? = null,
 )

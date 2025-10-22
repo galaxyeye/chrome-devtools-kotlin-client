@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.browser
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -12,18 +13,18 @@ import kotlin.String
  */
 @Experimental
 data class PermissionDescriptor(
-  @field:JsonProperty("name")
+  @param:JsonProperty("name")
   val name: String,
-  @field:JsonProperty("sysex")
+  @param:JsonProperty("sysex")
   @param:Optional
   val sysex: Boolean? = null,
-  @field:JsonProperty("userVisibleOnly")
+  @param:JsonProperty("userVisibleOnly")
   @param:Optional
   val userVisibleOnly: Boolean? = null,
-  @field:JsonProperty("allowWithoutSanitization")
+  @param:JsonProperty("allowWithoutSanitization")
   @param:Optional
   val allowWithoutSanitization: Boolean? = null,
-  @field:JsonProperty("panTiltZoom")
+  @param:JsonProperty("panTiltZoom")
   @param:Optional
   val panTiltZoom: Boolean? = null,
 )

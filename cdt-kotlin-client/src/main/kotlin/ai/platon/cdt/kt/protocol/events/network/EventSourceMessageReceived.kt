@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.network
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -8,14 +9,14 @@ import kotlin.String
  * Fired when EventSource message is received.
  */
 data class EventSourceMessageReceived(
-  @field:JsonProperty("requestId")
+  @param:JsonProperty("requestId")
   val requestId: String,
-  @field:JsonProperty("timestamp")
+  @param:JsonProperty("timestamp")
   val timestamp: Double,
-  @field:JsonProperty("eventName")
+  @param:JsonProperty("eventName")
   val eventName: String,
-  @field:JsonProperty("eventId")
+  @param:JsonProperty("eventId")
   val eventId: String,
-  @field:JsonProperty("data")
+  @param:JsonProperty("data")
   val `data`: String,
 )

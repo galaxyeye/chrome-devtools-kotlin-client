@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.dom
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -10,6 +11,6 @@ import kotlin.collections.List
  */
 @Experimental
 data class InlineStyleInvalidated(
-  @field:JsonProperty("nodeIds")
+  @param:JsonProperty("nodeIds")
   val nodeIds: List<Int>,
 )

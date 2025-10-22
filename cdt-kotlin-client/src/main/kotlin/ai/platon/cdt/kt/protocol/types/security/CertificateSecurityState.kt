@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.security
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -13,43 +14,43 @@ import kotlin.collections.List
  */
 @Experimental
 data class CertificateSecurityState(
-  @field:JsonProperty("protocol")
+  @param:JsonProperty("protocol")
   val protocol: String,
-  @field:JsonProperty("keyExchange")
+  @param:JsonProperty("keyExchange")
   val keyExchange: String,
-  @field:JsonProperty("keyExchangeGroup")
+  @param:JsonProperty("keyExchangeGroup")
   @param:Optional
   val keyExchangeGroup: String? = null,
-  @field:JsonProperty("cipher")
+  @param:JsonProperty("cipher")
   val cipher: String,
-  @field:JsonProperty("mac")
+  @param:JsonProperty("mac")
   @param:Optional
   val mac: String? = null,
-  @field:JsonProperty("certificate")
+  @param:JsonProperty("certificate")
   val certificate: List<String>,
-  @field:JsonProperty("subjectName")
+  @param:JsonProperty("subjectName")
   val subjectName: String,
-  @field:JsonProperty("issuer")
+  @param:JsonProperty("issuer")
   val issuer: String,
-  @field:JsonProperty("validFrom")
+  @param:JsonProperty("validFrom")
   val validFrom: Double,
-  @field:JsonProperty("validTo")
+  @param:JsonProperty("validTo")
   val validTo: Double,
-  @field:JsonProperty("certificateNetworkError")
+  @param:JsonProperty("certificateNetworkError")
   @param:Optional
   val certificateNetworkError: String? = null,
-  @field:JsonProperty("certificateHasWeakSignature")
+  @param:JsonProperty("certificateHasWeakSignature")
   val certificateHasWeakSignature: Boolean,
-  @field:JsonProperty("certificateHasSha1Signature")
+  @param:JsonProperty("certificateHasSha1Signature")
   val certificateHasSha1Signature: Boolean,
-  @field:JsonProperty("modernSSL")
+  @param:JsonProperty("modernSSL")
   val modernSSL: Boolean,
-  @field:JsonProperty("obsoleteSslProtocol")
+  @param:JsonProperty("obsoleteSslProtocol")
   val obsoleteSslProtocol: Boolean,
-  @field:JsonProperty("obsoleteSslKeyExchange")
+  @param:JsonProperty("obsoleteSslKeyExchange")
   val obsoleteSslKeyExchange: Boolean,
-  @field:JsonProperty("obsoleteSslCipher")
+  @param:JsonProperty("obsoleteSslCipher")
   val obsoleteSslCipher: Boolean,
-  @field:JsonProperty("obsoleteSslSignature")
+  @param:JsonProperty("obsoleteSslSignature")
   val obsoleteSslSignature: Boolean,
 )

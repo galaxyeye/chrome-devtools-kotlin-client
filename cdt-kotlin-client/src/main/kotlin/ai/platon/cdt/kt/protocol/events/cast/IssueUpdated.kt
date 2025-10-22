@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.cast
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -8,6 +9,6 @@ import kotlin.String
  * |issueMessage| is empty if there is no issue.
  */
 data class IssueUpdated(
-  @field:JsonProperty("issueMessage")
+  @param:JsonProperty("issueMessage")
   val issueMessage: String,
 )

@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.css
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -10,23 +11,23 @@ import kotlin.collections.List
  * and additional information such as platformFontFamily and fontVariationAxes.
  */
 data class FontFace(
-  @field:JsonProperty("fontFamily")
+  @param:JsonProperty("fontFamily")
   val fontFamily: String,
-  @field:JsonProperty("fontStyle")
+  @param:JsonProperty("fontStyle")
   val fontStyle: String,
-  @field:JsonProperty("fontVariant")
+  @param:JsonProperty("fontVariant")
   val fontVariant: String,
-  @field:JsonProperty("fontWeight")
+  @param:JsonProperty("fontWeight")
   val fontWeight: String,
-  @field:JsonProperty("fontStretch")
+  @param:JsonProperty("fontStretch")
   val fontStretch: String,
-  @field:JsonProperty("unicodeRange")
+  @param:JsonProperty("unicodeRange")
   val unicodeRange: String,
-  @field:JsonProperty("src")
+  @param:JsonProperty("src")
   val src: String,
-  @field:JsonProperty("platformFontFamily")
+  @param:JsonProperty("platformFontFamily")
   val platformFontFamily: String,
-  @field:JsonProperty("fontVariationAxes")
+  @param:JsonProperty("fontVariationAxes")
   @param:Optional
   val fontVariationAxes: List<FontVariationAxis>? = null,
 )

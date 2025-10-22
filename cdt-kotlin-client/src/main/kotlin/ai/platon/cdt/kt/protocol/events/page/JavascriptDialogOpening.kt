@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.page
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -11,15 +12,15 @@ import kotlin.String
  * open.
  */
 data class JavascriptDialogOpening(
-  @field:JsonProperty("url")
+  @param:JsonProperty("url")
   val url: String,
-  @field:JsonProperty("message")
+  @param:JsonProperty("message")
   val message: String,
-  @field:JsonProperty("type")
+  @param:JsonProperty("type")
   val type: DialogType,
-  @field:JsonProperty("hasBrowserHandler")
+  @param:JsonProperty("hasBrowserHandler")
   val hasBrowserHandler: Boolean,
-  @field:JsonProperty("defaultPrompt")
+  @param:JsonProperty("defaultPrompt")
   @param:Optional
   val defaultPrompt: String? = null,
 )

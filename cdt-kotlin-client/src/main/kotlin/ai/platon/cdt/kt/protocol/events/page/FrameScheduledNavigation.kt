@@ -1,22 +1,23 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.page
 
 import ai.platon.cdt.kt.protocol.types.page.ClientNavigationReason
 import com.fasterxml.jackson.`annotation`.JsonProperty
-import java.lang.Deprecated
+import kotlin.Deprecated
 import kotlin.Double
 import kotlin.String
 
 /**
  * Fired when frame schedules a potential navigation.
  */
-@Deprecated
+@Deprecated("Deprecated")
 data class FrameScheduledNavigation(
-  @field:JsonProperty("frameId")
+  @param:JsonProperty("frameId")
   val frameId: String,
-  @field:JsonProperty("delay")
+  @param:JsonProperty("delay")
   val delay: Double,
-  @field:JsonProperty("reason")
+  @param:JsonProperty("reason")
   val reason: ClientNavigationReason,
-  @field:JsonProperty("url")
+  @param:JsonProperty("url")
   val url: String,
 )

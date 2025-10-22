@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.target
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -7,8 +8,8 @@ import kotlin.String
 
 @Experimental
 data class RemoteLocation(
-  @field:JsonProperty("host")
+  @param:JsonProperty("host")
   val host: String,
-  @field:JsonProperty("port")
+  @param:JsonProperty("port")
   val port: Int,
 )

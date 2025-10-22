@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.profiler
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -10,10 +11,10 @@ import kotlin.collections.List
  */
 @Experimental
 data class ScriptTypeProfile(
-  @field:JsonProperty("scriptId")
+  @param:JsonProperty("scriptId")
   val scriptId: String,
-  @field:JsonProperty("url")
+  @param:JsonProperty("url")
   val url: String,
-  @field:JsonProperty("entries")
+  @param:JsonProperty("entries")
   val entries: List<TypeProfileEntry>,
 )

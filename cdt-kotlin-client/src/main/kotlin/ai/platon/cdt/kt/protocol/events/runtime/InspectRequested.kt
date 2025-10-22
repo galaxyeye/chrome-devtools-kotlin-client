@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.runtime
 
 import ai.platon.cdt.kt.protocol.types.runtime.RemoteObject
@@ -11,8 +12,8 @@ import kotlin.collections.Map
  * call).
  */
 data class InspectRequested(
-  @field:JsonProperty("object")
+  @param:JsonProperty("object")
   val `object`: RemoteObject,
-  @field:JsonProperty("hints")
+  @param:JsonProperty("hints")
   val hints: Map<String, Any?>,
 )

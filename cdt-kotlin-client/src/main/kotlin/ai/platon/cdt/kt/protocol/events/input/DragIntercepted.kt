@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.input
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -10,6 +11,6 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  */
 @Experimental
 data class DragIntercepted(
-  @field:JsonProperty("data")
+  @param:JsonProperty("data")
   val `data`: DragData,
 )

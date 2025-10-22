@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.audits
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -8,9 +9,9 @@ import kotlin.String
  * Information about a request that is affected by an inspector issue.
  */
 data class AffectedRequest(
-  @field:JsonProperty("requestId")
+  @param:JsonProperty("requestId")
   val requestId: String,
-  @field:JsonProperty("url")
+  @param:JsonProperty("url")
   @param:Optional
   val url: String? = null,
 )

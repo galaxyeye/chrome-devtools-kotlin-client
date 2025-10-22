@@ -1,11 +1,12 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.browser
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Int
 
 data class WindowForTarget(
-  @field:JsonProperty("windowId")
+  @param:JsonProperty("windowId")
   val windowId: Int,
-  @field:JsonProperty("bounds")
+  @param:JsonProperty("bounds")
   val bounds: Bounds,
 )

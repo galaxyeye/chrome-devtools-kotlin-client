@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.overlay
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -9,12 +10,12 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * Configuration for dual screen hinge
  */
 data class HingeConfig(
-  @field:JsonProperty("rect")
+  @param:JsonProperty("rect")
   val rect: Rect,
-  @field:JsonProperty("contentColor")
+  @param:JsonProperty("contentColor")
   @param:Optional
   val contentColor: RGBA? = null,
-  @field:JsonProperty("outlineColor")
+  @param:JsonProperty("outlineColor")
   @param:Optional
   val outlineColor: RGBA? = null,
 )

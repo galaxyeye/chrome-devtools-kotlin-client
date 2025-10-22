@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.security
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -9,19 +10,19 @@ import kotlin.collections.List
  * An explanation of an factor contributing to the security state.
  */
 data class SecurityStateExplanation(
-  @field:JsonProperty("securityState")
+  @param:JsonProperty("securityState")
   val securityState: SecurityState,
-  @field:JsonProperty("title")
+  @param:JsonProperty("title")
   val title: String,
-  @field:JsonProperty("summary")
+  @param:JsonProperty("summary")
   val summary: String,
-  @field:JsonProperty("description")
+  @param:JsonProperty("description")
   val description: String,
-  @field:JsonProperty("mixedContentType")
+  @param:JsonProperty("mixedContentType")
   val mixedContentType: MixedContentType,
-  @field:JsonProperty("certificate")
+  @param:JsonProperty("certificate")
   val certificate: List<String>,
-  @field:JsonProperty("recommendations")
+  @param:JsonProperty("recommendations")
   @param:Optional
   val recommendations: List<String>? = null,
 )

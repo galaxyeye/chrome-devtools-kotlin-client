@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.dom
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -8,8 +9,8 @@ import kotlin.String
  * Mirrors `DOMCharacterDataModified` event.
  */
 data class CharacterDataModified(
-  @field:JsonProperty("nodeId")
+  @param:JsonProperty("nodeId")
   val nodeId: Int,
-  @field:JsonProperty("characterData")
+  @param:JsonProperty("characterData")
   val characterData: String,
 )

@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.page
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -8,12 +9,12 @@ import kotlin.String
  * Error while paring app manifest.
  */
 data class AppManifestError(
-  @field:JsonProperty("message")
+  @param:JsonProperty("message")
   val message: String,
-  @field:JsonProperty("critical")
+  @param:JsonProperty("critical")
   val critical: Int,
-  @field:JsonProperty("line")
+  @param:JsonProperty("line")
   val line: Int,
-  @field:JsonProperty("column")
+  @param:JsonProperty("column")
   val column: Int,
 )

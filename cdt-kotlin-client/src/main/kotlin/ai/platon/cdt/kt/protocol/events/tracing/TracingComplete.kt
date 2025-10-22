@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.tracing
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -12,15 +13,15 @@ import kotlin.String
  * delivered via dataCollected events.
  */
 data class TracingComplete(
-  @field:JsonProperty("dataLossOccurred")
+  @param:JsonProperty("dataLossOccurred")
   val dataLossOccurred: Boolean,
-  @field:JsonProperty("stream")
+  @param:JsonProperty("stream")
   @param:Optional
   val stream: String? = null,
-  @field:JsonProperty("traceFormat")
+  @param:JsonProperty("traceFormat")
   @param:Optional
   val traceFormat: StreamFormat? = null,
-  @field:JsonProperty("streamCompression")
+  @param:JsonProperty("streamCompression")
   @param:Optional
   val streamCompression: StreamCompression? = null,
 )

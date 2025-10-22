@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.page
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -10,19 +11,19 @@ import kotlin.Double
  */
 @Experimental
 data class ScreencastFrameMetadata(
-  @field:JsonProperty("offsetTop")
+  @param:JsonProperty("offsetTop")
   val offsetTop: Double,
-  @field:JsonProperty("pageScaleFactor")
+  @param:JsonProperty("pageScaleFactor")
   val pageScaleFactor: Double,
-  @field:JsonProperty("deviceWidth")
+  @param:JsonProperty("deviceWidth")
   val deviceWidth: Double,
-  @field:JsonProperty("deviceHeight")
+  @param:JsonProperty("deviceHeight")
   val deviceHeight: Double,
-  @field:JsonProperty("scrollOffsetX")
+  @param:JsonProperty("scrollOffsetX")
   val scrollOffsetX: Double,
-  @field:JsonProperty("scrollOffsetY")
+  @param:JsonProperty("scrollOffsetY")
   val scrollOffsetY: Double,
-  @field:JsonProperty("timestamp")
+  @param:JsonProperty("timestamp")
   @param:Optional
   val timestamp: Double? = null,
 )

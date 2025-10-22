@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.overlay
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -8,10 +9,10 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * Style information for drawing a line.
  */
 data class LineStyle(
-  @field:JsonProperty("color")
+  @param:JsonProperty("color")
   @param:Optional
   val color: RGBA? = null,
-  @field:JsonProperty("pattern")
+  @param:JsonProperty("pattern")
   @param:Optional
   val pattern: LineStylePattern? = null,
 )

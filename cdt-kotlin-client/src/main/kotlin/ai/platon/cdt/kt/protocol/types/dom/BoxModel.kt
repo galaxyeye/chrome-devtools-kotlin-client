@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.dom
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -10,19 +11,19 @@ import kotlin.collections.List
  * Box model.
  */
 data class BoxModel(
-  @field:JsonProperty("content")
+  @param:JsonProperty("content")
   val content: List<Double>,
-  @field:JsonProperty("padding")
+  @param:JsonProperty("padding")
   val padding: List<Double>,
-  @field:JsonProperty("border")
+  @param:JsonProperty("border")
   val border: List<Double>,
-  @field:JsonProperty("margin")
+  @param:JsonProperty("margin")
   val margin: List<Double>,
-  @field:JsonProperty("width")
+  @param:JsonProperty("width")
   val width: Int,
-  @field:JsonProperty("height")
+  @param:JsonProperty("height")
   val height: Int,
-  @field:JsonProperty("shapeOutside")
+  @param:JsonProperty("shapeOutside")
   @param:Optional
   val shapeOutside: ShapeOutsideInfo? = null,
 )

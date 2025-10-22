@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.commands
 
 import ai.platon.cdt.kt.protocol.events.dom.AttributeModified
@@ -31,8 +32,8 @@ import ai.platon.cdt.kt.protocol.types.dom.PerformSearch
 import ai.platon.cdt.kt.protocol.types.dom.Rect
 import ai.platon.cdt.kt.protocol.types.runtime.RemoteObject
 import ai.platon.cdt.kt.protocol.types.runtime.StackTrace
-import java.lang.Deprecated
 import kotlin.Boolean
+import kotlin.Deprecated
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
@@ -235,12 +236,12 @@ interface DOM {
    * @param pierce Whether or not iframes and shadow roots should be traversed when returning the subtree
    * (default is false).
    */
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   @Returns("nodes")
   @ReturnTypeParameter(Node::class)
   suspend fun getFlattenedDocument(@ParamName("depth") @Optional depth: Int? = null, @ParamName("pierce") @Optional pierce: Boolean? = null): List<Node>
 
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   @Returns("nodes")
   @ReturnTypeParameter(Node::class)
   suspend fun getFlattenedDocument(): List<Node> {

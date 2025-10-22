@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.page
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -6,8 +7,8 @@ import kotlin.String
 
 @Experimental
 data class PermissionsPolicyBlockLocator(
-  @field:JsonProperty("frameId")
+  @param:JsonProperty("frameId")
   val frameId: String,
-  @field:JsonProperty("blockReason")
+  @param:JsonProperty("blockReason")
   val blockReason: PermissionsPolicyBlockReason,
 )

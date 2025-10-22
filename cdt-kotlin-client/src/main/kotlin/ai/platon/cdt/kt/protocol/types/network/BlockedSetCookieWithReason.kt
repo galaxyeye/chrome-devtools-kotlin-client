@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.network
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -11,11 +12,11 @@ import kotlin.collections.List
  */
 @Experimental
 data class BlockedSetCookieWithReason(
-  @field:JsonProperty("blockedReasons")
+  @param:JsonProperty("blockedReasons")
   val blockedReasons: List<SetCookieBlockedReason>,
-  @field:JsonProperty("cookieLine")
+  @param:JsonProperty("cookieLine")
   val cookieLine: String,
-  @field:JsonProperty("cookie")
+  @param:JsonProperty("cookie")
   @param:Optional
   val cookie: Cookie? = null,
 )

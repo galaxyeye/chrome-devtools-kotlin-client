@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.performancetimeline
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -6,21 +7,21 @@ import kotlin.Double
 import kotlin.String
 
 data class TimelineEvent(
-  @field:JsonProperty("frameId")
+  @param:JsonProperty("frameId")
   val frameId: String,
-  @field:JsonProperty("type")
+  @param:JsonProperty("type")
   val type: String,
-  @field:JsonProperty("name")
+  @param:JsonProperty("name")
   val name: String,
-  @field:JsonProperty("time")
+  @param:JsonProperty("time")
   val time: Double,
-  @field:JsonProperty("duration")
+  @param:JsonProperty("duration")
   @param:Optional
   val duration: Double? = null,
-  @field:JsonProperty("lcpDetails")
+  @param:JsonProperty("lcpDetails")
   @param:Optional
   val lcpDetails: LargestContentfulPaint? = null,
-  @field:JsonProperty("layoutShiftDetails")
+  @param:JsonProperty("layoutShiftDetails")
   @param:Optional
   val layoutShiftDetails: LayoutShift? = null,
 )

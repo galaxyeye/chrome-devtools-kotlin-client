@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.network
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -11,17 +12,17 @@ import kotlin.String
  * Fired when HTTP response is available.
  */
 data class ResponseReceived(
-  @field:JsonProperty("requestId")
+  @param:JsonProperty("requestId")
   val requestId: String,
-  @field:JsonProperty("loaderId")
+  @param:JsonProperty("loaderId")
   val loaderId: String,
-  @field:JsonProperty("timestamp")
+  @param:JsonProperty("timestamp")
   val timestamp: Double,
-  @field:JsonProperty("type")
+  @param:JsonProperty("type")
   val type: ResourceType,
-  @field:JsonProperty("response")
+  @param:JsonProperty("response")
   val response: Response,
-  @field:JsonProperty("frameId")
+  @param:JsonProperty("frameId")
   @param:Optional
   val frameId: String? = null,
 )

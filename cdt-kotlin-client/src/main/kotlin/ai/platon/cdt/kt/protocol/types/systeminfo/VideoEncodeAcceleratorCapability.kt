@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.systeminfo
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -9,12 +10,12 @@ import kotlin.String
  * resolution and maximum framerate.
  */
 data class VideoEncodeAcceleratorCapability(
-  @field:JsonProperty("profile")
+  @param:JsonProperty("profile")
   val profile: String,
-  @field:JsonProperty("maxResolution")
+  @param:JsonProperty("maxResolution")
   val maxResolution: Size,
-  @field:JsonProperty("maxFramerateNumerator")
+  @param:JsonProperty("maxFramerateNumerator")
   val maxFramerateNumerator: Int,
-  @field:JsonProperty("maxFramerateDenominator")
+  @param:JsonProperty("maxFramerateDenominator")
   val maxFramerateDenominator: Int,
 )

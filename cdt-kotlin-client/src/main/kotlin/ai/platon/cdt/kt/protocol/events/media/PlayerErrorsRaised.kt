@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.media
 
 import ai.platon.cdt.kt.protocol.types.media.PlayerError
@@ -9,8 +10,8 @@ import kotlin.collections.List
  * Send a list of any errors that need to be delivered.
  */
 data class PlayerErrorsRaised(
-  @field:JsonProperty("playerId")
+  @param:JsonProperty("playerId")
   val playerId: String,
-  @field:JsonProperty("errors")
+  @param:JsonProperty("errors")
   val errors: List<PlayerError>,
 )

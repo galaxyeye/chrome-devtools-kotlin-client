@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.commands
 
 import ai.platon.cdt.kt.protocol.events.network.DataReceived
@@ -47,9 +48,9 @@ import ai.platon.cdt.kt.protocol.types.network.RequestPattern
 import ai.platon.cdt.kt.protocol.types.network.ResponseBody
 import ai.platon.cdt.kt.protocol.types.network.ResponseBodyForInterception
 import ai.platon.cdt.kt.protocol.types.network.SecurityIsolationStatus
-import java.lang.Deprecated
 import kotlin.Any
 import kotlin.Boolean
+import kotlin.Deprecated
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
@@ -78,21 +79,21 @@ interface Network {
   /**
    * Tells whether clearing browser cache is supported.
    */
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   @Returns("result")
   suspend fun canClearBrowserCache(): Boolean
 
   /**
    * Tells whether clearing browser cookies is supported.
    */
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   @Returns("result")
   suspend fun canClearBrowserCookies(): Boolean
 
   /**
    * Tells whether emulation of network conditions is supported.
    */
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   @Returns("result")
   suspend fun canEmulateNetworkConditions(): Boolean
 
@@ -127,7 +128,7 @@ interface Network {
    * authChallenge.
    * @param authChallengeResponse Response to a requestIntercepted with an authChallenge. Must not be set otherwise.
    */
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   @Experimental
   suspend fun continueInterceptedRequest(
     @ParamName("interceptionId") interceptionId: String,
@@ -140,7 +141,7 @@ interface Network {
     @ParamName("authChallengeResponse") @Optional authChallengeResponse: AuthChallengeResponse? = null,
   )
 
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   @Experimental
   suspend fun continueInterceptedRequest(@ParamName("interceptionId") interceptionId: String) {
     return continueInterceptedRequest(interceptionId, null, null, null, null, null, null, null)
@@ -403,7 +404,7 @@ interface Network {
    * @param patterns Requests matching any of these patterns will be forwarded and wait for the corresponding
    * continueInterceptedRequest call.
    */
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   @Experimental
   suspend fun setRequestInterception(@ParamName("patterns") patterns: List<RequestPattern>)
 
@@ -460,12 +461,12 @@ interface Network {
   fun onLoadingFinished(eventListener: suspend (LoadingFinished) -> Unit): EventListener
 
   @EventName("requestIntercepted")
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   @Experimental
   fun onRequestIntercepted(eventListener: EventHandler<RequestIntercepted>): EventListener
 
   @EventName("requestIntercepted")
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   @Experimental
   fun onRequestIntercepted(eventListener: suspend (RequestIntercepted) -> Unit): EventListener
 

@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.runtime
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -10,27 +11,27 @@ import kotlin.String
  * execution.
  */
 data class ExceptionDetails(
-  @field:JsonProperty("exceptionId")
+  @param:JsonProperty("exceptionId")
   val exceptionId: Int,
-  @field:JsonProperty("text")
+  @param:JsonProperty("text")
   val text: String,
-  @field:JsonProperty("lineNumber")
+  @param:JsonProperty("lineNumber")
   val lineNumber: Int,
-  @field:JsonProperty("columnNumber")
+  @param:JsonProperty("columnNumber")
   val columnNumber: Int,
-  @field:JsonProperty("scriptId")
+  @param:JsonProperty("scriptId")
   @param:Optional
   val scriptId: String? = null,
-  @field:JsonProperty("url")
+  @param:JsonProperty("url")
   @param:Optional
   val url: String? = null,
-  @field:JsonProperty("stackTrace")
+  @param:JsonProperty("stackTrace")
   @param:Optional
   val stackTrace: StackTrace? = null,
-  @field:JsonProperty("exception")
+  @param:JsonProperty("exception")
   @param:Optional
   val exception: RemoteObject? = null,
-  @field:JsonProperty("executionContextId")
+  @param:JsonProperty("executionContextId")
   @param:Optional
   val executionContextId: Int? = null,
 )

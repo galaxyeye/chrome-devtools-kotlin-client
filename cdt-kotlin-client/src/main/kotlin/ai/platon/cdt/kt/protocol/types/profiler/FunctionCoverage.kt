@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.profiler
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -9,10 +10,10 @@ import kotlin.collections.List
  * Coverage data for a JavaScript function.
  */
 data class FunctionCoverage(
-  @field:JsonProperty("functionName")
+  @param:JsonProperty("functionName")
   val functionName: String,
-  @field:JsonProperty("ranges")
+  @param:JsonProperty("ranges")
   val ranges: List<CoverageRange>,
-  @field:JsonProperty("isBlockCoverage")
+  @param:JsonProperty("isBlockCoverage")
   val isBlockCoverage: Boolean,
 )

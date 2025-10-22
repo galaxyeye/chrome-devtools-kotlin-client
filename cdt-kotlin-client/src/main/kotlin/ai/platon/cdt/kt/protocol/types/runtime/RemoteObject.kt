@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.runtime
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -10,31 +11,31 @@ import kotlin.String
  * Mirror object referencing original JavaScript object.
  */
 data class RemoteObject(
-  @field:JsonProperty("type")
+  @param:JsonProperty("type")
   val type: RemoteObjectType,
-  @field:JsonProperty("subtype")
+  @param:JsonProperty("subtype")
   @param:Optional
   val subtype: RemoteObjectSubtype? = null,
-  @field:JsonProperty("className")
+  @param:JsonProperty("className")
   @param:Optional
   val className: String? = null,
-  @field:JsonProperty("value")
+  @param:JsonProperty("value")
   @param:Optional
   val `value`: Any? = null,
-  @field:JsonProperty("unserializableValue")
+  @param:JsonProperty("unserializableValue")
   @param:Optional
   val unserializableValue: String? = null,
-  @field:JsonProperty("description")
+  @param:JsonProperty("description")
   @param:Optional
   val description: String? = null,
-  @field:JsonProperty("objectId")
+  @param:JsonProperty("objectId")
   @param:Optional
   val objectId: String? = null,
-  @field:JsonProperty("preview")
+  @param:JsonProperty("preview")
   @param:Optional
   @param:Experimental
   val preview: ObjectPreview? = null,
-  @field:JsonProperty("customPreview")
+  @param:JsonProperty("customPreview")
   @param:Optional
   @param:Experimental
   val customPreview: CustomPreview? = null,

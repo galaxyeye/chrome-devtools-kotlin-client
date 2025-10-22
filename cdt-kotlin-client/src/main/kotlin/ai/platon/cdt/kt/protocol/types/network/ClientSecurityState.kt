@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.network
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -6,10 +7,10 @@ import kotlin.Boolean
 
 @Experimental
 data class ClientSecurityState(
-  @field:JsonProperty("initiatorIsSecureContext")
+  @param:JsonProperty("initiatorIsSecureContext")
   val initiatorIsSecureContext: Boolean,
-  @field:JsonProperty("initiatorIPAddressSpace")
+  @param:JsonProperty("initiatorIPAddressSpace")
   val initiatorIPAddressSpace: IPAddressSpace,
-  @field:JsonProperty("privateNetworkRequestPolicy")
+  @param:JsonProperty("privateNetworkRequestPolicy")
   val privateNetworkRequestPolicy: PrivateNetworkRequestPolicy,
 )

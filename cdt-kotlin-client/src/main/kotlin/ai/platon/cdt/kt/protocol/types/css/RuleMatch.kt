@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.css
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -8,8 +9,8 @@ import kotlin.collections.List
  * Match data for a CSS rule.
  */
 data class RuleMatch(
-  @field:JsonProperty("rule")
+  @param:JsonProperty("rule")
   val rule: CSSRule,
-  @field:JsonProperty("matchingSelectors")
+  @param:JsonProperty("matchingSelectors")
   val matchingSelectors: List<Int>,
 )

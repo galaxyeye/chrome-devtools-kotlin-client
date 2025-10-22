@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.dom
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -9,8 +10,8 @@ import kotlin.Int
  */
 @Experimental
 data class PseudoElementRemoved(
-  @field:JsonProperty("parentId")
+  @param:JsonProperty("parentId")
   val parentId: Int,
-  @field:JsonProperty("pseudoElementId")
+  @param:JsonProperty("pseudoElementId")
   val pseudoElementId: Int,
 )

@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.network
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -11,32 +12,32 @@ import kotlin.collections.List
  * Security details about a request.
  */
 data class SecurityDetails(
-  @field:JsonProperty("protocol")
+  @param:JsonProperty("protocol")
   val protocol: String,
-  @field:JsonProperty("keyExchange")
+  @param:JsonProperty("keyExchange")
   val keyExchange: String,
-  @field:JsonProperty("keyExchangeGroup")
+  @param:JsonProperty("keyExchangeGroup")
   @param:Optional
   val keyExchangeGroup: String? = null,
-  @field:JsonProperty("cipher")
+  @param:JsonProperty("cipher")
   val cipher: String,
-  @field:JsonProperty("mac")
+  @param:JsonProperty("mac")
   @param:Optional
   val mac: String? = null,
-  @field:JsonProperty("certificateId")
+  @param:JsonProperty("certificateId")
   val certificateId: Int,
-  @field:JsonProperty("subjectName")
+  @param:JsonProperty("subjectName")
   val subjectName: String,
-  @field:JsonProperty("sanList")
+  @param:JsonProperty("sanList")
   val sanList: List<String>,
-  @field:JsonProperty("issuer")
+  @param:JsonProperty("issuer")
   val issuer: String,
-  @field:JsonProperty("validFrom")
+  @param:JsonProperty("validFrom")
   val validFrom: Double,
-  @field:JsonProperty("validTo")
+  @param:JsonProperty("validTo")
   val validTo: Double,
-  @field:JsonProperty("signedCertificateTimestampList")
+  @param:JsonProperty("signedCertificateTimestampList")
   val signedCertificateTimestampList: List<SignedCertificateTimestamp>,
-  @field:JsonProperty("certificateTransparencyCompliance")
+  @param:JsonProperty("certificateTransparencyCompliance")
   val certificateTransparencyCompliance: CertificateTransparencyCompliance,
 )

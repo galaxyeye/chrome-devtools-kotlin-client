@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.debugger
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -8,12 +9,12 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.collections.List
 
 data class RestartFrame(
-  @field:JsonProperty("callFrames")
+  @param:JsonProperty("callFrames")
   val callFrames: List<CallFrame>,
-  @field:JsonProperty("asyncStackTrace")
+  @param:JsonProperty("asyncStackTrace")
   @param:Optional
   val asyncStackTrace: StackTrace? = null,
-  @field:JsonProperty("asyncStackTraceId")
+  @param:JsonProperty("asyncStackTraceId")
   @param:Optional
   @param:Experimental
   val asyncStackTraceId: StackTraceId? = null,

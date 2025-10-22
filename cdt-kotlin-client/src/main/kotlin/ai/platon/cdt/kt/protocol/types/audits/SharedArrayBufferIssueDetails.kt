@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.audits
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -8,10 +9,10 @@ import kotlin.Boolean
  * transferred to a context that is not cross-origin isolated.
  */
 data class SharedArrayBufferIssueDetails(
-  @field:JsonProperty("sourceCodeLocation")
+  @param:JsonProperty("sourceCodeLocation")
   val sourceCodeLocation: SourceCodeLocation,
-  @field:JsonProperty("isWarning")
+  @param:JsonProperty("isWarning")
   val isWarning: Boolean,
-  @field:JsonProperty("type")
+  @param:JsonProperty("type")
   val type: SharedArrayBufferIssueType,
 )

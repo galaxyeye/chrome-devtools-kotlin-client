@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.fetch
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -19,24 +20,24 @@ import kotlin.collections.List
  * of these fields is present and in the request stage otherwise.
  */
 data class RequestPaused(
-  @field:JsonProperty("requestId")
+  @param:JsonProperty("requestId")
   val requestId: String,
-  @field:JsonProperty("request")
+  @param:JsonProperty("request")
   val request: Request,
-  @field:JsonProperty("frameId")
+  @param:JsonProperty("frameId")
   val frameId: String,
-  @field:JsonProperty("resourceType")
+  @param:JsonProperty("resourceType")
   val resourceType: ResourceType,
-  @field:JsonProperty("responseErrorReason")
+  @param:JsonProperty("responseErrorReason")
   @param:Optional
   val responseErrorReason: ErrorReason? = null,
-  @field:JsonProperty("responseStatusCode")
+  @param:JsonProperty("responseStatusCode")
   @param:Optional
   val responseStatusCode: Int? = null,
-  @field:JsonProperty("responseHeaders")
+  @param:JsonProperty("responseHeaders")
   @param:Optional
   val responseHeaders: List<HeaderEntry>? = null,
-  @field:JsonProperty("networkId")
+  @param:JsonProperty("networkId")
   @param:Optional
   val networkId: String? = null,
 )

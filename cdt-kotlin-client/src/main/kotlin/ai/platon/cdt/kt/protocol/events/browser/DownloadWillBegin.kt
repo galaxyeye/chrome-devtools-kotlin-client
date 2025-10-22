@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.browser
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -9,12 +10,12 @@ import kotlin.String
  */
 @Experimental
 data class DownloadWillBegin(
-  @field:JsonProperty("frameId")
+  @param:JsonProperty("frameId")
   val frameId: String,
-  @field:JsonProperty("guid")
+  @param:JsonProperty("guid")
   val guid: String,
-  @field:JsonProperty("url")
+  @param:JsonProperty("url")
   val url: String,
-  @field:JsonProperty("suggestedFilename")
+  @param:JsonProperty("suggestedFilename")
   val suggestedFilename: String,
 )

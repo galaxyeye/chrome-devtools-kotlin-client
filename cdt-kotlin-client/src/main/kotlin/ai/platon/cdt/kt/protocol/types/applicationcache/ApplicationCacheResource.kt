@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.applicationcache
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -8,10 +9,10 @@ import kotlin.String
  * Detailed application cache resource information.
  */
 data class ApplicationCacheResource(
-  @field:JsonProperty("url")
+  @param:JsonProperty("url")
   val url: String,
-  @field:JsonProperty("size")
+  @param:JsonProperty("size")
   val size: Int,
-  @field:JsonProperty("type")
+  @param:JsonProperty("type")
   val type: String,
 )

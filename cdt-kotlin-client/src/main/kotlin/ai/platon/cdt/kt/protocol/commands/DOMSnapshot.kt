@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.commands
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -5,8 +6,8 @@ import ai.platon.cdt.kt.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.protocol.support.annotations.ParamName
 import ai.platon.cdt.kt.protocol.types.domsnapshot.CaptureSnapshot
 import ai.platon.cdt.kt.protocol.types.domsnapshot.Snapshot
-import java.lang.Deprecated
 import kotlin.Boolean
+import kotlin.Deprecated
 import kotlin.String
 import kotlin.collections.List
 
@@ -35,7 +36,7 @@ interface DOMSnapshot {
    * @param includePaintOrder Whether to determine and include the paint order index of LayoutTreeNodes (default false).
    * @param includeUserAgentShadowTree Whether to include UA shadow tree in the snapshot (default false).
    */
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   suspend fun getSnapshot(
     @ParamName("computedStyleWhitelist") computedStyleWhitelist: List<String>,
     @ParamName("includeEventListeners") @Optional includeEventListeners: Boolean? = null,
@@ -43,7 +44,7 @@ interface DOMSnapshot {
     @ParamName("includeUserAgentShadowTree") @Optional includeUserAgentShadowTree: Boolean? = null,
   ): Snapshot
 
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   suspend fun getSnapshot(@ParamName("computedStyleWhitelist") computedStyleWhitelist: List<String>): Snapshot {
     return getSnapshot(computedStyleWhitelist, null, null, null)
   }

@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.page
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -10,25 +11,25 @@ import kotlin.String
  */
 @Experimental
 data class FontFamilies(
-  @field:JsonProperty("standard")
+  @param:JsonProperty("standard")
   @param:Optional
   val standard: String? = null,
-  @field:JsonProperty("fixed")
+  @param:JsonProperty("fixed")
   @param:Optional
   val fixed: String? = null,
-  @field:JsonProperty("serif")
+  @param:JsonProperty("serif")
   @param:Optional
   val serif: String? = null,
-  @field:JsonProperty("sansSerif")
+  @param:JsonProperty("sansSerif")
   @param:Optional
   val sansSerif: String? = null,
-  @field:JsonProperty("cursive")
+  @param:JsonProperty("cursive")
   @param:Optional
   val cursive: String? = null,
-  @field:JsonProperty("fantasy")
+  @param:JsonProperty("fantasy")
   @param:Optional
   val fantasy: String? = null,
-  @field:JsonProperty("pictograph")
+  @param:JsonProperty("pictograph")
   @param:Optional
   val pictograph: String? = null,
 )

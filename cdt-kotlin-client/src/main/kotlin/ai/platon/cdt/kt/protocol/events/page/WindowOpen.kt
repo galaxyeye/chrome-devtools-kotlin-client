@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.page
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -10,12 +11,12 @@ import kotlin.collections.List
  * etc.
  */
 data class WindowOpen(
-  @field:JsonProperty("url")
+  @param:JsonProperty("url")
   val url: String,
-  @field:JsonProperty("windowName")
+  @param:JsonProperty("windowName")
   val windowName: String,
-  @field:JsonProperty("windowFeatures")
+  @param:JsonProperty("windowFeatures")
   val windowFeatures: List<String>,
-  @field:JsonProperty("userGesture")
+  @param:JsonProperty("userGesture")
   val userGesture: Boolean,
 )

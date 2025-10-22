@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.profiler
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -11,20 +12,20 @@ import kotlin.collections.List
  * Profile node. Holds callsite information, execution statistics and child nodes.
  */
 data class ProfileNode(
-  @field:JsonProperty("id")
+  @param:JsonProperty("id")
   val id: Int,
-  @field:JsonProperty("callFrame")
+  @param:JsonProperty("callFrame")
   val callFrame: CallFrame,
-  @field:JsonProperty("hitCount")
+  @param:JsonProperty("hitCount")
   @param:Optional
   val hitCount: Int? = null,
-  @field:JsonProperty("children")
+  @param:JsonProperty("children")
   @param:Optional
   val children: List<Int>? = null,
-  @field:JsonProperty("deoptReason")
+  @param:JsonProperty("deoptReason")
   @param:Optional
   val deoptReason: String? = null,
-  @field:JsonProperty("positionTicks")
+  @param:JsonProperty("positionTicks")
   @param:Optional
   val positionTicks: List<PositionTickInfo>? = null,
 )

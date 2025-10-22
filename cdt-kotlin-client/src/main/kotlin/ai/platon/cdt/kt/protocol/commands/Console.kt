@@ -1,16 +1,17 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.commands
 
 import ai.platon.cdt.kt.protocol.events.console.MessageAdded
 import ai.platon.cdt.kt.protocol.support.annotations.EventName
 import ai.platon.cdt.kt.protocol.support.types.EventHandler
 import ai.platon.cdt.kt.protocol.support.types.EventListener
-import java.lang.Deprecated
+import kotlin.Deprecated
 import kotlin.Unit
 
 /**
  * This domain is deprecated - use Runtime or Log instead.
  */
-@Deprecated
+@Deprecated("Deprecated by protocol")
 interface Console {
   /**
    * Does nothing.

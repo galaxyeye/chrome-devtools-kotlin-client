@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.headlessexperimental
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -6,9 +7,9 @@ import kotlin.Boolean
 import kotlin.String
 
 data class BeginFrame(
-  @field:JsonProperty("hasDamage")
+  @param:JsonProperty("hasDamage")
   val hasDamage: Boolean,
-  @field:JsonProperty("screenshotData")
+  @param:JsonProperty("screenshotData")
   @param:Optional
   val screenshotData: String? = null,
 )

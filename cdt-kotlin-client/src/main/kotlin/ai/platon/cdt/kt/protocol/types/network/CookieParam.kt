@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.network
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -12,44 +13,44 @@ import kotlin.String
  * Cookie parameter object
  */
 data class CookieParam(
-  @field:JsonProperty("name")
+  @param:JsonProperty("name")
   val name: String,
-  @field:JsonProperty("value")
+  @param:JsonProperty("value")
   val `value`: String,
-  @field:JsonProperty("url")
+  @param:JsonProperty("url")
   @param:Optional
   val url: String? = null,
-  @field:JsonProperty("domain")
+  @param:JsonProperty("domain")
   @param:Optional
   val domain: String? = null,
-  @field:JsonProperty("path")
+  @param:JsonProperty("path")
   @param:Optional
   val path: String? = null,
-  @field:JsonProperty("secure")
+  @param:JsonProperty("secure")
   @param:Optional
   val secure: Boolean? = null,
-  @field:JsonProperty("httpOnly")
+  @param:JsonProperty("httpOnly")
   @param:Optional
   val httpOnly: Boolean? = null,
-  @field:JsonProperty("sameSite")
+  @param:JsonProperty("sameSite")
   @param:Optional
   val sameSite: CookieSameSite? = null,
-  @field:JsonProperty("expires")
+  @param:JsonProperty("expires")
   @param:Optional
   val expires: Double? = null,
-  @field:JsonProperty("priority")
+  @param:JsonProperty("priority")
   @param:Optional
   @param:Experimental
   val priority: CookiePriority? = null,
-  @field:JsonProperty("sameParty")
+  @param:JsonProperty("sameParty")
   @param:Optional
   @param:Experimental
   val sameParty: Boolean? = null,
-  @field:JsonProperty("sourceScheme")
+  @param:JsonProperty("sourceScheme")
   @param:Optional
   @param:Experimental
   val sourceScheme: CookieSourceScheme? = null,
-  @field:JsonProperty("sourcePort")
+  @param:JsonProperty("sourcePort")
   @param:Optional
   @param:Experimental
   val sourcePort: Int? = null,

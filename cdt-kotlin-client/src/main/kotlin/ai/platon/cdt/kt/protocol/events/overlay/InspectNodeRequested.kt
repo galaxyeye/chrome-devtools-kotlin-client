@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.overlay
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -8,6 +9,6 @@ import kotlin.Int
  * user manually inspects an element.
  */
 data class InspectNodeRequested(
-  @field:JsonProperty("backendNodeId")
+  @param:JsonProperty("backendNodeId")
   val backendNodeId: Int,
 )

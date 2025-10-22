@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.network
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -13,11 +14,11 @@ import kotlin.collections.List
  */
 @Experimental
 data class TrustTokenParams(
-  @field:JsonProperty("type")
+  @param:JsonProperty("type")
   val type: TrustTokenOperationType,
-  @field:JsonProperty("refreshPolicy")
+  @param:JsonProperty("refreshPolicy")
   val refreshPolicy: TrustTokenParamsRefreshPolicy,
-  @field:JsonProperty("issuers")
+  @param:JsonProperty("issuers")
   @param:Optional
   val issuers: List<String>? = null,
 )

@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.page
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -7,11 +8,11 @@ import kotlin.Boolean
 
 @Experimental
 data class PermissionsPolicyFeatureState(
-  @field:JsonProperty("feature")
+  @param:JsonProperty("feature")
   val feature: PermissionsPolicyFeature,
-  @field:JsonProperty("allowed")
+  @param:JsonProperty("allowed")
   val allowed: Boolean,
-  @field:JsonProperty("locator")
+  @param:JsonProperty("locator")
   @param:Optional
   val locator: PermissionsPolicyBlockLocator? = null,
 )

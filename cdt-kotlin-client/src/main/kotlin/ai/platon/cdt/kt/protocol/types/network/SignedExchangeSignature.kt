@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.network
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -13,25 +14,25 @@ import kotlin.collections.List
  */
 @Experimental
 data class SignedExchangeSignature(
-  @field:JsonProperty("label")
+  @param:JsonProperty("label")
   val label: String,
-  @field:JsonProperty("signature")
+  @param:JsonProperty("signature")
   val signature: String,
-  @field:JsonProperty("integrity")
+  @param:JsonProperty("integrity")
   val integrity: String,
-  @field:JsonProperty("certUrl")
+  @param:JsonProperty("certUrl")
   @param:Optional
   val certUrl: String? = null,
-  @field:JsonProperty("certSha256")
+  @param:JsonProperty("certSha256")
   @param:Optional
   val certSha256: String? = null,
-  @field:JsonProperty("validityUrl")
+  @param:JsonProperty("validityUrl")
   val validityUrl: String,
-  @field:JsonProperty("date")
+  @param:JsonProperty("date")
   val date: Int,
-  @field:JsonProperty("expires")
+  @param:JsonProperty("expires")
   val expires: Int,
-  @field:JsonProperty("certificates")
+  @param:JsonProperty("certificates")
   @param:Optional
   val certificates: List<String>? = null,
 )

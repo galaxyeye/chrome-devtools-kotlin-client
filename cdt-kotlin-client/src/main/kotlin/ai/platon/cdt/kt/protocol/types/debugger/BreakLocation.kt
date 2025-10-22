@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.debugger
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -6,14 +7,14 @@ import kotlin.Int
 import kotlin.String
 
 data class BreakLocation(
-  @field:JsonProperty("scriptId")
+  @param:JsonProperty("scriptId")
   val scriptId: String,
-  @field:JsonProperty("lineNumber")
+  @param:JsonProperty("lineNumber")
   val lineNumber: Int,
-  @field:JsonProperty("columnNumber")
+  @param:JsonProperty("columnNumber")
   @param:Optional
   val columnNumber: Int? = null,
-  @field:JsonProperty("type")
+  @param:JsonProperty("type")
   @param:Optional
   val type: BreakLocationType? = null,
 )

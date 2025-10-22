@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.fetch
 
 import ai.platon.cdt.kt.protocol.types.fetch.AuthChallenge
@@ -11,14 +12,14 @@ import kotlin.String
  * The request is paused until client responds with continueWithAuth.
  */
 data class AuthRequired(
-  @field:JsonProperty("requestId")
+  @param:JsonProperty("requestId")
   val requestId: String,
-  @field:JsonProperty("request")
+  @param:JsonProperty("request")
   val request: Request,
-  @field:JsonProperty("frameId")
+  @param:JsonProperty("frameId")
   val frameId: String,
-  @field:JsonProperty("resourceType")
+  @param:JsonProperty("resourceType")
   val resourceType: ResourceType,
-  @field:JsonProperty("authChallenge")
+  @param:JsonProperty("authChallenge")
   val authChallenge: AuthChallenge,
 )

@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.fetch
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -8,13 +9,13 @@ import kotlin.String
  * Authorization challenge for HTTP status code 401 or 407.
  */
 data class AuthChallenge(
-  @field:JsonProperty("source")
+  @param:JsonProperty("source")
   @param:Optional
   val source: AuthChallengeSource? = null,
-  @field:JsonProperty("origin")
+  @param:JsonProperty("origin")
   val origin: String,
-  @field:JsonProperty("scheme")
+  @param:JsonProperty("scheme")
   val scheme: String,
-  @field:JsonProperty("realm")
+  @param:JsonProperty("realm")
   val realm: String,
 )

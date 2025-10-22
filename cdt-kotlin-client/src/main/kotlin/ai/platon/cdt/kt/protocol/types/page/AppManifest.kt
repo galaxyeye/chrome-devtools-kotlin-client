@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.page
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -7,14 +8,14 @@ import kotlin.String
 import kotlin.collections.List
 
 data class AppManifest(
-  @field:JsonProperty("url")
+  @param:JsonProperty("url")
   val url: String,
-  @field:JsonProperty("errors")
+  @param:JsonProperty("errors")
   val errors: List<AppManifestError>,
-  @field:JsonProperty("data")
+  @param:JsonProperty("data")
   @param:Optional
   val `data`: String? = null,
-  @field:JsonProperty("parsed")
+  @param:JsonProperty("parsed")
   @param:Optional
   @param:Experimental
   val parsed: AppManifestParsedProperties? = null,

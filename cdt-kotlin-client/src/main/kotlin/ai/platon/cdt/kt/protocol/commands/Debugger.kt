@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.commands
 
 import ai.platon.cdt.kt.protocol.events.debugger.BreakpointResolved
@@ -30,8 +31,8 @@ import ai.platon.cdt.kt.protocol.types.debugger.SetScriptSource
 import ai.platon.cdt.kt.protocol.types.runtime.CallArgument
 import ai.platon.cdt.kt.protocol.types.runtime.StackTrace
 import ai.platon.cdt.kt.protocol.types.runtime.StackTraceId
-import java.lang.Deprecated
 import kotlin.Boolean
+import kotlin.Deprecated
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
@@ -136,7 +137,7 @@ interface Debugger {
    * This command is deprecated. Use getScriptSource instead.
    * @param scriptId Id of the Wasm script to get source for.
    */
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   @Returns("bytecode")
   suspend fun getWasmBytecode(@ParamName("scriptId") scriptId: String): String
 
@@ -156,7 +157,7 @@ interface Debugger {
   /**
    * @param parentStackTraceId Debugger will pause when async call with given stack trace is started.
    */
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   @Experimental
   suspend fun pauseOnAsyncCall(@ParamName("parentStackTraceId") parentStackTraceId: StackTraceId)
 

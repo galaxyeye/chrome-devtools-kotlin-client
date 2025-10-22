@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.page
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -7,14 +8,14 @@ import kotlin.Double
  * Viewport for capturing screenshot.
  */
 data class Viewport(
-  @field:JsonProperty("x")
+  @param:JsonProperty("x")
   val x: Double,
-  @field:JsonProperty("y")
+  @param:JsonProperty("y")
   val y: Double,
-  @field:JsonProperty("width")
+  @param:JsonProperty("width")
   val width: Double,
-  @field:JsonProperty("height")
+  @param:JsonProperty("height")
   val height: Double,
-  @field:JsonProperty("scale")
+  @param:JsonProperty("scale")
   val scale: Double,
 )

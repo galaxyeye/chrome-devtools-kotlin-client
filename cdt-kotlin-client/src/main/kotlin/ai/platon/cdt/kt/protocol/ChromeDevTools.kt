@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol
 
 import ai.platon.cdt.kt.protocol.commands.Accessibility

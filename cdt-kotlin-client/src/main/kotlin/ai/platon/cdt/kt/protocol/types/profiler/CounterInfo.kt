@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.profiler
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -10,8 +11,8 @@ import kotlin.String
  */
 @Experimental
 data class CounterInfo(
-  @field:JsonProperty("name")
+  @param:JsonProperty("name")
   val name: String,
-  @field:JsonProperty("value")
+  @param:JsonProperty("value")
   val `value`: Int,
 )

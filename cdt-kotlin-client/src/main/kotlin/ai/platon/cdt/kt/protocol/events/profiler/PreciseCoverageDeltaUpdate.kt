@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.profiler
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -15,10 +16,10 @@ import kotlin.collections.List
  */
 @Experimental
 data class PreciseCoverageDeltaUpdate(
-  @field:JsonProperty("timestamp")
+  @param:JsonProperty("timestamp")
   val timestamp: Double,
-  @field:JsonProperty("occassion")
+  @param:JsonProperty("occassion")
   val occassion: String,
-  @field:JsonProperty("result")
+  @param:JsonProperty("result")
   val result: List<ScriptCoverage>,
 )

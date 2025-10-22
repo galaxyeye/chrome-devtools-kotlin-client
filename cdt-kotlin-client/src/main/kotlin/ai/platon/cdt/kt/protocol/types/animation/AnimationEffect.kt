@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.animation
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -10,26 +11,26 @@ import kotlin.String
  * AnimationEffect instance
  */
 data class AnimationEffect(
-  @field:JsonProperty("delay")
+  @param:JsonProperty("delay")
   val delay: Double,
-  @field:JsonProperty("endDelay")
+  @param:JsonProperty("endDelay")
   val endDelay: Double,
-  @field:JsonProperty("iterationStart")
+  @param:JsonProperty("iterationStart")
   val iterationStart: Double,
-  @field:JsonProperty("iterations")
+  @param:JsonProperty("iterations")
   val iterations: Double,
-  @field:JsonProperty("duration")
+  @param:JsonProperty("duration")
   val duration: Double,
-  @field:JsonProperty("direction")
+  @param:JsonProperty("direction")
   val direction: String,
-  @field:JsonProperty("fill")
+  @param:JsonProperty("fill")
   val fill: String,
-  @field:JsonProperty("backendNodeId")
+  @param:JsonProperty("backendNodeId")
   @param:Optional
   val backendNodeId: Int? = null,
-  @field:JsonProperty("keyframesRule")
+  @param:JsonProperty("keyframesRule")
   @param:Optional
   val keyframesRule: KeyframesRule? = null,
-  @field:JsonProperty("easing")
+  @param:JsonProperty("easing")
   val easing: String,
 )

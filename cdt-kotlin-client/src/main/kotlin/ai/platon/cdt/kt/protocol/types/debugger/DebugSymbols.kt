@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.debugger
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -8,9 +9,9 @@ import kotlin.String
  * Debug symbols available for a wasm script.
  */
 data class DebugSymbols(
-  @field:JsonProperty("type")
+  @param:JsonProperty("type")
   val type: DebugSymbolsType,
-  @field:JsonProperty("externalURL")
+  @param:JsonProperty("externalURL")
   @param:Optional
   val externalURL: String? = null,
 )

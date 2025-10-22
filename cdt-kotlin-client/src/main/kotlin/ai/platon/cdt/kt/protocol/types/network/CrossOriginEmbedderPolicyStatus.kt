@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.network
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -7,14 +8,14 @@ import kotlin.String
 
 @Experimental
 data class CrossOriginEmbedderPolicyStatus(
-  @field:JsonProperty("value")
+  @param:JsonProperty("value")
   val `value`: CrossOriginEmbedderPolicyValue,
-  @field:JsonProperty("reportOnlyValue")
+  @param:JsonProperty("reportOnlyValue")
   val reportOnlyValue: CrossOriginEmbedderPolicyValue,
-  @field:JsonProperty("reportingEndpoint")
+  @param:JsonProperty("reportingEndpoint")
   @param:Optional
   val reportingEndpoint: String? = null,
-  @field:JsonProperty("reportOnlyReportingEndpoint")
+  @param:JsonProperty("reportOnlyReportingEndpoint")
   @param:Optional
   val reportOnlyReportingEndpoint: String? = null,
 )

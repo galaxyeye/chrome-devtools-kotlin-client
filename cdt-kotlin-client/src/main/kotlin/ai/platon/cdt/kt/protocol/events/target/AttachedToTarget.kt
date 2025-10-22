@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.target
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -11,10 +12,10 @@ import kotlin.String
  */
 @Experimental
 data class AttachedToTarget(
-  @field:JsonProperty("sessionId")
+  @param:JsonProperty("sessionId")
   val sessionId: String,
-  @field:JsonProperty("targetInfo")
+  @param:JsonProperty("targetInfo")
   val targetInfo: TargetInfo,
-  @field:JsonProperty("waitingForDebugger")
+  @param:JsonProperty("waitingForDebugger")
   val waitingForDebugger: Boolean,
 )

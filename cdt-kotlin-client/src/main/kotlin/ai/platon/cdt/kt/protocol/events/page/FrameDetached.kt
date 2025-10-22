@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.page
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -9,9 +10,9 @@ import kotlin.String
  * Fired when frame has been detached from its parent.
  */
 data class FrameDetached(
-  @field:JsonProperty("frameId")
+  @param:JsonProperty("frameId")
   val frameId: String,
-  @field:JsonProperty("reason")
+  @param:JsonProperty("reason")
   @param:Experimental
   val reason: FrameDetachedReason,
 )

@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.css
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -9,7 +10,7 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * web font
  */
 data class FontsUpdated(
-  @field:JsonProperty("font")
+  @param:JsonProperty("font")
   @param:Optional
   val font: FontFace? = null,
 )

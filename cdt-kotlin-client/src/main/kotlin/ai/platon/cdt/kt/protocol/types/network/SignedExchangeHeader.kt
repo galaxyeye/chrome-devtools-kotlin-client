@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.network
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -14,14 +15,14 @@ import kotlin.collections.Map
  */
 @Experimental
 data class SignedExchangeHeader(
-  @field:JsonProperty("requestUrl")
+  @param:JsonProperty("requestUrl")
   val requestUrl: String,
-  @field:JsonProperty("responseCode")
+  @param:JsonProperty("responseCode")
   val responseCode: Int,
-  @field:JsonProperty("responseHeaders")
+  @param:JsonProperty("responseHeaders")
   val responseHeaders: Map<String, Any?>,
-  @field:JsonProperty("signatures")
+  @param:JsonProperty("signatures")
   val signatures: List<SignedExchangeSignature>,
-  @field:JsonProperty("headerIntegrity")
+  @param:JsonProperty("headerIntegrity")
   val headerIntegrity: String,
 )

@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.debugger
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -9,8 +10,8 @@ import kotlin.Int
  */
 @Experimental
 data class ScriptPosition(
-  @field:JsonProperty("lineNumber")
+  @param:JsonProperty("lineNumber")
   val lineNumber: Int,
-  @field:JsonProperty("columnNumber")
+  @param:JsonProperty("columnNumber")
   val columnNumber: Int,
 )

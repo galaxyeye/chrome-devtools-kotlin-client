@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.page
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -6,9 +7,9 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
 data class PrintToPDF(
-  @field:JsonProperty("data")
+  @param:JsonProperty("data")
   val `data`: String,
-  @field:JsonProperty("stream")
+  @param:JsonProperty("stream")
   @param:Optional
   @param:Experimental
   val stream: String? = null,

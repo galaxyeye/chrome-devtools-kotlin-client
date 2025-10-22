@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.runtime
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -10,13 +11,13 @@ import kotlin.String
  * unserializable primitive value or neither of (for undefined) them should be specified.
  */
 data class CallArgument(
-  @field:JsonProperty("value")
+  @param:JsonProperty("value")
   @param:Optional
   val `value`: Any? = null,
-  @field:JsonProperty("unserializableValue")
+  @param:JsonProperty("unserializableValue")
   @param:Optional
   val unserializableValue: String? = null,
-  @field:JsonProperty("objectId")
+  @param:JsonProperty("objectId")
   @param:Optional
   val objectId: String? = null,
 )

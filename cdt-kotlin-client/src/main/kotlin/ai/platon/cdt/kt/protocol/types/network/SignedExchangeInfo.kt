@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.network
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -10,15 +11,15 @@ import kotlin.collections.List
  */
 @Experimental
 data class SignedExchangeInfo(
-  @field:JsonProperty("outerResponse")
+  @param:JsonProperty("outerResponse")
   val outerResponse: Response,
-  @field:JsonProperty("header")
+  @param:JsonProperty("header")
   @param:Optional
   val `header`: SignedExchangeHeader? = null,
-  @field:JsonProperty("securityDetails")
+  @param:JsonProperty("securityDetails")
   @param:Optional
   val securityDetails: SecurityDetails? = null,
-  @field:JsonProperty("errors")
+  @param:JsonProperty("errors")
   @param:Optional
   val errors: List<SignedExchangeError>? = null,
 )

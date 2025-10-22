@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.network
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -11,10 +12,10 @@ import kotlin.String
  */
 @Experimental
 data class ResourceChangedPriority(
-  @field:JsonProperty("requestId")
+  @param:JsonProperty("requestId")
   val requestId: String,
-  @field:JsonProperty("newPriority")
+  @param:JsonProperty("newPriority")
   val newPriority: ResourcePriority,
-  @field:JsonProperty("timestamp")
+  @param:JsonProperty("timestamp")
   val timestamp: Double,
 )

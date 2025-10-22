@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.css
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -6,13 +7,13 @@ import kotlin.String
 import kotlin.collections.List
 
 data class BackgroundColors(
-  @field:JsonProperty("backgroundColors")
+  @param:JsonProperty("backgroundColors")
   @param:Optional
   val backgroundColors: List<String>? = null,
-  @field:JsonProperty("computedFontSize")
+  @param:JsonProperty("computedFontSize")
   @param:Optional
   val computedFontSize: String? = null,
-  @field:JsonProperty("computedFontWeight")
+  @param:JsonProperty("computedFontWeight")
   @param:Optional
   val computedFontWeight: String? = null,
 )

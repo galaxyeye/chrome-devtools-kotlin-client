@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.page
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -9,6 +10,6 @@ import kotlin.String
  */
 @Experimental
 data class AppManifestParsedProperties(
-  @field:JsonProperty("scope")
+  @param:JsonProperty("scope")
   val scope: String,
 )

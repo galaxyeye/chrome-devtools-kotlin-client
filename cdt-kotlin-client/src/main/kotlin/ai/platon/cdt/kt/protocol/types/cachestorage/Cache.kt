@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.cachestorage
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -7,10 +8,10 @@ import kotlin.String
  * Cache identifier.
  */
 data class Cache(
-  @field:JsonProperty("cacheId")
+  @param:JsonProperty("cacheId")
   val cacheId: String,
-  @field:JsonProperty("securityOrigin")
+  @param:JsonProperty("securityOrigin")
   val securityOrigin: String,
-  @field:JsonProperty("cacheName")
+  @param:JsonProperty("cacheName")
   val cacheName: String,
 )

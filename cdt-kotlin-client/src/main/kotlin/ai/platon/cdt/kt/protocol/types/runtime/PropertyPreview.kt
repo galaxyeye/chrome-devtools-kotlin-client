@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.runtime
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -7,17 +8,17 @@ import kotlin.String
 
 @Experimental
 data class PropertyPreview(
-  @field:JsonProperty("name")
+  @param:JsonProperty("name")
   val name: String,
-  @field:JsonProperty("type")
+  @param:JsonProperty("type")
   val type: PropertyPreviewType,
-  @field:JsonProperty("value")
+  @param:JsonProperty("value")
   @param:Optional
   val `value`: String? = null,
-  @field:JsonProperty("valuePreview")
+  @param:JsonProperty("valuePreview")
   @param:Optional
   val valuePreview: ObjectPreview? = null,
-  @field:JsonProperty("subtype")
+  @param:JsonProperty("subtype")
   @param:Optional
   val subtype: PropertyPreviewSubtype? = null,
 )

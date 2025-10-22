@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.page
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -10,10 +11,10 @@ import kotlin.Int
  */
 @Experimental
 data class FontSizes(
-  @field:JsonProperty("standard")
+  @param:JsonProperty("standard")
   @param:Optional
   val standard: Int? = null,
-  @field:JsonProperty("fixed")
+  @param:JsonProperty("fixed")
   @param:Optional
   val fixed: Int? = null,
 )

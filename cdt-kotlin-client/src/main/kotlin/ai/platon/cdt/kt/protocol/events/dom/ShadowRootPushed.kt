@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.dom
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -10,8 +11,8 @@ import kotlin.Int
  */
 @Experimental
 data class ShadowRootPushed(
-  @field:JsonProperty("hostId")
+  @param:JsonProperty("hostId")
   val hostId: Int,
-  @field:JsonProperty("root")
+  @param:JsonProperty("root")
   val root: Node,
 )

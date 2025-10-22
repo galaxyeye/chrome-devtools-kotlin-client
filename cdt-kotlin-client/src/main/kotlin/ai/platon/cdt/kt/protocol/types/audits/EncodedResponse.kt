@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.audits
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -6,11 +7,11 @@ import kotlin.Int
 import kotlin.String
 
 data class EncodedResponse(
-  @field:JsonProperty("body")
+  @param:JsonProperty("body")
   @param:Optional
   val body: String? = null,
-  @field:JsonProperty("originalSize")
+  @param:JsonProperty("originalSize")
   val originalSize: Int,
-  @field:JsonProperty("encodedSize")
+  @param:JsonProperty("encodedSize")
   val encodedSize: Int,
 )

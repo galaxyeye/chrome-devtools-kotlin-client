@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.webaudio
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -9,16 +10,16 @@ import kotlin.String
  * Notifies that two AudioNodes are connected.
  */
 data class NodesConnected(
-  @field:JsonProperty("contextId")
+  @param:JsonProperty("contextId")
   val contextId: String,
-  @field:JsonProperty("sourceId")
+  @param:JsonProperty("sourceId")
   val sourceId: String,
-  @field:JsonProperty("destinationId")
+  @param:JsonProperty("destinationId")
   val destinationId: String,
-  @field:JsonProperty("sourceOutputIndex")
+  @param:JsonProperty("sourceOutputIndex")
   @param:Optional
   val sourceOutputIndex: Double? = null,
-  @field:JsonProperty("destinationInputIndex")
+  @param:JsonProperty("destinationInputIndex")
   @param:Optional
   val destinationInputIndex: Double? = null,
 )

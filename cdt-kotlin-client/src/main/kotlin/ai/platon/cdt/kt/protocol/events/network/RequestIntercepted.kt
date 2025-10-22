@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.network
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -7,9 +8,9 @@ import ai.platon.cdt.kt.protocol.types.network.ErrorReason
 import ai.platon.cdt.kt.protocol.types.network.Request
 import ai.platon.cdt.kt.protocol.types.network.ResourceType
 import com.fasterxml.jackson.`annotation`.JsonProperty
-import java.lang.Deprecated
 import kotlin.Any
 import kotlin.Boolean
+import kotlin.Deprecated
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.Map
@@ -20,37 +21,37 @@ import kotlin.collections.Map
  * Deprecated, use Fetch.requestPaused instead.
  */
 @Experimental
-@Deprecated
+@Deprecated("Deprecated")
 data class RequestIntercepted(
-  @field:JsonProperty("interceptionId")
+  @param:JsonProperty("interceptionId")
   val interceptionId: String,
-  @field:JsonProperty("request")
+  @param:JsonProperty("request")
   val request: Request,
-  @field:JsonProperty("frameId")
+  @param:JsonProperty("frameId")
   val frameId: String,
-  @field:JsonProperty("resourceType")
+  @param:JsonProperty("resourceType")
   val resourceType: ResourceType,
-  @field:JsonProperty("isNavigationRequest")
+  @param:JsonProperty("isNavigationRequest")
   val isNavigationRequest: Boolean,
-  @field:JsonProperty("isDownload")
+  @param:JsonProperty("isDownload")
   @param:Optional
   val isDownload: Boolean? = null,
-  @field:JsonProperty("redirectUrl")
+  @param:JsonProperty("redirectUrl")
   @param:Optional
   val redirectUrl: String? = null,
-  @field:JsonProperty("authChallenge")
+  @param:JsonProperty("authChallenge")
   @param:Optional
   val authChallenge: AuthChallenge? = null,
-  @field:JsonProperty("responseErrorReason")
+  @param:JsonProperty("responseErrorReason")
   @param:Optional
   val responseErrorReason: ErrorReason? = null,
-  @field:JsonProperty("responseStatusCode")
+  @param:JsonProperty("responseStatusCode")
   @param:Optional
   val responseStatusCode: Int? = null,
-  @field:JsonProperty("responseHeaders")
+  @param:JsonProperty("responseHeaders")
   @param:Optional
   val responseHeaders: Map<String, Any?>? = null,
-  @field:JsonProperty("requestId")
+  @param:JsonProperty("requestId")
   @param:Optional
   val requestId: String? = null,
 )

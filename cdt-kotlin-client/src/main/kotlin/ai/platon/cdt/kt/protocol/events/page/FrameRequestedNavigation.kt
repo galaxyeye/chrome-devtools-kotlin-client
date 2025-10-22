@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.page
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -12,12 +13,12 @@ import kotlin.String
  */
 @Experimental
 data class FrameRequestedNavigation(
-  @field:JsonProperty("frameId")
+  @param:JsonProperty("frameId")
   val frameId: String,
-  @field:JsonProperty("reason")
+  @param:JsonProperty("reason")
   val reason: ClientNavigationReason,
-  @field:JsonProperty("url")
+  @param:JsonProperty("url")
   val url: String,
-  @field:JsonProperty("disposition")
+  @param:JsonProperty("disposition")
   val disposition: ClientNavigationDisposition,
 )

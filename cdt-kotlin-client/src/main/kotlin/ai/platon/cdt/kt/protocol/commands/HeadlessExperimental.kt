@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.commands
 
 import ai.platon.cdt.kt.protocol.events.headlessexperimental.NeedsBeginFramesChanged
@@ -9,8 +10,8 @@ import ai.platon.cdt.kt.protocol.support.types.EventHandler
 import ai.platon.cdt.kt.protocol.support.types.EventListener
 import ai.platon.cdt.kt.protocol.types.headlessexperimental.BeginFrame
 import ai.platon.cdt.kt.protocol.types.headlessexperimental.ScreenshotParams
-import java.lang.Deprecated
 import kotlin.Boolean
+import kotlin.Deprecated
 import kotlin.Double
 import kotlin.Unit
 
@@ -57,10 +58,10 @@ interface HeadlessExperimental {
   suspend fun enable()
 
   @EventName("needsBeginFramesChanged")
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   fun onNeedsBeginFramesChanged(eventListener: EventHandler<NeedsBeginFramesChanged>): EventListener
 
   @EventName("needsBeginFramesChanged")
-  @Deprecated
+  @Deprecated("Deprecated by protocol")
   fun onNeedsBeginFramesChanged(eventListener: suspend (NeedsBeginFramesChanged) -> Unit): EventListener
 }

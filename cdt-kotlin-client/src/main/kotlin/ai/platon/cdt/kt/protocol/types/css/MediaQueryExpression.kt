@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.css
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -9,16 +10,16 @@ import kotlin.String
  * Media query expression descriptor.
  */
 data class MediaQueryExpression(
-  @field:JsonProperty("value")
+  @param:JsonProperty("value")
   val `value`: Double,
-  @field:JsonProperty("unit")
+  @param:JsonProperty("unit")
   val unit: String,
-  @field:JsonProperty("feature")
+  @param:JsonProperty("feature")
   val feature: String,
-  @field:JsonProperty("valueRange")
+  @param:JsonProperty("valueRange")
   @param:Optional
   val valueRange: SourceRange? = null,
-  @field:JsonProperty("computedLength")
+  @param:JsonProperty("computedLength")
   @param:Optional
   val computedLength: Double? = null,
 )

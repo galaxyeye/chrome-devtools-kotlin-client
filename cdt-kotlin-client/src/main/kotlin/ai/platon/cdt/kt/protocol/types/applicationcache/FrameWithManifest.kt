@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.applicationcache
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -8,10 +9,10 @@ import kotlin.String
  * Frame identifier - manifest URL pair.
  */
 data class FrameWithManifest(
-  @field:JsonProperty("frameId")
+  @param:JsonProperty("frameId")
   val frameId: String,
-  @field:JsonProperty("manifestURL")
+  @param:JsonProperty("manifestURL")
   val manifestURL: String,
-  @field:JsonProperty("status")
+  @param:JsonProperty("status")
   val status: Int,
 )

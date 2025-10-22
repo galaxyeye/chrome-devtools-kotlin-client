@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.domsnapshot
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -11,33 +12,33 @@ import kotlin.collections.List
  * Table of details of an element in the DOM tree with a LayoutObject.
  */
 data class LayoutTreeSnapshot(
-  @field:JsonProperty("nodeIndex")
+  @param:JsonProperty("nodeIndex")
   val nodeIndex: List<Int>,
-  @field:JsonProperty("styles")
+  @param:JsonProperty("styles")
   val styles: List<List<Int>>,
-  @field:JsonProperty("bounds")
+  @param:JsonProperty("bounds")
   val bounds: List<List<Double>>,
-  @field:JsonProperty("text")
+  @param:JsonProperty("text")
   val text: List<Int>,
-  @field:JsonProperty("stackingContexts")
+  @param:JsonProperty("stackingContexts")
   val stackingContexts: RareBooleanData,
-  @field:JsonProperty("paintOrders")
+  @param:JsonProperty("paintOrders")
   @param:Optional
   val paintOrders: List<Int>? = null,
-  @field:JsonProperty("offsetRects")
+  @param:JsonProperty("offsetRects")
   @param:Optional
   val offsetRects: List<List<Double>>? = null,
-  @field:JsonProperty("scrollRects")
+  @param:JsonProperty("scrollRects")
   @param:Optional
   val scrollRects: List<List<Double>>? = null,
-  @field:JsonProperty("clientRects")
+  @param:JsonProperty("clientRects")
   @param:Optional
   val clientRects: List<List<Double>>? = null,
-  @field:JsonProperty("blendedBackgroundColors")
+  @param:JsonProperty("blendedBackgroundColors")
   @param:Optional
   @param:Experimental
   val blendedBackgroundColors: List<Int>? = null,
-  @field:JsonProperty("textColorOpacities")
+  @param:JsonProperty("textColorOpacities")
   @param:Optional
   @param:Experimental
   val textColorOpacities: List<Double>? = null,

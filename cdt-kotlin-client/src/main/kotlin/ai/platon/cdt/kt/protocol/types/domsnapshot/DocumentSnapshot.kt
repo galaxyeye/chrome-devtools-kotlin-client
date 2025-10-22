@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.domsnapshot
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -9,38 +10,38 @@ import kotlin.Int
  * Document snapshot.
  */
 data class DocumentSnapshot(
-  @field:JsonProperty("documentURL")
+  @param:JsonProperty("documentURL")
   val documentURL: Int,
-  @field:JsonProperty("title")
+  @param:JsonProperty("title")
   val title: Int,
-  @field:JsonProperty("baseURL")
+  @param:JsonProperty("baseURL")
   val baseURL: Int,
-  @field:JsonProperty("contentLanguage")
+  @param:JsonProperty("contentLanguage")
   val contentLanguage: Int,
-  @field:JsonProperty("encodingName")
+  @param:JsonProperty("encodingName")
   val encodingName: Int,
-  @field:JsonProperty("publicId")
+  @param:JsonProperty("publicId")
   val publicId: Int,
-  @field:JsonProperty("systemId")
+  @param:JsonProperty("systemId")
   val systemId: Int,
-  @field:JsonProperty("frameId")
+  @param:JsonProperty("frameId")
   val frameId: Int,
-  @field:JsonProperty("nodes")
+  @param:JsonProperty("nodes")
   val nodes: NodeTreeSnapshot,
-  @field:JsonProperty("layout")
+  @param:JsonProperty("layout")
   val layout: LayoutTreeSnapshot,
-  @field:JsonProperty("textBoxes")
+  @param:JsonProperty("textBoxes")
   val textBoxes: TextBoxSnapshot,
-  @field:JsonProperty("scrollOffsetX")
+  @param:JsonProperty("scrollOffsetX")
   @param:Optional
   val scrollOffsetX: Double? = null,
-  @field:JsonProperty("scrollOffsetY")
+  @param:JsonProperty("scrollOffsetY")
   @param:Optional
   val scrollOffsetY: Double? = null,
-  @field:JsonProperty("contentWidth")
+  @param:JsonProperty("contentWidth")
   @param:Optional
   val contentWidth: Double? = null,
-  @field:JsonProperty("contentHeight")
+  @param:JsonProperty("contentHeight")
   @param:Optional
   val contentHeight: Double? = null,
 )

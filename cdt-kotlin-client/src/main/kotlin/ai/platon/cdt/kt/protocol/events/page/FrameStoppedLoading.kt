@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.page
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -9,6 +10,6 @@ import kotlin.String
  */
 @Experimental
 data class FrameStoppedLoading(
-  @field:JsonProperty("frameId")
+  @param:JsonProperty("frameId")
   val frameId: String,
 )

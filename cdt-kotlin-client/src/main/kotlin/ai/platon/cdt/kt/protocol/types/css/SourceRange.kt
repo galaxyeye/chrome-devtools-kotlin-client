@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.css
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -7,12 +8,12 @@ import kotlin.Int
  * Text range within a resource. All numbers are zero-based.
  */
 data class SourceRange(
-  @field:JsonProperty("startLine")
+  @param:JsonProperty("startLine")
   val startLine: Int,
-  @field:JsonProperty("startColumn")
+  @param:JsonProperty("startColumn")
   val startColumn: Int,
-  @field:JsonProperty("endLine")
+  @param:JsonProperty("endLine")
   val endLine: Int,
-  @field:JsonProperty("endColumn")
+  @param:JsonProperty("endColumn")
   val endColumn: Int,
 )

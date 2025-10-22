@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.debugger
 
 import ai.platon.cdt.kt.protocol.types.debugger.Location
@@ -8,8 +9,8 @@ import kotlin.String
  * Fired when breakpoint is resolved to an actual script and location.
  */
 data class BreakpointResolved(
-  @field:JsonProperty("breakpointId")
+  @param:JsonProperty("breakpointId")
   val breakpointId: String,
-  @field:JsonProperty("location")
+  @param:JsonProperty("location")
   val location: Location,
 )

@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.network
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -13,21 +14,21 @@ import kotlin.String
  * Fired when HTTP request has failed to load.
  */
 data class LoadingFailed(
-  @field:JsonProperty("requestId")
+  @param:JsonProperty("requestId")
   val requestId: String,
-  @field:JsonProperty("timestamp")
+  @param:JsonProperty("timestamp")
   val timestamp: Double,
-  @field:JsonProperty("type")
+  @param:JsonProperty("type")
   val type: ResourceType,
-  @field:JsonProperty("errorText")
+  @param:JsonProperty("errorText")
   val errorText: String,
-  @field:JsonProperty("canceled")
+  @param:JsonProperty("canceled")
   @param:Optional
   val canceled: Boolean? = null,
-  @field:JsonProperty("blockedReason")
+  @param:JsonProperty("blockedReason")
   @param:Optional
   val blockedReason: BlockedReason? = null,
-  @field:JsonProperty("corsErrorStatus")
+  @param:JsonProperty("corsErrorStatus")
   @param:Optional
   val corsErrorStatus: CorsErrorStatus? = null,
 )

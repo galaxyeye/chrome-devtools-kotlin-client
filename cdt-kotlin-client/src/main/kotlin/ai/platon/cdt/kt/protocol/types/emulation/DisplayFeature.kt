@@ -1,13 +1,14 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.emulation
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Int
 
 data class DisplayFeature(
-  @field:JsonProperty("orientation")
+  @param:JsonProperty("orientation")
   val orientation: DisplayFeatureOrientation,
-  @field:JsonProperty("offset")
+  @param:JsonProperty("offset")
   val offset: Int,
-  @field:JsonProperty("maskLength")
+  @param:JsonProperty("maskLength")
   val maskLength: Int,
 )

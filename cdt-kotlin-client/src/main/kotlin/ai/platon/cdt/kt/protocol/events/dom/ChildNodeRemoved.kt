@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.dom
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -7,8 +8,8 @@ import kotlin.Int
  * Mirrors `DOMNodeRemoved` event.
  */
 data class ChildNodeRemoved(
-  @field:JsonProperty("parentNodeId")
+  @param:JsonProperty("parentNodeId")
   val parentNodeId: Int,
-  @field:JsonProperty("nodeId")
+  @param:JsonProperty("nodeId")
   val nodeId: Int,
 )

@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.heapprofiler
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -6,11 +7,11 @@ import kotlin.Boolean
 import kotlin.Int
 
 data class ReportHeapSnapshotProgress(
-  @field:JsonProperty("done")
+  @param:JsonProperty("done")
   val done: Int,
-  @field:JsonProperty("total")
+  @param:JsonProperty("total")
   val total: Int,
-  @field:JsonProperty("finished")
+  @param:JsonProperty("finished")
   @param:Optional
   val finished: Boolean? = null,
 )

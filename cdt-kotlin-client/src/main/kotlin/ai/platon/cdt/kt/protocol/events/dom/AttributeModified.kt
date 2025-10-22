@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.dom
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -8,10 +9,10 @@ import kotlin.String
  * Fired when `Element`'s attribute is modified.
  */
 data class AttributeModified(
-  @field:JsonProperty("nodeId")
+  @param:JsonProperty("nodeId")
   val nodeId: Int,
-  @field:JsonProperty("name")
+  @param:JsonProperty("name")
   val name: String,
-  @field:JsonProperty("value")
+  @param:JsonProperty("value")
   val `value`: String,
 )

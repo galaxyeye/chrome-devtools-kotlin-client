@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.cast
 
 import ai.platon.cdt.kt.protocol.types.cast.Sink
@@ -9,6 +10,6 @@ import kotlin.collections.List
  * device or a software surface that you can cast to.
  */
 data class SinksUpdated(
-  @field:JsonProperty("sinks")
+  @param:JsonProperty("sinks")
   val sinks: List<Sink>,
 )

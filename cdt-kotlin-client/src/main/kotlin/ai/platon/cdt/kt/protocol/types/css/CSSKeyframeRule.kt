@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.css
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -8,13 +9,13 @@ import kotlin.String
  * CSS keyframe rule representation.
  */
 data class CSSKeyframeRule(
-  @field:JsonProperty("styleSheetId")
+  @param:JsonProperty("styleSheetId")
   @param:Optional
   val styleSheetId: String? = null,
-  @field:JsonProperty("origin")
+  @param:JsonProperty("origin")
   val origin: StyleSheetOrigin,
-  @field:JsonProperty("keyText")
+  @param:JsonProperty("keyText")
   val keyText: Value,
-  @field:JsonProperty("style")
+  @param:JsonProperty("style")
   val style: CSSStyle,
 )

@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.network
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -11,12 +12,12 @@ import kotlin.String
  */
 @Experimental
 data class SignedExchangeError(
-  @field:JsonProperty("message")
+  @param:JsonProperty("message")
   val message: String,
-  @field:JsonProperty("signatureIndex")
+  @param:JsonProperty("signatureIndex")
   @param:Optional
   val signatureIndex: Int? = null,
-  @field:JsonProperty("errorField")
+  @param:JsonProperty("errorField")
   @param:Optional
   val errorField: SignedExchangeErrorField? = null,
 )

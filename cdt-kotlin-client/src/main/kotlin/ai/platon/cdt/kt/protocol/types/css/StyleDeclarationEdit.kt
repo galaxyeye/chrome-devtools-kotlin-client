@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.css
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -7,10 +8,10 @@ import kotlin.String
  * A descriptor of operation to mutate style declaration text.
  */
 data class StyleDeclarationEdit(
-  @field:JsonProperty("styleSheetId")
+  @param:JsonProperty("styleSheetId")
   val styleSheetId: String,
-  @field:JsonProperty("range")
+  @param:JsonProperty("range")
   val range: SourceRange,
-  @field:JsonProperty("text")
+  @param:JsonProperty("text")
   val text: String,
 )

@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.webaudio
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -8,20 +9,20 @@ import kotlin.String
  * Protocol object for AudioParam
  */
 data class AudioParam(
-  @field:JsonProperty("paramId")
+  @param:JsonProperty("paramId")
   val paramId: String,
-  @field:JsonProperty("nodeId")
+  @param:JsonProperty("nodeId")
   val nodeId: String,
-  @field:JsonProperty("contextId")
+  @param:JsonProperty("contextId")
   val contextId: String,
-  @field:JsonProperty("paramType")
+  @param:JsonProperty("paramType")
   val paramType: String,
-  @field:JsonProperty("rate")
+  @param:JsonProperty("rate")
   val rate: AutomationRate,
-  @field:JsonProperty("defaultValue")
+  @param:JsonProperty("defaultValue")
   val defaultValue: Double,
-  @field:JsonProperty("minValue")
+  @param:JsonProperty("minValue")
   val minValue: Double,
-  @field:JsonProperty("maxValue")
+  @param:JsonProperty("maxValue")
   val maxValue: Double,
 )

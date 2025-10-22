@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.cachestorage
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -10,20 +11,20 @@ import kotlin.collections.List
  * Data entry.
  */
 data class DataEntry(
-  @field:JsonProperty("requestURL")
+  @param:JsonProperty("requestURL")
   val requestURL: String,
-  @field:JsonProperty("requestMethod")
+  @param:JsonProperty("requestMethod")
   val requestMethod: String,
-  @field:JsonProperty("requestHeaders")
+  @param:JsonProperty("requestHeaders")
   val requestHeaders: List<Header>,
-  @field:JsonProperty("responseTime")
+  @param:JsonProperty("responseTime")
   val responseTime: Double,
-  @field:JsonProperty("responseStatus")
+  @param:JsonProperty("responseStatus")
   val responseStatus: Int,
-  @field:JsonProperty("responseStatusText")
+  @param:JsonProperty("responseStatusText")
   val responseStatusText: String,
-  @field:JsonProperty("responseType")
+  @param:JsonProperty("responseType")
   val responseType: CachedResponseType,
-  @field:JsonProperty("responseHeaders")
+  @param:JsonProperty("responseHeaders")
   val responseHeaders: List<Header>,
 )

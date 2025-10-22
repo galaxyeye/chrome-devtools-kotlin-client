@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.media
 
 import ai.platon.cdt.kt.protocol.types.media.PlayerEvent
@@ -10,8 +11,8 @@ import kotlin.collections.List
  * congestion. If batched, events must ALWAYS be in chronological order.
  */
 data class PlayerEventsAdded(
-  @field:JsonProperty("playerId")
+  @param:JsonProperty("playerId")
   val playerId: String,
-  @field:JsonProperty("events")
+  @param:JsonProperty("events")
   val events: List<PlayerEvent>,
 )

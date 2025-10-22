@@ -1,13 +1,14 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.memory
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Int
 
 data class DOMCounters(
-  @field:JsonProperty("documents")
+  @param:JsonProperty("documents")
   val documents: Int,
-  @field:JsonProperty("nodes")
+  @param:JsonProperty("nodes")
   val nodes: Int,
-  @field:JsonProperty("jsEventListeners")
+  @param:JsonProperty("jsEventListeners")
   val jsEventListeners: Int,
 )

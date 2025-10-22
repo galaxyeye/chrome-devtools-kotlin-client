@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.serviceworker
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -8,16 +9,16 @@ import kotlin.String
  * ServiceWorker error message.
  */
 data class ServiceWorkerErrorMessage(
-  @field:JsonProperty("errorMessage")
+  @param:JsonProperty("errorMessage")
   val errorMessage: String,
-  @field:JsonProperty("registrationId")
+  @param:JsonProperty("registrationId")
   val registrationId: String,
-  @field:JsonProperty("versionId")
+  @param:JsonProperty("versionId")
   val versionId: String,
-  @field:JsonProperty("sourceURL")
+  @param:JsonProperty("sourceURL")
   val sourceURL: String,
-  @field:JsonProperty("lineNumber")
+  @param:JsonProperty("lineNumber")
   val lineNumber: Int,
-  @field:JsonProperty("columnNumber")
+  @param:JsonProperty("columnNumber")
   val columnNumber: Int,
 )

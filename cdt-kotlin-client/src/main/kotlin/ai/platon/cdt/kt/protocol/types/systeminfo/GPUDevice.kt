@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.systeminfo
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -9,22 +10,22 @@ import kotlin.String
  * Describes a single graphics processor (GPU).
  */
 data class GPUDevice(
-  @field:JsonProperty("vendorId")
+  @param:JsonProperty("vendorId")
   val vendorId: Double,
-  @field:JsonProperty("deviceId")
+  @param:JsonProperty("deviceId")
   val deviceId: Double,
-  @field:JsonProperty("subSysId")
+  @param:JsonProperty("subSysId")
   @param:Optional
   val subSysId: Double? = null,
-  @field:JsonProperty("revision")
+  @param:JsonProperty("revision")
   @param:Optional
   val revision: Double? = null,
-  @field:JsonProperty("vendorString")
+  @param:JsonProperty("vendorString")
   val vendorString: String,
-  @field:JsonProperty("deviceString")
+  @param:JsonProperty("deviceString")
   val deviceString: String,
-  @field:JsonProperty("driverVendor")
+  @param:JsonProperty("driverVendor")
   val driverVendor: String,
-  @field:JsonProperty("driverVersion")
+  @param:JsonProperty("driverVersion")
   val driverVersion: String,
 )

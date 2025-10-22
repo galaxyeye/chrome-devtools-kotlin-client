@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.overlay
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -7,13 +8,13 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * Configuration data for the highlighting of Flex item elements.
  */
 data class FlexItemHighlightConfig(
-  @field:JsonProperty("baseSizeBox")
+  @param:JsonProperty("baseSizeBox")
   @param:Optional
   val baseSizeBox: BoxStyle? = null,
-  @field:JsonProperty("baseSizeBorder")
+  @param:JsonProperty("baseSizeBorder")
   @param:Optional
   val baseSizeBorder: LineStyle? = null,
-  @field:JsonProperty("flexibilityArrow")
+  @param:JsonProperty("flexibilityArrow")
   @param:Optional
   val flexibilityArrow: LineStyle? = null,
 )

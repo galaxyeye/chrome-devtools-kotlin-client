@@ -1,13 +1,14 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.domsnapshot
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.collections.List
 
 data class Snapshot(
-  @field:JsonProperty("domNodes")
+  @param:JsonProperty("domNodes")
   val domNodes: List<DOMNode>,
-  @field:JsonProperty("layoutTreeNodes")
+  @param:JsonProperty("layoutTreeNodes")
   val layoutTreeNodes: List<LayoutTreeNode>,
-  @field:JsonProperty("computedStyles")
+  @param:JsonProperty("computedStyles")
   val computedStyles: List<ComputedStyle>,
 )

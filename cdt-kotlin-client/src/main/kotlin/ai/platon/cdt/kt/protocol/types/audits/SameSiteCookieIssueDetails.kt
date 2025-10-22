@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.audits
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -11,21 +12,21 @@ import kotlin.collections.List
  * information without the cookie.
  */
 data class SameSiteCookieIssueDetails(
-  @field:JsonProperty("cookie")
+  @param:JsonProperty("cookie")
   val cookie: AffectedCookie,
-  @field:JsonProperty("cookieWarningReasons")
+  @param:JsonProperty("cookieWarningReasons")
   val cookieWarningReasons: List<SameSiteCookieWarningReason>,
-  @field:JsonProperty("cookieExclusionReasons")
+  @param:JsonProperty("cookieExclusionReasons")
   val cookieExclusionReasons: List<SameSiteCookieExclusionReason>,
-  @field:JsonProperty("operation")
+  @param:JsonProperty("operation")
   val operation: SameSiteCookieOperation,
-  @field:JsonProperty("siteForCookies")
+  @param:JsonProperty("siteForCookies")
   @param:Optional
   val siteForCookies: String? = null,
-  @field:JsonProperty("cookieUrl")
+  @param:JsonProperty("cookieUrl")
   @param:Optional
   val cookieUrl: String? = null,
-  @field:JsonProperty("request")
+  @param:JsonProperty("request")
   @param:Optional
   val request: AffectedRequest? = null,
 )

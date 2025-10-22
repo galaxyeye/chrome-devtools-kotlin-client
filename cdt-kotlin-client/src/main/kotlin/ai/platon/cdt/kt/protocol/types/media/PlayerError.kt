@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.media
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -7,8 +8,8 @@ import kotlin.String
  * Corresponds to kMediaError
  */
 data class PlayerError(
-  @field:JsonProperty("type")
+  @param:JsonProperty("type")
   val type: PlayerErrorType,
-  @field:JsonProperty("errorCode")
+  @param:JsonProperty("errorCode")
   val errorCode: String,
 )

@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.serviceworker
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -8,10 +9,10 @@ import kotlin.String
  * ServiceWorker registration.
  */
 data class ServiceWorkerRegistration(
-  @field:JsonProperty("registrationId")
+  @param:JsonProperty("registrationId")
   val registrationId: String,
-  @field:JsonProperty("scopeURL")
+  @param:JsonProperty("scopeURL")
   val scopeURL: String,
-  @field:JsonProperty("isDeleted")
+  @param:JsonProperty("isDeleted")
   val isDeleted: Boolean,
 )

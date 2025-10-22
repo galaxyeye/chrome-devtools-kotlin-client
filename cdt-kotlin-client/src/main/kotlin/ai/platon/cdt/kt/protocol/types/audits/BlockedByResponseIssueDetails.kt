@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.audits
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -9,14 +10,14 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * some CSP errors in the future.
  */
 data class BlockedByResponseIssueDetails(
-  @field:JsonProperty("request")
+  @param:JsonProperty("request")
   val request: AffectedRequest,
-  @field:JsonProperty("parentFrame")
+  @param:JsonProperty("parentFrame")
   @param:Optional
   val parentFrame: AffectedFrame? = null,
-  @field:JsonProperty("blockedFrame")
+  @param:JsonProperty("blockedFrame")
   @param:Optional
   val blockedFrame: AffectedFrame? = null,
-  @field:JsonProperty("reason")
+  @param:JsonProperty("reason")
   val reason: BlockedByResponseReason,
 )

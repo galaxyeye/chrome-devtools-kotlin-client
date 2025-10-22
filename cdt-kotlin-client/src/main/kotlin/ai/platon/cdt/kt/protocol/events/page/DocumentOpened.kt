@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.page
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -9,6 +10,6 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  */
 @Experimental
 data class DocumentOpened(
-  @field:JsonProperty("frame")
+  @param:JsonProperty("frame")
   val frame: Frame,
 )

@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.animation
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -10,26 +11,26 @@ import kotlin.String
  * Animation instance.
  */
 data class Animation(
-  @field:JsonProperty("id")
+  @param:JsonProperty("id")
   val id: String,
-  @field:JsonProperty("name")
+  @param:JsonProperty("name")
   val name: String,
-  @field:JsonProperty("pausedState")
+  @param:JsonProperty("pausedState")
   val pausedState: Boolean,
-  @field:JsonProperty("playState")
+  @param:JsonProperty("playState")
   val playState: String,
-  @field:JsonProperty("playbackRate")
+  @param:JsonProperty("playbackRate")
   val playbackRate: Double,
-  @field:JsonProperty("startTime")
+  @param:JsonProperty("startTime")
   val startTime: Double,
-  @field:JsonProperty("currentTime")
+  @param:JsonProperty("currentTime")
   val currentTime: Double,
-  @field:JsonProperty("type")
+  @param:JsonProperty("type")
   val type: AnimationType,
-  @field:JsonProperty("source")
+  @param:JsonProperty("source")
   @param:Optional
   val source: AnimationEffect? = null,
-  @field:JsonProperty("cssId")
+  @param:JsonProperty("cssId")
   @param:Optional
   val cssId: String? = null,
 )

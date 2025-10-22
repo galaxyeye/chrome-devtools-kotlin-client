@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.log
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -7,8 +8,8 @@ import kotlin.Double
  * Violation configuration setting.
  */
 data class ViolationSetting(
-  @field:JsonProperty("name")
+  @param:JsonProperty("name")
   val name: ViolationSettingName,
-  @field:JsonProperty("threshold")
+  @param:JsonProperty("threshold")
   val threshold: Double,
 )

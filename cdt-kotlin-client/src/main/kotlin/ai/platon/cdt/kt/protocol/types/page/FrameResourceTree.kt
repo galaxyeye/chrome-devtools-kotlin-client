@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.page
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -10,11 +11,11 @@ import kotlin.collections.List
  */
 @Experimental
 data class FrameResourceTree(
-  @field:JsonProperty("frame")
+  @param:JsonProperty("frame")
   val frame: Frame,
-  @field:JsonProperty("childFrames")
+  @param:JsonProperty("childFrames")
   @param:Optional
   val childFrames: List<FrameResourceTree>? = null,
-  @field:JsonProperty("resources")
+  @param:JsonProperty("resources")
   val resources: List<FrameResource>,
 )

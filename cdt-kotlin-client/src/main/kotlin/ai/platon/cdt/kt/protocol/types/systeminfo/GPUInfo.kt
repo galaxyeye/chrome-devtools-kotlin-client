@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.systeminfo
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -11,20 +12,20 @@ import kotlin.collections.Map
  * Provides information about the GPU(s) on the system.
  */
 data class GPUInfo(
-  @field:JsonProperty("devices")
+  @param:JsonProperty("devices")
   val devices: List<GPUDevice>,
-  @field:JsonProperty("auxAttributes")
+  @param:JsonProperty("auxAttributes")
   @param:Optional
   val auxAttributes: Map<String, Any?>? = null,
-  @field:JsonProperty("featureStatus")
+  @param:JsonProperty("featureStatus")
   @param:Optional
   val featureStatus: Map<String, Any?>? = null,
-  @field:JsonProperty("driverBugWorkarounds")
+  @param:JsonProperty("driverBugWorkarounds")
   val driverBugWorkarounds: List<String>,
-  @field:JsonProperty("videoDecoding")
+  @param:JsonProperty("videoDecoding")
   val videoDecoding: List<VideoDecodeAcceleratorCapability>,
-  @field:JsonProperty("videoEncoding")
+  @param:JsonProperty("videoEncoding")
   val videoEncoding: List<VideoEncodeAcceleratorCapability>,
-  @field:JsonProperty("imageDecoding")
+  @param:JsonProperty("imageDecoding")
   val imageDecoding: List<ImageDecodeAcceleratorCapability>,
 )

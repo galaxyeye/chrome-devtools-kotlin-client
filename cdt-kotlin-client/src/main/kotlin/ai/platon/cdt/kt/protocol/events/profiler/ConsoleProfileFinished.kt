@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.profiler
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -7,13 +8,13 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
 data class ConsoleProfileFinished(
-  @field:JsonProperty("id")
+  @param:JsonProperty("id")
   val id: String,
-  @field:JsonProperty("location")
+  @param:JsonProperty("location")
   val location: Location,
-  @field:JsonProperty("profile")
+  @param:JsonProperty("profile")
   val profile: Profile,
-  @field:JsonProperty("title")
+  @param:JsonProperty("title")
   @param:Optional
   val title: String? = null,
 )

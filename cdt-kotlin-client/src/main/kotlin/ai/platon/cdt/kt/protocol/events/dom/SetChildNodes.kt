@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.dom
 
 import ai.platon.cdt.kt.protocol.types.dom.Node
@@ -10,8 +11,8 @@ import kotlin.collections.List
  * most of the calls requesting node ids.
  */
 data class SetChildNodes(
-  @field:JsonProperty("parentId")
+  @param:JsonProperty("parentId")
   val parentId: Int,
-  @field:JsonProperty("nodes")
+  @param:JsonProperty("nodes")
   val nodes: List<Node>,
 )

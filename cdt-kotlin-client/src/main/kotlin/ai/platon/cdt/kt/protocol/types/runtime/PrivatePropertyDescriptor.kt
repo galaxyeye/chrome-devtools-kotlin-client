@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.runtime
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -10,15 +11,15 @@ import kotlin.String
  */
 @Experimental
 data class PrivatePropertyDescriptor(
-  @field:JsonProperty("name")
+  @param:JsonProperty("name")
   val name: String,
-  @field:JsonProperty("value")
+  @param:JsonProperty("value")
   @param:Optional
   val `value`: RemoteObject? = null,
-  @field:JsonProperty("get")
+  @param:JsonProperty("get")
   @param:Optional
   val `get`: RemoteObject? = null,
-  @field:JsonProperty("set")
+  @param:JsonProperty("set")
   @param:Optional
   val `set`: RemoteObject? = null,
 )

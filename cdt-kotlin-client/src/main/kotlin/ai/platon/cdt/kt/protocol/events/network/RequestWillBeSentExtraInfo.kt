@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.network
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -18,13 +19,13 @@ import kotlin.collections.Map
  */
 @Experimental
 data class RequestWillBeSentExtraInfo(
-  @field:JsonProperty("requestId")
+  @param:JsonProperty("requestId")
   val requestId: String,
-  @field:JsonProperty("associatedCookies")
+  @param:JsonProperty("associatedCookies")
   val associatedCookies: List<BlockedCookieWithReason>,
-  @field:JsonProperty("headers")
+  @param:JsonProperty("headers")
   val headers: Map<String, Any?>,
-  @field:JsonProperty("clientSecurityState")
+  @param:JsonProperty("clientSecurityState")
   @param:Optional
   val clientSecurityState: ClientSecurityState? = null,
 )

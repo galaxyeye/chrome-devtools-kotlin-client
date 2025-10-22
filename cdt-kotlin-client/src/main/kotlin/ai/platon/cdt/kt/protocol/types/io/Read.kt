@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.io
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -6,11 +7,11 @@ import kotlin.Boolean
 import kotlin.String
 
 data class Read(
-  @field:JsonProperty("base64Encoded")
+  @param:JsonProperty("base64Encoded")
   @param:Optional
   val base64Encoded: Boolean? = null,
-  @field:JsonProperty("data")
+  @param:JsonProperty("data")
   val `data`: String,
-  @field:JsonProperty("eof")
+  @param:JsonProperty("eof")
   val eof: Boolean,
 )

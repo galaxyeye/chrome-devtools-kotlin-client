@@ -1,26 +1,27 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.security
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
-import java.lang.Deprecated
 import kotlin.Boolean
+import kotlin.Deprecated
 
 /**
  * Information about insecure content on the page.
  */
-@Deprecated
+@Deprecated("Deprecated")
 data class InsecureContentStatus(
-  @field:JsonProperty("ranMixedContent")
+  @param:JsonProperty("ranMixedContent")
   val ranMixedContent: Boolean,
-  @field:JsonProperty("displayedMixedContent")
+  @param:JsonProperty("displayedMixedContent")
   val displayedMixedContent: Boolean,
-  @field:JsonProperty("containedMixedForm")
+  @param:JsonProperty("containedMixedForm")
   val containedMixedForm: Boolean,
-  @field:JsonProperty("ranContentWithCertErrors")
+  @param:JsonProperty("ranContentWithCertErrors")
   val ranContentWithCertErrors: Boolean,
-  @field:JsonProperty("displayedContentWithCertErrors")
+  @param:JsonProperty("displayedContentWithCertErrors")
   val displayedContentWithCertErrors: Boolean,
-  @field:JsonProperty("ranInsecureContentStyle")
+  @param:JsonProperty("ranInsecureContentStyle")
   val ranInsecureContentStyle: SecurityState,
-  @field:JsonProperty("displayedInsecureContentStyle")
+  @param:JsonProperty("displayedInsecureContentStyle")
   val displayedInsecureContentStyle: SecurityState,
 )

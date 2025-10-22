@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.target
 
 import ai.platon.cdt.kt.protocol.types.target.TargetInfo
@@ -8,6 +9,6 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * `targetCreated` and `targetDestroyed`.
  */
 data class TargetInfoChanged(
-  @field:JsonProperty("targetInfo")
+  @param:JsonProperty("targetInfo")
   val targetInfo: TargetInfo,
 )

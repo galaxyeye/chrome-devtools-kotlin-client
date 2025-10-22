@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.webauthn
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -5,29 +6,29 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Boolean
 
 data class VirtualAuthenticatorOptions(
-  @field:JsonProperty("protocol")
+  @param:JsonProperty("protocol")
   val protocol: AuthenticatorProtocol,
-  @field:JsonProperty("ctap2Version")
+  @param:JsonProperty("ctap2Version")
   @param:Optional
   val ctap2Version: Ctap2Version? = null,
-  @field:JsonProperty("transport")
+  @param:JsonProperty("transport")
   val transport: AuthenticatorTransport,
-  @field:JsonProperty("hasResidentKey")
+  @param:JsonProperty("hasResidentKey")
   @param:Optional
   val hasResidentKey: Boolean? = null,
-  @field:JsonProperty("hasUserVerification")
+  @param:JsonProperty("hasUserVerification")
   @param:Optional
   val hasUserVerification: Boolean? = null,
-  @field:JsonProperty("hasLargeBlob")
+  @param:JsonProperty("hasLargeBlob")
   @param:Optional
   val hasLargeBlob: Boolean? = null,
-  @field:JsonProperty("hasCredBlob")
+  @param:JsonProperty("hasCredBlob")
   @param:Optional
   val hasCredBlob: Boolean? = null,
-  @field:JsonProperty("automaticPresenceSimulation")
+  @param:JsonProperty("automaticPresenceSimulation")
   @param:Optional
   val automaticPresenceSimulation: Boolean? = null,
-  @field:JsonProperty("isUserVerified")
+  @param:JsonProperty("isUserVerified")
   @param:Optional
   val isUserVerified: Boolean? = null,
 )

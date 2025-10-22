@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.media
 
 import ai.platon.cdt.kt.protocol.types.media.PlayerProperty
@@ -10,8 +11,8 @@ import kotlin.collections.List
  * remove player properties. A null propValue indicates removal.
  */
 data class PlayerPropertiesChanged(
-  @field:JsonProperty("playerId")
+  @param:JsonProperty("playerId")
   val playerId: String,
-  @field:JsonProperty("properties")
+  @param:JsonProperty("properties")
   val properties: List<PlayerProperty>,
 )

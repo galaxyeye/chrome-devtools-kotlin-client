@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.heapprofiler
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -10,8 +11,8 @@ import kotlin.Int
  * then one or more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
  */
 data class LastSeenObjectId(
-  @field:JsonProperty("lastSeenObjectId")
+  @param:JsonProperty("lastSeenObjectId")
   val lastSeenObjectId: Int,
-  @field:JsonProperty("timestamp")
+  @param:JsonProperty("timestamp")
   val timestamp: Double,
 )

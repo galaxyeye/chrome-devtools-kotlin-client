@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.domsnapshot
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -12,23 +13,23 @@ import kotlin.collections.List
  * Details of an element in the DOM tree with a LayoutObject.
  */
 data class LayoutTreeNode(
-  @field:JsonProperty("domNodeIndex")
+  @param:JsonProperty("domNodeIndex")
   val domNodeIndex: Int,
-  @field:JsonProperty("boundingBox")
+  @param:JsonProperty("boundingBox")
   val boundingBox: Rect,
-  @field:JsonProperty("layoutText")
+  @param:JsonProperty("layoutText")
   @param:Optional
   val layoutText: String? = null,
-  @field:JsonProperty("inlineTextNodes")
+  @param:JsonProperty("inlineTextNodes")
   @param:Optional
   val inlineTextNodes: List<InlineTextBox>? = null,
-  @field:JsonProperty("styleIndex")
+  @param:JsonProperty("styleIndex")
   @param:Optional
   val styleIndex: Int? = null,
-  @field:JsonProperty("paintOrder")
+  @param:JsonProperty("paintOrder")
   @param:Optional
   val paintOrder: Int? = null,
-  @field:JsonProperty("isStackingContext")
+  @param:JsonProperty("isStackingContext")
   @param:Optional
   val isStackingContext: Boolean? = null,
 )

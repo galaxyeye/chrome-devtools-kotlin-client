@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.tracing
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -11,6 +12,6 @@ import kotlin.collections.Map
  * send as a sequence of dataCollected events followed by tracingComplete event.
  */
 data class DataCollected(
-  @field:JsonProperty("value")
+  @param:JsonProperty("value")
   val `value`: List<Map<String, Any?>>,
 )

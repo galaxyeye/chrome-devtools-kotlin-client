@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.input
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -7,8 +8,8 @@ import kotlin.collections.List
 
 @Experimental
 data class DragData(
-  @field:JsonProperty("items")
+  @param:JsonProperty("items")
   val items: List<DragDataItem>,
-  @field:JsonProperty("dragOperationsMask")
+  @param:JsonProperty("dragOperationsMask")
   val dragOperationsMask: Int,
 )

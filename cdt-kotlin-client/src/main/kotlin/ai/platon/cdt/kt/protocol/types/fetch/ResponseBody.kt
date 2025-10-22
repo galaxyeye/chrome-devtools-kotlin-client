@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.fetch
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -5,8 +6,8 @@ import kotlin.Boolean
 import kotlin.String
 
 data class ResponseBody(
-  @field:JsonProperty("body")
+  @param:JsonProperty("body")
   val body: String,
-  @field:JsonProperty("base64Encoded")
+  @param:JsonProperty("base64Encoded")
   val base64Encoded: Boolean,
 )

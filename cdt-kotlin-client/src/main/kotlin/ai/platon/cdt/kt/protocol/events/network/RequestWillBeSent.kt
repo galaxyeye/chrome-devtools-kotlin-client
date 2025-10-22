@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.network
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -14,30 +15,30 @@ import kotlin.String
  * Fired when page is about to send HTTP request.
  */
 data class RequestWillBeSent(
-  @field:JsonProperty("requestId")
+  @param:JsonProperty("requestId")
   val requestId: String,
-  @field:JsonProperty("loaderId")
+  @param:JsonProperty("loaderId")
   val loaderId: String,
-  @field:JsonProperty("documentURL")
+  @param:JsonProperty("documentURL")
   val documentURL: String,
-  @field:JsonProperty("request")
+  @param:JsonProperty("request")
   val request: Request,
-  @field:JsonProperty("timestamp")
+  @param:JsonProperty("timestamp")
   val timestamp: Double,
-  @field:JsonProperty("wallTime")
+  @param:JsonProperty("wallTime")
   val wallTime: Double,
-  @field:JsonProperty("initiator")
+  @param:JsonProperty("initiator")
   val initiator: Initiator,
-  @field:JsonProperty("redirectResponse")
+  @param:JsonProperty("redirectResponse")
   @param:Optional
   val redirectResponse: Response? = null,
-  @field:JsonProperty("type")
+  @param:JsonProperty("type")
   @param:Optional
   val type: ResourceType? = null,
-  @field:JsonProperty("frameId")
+  @param:JsonProperty("frameId")
   @param:Optional
   val frameId: String? = null,
-  @field:JsonProperty("hasUserGesture")
+  @param:JsonProperty("hasUserGesture")
   @param:Optional
   val hasUserGesture: Boolean? = null,
 )

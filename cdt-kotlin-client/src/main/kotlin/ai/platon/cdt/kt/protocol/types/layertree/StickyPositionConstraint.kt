@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.layertree
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -9,14 +10,14 @@ import kotlin.String
  * Sticky position constraints.
  */
 data class StickyPositionConstraint(
-  @field:JsonProperty("stickyBoxRect")
+  @param:JsonProperty("stickyBoxRect")
   val stickyBoxRect: Rect,
-  @field:JsonProperty("containingBlockRect")
+  @param:JsonProperty("containingBlockRect")
   val containingBlockRect: Rect,
-  @field:JsonProperty("nearestLayerShiftingStickyBox")
+  @param:JsonProperty("nearestLayerShiftingStickyBox")
   @param:Optional
   val nearestLayerShiftingStickyBox: String? = null,
-  @field:JsonProperty("nearestLayerShiftingContainingBlock")
+  @param:JsonProperty("nearestLayerShiftingContainingBlock")
   @param:Optional
   val nearestLayerShiftingContainingBlock: String? = null,
 )

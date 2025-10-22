@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.runtime
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -12,19 +13,19 @@ import kotlin.collections.List
  */
 @Experimental
 data class ObjectPreview(
-  @field:JsonProperty("type")
+  @param:JsonProperty("type")
   val type: ObjectPreviewType,
-  @field:JsonProperty("subtype")
+  @param:JsonProperty("subtype")
   @param:Optional
   val subtype: ObjectPreviewSubtype? = null,
-  @field:JsonProperty("description")
+  @param:JsonProperty("description")
   @param:Optional
   val description: String? = null,
-  @field:JsonProperty("overflow")
+  @param:JsonProperty("overflow")
   val overflow: Boolean,
-  @field:JsonProperty("properties")
+  @param:JsonProperty("properties")
   val properties: List<PropertyPreview>,
-  @field:JsonProperty("entries")
+  @param:JsonProperty("entries")
   @param:Optional
   val entries: List<EntryPreview>? = null,
 )

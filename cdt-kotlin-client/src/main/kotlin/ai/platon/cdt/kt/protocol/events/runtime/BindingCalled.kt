@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.runtime
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -10,10 +11,10 @@ import kotlin.String
  */
 @Experimental
 data class BindingCalled(
-  @field:JsonProperty("name")
+  @param:JsonProperty("name")
   val name: String,
-  @field:JsonProperty("payload")
+  @param:JsonProperty("payload")
   val payload: String,
-  @field:JsonProperty("executionContextId")
+  @param:JsonProperty("executionContextId")
   val executionContextId: Int,
 )

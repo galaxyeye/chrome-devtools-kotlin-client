@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.audits
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -6,13 +7,13 @@ import kotlin.Int
 import kotlin.String
 
 data class SourceCodeLocation(
-  @field:JsonProperty("scriptId")
+  @param:JsonProperty("scriptId")
   @param:Optional
   val scriptId: String? = null,
-  @field:JsonProperty("url")
+  @param:JsonProperty("url")
   val url: String,
-  @field:JsonProperty("lineNumber")
+  @param:JsonProperty("lineNumber")
   val lineNumber: Int,
-  @field:JsonProperty("columnNumber")
+  @param:JsonProperty("columnNumber")
   val columnNumber: Int,
 )

@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.network
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
@@ -10,13 +11,13 @@ import kotlin.String
  */
 @Experimental
 data class RequestPattern(
-  @field:JsonProperty("urlPattern")
+  @param:JsonProperty("urlPattern")
   @param:Optional
   val urlPattern: String? = null,
-  @field:JsonProperty("resourceType")
+  @param:JsonProperty("resourceType")
   @param:Optional
   val resourceType: ResourceType? = null,
-  @field:JsonProperty("interceptionStage")
+  @param:JsonProperty("interceptionStage")
   @param:Optional
   val interceptionStage: InterceptionStage? = null,
 )

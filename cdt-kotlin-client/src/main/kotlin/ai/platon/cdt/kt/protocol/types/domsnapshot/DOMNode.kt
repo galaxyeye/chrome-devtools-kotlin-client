@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.domsnapshot
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -15,84 +16,84 @@ import kotlin.collections.List
  * A Node in the DOM tree.
  */
 data class DOMNode(
-  @field:JsonProperty("nodeType")
+  @param:JsonProperty("nodeType")
   val nodeType: Int,
-  @field:JsonProperty("nodeName")
+  @param:JsonProperty("nodeName")
   val nodeName: String,
-  @field:JsonProperty("nodeValue")
+  @param:JsonProperty("nodeValue")
   val nodeValue: String,
-  @field:JsonProperty("textValue")
+  @param:JsonProperty("textValue")
   @param:Optional
   val textValue: String? = null,
-  @field:JsonProperty("inputValue")
+  @param:JsonProperty("inputValue")
   @param:Optional
   val inputValue: String? = null,
-  @field:JsonProperty("inputChecked")
+  @param:JsonProperty("inputChecked")
   @param:Optional
   val inputChecked: Boolean? = null,
-  @field:JsonProperty("optionSelected")
+  @param:JsonProperty("optionSelected")
   @param:Optional
   val optionSelected: Boolean? = null,
-  @field:JsonProperty("backendNodeId")
+  @param:JsonProperty("backendNodeId")
   val backendNodeId: Int,
-  @field:JsonProperty("childNodeIndexes")
+  @param:JsonProperty("childNodeIndexes")
   @param:Optional
   val childNodeIndexes: List<Int>? = null,
-  @field:JsonProperty("attributes")
+  @param:JsonProperty("attributes")
   @param:Optional
   val attributes: List<NameValue>? = null,
-  @field:JsonProperty("pseudoElementIndexes")
+  @param:JsonProperty("pseudoElementIndexes")
   @param:Optional
   val pseudoElementIndexes: List<Int>? = null,
-  @field:JsonProperty("layoutNodeIndex")
+  @param:JsonProperty("layoutNodeIndex")
   @param:Optional
   val layoutNodeIndex: Int? = null,
-  @field:JsonProperty("documentURL")
+  @param:JsonProperty("documentURL")
   @param:Optional
   val documentURL: String? = null,
-  @field:JsonProperty("baseURL")
+  @param:JsonProperty("baseURL")
   @param:Optional
   val baseURL: String? = null,
-  @field:JsonProperty("contentLanguage")
+  @param:JsonProperty("contentLanguage")
   @param:Optional
   val contentLanguage: String? = null,
-  @field:JsonProperty("documentEncoding")
+  @param:JsonProperty("documentEncoding")
   @param:Optional
   val documentEncoding: String? = null,
-  @field:JsonProperty("publicId")
+  @param:JsonProperty("publicId")
   @param:Optional
   val publicId: String? = null,
-  @field:JsonProperty("systemId")
+  @param:JsonProperty("systemId")
   @param:Optional
   val systemId: String? = null,
-  @field:JsonProperty("frameId")
+  @param:JsonProperty("frameId")
   @param:Optional
   val frameId: String? = null,
-  @field:JsonProperty("contentDocumentIndex")
+  @param:JsonProperty("contentDocumentIndex")
   @param:Optional
   val contentDocumentIndex: Int? = null,
-  @field:JsonProperty("pseudoType")
+  @param:JsonProperty("pseudoType")
   @param:Optional
   val pseudoType: PseudoType? = null,
-  @field:JsonProperty("shadowRootType")
+  @param:JsonProperty("shadowRootType")
   @param:Optional
   val shadowRootType: ShadowRootType? = null,
-  @field:JsonProperty("isClickable")
+  @param:JsonProperty("isClickable")
   @param:Optional
   val isClickable: Boolean? = null,
-  @field:JsonProperty("eventListeners")
+  @param:JsonProperty("eventListeners")
   @param:Optional
   val eventListeners: List<EventListener>? = null,
-  @field:JsonProperty("currentSourceURL")
+  @param:JsonProperty("currentSourceURL")
   @param:Optional
   val currentSourceURL: String? = null,
-  @field:JsonProperty("originURL")
+  @param:JsonProperty("originURL")
   @param:Optional
   val originURL: String? = null,
-  @field:JsonProperty("scrollOffsetX")
+  @param:JsonProperty("scrollOffsetX")
   @param:Optional
   val scrollOffsetX: Double? = null,
-  @field:JsonProperty("scrollOffsetY")
+  @param:JsonProperty("scrollOffsetY")
   @param:Optional
   val scrollOffsetY: Double? = null,
 )

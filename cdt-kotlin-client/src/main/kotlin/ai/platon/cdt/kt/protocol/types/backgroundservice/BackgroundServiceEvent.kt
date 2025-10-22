@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.backgroundservice
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -6,18 +7,18 @@ import kotlin.String
 import kotlin.collections.List
 
 data class BackgroundServiceEvent(
-  @field:JsonProperty("timestamp")
+  @param:JsonProperty("timestamp")
   val timestamp: Double,
-  @field:JsonProperty("origin")
+  @param:JsonProperty("origin")
   val origin: String,
-  @field:JsonProperty("serviceWorkerRegistrationId")
+  @param:JsonProperty("serviceWorkerRegistrationId")
   val serviceWorkerRegistrationId: String,
-  @field:JsonProperty("service")
+  @param:JsonProperty("service")
   val service: ServiceName,
-  @field:JsonProperty("eventName")
+  @param:JsonProperty("eventName")
   val eventName: String,
-  @field:JsonProperty("instanceId")
+  @param:JsonProperty("instanceId")
   val instanceId: String,
-  @field:JsonProperty("eventMetadata")
+  @param:JsonProperty("eventMetadata")
   val eventMetadata: List<EventMetadata>,
 )

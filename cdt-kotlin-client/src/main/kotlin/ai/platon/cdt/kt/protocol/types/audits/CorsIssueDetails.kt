@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.audits
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -13,19 +14,19 @@ import kotlin.String
  * CORS RFC1918 enforcement.
  */
 data class CorsIssueDetails(
-  @field:JsonProperty("corsErrorStatus")
+  @param:JsonProperty("corsErrorStatus")
   val corsErrorStatus: CorsErrorStatus,
-  @field:JsonProperty("isWarning")
+  @param:JsonProperty("isWarning")
   val isWarning: Boolean,
-  @field:JsonProperty("request")
+  @param:JsonProperty("request")
   val request: AffectedRequest,
-  @field:JsonProperty("initiatorOrigin")
+  @param:JsonProperty("initiatorOrigin")
   @param:Optional
   val initiatorOrigin: String? = null,
-  @field:JsonProperty("resourceIPAddressSpace")
+  @param:JsonProperty("resourceIPAddressSpace")
   @param:Optional
   val resourceIPAddressSpace: IPAddressSpace? = null,
-  @field:JsonProperty("clientSecurityState")
+  @param:JsonProperty("clientSecurityState")
   @param:Optional
   val clientSecurityState: ClientSecurityState? = null,
 )

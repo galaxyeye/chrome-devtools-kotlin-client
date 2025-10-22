@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.commands
 
 import ai.platon.cdt.kt.protocol.events.tracing.BufferUsage
@@ -18,7 +19,6 @@ import ai.platon.cdt.kt.protocol.types.tracing.StreamCompression
 import ai.platon.cdt.kt.protocol.types.tracing.StreamFormat
 import ai.platon.cdt.kt.protocol.types.tracing.TraceConfig
 import ai.platon.cdt.kt.protocol.types.tracing.TracingBackend
-import java.lang.Deprecated
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.String
@@ -74,8 +74,8 @@ interface Tracing {
    * @param tracingBackend Backend type (defaults to `auto`)
    */
   suspend fun start(
-    @ParamName("categories") @Optional @Deprecated categories: String? = null,
-    @ParamName("options") @Optional @Deprecated options: String? = null,
+    @ParamName("categories") @Optional categories: String? = null,
+    @ParamName("options") @Optional options: String? = null,
     @ParamName("bufferUsageReportingInterval") @Optional bufferUsageReportingInterval: Double? = null,
     @ParamName("transferMode") @Optional transferMode: StartTransferMode? = null,
     @ParamName("streamFormat") @Optional streamFormat: StreamFormat? = null,

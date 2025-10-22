@@ -1,17 +1,18 @@
+@file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.browser
 
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
 data class Version(
-  @field:JsonProperty("protocolVersion")
+  @param:JsonProperty("protocolVersion")
   val protocolVersion: String,
-  @field:JsonProperty("product")
+  @param:JsonProperty("product")
   val product: String,
-  @field:JsonProperty("revision")
+  @param:JsonProperty("revision")
   val revision: String,
-  @field:JsonProperty("userAgent")
+  @param:JsonProperty("userAgent")
   val userAgent: String,
-  @field:JsonProperty("jsVersion")
+  @param:JsonProperty("jsVersion")
   val jsVersion: String,
 )

@@ -280,7 +280,11 @@ class KotlinCommandsBuilder(
             .returns(returnType)
 
         if (isDeprecated) {
-            overloadBuilder.addAnnotation(context.deprecatedAnnotation)
+            overloadBuilder.addAnnotation(
+                AnnotationSpec.builder(context.deprecatedAnnotation)
+                    .addMember("%S", "Deprecated by protocol")
+                    .build()
+            )
         }
         if (isExperimental) {
             overloadBuilder.addAnnotation(context.experimentalAnnotation)

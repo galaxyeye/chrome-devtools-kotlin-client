@@ -12,8 +12,12 @@ PROTOCOL_PARSER=cdt-protocol-parser
 CDT_CLIENT_DIR=cdt-kotlin-client
 CDT_CLIENT_PACKAGE=ai/platon/cdt/protocol
 
-PACKAGE_NAME=ai.platon.cdt.protocol
 LANGUAGE=kotlin
+ifeq ($(LANGUAGE),kotlin)
+PACKAGE_NAME=ai.platon.cdt.kt.protocol
+else
+PACKAGE_NAME=ai.platon.cdt.protocol
+endif
 JS_PROTOCOL_JSON_FILE=./js_protocol.json
 BROWSER_PROTOCOL_JSON_FILE=./browser_protocol.json
 

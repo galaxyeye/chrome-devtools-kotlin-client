@@ -4,10 +4,10 @@ import ai.platon.cdt.kt.protocol.support.annotations.Optional
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 public data class InlineStylesForNode(
-  @JsonProperty("inlineStyle")
-  @Optional
+  @field:JsonProperty("inlineStyle")
+  @param:Optional
   public val inlineStyle: CSSStyle? = null,
-  @JsonProperty("attributesStyle")
-  @Optional
+  @field:JsonProperty("attributesStyle")
+  @param:Optional
   public val attributesStyle: CSSStyle? = null,
 )

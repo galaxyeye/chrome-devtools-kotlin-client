@@ -10,8 +10,8 @@ import kotlin.collections.List
  */
 @Experimental
 public data class InstallabilityError(
-  @JsonProperty("errorId")
+  @field:JsonProperty("errorId")
   public val errorId: String,
-  @JsonProperty("errorArguments")
+  @field:JsonProperty("errorArguments")
   public val errorArguments: List<InstallabilityErrorArgument>,
 )

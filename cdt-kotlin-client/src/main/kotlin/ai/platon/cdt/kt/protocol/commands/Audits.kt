@@ -30,8 +30,8 @@ public interface Audits {
   public suspend fun getEncodedResponse(
     @ParamName("requestId") requestId: String,
     @ParamName("encoding") encoding: GetEncodedResponseEncoding,
-    @ParamName("quality") @Optional quality: Double?,
-    @ParamName("sizeOnly") @Optional sizeOnly: Boolean?,
+    @ParamName("quality") @Optional quality: Double? = null,
+    @ParamName("sizeOnly") @Optional sizeOnly: Boolean? = null,
   ): EncodedResponse
 
   public suspend fun getEncodedResponse(@ParamName("requestId") requestId: String,
@@ -55,7 +55,7 @@ public interface Audits {
    * using Audits.issueAdded event.
    * @param reportAAA Whether to report WCAG AAA level issues. Default is false.
    */
-  public suspend fun checkContrast(@ParamName("reportAAA") @Optional reportAAA: Boolean?)
+  public suspend fun checkContrast(@ParamName("reportAAA") @Optional reportAAA: Boolean? = null)
 
   public suspend fun checkContrast() {
     return checkContrast(null)

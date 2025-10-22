@@ -4,6 +4,6 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
 public data class AddHeapSnapshotChunk(
-  @JsonProperty("chunk")
+  @field:JsonProperty("chunk")
   public val chunk: String,
 )

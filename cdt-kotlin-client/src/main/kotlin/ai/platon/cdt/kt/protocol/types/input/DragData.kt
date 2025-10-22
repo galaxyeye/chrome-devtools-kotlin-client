@@ -7,8 +7,8 @@ import kotlin.collections.List
 
 @Experimental
 public data class DragData(
-  @JsonProperty("items")
+  @field:JsonProperty("items")
   public val items: List<DragDataItem>,
-  @JsonProperty("dragOperationsMask")
+  @field:JsonProperty("dragOperationsMask")
   public val dragOperationsMask: Int,
 )

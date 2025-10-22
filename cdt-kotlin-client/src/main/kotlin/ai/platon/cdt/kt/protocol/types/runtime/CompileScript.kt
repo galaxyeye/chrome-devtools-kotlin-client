@@ -5,10 +5,10 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
 public data class CompileScript(
-  @JsonProperty("scriptId")
-  @Optional
+  @field:JsonProperty("scriptId")
+  @param:Optional
   public val scriptId: String? = null,
-  @JsonProperty("exceptionDetails")
-  @Optional
+  @field:JsonProperty("exceptionDetails")
+  @param:Optional
   public val exceptionDetails: ExceptionDetails? = null,
 )

@@ -63,9 +63,9 @@ public interface LayerTree {
   @ReturnTypeParameter(Double::class)
   public suspend fun profileSnapshot(
     @ParamName("snapshotId") snapshotId: String,
-    @ParamName("minRepeatCount") @Optional minRepeatCount: Int?,
-    @ParamName("minDuration") @Optional minDuration: Double?,
-    @ParamName("clipRect") @Optional clipRect: Rect?,
+    @ParamName("minRepeatCount") @Optional minRepeatCount: Int? = null,
+    @ParamName("minDuration") @Optional minDuration: Double? = null,
+    @ParamName("clipRect") @Optional clipRect: Rect? = null,
   ): List<List<Double>>
 
   @Returns("timings")
@@ -91,9 +91,9 @@ public interface LayerTree {
   @Returns("dataURL")
   public suspend fun replaySnapshot(
     @ParamName("snapshotId") snapshotId: String,
-    @ParamName("fromStep") @Optional fromStep: Int?,
-    @ParamName("toStep") @Optional toStep: Int?,
-    @ParamName("scale") @Optional scale: Double?,
+    @ParamName("fromStep") @Optional fromStep: Int? = null,
+    @ParamName("toStep") @Optional toStep: Int? = null,
+    @ParamName("scale") @Optional scale: Double? = null,
   ): String
 
   @Returns("dataURL")
@@ -106,7 +106,7 @@ public interface LayerTree {
    * @param snapshotId The id of the layer snapshot.
    */
   @Returns("commandLog")
-  @ReturnTypeParameter(String::class, Any::class)
+  @ReturnTypeParameter(String::class, Any?::class)
   public suspend fun snapshotCommandLog(@ParamName("snapshotId") snapshotId: String):
       List<Map<String, Any?>>
 

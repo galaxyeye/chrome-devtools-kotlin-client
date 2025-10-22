@@ -7,13 +7,13 @@ import kotlin.String
 import kotlin.collections.List
 
 public data class ExecuteSQL(
-  @JsonProperty("columnNames")
-  @Optional
+  @field:JsonProperty("columnNames")
+  @param:Optional
   public val columnNames: List<String>? = null,
-  @JsonProperty("values")
-  @Optional
+  @field:JsonProperty("values")
+  @param:Optional
   public val values: List<Any?>? = null,
-  @JsonProperty("sqlError")
-  @Optional
+  @field:JsonProperty("sqlError")
+  @param:Optional
   public val sqlError: Error? = null,
 )

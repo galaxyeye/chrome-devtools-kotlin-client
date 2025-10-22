@@ -32,8 +32,8 @@ public interface DOMDebugger {
   @ReturnTypeParameter(EventListener::class)
   public suspend fun getEventListeners(
     @ParamName("objectId") objectId: String,
-    @ParamName("depth") @Optional depth: Int?,
-    @ParamName("pierce") @Optional pierce: Boolean?,
+    @ParamName("depth") @Optional depth: Int? = null,
+    @ParamName("pierce") @Optional pierce: Boolean? = null,
   ): List<EventListener>
 
   @Returns("listeners")
@@ -57,7 +57,7 @@ public interface DOMDebugger {
    * @param targetName EventTarget interface name.
    */
   public suspend fun removeEventListenerBreakpoint(@ParamName("eventName") eventName: String,
-      @ParamName("targetName") @Optional @Experimental targetName: String?)
+      @ParamName("targetName") @Optional @Experimental targetName: String? = null)
 
   public suspend fun removeEventListenerBreakpoint(@ParamName("eventName") eventName: String) {
     return removeEventListenerBreakpoint(eventName, null)
@@ -100,7 +100,7 @@ public interface DOMDebugger {
    * EventTarget.
    */
   public suspend fun setEventListenerBreakpoint(@ParamName("eventName") eventName: String,
-      @ParamName("targetName") @Optional @Experimental targetName: String?)
+      @ParamName("targetName") @Optional @Experimental targetName: String? = null)
 
   public suspend fun setEventListenerBreakpoint(@ParamName("eventName") eventName: String) {
     return setEventListenerBreakpoint(eventName, null)

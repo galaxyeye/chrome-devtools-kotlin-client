@@ -8,10 +8,10 @@ import kotlin.String
  * Frame identifier - manifest URL pair.
  */
 public data class FrameWithManifest(
-  @JsonProperty("frameId")
+  @field:JsonProperty("frameId")
   public val frameId: String,
-  @JsonProperty("manifestURL")
+  @field:JsonProperty("manifestURL")
   public val manifestURL: String,
-  @JsonProperty("status")
+  @field:JsonProperty("status")
   public val status: Int,
 )

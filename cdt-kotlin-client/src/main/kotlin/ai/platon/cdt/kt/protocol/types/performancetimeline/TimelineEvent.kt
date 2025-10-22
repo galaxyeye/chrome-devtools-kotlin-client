@@ -6,21 +6,21 @@ import kotlin.Double
 import kotlin.String
 
 public data class TimelineEvent(
-  @JsonProperty("frameId")
+  @field:JsonProperty("frameId")
   public val frameId: String,
-  @JsonProperty("type")
+  @field:JsonProperty("type")
   public val type: String,
-  @JsonProperty("name")
+  @field:JsonProperty("name")
   public val name: String,
-  @JsonProperty("time")
+  @field:JsonProperty("time")
   public val time: Double,
-  @JsonProperty("duration")
-  @Optional
+  @field:JsonProperty("duration")
+  @param:Optional
   public val duration: Double? = null,
-  @JsonProperty("lcpDetails")
-  @Optional
+  @field:JsonProperty("lcpDetails")
+  @param:Optional
   public val lcpDetails: LargestContentfulPaint? = null,
-  @JsonProperty("layoutShiftDetails")
-  @Optional
+  @field:JsonProperty("layoutShiftDetails")
+  @param:Optional
   public val layoutShiftDetails: LayoutShift? = null,
 )

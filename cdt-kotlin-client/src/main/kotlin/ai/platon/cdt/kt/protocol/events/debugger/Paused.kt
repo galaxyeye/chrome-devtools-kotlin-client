@@ -17,26 +17,26 @@ import kotlin.collections.Map
  * Fired when the virtual machine stopped on breakpoint or exception or any other stop criteria.
  */
 public data class Paused(
-  @JsonProperty("callFrames")
+  @field:JsonProperty("callFrames")
   public val callFrames: List<CallFrame>,
-  @JsonProperty("reason")
+  @field:JsonProperty("reason")
   public val reason: PausedReason,
-  @JsonProperty("data")
-  @Optional
+  @field:JsonProperty("data")
+  @param:Optional
   public val `data`: Map<String, Any?>? = null,
-  @JsonProperty("hitBreakpoints")
-  @Optional
+  @field:JsonProperty("hitBreakpoints")
+  @param:Optional
   public val hitBreakpoints: List<String>? = null,
-  @JsonProperty("asyncStackTrace")
-  @Optional
+  @field:JsonProperty("asyncStackTrace")
+  @param:Optional
   public val asyncStackTrace: StackTrace? = null,
-  @JsonProperty("asyncStackTraceId")
-  @Optional
-  @Experimental
+  @field:JsonProperty("asyncStackTraceId")
+  @param:Optional
+  @param:Experimental
   public val asyncStackTraceId: StackTraceId? = null,
-  @JsonProperty("asyncCallStackTraceId")
-  @Optional
-  @Deprecated
-  @Experimental
+  @field:JsonProperty("asyncCallStackTraceId")
+  @param:Optional
+  @param:Deprecated
+  @param:Experimental
   public val asyncCallStackTraceId: StackTraceId? = null,
 )

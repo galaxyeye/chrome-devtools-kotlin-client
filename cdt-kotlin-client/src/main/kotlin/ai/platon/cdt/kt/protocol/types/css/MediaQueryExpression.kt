@@ -9,16 +9,16 @@ import kotlin.String
  * Media query expression descriptor.
  */
 public data class MediaQueryExpression(
-  @JsonProperty("value")
+  @field:JsonProperty("value")
   public val `value`: Double,
-  @JsonProperty("unit")
+  @field:JsonProperty("unit")
   public val unit: String,
-  @JsonProperty("feature")
+  @field:JsonProperty("feature")
   public val feature: String,
-  @JsonProperty("valueRange")
-  @Optional
+  @field:JsonProperty("valueRange")
+  @param:Optional
   public val valueRange: SourceRange? = null,
-  @JsonProperty("computedLength")
-  @Optional
+  @field:JsonProperty("computedLength")
+  @param:Optional
   public val computedLength: Double? = null,
 )

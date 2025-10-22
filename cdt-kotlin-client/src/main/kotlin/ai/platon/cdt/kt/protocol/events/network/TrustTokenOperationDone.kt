@@ -16,19 +16,19 @@ import kotlin.String
  */
 @Experimental
 public data class TrustTokenOperationDone(
-  @JsonProperty("status")
+  @field:JsonProperty("status")
   public val status: TrustTokenOperationDoneStatus,
-  @JsonProperty("type")
+  @field:JsonProperty("type")
   public val type: TrustTokenOperationType,
-  @JsonProperty("requestId")
+  @field:JsonProperty("requestId")
   public val requestId: String,
-  @JsonProperty("topLevelOrigin")
-  @Optional
+  @field:JsonProperty("topLevelOrigin")
+  @param:Optional
   public val topLevelOrigin: String? = null,
-  @JsonProperty("issuerOrigin")
-  @Optional
+  @field:JsonProperty("issuerOrigin")
+  @param:Optional
   public val issuerOrigin: String? = null,
-  @JsonProperty("issuedTokenCount")
-  @Optional
+  @field:JsonProperty("issuedTokenCount")
+  @param:Optional
   public val issuedTokenCount: Int? = null,
 )

@@ -6,8 +6,8 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * An inspector issue reported from the back-end.
  */
 public data class InspectorIssue(
-  @JsonProperty("code")
+  @field:JsonProperty("code")
   public val code: InspectorIssueCode,
-  @JsonProperty("details")
+  @field:JsonProperty("details")
   public val details: InspectorIssueDetails,
 )

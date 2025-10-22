@@ -14,17 +14,17 @@ import kotlin.collections.List
  * The security state of the page changed.
  */
 public data class SecurityStateChanged(
-  @JsonProperty("securityState")
+  @field:JsonProperty("securityState")
   public val securityState: SecurityState,
-  @JsonProperty("schemeIsCryptographic")
-  @Deprecated
+  @field:JsonProperty("schemeIsCryptographic")
+  @param:Deprecated
   public val schemeIsCryptographic: Boolean,
-  @JsonProperty("explanations")
+  @field:JsonProperty("explanations")
   public val explanations: List<SecurityStateExplanation>,
-  @JsonProperty("insecureContentStatus")
-  @Deprecated
+  @field:JsonProperty("insecureContentStatus")
+  @param:Deprecated
   public val insecureContentStatus: InsecureContentStatus,
-  @JsonProperty("summary")
-  @Optional
+  @field:JsonProperty("summary")
+  @param:Optional
   public val summary: String? = null,
 )

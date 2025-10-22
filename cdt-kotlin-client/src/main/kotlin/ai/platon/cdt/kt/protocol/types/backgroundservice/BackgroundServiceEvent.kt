@@ -6,18 +6,18 @@ import kotlin.String
 import kotlin.collections.List
 
 public data class BackgroundServiceEvent(
-  @JsonProperty("timestamp")
+  @field:JsonProperty("timestamp")
   public val timestamp: Double,
-  @JsonProperty("origin")
+  @field:JsonProperty("origin")
   public val origin: String,
-  @JsonProperty("serviceWorkerRegistrationId")
+  @field:JsonProperty("serviceWorkerRegistrationId")
   public val serviceWorkerRegistrationId: String,
-  @JsonProperty("service")
+  @field:JsonProperty("service")
   public val service: ServiceName,
-  @JsonProperty("eventName")
+  @field:JsonProperty("eventName")
   public val eventName: String,
-  @JsonProperty("instanceId")
+  @field:JsonProperty("instanceId")
   public val instanceId: String,
-  @JsonProperty("eventMetadata")
+  @field:JsonProperty("eventMetadata")
   public val eventMetadata: List<EventMetadata>,
 )

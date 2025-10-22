@@ -7,8 +7,8 @@ import kotlin.Double
  * Violation configuration setting.
  */
 public data class ViolationSetting(
-  @JsonProperty("name")
+  @field:JsonProperty("name")
   public val name: ViolationSettingName,
-  @JsonProperty("threshold")
+  @field:JsonProperty("threshold")
   public val threshold: Double,
 )

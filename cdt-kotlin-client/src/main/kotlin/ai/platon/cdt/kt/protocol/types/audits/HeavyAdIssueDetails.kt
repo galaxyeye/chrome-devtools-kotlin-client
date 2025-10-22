@@ -3,10 +3,10 @@ package ai.platon.cdt.kt.protocol.types.audits
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 public data class HeavyAdIssueDetails(
-  @JsonProperty("resolution")
+  @field:JsonProperty("resolution")
   public val resolution: HeavyAdResolutionStatus,
-  @JsonProperty("reason")
+  @field:JsonProperty("reason")
   public val reason: HeavyAdReason,
-  @JsonProperty("frame")
+  @field:JsonProperty("frame")
   public val frame: AffectedFrame,
 )

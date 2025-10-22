@@ -10,16 +10,16 @@ import kotlin.collections.List
  * Call frames for assertions or error messages.
  */
 public data class StackTrace(
-  @JsonProperty("description")
-  @Optional
+  @field:JsonProperty("description")
+  @param:Optional
   public val description: String? = null,
-  @JsonProperty("callFrames")
+  @field:JsonProperty("callFrames")
   public val callFrames: List<CallFrame>,
-  @JsonProperty("parent")
-  @Optional
+  @field:JsonProperty("parent")
+  @param:Optional
   public val parent: StackTrace? = null,
-  @JsonProperty("parentId")
-  @Optional
-  @Experimental
+  @field:JsonProperty("parentId")
+  @param:Optional
+  @param:Experimental
   public val parentId: StackTraceId? = null,
 )

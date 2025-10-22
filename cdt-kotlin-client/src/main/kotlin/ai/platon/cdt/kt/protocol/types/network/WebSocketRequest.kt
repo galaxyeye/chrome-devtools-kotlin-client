@@ -9,6 +9,6 @@ import kotlin.collections.Map
  * WebSocket request data.
  */
 public data class WebSocketRequest(
-  @JsonProperty("headers")
+  @field:JsonProperty("headers")
   public val headers: Map<String, Any?>,
 )

@@ -6,14 +6,14 @@ import kotlin.Int
 import kotlin.String
 
 public data class BreakLocation(
-  @JsonProperty("scriptId")
+  @field:JsonProperty("scriptId")
   public val scriptId: String,
-  @JsonProperty("lineNumber")
+  @field:JsonProperty("lineNumber")
   public val lineNumber: Int,
-  @JsonProperty("columnNumber")
-  @Optional
+  @field:JsonProperty("columnNumber")
+  @param:Optional
   public val columnNumber: Int? = null,
-  @JsonProperty("type")
-  @Optional
+  @field:JsonProperty("type")
+  @param:Optional
   public val type: BreakLocationType? = null,
 )

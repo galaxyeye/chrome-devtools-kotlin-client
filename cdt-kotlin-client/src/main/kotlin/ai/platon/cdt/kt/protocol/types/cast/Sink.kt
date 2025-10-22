@@ -5,11 +5,11 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
 public data class Sink(
-  @JsonProperty("name")
+  @field:JsonProperty("name")
   public val name: String,
-  @JsonProperty("id")
+  @field:JsonProperty("id")
   public val id: String,
-  @JsonProperty("session")
-  @Optional
+  @field:JsonProperty("session")
+  @param:Optional
   public val session: String? = null,
 )

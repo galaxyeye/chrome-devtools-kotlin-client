@@ -9,49 +9,49 @@ import kotlin.collections.List
  * Table containing nodes.
  */
 public data class NodeTreeSnapshot(
-  @JsonProperty("parentIndex")
-  @Optional
+  @field:JsonProperty("parentIndex")
+  @param:Optional
   public val parentIndex: List<Int>? = null,
-  @JsonProperty("nodeType")
-  @Optional
+  @field:JsonProperty("nodeType")
+  @param:Optional
   public val nodeType: List<Int>? = null,
-  @JsonProperty("nodeName")
-  @Optional
+  @field:JsonProperty("nodeName")
+  @param:Optional
   public val nodeName: List<Int>? = null,
-  @JsonProperty("nodeValue")
-  @Optional
+  @field:JsonProperty("nodeValue")
+  @param:Optional
   public val nodeValue: List<Int>? = null,
-  @JsonProperty("backendNodeId")
-  @Optional
+  @field:JsonProperty("backendNodeId")
+  @param:Optional
   public val backendNodeId: List<Int>? = null,
-  @JsonProperty("attributes")
-  @Optional
+  @field:JsonProperty("attributes")
+  @param:Optional
   public val attributes: List<List<Int>>? = null,
-  @JsonProperty("textValue")
-  @Optional
+  @field:JsonProperty("textValue")
+  @param:Optional
   public val textValue: RareStringData? = null,
-  @JsonProperty("inputValue")
-  @Optional
+  @field:JsonProperty("inputValue")
+  @param:Optional
   public val inputValue: RareStringData? = null,
-  @JsonProperty("inputChecked")
-  @Optional
+  @field:JsonProperty("inputChecked")
+  @param:Optional
   public val inputChecked: RareBooleanData? = null,
-  @JsonProperty("optionSelected")
-  @Optional
+  @field:JsonProperty("optionSelected")
+  @param:Optional
   public val optionSelected: RareBooleanData? = null,
-  @JsonProperty("contentDocumentIndex")
-  @Optional
+  @field:JsonProperty("contentDocumentIndex")
+  @param:Optional
   public val contentDocumentIndex: RareIntegerData? = null,
-  @JsonProperty("pseudoType")
-  @Optional
+  @field:JsonProperty("pseudoType")
+  @param:Optional
   public val pseudoType: RareStringData? = null,
-  @JsonProperty("isClickable")
-  @Optional
+  @field:JsonProperty("isClickable")
+  @param:Optional
   public val isClickable: RareBooleanData? = null,
-  @JsonProperty("currentSourceURL")
-  @Optional
+  @field:JsonProperty("currentSourceURL")
+  @param:Optional
   public val currentSourceURL: RareStringData? = null,
-  @JsonProperty("originURL")
-  @Optional
+  @field:JsonProperty("originURL")
+  @param:Optional
   public val originURL: RareStringData? = null,
 )

@@ -8,14 +8,14 @@ import kotlin.String
  * Information about font variation axes for variable fonts
  */
 public data class FontVariationAxis(
-  @JsonProperty("tag")
+  @field:JsonProperty("tag")
   public val tag: String,
-  @JsonProperty("name")
+  @field:JsonProperty("name")
   public val name: String,
-  @JsonProperty("minValue")
+  @field:JsonProperty("minValue")
   public val minValue: Double,
-  @JsonProperty("maxValue")
+  @field:JsonProperty("maxValue")
   public val maxValue: Double,
-  @JsonProperty("defaultValue")
+  @field:JsonProperty("defaultValue")
   public val defaultValue: Double,
 )

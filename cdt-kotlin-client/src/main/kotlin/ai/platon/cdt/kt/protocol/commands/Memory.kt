@@ -39,8 +39,8 @@ public interface Memory {
    * @param samplingInterval Average number of bytes between samples.
    * @param suppressRandomness Do not randomize intervals between samples.
    */
-  public suspend fun startSampling(@ParamName("samplingInterval") @Optional samplingInterval: Int?,
-      @ParamName("suppressRandomness") @Optional suppressRandomness: Boolean?)
+  public suspend fun startSampling(@ParamName("samplingInterval") @Optional samplingInterval: Int? =
+      null, @ParamName("suppressRandomness") @Optional suppressRandomness: Boolean? = null)
 
   public suspend fun startSampling() {
     return startSampling(null, null)

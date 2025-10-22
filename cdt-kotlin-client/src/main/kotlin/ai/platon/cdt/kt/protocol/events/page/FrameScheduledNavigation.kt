@@ -11,12 +11,12 @@ import kotlin.String
  */
 @Deprecated
 public data class FrameScheduledNavigation(
-  @JsonProperty("frameId")
+  @field:JsonProperty("frameId")
   public val frameId: String,
-  @JsonProperty("delay")
+  @field:JsonProperty("delay")
   public val delay: Double,
-  @JsonProperty("reason")
+  @field:JsonProperty("reason")
   public val reason: ClientNavigationReason,
-  @JsonProperty("url")
+  @field:JsonProperty("url")
   public val url: String,
 )

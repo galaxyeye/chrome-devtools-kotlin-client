@@ -7,17 +7,17 @@ import kotlin.String
 
 @Experimental
 public data class PropertyPreview(
-  @JsonProperty("name")
+  @field:JsonProperty("name")
   public val name: String,
-  @JsonProperty("type")
+  @field:JsonProperty("type")
   public val type: PropertyPreviewType,
-  @JsonProperty("value")
-  @Optional
+  @field:JsonProperty("value")
+  @param:Optional
   public val `value`: String? = null,
-  @JsonProperty("valuePreview")
-  @Optional
+  @field:JsonProperty("valuePreview")
+  @param:Optional
   public val valuePreview: ObjectPreview? = null,
-  @JsonProperty("subtype")
-  @Optional
+  @field:JsonProperty("subtype")
+  @param:Optional
   public val subtype: PropertyPreviewSubtype? = null,
 )

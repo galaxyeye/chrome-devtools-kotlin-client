@@ -14,14 +14,14 @@ import kotlin.collections.Map
  */
 @Experimental
 public data class SignedExchangeHeader(
-  @JsonProperty("requestUrl")
+  @field:JsonProperty("requestUrl")
   public val requestUrl: String,
-  @JsonProperty("responseCode")
+  @field:JsonProperty("responseCode")
   public val responseCode: Int,
-  @JsonProperty("responseHeaders")
+  @field:JsonProperty("responseHeaders")
   public val responseHeaders: Map<String, Any?>,
-  @JsonProperty("signatures")
+  @field:JsonProperty("signatures")
   public val signatures: List<SignedExchangeSignature>,
-  @JsonProperty("headerIntegrity")
+  @field:JsonProperty("headerIntegrity")
   public val headerIntegrity: String,
 )

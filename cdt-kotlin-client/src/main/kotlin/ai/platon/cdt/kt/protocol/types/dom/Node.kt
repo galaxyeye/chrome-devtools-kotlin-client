@@ -13,83 +13,83 @@ import kotlin.collections.List
  * DOMNode is a base node mirror type.
  */
 public data class Node(
-  @JsonProperty("nodeId")
+  @field:JsonProperty("nodeId")
   public val nodeId: Int,
-  @JsonProperty("parentId")
-  @Optional
+  @field:JsonProperty("parentId")
+  @param:Optional
   public val parentId: Int? = null,
-  @JsonProperty("backendNodeId")
+  @field:JsonProperty("backendNodeId")
   public val backendNodeId: Int,
-  @JsonProperty("nodeType")
+  @field:JsonProperty("nodeType")
   public val nodeType: Int,
-  @JsonProperty("nodeName")
+  @field:JsonProperty("nodeName")
   public val nodeName: String,
-  @JsonProperty("localName")
+  @field:JsonProperty("localName")
   public val localName: String,
-  @JsonProperty("nodeValue")
+  @field:JsonProperty("nodeValue")
   public val nodeValue: String,
-  @JsonProperty("childNodeCount")
-  @Optional
+  @field:JsonProperty("childNodeCount")
+  @param:Optional
   public val childNodeCount: Int? = null,
-  @JsonProperty("children")
-  @Optional
+  @field:JsonProperty("children")
+  @param:Optional
   public val children: List<Node>? = null,
-  @JsonProperty("attributes")
-  @Optional
+  @field:JsonProperty("attributes")
+  @param:Optional
   public val attributes: List<String>? = null,
-  @JsonProperty("documentURL")
-  @Optional
+  @field:JsonProperty("documentURL")
+  @param:Optional
   public val documentURL: String? = null,
-  @JsonProperty("baseURL")
-  @Optional
+  @field:JsonProperty("baseURL")
+  @param:Optional
   public val baseURL: String? = null,
-  @JsonProperty("publicId")
-  @Optional
+  @field:JsonProperty("publicId")
+  @param:Optional
   public val publicId: String? = null,
-  @JsonProperty("systemId")
-  @Optional
+  @field:JsonProperty("systemId")
+  @param:Optional
   public val systemId: String? = null,
-  @JsonProperty("internalSubset")
-  @Optional
+  @field:JsonProperty("internalSubset")
+  @param:Optional
   public val internalSubset: String? = null,
-  @JsonProperty("xmlVersion")
-  @Optional
+  @field:JsonProperty("xmlVersion")
+  @param:Optional
   public val xmlVersion: String? = null,
-  @JsonProperty("name")
-  @Optional
+  @field:JsonProperty("name")
+  @param:Optional
   public val name: String? = null,
-  @JsonProperty("value")
-  @Optional
+  @field:JsonProperty("value")
+  @param:Optional
   public val `value`: String? = null,
-  @JsonProperty("pseudoType")
-  @Optional
+  @field:JsonProperty("pseudoType")
+  @param:Optional
   public val pseudoType: PseudoType? = null,
-  @JsonProperty("shadowRootType")
-  @Optional
+  @field:JsonProperty("shadowRootType")
+  @param:Optional
   public val shadowRootType: ShadowRootType? = null,
-  @JsonProperty("frameId")
-  @Optional
+  @field:JsonProperty("frameId")
+  @param:Optional
   public val frameId: String? = null,
-  @JsonProperty("contentDocument")
-  @Optional
+  @field:JsonProperty("contentDocument")
+  @param:Optional
   public val contentDocument: Node? = null,
-  @JsonProperty("shadowRoots")
-  @Optional
+  @field:JsonProperty("shadowRoots")
+  @param:Optional
   public val shadowRoots: List<Node>? = null,
-  @JsonProperty("templateContent")
-  @Optional
+  @field:JsonProperty("templateContent")
+  @param:Optional
   public val templateContent: Node? = null,
-  @JsonProperty("pseudoElements")
-  @Optional
+  @field:JsonProperty("pseudoElements")
+  @param:Optional
   public val pseudoElements: List<Node>? = null,
-  @JsonProperty("importedDocument")
-  @Optional
-  @Deprecated
+  @field:JsonProperty("importedDocument")
+  @param:Optional
+  @param:Deprecated
   public val importedDocument: Node? = null,
-  @JsonProperty("distributedNodes")
-  @Optional
+  @field:JsonProperty("distributedNodes")
+  @param:Optional
   public val distributedNodes: List<BackendNode>? = null,
-  @JsonProperty("isSVG")
-  @Optional
+  @field:JsonProperty("isSVG")
+  @param:Optional
   public val isSVG: Boolean? = null,
 )

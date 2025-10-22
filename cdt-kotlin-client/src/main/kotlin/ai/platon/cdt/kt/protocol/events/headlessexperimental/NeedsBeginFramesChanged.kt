@@ -11,6 +11,6 @@ import kotlin.Boolean
  */
 @Deprecated
 public data class NeedsBeginFramesChanged(
-  @JsonProperty("needsBeginFrames")
+  @field:JsonProperty("needsBeginFrames")
   public val needsBeginFrames: Boolean,
 )

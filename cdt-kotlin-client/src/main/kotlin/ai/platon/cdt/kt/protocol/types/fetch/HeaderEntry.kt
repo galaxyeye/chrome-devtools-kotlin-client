@@ -7,8 +7,8 @@ import kotlin.String
  * Response HTTP header entry
  */
 public data class HeaderEntry(
-  @JsonProperty("name")
+  @field:JsonProperty("name")
   public val name: String,
-  @JsonProperty("value")
+  @field:JsonProperty("value")
   public val `value`: String,
 )

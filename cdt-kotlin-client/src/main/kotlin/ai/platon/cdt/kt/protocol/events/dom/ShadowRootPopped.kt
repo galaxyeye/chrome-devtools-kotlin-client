@@ -9,8 +9,8 @@ import kotlin.Int
  */
 @Experimental
 public data class ShadowRootPopped(
-  @JsonProperty("hostId")
+  @field:JsonProperty("hostId")
   public val hostId: Int,
-  @JsonProperty("rootId")
+  @field:JsonProperty("rootId")
   public val rootId: Int,
 )

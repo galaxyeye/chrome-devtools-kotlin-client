@@ -4,14 +4,14 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
 public data class Version(
-  @JsonProperty("protocolVersion")
+  @field:JsonProperty("protocolVersion")
   public val protocolVersion: String,
-  @JsonProperty("product")
+  @field:JsonProperty("product")
   public val product: String,
-  @JsonProperty("revision")
+  @field:JsonProperty("revision")
   public val revision: String,
-  @JsonProperty("userAgent")
+  @field:JsonProperty("userAgent")
   public val userAgent: String,
-  @JsonProperty("jsVersion")
+  @field:JsonProperty("jsVersion")
   public val jsVersion: String,
 )

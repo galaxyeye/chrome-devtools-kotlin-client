@@ -8,8 +8,8 @@ import kotlin.collections.List
  * Selector list data.
  */
 public data class SelectorList(
-  @JsonProperty("selectors")
+  @field:JsonProperty("selectors")
   public val selectors: List<Value>,
-  @JsonProperty("text")
+  @field:JsonProperty("text")
   public val text: String,
 )

@@ -6,17 +6,17 @@ import kotlin.Int
 import kotlin.String
 
 public data class TrustedWebActivityIssueDetails(
-  @JsonProperty("url")
+  @field:JsonProperty("url")
   public val url: String,
-  @JsonProperty("violationType")
+  @field:JsonProperty("violationType")
   public val violationType: TwaQualityEnforcementViolationType,
-  @JsonProperty("httpStatusCode")
-  @Optional
+  @field:JsonProperty("httpStatusCode")
+  @param:Optional
   public val httpStatusCode: Int? = null,
-  @JsonProperty("packageName")
-  @Optional
+  @field:JsonProperty("packageName")
+  @param:Optional
   public val packageName: String? = null,
-  @JsonProperty("signature")
-  @Optional
+  @field:JsonProperty("signature")
+  @param:Optional
   public val signature: String? = null,
 )

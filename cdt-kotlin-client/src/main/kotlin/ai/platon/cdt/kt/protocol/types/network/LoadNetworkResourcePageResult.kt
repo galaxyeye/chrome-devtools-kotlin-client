@@ -14,21 +14,21 @@ import kotlin.collections.Map
  */
 @Experimental
 public data class LoadNetworkResourcePageResult(
-  @JsonProperty("success")
+  @field:JsonProperty("success")
   public val success: Boolean,
-  @JsonProperty("netError")
-  @Optional
+  @field:JsonProperty("netError")
+  @param:Optional
   public val netError: Double? = null,
-  @JsonProperty("netErrorName")
-  @Optional
+  @field:JsonProperty("netErrorName")
+  @param:Optional
   public val netErrorName: String? = null,
-  @JsonProperty("httpStatusCode")
-  @Optional
+  @field:JsonProperty("httpStatusCode")
+  @param:Optional
   public val httpStatusCode: Double? = null,
-  @JsonProperty("stream")
-  @Optional
+  @field:JsonProperty("stream")
+  @param:Optional
   public val stream: String? = null,
-  @JsonProperty("headers")
-  @Optional
+  @field:JsonProperty("headers")
+  @param:Optional
   public val headers: Map<String, Any?>? = null,
 )

@@ -9,6 +9,6 @@ import kotlin.String
  */
 @Experimental
 public data class TypeObject(
-  @JsonProperty("name")
+  @field:JsonProperty("name")
   public val name: String,
 )

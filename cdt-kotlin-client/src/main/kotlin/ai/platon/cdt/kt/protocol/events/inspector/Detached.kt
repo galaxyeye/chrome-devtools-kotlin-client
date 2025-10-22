@@ -7,6 +7,6 @@ import kotlin.String
  * Fired when remote debugging connection is about to be terminated. Contains detach reason.
  */
 public data class Detached(
-  @JsonProperty("reason")
+  @field:JsonProperty("reason")
   public val reason: String,
 )

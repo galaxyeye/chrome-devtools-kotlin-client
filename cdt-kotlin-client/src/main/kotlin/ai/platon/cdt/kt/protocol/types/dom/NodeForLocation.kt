@@ -6,11 +6,11 @@ import kotlin.Int
 import kotlin.String
 
 public data class NodeForLocation(
-  @JsonProperty("backendNodeId")
+  @field:JsonProperty("backendNodeId")
   public val backendNodeId: Int,
-  @JsonProperty("frameId")
+  @field:JsonProperty("frameId")
   public val frameId: String,
-  @JsonProperty("nodeId")
-  @Optional
+  @field:JsonProperty("nodeId")
+  @param:Optional
   public val nodeId: Int? = null,
 )

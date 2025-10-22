@@ -9,13 +9,13 @@ import kotlin.String
  * Information about the cached resource.
  */
 public data class CachedResource(
-  @JsonProperty("url")
+  @field:JsonProperty("url")
   public val url: String,
-  @JsonProperty("type")
+  @field:JsonProperty("type")
   public val type: ResourceType,
-  @JsonProperty("response")
-  @Optional
+  @field:JsonProperty("response")
+  @param:Optional
   public val response: Response? = null,
-  @JsonProperty("bodySize")
+  @field:JsonProperty("bodySize")
   public val bodySize: Double,
 )

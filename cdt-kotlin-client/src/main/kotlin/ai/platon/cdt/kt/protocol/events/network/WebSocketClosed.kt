@@ -8,8 +8,8 @@ import kotlin.String
  * Fired when WebSocket is closed.
  */
 public data class WebSocketClosed(
-  @JsonProperty("requestId")
+  @field:JsonProperty("requestId")
   public val requestId: String,
-  @JsonProperty("timestamp")
+  @field:JsonProperty("timestamp")
   public val timestamp: Double,
 )

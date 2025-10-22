@@ -9,12 +9,12 @@ import kotlin.String
  * CSS coverage information.
  */
 public data class RuleUsage(
-  @JsonProperty("styleSheetId")
+  @field:JsonProperty("styleSheetId")
   public val styleSheetId: String,
-  @JsonProperty("startOffset")
+  @field:JsonProperty("startOffset")
   public val startOffset: Double,
-  @JsonProperty("endOffset")
+  @field:JsonProperty("endOffset")
   public val endOffset: Double,
-  @JsonProperty("used")
+  @field:JsonProperty("used")
   public val used: Boolean,
 )

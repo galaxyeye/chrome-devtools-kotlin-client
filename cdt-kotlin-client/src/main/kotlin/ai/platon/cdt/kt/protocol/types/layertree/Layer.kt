@@ -12,45 +12,45 @@ import kotlin.collections.List
  * Information about a compositing layer.
  */
 public data class Layer(
-  @JsonProperty("layerId")
+  @field:JsonProperty("layerId")
   public val layerId: String,
-  @JsonProperty("parentLayerId")
-  @Optional
+  @field:JsonProperty("parentLayerId")
+  @param:Optional
   public val parentLayerId: String? = null,
-  @JsonProperty("backendNodeId")
-  @Optional
+  @field:JsonProperty("backendNodeId")
+  @param:Optional
   public val backendNodeId: Int? = null,
-  @JsonProperty("offsetX")
+  @field:JsonProperty("offsetX")
   public val offsetX: Double,
-  @JsonProperty("offsetY")
+  @field:JsonProperty("offsetY")
   public val offsetY: Double,
-  @JsonProperty("width")
+  @field:JsonProperty("width")
   public val width: Double,
-  @JsonProperty("height")
+  @field:JsonProperty("height")
   public val height: Double,
-  @JsonProperty("transform")
-  @Optional
+  @field:JsonProperty("transform")
+  @param:Optional
   public val transform: List<Double>? = null,
-  @JsonProperty("anchorX")
-  @Optional
+  @field:JsonProperty("anchorX")
+  @param:Optional
   public val anchorX: Double? = null,
-  @JsonProperty("anchorY")
-  @Optional
+  @field:JsonProperty("anchorY")
+  @param:Optional
   public val anchorY: Double? = null,
-  @JsonProperty("anchorZ")
-  @Optional
+  @field:JsonProperty("anchorZ")
+  @param:Optional
   public val anchorZ: Double? = null,
-  @JsonProperty("paintCount")
+  @field:JsonProperty("paintCount")
   public val paintCount: Int,
-  @JsonProperty("drawsContent")
+  @field:JsonProperty("drawsContent")
   public val drawsContent: Boolean,
-  @JsonProperty("invisible")
-  @Optional
+  @field:JsonProperty("invisible")
+  @param:Optional
   public val invisible: Boolean? = null,
-  @JsonProperty("scrollRects")
-  @Optional
+  @field:JsonProperty("scrollRects")
+  @param:Optional
   public val scrollRects: List<ScrollRect>? = null,
-  @JsonProperty("stickyPositionConstraint")
-  @Optional
+  @field:JsonProperty("stickyPositionConstraint")
+  @param:Optional
   public val stickyPositionConstraint: StickyPositionConstraint? = null,
 )

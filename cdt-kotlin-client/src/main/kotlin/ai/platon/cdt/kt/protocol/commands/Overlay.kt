@@ -54,17 +54,17 @@ public interface Overlay {
    * @param showAccessibilityInfo Whether to show accessibility info (default: true).
    */
   @Returns("highlight")
-  @ReturnTypeParameter(String::class, Any::class)
+  @ReturnTypeParameter(String::class, Any?::class)
   public suspend fun getHighlightObjectForTest(
     @ParamName("nodeId") nodeId: Int,
-    @ParamName("includeDistance") @Optional includeDistance: Boolean?,
-    @ParamName("includeStyle") @Optional includeStyle: Boolean?,
-    @ParamName("colorFormat") @Optional colorFormat: ColorFormat?,
-    @ParamName("showAccessibilityInfo") @Optional showAccessibilityInfo: Boolean?,
+    @ParamName("includeDistance") @Optional includeDistance: Boolean? = null,
+    @ParamName("includeStyle") @Optional includeStyle: Boolean? = null,
+    @ParamName("colorFormat") @Optional colorFormat: ColorFormat? = null,
+    @ParamName("showAccessibilityInfo") @Optional showAccessibilityInfo: Boolean? = null,
   ): Map<String, Any?>
 
   @Returns("highlight")
-  @ReturnTypeParameter(String::class, Any::class)
+  @ReturnTypeParameter(String::class, Any?::class)
   public suspend fun getHighlightObjectForTest(@ParamName("nodeId") nodeId: Int):
       Map<String, Any?> {
     return getHighlightObjectForTest(nodeId, null, null, null, null)
@@ -75,7 +75,7 @@ public interface Overlay {
    * @param nodeIds Ids of the node to get highlight object for.
    */
   @Returns("highlights")
-  @ReturnTypeParameter(String::class, Any::class)
+  @ReturnTypeParameter(String::class, Any?::class)
   public suspend fun getGridHighlightObjectsForTest(@ParamName("nodeIds") nodeIds: List<Int>):
       Map<String, Any?>
 
@@ -84,7 +84,7 @@ public interface Overlay {
    * @param nodeId Id of the node to highlight.
    */
   @Returns("highlight")
-  @ReturnTypeParameter(String::class, Any::class)
+  @ReturnTypeParameter(String::class, Any?::class)
   public suspend fun getSourceOrderHighlightObjectForTest(@ParamName("nodeId") nodeId: Int):
       Map<String, Any?>
 
@@ -101,8 +101,8 @@ public interface Overlay {
    */
   public suspend fun highlightFrame(
     @ParamName("frameId") frameId: String,
-    @ParamName("contentColor") @Optional contentColor: RGBA?,
-    @ParamName("contentOutlineColor") @Optional contentOutlineColor: RGBA?,
+    @ParamName("contentColor") @Optional contentColor: RGBA? = null,
+    @ParamName("contentOutlineColor") @Optional contentOutlineColor: RGBA? = null,
   )
 
   public suspend fun highlightFrame(@ParamName("frameId") frameId: String) {
@@ -120,10 +120,10 @@ public interface Overlay {
    */
   public suspend fun highlightNode(
     @ParamName("highlightConfig") highlightConfig: HighlightConfig,
-    @ParamName("nodeId") @Optional nodeId: Int?,
-    @ParamName("backendNodeId") @Optional backendNodeId: Int?,
-    @ParamName("objectId") @Optional objectId: String?,
-    @ParamName("selector") @Optional selector: String?,
+    @ParamName("nodeId") @Optional nodeId: Int? = null,
+    @ParamName("backendNodeId") @Optional backendNodeId: Int? = null,
+    @ParamName("objectId") @Optional objectId: String? = null,
+    @ParamName("selector") @Optional selector: String? = null,
   )
 
   public suspend fun highlightNode(@ParamName("highlightConfig") highlightConfig: HighlightConfig) {
@@ -138,8 +138,8 @@ public interface Overlay {
    */
   public suspend fun highlightQuad(
     @ParamName("quad") quad: List<Double>,
-    @ParamName("color") @Optional color: RGBA?,
-    @ParamName("outlineColor") @Optional outlineColor: RGBA?,
+    @ParamName("color") @Optional color: RGBA? = null,
+    @ParamName("outlineColor") @Optional outlineColor: RGBA? = null,
   )
 
   public suspend fun highlightQuad(@ParamName("quad") quad: List<Double>) {
@@ -160,8 +160,8 @@ public interface Overlay {
     @ParamName("y") y: Int,
     @ParamName("width") width: Int,
     @ParamName("height") height: Int,
-    @ParamName("color") @Optional color: RGBA?,
-    @ParamName("outlineColor") @Optional outlineColor: RGBA?,
+    @ParamName("color") @Optional color: RGBA? = null,
+    @ParamName("outlineColor") @Optional outlineColor: RGBA? = null,
   )
 
   public suspend fun highlightRect(
@@ -183,9 +183,9 @@ public interface Overlay {
    */
   public suspend fun highlightSourceOrder(
     @ParamName("sourceOrderConfig") sourceOrderConfig: SourceOrderConfig,
-    @ParamName("nodeId") @Optional nodeId: Int?,
-    @ParamName("backendNodeId") @Optional backendNodeId: Int?,
-    @ParamName("objectId") @Optional objectId: String?,
+    @ParamName("nodeId") @Optional nodeId: Int? = null,
+    @ParamName("backendNodeId") @Optional backendNodeId: Int? = null,
+    @ParamName("objectId") @Optional objectId: String? = null,
   )
 
   public suspend fun highlightSourceOrder(@ParamName("sourceOrderConfig")
@@ -202,7 +202,7 @@ public interface Overlay {
    * == false`.
    */
   public suspend fun setInspectMode(@ParamName("mode") mode: InspectMode,
-      @ParamName("highlightConfig") @Optional highlightConfig: HighlightConfig?)
+      @ParamName("highlightConfig") @Optional highlightConfig: HighlightConfig? = null)
 
   public suspend fun setInspectMode(@ParamName("mode") mode: InspectMode) {
     return setInspectMode(mode, null)
@@ -217,7 +217,8 @@ public interface Overlay {
   /**
    * @param message The message to display, also triggers resume and step over controls.
    */
-  public suspend fun setPausedInDebuggerMessage(@ParamName("message") @Optional message: String?)
+  public suspend fun setPausedInDebuggerMessage(@ParamName("message") @Optional message: String? =
+      null)
 
   public suspend fun setPausedInDebuggerMessage() {
     return setPausedInDebuggerMessage(null)
@@ -297,7 +298,8 @@ public interface Overlay {
    * Add a dual screen device hinge
    * @param hingeConfig hinge data, null means hideHinge
    */
-  public suspend fun setShowHinge(@ParamName("hingeConfig") @Optional hingeConfig: HingeConfig?)
+  public suspend fun setShowHinge(@ParamName("hingeConfig") @Optional hingeConfig: HingeConfig? =
+      null)
 
   public suspend fun setShowHinge() {
     return setShowHinge(null)

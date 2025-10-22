@@ -7,15 +7,15 @@ import kotlin.String
 import kotlin.collections.List
 
 public data class AppManifest(
-  @JsonProperty("url")
+  @field:JsonProperty("url")
   public val url: String,
-  @JsonProperty("errors")
+  @field:JsonProperty("errors")
   public val errors: List<AppManifestError>,
-  @JsonProperty("data")
-  @Optional
+  @field:JsonProperty("data")
+  @param:Optional
   public val `data`: String? = null,
-  @JsonProperty("parsed")
-  @Optional
-  @Experimental
+  @field:JsonProperty("parsed")
+  @param:Optional
+  @param:Experimental
   public val parsed: AppManifestParsedProperties? = null,
 )

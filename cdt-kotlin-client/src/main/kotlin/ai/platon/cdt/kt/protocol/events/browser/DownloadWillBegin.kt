@@ -9,12 +9,12 @@ import kotlin.String
  */
 @Experimental
 public data class DownloadWillBegin(
-  @JsonProperty("frameId")
+  @field:JsonProperty("frameId")
   public val frameId: String,
-  @JsonProperty("guid")
+  @field:JsonProperty("guid")
   public val guid: String,
-  @JsonProperty("url")
+  @field:JsonProperty("url")
   public val url: String,
-  @JsonProperty("suggestedFilename")
+  @field:JsonProperty("suggestedFilename")
   public val suggestedFilename: String,
 )

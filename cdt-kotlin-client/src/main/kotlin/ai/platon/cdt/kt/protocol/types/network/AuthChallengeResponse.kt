@@ -10,12 +10,12 @@ import kotlin.String
  */
 @Experimental
 public data class AuthChallengeResponse(
-  @JsonProperty("response")
+  @field:JsonProperty("response")
   public val response: AuthChallengeResponseResponse,
-  @JsonProperty("username")
-  @Optional
+  @field:JsonProperty("username")
+  @param:Optional
   public val username: String? = null,
-  @JsonProperty("password")
-  @Optional
+  @field:JsonProperty("password")
+  @param:Optional
   public val password: String? = null,
 )

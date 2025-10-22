@@ -8,10 +8,10 @@ import kotlin.Int
  * Mirrors `DOMNodeInserted` event.
  */
 public data class ChildNodeInserted(
-  @JsonProperty("parentNodeId")
+  @field:JsonProperty("parentNodeId")
   public val parentNodeId: Int,
-  @JsonProperty("previousNodeId")
+  @field:JsonProperty("previousNodeId")
   public val previousNodeId: Int,
-  @JsonProperty("node")
+  @field:JsonProperty("node")
   public val node: Node,
 )

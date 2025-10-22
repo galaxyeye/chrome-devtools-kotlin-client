@@ -9,10 +9,10 @@ import kotlin.String
  * Information about amount of glyphs that were rendered with given font.
  */
 public data class PlatformFontUsage(
-  @JsonProperty("familyName")
+  @field:JsonProperty("familyName")
   public val familyName: String,
-  @JsonProperty("isCustomFont")
+  @field:JsonProperty("isCustomFont")
   public val isCustomFont: Boolean,
-  @JsonProperty("glyphCount")
+  @field:JsonProperty("glyphCount")
   public val glyphCount: Double,
 )

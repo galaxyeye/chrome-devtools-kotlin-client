@@ -13,11 +13,11 @@ import kotlin.collections.List
  */
 @Experimental
 public data class TrustTokenParams(
-  @JsonProperty("type")
+  @field:JsonProperty("type")
   public val type: TrustTokenOperationType,
-  @JsonProperty("refreshPolicy")
+  @field:JsonProperty("refreshPolicy")
   public val refreshPolicy: TrustTokenParamsRefreshPolicy,
-  @JsonProperty("issuers")
-  @Optional
+  @field:JsonProperty("issuers")
+  @param:Optional
   public val issuers: List<String>? = null,
 )

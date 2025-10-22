@@ -6,7 +6,7 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.collections.List
 
 public data class LayerTreeDidChange(
-  @JsonProperty("layers")
-  @Optional
+  @field:JsonProperty("layers")
+  @param:Optional
   public val layers: List<Layer>? = null,
 )

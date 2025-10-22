@@ -11,10 +11,10 @@ import kotlin.String
  */
 @Experimental
 public data class ScreencastFrame(
-  @JsonProperty("data")
+  @field:JsonProperty("data")
   public val `data`: String,
-  @JsonProperty("metadata")
+  @field:JsonProperty("metadata")
   public val metadata: ScreencastFrameMetadata,
-  @JsonProperty("sessionId")
+  @field:JsonProperty("sessionId")
   public val sessionId: Int,
 )

@@ -8,9 +8,9 @@ import kotlin.String
  * Debug symbols available for a wasm script.
  */
 public data class DebugSymbols(
-  @JsonProperty("type")
+  @field:JsonProperty("type")
   public val type: DebugSymbolsType,
-  @JsonProperty("externalURL")
-  @Optional
+  @field:JsonProperty("externalURL")
+  @param:Optional
   public val externalURL: String? = null,
 )

@@ -6,8 +6,8 @@ import kotlin.String
 
 @Experimental
 public data class InstallabilityErrorArgument(
-  @JsonProperty("name")
+  @field:JsonProperty("name")
   public val name: String,
-  @JsonProperty("value")
+  @field:JsonProperty("value")
   public val `value`: String,
 )

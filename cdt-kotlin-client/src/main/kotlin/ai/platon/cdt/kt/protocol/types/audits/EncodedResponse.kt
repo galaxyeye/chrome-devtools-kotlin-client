@@ -6,11 +6,11 @@ import kotlin.Int
 import kotlin.String
 
 public data class EncodedResponse(
-  @JsonProperty("body")
-  @Optional
+  @field:JsonProperty("body")
+  @param:Optional
   public val body: String? = null,
-  @JsonProperty("originalSize")
+  @field:JsonProperty("originalSize")
   public val originalSize: Int,
-  @JsonProperty("encodedSize")
+  @field:JsonProperty("encodedSize")
   public val encodedSize: Int,
 )

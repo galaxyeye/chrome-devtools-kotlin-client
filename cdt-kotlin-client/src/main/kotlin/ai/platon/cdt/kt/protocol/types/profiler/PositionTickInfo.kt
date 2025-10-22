@@ -7,8 +7,8 @@ import kotlin.Int
  * Specifies a number of samples attributed to a certain source position.
  */
 public data class PositionTickInfo(
-  @JsonProperty("line")
+  @field:JsonProperty("line")
   public val line: Int,
-  @JsonProperty("ticks")
+  @field:JsonProperty("ticks")
   public val ticks: Int,
 )

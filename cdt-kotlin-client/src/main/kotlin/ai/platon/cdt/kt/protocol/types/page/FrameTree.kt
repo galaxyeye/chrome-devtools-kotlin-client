@@ -8,9 +8,9 @@ import kotlin.collections.List
  * Information about the Frame hierarchy.
  */
 public data class FrameTree(
-  @JsonProperty("frame")
+  @field:JsonProperty("frame")
   public val frame: Frame,
-  @JsonProperty("childFrames")
-  @Optional
+  @field:JsonProperty("childFrames")
+  @param:Optional
   public val childFrames: List<FrameTree>? = null,
 )

@@ -12,12 +12,12 @@ import kotlin.String
  */
 @Experimental
 public data class FrameRequestedNavigation(
-  @JsonProperty("frameId")
+  @field:JsonProperty("frameId")
   public val frameId: String,
-  @JsonProperty("reason")
+  @field:JsonProperty("reason")
   public val reason: ClientNavigationReason,
-  @JsonProperty("url")
+  @field:JsonProperty("url")
   public val url: String,
-  @JsonProperty("disposition")
+  @field:JsonProperty("disposition")
   public val disposition: ClientNavigationDisposition,
 )

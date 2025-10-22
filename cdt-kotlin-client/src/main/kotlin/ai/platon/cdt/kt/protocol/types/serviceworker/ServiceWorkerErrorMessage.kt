@@ -8,16 +8,16 @@ import kotlin.String
  * ServiceWorker error message.
  */
 public data class ServiceWorkerErrorMessage(
-  @JsonProperty("errorMessage")
+  @field:JsonProperty("errorMessage")
   public val errorMessage: String,
-  @JsonProperty("registrationId")
+  @field:JsonProperty("registrationId")
   public val registrationId: String,
-  @JsonProperty("versionId")
+  @field:JsonProperty("versionId")
   public val versionId: String,
-  @JsonProperty("sourceURL")
+  @field:JsonProperty("sourceURL")
   public val sourceURL: String,
-  @JsonProperty("lineNumber")
+  @field:JsonProperty("lineNumber")
   public val lineNumber: Int,
-  @JsonProperty("columnNumber")
+  @field:JsonProperty("columnNumber")
   public val columnNumber: Int,
 )

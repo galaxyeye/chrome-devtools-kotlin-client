@@ -5,8 +5,8 @@ import kotlin.String
 import kotlin.collections.List
 
 public data class CaptureSnapshot(
-  @JsonProperty("documents")
+  @field:JsonProperty("documents")
   public val documents: List<DocumentSnapshot>,
-  @JsonProperty("strings")
+  @field:JsonProperty("strings")
   public val strings: List<String>,
 )

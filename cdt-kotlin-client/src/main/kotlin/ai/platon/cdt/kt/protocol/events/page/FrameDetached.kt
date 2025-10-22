@@ -9,9 +9,9 @@ import kotlin.String
  * Fired when frame has been detached from its parent.
  */
 public data class FrameDetached(
-  @JsonProperty("frameId")
+  @field:JsonProperty("frameId")
   public val frameId: String,
-  @JsonProperty("reason")
-  @Experimental
+  @field:JsonProperty("reason")
+  @param:Experimental
   public val reason: FrameDetachedReason,
 )

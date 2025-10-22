@@ -10,8 +10,8 @@ import kotlin.collections.List
  * remove player properties. A null propValue indicates removal.
  */
 public data class PlayerPropertiesChanged(
-  @JsonProperty("playerId")
+  @field:JsonProperty("playerId")
   public val playerId: String,
-  @JsonProperty("properties")
+  @field:JsonProperty("properties")
   public val properties: List<PlayerProperty>,
 )

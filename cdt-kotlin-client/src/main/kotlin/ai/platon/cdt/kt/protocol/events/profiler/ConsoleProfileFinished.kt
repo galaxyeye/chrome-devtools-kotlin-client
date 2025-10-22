@@ -7,13 +7,13 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
 public data class ConsoleProfileFinished(
-  @JsonProperty("id")
+  @field:JsonProperty("id")
   public val id: String,
-  @JsonProperty("location")
+  @field:JsonProperty("location")
   public val location: Location,
-  @JsonProperty("profile")
+  @field:JsonProperty("profile")
   public val profile: Profile,
-  @JsonProperty("title")
-  @Optional
+  @field:JsonProperty("title")
+  @param:Optional
   public val title: String? = null,
 )

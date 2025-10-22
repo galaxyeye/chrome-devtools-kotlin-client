@@ -8,6 +8,6 @@ import kotlin.String
  * |issueMessage| is empty if there is no issue.
  */
 public data class IssueUpdated(
-  @JsonProperty("issueMessage")
+  @field:JsonProperty("issueMessage")
   public val issueMessage: String,
 )

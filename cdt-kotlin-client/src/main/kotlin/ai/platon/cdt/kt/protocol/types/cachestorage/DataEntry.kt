@@ -10,20 +10,20 @@ import kotlin.collections.List
  * Data entry.
  */
 public data class DataEntry(
-  @JsonProperty("requestURL")
+  @field:JsonProperty("requestURL")
   public val requestURL: String,
-  @JsonProperty("requestMethod")
+  @field:JsonProperty("requestMethod")
   public val requestMethod: String,
-  @JsonProperty("requestHeaders")
+  @field:JsonProperty("requestHeaders")
   public val requestHeaders: List<Header>,
-  @JsonProperty("responseTime")
+  @field:JsonProperty("responseTime")
   public val responseTime: Double,
-  @JsonProperty("responseStatus")
+  @field:JsonProperty("responseStatus")
   public val responseStatus: Int,
-  @JsonProperty("responseStatusText")
+  @field:JsonProperty("responseStatusText")
   public val responseStatusText: String,
-  @JsonProperty("responseType")
+  @field:JsonProperty("responseType")
   public val responseType: CachedResponseType,
-  @JsonProperty("responseHeaders")
+  @field:JsonProperty("responseHeaders")
   public val responseHeaders: List<Header>,
 )

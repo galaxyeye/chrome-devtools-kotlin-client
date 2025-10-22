@@ -4,12 +4,12 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
 public data class Info(
-  @JsonProperty("gpu")
+  @field:JsonProperty("gpu")
   public val gpu: GPUInfo,
-  @JsonProperty("modelName")
+  @field:JsonProperty("modelName")
   public val modelName: String,
-  @JsonProperty("modelVersion")
+  @field:JsonProperty("modelVersion")
   public val modelVersion: String,
-  @JsonProperty("commandLine")
+  @field:JsonProperty("commandLine")
   public val commandLine: String,
 )

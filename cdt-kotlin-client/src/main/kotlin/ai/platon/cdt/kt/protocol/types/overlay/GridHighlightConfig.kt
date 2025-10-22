@@ -10,66 +10,66 @@ import kotlin.Boolean
  * Configuration data for the highlighting of Grid elements.
  */
 public data class GridHighlightConfig(
-  @JsonProperty("showGridExtensionLines")
-  @Optional
+  @field:JsonProperty("showGridExtensionLines")
+  @param:Optional
   public val showGridExtensionLines: Boolean? = null,
-  @JsonProperty("showPositiveLineNumbers")
-  @Optional
+  @field:JsonProperty("showPositiveLineNumbers")
+  @param:Optional
   public val showPositiveLineNumbers: Boolean? = null,
-  @JsonProperty("showNegativeLineNumbers")
-  @Optional
+  @field:JsonProperty("showNegativeLineNumbers")
+  @param:Optional
   public val showNegativeLineNumbers: Boolean? = null,
-  @JsonProperty("showAreaNames")
-  @Optional
+  @field:JsonProperty("showAreaNames")
+  @param:Optional
   public val showAreaNames: Boolean? = null,
-  @JsonProperty("showLineNames")
-  @Optional
+  @field:JsonProperty("showLineNames")
+  @param:Optional
   public val showLineNames: Boolean? = null,
-  @JsonProperty("showTrackSizes")
-  @Optional
+  @field:JsonProperty("showTrackSizes")
+  @param:Optional
   public val showTrackSizes: Boolean? = null,
-  @JsonProperty("gridBorderColor")
-  @Optional
+  @field:JsonProperty("gridBorderColor")
+  @param:Optional
   public val gridBorderColor: RGBA? = null,
-  @JsonProperty("cellBorderColor")
-  @Optional
-  @Deprecated
+  @field:JsonProperty("cellBorderColor")
+  @param:Optional
+  @param:Deprecated
   public val cellBorderColor: RGBA? = null,
-  @JsonProperty("rowLineColor")
-  @Optional
+  @field:JsonProperty("rowLineColor")
+  @param:Optional
   public val rowLineColor: RGBA? = null,
-  @JsonProperty("columnLineColor")
-  @Optional
+  @field:JsonProperty("columnLineColor")
+  @param:Optional
   public val columnLineColor: RGBA? = null,
-  @JsonProperty("gridBorderDash")
-  @Optional
+  @field:JsonProperty("gridBorderDash")
+  @param:Optional
   public val gridBorderDash: Boolean? = null,
-  @JsonProperty("cellBorderDash")
-  @Optional
-  @Deprecated
+  @field:JsonProperty("cellBorderDash")
+  @param:Optional
+  @param:Deprecated
   public val cellBorderDash: Boolean? = null,
-  @JsonProperty("rowLineDash")
-  @Optional
+  @field:JsonProperty("rowLineDash")
+  @param:Optional
   public val rowLineDash: Boolean? = null,
-  @JsonProperty("columnLineDash")
-  @Optional
+  @field:JsonProperty("columnLineDash")
+  @param:Optional
   public val columnLineDash: Boolean? = null,
-  @JsonProperty("rowGapColor")
-  @Optional
+  @field:JsonProperty("rowGapColor")
+  @param:Optional
   public val rowGapColor: RGBA? = null,
-  @JsonProperty("rowHatchColor")
-  @Optional
+  @field:JsonProperty("rowHatchColor")
+  @param:Optional
   public val rowHatchColor: RGBA? = null,
-  @JsonProperty("columnGapColor")
-  @Optional
+  @field:JsonProperty("columnGapColor")
+  @param:Optional
   public val columnGapColor: RGBA? = null,
-  @JsonProperty("columnHatchColor")
-  @Optional
+  @field:JsonProperty("columnHatchColor")
+  @param:Optional
   public val columnHatchColor: RGBA? = null,
-  @JsonProperty("areaBorderColor")
-  @Optional
+  @field:JsonProperty("areaBorderColor")
+  @param:Optional
   public val areaBorderColor: RGBA? = null,
-  @JsonProperty("gridBackgroundColor")
-  @Optional
+  @field:JsonProperty("gridBackgroundColor")
+  @param:Optional
   public val gridBackgroundColor: RGBA? = null,
 )

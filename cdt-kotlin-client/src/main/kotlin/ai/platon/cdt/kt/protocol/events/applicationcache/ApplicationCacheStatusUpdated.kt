@@ -5,10 +5,10 @@ import kotlin.Int
 import kotlin.String
 
 public data class ApplicationCacheStatusUpdated(
-  @JsonProperty("frameId")
+  @field:JsonProperty("frameId")
   public val frameId: String,
-  @JsonProperty("manifestURL")
+  @field:JsonProperty("manifestURL")
   public val manifestURL: String,
-  @JsonProperty("status")
+  @field:JsonProperty("status")
   public val status: Int,
 )

@@ -12,8 +12,8 @@ import kotlin.String
  */
 @Experimental
 public data class BackForwardCacheNotUsed(
-  @JsonProperty("loaderId")
+  @field:JsonProperty("loaderId")
   public val loaderId: String,
-  @JsonProperty("frameId")
+  @field:JsonProperty("frameId")
   public val frameId: String,
 )

@@ -15,19 +15,19 @@ import kotlin.collections.List
  * Issued when console API was called.
  */
 public data class ConsoleAPICalled(
-  @JsonProperty("type")
+  @field:JsonProperty("type")
   public val type: ConsoleAPICalledType,
-  @JsonProperty("args")
+  @field:JsonProperty("args")
   public val args: List<RemoteObject>,
-  @JsonProperty("executionContextId")
+  @field:JsonProperty("executionContextId")
   public val executionContextId: Int,
-  @JsonProperty("timestamp")
+  @field:JsonProperty("timestamp")
   public val timestamp: Double,
-  @JsonProperty("stackTrace")
-  @Optional
+  @field:JsonProperty("stackTrace")
+  @param:Optional
   public val stackTrace: StackTrace? = null,
-  @JsonProperty("context")
-  @Optional
-  @Experimental
+  @field:JsonProperty("context")
+  @param:Optional
+  @param:Experimental
   public val context: String? = null,
 )

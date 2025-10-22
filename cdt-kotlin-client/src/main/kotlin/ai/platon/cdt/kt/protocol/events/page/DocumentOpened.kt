@@ -9,6 +9,6 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  */
 @Experimental
 public data class DocumentOpened(
-  @JsonProperty("frame")
+  @field:JsonProperty("frame")
   public val frame: Frame,
 )

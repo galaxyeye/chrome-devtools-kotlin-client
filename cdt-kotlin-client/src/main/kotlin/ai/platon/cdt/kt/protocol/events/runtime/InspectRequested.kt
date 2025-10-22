@@ -11,8 +11,8 @@ import kotlin.collections.Map
  * call).
  */
 public data class InspectRequested(
-  @JsonProperty("object")
+  @field:JsonProperty("object")
   public val `object`: RemoteObject,
-  @JsonProperty("hints")
+  @field:JsonProperty("hints")
   public val hints: Map<String, Any?>,
 )

@@ -7,6 +7,6 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * Notifies that a new AudioNode has been created.
  */
 public data class AudioNodeCreated(
-  @JsonProperty("node")
+  @field:JsonProperty("node")
   public val node: AudioNode,
 )

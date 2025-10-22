@@ -4,8 +4,8 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Double
 
 public data class Metadata(
-  @JsonProperty("entriesCount")
+  @field:JsonProperty("entriesCount")
   public val entriesCount: Double,
-  @JsonProperty("keyGeneratorValue")
+  @field:JsonProperty("keyGeneratorValue")
   public val keyGeneratorValue: Double,
 )

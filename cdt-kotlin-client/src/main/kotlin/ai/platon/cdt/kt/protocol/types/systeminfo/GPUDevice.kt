@@ -9,22 +9,22 @@ import kotlin.String
  * Describes a single graphics processor (GPU).
  */
 public data class GPUDevice(
-  @JsonProperty("vendorId")
+  @field:JsonProperty("vendorId")
   public val vendorId: Double,
-  @JsonProperty("deviceId")
+  @field:JsonProperty("deviceId")
   public val deviceId: Double,
-  @JsonProperty("subSysId")
-  @Optional
+  @field:JsonProperty("subSysId")
+  @param:Optional
   public val subSysId: Double? = null,
-  @JsonProperty("revision")
-  @Optional
+  @field:JsonProperty("revision")
+  @param:Optional
   public val revision: Double? = null,
-  @JsonProperty("vendorString")
+  @field:JsonProperty("vendorString")
   public val vendorString: String,
-  @JsonProperty("deviceString")
+  @field:JsonProperty("deviceString")
   public val deviceString: String,
-  @JsonProperty("driverVendor")
+  @field:JsonProperty("driverVendor")
   public val driverVendor: String,
-  @JsonProperty("driverVersion")
+  @field:JsonProperty("driverVersion")
   public val driverVersion: String,
 )

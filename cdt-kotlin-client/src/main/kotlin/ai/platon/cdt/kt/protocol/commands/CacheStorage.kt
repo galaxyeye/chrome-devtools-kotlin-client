@@ -60,9 +60,9 @@ public interface CacheStorage {
    */
   public suspend fun requestEntries(
     @ParamName("cacheId") cacheId: String,
-    @ParamName("skipCount") @Optional skipCount: Int?,
-    @ParamName("pageSize") @Optional pageSize: Int?,
-    @ParamName("pathFilter") @Optional pathFilter: String?,
+    @ParamName("skipCount") @Optional skipCount: Int? = null,
+    @ParamName("pageSize") @Optional pageSize: Int? = null,
+    @ParamName("pathFilter") @Optional pathFilter: String? = null,
   ): RequestEntries
 
   public suspend fun requestEntries(@ParamName("cacheId") cacheId: String): RequestEntries {

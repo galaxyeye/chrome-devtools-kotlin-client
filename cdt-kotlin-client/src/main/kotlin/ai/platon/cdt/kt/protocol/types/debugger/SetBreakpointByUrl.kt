@@ -5,8 +5,8 @@ import kotlin.String
 import kotlin.collections.List
 
 public data class SetBreakpointByUrl(
-  @JsonProperty("breakpointId")
+  @field:JsonProperty("breakpointId")
   public val breakpointId: String,
-  @JsonProperty("locations")
+  @field:JsonProperty("locations")
   public val locations: List<Location>,
 )

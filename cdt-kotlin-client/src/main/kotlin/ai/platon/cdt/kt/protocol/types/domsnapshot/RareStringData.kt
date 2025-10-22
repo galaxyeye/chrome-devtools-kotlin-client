@@ -8,8 +8,8 @@ import kotlin.collections.List
  * Data that is only present on rare nodes.
  */
 public data class RareStringData(
-  @JsonProperty("index")
+  @field:JsonProperty("index")
   public val index: List<Int>,
-  @JsonProperty("value")
+  @field:JsonProperty("value")
   public val `value`: List<Int>,
 )

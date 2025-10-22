@@ -43,7 +43,7 @@ public interface Input {
     @ParamName("x") x: Double,
     @ParamName("y") y: Double,
     @ParamName("data") `data`: DragData,
-    @ParamName("modifiers") @Optional modifiers: Int?,
+    @ParamName("modifiers") @Optional modifiers: Int? = null,
   )
 
   @Experimental
@@ -91,20 +91,20 @@ public interface Input {
    */
   public suspend fun dispatchKeyEvent(
     @ParamName("type") type: DispatchKeyEventType,
-    @ParamName("modifiers") @Optional modifiers: Int?,
-    @ParamName("timestamp") @Optional timestamp: Double?,
-    @ParamName("text") @Optional text: String?,
-    @ParamName("unmodifiedText") @Optional unmodifiedText: String?,
-    @ParamName("keyIdentifier") @Optional keyIdentifier: String?,
-    @ParamName("code") @Optional code: String?,
-    @ParamName("key") @Optional key: String?,
-    @ParamName("windowsVirtualKeyCode") @Optional windowsVirtualKeyCode: Int?,
-    @ParamName("nativeVirtualKeyCode") @Optional nativeVirtualKeyCode: Int?,
-    @ParamName("autoRepeat") @Optional autoRepeat: Boolean?,
-    @ParamName("isKeypad") @Optional isKeypad: Boolean?,
-    @ParamName("isSystemKey") @Optional isSystemKey: Boolean?,
-    @ParamName("location") @Optional location: Int?,
-    @ParamName("commands") @Optional @Experimental commands: List<String>?,
+    @ParamName("modifiers") @Optional modifiers: Int? = null,
+    @ParamName("timestamp") @Optional timestamp: Double? = null,
+    @ParamName("text") @Optional text: String? = null,
+    @ParamName("unmodifiedText") @Optional unmodifiedText: String? = null,
+    @ParamName("keyIdentifier") @Optional keyIdentifier: String? = null,
+    @ParamName("code") @Optional code: String? = null,
+    @ParamName("key") @Optional key: String? = null,
+    @ParamName("windowsVirtualKeyCode") @Optional windowsVirtualKeyCode: Int? = null,
+    @ParamName("nativeVirtualKeyCode") @Optional nativeVirtualKeyCode: Int? = null,
+    @ParamName("autoRepeat") @Optional autoRepeat: Boolean? = null,
+    @ParamName("isKeypad") @Optional isKeypad: Boolean? = null,
+    @ParamName("isSystemKey") @Optional isSystemKey: Boolean? = null,
+    @ParamName("location") @Optional location: Int? = null,
+    @ParamName("commands") @Optional @Experimental commands: List<String>? = null,
   )
 
   public suspend fun dispatchKeyEvent(@ParamName("type") type: DispatchKeyEventType) {
@@ -155,19 +155,19 @@ public interface Input {
     @ParamName("type") type: DispatchMouseEventType,
     @ParamName("x") x: Double,
     @ParamName("y") y: Double,
-    @ParamName("modifiers") @Optional modifiers: Int?,
-    @ParamName("timestamp") @Optional timestamp: Double?,
-    @ParamName("button") @Optional button: MouseButton?,
-    @ParamName("buttons") @Optional buttons: Int?,
-    @ParamName("clickCount") @Optional clickCount: Int?,
-    @ParamName("force") @Optional @Experimental force: Double?,
-    @ParamName("tangentialPressure") @Optional @Experimental tangentialPressure: Double?,
-    @ParamName("tiltX") @Optional @Experimental tiltX: Int?,
-    @ParamName("tiltY") @Optional @Experimental tiltY: Int?,
-    @ParamName("twist") @Optional @Experimental twist: Int?,
-    @ParamName("deltaX") @Optional deltaX: Double?,
-    @ParamName("deltaY") @Optional deltaY: Double?,
-    @ParamName("pointerType") @Optional pointerType: DispatchMouseEventPointerType?,
+    @ParamName("modifiers") @Optional modifiers: Int? = null,
+    @ParamName("timestamp") @Optional timestamp: Double? = null,
+    @ParamName("button") @Optional button: MouseButton? = null,
+    @ParamName("buttons") @Optional buttons: Int? = null,
+    @ParamName("clickCount") @Optional clickCount: Int? = null,
+    @ParamName("force") @Optional @Experimental force: Double? = null,
+    @ParamName("tangentialPressure") @Optional @Experimental tangentialPressure: Double? = null,
+    @ParamName("tiltX") @Optional @Experimental tiltX: Int? = null,
+    @ParamName("tiltY") @Optional @Experimental tiltY: Int? = null,
+    @ParamName("twist") @Optional @Experimental twist: Int? = null,
+    @ParamName("deltaX") @Optional deltaX: Double? = null,
+    @ParamName("deltaY") @Optional deltaY: Double? = null,
+    @ParamName("pointerType") @Optional pointerType: DispatchMouseEventPointerType? = null,
   )
 
   public suspend fun dispatchMouseEvent(
@@ -196,8 +196,8 @@ public interface Input {
   public suspend fun dispatchTouchEvent(
     @ParamName("type") type: DispatchTouchEventType,
     @ParamName("touchPoints") touchPoints: List<TouchPoint>,
-    @ParamName("modifiers") @Optional modifiers: Int?,
-    @ParamName("timestamp") @Optional timestamp: Double?,
+    @ParamName("modifiers") @Optional modifiers: Int? = null,
+    @ParamName("timestamp") @Optional timestamp: Double? = null,
   )
 
   public suspend fun dispatchTouchEvent(@ParamName("type") type: DispatchTouchEventType,
@@ -225,11 +225,11 @@ public interface Input {
     @ParamName("x") x: Int,
     @ParamName("y") y: Int,
     @ParamName("button") button: MouseButton,
-    @ParamName("timestamp") @Optional timestamp: Double?,
-    @ParamName("deltaX") @Optional deltaX: Double?,
-    @ParamName("deltaY") @Optional deltaY: Double?,
-    @ParamName("modifiers") @Optional modifiers: Int?,
-    @ParamName("clickCount") @Optional clickCount: Int?,
+    @ParamName("timestamp") @Optional timestamp: Double? = null,
+    @ParamName("deltaX") @Optional deltaX: Double? = null,
+    @ParamName("deltaY") @Optional deltaY: Double? = null,
+    @ParamName("modifiers") @Optional modifiers: Int? = null,
+    @ParamName("clickCount") @Optional clickCount: Int? = null,
   )
 
   @Experimental
@@ -271,8 +271,8 @@ public interface Input {
     @ParamName("x") x: Double,
     @ParamName("y") y: Double,
     @ParamName("scaleFactor") scaleFactor: Double,
-    @ParamName("relativeSpeed") @Optional relativeSpeed: Int?,
-    @ParamName("gestureSourceType") @Optional gestureSourceType: GestureSourceType?,
+    @ParamName("relativeSpeed") @Optional relativeSpeed: Int? = null,
+    @ParamName("gestureSourceType") @Optional gestureSourceType: GestureSourceType? = null,
   )
 
   @Experimental
@@ -310,16 +310,16 @@ public interface Input {
   public suspend fun synthesizeScrollGesture(
     @ParamName("x") x: Double,
     @ParamName("y") y: Double,
-    @ParamName("xDistance") @Optional xDistance: Double?,
-    @ParamName("yDistance") @Optional yDistance: Double?,
-    @ParamName("xOverscroll") @Optional xOverscroll: Double?,
-    @ParamName("yOverscroll") @Optional yOverscroll: Double?,
-    @ParamName("preventFling") @Optional preventFling: Boolean?,
-    @ParamName("speed") @Optional speed: Int?,
-    @ParamName("gestureSourceType") @Optional gestureSourceType: GestureSourceType?,
-    @ParamName("repeatCount") @Optional repeatCount: Int?,
-    @ParamName("repeatDelayMs") @Optional repeatDelayMs: Int?,
-    @ParamName("interactionMarkerName") @Optional interactionMarkerName: String?,
+    @ParamName("xDistance") @Optional xDistance: Double? = null,
+    @ParamName("yDistance") @Optional yDistance: Double? = null,
+    @ParamName("xOverscroll") @Optional xOverscroll: Double? = null,
+    @ParamName("yOverscroll") @Optional yOverscroll: Double? = null,
+    @ParamName("preventFling") @Optional preventFling: Boolean? = null,
+    @ParamName("speed") @Optional speed: Int? = null,
+    @ParamName("gestureSourceType") @Optional gestureSourceType: GestureSourceType? = null,
+    @ParamName("repeatCount") @Optional repeatCount: Int? = null,
+    @ParamName("repeatDelayMs") @Optional repeatDelayMs: Int? = null,
+    @ParamName("interactionMarkerName") @Optional interactionMarkerName: String? = null,
   )
 
   @Experimental
@@ -341,9 +341,9 @@ public interface Input {
   public suspend fun synthesizeTapGesture(
     @ParamName("x") x: Double,
     @ParamName("y") y: Double,
-    @ParamName("duration") @Optional duration: Int?,
-    @ParamName("tapCount") @Optional tapCount: Int?,
-    @ParamName("gestureSourceType") @Optional gestureSourceType: GestureSourceType?,
+    @ParamName("duration") @Optional duration: Int? = null,
+    @ParamName("tapCount") @Optional tapCount: Int? = null,
+    @ParamName("gestureSourceType") @Optional gestureSourceType: GestureSourceType? = null,
   )
 
   @Experimental

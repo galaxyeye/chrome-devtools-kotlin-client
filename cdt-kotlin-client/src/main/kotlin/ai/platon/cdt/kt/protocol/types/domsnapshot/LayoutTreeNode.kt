@@ -12,23 +12,23 @@ import kotlin.collections.List
  * Details of an element in the DOM tree with a LayoutObject.
  */
 public data class LayoutTreeNode(
-  @JsonProperty("domNodeIndex")
+  @field:JsonProperty("domNodeIndex")
   public val domNodeIndex: Int,
-  @JsonProperty("boundingBox")
+  @field:JsonProperty("boundingBox")
   public val boundingBox: Rect,
-  @JsonProperty("layoutText")
-  @Optional
+  @field:JsonProperty("layoutText")
+  @param:Optional
   public val layoutText: String? = null,
-  @JsonProperty("inlineTextNodes")
-  @Optional
+  @field:JsonProperty("inlineTextNodes")
+  @param:Optional
   public val inlineTextNodes: List<InlineTextBox>? = null,
-  @JsonProperty("styleIndex")
-  @Optional
+  @field:JsonProperty("styleIndex")
+  @param:Optional
   public val styleIndex: Int? = null,
-  @JsonProperty("paintOrder")
-  @Optional
+  @field:JsonProperty("paintOrder")
+  @param:Optional
   public val paintOrder: Int? = null,
-  @JsonProperty("isStackingContext")
-  @Optional
+  @field:JsonProperty("isStackingContext")
+  @param:Optional
   public val isStackingContext: Boolean? = null,
 )

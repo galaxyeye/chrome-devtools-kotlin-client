@@ -7,6 +7,6 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * Notifies that existing BaseAudioContext has changed some properties (id stays the same)..
  */
 public data class ContextChanged(
-  @JsonProperty("context")
+  @field:JsonProperty("context")
   public val context: BaseAudioContext,
 )

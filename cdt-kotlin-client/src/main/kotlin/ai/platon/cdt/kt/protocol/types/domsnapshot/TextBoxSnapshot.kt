@@ -11,12 +11,12 @@ import kotlin.collections.List
  * stable and may change between versions.
  */
 public data class TextBoxSnapshot(
-  @JsonProperty("layoutIndex")
+  @field:JsonProperty("layoutIndex")
   public val layoutIndex: List<Int>,
-  @JsonProperty("bounds")
+  @field:JsonProperty("bounds")
   public val bounds: List<List<Double>>,
-  @JsonProperty("start")
+  @field:JsonProperty("start")
   public val start: List<Int>,
-  @JsonProperty("length")
+  @field:JsonProperty("length")
   public val length: List<Int>,
 )

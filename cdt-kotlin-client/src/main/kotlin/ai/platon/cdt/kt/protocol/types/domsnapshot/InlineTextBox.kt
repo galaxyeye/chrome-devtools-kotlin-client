@@ -9,10 +9,10 @@ import kotlin.Int
  * stable and may change between versions.
  */
 public data class InlineTextBox(
-  @JsonProperty("boundingBox")
+  @field:JsonProperty("boundingBox")
   public val boundingBox: Rect,
-  @JsonProperty("startCharacterIndex")
+  @field:JsonProperty("startCharacterIndex")
   public val startCharacterIndex: Int,
-  @JsonProperty("numCharacters")
+  @field:JsonProperty("numCharacters")
   public val numCharacters: Int,
 )

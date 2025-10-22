@@ -9,31 +9,31 @@ import kotlin.String
  * Object property descriptor.
  */
 public data class PropertyDescriptor(
-  @JsonProperty("name")
+  @field:JsonProperty("name")
   public val name: String,
-  @JsonProperty("value")
-  @Optional
+  @field:JsonProperty("value")
+  @param:Optional
   public val `value`: RemoteObject? = null,
-  @JsonProperty("writable")
-  @Optional
+  @field:JsonProperty("writable")
+  @param:Optional
   public val writable: Boolean? = null,
-  @JsonProperty("get")
-  @Optional
+  @field:JsonProperty("get")
+  @param:Optional
   public val `get`: RemoteObject? = null,
-  @JsonProperty("set")
-  @Optional
+  @field:JsonProperty("set")
+  @param:Optional
   public val `set`: RemoteObject? = null,
-  @JsonProperty("configurable")
+  @field:JsonProperty("configurable")
   public val configurable: Boolean,
-  @JsonProperty("enumerable")
+  @field:JsonProperty("enumerable")
   public val enumerable: Boolean,
-  @JsonProperty("wasThrown")
-  @Optional
+  @field:JsonProperty("wasThrown")
+  @param:Optional
   public val wasThrown: Boolean? = null,
-  @JsonProperty("isOwn")
-  @Optional
+  @field:JsonProperty("isOwn")
+  @param:Optional
   public val isOwn: Boolean? = null,
-  @JsonProperty("symbol")
-  @Optional
+  @field:JsonProperty("symbol")
+  @param:Optional
   public val symbol: RemoteObject? = null,
 )

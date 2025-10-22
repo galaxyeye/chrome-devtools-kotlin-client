@@ -7,8 +7,8 @@ import kotlin.Int
  * Fired when `Container`'s child node count has changed.
  */
 public data class ChildNodeCountUpdated(
-  @JsonProperty("nodeId")
+  @field:JsonProperty("nodeId")
   public val nodeId: Int,
-  @JsonProperty("childNodeCount")
+  @field:JsonProperty("childNodeCount")
   public val childNodeCount: Int,
 )

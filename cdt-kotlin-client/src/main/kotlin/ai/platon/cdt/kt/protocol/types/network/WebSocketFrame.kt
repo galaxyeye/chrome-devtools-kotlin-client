@@ -10,10 +10,10 @@ import kotlin.String
  * as the name suggests.
  */
 public data class WebSocketFrame(
-  @JsonProperty("opcode")
+  @field:JsonProperty("opcode")
   public val opcode: Double,
-  @JsonProperty("mask")
+  @field:JsonProperty("mask")
   public val mask: Boolean,
-  @JsonProperty("payloadData")
+  @field:JsonProperty("payloadData")
   public val payloadData: String,
 )

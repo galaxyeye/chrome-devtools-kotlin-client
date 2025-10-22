@@ -10,12 +10,12 @@ import kotlin.String
  * `attachedToTarget` event).
  */
 public data class ReceivedMessageFromTarget(
-  @JsonProperty("sessionId")
+  @field:JsonProperty("sessionId")
   public val sessionId: String,
-  @JsonProperty("message")
+  @field:JsonProperty("message")
   public val message: String,
-  @JsonProperty("targetId")
-  @Optional
-  @Deprecated
+  @field:JsonProperty("targetId")
+  @param:Optional
+  @param:Deprecated
   public val targetId: String? = null,
 )

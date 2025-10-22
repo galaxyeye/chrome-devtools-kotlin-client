@@ -7,8 +7,8 @@ import kotlin.collections.List
  * Sampling profile.
  */
 public data class SamplingHeapProfile(
-  @JsonProperty("head")
+  @field:JsonProperty("head")
   public val head: SamplingHeapProfileNode,
-  @JsonProperty("samples")
+  @field:JsonProperty("samples")
   public val samples: List<SamplingHeapProfileSample>,
 )

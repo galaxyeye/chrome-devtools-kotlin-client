@@ -7,6 +7,6 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * Fired when user asks to capture screenshot of some area on the page.
  */
 public data class ScreenshotRequested(
-  @JsonProperty("viewport")
+  @field:JsonProperty("viewport")
   public val viewport: Viewport,
 )

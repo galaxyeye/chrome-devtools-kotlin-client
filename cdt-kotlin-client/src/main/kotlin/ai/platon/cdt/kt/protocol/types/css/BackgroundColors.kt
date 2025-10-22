@@ -6,13 +6,13 @@ import kotlin.String
 import kotlin.collections.List
 
 public data class BackgroundColors(
-  @JsonProperty("backgroundColors")
-  @Optional
+  @field:JsonProperty("backgroundColors")
+  @param:Optional
   public val backgroundColors: List<String>? = null,
-  @JsonProperty("computedFontSize")
-  @Optional
+  @field:JsonProperty("computedFontSize")
+  @param:Optional
   public val computedFontSize: String? = null,
-  @JsonProperty("computedFontWeight")
-  @Optional
+  @field:JsonProperty("computedFontWeight")
+  @param:Optional
   public val computedFontWeight: String? = null,
 )

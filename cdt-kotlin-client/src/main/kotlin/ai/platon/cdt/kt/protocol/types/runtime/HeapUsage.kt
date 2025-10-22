@@ -4,8 +4,8 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Double
 
 public data class HeapUsage(
-  @JsonProperty("usedSize")
+  @field:JsonProperty("usedSize")
   public val usedSize: Double,
-  @JsonProperty("totalSize")
+  @field:JsonProperty("totalSize")
   public val totalSize: Double,
 )

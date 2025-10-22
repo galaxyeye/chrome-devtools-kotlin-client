@@ -9,6 +9,6 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  */
 @Experimental
 public data class VisibleSecurityStateChanged(
-  @JsonProperty("visibleSecurityState")
+  @field:JsonProperty("visibleSecurityState")
   public val visibleSecurityState: VisibleSecurityState,
 )

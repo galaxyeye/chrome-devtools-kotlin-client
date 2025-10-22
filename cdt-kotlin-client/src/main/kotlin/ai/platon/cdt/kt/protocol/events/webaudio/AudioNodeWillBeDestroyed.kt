@@ -7,8 +7,8 @@ import kotlin.String
  * Notifies that an existing AudioNode has been destroyed.
  */
 public data class AudioNodeWillBeDestroyed(
-  @JsonProperty("contextId")
+  @field:JsonProperty("contextId")
   public val contextId: String,
-  @JsonProperty("nodeId")
+  @field:JsonProperty("nodeId")
   public val nodeId: String,
 )

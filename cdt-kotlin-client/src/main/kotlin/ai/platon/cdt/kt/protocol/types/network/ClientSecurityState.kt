@@ -6,10 +6,10 @@ import kotlin.Boolean
 
 @Experimental
 public data class ClientSecurityState(
-  @JsonProperty("initiatorIsSecureContext")
+  @field:JsonProperty("initiatorIsSecureContext")
   public val initiatorIsSecureContext: Boolean,
-  @JsonProperty("initiatorIPAddressSpace")
+  @field:JsonProperty("initiatorIPAddressSpace")
   public val initiatorIPAddressSpace: IPAddressSpace,
-  @JsonProperty("privateNetworkRequestPolicy")
+  @field:JsonProperty("privateNetworkRequestPolicy")
   public val privateNetworkRequestPolicy: PrivateNetworkRequestPolicy,
 )

@@ -8,8 +8,8 @@ import kotlin.String
  * Search match for resource.
  */
 public data class SearchMatch(
-  @JsonProperty("lineNumber")
+  @field:JsonProperty("lineNumber")
   public val lineNumber: Double,
-  @JsonProperty("lineContent")
+  @field:JsonProperty("lineContent")
   public val lineContent: String,
 )

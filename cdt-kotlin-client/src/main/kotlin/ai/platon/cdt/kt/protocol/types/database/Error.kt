@@ -8,8 +8,8 @@ import kotlin.String
  * Database error.
  */
 public data class Error(
-  @JsonProperty("message")
+  @field:JsonProperty("message")
   public val message: String,
-  @JsonProperty("code")
+  @field:JsonProperty("code")
   public val code: Int,
 )

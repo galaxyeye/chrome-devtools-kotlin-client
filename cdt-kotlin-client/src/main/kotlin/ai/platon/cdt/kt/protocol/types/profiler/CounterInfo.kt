@@ -10,8 +10,8 @@ import kotlin.String
  */
 @Experimental
 public data class CounterInfo(
-  @JsonProperty("name")
+  @field:JsonProperty("name")
   public val name: String,
-  @JsonProperty("value")
+  @field:JsonProperty("value")
   public val `value`: Int,
 )

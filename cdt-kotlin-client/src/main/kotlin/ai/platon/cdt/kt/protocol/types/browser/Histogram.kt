@@ -11,12 +11,12 @@ import kotlin.collections.List
  */
 @Experimental
 public data class Histogram(
-  @JsonProperty("name")
+  @field:JsonProperty("name")
   public val name: String,
-  @JsonProperty("sum")
+  @field:JsonProperty("sum")
   public val sum: Int,
-  @JsonProperty("count")
+  @field:JsonProperty("count")
   public val count: Int,
-  @JsonProperty("buckets")
+  @field:JsonProperty("buckets")
   public val buckets: List<Bucket>,
 )

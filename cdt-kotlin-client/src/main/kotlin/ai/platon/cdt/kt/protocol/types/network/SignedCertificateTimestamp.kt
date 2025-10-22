@@ -8,20 +8,20 @@ import kotlin.String
  * Details of a signed certificate timestamp (SCT).
  */
 public data class SignedCertificateTimestamp(
-  @JsonProperty("status")
+  @field:JsonProperty("status")
   public val status: String,
-  @JsonProperty("origin")
+  @field:JsonProperty("origin")
   public val origin: String,
-  @JsonProperty("logDescription")
+  @field:JsonProperty("logDescription")
   public val logDescription: String,
-  @JsonProperty("logId")
+  @field:JsonProperty("logId")
   public val logId: String,
-  @JsonProperty("timestamp")
+  @field:JsonProperty("timestamp")
   public val timestamp: Double,
-  @JsonProperty("hashAlgorithm")
+  @field:JsonProperty("hashAlgorithm")
   public val hashAlgorithm: String,
-  @JsonProperty("signatureAlgorithm")
+  @field:JsonProperty("signatureAlgorithm")
   public val signatureAlgorithm: String,
-  @JsonProperty("signatureData")
+  @field:JsonProperty("signatureData")
   public val signatureData: String,
 )

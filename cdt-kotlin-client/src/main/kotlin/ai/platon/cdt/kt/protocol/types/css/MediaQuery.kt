@@ -8,8 +8,8 @@ import kotlin.collections.List
  * Media query descriptor.
  */
 public data class MediaQuery(
-  @JsonProperty("expressions")
+  @field:JsonProperty("expressions")
   public val expressions: List<MediaQueryExpression>,
-  @JsonProperty("active")
+  @field:JsonProperty("active")
   public val active: Boolean,
 )

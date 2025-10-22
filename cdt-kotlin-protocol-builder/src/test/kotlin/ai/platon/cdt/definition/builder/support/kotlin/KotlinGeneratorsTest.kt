@@ -31,6 +31,7 @@ import ai.platon.cdt.protocol.definition.types.type.`object`.properties.StringPr
 import ai.platon.cdt.protocol.definition.types.type.`object`.properties.array.items.StringArrayItem
 import com.tschuchort.compiletesting.KotlinCompilation
 import com.tschuchort.compiletesting.SourceFile
+import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
 import kotlin.reflect.KClass
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
@@ -152,6 +153,7 @@ class KotlinGeneratorsTest {
     assertTrue(content.contains("mimeType: String? = null"))
   }
 
+  @OptIn(ExperimentalCompilerApi::class)
   @Test
   fun `protocol generator output compiles`() {
     val bodyChunks = ArrayProperty().apply {

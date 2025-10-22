@@ -9,12 +9,12 @@ import kotlin.collections.List
  * Key path.
  */
 public data class KeyPath(
-  @JsonProperty("type")
+  @field:JsonProperty("type")
   public val type: KeyPathType,
-  @JsonProperty("string")
-  @Optional
+  @field:JsonProperty("string")
+  @param:Optional
   public val string: String? = null,
-  @JsonProperty("array")
-  @Optional
+  @field:JsonProperty("array")
+  @param:Optional
   public val array: List<String>? = null,
 )

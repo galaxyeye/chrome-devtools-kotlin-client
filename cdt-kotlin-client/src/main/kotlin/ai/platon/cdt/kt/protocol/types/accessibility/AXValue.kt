@@ -9,15 +9,15 @@ import kotlin.collections.List
  * A single computed AX property.
  */
 public data class AXValue(
-  @JsonProperty("type")
+  @field:JsonProperty("type")
   public val type: AXValueType,
-  @JsonProperty("value")
-  @Optional
+  @field:JsonProperty("value")
+  @param:Optional
   public val `value`: Any? = null,
-  @JsonProperty("relatedNodes")
-  @Optional
+  @field:JsonProperty("relatedNodes")
+  @param:Optional
   public val relatedNodes: List<AXRelatedNode>? = null,
-  @JsonProperty("sources")
-  @Optional
+  @field:JsonProperty("sources")
+  @param:Optional
   public val sources: List<AXValueSource>? = null,
 )

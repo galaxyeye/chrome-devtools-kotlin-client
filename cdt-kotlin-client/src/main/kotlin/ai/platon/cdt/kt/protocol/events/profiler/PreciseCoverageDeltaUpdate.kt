@@ -15,10 +15,10 @@ import kotlin.collections.List
  */
 @Experimental
 public data class PreciseCoverageDeltaUpdate(
-  @JsonProperty("timestamp")
+  @field:JsonProperty("timestamp")
   public val timestamp: Double,
-  @JsonProperty("occassion")
+  @field:JsonProperty("occassion")
   public val occassion: String,
-  @JsonProperty("result")
+  @field:JsonProperty("result")
   public val result: List<ScriptCoverage>,
 )

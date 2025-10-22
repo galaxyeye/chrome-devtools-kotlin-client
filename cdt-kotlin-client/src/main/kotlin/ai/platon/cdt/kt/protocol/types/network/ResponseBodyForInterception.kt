@@ -5,8 +5,8 @@ import kotlin.Boolean
 import kotlin.String
 
 public data class ResponseBodyForInterception(
-  @JsonProperty("body")
+  @field:JsonProperty("body")
   public val body: String,
-  @JsonProperty("base64Encoded")
+  @field:JsonProperty("base64Encoded")
   public val base64Encoded: Boolean,
 )

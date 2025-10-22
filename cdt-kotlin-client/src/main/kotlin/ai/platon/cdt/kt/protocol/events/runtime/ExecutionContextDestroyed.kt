@@ -7,6 +7,6 @@ import kotlin.Int
  * Issued when execution context is destroyed.
  */
 public data class ExecutionContextDestroyed(
-  @JsonProperty("executionContextId")
+  @field:JsonProperty("executionContextId")
   public val executionContextId: Int,
 )

@@ -10,10 +10,10 @@ import kotlin.collections.List
  */
 @Experimental
 public data class ScriptTypeProfile(
-  @JsonProperty("scriptId")
+  @field:JsonProperty("scriptId")
   public val scriptId: String,
-  @JsonProperty("url")
+  @field:JsonProperty("url")
   public val url: String,
-  @JsonProperty("entries")
+  @field:JsonProperty("entries")
   public val entries: List<TypeProfileEntry>,
 )

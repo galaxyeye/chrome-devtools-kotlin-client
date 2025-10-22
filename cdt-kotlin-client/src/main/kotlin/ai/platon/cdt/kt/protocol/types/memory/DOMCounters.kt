@@ -4,10 +4,10 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Int
 
 public data class DOMCounters(
-  @JsonProperty("documents")
+  @field:JsonProperty("documents")
   public val documents: Int,
-  @JsonProperty("nodes")
+  @field:JsonProperty("nodes")
   public val nodes: Int,
-  @JsonProperty("jsEventListeners")
+  @field:JsonProperty("jsEventListeners")
   public val jsEventListeners: Int,
 )

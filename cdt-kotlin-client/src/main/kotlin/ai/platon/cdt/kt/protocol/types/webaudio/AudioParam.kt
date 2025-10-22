@@ -8,20 +8,20 @@ import kotlin.String
  * Protocol object for AudioParam
  */
 public data class AudioParam(
-  @JsonProperty("paramId")
+  @field:JsonProperty("paramId")
   public val paramId: String,
-  @JsonProperty("nodeId")
+  @field:JsonProperty("nodeId")
   public val nodeId: String,
-  @JsonProperty("contextId")
+  @field:JsonProperty("contextId")
   public val contextId: String,
-  @JsonProperty("paramType")
+  @field:JsonProperty("paramType")
   public val paramType: String,
-  @JsonProperty("rate")
+  @field:JsonProperty("rate")
   public val rate: AutomationRate,
-  @JsonProperty("defaultValue")
+  @field:JsonProperty("defaultValue")
   public val defaultValue: Double,
-  @JsonProperty("minValue")
+  @field:JsonProperty("minValue")
   public val minValue: Double,
-  @JsonProperty("maxValue")
+  @field:JsonProperty("maxValue")
   public val maxValue: Double,
 )

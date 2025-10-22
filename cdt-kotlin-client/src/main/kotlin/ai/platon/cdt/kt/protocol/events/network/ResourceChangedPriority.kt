@@ -11,10 +11,10 @@ import kotlin.String
  */
 @Experimental
 public data class ResourceChangedPriority(
-  @JsonProperty("requestId")
+  @field:JsonProperty("requestId")
   public val requestId: String,
-  @JsonProperty("newPriority")
+  @field:JsonProperty("newPriority")
   public val newPriority: ResourcePriority,
-  @JsonProperty("timestamp")
+  @field:JsonProperty("timestamp")
   public val timestamp: Double,
 )

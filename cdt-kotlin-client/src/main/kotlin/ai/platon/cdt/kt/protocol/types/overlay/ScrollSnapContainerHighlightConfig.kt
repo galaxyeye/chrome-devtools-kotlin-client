@@ -5,16 +5,16 @@ import ai.platon.cdt.kt.protocol.types.dom.RGBA
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 public data class ScrollSnapContainerHighlightConfig(
-  @JsonProperty("snapportBorder")
-  @Optional
+  @field:JsonProperty("snapportBorder")
+  @param:Optional
   public val snapportBorder: LineStyle? = null,
-  @JsonProperty("snapAreaBorder")
-  @Optional
+  @field:JsonProperty("snapAreaBorder")
+  @param:Optional
   public val snapAreaBorder: LineStyle? = null,
-  @JsonProperty("scrollMarginColor")
-  @Optional
+  @field:JsonProperty("scrollMarginColor")
+  @param:Optional
   public val scrollMarginColor: RGBA? = null,
-  @JsonProperty("scrollPaddingColor")
-  @Optional
+  @field:JsonProperty("scrollPaddingColor")
+  @param:Optional
   public val scrollPaddingColor: RGBA? = null,
 )

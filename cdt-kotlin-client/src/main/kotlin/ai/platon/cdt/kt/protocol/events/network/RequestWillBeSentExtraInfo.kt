@@ -18,13 +18,13 @@ import kotlin.collections.Map
  */
 @Experimental
 public data class RequestWillBeSentExtraInfo(
-  @JsonProperty("requestId")
+  @field:JsonProperty("requestId")
   public val requestId: String,
-  @JsonProperty("associatedCookies")
+  @field:JsonProperty("associatedCookies")
   public val associatedCookies: List<BlockedCookieWithReason>,
-  @JsonProperty("headers")
+  @field:JsonProperty("headers")
   public val headers: Map<String, Any?>,
-  @JsonProperty("clientSecurityState")
-  @Optional
+  @field:JsonProperty("clientSecurityState")
+  @param:Optional
   public val clientSecurityState: ClientSecurityState? = null,
 )

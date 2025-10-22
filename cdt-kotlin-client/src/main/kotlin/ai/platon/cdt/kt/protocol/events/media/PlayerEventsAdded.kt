@@ -10,8 +10,8 @@ import kotlin.collections.List
  * congestion. If batched, events must ALWAYS be in chronological order.
  */
 public data class PlayerEventsAdded(
-  @JsonProperty("playerId")
+  @field:JsonProperty("playerId")
   public val playerId: String,
-  @JsonProperty("events")
+  @field:JsonProperty("events")
   public val events: List<PlayerEvent>,
 )

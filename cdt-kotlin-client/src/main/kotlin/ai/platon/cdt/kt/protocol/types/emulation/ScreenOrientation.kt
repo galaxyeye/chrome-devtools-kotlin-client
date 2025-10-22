@@ -7,8 +7,8 @@ import kotlin.Int
  * Screen orientation.
  */
 public data class ScreenOrientation(
-  @JsonProperty("type")
+  @field:JsonProperty("type")
   public val type: ScreenOrientationType,
-  @JsonProperty("angle")
+  @field:JsonProperty("angle")
   public val angle: Int,
 )

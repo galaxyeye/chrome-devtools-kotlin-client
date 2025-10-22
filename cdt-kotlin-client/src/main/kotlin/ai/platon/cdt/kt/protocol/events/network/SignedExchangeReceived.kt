@@ -10,8 +10,8 @@ import kotlin.String
  */
 @Experimental
 public data class SignedExchangeReceived(
-  @JsonProperty("requestId")
+  @field:JsonProperty("requestId")
   public val requestId: String,
-  @JsonProperty("info")
+  @field:JsonProperty("info")
   public val info: SignedExchangeInfo,
 )

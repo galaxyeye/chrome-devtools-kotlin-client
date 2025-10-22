@@ -9,28 +9,28 @@ import kotlin.collections.List
 import kotlin.collections.Map
 
 public data class TraceConfig(
-  @JsonProperty("recordMode")
-  @Optional
+  @field:JsonProperty("recordMode")
+  @param:Optional
   public val recordMode: TraceConfigRecordMode? = null,
-  @JsonProperty("enableSampling")
-  @Optional
+  @field:JsonProperty("enableSampling")
+  @param:Optional
   public val enableSampling: Boolean? = null,
-  @JsonProperty("enableSystrace")
-  @Optional
+  @field:JsonProperty("enableSystrace")
+  @param:Optional
   public val enableSystrace: Boolean? = null,
-  @JsonProperty("enableArgumentFilter")
-  @Optional
+  @field:JsonProperty("enableArgumentFilter")
+  @param:Optional
   public val enableArgumentFilter: Boolean? = null,
-  @JsonProperty("includedCategories")
-  @Optional
+  @field:JsonProperty("includedCategories")
+  @param:Optional
   public val includedCategories: List<String>? = null,
-  @JsonProperty("excludedCategories")
-  @Optional
+  @field:JsonProperty("excludedCategories")
+  @param:Optional
   public val excludedCategories: List<String>? = null,
-  @JsonProperty("syntheticDelays")
-  @Optional
+  @field:JsonProperty("syntheticDelays")
+  @param:Optional
   public val syntheticDelays: List<String>? = null,
-  @JsonProperty("memoryDumpConfig")
-  @Optional
+  @field:JsonProperty("memoryDumpConfig")
+  @param:Optional
   public val memoryDumpConfig: Map<String, Any?>? = null,
 )

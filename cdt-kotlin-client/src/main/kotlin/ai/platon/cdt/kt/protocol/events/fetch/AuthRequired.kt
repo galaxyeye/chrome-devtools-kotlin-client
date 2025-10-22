@@ -11,14 +11,14 @@ import kotlin.String
  * The request is paused until client responds with continueWithAuth.
  */
 public data class AuthRequired(
-  @JsonProperty("requestId")
+  @field:JsonProperty("requestId")
   public val requestId: String,
-  @JsonProperty("request")
+  @field:JsonProperty("request")
   public val request: Request,
-  @JsonProperty("frameId")
+  @field:JsonProperty("frameId")
   public val frameId: String,
-  @JsonProperty("resourceType")
+  @field:JsonProperty("resourceType")
   public val resourceType: ResourceType,
-  @JsonProperty("authChallenge")
+  @field:JsonProperty("authChallenge")
   public val authChallenge: AuthChallenge,
 )

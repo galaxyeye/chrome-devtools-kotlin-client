@@ -10,10 +10,10 @@ import kotlin.String
  */
 @Experimental
 public data class BindingCalled(
-  @JsonProperty("name")
+  @field:JsonProperty("name")
   public val name: String,
-  @JsonProperty("payload")
+  @field:JsonProperty("payload")
   public val payload: String,
-  @JsonProperty("executionContextId")
+  @field:JsonProperty("executionContextId")
   public val executionContextId: Int,
 )

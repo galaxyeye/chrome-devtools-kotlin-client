@@ -9,6 +9,6 @@ import kotlin.Boolean
  */
 @Experimental
 public data class ScreencastVisibilityChanged(
-  @JsonProperty("visible")
+  @field:JsonProperty("visible")
   public val visible: Boolean,
 )

@@ -9,6 +9,6 @@ import kotlin.collections.List
  * device or a software surface that you can cast to.
  */
 public data class SinksUpdated(
-  @JsonProperty("sinks")
+  @field:JsonProperty("sinks")
   public val sinks: List<Sink>,
 )

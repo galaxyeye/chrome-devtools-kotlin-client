@@ -7,28 +7,28 @@ import kotlin.Boolean
 import kotlin.String
 
 public data class TargetInfo(
-  @JsonProperty("targetId")
+  @field:JsonProperty("targetId")
   public val targetId: String,
-  @JsonProperty("type")
+  @field:JsonProperty("type")
   public val type: String,
-  @JsonProperty("title")
+  @field:JsonProperty("title")
   public val title: String,
-  @JsonProperty("url")
+  @field:JsonProperty("url")
   public val url: String,
-  @JsonProperty("attached")
+  @field:JsonProperty("attached")
   public val attached: Boolean,
-  @JsonProperty("openerId")
-  @Optional
+  @field:JsonProperty("openerId")
+  @param:Optional
   public val openerId: String? = null,
-  @JsonProperty("canAccessOpener")
-  @Experimental
+  @field:JsonProperty("canAccessOpener")
+  @param:Experimental
   public val canAccessOpener: Boolean,
-  @JsonProperty("openerFrameId")
-  @Optional
-  @Experimental
+  @field:JsonProperty("openerFrameId")
+  @param:Optional
+  @param:Experimental
   public val openerFrameId: String? = null,
-  @JsonProperty("browserContextId")
-  @Optional
-  @Experimental
+  @field:JsonProperty("browserContextId")
+  @param:Optional
+  @param:Experimental
   public val browserContextId: String? = null,
 )

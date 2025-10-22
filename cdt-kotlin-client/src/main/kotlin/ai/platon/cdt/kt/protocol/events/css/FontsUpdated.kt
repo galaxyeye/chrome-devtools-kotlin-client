@@ -9,7 +9,7 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * web font
  */
 public data class FontsUpdated(
-  @JsonProperty("font")
-  @Optional
+  @field:JsonProperty("font")
+  @param:Optional
   public val font: FontFace? = null,
 )

@@ -5,8 +5,8 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
 public data class LayerPainted(
-  @JsonProperty("layerId")
+  @field:JsonProperty("layerId")
   public val layerId: String,
-  @JsonProperty("clip")
+  @field:JsonProperty("clip")
   public val clip: Rect,
 )

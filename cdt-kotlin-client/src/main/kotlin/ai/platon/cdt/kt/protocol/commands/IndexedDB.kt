@@ -76,7 +76,7 @@ public interface IndexedDB {
     @ParamName("indexName") indexName: String,
     @ParamName("skipCount") skipCount: Int,
     @ParamName("pageSize") pageSize: Int,
-    @ParamName("keyRange") @Optional keyRange: KeyRange?,
+    @ParamName("keyRange") @Optional keyRange: KeyRange? = null,
   ): RequestData
 
   public suspend fun requestData(

@@ -11,20 +11,20 @@ import kotlin.collections.Map
  * Provides information about the GPU(s) on the system.
  */
 public data class GPUInfo(
-  @JsonProperty("devices")
+  @field:JsonProperty("devices")
   public val devices: List<GPUDevice>,
-  @JsonProperty("auxAttributes")
-  @Optional
+  @field:JsonProperty("auxAttributes")
+  @param:Optional
   public val auxAttributes: Map<String, Any?>? = null,
-  @JsonProperty("featureStatus")
-  @Optional
+  @field:JsonProperty("featureStatus")
+  @param:Optional
   public val featureStatus: Map<String, Any?>? = null,
-  @JsonProperty("driverBugWorkarounds")
+  @field:JsonProperty("driverBugWorkarounds")
   public val driverBugWorkarounds: List<String>,
-  @JsonProperty("videoDecoding")
+  @field:JsonProperty("videoDecoding")
   public val videoDecoding: List<VideoDecodeAcceleratorCapability>,
-  @JsonProperty("videoEncoding")
+  @field:JsonProperty("videoEncoding")
   public val videoEncoding: List<VideoEncodeAcceleratorCapability>,
-  @JsonProperty("imageDecoding")
+  @field:JsonProperty("imageDecoding")
   public val imageDecoding: List<ImageDecodeAcceleratorCapability>,
 )

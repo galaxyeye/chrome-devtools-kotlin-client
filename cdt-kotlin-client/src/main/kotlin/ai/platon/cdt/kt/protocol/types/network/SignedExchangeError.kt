@@ -11,12 +11,12 @@ import kotlin.String
  */
 @Experimental
 public data class SignedExchangeError(
-  @JsonProperty("message")
+  @field:JsonProperty("message")
   public val message: String,
-  @JsonProperty("signatureIndex")
-  @Optional
+  @field:JsonProperty("signatureIndex")
+  @param:Optional
   public val signatureIndex: Int? = null,
-  @JsonProperty("errorField")
-  @Optional
+  @field:JsonProperty("errorField")
+  @param:Optional
   public val errorField: SignedExchangeErrorField? = null,
 )

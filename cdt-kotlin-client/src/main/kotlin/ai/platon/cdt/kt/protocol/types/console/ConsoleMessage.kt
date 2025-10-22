@@ -9,19 +9,19 @@ import kotlin.String
  * Console message.
  */
 public data class ConsoleMessage(
-  @JsonProperty("source")
+  @field:JsonProperty("source")
   public val source: ConsoleMessageSource,
-  @JsonProperty("level")
+  @field:JsonProperty("level")
   public val level: ConsoleMessageLevel,
-  @JsonProperty("text")
+  @field:JsonProperty("text")
   public val text: String,
-  @JsonProperty("url")
-  @Optional
+  @field:JsonProperty("url")
+  @param:Optional
   public val url: String? = null,
-  @JsonProperty("line")
-  @Optional
+  @field:JsonProperty("line")
+  @param:Optional
   public val line: Int? = null,
-  @JsonProperty("column")
-  @Optional
+  @field:JsonProperty("column")
+  @param:Optional
   public val column: Int? = null,
 )

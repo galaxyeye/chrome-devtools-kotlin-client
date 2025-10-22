@@ -4,8 +4,8 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
 public data class SetBreakpoint(
-  @JsonProperty("breakpointId")
+  @field:JsonProperty("breakpointId")
   public val breakpointId: String,
-  @JsonProperty("actualLocation")
+  @field:JsonProperty("actualLocation")
   public val actualLocation: Location,
 )

@@ -7,6 +7,6 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * Issued when new message was logged.
  */
 public data class EntryAdded(
-  @JsonProperty("entry")
+  @field:JsonProperty("entry")
   public val entry: LogEntry,
 )

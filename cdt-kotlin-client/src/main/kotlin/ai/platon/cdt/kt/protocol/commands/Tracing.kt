@@ -50,9 +50,9 @@ public interface Tracing {
    * @param deterministic Enables more deterministic results by forcing garbage collection
    * @param levelOfDetail Specifies level of details in memory dump. Defaults to "detailed".
    */
-  public suspend fun requestMemoryDump(@ParamName("deterministic") @Optional
-      deterministic: Boolean?, @ParamName("levelOfDetail") @Optional
-      levelOfDetail: MemoryDumpLevelOfDetail?): RequestMemoryDump
+  public suspend fun requestMemoryDump(@ParamName("deterministic") @Optional deterministic: Boolean?
+      = null, @ParamName("levelOfDetail") @Optional levelOfDetail: MemoryDumpLevelOfDetail? = null):
+      RequestMemoryDump
 
   public suspend fun requestMemoryDump(): RequestMemoryDump {
     return requestMemoryDump(null, null)
@@ -79,15 +79,16 @@ public interface Tracing {
    * @param tracingBackend Backend type (defaults to `auto`)
    */
   public suspend fun start(
-    @ParamName("categories") @Optional @Deprecated categories: String?,
-    @ParamName("options") @Optional @Deprecated options: String?,
-    @ParamName("bufferUsageReportingInterval") @Optional bufferUsageReportingInterval: Double?,
-    @ParamName("transferMode") @Optional transferMode: StartTransferMode?,
-    @ParamName("streamFormat") @Optional streamFormat: StreamFormat?,
-    @ParamName("streamCompression") @Optional streamCompression: StreamCompression?,
-    @ParamName("traceConfig") @Optional traceConfig: TraceConfig?,
-    @ParamName("perfettoConfig") @Optional perfettoConfig: String?,
-    @ParamName("tracingBackend") @Optional tracingBackend: TracingBackend?,
+    @ParamName("categories") @Optional @Deprecated categories: String? = null,
+    @ParamName("options") @Optional @Deprecated options: String? = null,
+    @ParamName("bufferUsageReportingInterval") @Optional bufferUsageReportingInterval: Double? =
+        null,
+    @ParamName("transferMode") @Optional transferMode: StartTransferMode? = null,
+    @ParamName("streamFormat") @Optional streamFormat: StreamFormat? = null,
+    @ParamName("streamCompression") @Optional streamCompression: StreamCompression? = null,
+    @ParamName("traceConfig") @Optional traceConfig: TraceConfig? = null,
+    @ParamName("perfettoConfig") @Optional perfettoConfig: String? = null,
+    @ParamName("tracingBackend") @Optional tracingBackend: TracingBackend? = null,
   )
 
   public suspend fun start() {

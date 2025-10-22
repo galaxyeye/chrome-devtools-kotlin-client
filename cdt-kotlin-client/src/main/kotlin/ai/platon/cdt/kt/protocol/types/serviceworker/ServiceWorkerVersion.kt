@@ -10,26 +10,26 @@ import kotlin.collections.List
  * ServiceWorker version.
  */
 public data class ServiceWorkerVersion(
-  @JsonProperty("versionId")
+  @field:JsonProperty("versionId")
   public val versionId: String,
-  @JsonProperty("registrationId")
+  @field:JsonProperty("registrationId")
   public val registrationId: String,
-  @JsonProperty("scriptURL")
+  @field:JsonProperty("scriptURL")
   public val scriptURL: String,
-  @JsonProperty("runningStatus")
+  @field:JsonProperty("runningStatus")
   public val runningStatus: ServiceWorkerVersionRunningStatus,
-  @JsonProperty("status")
+  @field:JsonProperty("status")
   public val status: ServiceWorkerVersionStatus,
-  @JsonProperty("scriptLastModified")
-  @Optional
+  @field:JsonProperty("scriptLastModified")
+  @param:Optional
   public val scriptLastModified: Double? = null,
-  @JsonProperty("scriptResponseTime")
-  @Optional
+  @field:JsonProperty("scriptResponseTime")
+  @param:Optional
   public val scriptResponseTime: Double? = null,
-  @JsonProperty("controlledClients")
-  @Optional
+  @field:JsonProperty("controlledClients")
+  @param:Optional
   public val controlledClients: List<String>? = null,
-  @JsonProperty("targetId")
-  @Optional
+  @field:JsonProperty("targetId")
+  @param:Optional
   public val targetId: String? = null,
 )

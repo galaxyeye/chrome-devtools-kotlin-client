@@ -7,8 +7,8 @@ import kotlin.collections.List
  * CSS keyframes rule representation.
  */
 public data class CSSKeyframesRule(
-  @JsonProperty("animationName")
+  @field:JsonProperty("animationName")
   public val animationName: Value,
-  @JsonProperty("keyframes")
+  @field:JsonProperty("keyframes")
   public val keyframes: List<CSSKeyframeRule>,
 )

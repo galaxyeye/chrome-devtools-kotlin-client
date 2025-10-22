@@ -10,13 +10,13 @@ import kotlin.String
  * unserializable primitive value or neither of (for undefined) them should be specified.
  */
 public data class CallArgument(
-  @JsonProperty("value")
-  @Optional
+  @field:JsonProperty("value")
+  @param:Optional
   public val `value`: Any? = null,
-  @JsonProperty("unserializableValue")
-  @Optional
+  @field:JsonProperty("unserializableValue")
+  @param:Optional
   public val unserializableValue: String? = null,
-  @JsonProperty("objectId")
-  @Optional
+  @field:JsonProperty("objectId")
+  @param:Optional
   public val objectId: String? = null,
 )

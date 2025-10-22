@@ -8,10 +8,10 @@ import kotlin.String
  * Detailed application cache resource information.
  */
 public data class ApplicationCacheResource(
-  @JsonProperty("url")
+  @field:JsonProperty("url")
   public val url: String,
-  @JsonProperty("size")
+  @field:JsonProperty("size")
   public val size: Int,
-  @JsonProperty("type")
+  @field:JsonProperty("type")
   public val type: String,
 )

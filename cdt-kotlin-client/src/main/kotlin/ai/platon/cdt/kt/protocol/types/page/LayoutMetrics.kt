@@ -5,19 +5,19 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import java.lang.Deprecated
 
 public data class LayoutMetrics(
-  @JsonProperty("layoutViewport")
-  @Deprecated
+  @field:JsonProperty("layoutViewport")
+  @param:Deprecated
   public val layoutViewport: LayoutViewport,
-  @JsonProperty("visualViewport")
-  @Deprecated
+  @field:JsonProperty("visualViewport")
+  @param:Deprecated
   public val visualViewport: VisualViewport,
-  @JsonProperty("contentSize")
-  @Deprecated
+  @field:JsonProperty("contentSize")
+  @param:Deprecated
   public val contentSize: Rect,
-  @JsonProperty("cssLayoutViewport")
+  @field:JsonProperty("cssLayoutViewport")
   public val cssLayoutViewport: LayoutViewport,
-  @JsonProperty("cssVisualViewport")
+  @field:JsonProperty("cssVisualViewport")
   public val cssVisualViewport: VisualViewport,
-  @JsonProperty("cssContentSize")
+  @field:JsonProperty("cssContentSize")
   public val cssContentSize: Rect,
 )

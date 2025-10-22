@@ -8,10 +8,10 @@ import kotlin.String
  * Fired when `Element`'s attribute is modified.
  */
 public data class AttributeModified(
-  @JsonProperty("nodeId")
+  @field:JsonProperty("nodeId")
   public val nodeId: Int,
-  @JsonProperty("name")
+  @field:JsonProperty("name")
   public val name: String,
-  @JsonProperty("value")
+  @field:JsonProperty("value")
   public val `value`: String,
 )

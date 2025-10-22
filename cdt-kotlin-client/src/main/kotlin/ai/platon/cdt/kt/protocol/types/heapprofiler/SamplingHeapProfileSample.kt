@@ -8,10 +8,10 @@ import kotlin.Int
  * A single sample from a sampling profile.
  */
 public data class SamplingHeapProfileSample(
-  @JsonProperty("size")
+  @field:JsonProperty("size")
   public val size: Double,
-  @JsonProperty("nodeId")
+  @field:JsonProperty("nodeId")
   public val nodeId: Int,
-  @JsonProperty("ordinal")
+  @field:JsonProperty("ordinal")
   public val ordinal: Double,
 )

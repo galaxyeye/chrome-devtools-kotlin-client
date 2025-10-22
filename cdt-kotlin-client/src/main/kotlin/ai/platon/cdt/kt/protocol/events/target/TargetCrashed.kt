@@ -8,10 +8,10 @@ import kotlin.String
  * Issued when a target has crashed.
  */
 public data class TargetCrashed(
-  @JsonProperty("targetId")
+  @field:JsonProperty("targetId")
   public val targetId: String,
-  @JsonProperty("status")
+  @field:JsonProperty("status")
   public val status: String,
-  @JsonProperty("errorCode")
+  @field:JsonProperty("errorCode")
   public val errorCode: Int,
 )

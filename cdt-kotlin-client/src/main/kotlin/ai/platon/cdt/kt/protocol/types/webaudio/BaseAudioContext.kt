@@ -9,19 +9,19 @@ import kotlin.String
  * Protocol object for BaseAudioContext
  */
 public data class BaseAudioContext(
-  @JsonProperty("contextId")
+  @field:JsonProperty("contextId")
   public val contextId: String,
-  @JsonProperty("contextType")
+  @field:JsonProperty("contextType")
   public val contextType: ContextType,
-  @JsonProperty("contextState")
+  @field:JsonProperty("contextState")
   public val contextState: ContextState,
-  @JsonProperty("realtimeData")
-  @Optional
+  @field:JsonProperty("realtimeData")
+  @param:Optional
   public val realtimeData: ContextRealtimeData? = null,
-  @JsonProperty("callbackBufferSize")
+  @field:JsonProperty("callbackBufferSize")
   public val callbackBufferSize: Double,
-  @JsonProperty("maxOutputChannelCount")
+  @field:JsonProperty("maxOutputChannelCount")
   public val maxOutputChannelCount: Double,
-  @JsonProperty("sampleRate")
+  @field:JsonProperty("sampleRate")
   public val sampleRate: Double,
 )

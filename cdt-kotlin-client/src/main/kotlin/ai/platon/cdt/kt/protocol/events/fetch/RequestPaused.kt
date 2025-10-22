@@ -19,24 +19,24 @@ import kotlin.collections.List
  * of these fields is present and in the request stage otherwise.
  */
 public data class RequestPaused(
-  @JsonProperty("requestId")
+  @field:JsonProperty("requestId")
   public val requestId: String,
-  @JsonProperty("request")
+  @field:JsonProperty("request")
   public val request: Request,
-  @JsonProperty("frameId")
+  @field:JsonProperty("frameId")
   public val frameId: String,
-  @JsonProperty("resourceType")
+  @field:JsonProperty("resourceType")
   public val resourceType: ResourceType,
-  @JsonProperty("responseErrorReason")
-  @Optional
+  @field:JsonProperty("responseErrorReason")
+  @param:Optional
   public val responseErrorReason: ErrorReason? = null,
-  @JsonProperty("responseStatusCode")
-  @Optional
+  @field:JsonProperty("responseStatusCode")
+  @param:Optional
   public val responseStatusCode: Int? = null,
-  @JsonProperty("responseHeaders")
-  @Optional
+  @field:JsonProperty("responseHeaders")
+  @param:Optional
   public val responseHeaders: List<HeaderEntry>? = null,
-  @JsonProperty("networkId")
-  @Optional
+  @field:JsonProperty("networkId")
+  @param:Optional
   public val networkId: String? = null,
 )

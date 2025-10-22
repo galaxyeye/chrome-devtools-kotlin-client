@@ -8,10 +8,10 @@ import kotlin.Int
  * Encoding options for a screenshot.
  */
 public data class ScreenshotParams(
-  @JsonProperty("format")
-  @Optional
+  @field:JsonProperty("format")
+  @param:Optional
   public val format: ScreenshotParamsFormat? = null,
-  @JsonProperty("quality")
-  @Optional
+  @field:JsonProperty("quality")
+  @param:Optional
   public val quality: Int? = null,
 )

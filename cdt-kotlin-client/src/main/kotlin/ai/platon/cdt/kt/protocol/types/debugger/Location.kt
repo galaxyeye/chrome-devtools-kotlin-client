@@ -9,11 +9,11 @@ import kotlin.String
  * Location in the source code.
  */
 public data class Location(
-  @JsonProperty("scriptId")
+  @field:JsonProperty("scriptId")
   public val scriptId: String,
-  @JsonProperty("lineNumber")
+  @field:JsonProperty("lineNumber")
   public val lineNumber: Int,
-  @JsonProperty("columnNumber")
-  @Optional
+  @field:JsonProperty("columnNumber")
+  @param:Optional
   public val columnNumber: Int? = null,
 )

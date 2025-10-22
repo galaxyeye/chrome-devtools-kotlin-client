@@ -6,13 +6,13 @@ import kotlin.Int
 import kotlin.String
 
 public data class SourceCodeLocation(
-  @JsonProperty("scriptId")
-  @Optional
+  @field:JsonProperty("scriptId")
+  @param:Optional
   public val scriptId: String? = null,
-  @JsonProperty("url")
+  @field:JsonProperty("url")
   public val url: String,
-  @JsonProperty("lineNumber")
+  @field:JsonProperty("lineNumber")
   public val lineNumber: Int,
-  @JsonProperty("columnNumber")
+  @field:JsonProperty("columnNumber")
   public val columnNumber: Int,
 )

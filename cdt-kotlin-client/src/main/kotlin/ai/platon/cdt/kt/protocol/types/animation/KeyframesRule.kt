@@ -9,9 +9,9 @@ import kotlin.collections.List
  * Keyframes Rule
  */
 public data class KeyframesRule(
-  @JsonProperty("name")
-  @Optional
+  @field:JsonProperty("name")
+  @param:Optional
   public val name: String? = null,
-  @JsonProperty("keyframes")
+  @field:JsonProperty("keyframes")
   public val keyframes: List<KeyframeStyle>,
 )

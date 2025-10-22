@@ -14,64 +14,64 @@ import kotlin.collections.Map
  * HTTP response data.
  */
 public data class Response(
-  @JsonProperty("url")
+  @field:JsonProperty("url")
   public val url: String,
-  @JsonProperty("status")
+  @field:JsonProperty("status")
   public val status: Int,
-  @JsonProperty("statusText")
+  @field:JsonProperty("statusText")
   public val statusText: String,
-  @JsonProperty("headers")
+  @field:JsonProperty("headers")
   public val headers: Map<String, Any?>,
-  @JsonProperty("headersText")
-  @Optional
+  @field:JsonProperty("headersText")
+  @param:Optional
   public val headersText: String? = null,
-  @JsonProperty("mimeType")
+  @field:JsonProperty("mimeType")
   public val mimeType: String,
-  @JsonProperty("requestHeaders")
-  @Optional
+  @field:JsonProperty("requestHeaders")
+  @param:Optional
   public val requestHeaders: Map<String, Any?>? = null,
-  @JsonProperty("requestHeadersText")
-  @Optional
+  @field:JsonProperty("requestHeadersText")
+  @param:Optional
   public val requestHeadersText: String? = null,
-  @JsonProperty("connectionReused")
+  @field:JsonProperty("connectionReused")
   public val connectionReused: Boolean,
-  @JsonProperty("connectionId")
+  @field:JsonProperty("connectionId")
   public val connectionId: Double,
-  @JsonProperty("remoteIPAddress")
-  @Optional
+  @field:JsonProperty("remoteIPAddress")
+  @param:Optional
   public val remoteIPAddress: String? = null,
-  @JsonProperty("remotePort")
-  @Optional
+  @field:JsonProperty("remotePort")
+  @param:Optional
   public val remotePort: Int? = null,
-  @JsonProperty("fromDiskCache")
-  @Optional
+  @field:JsonProperty("fromDiskCache")
+  @param:Optional
   public val fromDiskCache: Boolean? = null,
-  @JsonProperty("fromServiceWorker")
-  @Optional
+  @field:JsonProperty("fromServiceWorker")
+  @param:Optional
   public val fromServiceWorker: Boolean? = null,
-  @JsonProperty("fromPrefetchCache")
-  @Optional
+  @field:JsonProperty("fromPrefetchCache")
+  @param:Optional
   public val fromPrefetchCache: Boolean? = null,
-  @JsonProperty("encodedDataLength")
+  @field:JsonProperty("encodedDataLength")
   public val encodedDataLength: Double,
-  @JsonProperty("timing")
-  @Optional
+  @field:JsonProperty("timing")
+  @param:Optional
   public val timing: ResourceTiming? = null,
-  @JsonProperty("serviceWorkerResponseSource")
-  @Optional
+  @field:JsonProperty("serviceWorkerResponseSource")
+  @param:Optional
   public val serviceWorkerResponseSource: ServiceWorkerResponseSource? = null,
-  @JsonProperty("responseTime")
-  @Optional
+  @field:JsonProperty("responseTime")
+  @param:Optional
   public val responseTime: Double? = null,
-  @JsonProperty("cacheStorageCacheName")
-  @Optional
+  @field:JsonProperty("cacheStorageCacheName")
+  @param:Optional
   public val cacheStorageCacheName: String? = null,
-  @JsonProperty("protocol")
-  @Optional
+  @field:JsonProperty("protocol")
+  @param:Optional
   public val protocol: String? = null,
-  @JsonProperty("securityState")
+  @field:JsonProperty("securityState")
   public val securityState: SecurityState,
-  @JsonProperty("securityDetails")
-  @Optional
+  @field:JsonProperty("securityDetails")
+  @param:Optional
   public val securityDetails: SecurityDetails? = null,
 )

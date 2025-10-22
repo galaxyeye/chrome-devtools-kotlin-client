@@ -38,8 +38,8 @@ public interface Fetch {
    * paused
    * expecting a call to continueWithAuth.
    */
-  public suspend fun enable(@ParamName("patterns") @Optional patterns: List<RequestPattern>?,
-      @ParamName("handleAuthRequests") @Optional handleAuthRequests: Boolean?)
+  public suspend fun enable(@ParamName("patterns") @Optional patterns: List<RequestPattern>? = null,
+      @ParamName("handleAuthRequests") @Optional handleAuthRequests: Boolean? = null)
 
   public suspend fun enable() {
     return enable(null, null)
@@ -69,10 +69,10 @@ public interface Fetch {
   public suspend fun fulfillRequest(
     @ParamName("requestId") requestId: String,
     @ParamName("responseCode") responseCode: Int,
-    @ParamName("responseHeaders") @Optional responseHeaders: List<HeaderEntry>?,
-    @ParamName("binaryResponseHeaders") @Optional binaryResponseHeaders: String?,
-    @ParamName("body") @Optional body: String?,
-    @ParamName("responsePhrase") @Optional responsePhrase: String?,
+    @ParamName("responseHeaders") @Optional responseHeaders: List<HeaderEntry>? = null,
+    @ParamName("binaryResponseHeaders") @Optional binaryResponseHeaders: String? = null,
+    @ParamName("body") @Optional body: String? = null,
+    @ParamName("responsePhrase") @Optional responsePhrase: String? = null,
   )
 
   public suspend fun fulfillRequest(@ParamName("requestId") requestId: String,
@@ -91,10 +91,10 @@ public interface Fetch {
    */
   public suspend fun continueRequest(
     @ParamName("requestId") requestId: String,
-    @ParamName("url") @Optional url: String?,
-    @ParamName("method") @Optional method: String?,
-    @ParamName("postData") @Optional postData: String?,
-    @ParamName("headers") @Optional headers: List<HeaderEntry>?,
+    @ParamName("url") @Optional url: String? = null,
+    @ParamName("method") @Optional method: String? = null,
+    @ParamName("postData") @Optional postData: String? = null,
+    @ParamName("headers") @Optional headers: List<HeaderEntry>? = null,
   )
 
   public suspend fun continueRequest(@ParamName("requestId") requestId: String) {

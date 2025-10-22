@@ -6,11 +6,11 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Int
 
 public data class LayoutShiftAttribution(
-  @JsonProperty("previousRect")
+  @field:JsonProperty("previousRect")
   public val previousRect: Rect,
-  @JsonProperty("currentRect")
+  @field:JsonProperty("currentRect")
   public val currentRect: Rect,
-  @JsonProperty("nodeId")
-  @Optional
+  @field:JsonProperty("nodeId")
+  @param:Optional
   public val nodeId: Int? = null,
 )

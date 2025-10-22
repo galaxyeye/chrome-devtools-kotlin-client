@@ -8,8 +8,8 @@ import kotlin.collections.List
  * Match data for a CSS rule.
  */
 public data class RuleMatch(
-  @JsonProperty("rule")
+  @field:JsonProperty("rule")
   public val rule: CSSRule,
-  @JsonProperty("matchingSelectors")
+  @field:JsonProperty("matchingSelectors")
   public val matchingSelectors: List<Int>,
 )

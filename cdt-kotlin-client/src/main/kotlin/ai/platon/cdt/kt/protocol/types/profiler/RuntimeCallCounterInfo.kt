@@ -10,10 +10,10 @@ import kotlin.String
  */
 @Experimental
 public data class RuntimeCallCounterInfo(
-  @JsonProperty("name")
+  @field:JsonProperty("name")
   public val name: String,
-  @JsonProperty("value")
+  @field:JsonProperty("value")
   public val `value`: Double,
-  @JsonProperty("time")
+  @field:JsonProperty("time")
   public val time: Double,
 )

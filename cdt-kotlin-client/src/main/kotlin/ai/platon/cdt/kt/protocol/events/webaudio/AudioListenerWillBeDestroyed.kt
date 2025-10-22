@@ -7,8 +7,8 @@ import kotlin.String
  * Notifies that a new AudioListener has been created.
  */
 public data class AudioListenerWillBeDestroyed(
-  @JsonProperty("contextId")
+  @field:JsonProperty("contextId")
   public val contextId: String,
-  @JsonProperty("listenerId")
+  @field:JsonProperty("listenerId")
   public val listenerId: String,
 )

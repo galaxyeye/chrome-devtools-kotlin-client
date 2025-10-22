@@ -5,9 +5,9 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
 public data class ScriptSource(
-  @JsonProperty("scriptSource")
+  @field:JsonProperty("scriptSource")
   public val scriptSource: String,
-  @JsonProperty("bytecode")
-  @Optional
+  @field:JsonProperty("bytecode")
+  @param:Optional
   public val bytecode: String? = null,
 )

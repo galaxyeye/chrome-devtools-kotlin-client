@@ -13,19 +13,19 @@ import kotlin.String
  * CORS RFC1918 enforcement.
  */
 public data class CorsIssueDetails(
-  @JsonProperty("corsErrorStatus")
+  @field:JsonProperty("corsErrorStatus")
   public val corsErrorStatus: CorsErrorStatus,
-  @JsonProperty("isWarning")
+  @field:JsonProperty("isWarning")
   public val isWarning: Boolean,
-  @JsonProperty("request")
+  @field:JsonProperty("request")
   public val request: AffectedRequest,
-  @JsonProperty("initiatorOrigin")
-  @Optional
+  @field:JsonProperty("initiatorOrigin")
+  @param:Optional
   public val initiatorOrigin: String? = null,
-  @JsonProperty("resourceIPAddressSpace")
-  @Optional
+  @field:JsonProperty("resourceIPAddressSpace")
+  @param:Optional
   public val resourceIPAddressSpace: IPAddressSpace? = null,
-  @JsonProperty("clientSecurityState")
-  @Optional
+  @field:JsonProperty("clientSecurityState")
+  @param:Optional
   public val clientSecurityState: ClientSecurityState? = null,
 )

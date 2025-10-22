@@ -4,10 +4,10 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.collections.List
 
 public data class Snapshot(
-  @JsonProperty("domNodes")
+  @field:JsonProperty("domNodes")
   public val domNodes: List<DOMNode>,
-  @JsonProperty("layoutTreeNodes")
+  @field:JsonProperty("layoutTreeNodes")
   public val layoutTreeNodes: List<LayoutTreeNode>,
-  @JsonProperty("computedStyles")
+  @field:JsonProperty("computedStyles")
   public val computedStyles: List<ComputedStyle>,
 )

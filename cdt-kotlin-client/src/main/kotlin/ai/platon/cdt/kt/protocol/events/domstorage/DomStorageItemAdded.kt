@@ -5,10 +5,10 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
 public data class DomStorageItemAdded(
-  @JsonProperty("storageId")
+  @field:JsonProperty("storageId")
   public val storageId: StorageId,
-  @JsonProperty("key")
+  @field:JsonProperty("key")
   public val key: String,
-  @JsonProperty("newValue")
+  @field:JsonProperty("newValue")
   public val newValue: String,
 )

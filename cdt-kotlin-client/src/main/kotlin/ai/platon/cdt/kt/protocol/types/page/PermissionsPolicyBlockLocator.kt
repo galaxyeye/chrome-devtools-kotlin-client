@@ -6,8 +6,8 @@ import kotlin.String
 
 @Experimental
 public data class PermissionsPolicyBlockLocator(
-  @JsonProperty("frameId")
+  @field:JsonProperty("frameId")
   public val frameId: String,
-  @JsonProperty("blockReason")
+  @field:JsonProperty("blockReason")
   public val blockReason: PermissionsPolicyBlockReason,
 )

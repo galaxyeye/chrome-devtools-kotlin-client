@@ -11,11 +11,11 @@ import kotlin.collections.List
  */
 @Experimental
 public data class BlockedSetCookieWithReason(
-  @JsonProperty("blockedReasons")
+  @field:JsonProperty("blockedReasons")
   public val blockedReasons: List<SetCookieBlockedReason>,
-  @JsonProperty("cookieLine")
+  @field:JsonProperty("cookieLine")
   public val cookieLine: String,
-  @JsonProperty("cookie")
-  @Optional
+  @field:JsonProperty("cookie")
+  @param:Optional
   public val cookie: Cookie? = null,
 )

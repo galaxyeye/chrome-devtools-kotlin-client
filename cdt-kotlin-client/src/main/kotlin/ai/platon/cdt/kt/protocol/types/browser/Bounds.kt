@@ -10,19 +10,19 @@ import kotlin.Int
  */
 @Experimental
 public data class Bounds(
-  @JsonProperty("left")
-  @Optional
+  @field:JsonProperty("left")
+  @param:Optional
   public val left: Int? = null,
-  @JsonProperty("top")
-  @Optional
+  @field:JsonProperty("top")
+  @param:Optional
   public val top: Int? = null,
-  @JsonProperty("width")
-  @Optional
+  @field:JsonProperty("width")
+  @param:Optional
   public val width: Int? = null,
-  @JsonProperty("height")
-  @Optional
+  @field:JsonProperty("height")
+  @param:Optional
   public val height: Int? = null,
-  @JsonProperty("windowState")
-  @Optional
+  @field:JsonProperty("windowState")
+  @param:Optional
   public val windowState: WindowState? = null,
 )

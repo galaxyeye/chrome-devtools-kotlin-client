@@ -39,10 +39,10 @@ public interface Accessibility {
   @Returns("nodes")
   @ReturnTypeParameter(AXNode::class)
   public suspend fun getPartialAXTree(
-    @ParamName("nodeId") @Optional nodeId: Int?,
-    @ParamName("backendNodeId") @Optional backendNodeId: Int?,
-    @ParamName("objectId") @Optional objectId: String?,
-    @ParamName("fetchRelatives") @Optional fetchRelatives: Boolean?,
+    @ParamName("nodeId") @Optional nodeId: Int? = null,
+    @ParamName("backendNodeId") @Optional backendNodeId: Int? = null,
+    @ParamName("objectId") @Optional objectId: String? = null,
+    @ParamName("fetchRelatives") @Optional fetchRelatives: Boolean? = null,
   ): List<AXNode>
 
   @Experimental
@@ -60,7 +60,8 @@ public interface Accessibility {
   @Experimental
   @Returns("nodes")
   @ReturnTypeParameter(AXNode::class)
-  public suspend fun getFullAXTree(@ParamName("max_depth") @Optional max_depth: Int?): List<AXNode>
+  public suspend fun getFullAXTree(@ParamName("max_depth") @Optional max_depth: Int? = null):
+      List<AXNode>
 
   @Experimental
   @Returns("nodes")
@@ -95,11 +96,11 @@ public interface Accessibility {
   @Returns("nodes")
   @ReturnTypeParameter(AXNode::class)
   public suspend fun queryAXTree(
-    @ParamName("nodeId") @Optional nodeId: Int?,
-    @ParamName("backendNodeId") @Optional backendNodeId: Int?,
-    @ParamName("objectId") @Optional objectId: String?,
-    @ParamName("accessibleName") @Optional accessibleName: String?,
-    @ParamName("role") @Optional role: String?,
+    @ParamName("nodeId") @Optional nodeId: Int? = null,
+    @ParamName("backendNodeId") @Optional backendNodeId: Int? = null,
+    @ParamName("objectId") @Optional objectId: String? = null,
+    @ParamName("accessibleName") @Optional accessibleName: String? = null,
+    @ParamName("role") @Optional role: String? = null,
   ): List<AXNode>
 
   @Experimental

@@ -140,13 +140,14 @@ public interface Network {
   @Experimental
   public suspend fun continueInterceptedRequest(
     @ParamName("interceptionId") interceptionId: String,
-    @ParamName("errorReason") @Optional errorReason: ErrorReason?,
-    @ParamName("rawResponse") @Optional rawResponse: String?,
-    @ParamName("url") @Optional url: String?,
-    @ParamName("method") @Optional method: String?,
-    @ParamName("postData") @Optional postData: String?,
-    @ParamName("headers") @Optional headers: Map<String, Any?>?,
-    @ParamName("authChallengeResponse") @Optional authChallengeResponse: AuthChallengeResponse?,
+    @ParamName("errorReason") @Optional errorReason: ErrorReason? = null,
+    @ParamName("rawResponse") @Optional rawResponse: String? = null,
+    @ParamName("url") @Optional url: String? = null,
+    @ParamName("method") @Optional method: String? = null,
+    @ParamName("postData") @Optional postData: String? = null,
+    @ParamName("headers") @Optional headers: Map<String, Any?>? = null,
+    @ParamName("authChallengeResponse") @Optional authChallengeResponse: AuthChallengeResponse? =
+        null,
   )
 
   @Deprecated
@@ -167,9 +168,9 @@ public interface Network {
    */
   public suspend fun deleteCookies(
     @ParamName("name") name: String,
-    @ParamName("url") @Optional url: String?,
-    @ParamName("domain") @Optional domain: String?,
-    @ParamName("path") @Optional path: String?,
+    @ParamName("url") @Optional url: String? = null,
+    @ParamName("domain") @Optional domain: String? = null,
+    @ParamName("path") @Optional path: String? = null,
   )
 
   public suspend fun deleteCookies(@ParamName("name") name: String) {
@@ -196,7 +197,7 @@ public interface Network {
     @ParamName("latency") latency: Double,
     @ParamName("downloadThroughput") downloadThroughput: Double,
     @ParamName("uploadThroughput") uploadThroughput: Double,
-    @ParamName("connectionType") @Optional connectionType: ConnectionType?,
+    @ParamName("connectionType") @Optional connectionType: ConnectionType? = null,
   )
 
   public suspend fun emulateNetworkConditions(
@@ -218,9 +219,9 @@ public interface Network {
    * requestWillBeSent notification
    */
   public suspend fun enable(
-    @ParamName("maxTotalBufferSize") @Optional @Experimental maxTotalBufferSize: Int?,
-    @ParamName("maxResourceBufferSize") @Optional @Experimental maxResourceBufferSize: Int?,
-    @ParamName("maxPostDataSize") @Optional maxPostDataSize: Int?,
+    @ParamName("maxTotalBufferSize") @Optional @Experimental maxTotalBufferSize: Int? = null,
+    @ParamName("maxResourceBufferSize") @Optional @Experimental maxResourceBufferSize: Int? = null,
+    @ParamName("maxPostDataSize") @Optional maxPostDataSize: Int? = null,
   )
 
   public suspend fun enable() {
@@ -253,7 +254,8 @@ public interface Network {
    */
   @Returns("cookies")
   @ReturnTypeParameter(Cookie::class)
-  public suspend fun getCookies(@ParamName("urls") @Optional urls: List<String>?): List<Cookie>
+  public suspend fun getCookies(@ParamName("urls") @Optional urls: List<String>? = null):
+      List<Cookie>
 
   @Returns("cookies")
   @ReturnTypeParameter(Cookie::class)
@@ -318,8 +320,8 @@ public interface Network {
   public suspend fun searchInResponseBody(
     @ParamName("requestId") requestId: String,
     @ParamName("query") query: String,
-    @ParamName("caseSensitive") @Optional caseSensitive: Boolean?,
-    @ParamName("isRegex") @Optional isRegex: Boolean?,
+    @ParamName("caseSensitive") @Optional caseSensitive: Boolean? = null,
+    @ParamName("isRegex") @Optional isRegex: Boolean? = null,
   ): List<SearchMatch>
 
   @Experimental
@@ -375,17 +377,17 @@ public interface Network {
   public suspend fun setCookie(
     @ParamName("name") name: String,
     @ParamName("value") `value`: String,
-    @ParamName("url") @Optional url: String?,
-    @ParamName("domain") @Optional domain: String?,
-    @ParamName("path") @Optional path: String?,
-    @ParamName("secure") @Optional secure: Boolean?,
-    @ParamName("httpOnly") @Optional httpOnly: Boolean?,
-    @ParamName("sameSite") @Optional sameSite: CookieSameSite?,
-    @ParamName("expires") @Optional expires: Double?,
-    @ParamName("priority") @Optional @Experimental priority: CookiePriority?,
-    @ParamName("sameParty") @Optional @Experimental sameParty: Boolean?,
-    @ParamName("sourceScheme") @Optional @Experimental sourceScheme: CookieSourceScheme?,
-    @ParamName("sourcePort") @Optional @Experimental sourcePort: Int?,
+    @ParamName("url") @Optional url: String? = null,
+    @ParamName("domain") @Optional domain: String? = null,
+    @ParamName("path") @Optional path: String? = null,
+    @ParamName("secure") @Optional secure: Boolean? = null,
+    @ParamName("httpOnly") @Optional httpOnly: Boolean? = null,
+    @ParamName("sameSite") @Optional sameSite: CookieSameSite? = null,
+    @ParamName("expires") @Optional expires: Double? = null,
+    @ParamName("priority") @Optional @Experimental priority: CookiePriority? = null,
+    @ParamName("sameParty") @Optional @Experimental sameParty: Boolean? = null,
+    @ParamName("sourceScheme") @Optional @Experimental sourceScheme: CookieSourceScheme? = null,
+    @ParamName("sourcePort") @Optional @Experimental sourcePort: Int? = null,
   ): Boolean
 
   @Returns("success")
@@ -440,8 +442,8 @@ public interface Network {
    */
   @Experimental
   @Returns("status")
-  public suspend fun getSecurityIsolationStatus(@ParamName("frameId") @Optional frameId: String?):
-      SecurityIsolationStatus
+  public suspend fun getSecurityIsolationStatus(@ParamName("frameId") @Optional frameId: String? =
+      null): SecurityIsolationStatus
 
   @Experimental
   @Returns("status")

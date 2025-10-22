@@ -11,9 +11,9 @@ import kotlin.String
  */
 @Experimental
 public data class StackTraceId(
-  @JsonProperty("id")
+  @field:JsonProperty("id")
   public val id: String,
-  @JsonProperty("debuggerId")
-  @Optional
+  @field:JsonProperty("debuggerId")
+  @param:Optional
   public val debuggerId: String? = null,
 )

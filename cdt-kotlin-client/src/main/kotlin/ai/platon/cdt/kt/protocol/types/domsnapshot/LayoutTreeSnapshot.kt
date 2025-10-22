@@ -11,34 +11,34 @@ import kotlin.collections.List
  * Table of details of an element in the DOM tree with a LayoutObject.
  */
 public data class LayoutTreeSnapshot(
-  @JsonProperty("nodeIndex")
+  @field:JsonProperty("nodeIndex")
   public val nodeIndex: List<Int>,
-  @JsonProperty("styles")
+  @field:JsonProperty("styles")
   public val styles: List<List<Int>>,
-  @JsonProperty("bounds")
+  @field:JsonProperty("bounds")
   public val bounds: List<List<Double>>,
-  @JsonProperty("text")
+  @field:JsonProperty("text")
   public val text: List<Int>,
-  @JsonProperty("stackingContexts")
+  @field:JsonProperty("stackingContexts")
   public val stackingContexts: RareBooleanData,
-  @JsonProperty("paintOrders")
-  @Optional
+  @field:JsonProperty("paintOrders")
+  @param:Optional
   public val paintOrders: List<Int>? = null,
-  @JsonProperty("offsetRects")
-  @Optional
+  @field:JsonProperty("offsetRects")
+  @param:Optional
   public val offsetRects: List<List<Double>>? = null,
-  @JsonProperty("scrollRects")
-  @Optional
+  @field:JsonProperty("scrollRects")
+  @param:Optional
   public val scrollRects: List<List<Double>>? = null,
-  @JsonProperty("clientRects")
-  @Optional
+  @field:JsonProperty("clientRects")
+  @param:Optional
   public val clientRects: List<List<Double>>? = null,
-  @JsonProperty("blendedBackgroundColors")
-  @Optional
-  @Experimental
+  @field:JsonProperty("blendedBackgroundColors")
+  @param:Optional
+  @param:Experimental
   public val blendedBackgroundColors: List<Int>? = null,
-  @JsonProperty("textColorOpacities")
-  @Optional
-  @Experimental
+  @field:JsonProperty("textColorOpacities")
+  @param:Optional
+  @param:Experimental
   public val textColorOpacities: List<Double>? = null,
 )

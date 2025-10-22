@@ -6,11 +6,11 @@ import kotlin.Boolean
 import kotlin.String
 
 public data class ShorthandEntry(
-  @JsonProperty("name")
+  @field:JsonProperty("name")
   public val name: String,
-  @JsonProperty("value")
+  @field:JsonProperty("value")
   public val `value`: String,
-  @JsonProperty("important")
-  @Optional
+  @field:JsonProperty("important")
+  @param:Optional
   public val important: Boolean? = null,
 )

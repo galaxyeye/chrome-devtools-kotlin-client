@@ -9,16 +9,16 @@ import kotlin.collections.List
  * CSS rule representation.
  */
 public data class CSSRule(
-  @JsonProperty("styleSheetId")
-  @Optional
+  @field:JsonProperty("styleSheetId")
+  @param:Optional
   public val styleSheetId: String? = null,
-  @JsonProperty("selectorList")
+  @field:JsonProperty("selectorList")
   public val selectorList: SelectorList,
-  @JsonProperty("origin")
+  @field:JsonProperty("origin")
   public val origin: StyleSheetOrigin,
-  @JsonProperty("style")
+  @field:JsonProperty("style")
   public val style: CSSStyle,
-  @JsonProperty("media")
-  @Optional
+  @field:JsonProperty("media")
+  @param:Optional
   public val media: List<CSSMedia>? = null,
 )

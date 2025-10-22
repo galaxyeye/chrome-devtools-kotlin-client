@@ -10,12 +10,12 @@ import kotlin.collections.List
  * etc.
  */
 public data class WindowOpen(
-  @JsonProperty("url")
+  @field:JsonProperty("url")
   public val url: String,
-  @JsonProperty("windowName")
+  @field:JsonProperty("windowName")
   public val windowName: String,
-  @JsonProperty("windowFeatures")
+  @field:JsonProperty("windowFeatures")
   public val windowFeatures: List<String>,
-  @JsonProperty("userGesture")
+  @field:JsonProperty("userGesture")
   public val userGesture: Boolean,
 )

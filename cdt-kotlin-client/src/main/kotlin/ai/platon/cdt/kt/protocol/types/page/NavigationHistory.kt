@@ -5,8 +5,8 @@ import kotlin.Int
 import kotlin.collections.List
 
 public data class NavigationHistory(
-  @JsonProperty("currentIndex")
+  @field:JsonProperty("currentIndex")
   public val currentIndex: Int,
-  @JsonProperty("entries")
+  @field:JsonProperty("entries")
   public val entries: List<NavigationEntry>,
 )

@@ -8,8 +8,8 @@ import kotlin.Double
  * Issued when exception was thrown and unhandled.
  */
 public data class ExceptionThrown(
-  @JsonProperty("timestamp")
+  @field:JsonProperty("timestamp")
   public val timestamp: Double,
-  @JsonProperty("exceptionDetails")
+  @field:JsonProperty("exceptionDetails")
   public val exceptionDetails: ExceptionDetails,
 )

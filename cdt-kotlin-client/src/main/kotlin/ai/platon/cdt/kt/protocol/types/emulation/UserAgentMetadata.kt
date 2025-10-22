@@ -13,20 +13,20 @@ import kotlin.collections.List
  */
 @Experimental
 public data class UserAgentMetadata(
-  @JsonProperty("brands")
-  @Optional
+  @field:JsonProperty("brands")
+  @param:Optional
   public val brands: List<UserAgentBrandVersion>? = null,
-  @JsonProperty("fullVersion")
-  @Optional
+  @field:JsonProperty("fullVersion")
+  @param:Optional
   public val fullVersion: String? = null,
-  @JsonProperty("platform")
+  @field:JsonProperty("platform")
   public val platform: String,
-  @JsonProperty("platformVersion")
+  @field:JsonProperty("platformVersion")
   public val platformVersion: String,
-  @JsonProperty("architecture")
+  @field:JsonProperty("architecture")
   public val architecture: String,
-  @JsonProperty("model")
+  @field:JsonProperty("model")
   public val model: String,
-  @JsonProperty("mobile")
+  @field:JsonProperty("mobile")
   public val mobile: Boolean,
 )

@@ -4,8 +4,8 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Int
 
 public data class ScrollSnapHighlightConfig(
-  @JsonProperty("scrollSnapContainerHighlightConfig")
+  @field:JsonProperty("scrollSnapContainerHighlightConfig")
   public val scrollSnapContainerHighlightConfig: ScrollSnapContainerHighlightConfig,
-  @JsonProperty("nodeId")
+  @field:JsonProperty("nodeId")
   public val nodeId: Int,
 )

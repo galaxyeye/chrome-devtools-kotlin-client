@@ -7,6 +7,6 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * Issued when a possible inspection target is created.
  */
 public data class TargetCreated(
-  @JsonProperty("targetInfo")
+  @field:JsonProperty("targetInfo")
   public val targetInfo: TargetInfo,
 )

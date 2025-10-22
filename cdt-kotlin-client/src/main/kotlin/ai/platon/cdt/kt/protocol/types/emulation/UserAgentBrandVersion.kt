@@ -9,8 +9,8 @@ import kotlin.String
  */
 @Experimental
 public data class UserAgentBrandVersion(
-  @JsonProperty("brand")
+  @field:JsonProperty("brand")
   public val brand: String,
-  @JsonProperty("version")
+  @field:JsonProperty("version")
   public val version: String,
 )

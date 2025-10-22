@@ -7,9 +7,9 @@ import kotlin.String
 
 @Experimental
 public data class SafetyTipInfo(
-  @JsonProperty("safetyTipStatus")
+  @field:JsonProperty("safetyTipStatus")
   public val safetyTipStatus: SafetyTipStatus,
-  @JsonProperty("safeUrl")
-  @Optional
+  @field:JsonProperty("safeUrl")
+  @param:Optional
   public val safeUrl: String? = null,
 )

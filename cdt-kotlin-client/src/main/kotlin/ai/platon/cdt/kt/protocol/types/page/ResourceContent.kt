@@ -5,8 +5,8 @@ import kotlin.Boolean
 import kotlin.String
 
 public data class ResourceContent(
-  @JsonProperty("content")
+  @field:JsonProperty("content")
   public val content: String,
-  @JsonProperty("base64Encoded")
+  @field:JsonProperty("base64Encoded")
   public val base64Encoded: Boolean,
 )

@@ -10,13 +10,13 @@ import kotlin.String
  */
 @Experimental
 public data class RequestPattern(
-  @JsonProperty("urlPattern")
-  @Optional
+  @field:JsonProperty("urlPattern")
+  @param:Optional
   public val urlPattern: String? = null,
-  @JsonProperty("resourceType")
-  @Optional
+  @field:JsonProperty("resourceType")
+  @param:Optional
   public val resourceType: ResourceType? = null,
-  @JsonProperty("interceptionStage")
-  @Optional
+  @field:JsonProperty("interceptionStage")
+  @param:Optional
   public val interceptionStage: InterceptionStage? = null,
 )

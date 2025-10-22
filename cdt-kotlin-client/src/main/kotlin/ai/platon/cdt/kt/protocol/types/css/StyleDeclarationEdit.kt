@@ -7,10 +7,10 @@ import kotlin.String
  * A descriptor of operation to mutate style declaration text.
  */
 public data class StyleDeclarationEdit(
-  @JsonProperty("styleSheetId")
+  @field:JsonProperty("styleSheetId")
   public val styleSheetId: String,
-  @JsonProperty("range")
+  @field:JsonProperty("range")
   public val range: SourceRange,
-  @JsonProperty("text")
+  @field:JsonProperty("text")
   public val text: String,
 )

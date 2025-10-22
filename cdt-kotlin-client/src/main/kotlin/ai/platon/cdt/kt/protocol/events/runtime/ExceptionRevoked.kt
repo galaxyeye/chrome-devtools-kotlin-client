@@ -8,8 +8,8 @@ import kotlin.String
  * Issued when unhandled exception was revoked.
  */
 public data class ExceptionRevoked(
-  @JsonProperty("reason")
+  @field:JsonProperty("reason")
   public val reason: String,
-  @JsonProperty("exceptionId")
+  @field:JsonProperty("exceptionId")
   public val exceptionId: Int,
 )

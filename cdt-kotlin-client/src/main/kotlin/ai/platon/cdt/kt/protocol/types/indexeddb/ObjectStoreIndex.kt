@@ -8,12 +8,12 @@ import kotlin.String
  * Object store index.
  */
 public data class ObjectStoreIndex(
-  @JsonProperty("name")
+  @field:JsonProperty("name")
   public val name: String,
-  @JsonProperty("keyPath")
+  @field:JsonProperty("keyPath")
   public val keyPath: KeyPath,
-  @JsonProperty("unique")
+  @field:JsonProperty("unique")
   public val unique: Boolean,
-  @JsonProperty("multiEntry")
+  @field:JsonProperty("multiEntry")
   public val multiEntry: Boolean,
 )

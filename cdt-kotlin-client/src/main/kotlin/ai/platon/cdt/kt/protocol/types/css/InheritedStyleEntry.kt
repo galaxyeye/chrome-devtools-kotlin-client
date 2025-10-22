@@ -8,9 +8,9 @@ import kotlin.collections.List
  * Inherited CSS rule collection from ancestor node.
  */
 public data class InheritedStyleEntry(
-  @JsonProperty("inlineStyle")
-  @Optional
+  @field:JsonProperty("inlineStyle")
+  @param:Optional
   public val inlineStyle: CSSStyle? = null,
-  @JsonProperty("matchedCSSRules")
+  @field:JsonProperty("matchedCSSRules")
   public val matchedCSSRules: List<RuleMatch>,
 )

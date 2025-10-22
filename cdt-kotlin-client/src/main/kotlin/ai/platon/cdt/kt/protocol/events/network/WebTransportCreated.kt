@@ -10,13 +10,13 @@ import kotlin.String
  * Fired upon WebTransport creation.
  */
 public data class WebTransportCreated(
-  @JsonProperty("transportId")
+  @field:JsonProperty("transportId")
   public val transportId: String,
-  @JsonProperty("url")
+  @field:JsonProperty("url")
   public val url: String,
-  @JsonProperty("timestamp")
+  @field:JsonProperty("timestamp")
   public val timestamp: Double,
-  @JsonProperty("initiator")
-  @Optional
+  @field:JsonProperty("initiator")
+  @param:Optional
   public val initiator: Initiator? = null,
 )

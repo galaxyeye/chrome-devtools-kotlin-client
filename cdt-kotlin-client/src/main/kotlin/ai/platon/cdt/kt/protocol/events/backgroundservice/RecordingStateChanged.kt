@@ -8,8 +8,8 @@ import kotlin.Boolean
  * Called when the recording state for the service has been updated.
  */
 public data class RecordingStateChanged(
-  @JsonProperty("isRecording")
+  @field:JsonProperty("isRecording")
   public val isRecording: Boolean,
-  @JsonProperty("service")
+  @field:JsonProperty("service")
   public val service: ServiceName,
 )

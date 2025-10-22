@@ -8,20 +8,20 @@ import kotlin.String
  * Protocol object for AudioNode
  */
 public data class AudioNode(
-  @JsonProperty("nodeId")
+  @field:JsonProperty("nodeId")
   public val nodeId: String,
-  @JsonProperty("contextId")
+  @field:JsonProperty("contextId")
   public val contextId: String,
-  @JsonProperty("nodeType")
+  @field:JsonProperty("nodeType")
   public val nodeType: String,
-  @JsonProperty("numberOfInputs")
+  @field:JsonProperty("numberOfInputs")
   public val numberOfInputs: Double,
-  @JsonProperty("numberOfOutputs")
+  @field:JsonProperty("numberOfOutputs")
   public val numberOfOutputs: Double,
-  @JsonProperty("channelCount")
+  @field:JsonProperty("channelCount")
   public val channelCount: Double,
-  @JsonProperty("channelCountMode")
+  @field:JsonProperty("channelCountMode")
   public val channelCountMode: ChannelCountMode,
-  @JsonProperty("channelInterpretation")
+  @field:JsonProperty("channelInterpretation")
   public val channelInterpretation: ChannelInterpretation,
 )

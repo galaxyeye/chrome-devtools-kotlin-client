@@ -8,46 +8,46 @@ import kotlin.Double
  * Timing information for the request.
  */
 public data class ResourceTiming(
-  @JsonProperty("requestTime")
+  @field:JsonProperty("requestTime")
   public val requestTime: Double,
-  @JsonProperty("proxyStart")
+  @field:JsonProperty("proxyStart")
   public val proxyStart: Double,
-  @JsonProperty("proxyEnd")
+  @field:JsonProperty("proxyEnd")
   public val proxyEnd: Double,
-  @JsonProperty("dnsStart")
+  @field:JsonProperty("dnsStart")
   public val dnsStart: Double,
-  @JsonProperty("dnsEnd")
+  @field:JsonProperty("dnsEnd")
   public val dnsEnd: Double,
-  @JsonProperty("connectStart")
+  @field:JsonProperty("connectStart")
   public val connectStart: Double,
-  @JsonProperty("connectEnd")
+  @field:JsonProperty("connectEnd")
   public val connectEnd: Double,
-  @JsonProperty("sslStart")
+  @field:JsonProperty("sslStart")
   public val sslStart: Double,
-  @JsonProperty("sslEnd")
+  @field:JsonProperty("sslEnd")
   public val sslEnd: Double,
-  @JsonProperty("workerStart")
-  @Experimental
+  @field:JsonProperty("workerStart")
+  @param:Experimental
   public val workerStart: Double,
-  @JsonProperty("workerReady")
-  @Experimental
+  @field:JsonProperty("workerReady")
+  @param:Experimental
   public val workerReady: Double,
-  @JsonProperty("workerFetchStart")
-  @Experimental
+  @field:JsonProperty("workerFetchStart")
+  @param:Experimental
   public val workerFetchStart: Double,
-  @JsonProperty("workerRespondWithSettled")
-  @Experimental
+  @field:JsonProperty("workerRespondWithSettled")
+  @param:Experimental
   public val workerRespondWithSettled: Double,
-  @JsonProperty("sendStart")
+  @field:JsonProperty("sendStart")
   public val sendStart: Double,
-  @JsonProperty("sendEnd")
+  @field:JsonProperty("sendEnd")
   public val sendEnd: Double,
-  @JsonProperty("pushStart")
-  @Experimental
+  @field:JsonProperty("pushStart")
+  @param:Experimental
   public val pushStart: Double,
-  @JsonProperty("pushEnd")
-  @Experimental
+  @field:JsonProperty("pushEnd")
+  @param:Experimental
   public val pushEnd: Double,
-  @JsonProperty("receiveHeadersEnd")
+  @field:JsonProperty("receiveHeadersEnd")
   public val receiveHeadersEnd: Double,
 )

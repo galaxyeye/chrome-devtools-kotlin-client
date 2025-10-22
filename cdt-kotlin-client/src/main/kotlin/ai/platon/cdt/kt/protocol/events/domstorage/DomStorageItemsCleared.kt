@@ -4,6 +4,6 @@ import ai.platon.cdt.kt.protocol.types.domstorage.StorageId
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 public data class DomStorageItemsCleared(
-  @JsonProperty("storageId")
+  @field:JsonProperty("storageId")
   public val storageId: StorageId,
 )

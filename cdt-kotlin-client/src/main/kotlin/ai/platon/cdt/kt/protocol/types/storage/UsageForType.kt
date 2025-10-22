@@ -7,8 +7,8 @@ import kotlin.Double
  * Usage for a storage type.
  */
 public data class UsageForType(
-  @JsonProperty("storageType")
+  @field:JsonProperty("storageType")
   public val storageType: StorageType,
-  @JsonProperty("usage")
+  @field:JsonProperty("usage")
   public val usage: Double,
 )

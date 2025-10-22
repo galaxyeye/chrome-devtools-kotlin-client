@@ -7,14 +7,14 @@ import kotlin.String
 
 @Experimental
 public data class CrossOriginEmbedderPolicyStatus(
-  @JsonProperty("value")
+  @field:JsonProperty("value")
   public val `value`: CrossOriginEmbedderPolicyValue,
-  @JsonProperty("reportOnlyValue")
+  @field:JsonProperty("reportOnlyValue")
   public val reportOnlyValue: CrossOriginEmbedderPolicyValue,
-  @JsonProperty("reportingEndpoint")
-  @Optional
+  @field:JsonProperty("reportingEndpoint")
+  @param:Optional
   public val reportingEndpoint: String? = null,
-  @JsonProperty("reportOnlyReportingEndpoint")
-  @Optional
+  @field:JsonProperty("reportOnlyReportingEndpoint")
+  @param:Optional
   public val reportOnlyReportingEndpoint: String? = null,
 )

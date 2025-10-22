@@ -7,12 +7,12 @@ import kotlin.String
  * Database object.
  */
 public data class Database(
-  @JsonProperty("id")
+  @field:JsonProperty("id")
   public val id: String,
-  @JsonProperty("domain")
+  @field:JsonProperty("domain")
   public val domain: String,
-  @JsonProperty("name")
+  @field:JsonProperty("name")
   public val name: String,
-  @JsonProperty("version")
+  @field:JsonProperty("version")
   public val version: String,
 )

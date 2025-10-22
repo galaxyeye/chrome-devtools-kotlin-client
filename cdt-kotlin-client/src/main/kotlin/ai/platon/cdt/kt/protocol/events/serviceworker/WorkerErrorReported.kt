@@ -4,6 +4,6 @@ import ai.platon.cdt.kt.protocol.types.serviceworker.ServiceWorkerErrorMessage
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 public data class WorkerErrorReported(
-  @JsonProperty("errorMessage")
+  @field:JsonProperty("errorMessage")
   public val errorMessage: ServiceWorkerErrorMessage,
 )

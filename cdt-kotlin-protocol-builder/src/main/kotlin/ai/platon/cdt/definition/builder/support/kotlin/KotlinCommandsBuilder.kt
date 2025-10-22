@@ -209,7 +209,6 @@ class KotlinCommandsBuilder(
             val returnsAnnotation = AnnotationSpec.builder(context.returnsAnnotation)
                 .addMember("%S", property.name)
                 .build()
-            require(context is KotlinGenerationContext)
             val returnTypeArgs = context.collectReturnGenerics(resolution.typeName)
             val returnTypeAnnotation = if (returnTypeArgs.isEmpty()) {
                 null

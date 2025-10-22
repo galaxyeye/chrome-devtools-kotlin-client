@@ -9,11 +9,11 @@ import kotlin.String
  * Fired upon WebSocket creation.
  */
 public data class WebSocketCreated(
-  @JsonProperty("requestId")
+  @field:JsonProperty("requestId")
   public val requestId: String,
-  @JsonProperty("url")
+  @field:JsonProperty("url")
   public val url: String,
-  @JsonProperty("initiator")
-  @Optional
+  @field:JsonProperty("initiator")
+  @param:Optional
   public val initiator: Initiator? = null,
 )

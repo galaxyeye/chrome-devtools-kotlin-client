@@ -8,12 +8,12 @@ import kotlin.String
  * Error while paring app manifest.
  */
 public data class AppManifestError(
-  @JsonProperty("message")
+  @field:JsonProperty("message")
   public val message: String,
-  @JsonProperty("critical")
+  @field:JsonProperty("critical")
   public val critical: Int,
-  @JsonProperty("line")
+  @field:JsonProperty("line")
   public val line: Int,
-  @JsonProperty("column")
+  @field:JsonProperty("column")
   public val column: Int,
 )

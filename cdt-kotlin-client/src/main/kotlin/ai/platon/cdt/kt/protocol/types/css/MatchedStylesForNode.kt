@@ -5,22 +5,22 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.collections.List
 
 public data class MatchedStylesForNode(
-  @JsonProperty("inlineStyle")
-  @Optional
+  @field:JsonProperty("inlineStyle")
+  @param:Optional
   public val inlineStyle: CSSStyle? = null,
-  @JsonProperty("attributesStyle")
-  @Optional
+  @field:JsonProperty("attributesStyle")
+  @param:Optional
   public val attributesStyle: CSSStyle? = null,
-  @JsonProperty("matchedCSSRules")
-  @Optional
+  @field:JsonProperty("matchedCSSRules")
+  @param:Optional
   public val matchedCSSRules: List<RuleMatch>? = null,
-  @JsonProperty("pseudoElements")
-  @Optional
+  @field:JsonProperty("pseudoElements")
+  @param:Optional
   public val pseudoElements: List<PseudoElementMatches>? = null,
-  @JsonProperty("inherited")
-  @Optional
+  @field:JsonProperty("inherited")
+  @param:Optional
   public val inherited: List<InheritedStyleEntry>? = null,
-  @JsonProperty("cssKeyframesRules")
-  @Optional
+  @field:JsonProperty("cssKeyframesRules")
+  @param:Optional
   public val cssKeyframesRules: List<CSSKeyframesRule>? = null,
 )

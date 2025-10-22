@@ -11,10 +11,10 @@ import kotlin.String
  */
 @Experimental
 public data class AttachedToTarget(
-  @JsonProperty("sessionId")
+  @field:JsonProperty("sessionId")
   public val sessionId: String,
-  @JsonProperty("targetInfo")
+  @field:JsonProperty("targetInfo")
   public val targetInfo: TargetInfo,
-  @JsonProperty("waitingForDebugger")
+  @field:JsonProperty("waitingForDebugger")
   public val waitingForDebugger: Boolean,
 )

@@ -9,8 +9,8 @@ import kotlin.Int
  */
 @Experimental
 public data class PseudoElementRemoved(
-  @JsonProperty("parentId")
+  @field:JsonProperty("parentId")
   public val parentId: Int,
-  @JsonProperty("pseudoElementId")
+  @field:JsonProperty("pseudoElementId")
   public val pseudoElementId: Int,
 )

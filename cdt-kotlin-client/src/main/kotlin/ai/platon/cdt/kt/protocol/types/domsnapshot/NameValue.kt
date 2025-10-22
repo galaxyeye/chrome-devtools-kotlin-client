@@ -7,8 +7,8 @@ import kotlin.String
  * A name/value pair.
  */
 public data class NameValue(
-  @JsonProperty("name")
+  @field:JsonProperty("name")
   public val name: String,
-  @JsonProperty("value")
+  @field:JsonProperty("value")
   public val `value`: String,
 )

@@ -38,8 +38,8 @@ public interface Storage {
    */
   @Returns("cookies")
   @ReturnTypeParameter(Cookie::class)
-  public suspend fun getCookies(@ParamName("browserContextId") @Optional browserContextId: String?):
-      List<Cookie>
+  public suspend fun getCookies(@ParamName("browserContextId") @Optional browserContextId: String? =
+      null): List<Cookie>
 
   @Returns("cookies")
   @ReturnTypeParameter(Cookie::class)
@@ -53,7 +53,7 @@ public interface Storage {
    * @param browserContextId Browser context to use when called on the browser endpoint.
    */
   public suspend fun setCookies(@ParamName("cookies") cookies: List<CookieParam>,
-      @ParamName("browserContextId") @Optional browserContextId: String?)
+      @ParamName("browserContextId") @Optional browserContextId: String? = null)
 
   public suspend fun setCookies(@ParamName("cookies") cookies: List<CookieParam>) {
     return setCookies(cookies, null)
@@ -63,8 +63,8 @@ public interface Storage {
    * Clears cookies.
    * @param browserContextId Browser context to use when called on the browser endpoint.
    */
-  public suspend fun clearCookies(@ParamName("browserContextId") @Optional
-      browserContextId: String?)
+  public suspend fun clearCookies(@ParamName("browserContextId") @Optional browserContextId: String?
+      = null)
 
   public suspend fun clearCookies() {
     return clearCookies(null)
@@ -89,7 +89,7 @@ public interface Storage {
    */
   @Experimental
   public suspend fun overrideQuotaForOrigin(@ParamName("origin") origin: String,
-      @ParamName("quotaSize") @Optional quotaSize: Double?)
+      @ParamName("quotaSize") @Optional quotaSize: Double? = null)
 
   @Experimental
   public suspend fun overrideQuotaForOrigin(@ParamName("origin") origin: String) {

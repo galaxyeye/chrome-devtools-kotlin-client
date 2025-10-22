@@ -26,7 +26,7 @@ public interface Performance {
    * Enable collecting and reporting metrics.
    * @param timeDomain Time domain to use for collecting and reporting duration metrics.
    */
-  public suspend fun enable(@ParamName("timeDomain") @Optional timeDomain: EnableTimeDomain?)
+  public suspend fun enable(@ParamName("timeDomain") @Optional timeDomain: EnableTimeDomain? = null)
 
   public suspend fun enable() {
     return enable(null)

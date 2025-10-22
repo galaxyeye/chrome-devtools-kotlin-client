@@ -11,14 +11,14 @@ import kotlin.collections.List
  */
 @Experimental
 public data class VisibleSecurityState(
-  @JsonProperty("securityState")
+  @field:JsonProperty("securityState")
   public val securityState: SecurityState,
-  @JsonProperty("certificateSecurityState")
-  @Optional
+  @field:JsonProperty("certificateSecurityState")
+  @param:Optional
   public val certificateSecurityState: CertificateSecurityState? = null,
-  @JsonProperty("safetyTipInfo")
-  @Optional
+  @field:JsonProperty("safetyTipInfo")
+  @param:Optional
   public val safetyTipInfo: SafetyTipInfo? = null,
-  @JsonProperty("securityStateIssueIds")
+  @field:JsonProperty("securityStateIssueIds")
   public val securityStateIssueIds: List<String>,
 )

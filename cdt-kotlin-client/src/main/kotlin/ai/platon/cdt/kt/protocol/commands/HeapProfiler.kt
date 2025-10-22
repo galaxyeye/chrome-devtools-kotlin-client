@@ -47,7 +47,7 @@ public interface HeapProfiler {
    */
   @Returns("result")
   public suspend fun getObjectByHeapObjectId(@ParamName("objectId") objectId: String,
-      @ParamName("objectGroup") @Optional objectGroup: String?): RemoteObject
+      @ParamName("objectGroup") @Optional objectGroup: String? = null): RemoteObject
 
   @Returns("result")
   public suspend fun getObjectByHeapObjectId(@ParamName("objectId") objectId: String):
@@ -64,7 +64,7 @@ public interface HeapProfiler {
    * default value is 32768 bytes.
    */
   public suspend fun startSampling(@ParamName("samplingInterval") @Optional
-      samplingInterval: Double?)
+      samplingInterval: Double? = null)
 
   public suspend fun startSampling() {
     return startSampling(null)
@@ -74,7 +74,7 @@ public interface HeapProfiler {
    * @param trackAllocations
    */
   public suspend fun startTrackingHeapObjects(@ParamName("trackAllocations") @Optional
-      trackAllocations: Boolean?)
+      trackAllocations: Boolean? = null)
 
   public suspend fun startTrackingHeapObjects() {
     return startTrackingHeapObjects(null)
@@ -90,8 +90,8 @@ public interface HeapProfiler {
    * @param treatGlobalObjectsAsRoots
    */
   public suspend fun stopTrackingHeapObjects(@ParamName("reportProgress") @Optional
-      reportProgress: Boolean?, @ParamName("treatGlobalObjectsAsRoots") @Optional
-      treatGlobalObjectsAsRoots: Boolean?)
+      reportProgress: Boolean? = null, @ParamName("treatGlobalObjectsAsRoots") @Optional
+      treatGlobalObjectsAsRoots: Boolean? = null)
 
   public suspend fun stopTrackingHeapObjects() {
     return stopTrackingHeapObjects(null, null)
@@ -104,8 +104,8 @@ public interface HeapProfiler {
    * generated
    */
   public suspend fun takeHeapSnapshot(@ParamName("reportProgress") @Optional
-      reportProgress: Boolean?, @ParamName("treatGlobalObjectsAsRoots") @Optional
-      treatGlobalObjectsAsRoots: Boolean?)
+      reportProgress: Boolean? = null, @ParamName("treatGlobalObjectsAsRoots") @Optional
+      treatGlobalObjectsAsRoots: Boolean? = null)
 
   public suspend fun takeHeapSnapshot() {
     return takeHeapSnapshot(null, null)

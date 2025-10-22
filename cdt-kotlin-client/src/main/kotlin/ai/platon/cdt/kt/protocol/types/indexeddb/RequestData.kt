@@ -5,8 +5,8 @@ import kotlin.Boolean
 import kotlin.collections.List
 
 public data class RequestData(
-  @JsonProperty("objectStoreDataEntries")
+  @field:JsonProperty("objectStoreDataEntries")
   public val objectStoreDataEntries: List<DataEntry>,
-  @JsonProperty("hasMore")
+  @field:JsonProperty("hasMore")
   public val hasMore: Boolean,
 )

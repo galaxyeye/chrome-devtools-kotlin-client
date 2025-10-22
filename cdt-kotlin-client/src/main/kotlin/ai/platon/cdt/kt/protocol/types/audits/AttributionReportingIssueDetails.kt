@@ -10,18 +10,18 @@ import kotlin.String
  * Explainer: https://github.com/WICG/conversion-measurement-api
  */
 public data class AttributionReportingIssueDetails(
-  @JsonProperty("violationType")
+  @field:JsonProperty("violationType")
   public val violationType: AttributionReportingIssueType,
-  @JsonProperty("frame")
-  @Optional
+  @field:JsonProperty("frame")
+  @param:Optional
   public val frame: AffectedFrame? = null,
-  @JsonProperty("request")
-  @Optional
+  @field:JsonProperty("request")
+  @param:Optional
   public val request: AffectedRequest? = null,
-  @JsonProperty("violatingNodeId")
-  @Optional
+  @field:JsonProperty("violatingNodeId")
+  @param:Optional
   public val violatingNodeId: Int? = null,
-  @JsonProperty("invalidParameter")
-  @Optional
+  @field:JsonProperty("invalidParameter")
+  @param:Optional
   public val invalidParameter: String? = null,
 )

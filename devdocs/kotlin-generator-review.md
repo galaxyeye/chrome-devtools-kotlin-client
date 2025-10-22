@@ -69,6 +69,81 @@ Rationale
 - 例如：`domDebugger`、`htmlParser`、`urlParser`。
 - 反例：`dOM`、`dOMDebugger`。
 
+3) explicit annotation use-site target
+
+KotlinCommandsBuilder 生成的代码中存在注解相关问题。
+
+The annotation is only applied to the parameter. An explicit annotation use-site target is recommended.
+
+Before
+```kotlin
+public data class BackgroundColors(
+  @JsonProperty("backgroundColors")
+  @Optional
+  public val backgroundColors: List<String>? = null,
+  @JsonProperty("computedFontSize")
+  @Optional
+  public val computedFontSize: String? = null,
+  @JsonProperty("computedFontWeight")
+  @Optional
+  public val computedFontWeight: String? = null,
+)
+```
+
+After
+```kotlin
+public data class BackgroundColors(
+  @field:JsonProperty("backgroundColors")
+  @field:Optional
+  public val backgroundColors: List<String>? = null,
+  @field:JsonProperty("computedFontSize")
+  @field:Optional
+  public val computedFontSize: String? = null,
+  @field:JsonProperty("computedFontWeight")
+  @field:Optional
+  public val computedFontWeight: String? = null,
+)
+```
+
+4) 去除不必要的 public 修饰
+
+去除生成的代码中不必要的 public 修饰。
+
+Before
+```kotlin
+public data class AXValue(
+  @field:JsonProperty("type")
+  public val type: AXValueType,
+  @field:JsonProperty("value")
+  @param:Optional
+  public val `value`: Any? = null,
+  @field:JsonProperty("relatedNodes")
+  @param:Optional
+  public val relatedNodes: List<AXRelatedNode>? = null,
+  @field:JsonProperty("sources")
+  @param:Optional
+  public val sources: List<AXValueSource>? = null,
+)
+```
+
+
+After
+```kotlin
+data class AXValue(
+  @field:JsonProperty("type")
+  val type: AXValueType,
+  @field:JsonProperty("value")
+  @param:Optional
+  val `value`: Any? = null,
+  @field:JsonProperty("relatedNodes")
+  @param:Optional
+  val relatedNodes: List<AXRelatedNode>? = null,
+  @field:JsonProperty("sources")
+  @param:Optional
+  val sources: List<AXValueSource>? = null,
+)
+```
+
 Implementation guidance
 
 Generator hotspots
@@ -111,3 +186,4 @@ Acceptance checklist (summary)
 - [ ] `ChromeDevTools` properties follow camelCase, acronyms lowercased at start (e.g., `dom`, `domDebugger`).
 - [ ] Code compiles and tests pass.
 - [ ] Spot-checks for acronym-heavy domains look correct.
+

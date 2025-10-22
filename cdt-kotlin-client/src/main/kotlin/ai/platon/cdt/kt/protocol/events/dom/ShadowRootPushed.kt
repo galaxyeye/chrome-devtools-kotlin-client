@@ -10,8 +10,8 @@ import kotlin.Int
  */
 @Experimental
 public data class ShadowRootPushed(
-  @JsonProperty("hostId")
+  @field:JsonProperty("hostId")
   public val hostId: Int,
-  @JsonProperty("root")
+  @field:JsonProperty("root")
   public val root: Node,
 )

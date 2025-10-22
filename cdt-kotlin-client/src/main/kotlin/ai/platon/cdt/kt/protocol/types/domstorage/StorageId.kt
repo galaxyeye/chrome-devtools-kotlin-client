@@ -8,8 +8,8 @@ import kotlin.String
  * DOM Storage identifier.
  */
 public data class StorageId(
-  @JsonProperty("securityOrigin")
+  @field:JsonProperty("securityOrigin")
   public val securityOrigin: String,
-  @JsonProperty("isLocalStorage")
+  @field:JsonProperty("isLocalStorage")
   public val isLocalStorage: Boolean,
 )

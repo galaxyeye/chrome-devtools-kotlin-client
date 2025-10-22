@@ -9,8 +9,8 @@ import kotlin.Int
  */
 @Experimental
 public data class ScriptPosition(
-  @JsonProperty("lineNumber")
+  @field:JsonProperty("lineNumber")
   public val lineNumber: Int,
-  @JsonProperty("columnNumber")
+  @field:JsonProperty("columnNumber")
   public val columnNumber: Int,
 )

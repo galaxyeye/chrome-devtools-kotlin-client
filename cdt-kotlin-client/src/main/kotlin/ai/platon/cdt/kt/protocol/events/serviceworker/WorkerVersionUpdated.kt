@@ -5,6 +5,6 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.collections.List
 
 public data class WorkerVersionUpdated(
-  @JsonProperty("versions")
+  @field:JsonProperty("versions")
   public val versions: List<ServiceWorkerVersion>,
 )

@@ -11,6 +11,6 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  */
 @Experimental
 public data class DragIntercepted(
-  @JsonProperty("data")
+  @field:JsonProperty("data")
   public val `data`: DragData,
 )

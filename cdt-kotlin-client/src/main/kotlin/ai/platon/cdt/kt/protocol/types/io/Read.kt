@@ -6,11 +6,11 @@ import kotlin.Boolean
 import kotlin.String
 
 public data class Read(
-  @JsonProperty("base64Encoded")
-  @Optional
+  @field:JsonProperty("base64Encoded")
+  @param:Optional
   public val base64Encoded: Boolean? = null,
-  @JsonProperty("data")
+  @field:JsonProperty("data")
   public val `data`: String,
-  @JsonProperty("eof")
+  @field:JsonProperty("eof")
   public val eof: Boolean,
 )

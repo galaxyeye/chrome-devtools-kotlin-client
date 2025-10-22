@@ -7,11 +7,11 @@ import kotlin.Boolean
 
 @Experimental
 public data class PermissionsPolicyFeatureState(
-  @JsonProperty("feature")
+  @field:JsonProperty("feature")
   public val feature: PermissionsPolicyFeature,
-  @JsonProperty("allowed")
+  @field:JsonProperty("allowed")
   public val allowed: Boolean,
-  @JsonProperty("locator")
-  @Optional
+  @field:JsonProperty("locator")
+  @param:Optional
   public val locator: PermissionsPolicyBlockLocator? = null,
 )

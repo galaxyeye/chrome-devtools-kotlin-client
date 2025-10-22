@@ -7,21 +7,21 @@ import kotlin.Int
 import kotlin.String
 
 public data class Credential(
-  @JsonProperty("credentialId")
+  @field:JsonProperty("credentialId")
   public val credentialId: String,
-  @JsonProperty("isResidentCredential")
+  @field:JsonProperty("isResidentCredential")
   public val isResidentCredential: Boolean,
-  @JsonProperty("rpId")
-  @Optional
+  @field:JsonProperty("rpId")
+  @param:Optional
   public val rpId: String? = null,
-  @JsonProperty("privateKey")
+  @field:JsonProperty("privateKey")
   public val privateKey: String,
-  @JsonProperty("userHandle")
-  @Optional
+  @field:JsonProperty("userHandle")
+  @param:Optional
   public val userHandle: String? = null,
-  @JsonProperty("signCount")
+  @field:JsonProperty("signCount")
   public val signCount: Int,
-  @JsonProperty("largeBlob")
-  @Optional
+  @field:JsonProperty("largeBlob")
+  @param:Optional
   public val largeBlob: String? = null,
 )

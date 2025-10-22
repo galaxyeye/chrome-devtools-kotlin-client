@@ -7,6 +7,6 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * Notifies that the construction of an AudioListener has finished.
  */
 public data class AudioListenerCreated(
-  @JsonProperty("listener")
+  @field:JsonProperty("listener")
   public val listener: AudioListener,
 )

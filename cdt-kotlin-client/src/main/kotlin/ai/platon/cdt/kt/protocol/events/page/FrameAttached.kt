@@ -9,11 +9,11 @@ import kotlin.String
  * Fired when frame has been attached to its parent.
  */
 public data class FrameAttached(
-  @JsonProperty("frameId")
+  @field:JsonProperty("frameId")
   public val frameId: String,
-  @JsonProperty("parentFrameId")
+  @field:JsonProperty("parentFrameId")
   public val parentFrameId: String,
-  @JsonProperty("stack")
-  @Optional
+  @field:JsonProperty("stack")
+  @param:Optional
   public val stack: StackTrace? = null,
 )

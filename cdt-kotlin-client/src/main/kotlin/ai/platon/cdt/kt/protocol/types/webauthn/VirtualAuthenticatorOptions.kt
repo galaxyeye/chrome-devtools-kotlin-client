@@ -5,29 +5,29 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Boolean
 
 public data class VirtualAuthenticatorOptions(
-  @JsonProperty("protocol")
+  @field:JsonProperty("protocol")
   public val protocol: AuthenticatorProtocol,
-  @JsonProperty("ctap2Version")
-  @Optional
+  @field:JsonProperty("ctap2Version")
+  @param:Optional
   public val ctap2Version: Ctap2Version? = null,
-  @JsonProperty("transport")
+  @field:JsonProperty("transport")
   public val transport: AuthenticatorTransport,
-  @JsonProperty("hasResidentKey")
-  @Optional
+  @field:JsonProperty("hasResidentKey")
+  @param:Optional
   public val hasResidentKey: Boolean? = null,
-  @JsonProperty("hasUserVerification")
-  @Optional
+  @field:JsonProperty("hasUserVerification")
+  @param:Optional
   public val hasUserVerification: Boolean? = null,
-  @JsonProperty("hasLargeBlob")
-  @Optional
+  @field:JsonProperty("hasLargeBlob")
+  @param:Optional
   public val hasLargeBlob: Boolean? = null,
-  @JsonProperty("hasCredBlob")
-  @Optional
+  @field:JsonProperty("hasCredBlob")
+  @param:Optional
   public val hasCredBlob: Boolean? = null,
-  @JsonProperty("automaticPresenceSimulation")
-  @Optional
+  @field:JsonProperty("automaticPresenceSimulation")
+  @param:Optional
   public val automaticPresenceSimulation: Boolean? = null,
-  @JsonProperty("isUserVerified")
-  @Optional
+  @field:JsonProperty("isUserVerified")
+  @param:Optional
   public val isUserVerified: Boolean? = null,
 )

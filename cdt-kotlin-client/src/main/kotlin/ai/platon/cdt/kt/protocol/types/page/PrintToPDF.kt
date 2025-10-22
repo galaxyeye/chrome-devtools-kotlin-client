@@ -6,10 +6,10 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
 public data class PrintToPDF(
-  @JsonProperty("data")
+  @field:JsonProperty("data")
   public val `data`: String,
-  @JsonProperty("stream")
-  @Optional
-  @Experimental
+  @field:JsonProperty("stream")
+  @param:Optional
+  @param:Experimental
   public val stream: String? = null,
 )

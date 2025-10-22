@@ -9,6 +9,6 @@ import kotlin.String
  */
 @Experimental
 public data class AppManifestParsedProperties(
-  @JsonProperty("scope")
+  @field:JsonProperty("scope")
   public val scope: String,
 )

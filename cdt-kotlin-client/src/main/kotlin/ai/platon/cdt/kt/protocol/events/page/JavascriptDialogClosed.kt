@@ -9,8 +9,8 @@ import kotlin.String
  * closed.
  */
 public data class JavascriptDialogClosed(
-  @JsonProperty("result")
+  @field:JsonProperty("result")
   public val result: Boolean,
-  @JsonProperty("userInput")
+  @field:JsonProperty("userInput")
   public val userInput: String,
 )

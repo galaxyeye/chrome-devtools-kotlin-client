@@ -13,43 +13,43 @@ import kotlin.collections.List
  */
 @Experimental
 public data class CertificateSecurityState(
-  @JsonProperty("protocol")
+  @field:JsonProperty("protocol")
   public val protocol: String,
-  @JsonProperty("keyExchange")
+  @field:JsonProperty("keyExchange")
   public val keyExchange: String,
-  @JsonProperty("keyExchangeGroup")
-  @Optional
+  @field:JsonProperty("keyExchangeGroup")
+  @param:Optional
   public val keyExchangeGroup: String? = null,
-  @JsonProperty("cipher")
+  @field:JsonProperty("cipher")
   public val cipher: String,
-  @JsonProperty("mac")
-  @Optional
+  @field:JsonProperty("mac")
+  @param:Optional
   public val mac: String? = null,
-  @JsonProperty("certificate")
+  @field:JsonProperty("certificate")
   public val certificate: List<String>,
-  @JsonProperty("subjectName")
+  @field:JsonProperty("subjectName")
   public val subjectName: String,
-  @JsonProperty("issuer")
+  @field:JsonProperty("issuer")
   public val issuer: String,
-  @JsonProperty("validFrom")
+  @field:JsonProperty("validFrom")
   public val validFrom: Double,
-  @JsonProperty("validTo")
+  @field:JsonProperty("validTo")
   public val validTo: Double,
-  @JsonProperty("certificateNetworkError")
-  @Optional
+  @field:JsonProperty("certificateNetworkError")
+  @param:Optional
   public val certificateNetworkError: String? = null,
-  @JsonProperty("certificateHasWeakSignature")
+  @field:JsonProperty("certificateHasWeakSignature")
   public val certificateHasWeakSignature: Boolean,
-  @JsonProperty("certificateHasSha1Signature")
+  @field:JsonProperty("certificateHasSha1Signature")
   public val certificateHasSha1Signature: Boolean,
-  @JsonProperty("modernSSL")
+  @field:JsonProperty("modernSSL")
   public val modernSSL: Boolean,
-  @JsonProperty("obsoleteSslProtocol")
+  @field:JsonProperty("obsoleteSslProtocol")
   public val obsoleteSslProtocol: Boolean,
-  @JsonProperty("obsoleteSslKeyExchange")
+  @field:JsonProperty("obsoleteSslKeyExchange")
   public val obsoleteSslKeyExchange: Boolean,
-  @JsonProperty("obsoleteSslCipher")
+  @field:JsonProperty("obsoleteSslCipher")
   public val obsoleteSslCipher: Boolean,
-  @JsonProperty("obsoleteSslSignature")
+  @field:JsonProperty("obsoleteSslSignature")
   public val obsoleteSslSignature: Boolean,
 )

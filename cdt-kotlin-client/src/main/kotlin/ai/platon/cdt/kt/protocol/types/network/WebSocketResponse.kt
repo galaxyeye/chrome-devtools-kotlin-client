@@ -11,19 +11,19 @@ import kotlin.collections.Map
  * WebSocket response data.
  */
 public data class WebSocketResponse(
-  @JsonProperty("status")
+  @field:JsonProperty("status")
   public val status: Int,
-  @JsonProperty("statusText")
+  @field:JsonProperty("statusText")
   public val statusText: String,
-  @JsonProperty("headers")
+  @field:JsonProperty("headers")
   public val headers: Map<String, Any?>,
-  @JsonProperty("headersText")
-  @Optional
+  @field:JsonProperty("headersText")
+  @param:Optional
   public val headersText: String? = null,
-  @JsonProperty("requestHeaders")
-  @Optional
+  @field:JsonProperty("requestHeaders")
+  @param:Optional
   public val requestHeaders: Map<String, Any?>? = null,
-  @JsonProperty("requestHeadersText")
-  @Optional
+  @field:JsonProperty("requestHeadersText")
+  @param:Optional
   public val requestHeadersText: String? = null,
 )

@@ -7,8 +7,8 @@ import kotlin.String
 
 @Experimental
 public data class RemoteLocation(
-  @JsonProperty("host")
+  @field:JsonProperty("host")
   public val host: String,
-  @JsonProperty("port")
+  @field:JsonProperty("port")
   public val port: Int,
 )

@@ -10,15 +10,15 @@ import kotlin.String
  */
 @Experimental
 public data class PrivatePropertyDescriptor(
-  @JsonProperty("name")
+  @field:JsonProperty("name")
   public val name: String,
-  @JsonProperty("value")
-  @Optional
+  @field:JsonProperty("value")
+  @param:Optional
   public val `value`: RemoteObject? = null,
-  @JsonProperty("get")
-  @Optional
+  @field:JsonProperty("get")
+  @param:Optional
   public val `get`: RemoteObject? = null,
-  @JsonProperty("set")
-  @Optional
+  @field:JsonProperty("set")
+  @param:Optional
   public val `set`: RemoteObject? = null,
 )

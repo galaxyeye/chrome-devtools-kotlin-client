@@ -11,15 +11,15 @@ import kotlin.String
  * open.
  */
 public data class JavascriptDialogOpening(
-  @JsonProperty("url")
+  @field:JsonProperty("url")
   public val url: String,
-  @JsonProperty("message")
+  @field:JsonProperty("message")
   public val message: String,
-  @JsonProperty("type")
+  @field:JsonProperty("type")
   public val type: DialogType,
-  @JsonProperty("hasBrowserHandler")
+  @field:JsonProperty("hasBrowserHandler")
   public val hasBrowserHandler: Boolean,
-  @JsonProperty("defaultPrompt")
-  @Optional
+  @field:JsonProperty("defaultPrompt")
+  @param:Optional
   public val defaultPrompt: String? = null,
 )

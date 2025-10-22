@@ -9,6 +9,6 @@ import kotlin.String
  */
 @Deprecated
 public data class FrameClearedScheduledNavigation(
-  @JsonProperty("frameId")
+  @field:JsonProperty("frameId")
   public val frameId: String,
 )

@@ -6,12 +6,12 @@ import kotlin.Int
 import kotlin.String
 
 public data class AXRelatedNode(
-  @JsonProperty("backendDOMNodeId")
+  @field:JsonProperty("backendDOMNodeId")
   public val backendDOMNodeId: Int,
-  @JsonProperty("idref")
-  @Optional
+  @field:JsonProperty("idref")
+  @param:Optional
   public val idref: String? = null,
-  @JsonProperty("text")
-  @Optional
+  @field:JsonProperty("text")
+  @param:Optional
   public val text: String? = null,
 )

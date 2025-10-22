@@ -7,6 +7,6 @@ import kotlin.String
  * Event for each animation that has been created.
  */
 public data class AnimationCreated(
-  @JsonProperty("id")
+  @field:JsonProperty("id")
   public val id: String,
 )

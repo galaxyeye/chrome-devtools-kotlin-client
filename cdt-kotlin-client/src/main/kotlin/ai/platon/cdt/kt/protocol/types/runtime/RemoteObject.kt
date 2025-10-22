@@ -10,32 +10,32 @@ import kotlin.String
  * Mirror object referencing original JavaScript object.
  */
 public data class RemoteObject(
-  @JsonProperty("type")
+  @field:JsonProperty("type")
   public val type: RemoteObjectType,
-  @JsonProperty("subtype")
-  @Optional
+  @field:JsonProperty("subtype")
+  @param:Optional
   public val subtype: RemoteObjectSubtype? = null,
-  @JsonProperty("className")
-  @Optional
+  @field:JsonProperty("className")
+  @param:Optional
   public val className: String? = null,
-  @JsonProperty("value")
-  @Optional
+  @field:JsonProperty("value")
+  @param:Optional
   public val `value`: Any? = null,
-  @JsonProperty("unserializableValue")
-  @Optional
+  @field:JsonProperty("unserializableValue")
+  @param:Optional
   public val unserializableValue: String? = null,
-  @JsonProperty("description")
-  @Optional
+  @field:JsonProperty("description")
+  @param:Optional
   public val description: String? = null,
-  @JsonProperty("objectId")
-  @Optional
+  @field:JsonProperty("objectId")
+  @param:Optional
   public val objectId: String? = null,
-  @JsonProperty("preview")
-  @Optional
-  @Experimental
+  @field:JsonProperty("preview")
+  @param:Optional
+  @param:Experimental
   public val preview: ObjectPreview? = null,
-  @JsonProperty("customPreview")
-  @Optional
-  @Experimental
+  @field:JsonProperty("customPreview")
+  @param:Optional
+  @param:Experimental
   public val customPreview: CustomPreview? = null,
 )

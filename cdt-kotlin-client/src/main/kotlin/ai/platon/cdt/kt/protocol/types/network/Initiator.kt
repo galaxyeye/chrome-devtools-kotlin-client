@@ -10,21 +10,21 @@ import kotlin.String
  * Information about the request initiator.
  */
 public data class Initiator(
-  @JsonProperty("type")
+  @field:JsonProperty("type")
   public val type: InitiatorType,
-  @JsonProperty("stack")
-  @Optional
+  @field:JsonProperty("stack")
+  @param:Optional
   public val stack: StackTrace? = null,
-  @JsonProperty("url")
-  @Optional
+  @field:JsonProperty("url")
+  @param:Optional
   public val url: String? = null,
-  @JsonProperty("lineNumber")
-  @Optional
+  @field:JsonProperty("lineNumber")
+  @param:Optional
   public val lineNumber: Double? = null,
-  @JsonProperty("columnNumber")
-  @Optional
+  @field:JsonProperty("columnNumber")
+  @param:Optional
   public val columnNumber: Double? = null,
-  @JsonProperty("requestId")
-  @Optional
+  @field:JsonProperty("requestId")
+  @param:Optional
   public val requestId: String? = null,
 )

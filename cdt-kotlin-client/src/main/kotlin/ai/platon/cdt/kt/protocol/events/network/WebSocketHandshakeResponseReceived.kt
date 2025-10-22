@@ -9,10 +9,10 @@ import kotlin.String
  * Fired when WebSocket handshake response becomes available.
  */
 public data class WebSocketHandshakeResponseReceived(
-  @JsonProperty("requestId")
+  @field:JsonProperty("requestId")
   public val requestId: String,
-  @JsonProperty("timestamp")
+  @field:JsonProperty("timestamp")
   public val timestamp: Double,
-  @JsonProperty("response")
+  @field:JsonProperty("response")
   public val response: WebSocketResponse,
 )

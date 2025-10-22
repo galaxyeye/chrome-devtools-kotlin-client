@@ -7,22 +7,22 @@ import kotlin.Int
 import kotlin.String
 
 public data class ContentSecurityPolicyIssueDetails(
-  @JsonProperty("blockedURL")
-  @Optional
+  @field:JsonProperty("blockedURL")
+  @param:Optional
   public val blockedURL: String? = null,
-  @JsonProperty("violatedDirective")
+  @field:JsonProperty("violatedDirective")
   public val violatedDirective: String,
-  @JsonProperty("isReportOnly")
+  @field:JsonProperty("isReportOnly")
   public val isReportOnly: Boolean,
-  @JsonProperty("contentSecurityPolicyViolationType")
+  @field:JsonProperty("contentSecurityPolicyViolationType")
   public val contentSecurityPolicyViolationType: ContentSecurityPolicyViolationType,
-  @JsonProperty("frameAncestor")
-  @Optional
+  @field:JsonProperty("frameAncestor")
+  @param:Optional
   public val frameAncestor: AffectedFrame? = null,
-  @JsonProperty("sourceCodeLocation")
-  @Optional
+  @field:JsonProperty("sourceCodeLocation")
+  @param:Optional
   public val sourceCodeLocation: SourceCodeLocation? = null,
-  @JsonProperty("violatingNodeId")
-  @Optional
+  @field:JsonProperty("violatingNodeId")
+  @param:Optional
   public val violatingNodeId: Int? = null,
 )

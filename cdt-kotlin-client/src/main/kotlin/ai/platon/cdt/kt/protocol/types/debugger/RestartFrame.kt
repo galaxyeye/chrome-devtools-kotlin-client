@@ -8,13 +8,13 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.collections.List
 
 public data class RestartFrame(
-  @JsonProperty("callFrames")
+  @field:JsonProperty("callFrames")
   public val callFrames: List<CallFrame>,
-  @JsonProperty("asyncStackTrace")
-  @Optional
+  @field:JsonProperty("asyncStackTrace")
+  @param:Optional
   public val asyncStackTrace: StackTrace? = null,
-  @JsonProperty("asyncStackTraceId")
-  @Optional
-  @Experimental
+  @field:JsonProperty("asyncStackTraceId")
+  @param:Optional
+  @param:Experimental
   public val asyncStackTraceId: StackTraceId? = null,
 )

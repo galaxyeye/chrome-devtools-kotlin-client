@@ -10,6 +10,6 @@ import kotlin.collections.List
  * list of player ids and all events again.
  */
 public data class PlayersCreated(
-  @JsonProperty("players")
+  @field:JsonProperty("players")
   public val players: List<String>,
 )

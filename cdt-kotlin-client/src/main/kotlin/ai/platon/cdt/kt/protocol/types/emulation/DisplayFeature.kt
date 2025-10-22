@@ -4,10 +4,10 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Int
 
 public data class DisplayFeature(
-  @JsonProperty("orientation")
+  @field:JsonProperty("orientation")
   public val orientation: DisplayFeatureOrientation,
-  @JsonProperty("offset")
+  @field:JsonProperty("offset")
   public val offset: Int,
-  @JsonProperty("maskLength")
+  @field:JsonProperty("maskLength")
   public val maskLength: Int,
 )

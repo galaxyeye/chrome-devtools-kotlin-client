@@ -5,8 +5,8 @@ import kotlin.Double
 import kotlin.collections.List
 
 public data class TakePreciseCoverage(
-  @JsonProperty("result")
+  @field:JsonProperty("result")
   public val result: List<ScriptCoverage>,
-  @JsonProperty("timestamp")
+  @field:JsonProperty("timestamp")
   public val timestamp: Double,
 )

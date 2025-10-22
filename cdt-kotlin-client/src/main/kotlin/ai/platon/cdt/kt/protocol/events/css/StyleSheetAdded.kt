@@ -7,6 +7,6 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * Fired whenever an active document stylesheet is added.
  */
 public data class StyleSheetAdded(
-  @JsonProperty("header")
+  @field:JsonProperty("header")
   public val `header`: CSSStyleSheetHeader,
 )

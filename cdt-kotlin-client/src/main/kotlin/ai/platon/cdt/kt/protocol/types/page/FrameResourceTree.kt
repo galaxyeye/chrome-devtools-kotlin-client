@@ -10,11 +10,11 @@ import kotlin.collections.List
  */
 @Experimental
 public data class FrameResourceTree(
-  @JsonProperty("frame")
+  @field:JsonProperty("frame")
   public val frame: Frame,
-  @JsonProperty("childFrames")
-  @Optional
+  @field:JsonProperty("childFrames")
+  @param:Optional
   public val childFrames: List<FrameResourceTree>? = null,
-  @JsonProperty("resources")
+  @field:JsonProperty("resources")
   public val resources: List<FrameResource>,
 )

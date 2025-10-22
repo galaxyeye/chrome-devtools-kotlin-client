@@ -5,6 +5,6 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.collections.List
 
 public data class WorkerRegistrationUpdated(
-  @JsonProperty("registrations")
+  @field:JsonProperty("registrations")
   public val registrations: List<ServiceWorkerRegistration>,
 )

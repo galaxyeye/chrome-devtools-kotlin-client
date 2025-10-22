@@ -7,14 +7,14 @@ import kotlin.String
 
 @Experimental
 public data class DragDataItem(
-  @JsonProperty("mimeType")
+  @field:JsonProperty("mimeType")
   public val mimeType: String,
-  @JsonProperty("data")
+  @field:JsonProperty("data")
   public val `data`: String,
-  @JsonProperty("title")
-  @Optional
+  @field:JsonProperty("title")
+  @param:Optional
   public val title: String? = null,
-  @JsonProperty("baseURL")
-  @Optional
+  @field:JsonProperty("baseURL")
+  @param:Optional
   public val baseURL: String? = null,
 )

@@ -7,6 +7,6 @@ import kotlin.collections.List
  * A subset of the full ComputedStyle as defined by the request whitelist.
  */
 public data class ComputedStyle(
-  @JsonProperty("properties")
+  @field:JsonProperty("properties")
   public val properties: List<NameValue>,
 )

@@ -8,8 +8,8 @@ import kotlin.String
  * Corresponds to kMessage
  */
 public data class PlayerMessage(
-  @JsonProperty("level")
+  @field:JsonProperty("level")
   public val level: PlayerMessageLevel,
-  @JsonProperty("message")
+  @field:JsonProperty("message")
   public val message: String,
 )

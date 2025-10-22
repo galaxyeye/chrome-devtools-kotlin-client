@@ -15,84 +15,84 @@ import kotlin.collections.List
  * A Node in the DOM tree.
  */
 public data class DOMNode(
-  @JsonProperty("nodeType")
+  @field:JsonProperty("nodeType")
   public val nodeType: Int,
-  @JsonProperty("nodeName")
+  @field:JsonProperty("nodeName")
   public val nodeName: String,
-  @JsonProperty("nodeValue")
+  @field:JsonProperty("nodeValue")
   public val nodeValue: String,
-  @JsonProperty("textValue")
-  @Optional
+  @field:JsonProperty("textValue")
+  @param:Optional
   public val textValue: String? = null,
-  @JsonProperty("inputValue")
-  @Optional
+  @field:JsonProperty("inputValue")
+  @param:Optional
   public val inputValue: String? = null,
-  @JsonProperty("inputChecked")
-  @Optional
+  @field:JsonProperty("inputChecked")
+  @param:Optional
   public val inputChecked: Boolean? = null,
-  @JsonProperty("optionSelected")
-  @Optional
+  @field:JsonProperty("optionSelected")
+  @param:Optional
   public val optionSelected: Boolean? = null,
-  @JsonProperty("backendNodeId")
+  @field:JsonProperty("backendNodeId")
   public val backendNodeId: Int,
-  @JsonProperty("childNodeIndexes")
-  @Optional
+  @field:JsonProperty("childNodeIndexes")
+  @param:Optional
   public val childNodeIndexes: List<Int>? = null,
-  @JsonProperty("attributes")
-  @Optional
+  @field:JsonProperty("attributes")
+  @param:Optional
   public val attributes: List<NameValue>? = null,
-  @JsonProperty("pseudoElementIndexes")
-  @Optional
+  @field:JsonProperty("pseudoElementIndexes")
+  @param:Optional
   public val pseudoElementIndexes: List<Int>? = null,
-  @JsonProperty("layoutNodeIndex")
-  @Optional
+  @field:JsonProperty("layoutNodeIndex")
+  @param:Optional
   public val layoutNodeIndex: Int? = null,
-  @JsonProperty("documentURL")
-  @Optional
+  @field:JsonProperty("documentURL")
+  @param:Optional
   public val documentURL: String? = null,
-  @JsonProperty("baseURL")
-  @Optional
+  @field:JsonProperty("baseURL")
+  @param:Optional
   public val baseURL: String? = null,
-  @JsonProperty("contentLanguage")
-  @Optional
+  @field:JsonProperty("contentLanguage")
+  @param:Optional
   public val contentLanguage: String? = null,
-  @JsonProperty("documentEncoding")
-  @Optional
+  @field:JsonProperty("documentEncoding")
+  @param:Optional
   public val documentEncoding: String? = null,
-  @JsonProperty("publicId")
-  @Optional
+  @field:JsonProperty("publicId")
+  @param:Optional
   public val publicId: String? = null,
-  @JsonProperty("systemId")
-  @Optional
+  @field:JsonProperty("systemId")
+  @param:Optional
   public val systemId: String? = null,
-  @JsonProperty("frameId")
-  @Optional
+  @field:JsonProperty("frameId")
+  @param:Optional
   public val frameId: String? = null,
-  @JsonProperty("contentDocumentIndex")
-  @Optional
+  @field:JsonProperty("contentDocumentIndex")
+  @param:Optional
   public val contentDocumentIndex: Int? = null,
-  @JsonProperty("pseudoType")
-  @Optional
+  @field:JsonProperty("pseudoType")
+  @param:Optional
   public val pseudoType: PseudoType? = null,
-  @JsonProperty("shadowRootType")
-  @Optional
+  @field:JsonProperty("shadowRootType")
+  @param:Optional
   public val shadowRootType: ShadowRootType? = null,
-  @JsonProperty("isClickable")
-  @Optional
+  @field:JsonProperty("isClickable")
+  @param:Optional
   public val isClickable: Boolean? = null,
-  @JsonProperty("eventListeners")
-  @Optional
+  @field:JsonProperty("eventListeners")
+  @param:Optional
   public val eventListeners: List<EventListener>? = null,
-  @JsonProperty("currentSourceURL")
-  @Optional
+  @field:JsonProperty("currentSourceURL")
+  @param:Optional
   public val currentSourceURL: String? = null,
-  @JsonProperty("originURL")
-  @Optional
+  @field:JsonProperty("originURL")
+  @param:Optional
   public val originURL: String? = null,
-  @JsonProperty("scrollOffsetX")
-  @Optional
+  @field:JsonProperty("scrollOffsetX")
+  @param:Optional
   public val scrollOffsetX: Double? = null,
-  @JsonProperty("scrollOffsetY")
-  @Optional
+  @field:JsonProperty("scrollOffsetY")
+  @param:Optional
   public val scrollOffsetY: Double? = null,
 )

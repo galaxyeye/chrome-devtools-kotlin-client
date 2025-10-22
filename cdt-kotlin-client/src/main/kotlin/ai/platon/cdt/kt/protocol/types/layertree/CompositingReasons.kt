@@ -6,9 +6,9 @@ import kotlin.String
 import kotlin.collections.List
 
 public data class CompositingReasons(
-  @JsonProperty("compositingReasons")
-  @Deprecated
+  @field:JsonProperty("compositingReasons")
+  @param:Deprecated
   public val compositingReasons: List<String>,
-  @JsonProperty("compositingReasonIds")
+  @field:JsonProperty("compositingReasonIds")
   public val compositingReasonIds: List<String>,
 )

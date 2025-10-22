@@ -7,8 +7,8 @@ import kotlin.String
  * A key-value pair for additional event information to pass along.
  */
 public data class EventMetadata(
-  @JsonProperty("key")
+  @field:JsonProperty("key")
   public val key: String,
-  @JsonProperty("value")
+  @field:JsonProperty("value")
   public val `value`: String,
 )

@@ -89,7 +89,7 @@ public interface Page {
    */
   @Returns("identifier")
   public suspend fun addScriptToEvaluateOnNewDocument(@ParamName("source") source: String,
-      @ParamName("worldName") @Optional @Experimental worldName: String?): String
+      @ParamName("worldName") @Optional @Experimental worldName: String? = null): String
 
   @Returns("identifier")
   public suspend fun addScriptToEvaluateOnNewDocument(@ParamName("source") source: String): String {
@@ -112,11 +112,12 @@ public interface Page {
    */
   @Returns("data")
   public suspend fun captureScreenshot(
-    @ParamName("format") @Optional format: CaptureScreenshotFormat?,
-    @ParamName("quality") @Optional quality: Int?,
-    @ParamName("clip") @Optional clip: Viewport?,
-    @ParamName("fromSurface") @Optional @Experimental fromSurface: Boolean?,
-    @ParamName("captureBeyondViewport") @Optional @Experimental captureBeyondViewport: Boolean?,
+    @ParamName("format") @Optional format: CaptureScreenshotFormat? = null,
+    @ParamName("quality") @Optional quality: Int? = null,
+    @ParamName("clip") @Optional clip: Viewport? = null,
+    @ParamName("fromSurface") @Optional @Experimental fromSurface: Boolean? = null,
+    @ParamName("captureBeyondViewport") @Optional @Experimental captureBeyondViewport: Boolean? =
+        null,
   ): String
 
   @Returns("data")
@@ -131,8 +132,8 @@ public interface Page {
    */
   @Experimental
   @Returns("data")
-  public suspend fun captureSnapshot(@ParamName("format") @Optional format: CaptureSnapshotFormat?):
-      String
+  public suspend fun captureSnapshot(@ParamName("format") @Optional format: CaptureSnapshotFormat? =
+      null): String
 
   @Experimental
   @Returns("data")
@@ -151,8 +152,8 @@ public interface Page {
   @Returns("executionContextId")
   public suspend fun createIsolatedWorld(
     @ParamName("frameId") frameId: String,
-    @ParamName("worldName") @Optional worldName: String?,
-    @ParamName("grantUniveralAccess") @Optional grantUniveralAccess: Boolean?,
+    @ParamName("worldName") @Optional worldName: String? = null,
+    @ParamName("grantUniveralAccess") @Optional grantUniveralAccess: Boolean? = null,
   ): Int
 
   @Returns("executionContextId")
@@ -226,7 +227,7 @@ public interface Page {
    * dialog.
    */
   public suspend fun handleJavaScriptDialog(@ParamName("accept") accept: Boolean,
-      @ParamName("promptText") @Optional promptText: String?)
+      @ParamName("promptText") @Optional promptText: String? = null)
 
   public suspend fun handleJavaScriptDialog(@ParamName("accept") accept: Boolean) {
     return handleJavaScriptDialog(accept, null)
@@ -242,10 +243,10 @@ public interface Page {
    */
   public suspend fun navigate(
     @ParamName("url") url: String,
-    @ParamName("referrer") @Optional referrer: String?,
-    @ParamName("transitionType") @Optional transitionType: TransitionType?,
-    @ParamName("frameId") @Optional frameId: String?,
-    @ParamName("referrerPolicy") @Optional @Experimental referrerPolicy: ReferrerPolicy?,
+    @ParamName("referrer") @Optional referrer: String? = null,
+    @ParamName("transitionType") @Optional transitionType: TransitionType? = null,
+    @ParamName("frameId") @Optional frameId: String? = null,
+    @ParamName("referrerPolicy") @Optional @Experimental referrerPolicy: ReferrerPolicy? = null,
   ): Navigate
 
   public suspend fun navigate(@ParamName("url") url: String): Navigate {
@@ -294,22 +295,22 @@ public interface Page {
    * @param transferMode return as stream
    */
   public suspend fun printToPDF(
-    @ParamName("landscape") @Optional landscape: Boolean?,
-    @ParamName("displayHeaderFooter") @Optional displayHeaderFooter: Boolean?,
-    @ParamName("printBackground") @Optional printBackground: Boolean?,
-    @ParamName("scale") @Optional scale: Double?,
-    @ParamName("paperWidth") @Optional paperWidth: Double?,
-    @ParamName("paperHeight") @Optional paperHeight: Double?,
-    @ParamName("marginTop") @Optional marginTop: Double?,
-    @ParamName("marginBottom") @Optional marginBottom: Double?,
-    @ParamName("marginLeft") @Optional marginLeft: Double?,
-    @ParamName("marginRight") @Optional marginRight: Double?,
-    @ParamName("pageRanges") @Optional pageRanges: String?,
-    @ParamName("ignoreInvalidPageRanges") @Optional ignoreInvalidPageRanges: Boolean?,
-    @ParamName("headerTemplate") @Optional headerTemplate: String?,
-    @ParamName("footerTemplate") @Optional footerTemplate: String?,
-    @ParamName("preferCSSPageSize") @Optional preferCSSPageSize: Boolean?,
-    @ParamName("transferMode") @Optional @Experimental transferMode: PrintToPDFTransferMode?,
+    @ParamName("landscape") @Optional landscape: Boolean? = null,
+    @ParamName("displayHeaderFooter") @Optional displayHeaderFooter: Boolean? = null,
+    @ParamName("printBackground") @Optional printBackground: Boolean? = null,
+    @ParamName("scale") @Optional scale: Double? = null,
+    @ParamName("paperWidth") @Optional paperWidth: Double? = null,
+    @ParamName("paperHeight") @Optional paperHeight: Double? = null,
+    @ParamName("marginTop") @Optional marginTop: Double? = null,
+    @ParamName("marginBottom") @Optional marginBottom: Double? = null,
+    @ParamName("marginLeft") @Optional marginLeft: Double? = null,
+    @ParamName("marginRight") @Optional marginRight: Double? = null,
+    @ParamName("pageRanges") @Optional pageRanges: String? = null,
+    @ParamName("ignoreInvalidPageRanges") @Optional ignoreInvalidPageRanges: Boolean? = null,
+    @ParamName("headerTemplate") @Optional headerTemplate: String? = null,
+    @ParamName("footerTemplate") @Optional footerTemplate: String? = null,
+    @ParamName("preferCSSPageSize") @Optional preferCSSPageSize: Boolean? = null,
+    @ParamName("transferMode") @Optional @Experimental transferMode: PrintToPDFTransferMode? = null,
   ): PrintToPDF
 
   public suspend fun printToPDF(): PrintToPDF {
@@ -324,8 +325,8 @@ public interface Page {
    * inspected page after reload.
    * Argument will be ignored if reloading dataURL origin.
    */
-  public suspend fun reload(@ParamName("ignoreCache") @Optional ignoreCache: Boolean?,
-      @ParamName("scriptToEvaluateOnLoad") @Optional scriptToEvaluateOnLoad: String?)
+  public suspend fun reload(@ParamName("ignoreCache") @Optional ignoreCache: Boolean? = null,
+      @ParamName("scriptToEvaluateOnLoad") @Optional scriptToEvaluateOnLoad: String? = null)
 
   public suspend fun reload() {
     return reload(null, null)
@@ -368,8 +369,8 @@ public interface Page {
     @ParamName("frameId") frameId: String,
     @ParamName("url") url: String,
     @ParamName("query") query: String,
-    @ParamName("caseSensitive") @Optional caseSensitive: Boolean?,
-    @ParamName("isRegex") @Optional isRegex: Boolean?,
+    @ParamName("caseSensitive") @Optional caseSensitive: Boolean? = null,
+    @ParamName("isRegex") @Optional isRegex: Boolean? = null,
   ): List<SearchMatch>
 
   @Experimental
@@ -443,7 +444,7 @@ public interface Page {
   @Experimental
   public suspend fun setDownloadBehavior(@ParamName("behavior")
       behavior: SetDownloadBehaviorBehavior, @ParamName("downloadPath") @Optional
-      downloadPath: String?)
+      downloadPath: String? = null)
 
   @Deprecated
   @Experimental
@@ -469,11 +470,11 @@ public interface Page {
    */
   @Experimental
   public suspend fun startScreencast(
-    @ParamName("format") @Optional format: StartScreencastFormat?,
-    @ParamName("quality") @Optional quality: Int?,
-    @ParamName("maxWidth") @Optional maxWidth: Int?,
-    @ParamName("maxHeight") @Optional maxHeight: Int?,
-    @ParamName("everyNthFrame") @Optional everyNthFrame: Int?,
+    @ParamName("format") @Optional format: StartScreencastFormat? = null,
+    @ParamName("quality") @Optional quality: Int? = null,
+    @ParamName("maxWidth") @Optional maxWidth: Int? = null,
+    @ParamName("maxHeight") @Optional maxHeight: Int? = null,
+    @ParamName("everyNthFrame") @Optional everyNthFrame: Int? = null,
   )
 
   @Experimental
@@ -560,7 +561,7 @@ public interface Page {
    */
   @Experimental
   public suspend fun generateTestReport(@ParamName("message") message: String, @ParamName("group")
-      @Optional group: String?)
+      @Optional group: String? = null)
 
   @Experimental
   public suspend fun generateTestReport(@ParamName("message") message: String) {

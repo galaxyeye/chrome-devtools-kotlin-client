@@ -11,8 +11,8 @@ import kotlin.String
  */
 @Experimental
 public data class TrustTokens(
-  @JsonProperty("issuerOrigin")
+  @field:JsonProperty("issuerOrigin")
   public val issuerOrigin: String,
-  @JsonProperty("count")
+  @field:JsonProperty("count")
   public val count: Double,
 )

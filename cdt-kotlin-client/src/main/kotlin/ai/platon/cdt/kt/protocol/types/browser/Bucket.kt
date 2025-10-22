@@ -9,10 +9,10 @@ import kotlin.Int
  */
 @Experimental
 public data class Bucket(
-  @JsonProperty("low")
+  @field:JsonProperty("low")
   public val low: Int,
-  @JsonProperty("high")
+  @field:JsonProperty("high")
   public val high: Int,
-  @JsonProperty("count")
+  @field:JsonProperty("count")
   public val count: Int,
 )

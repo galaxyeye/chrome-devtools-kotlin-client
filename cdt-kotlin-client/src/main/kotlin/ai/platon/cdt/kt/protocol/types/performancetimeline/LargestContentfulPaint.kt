@@ -10,19 +10,19 @@ import kotlin.String
  * See https://github.com/WICG/LargestContentfulPaint and largest_contentful_paint.idl
  */
 public data class LargestContentfulPaint(
-  @JsonProperty("renderTime")
+  @field:JsonProperty("renderTime")
   public val renderTime: Double,
-  @JsonProperty("loadTime")
+  @field:JsonProperty("loadTime")
   public val loadTime: Double,
-  @JsonProperty("size")
+  @field:JsonProperty("size")
   public val size: Double,
-  @JsonProperty("elementId")
-  @Optional
+  @field:JsonProperty("elementId")
+  @param:Optional
   public val elementId: String? = null,
-  @JsonProperty("url")
-  @Optional
+  @field:JsonProperty("url")
+  @param:Optional
   public val url: String? = null,
-  @JsonProperty("nodeId")
-  @Optional
+  @field:JsonProperty("nodeId")
+  @param:Optional
   public val nodeId: Int? = null,
 )

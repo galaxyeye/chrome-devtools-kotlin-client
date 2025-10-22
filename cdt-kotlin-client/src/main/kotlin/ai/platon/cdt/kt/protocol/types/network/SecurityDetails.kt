@@ -11,32 +11,32 @@ import kotlin.collections.List
  * Security details about a request.
  */
 public data class SecurityDetails(
-  @JsonProperty("protocol")
+  @field:JsonProperty("protocol")
   public val protocol: String,
-  @JsonProperty("keyExchange")
+  @field:JsonProperty("keyExchange")
   public val keyExchange: String,
-  @JsonProperty("keyExchangeGroup")
-  @Optional
+  @field:JsonProperty("keyExchangeGroup")
+  @param:Optional
   public val keyExchangeGroup: String? = null,
-  @JsonProperty("cipher")
+  @field:JsonProperty("cipher")
   public val cipher: String,
-  @JsonProperty("mac")
-  @Optional
+  @field:JsonProperty("mac")
+  @param:Optional
   public val mac: String? = null,
-  @JsonProperty("certificateId")
+  @field:JsonProperty("certificateId")
   public val certificateId: Int,
-  @JsonProperty("subjectName")
+  @field:JsonProperty("subjectName")
   public val subjectName: String,
-  @JsonProperty("sanList")
+  @field:JsonProperty("sanList")
   public val sanList: List<String>,
-  @JsonProperty("issuer")
+  @field:JsonProperty("issuer")
   public val issuer: String,
-  @JsonProperty("validFrom")
+  @field:JsonProperty("validFrom")
   public val validFrom: Double,
-  @JsonProperty("validTo")
+  @field:JsonProperty("validTo")
   public val validTo: Double,
-  @JsonProperty("signedCertificateTimestampList")
+  @field:JsonProperty("signedCertificateTimestampList")
   public val signedCertificateTimestampList: List<SignedCertificateTimestamp>,
-  @JsonProperty("certificateTransparencyCompliance")
+  @field:JsonProperty("certificateTransparencyCompliance")
   public val certificateTransparencyCompliance: CertificateTransparencyCompliance,
 )

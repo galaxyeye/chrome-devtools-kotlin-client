@@ -25,8 +25,13 @@
         <jackson.version>2.19.2</jackson.version>
         <apache.collections.version>4.1</apache.collections.version>
         <apache.lang3.version>3.18.0</apache.lang3.version>
-        <kotlin.version>1.9.24</kotlin.version>
-        <kotlinpoet.version>1.18.1</kotlinpoet.version>
+
+        <kotlin.version>1.9.25</kotlin.version>
+        <!-- kotlinpoet-1.17.0: kotlin-stdlib: 1.9.24 -> 2.2.20 -->
+        <kotlinpoet.version>1.17.0</kotlinpoet.version>
+        <!-- kotlin-compile-testing:1.6.0: kotlin-compiler-embeddable: 1.9.24 -> 2.2.20 -->
+        <kotlin-compile-testing>1.6.0</kotlin-compile-testing>
+
         <!-- Updated to a version compatible with modern JDKs -->
         <lombok.version>1.18.34</lombok.version>
         <logback.version>1.5.13</logback.version>
@@ -145,7 +150,16 @@
         <dependency>
             <groupId>com.github.tschuchortdev</groupId>
             <artifactId>kotlin-compile-testing</artifactId>
-            <version>1.5.0</version>
+            <version>${kotlin-compile-testing}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Align the embedded Kotlin compiler used in tests with the project Kotlin version
+             to avoid metadata binary version conflicts (e.g., expected 1.8.0 vs found 2.1.0). -->
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-compiler-embeddable</artifactId>
+            <version>${kotlin.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

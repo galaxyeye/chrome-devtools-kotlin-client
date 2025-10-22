@@ -9,10 +9,10 @@ import kotlin.String
  */
 @Experimental
 public data class LocationRange(
-  @JsonProperty("scriptId")
+  @field:JsonProperty("scriptId")
   public val scriptId: String,
-  @JsonProperty("start")
+  @field:JsonProperty("start")
   public val start: ScriptPosition,
-  @JsonProperty("end")
+  @field:JsonProperty("end")
   public val end: ScriptPosition,
 )

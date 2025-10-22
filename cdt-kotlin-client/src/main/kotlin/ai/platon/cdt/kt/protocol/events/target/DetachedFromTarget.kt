@@ -12,10 +12,10 @@ import kotlin.String
  */
 @Experimental
 public data class DetachedFromTarget(
-  @JsonProperty("sessionId")
+  @field:JsonProperty("sessionId")
   public val sessionId: String,
-  @JsonProperty("targetId")
-  @Optional
-  @Deprecated
+  @field:JsonProperty("targetId")
+  @param:Optional
+  @param:Deprecated
   public val targetId: String? = null,
 )

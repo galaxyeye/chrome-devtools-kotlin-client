@@ -7,6 +7,6 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * Sent when a performance timeline event is added. See reportPerformanceTimeline method.
  */
 public data class TimelineEventAdded(
-  @JsonProperty("event")
+  @field:JsonProperty("event")
   public val event: TimelineEvent,
 )

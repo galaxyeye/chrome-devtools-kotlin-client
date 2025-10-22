@@ -5,8 +5,8 @@ import kotlin.Int
 import kotlin.collections.List
 
 public data class RareIntegerData(
-  @JsonProperty("index")
+  @field:JsonProperty("index")
   public val index: List<Int>,
-  @JsonProperty("value")
+  @field:JsonProperty("value")
   public val `value`: List<Int>,
 )

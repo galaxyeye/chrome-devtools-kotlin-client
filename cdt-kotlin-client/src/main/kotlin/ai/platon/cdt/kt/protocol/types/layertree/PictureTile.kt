@@ -8,10 +8,10 @@ import kotlin.String
  * Serialized fragment of layer picture along with its offset within the layer.
  */
 public data class PictureTile(
-  @JsonProperty("x")
+  @field:JsonProperty("x")
   public val x: Double,
-  @JsonProperty("y")
+  @field:JsonProperty("y")
   public val y: Double,
-  @JsonProperty("picture")
+  @field:JsonProperty("picture")
   public val picture: String,
 )

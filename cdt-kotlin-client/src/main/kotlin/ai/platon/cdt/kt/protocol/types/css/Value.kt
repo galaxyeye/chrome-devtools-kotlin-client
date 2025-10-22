@@ -8,9 +8,9 @@ import kotlin.String
  * Data for a simple selector (these are delimited by commas in a selector list).
  */
 public data class Value(
-  @JsonProperty("text")
+  @field:JsonProperty("text")
   public val text: String,
-  @JsonProperty("range")
-  @Optional
+  @field:JsonProperty("range")
+  @param:Optional
   public val range: SourceRange? = null,
 )

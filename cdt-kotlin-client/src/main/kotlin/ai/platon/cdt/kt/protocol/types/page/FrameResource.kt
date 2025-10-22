@@ -13,22 +13,22 @@ import kotlin.String
  */
 @Experimental
 public data class FrameResource(
-  @JsonProperty("url")
+  @field:JsonProperty("url")
   public val url: String,
-  @JsonProperty("type")
+  @field:JsonProperty("type")
   public val type: ResourceType,
-  @JsonProperty("mimeType")
+  @field:JsonProperty("mimeType")
   public val mimeType: String,
-  @JsonProperty("lastModified")
-  @Optional
+  @field:JsonProperty("lastModified")
+  @param:Optional
   public val lastModified: Double? = null,
-  @JsonProperty("contentSize")
-  @Optional
+  @field:JsonProperty("contentSize")
+  @param:Optional
   public val contentSize: Double? = null,
-  @JsonProperty("failed")
-  @Optional
+  @field:JsonProperty("failed")
+  @param:Optional
   public val failed: Boolean? = null,
-  @JsonProperty("canceled")
-  @Optional
+  @field:JsonProperty("canceled")
+  @param:Optional
   public val canceled: Boolean? = null,
 )

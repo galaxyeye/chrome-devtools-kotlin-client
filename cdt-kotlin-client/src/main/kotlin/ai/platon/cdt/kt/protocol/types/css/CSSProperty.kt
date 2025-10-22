@@ -9,26 +9,26 @@ import kotlin.String
  * CSS property declaration data.
  */
 public data class CSSProperty(
-  @JsonProperty("name")
+  @field:JsonProperty("name")
   public val name: String,
-  @JsonProperty("value")
+  @field:JsonProperty("value")
   public val `value`: String,
-  @JsonProperty("important")
-  @Optional
+  @field:JsonProperty("important")
+  @param:Optional
   public val important: Boolean? = null,
-  @JsonProperty("implicit")
-  @Optional
+  @field:JsonProperty("implicit")
+  @param:Optional
   public val implicit: Boolean? = null,
-  @JsonProperty("text")
-  @Optional
+  @field:JsonProperty("text")
+  @param:Optional
   public val text: String? = null,
-  @JsonProperty("parsedOk")
-  @Optional
+  @field:JsonProperty("parsedOk")
+  @param:Optional
   public val parsedOk: Boolean? = null,
-  @JsonProperty("disabled")
-  @Optional
+  @field:JsonProperty("disabled")
+  @param:Optional
   public val disabled: Boolean? = null,
-  @JsonProperty("range")
-  @Optional
+  @field:JsonProperty("range")
+  @param:Optional
   public val range: SourceRange? = null,
 )

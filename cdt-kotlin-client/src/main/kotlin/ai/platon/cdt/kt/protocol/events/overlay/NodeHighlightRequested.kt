@@ -7,6 +7,6 @@ import kotlin.Int
  * Fired when the node should be highlighted. This happens after call to `setInspectMode`.
  */
 public data class NodeHighlightRequested(
-  @JsonProperty("nodeId")
+  @field:JsonProperty("nodeId")
   public val nodeId: Int,
 )

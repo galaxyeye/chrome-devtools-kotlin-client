@@ -8,10 +8,10 @@ import kotlin.String
  * ServiceWorker registration.
  */
 public data class ServiceWorkerRegistration(
-  @JsonProperty("registrationId")
+  @field:JsonProperty("registrationId")
   public val registrationId: String,
-  @JsonProperty("scopeURL")
+  @field:JsonProperty("scopeURL")
   public val scopeURL: String,
-  @JsonProperty("isDeleted")
+  @field:JsonProperty("isDeleted")
   public val isDeleted: Boolean,
 )

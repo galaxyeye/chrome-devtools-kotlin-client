@@ -7,6 +7,6 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * Issued when new execution context is created.
  */
 public data class ExecutionContextCreated(
-  @JsonProperty("context")
+  @field:JsonProperty("context")
   public val context: ExecutionContextDescription,
 )

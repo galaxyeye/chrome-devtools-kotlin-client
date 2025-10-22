@@ -11,12 +11,12 @@ import kotlin.String
  */
 @Experimental
 public data class DownloadProgress(
-  @JsonProperty("guid")
+  @field:JsonProperty("guid")
   public val guid: String,
-  @JsonProperty("totalBytes")
+  @field:JsonProperty("totalBytes")
   public val totalBytes: Double,
-  @JsonProperty("receivedBytes")
+  @field:JsonProperty("receivedBytes")
   public val receivedBytes: Double,
-  @JsonProperty("state")
+  @field:JsonProperty("state")
   public val state: DownloadProgressState,
 )

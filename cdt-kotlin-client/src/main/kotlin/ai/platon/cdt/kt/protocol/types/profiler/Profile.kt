@@ -10,16 +10,16 @@ import kotlin.collections.List
  * Profile.
  */
 public data class Profile(
-  @JsonProperty("nodes")
+  @field:JsonProperty("nodes")
   public val nodes: List<ProfileNode>,
-  @JsonProperty("startTime")
+  @field:JsonProperty("startTime")
   public val startTime: Double,
-  @JsonProperty("endTime")
+  @field:JsonProperty("endTime")
   public val endTime: Double,
-  @JsonProperty("samples")
-  @Optional
+  @field:JsonProperty("samples")
+  @param:Optional
   public val samples: List<Int>? = null,
-  @JsonProperty("timeDeltas")
-  @Optional
+  @field:JsonProperty("timeDeltas")
+  @param:Optional
   public val timeDeltas: List<Int>? = null,
 )

@@ -7,12 +7,12 @@ import kotlin.Int
  * Layout viewport position and dimensions.
  */
 public data class LayoutViewport(
-  @JsonProperty("pageX")
+  @field:JsonProperty("pageX")
   public val pageX: Int,
-  @JsonProperty("pageY")
+  @field:JsonProperty("pageY")
   public val pageY: Int,
-  @JsonProperty("clientWidth")
+  @field:JsonProperty("clientWidth")
   public val clientWidth: Int,
-  @JsonProperty("clientHeight")
+  @field:JsonProperty("clientHeight")
   public val clientHeight: Int,
 )

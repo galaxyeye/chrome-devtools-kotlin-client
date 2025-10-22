@@ -9,8 +9,8 @@ import kotlin.collections.List
  * Current values of the metrics.
  */
 public data class Metrics(
-  @JsonProperty("metrics")
+  @field:JsonProperty("metrics")
   public val metrics: List<Metric>,
-  @JsonProperty("title")
+  @field:JsonProperty("title")
   public val title: String,
 )

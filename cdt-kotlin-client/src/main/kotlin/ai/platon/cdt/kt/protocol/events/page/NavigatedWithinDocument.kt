@@ -9,8 +9,8 @@ import kotlin.String
  */
 @Experimental
 public data class NavigatedWithinDocument(
-  @JsonProperty("frameId")
+  @field:JsonProperty("frameId")
   public val frameId: String,
-  @JsonProperty("url")
+  @field:JsonProperty("url")
   public val url: String,
 )

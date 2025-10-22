@@ -5,8 +5,8 @@ import kotlin.Double
 import kotlin.collections.List
 
 public data class TakeCoverageDelta(
-  @JsonProperty("coverage")
+  @field:JsonProperty("coverage")
   public val coverage: List<RuleUsage>,
-  @JsonProperty("timestamp")
+  @field:JsonProperty("timestamp")
   public val timestamp: Double,
 )

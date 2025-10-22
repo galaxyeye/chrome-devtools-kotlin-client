@@ -8,12 +8,12 @@ import kotlin.String
  * Executable module information
  */
 public data class Module(
-  @JsonProperty("name")
+  @field:JsonProperty("name")
   public val name: String,
-  @JsonProperty("uuid")
+  @field:JsonProperty("uuid")
   public val uuid: String,
-  @JsonProperty("baseAddress")
+  @field:JsonProperty("baseAddress")
   public val baseAddress: String,
-  @JsonProperty("size")
+  @field:JsonProperty("size")
   public val size: Double,
 )

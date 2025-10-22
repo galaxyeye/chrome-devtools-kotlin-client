@@ -10,8 +10,8 @@ import kotlin.collections.List
  * most of the calls requesting node ids.
  */
 public data class SetChildNodes(
-  @JsonProperty("parentId")
+  @field:JsonProperty("parentId")
   public val parentId: Int,
-  @JsonProperty("nodes")
+  @field:JsonProperty("nodes")
   public val nodes: List<Node>,
 )

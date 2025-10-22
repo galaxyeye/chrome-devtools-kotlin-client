@@ -11,6 +11,6 @@ import kotlin.collections.Map
  * send as a sequence of dataCollected events followed by tracingComplete event.
  */
 public data class DataCollected(
-  @JsonProperty("value")
+  @field:JsonProperty("value")
   public val `value`: List<Map<String, Any?>>,
 )

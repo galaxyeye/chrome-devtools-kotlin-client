@@ -13,25 +13,25 @@ import kotlin.collections.List
  */
 @Experimental
 public data class SignedExchangeSignature(
-  @JsonProperty("label")
+  @field:JsonProperty("label")
   public val label: String,
-  @JsonProperty("signature")
+  @field:JsonProperty("signature")
   public val signature: String,
-  @JsonProperty("integrity")
+  @field:JsonProperty("integrity")
   public val integrity: String,
-  @JsonProperty("certUrl")
-  @Optional
+  @field:JsonProperty("certUrl")
+  @param:Optional
   public val certUrl: String? = null,
-  @JsonProperty("certSha256")
-  @Optional
+  @field:JsonProperty("certSha256")
+  @param:Optional
   public val certSha256: String? = null,
-  @JsonProperty("validityUrl")
+  @field:JsonProperty("validityUrl")
   public val validityUrl: String,
-  @JsonProperty("date")
+  @field:JsonProperty("date")
   public val date: Int,
-  @JsonProperty("expires")
+  @field:JsonProperty("expires")
   public val expires: Int,
-  @JsonProperty("certificates")
-  @Optional
+  @field:JsonProperty("certificates")
+  @param:Optional
   public val certificates: List<String>? = null,
 )

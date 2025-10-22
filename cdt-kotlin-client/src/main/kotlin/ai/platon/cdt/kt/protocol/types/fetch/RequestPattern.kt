@@ -6,13 +6,13 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
 public data class RequestPattern(
-  @JsonProperty("urlPattern")
-  @Optional
+  @field:JsonProperty("urlPattern")
+  @param:Optional
   public val urlPattern: String? = null,
-  @JsonProperty("resourceType")
-  @Optional
+  @field:JsonProperty("resourceType")
+  @param:Optional
   public val resourceType: ResourceType? = null,
-  @JsonProperty("requestStage")
-  @Optional
+  @field:JsonProperty("requestStage")
+  @param:Optional
   public val requestStage: RequestStage? = null,
 )

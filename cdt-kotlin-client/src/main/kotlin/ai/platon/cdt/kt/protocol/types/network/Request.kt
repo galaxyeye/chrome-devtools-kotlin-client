@@ -14,37 +14,37 @@ import kotlin.collections.Map
  * HTTP request data.
  */
 public data class Request(
-  @JsonProperty("url")
+  @field:JsonProperty("url")
   public val url: String,
-  @JsonProperty("urlFragment")
-  @Optional
+  @field:JsonProperty("urlFragment")
+  @param:Optional
   public val urlFragment: String? = null,
-  @JsonProperty("method")
+  @field:JsonProperty("method")
   public val method: String,
-  @JsonProperty("headers")
+  @field:JsonProperty("headers")
   public val headers: Map<String, Any?>,
-  @JsonProperty("postData")
-  @Optional
+  @field:JsonProperty("postData")
+  @param:Optional
   public val postData: String? = null,
-  @JsonProperty("hasPostData")
-  @Optional
+  @field:JsonProperty("hasPostData")
+  @param:Optional
   public val hasPostData: Boolean? = null,
-  @JsonProperty("postDataEntries")
-  @Optional
-  @Experimental
+  @field:JsonProperty("postDataEntries")
+  @param:Optional
+  @param:Experimental
   public val postDataEntries: List<PostDataEntry>? = null,
-  @JsonProperty("mixedContentType")
-  @Optional
+  @field:JsonProperty("mixedContentType")
+  @param:Optional
   public val mixedContentType: MixedContentType? = null,
-  @JsonProperty("initialPriority")
+  @field:JsonProperty("initialPriority")
   public val initialPriority: ResourcePriority,
-  @JsonProperty("referrerPolicy")
+  @field:JsonProperty("referrerPolicy")
   public val referrerPolicy: RequestReferrerPolicy,
-  @JsonProperty("isLinkPreload")
-  @Optional
+  @field:JsonProperty("isLinkPreload")
+  @param:Optional
   public val isLinkPreload: Boolean? = null,
-  @JsonProperty("trustTokenParams")
-  @Optional
-  @Experimental
+  @field:JsonProperty("trustTokenParams")
+  @param:Optional
+  @param:Experimental
   public val trustTokenParams: TrustTokenParams? = null,
 )

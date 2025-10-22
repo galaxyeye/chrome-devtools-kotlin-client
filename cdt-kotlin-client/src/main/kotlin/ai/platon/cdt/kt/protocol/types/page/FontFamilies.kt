@@ -10,25 +10,25 @@ import kotlin.String
  */
 @Experimental
 public data class FontFamilies(
-  @JsonProperty("standard")
-  @Optional
+  @field:JsonProperty("standard")
+  @param:Optional
   public val standard: String? = null,
-  @JsonProperty("fixed")
-  @Optional
+  @field:JsonProperty("fixed")
+  @param:Optional
   public val fixed: String? = null,
-  @JsonProperty("serif")
-  @Optional
+  @field:JsonProperty("serif")
+  @param:Optional
   public val serif: String? = null,
-  @JsonProperty("sansSerif")
-  @Optional
+  @field:JsonProperty("sansSerif")
+  @param:Optional
   public val sansSerif: String? = null,
-  @JsonProperty("cursive")
-  @Optional
+  @field:JsonProperty("cursive")
+  @param:Optional
   public val cursive: String? = null,
-  @JsonProperty("fantasy")
-  @Optional
+  @field:JsonProperty("fantasy")
+  @param:Optional
   public val fantasy: String? = null,
-  @JsonProperty("pictograph")
-  @Optional
+  @field:JsonProperty("pictograph")
+  @param:Optional
   public val pictograph: String? = null,
 )

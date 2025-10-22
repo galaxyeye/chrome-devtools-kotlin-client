@@ -10,12 +10,12 @@ import kotlin.String
  * Emitted only when `page.interceptFileChooser` is enabled.
  */
 public data class FileChooserOpened(
-  @JsonProperty("frameId")
-  @Experimental
+  @field:JsonProperty("frameId")
+  @param:Experimental
   public val frameId: String,
-  @JsonProperty("backendNodeId")
-  @Experimental
+  @field:JsonProperty("backendNodeId")
+  @param:Experimental
   public val backendNodeId: Int,
-  @JsonProperty("mode")
+  @field:JsonProperty("mode")
   public val mode: FileChooserOpenedMode,
 )

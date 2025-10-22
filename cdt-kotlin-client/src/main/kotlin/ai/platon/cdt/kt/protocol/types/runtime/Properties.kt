@@ -6,16 +6,16 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.collections.List
 
 public data class Properties(
-  @JsonProperty("result")
+  @field:JsonProperty("result")
   public val result: List<PropertyDescriptor>,
-  @JsonProperty("internalProperties")
-  @Optional
+  @field:JsonProperty("internalProperties")
+  @param:Optional
   public val internalProperties: List<InternalPropertyDescriptor>? = null,
-  @JsonProperty("privateProperties")
-  @Optional
-  @Experimental
+  @field:JsonProperty("privateProperties")
+  @param:Optional
+  @param:Experimental
   public val privateProperties: List<PrivatePropertyDescriptor>? = null,
-  @JsonProperty("exceptionDetails")
-  @Optional
+  @field:JsonProperty("exceptionDetails")
+  @param:Optional
   public val exceptionDetails: ExceptionDetails? = null,
 )

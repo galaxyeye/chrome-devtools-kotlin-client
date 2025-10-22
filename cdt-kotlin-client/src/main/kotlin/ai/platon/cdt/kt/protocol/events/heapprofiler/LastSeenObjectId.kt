@@ -10,8 +10,8 @@ import kotlin.Int
  * then one or more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
  */
 public data class LastSeenObjectId(
-  @JsonProperty("lastSeenObjectId")
+  @field:JsonProperty("lastSeenObjectId")
   public val lastSeenObjectId: Int,
-  @JsonProperty("timestamp")
+  @field:JsonProperty("timestamp")
   public val timestamp: Double,
 )

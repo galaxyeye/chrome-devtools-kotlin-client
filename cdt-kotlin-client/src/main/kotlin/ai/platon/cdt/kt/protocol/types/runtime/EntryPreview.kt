@@ -6,9 +6,9 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 
 @Experimental
 public data class EntryPreview(
-  @JsonProperty("key")
-  @Optional
+  @field:JsonProperty("key")
+  @param:Optional
   public val key: ObjectPreview? = null,
-  @JsonProperty("value")
+  @field:JsonProperty("value")
   public val `value`: ObjectPreview,
 )

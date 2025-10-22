@@ -10,13 +10,13 @@ import kotlin.String
  */
 @Experimental
 public data class AuthChallenge(
-  @JsonProperty("source")
-  @Optional
+  @field:JsonProperty("source")
+  @param:Optional
   public val source: AuthChallengeSource? = null,
-  @JsonProperty("origin")
+  @field:JsonProperty("origin")
   public val origin: String,
-  @JsonProperty("scheme")
+  @field:JsonProperty("scheme")
   public val scheme: String,
-  @JsonProperty("realm")
+  @field:JsonProperty("realm")
   public val realm: String,
 )

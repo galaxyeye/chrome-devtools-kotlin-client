@@ -10,6 +10,6 @@ import kotlin.collections.List
  */
 @Experimental
 public data class InlineStyleInvalidated(
-  @JsonProperty("nodeIds")
+  @field:JsonProperty("nodeIds")
   public val nodeIds: List<Int>,
 )

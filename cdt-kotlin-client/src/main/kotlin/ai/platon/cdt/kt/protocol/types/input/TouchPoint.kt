@@ -7,39 +7,39 @@ import kotlin.Double
 import kotlin.Int
 
 public data class TouchPoint(
-  @JsonProperty("x")
+  @field:JsonProperty("x")
   public val x: Double,
-  @JsonProperty("y")
+  @field:JsonProperty("y")
   public val y: Double,
-  @JsonProperty("radiusX")
-  @Optional
+  @field:JsonProperty("radiusX")
+  @param:Optional
   public val radiusX: Double? = null,
-  @JsonProperty("radiusY")
-  @Optional
+  @field:JsonProperty("radiusY")
+  @param:Optional
   public val radiusY: Double? = null,
-  @JsonProperty("rotationAngle")
-  @Optional
+  @field:JsonProperty("rotationAngle")
+  @param:Optional
   public val rotationAngle: Double? = null,
-  @JsonProperty("force")
-  @Optional
+  @field:JsonProperty("force")
+  @param:Optional
   public val force: Double? = null,
-  @JsonProperty("tangentialPressure")
-  @Optional
-  @Experimental
+  @field:JsonProperty("tangentialPressure")
+  @param:Optional
+  @param:Experimental
   public val tangentialPressure: Double? = null,
-  @JsonProperty("tiltX")
-  @Optional
-  @Experimental
+  @field:JsonProperty("tiltX")
+  @param:Optional
+  @param:Experimental
   public val tiltX: Int? = null,
-  @JsonProperty("tiltY")
-  @Optional
-  @Experimental
+  @field:JsonProperty("tiltY")
+  @param:Optional
+  @param:Experimental
   public val tiltY: Int? = null,
-  @JsonProperty("twist")
-  @Optional
-  @Experimental
+  @field:JsonProperty("twist")
+  @param:Optional
+  @param:Experimental
   public val twist: Int? = null,
-  @JsonProperty("id")
-  @Optional
+  @field:JsonProperty("id")
+  @param:Optional
   public val id: Double? = null,
 )

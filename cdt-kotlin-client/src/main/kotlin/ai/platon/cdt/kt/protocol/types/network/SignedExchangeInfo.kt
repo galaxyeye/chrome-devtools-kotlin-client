@@ -10,15 +10,15 @@ import kotlin.collections.List
  */
 @Experimental
 public data class SignedExchangeInfo(
-  @JsonProperty("outerResponse")
+  @field:JsonProperty("outerResponse")
   public val outerResponse: Response,
-  @JsonProperty("header")
-  @Optional
+  @field:JsonProperty("header")
+  @param:Optional
   public val `header`: SignedExchangeHeader? = null,
-  @JsonProperty("securityDetails")
-  @Optional
+  @field:JsonProperty("securityDetails")
+  @param:Optional
   public val securityDetails: SecurityDetails? = null,
-  @JsonProperty("errors")
-  @Optional
+  @field:JsonProperty("errors")
+  @param:Optional
   public val errors: List<SignedExchangeError>? = null,
 )

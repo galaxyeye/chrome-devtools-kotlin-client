@@ -10,10 +10,10 @@ import kotlin.Int
  */
 @Experimental
 public data class FontSizes(
-  @JsonProperty("standard")
-  @Optional
+  @field:JsonProperty("standard")
+  @param:Optional
   public val standard: Int? = null,
-  @JsonProperty("fixed")
-  @Optional
+  @field:JsonProperty("fixed")
+  @param:Optional
   public val fixed: Int? = null,
 )

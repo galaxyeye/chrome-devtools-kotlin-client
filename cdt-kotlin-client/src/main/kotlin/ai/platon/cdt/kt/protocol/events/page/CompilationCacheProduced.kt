@@ -10,8 +10,8 @@ import kotlin.String
  */
 @Experimental
 public data class CompilationCacheProduced(
-  @JsonProperty("url")
+  @field:JsonProperty("url")
   public val url: String,
-  @JsonProperty("data")
+  @field:JsonProperty("data")
   public val `data`: String,
 )

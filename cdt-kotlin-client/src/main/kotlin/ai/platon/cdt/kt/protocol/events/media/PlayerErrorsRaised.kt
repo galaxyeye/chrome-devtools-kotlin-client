@@ -9,8 +9,8 @@ import kotlin.collections.List
  * Send a list of any errors that need to be delivered.
  */
 public data class PlayerErrorsRaised(
-  @JsonProperty("playerId")
+  @field:JsonProperty("playerId")
   public val playerId: String,
-  @JsonProperty("errors")
+  @field:JsonProperty("errors")
   public val errors: List<PlayerError>,
 )

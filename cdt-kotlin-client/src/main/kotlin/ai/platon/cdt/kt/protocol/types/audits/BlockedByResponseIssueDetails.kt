@@ -9,14 +9,14 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * some CSP errors in the future.
  */
 public data class BlockedByResponseIssueDetails(
-  @JsonProperty("request")
+  @field:JsonProperty("request")
   public val request: AffectedRequest,
-  @JsonProperty("parentFrame")
-  @Optional
+  @field:JsonProperty("parentFrame")
+  @param:Optional
   public val parentFrame: AffectedFrame? = null,
-  @JsonProperty("blockedFrame")
-  @Optional
+  @field:JsonProperty("blockedFrame")
+  @param:Optional
   public val blockedFrame: AffectedFrame? = null,
-  @JsonProperty("reason")
+  @field:JsonProperty("reason")
   public val reason: BlockedByResponseReason,
 )

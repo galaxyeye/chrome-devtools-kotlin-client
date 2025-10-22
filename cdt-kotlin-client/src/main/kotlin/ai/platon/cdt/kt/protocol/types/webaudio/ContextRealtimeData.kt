@@ -7,12 +7,12 @@ import kotlin.Double
  * Fields in AudioContext that change in real-time.
  */
 public data class ContextRealtimeData(
-  @JsonProperty("currentTime")
+  @field:JsonProperty("currentTime")
   public val currentTime: Double,
-  @JsonProperty("renderCapacity")
+  @field:JsonProperty("renderCapacity")
   public val renderCapacity: Double,
-  @JsonProperty("callbackIntervalMean")
+  @field:JsonProperty("callbackIntervalMean")
   public val callbackIntervalMean: Double,
-  @JsonProperty("callbackIntervalVariance")
+  @field:JsonProperty("callbackIntervalVariance")
   public val callbackIntervalVariance: Double,
 )

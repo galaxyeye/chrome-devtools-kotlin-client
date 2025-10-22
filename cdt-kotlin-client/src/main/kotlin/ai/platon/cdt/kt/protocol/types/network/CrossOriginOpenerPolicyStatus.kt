@@ -7,14 +7,14 @@ import kotlin.String
 
 @Experimental
 public data class CrossOriginOpenerPolicyStatus(
-  @JsonProperty("value")
+  @field:JsonProperty("value")
   public val `value`: CrossOriginOpenerPolicyValue,
-  @JsonProperty("reportOnlyValue")
+  @field:JsonProperty("reportOnlyValue")
   public val reportOnlyValue: CrossOriginOpenerPolicyValue,
-  @JsonProperty("reportingEndpoint")
-  @Optional
+  @field:JsonProperty("reportingEndpoint")
+  @param:Optional
   public val reportingEndpoint: String? = null,
-  @JsonProperty("reportOnlyReportingEndpoint")
-  @Optional
+  @field:JsonProperty("reportOnlyReportingEndpoint")
+  @param:Optional
   public val reportOnlyReportingEndpoint: String? = null,
 )

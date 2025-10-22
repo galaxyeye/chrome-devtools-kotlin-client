@@ -6,10 +6,10 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 
 @Experimental
 public data class SecurityIsolationStatus(
-  @JsonProperty("coop")
-  @Optional
+  @field:JsonProperty("coop")
+  @param:Optional
   public val coop: CrossOriginOpenerPolicyStatus? = null,
-  @JsonProperty("coep")
-  @Optional
+  @field:JsonProperty("coep")
+  @param:Optional
   public val coep: CrossOriginEmbedderPolicyStatus? = null,
 )

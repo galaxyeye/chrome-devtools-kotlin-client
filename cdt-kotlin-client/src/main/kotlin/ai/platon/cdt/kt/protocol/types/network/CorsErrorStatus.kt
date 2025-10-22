@@ -4,8 +4,8 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
 public data class CorsErrorStatus(
-  @JsonProperty("corsError")
+  @field:JsonProperty("corsError")
   public val corsError: CorsError,
-  @JsonProperty("failedParameter")
+  @field:JsonProperty("failedParameter")
   public val failedParameter: String,
 )

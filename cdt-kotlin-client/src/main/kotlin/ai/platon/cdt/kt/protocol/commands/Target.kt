@@ -44,7 +44,7 @@ public interface Target {
    */
   @Returns("sessionId")
   public suspend fun attachToTarget(@ParamName("targetId") targetId: String, @ParamName("flatten")
-      @Optional flatten: Boolean?): String
+      @Optional flatten: Boolean? = null): String
 
   @Returns("sessionId")
   public suspend fun attachToTarget(@ParamName("targetId") targetId: String): String {
@@ -80,7 +80,7 @@ public interface Target {
    */
   @Experimental
   public suspend fun exposeDevToolsProtocol(@ParamName("targetId") targetId: String,
-      @ParamName("bindingName") @Optional bindingName: String?)
+      @ParamName("bindingName") @Optional bindingName: String? = null)
 
   @Experimental
   public suspend fun exposeDevToolsProtocol(@ParamName("targetId") targetId: String) {
@@ -97,9 +97,9 @@ public interface Target {
   @Experimental
   @Returns("browserContextId")
   public suspend fun createBrowserContext(
-    @ParamName("disposeOnDetach") @Optional disposeOnDetach: Boolean?,
-    @ParamName("proxyServer") @Optional proxyServer: String?,
-    @ParamName("proxyBypassList") @Optional proxyBypassList: String?,
+    @ParamName("disposeOnDetach") @Optional disposeOnDetach: Boolean? = null,
+    @ParamName("proxyServer") @Optional proxyServer: String? = null,
+    @ParamName("proxyBypassList") @Optional proxyBypassList: String? = null,
   ): String
 
   @Experimental
@@ -133,12 +133,13 @@ public interface Target {
   @Returns("targetId")
   public suspend fun createTarget(
     @ParamName("url") url: String,
-    @ParamName("width") @Optional width: Int?,
-    @ParamName("height") @Optional height: Int?,
-    @ParamName("browserContextId") @Optional browserContextId: String?,
-    @ParamName("enableBeginFrameControl") @Optional @Experimental enableBeginFrameControl: Boolean?,
-    @ParamName("newWindow") @Optional newWindow: Boolean?,
-    @ParamName("background") @Optional background: Boolean?,
+    @ParamName("width") @Optional width: Int? = null,
+    @ParamName("height") @Optional height: Int? = null,
+    @ParamName("browserContextId") @Optional browserContextId: String? = null,
+    @ParamName("enableBeginFrameControl") @Optional @Experimental enableBeginFrameControl: Boolean?
+        = null,
+    @ParamName("newWindow") @Optional newWindow: Boolean? = null,
+    @ParamName("background") @Optional background: Boolean? = null,
   ): String
 
   @Returns("targetId")
@@ -151,8 +152,8 @@ public interface Target {
    * @param sessionId Session to detach.
    * @param targetId Deprecated.
    */
-  public suspend fun detachFromTarget(@ParamName("sessionId") @Optional sessionId: String?,
-      @ParamName("targetId") @Optional @Deprecated targetId: String?)
+  public suspend fun detachFromTarget(@ParamName("sessionId") @Optional sessionId: String? = null,
+      @ParamName("targetId") @Optional @Deprecated targetId: String? = null)
 
   public suspend fun detachFromTarget() {
     return detachFromTarget(null, null)
@@ -172,7 +173,8 @@ public interface Target {
    */
   @Experimental
   @Returns("targetInfo")
-  public suspend fun getTargetInfo(@ParamName("targetId") @Optional targetId: String?): TargetInfo
+  public suspend fun getTargetInfo(@ParamName("targetId") @Optional targetId: String? = null):
+      TargetInfo
 
   @Experimental
   @Returns("targetInfo")
@@ -198,8 +200,8 @@ public interface Target {
   @Deprecated
   public suspend fun sendMessageToTarget(
     @ParamName("message") message: String,
-    @ParamName("sessionId") @Optional sessionId: String?,
-    @ParamName("targetId") @Optional @Deprecated targetId: String?,
+    @ParamName("sessionId") @Optional sessionId: String? = null,
+    @ParamName("targetId") @Optional @Deprecated targetId: String? = null,
   )
 
   @Deprecated
@@ -224,7 +226,7 @@ public interface Target {
   public suspend fun setAutoAttach(
     @ParamName("autoAttach") autoAttach: Boolean,
     @ParamName("waitForDebuggerOnStart") waitForDebuggerOnStart: Boolean,
-    @ParamName("flatten") @Optional flatten: Boolean?,
+    @ParamName("flatten") @Optional flatten: Boolean? = null,
   )
 
   @Experimental

@@ -7,10 +7,10 @@ import kotlin.String
  * Cache identifier.
  */
 public data class Cache(
-  @JsonProperty("cacheId")
+  @field:JsonProperty("cacheId")
   public val cacheId: String,
-  @JsonProperty("securityOrigin")
+  @field:JsonProperty("securityOrigin")
   public val securityOrigin: String,
-  @JsonProperty("cacheName")
+  @field:JsonProperty("cacheName")
   public val cacheName: String,
 )

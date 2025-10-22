@@ -9,12 +9,12 @@ import kotlin.collections.List
  * See https://wicg.github.io/layout-instability/#sec-layout-shift and layout_shift.idl
  */
 public data class LayoutShift(
-  @JsonProperty("value")
+  @field:JsonProperty("value")
   public val `value`: Double,
-  @JsonProperty("hadRecentInput")
+  @field:JsonProperty("hadRecentInput")
   public val hadRecentInput: Boolean,
-  @JsonProperty("lastInputTime")
+  @field:JsonProperty("lastInputTime")
   public val lastInputTime: Double,
-  @JsonProperty("sources")
+  @field:JsonProperty("sources")
   public val sources: List<LayoutShiftAttribution>,
 )

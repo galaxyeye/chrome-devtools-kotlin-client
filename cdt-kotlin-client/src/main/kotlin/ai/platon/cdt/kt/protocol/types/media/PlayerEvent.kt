@@ -8,8 +8,8 @@ import kotlin.String
  * Corresponds to kMediaEventTriggered
  */
 public data class PlayerEvent(
-  @JsonProperty("timestamp")
+  @field:JsonProperty("timestamp")
   public val timestamp: Double,
-  @JsonProperty("value")
+  @field:JsonProperty("value")
   public val `value`: String,
 )

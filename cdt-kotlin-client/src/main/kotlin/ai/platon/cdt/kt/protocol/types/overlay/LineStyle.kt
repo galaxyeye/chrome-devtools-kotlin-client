@@ -8,10 +8,10 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * Style information for drawing a line.
  */
 public data class LineStyle(
-  @JsonProperty("color")
-  @Optional
+  @field:JsonProperty("color")
+  @param:Optional
   public val color: RGBA? = null,
-  @JsonProperty("pattern")
-  @Optional
+  @field:JsonProperty("pattern")
+  @param:Optional
   public val pattern: LineStylePattern? = null,
 )

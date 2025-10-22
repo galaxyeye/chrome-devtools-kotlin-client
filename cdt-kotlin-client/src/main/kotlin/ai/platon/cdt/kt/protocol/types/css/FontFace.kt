@@ -11,23 +11,23 @@ import kotlin.collections.List
  * and additional information such as platformFontFamily and fontVariationAxes.
  */
 public data class FontFace(
-  @JsonProperty("fontFamily")
+  @field:JsonProperty("fontFamily")
   public val fontFamily: String,
-  @JsonProperty("fontStyle")
+  @field:JsonProperty("fontStyle")
   public val fontStyle: String,
-  @JsonProperty("fontVariant")
+  @field:JsonProperty("fontVariant")
   public val fontVariant: String,
-  @JsonProperty("fontWeight")
+  @field:JsonProperty("fontWeight")
   public val fontWeight: String,
-  @JsonProperty("fontStretch")
+  @field:JsonProperty("fontStretch")
   public val fontStretch: String,
-  @JsonProperty("unicodeRange")
+  @field:JsonProperty("unicodeRange")
   public val unicodeRange: String,
-  @JsonProperty("src")
+  @field:JsonProperty("src")
   public val src: String,
-  @JsonProperty("platformFontFamily")
+  @field:JsonProperty("platformFontFamily")
   public val platformFontFamily: String,
-  @JsonProperty("fontVariationAxes")
-  @Optional
+  @field:JsonProperty("fontVariationAxes")
+  @param:Optional
   public val fontVariationAxes: List<FontVariationAxis>? = null,
 )

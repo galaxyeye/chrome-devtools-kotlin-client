@@ -11,21 +11,21 @@ import kotlin.collections.List
  * information without the cookie.
  */
 public data class SameSiteCookieIssueDetails(
-  @JsonProperty("cookie")
+  @field:JsonProperty("cookie")
   public val cookie: AffectedCookie,
-  @JsonProperty("cookieWarningReasons")
+  @field:JsonProperty("cookieWarningReasons")
   public val cookieWarningReasons: List<SameSiteCookieWarningReason>,
-  @JsonProperty("cookieExclusionReasons")
+  @field:JsonProperty("cookieExclusionReasons")
   public val cookieExclusionReasons: List<SameSiteCookieExclusionReason>,
-  @JsonProperty("operation")
+  @field:JsonProperty("operation")
   public val operation: SameSiteCookieOperation,
-  @JsonProperty("siteForCookies")
-  @Optional
+  @field:JsonProperty("siteForCookies")
+  @param:Optional
   public val siteForCookies: String? = null,
-  @JsonProperty("cookieUrl")
-  @Optional
+  @field:JsonProperty("cookieUrl")
+  @param:Optional
   public val cookieUrl: String? = null,
-  @JsonProperty("request")
-  @Optional
+  @field:JsonProperty("request")
+  @param:Optional
   public val request: AffectedRequest? = null,
 )

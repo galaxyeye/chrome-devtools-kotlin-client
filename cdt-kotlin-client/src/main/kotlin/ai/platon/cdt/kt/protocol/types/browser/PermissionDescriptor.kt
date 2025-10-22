@@ -12,18 +12,18 @@ import kotlin.String
  */
 @Experimental
 public data class PermissionDescriptor(
-  @JsonProperty("name")
+  @field:JsonProperty("name")
   public val name: String,
-  @JsonProperty("sysex")
-  @Optional
+  @field:JsonProperty("sysex")
+  @param:Optional
   public val sysex: Boolean? = null,
-  @JsonProperty("userVisibleOnly")
-  @Optional
+  @field:JsonProperty("userVisibleOnly")
+  @param:Optional
   public val userVisibleOnly: Boolean? = null,
-  @JsonProperty("allowWithoutSanitization")
-  @Optional
+  @field:JsonProperty("allowWithoutSanitization")
+  @param:Optional
   public val allowWithoutSanitization: Boolean? = null,
-  @JsonProperty("panTiltZoom")
-  @Optional
+  @field:JsonProperty("panTiltZoom")
+  @param:Optional
   public val panTiltZoom: Boolean? = null,
 )

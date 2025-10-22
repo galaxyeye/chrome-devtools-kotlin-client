@@ -6,11 +6,11 @@ import kotlin.Boolean
 import kotlin.Int
 
 public data class ReportHeapSnapshotProgress(
-  @JsonProperty("done")
+  @field:JsonProperty("done")
   public val done: Int,
-  @JsonProperty("total")
+  @field:JsonProperty("total")
   public val total: Int,
-  @JsonProperty("finished")
-  @Optional
+  @field:JsonProperty("finished")
+  @param:Optional
   public val finished: Boolean? = null,
 )

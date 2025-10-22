@@ -10,12 +10,12 @@ import kotlin.collections.List
  * Sampling Heap Profile node. Holds callsite information, allocation statistics and child nodes.
  */
 public data class SamplingHeapProfileNode(
-  @JsonProperty("callFrame")
+  @field:JsonProperty("callFrame")
   public val callFrame: CallFrame,
-  @JsonProperty("selfSize")
+  @field:JsonProperty("selfSize")
   public val selfSize: Double,
-  @JsonProperty("id")
+  @field:JsonProperty("id")
   public val id: Int,
-  @JsonProperty("children")
+  @field:JsonProperty("children")
   public val children: List<SamplingHeapProfileNode>,
 )

@@ -5,13 +5,13 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Double
 
 public data class BufferUsage(
-  @JsonProperty("percentFull")
-  @Optional
+  @field:JsonProperty("percentFull")
+  @param:Optional
   public val percentFull: Double? = null,
-  @JsonProperty("eventCount")
-  @Optional
+  @field:JsonProperty("eventCount")
+  @param:Optional
   public val eventCount: Double? = null,
-  @JsonProperty("value")
-  @Optional
+  @field:JsonProperty("value")
+  @param:Optional
   public val `value`: Double? = null,
 )

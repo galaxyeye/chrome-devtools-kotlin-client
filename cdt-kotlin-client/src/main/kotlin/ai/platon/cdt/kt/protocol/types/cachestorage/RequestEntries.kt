@@ -5,8 +5,8 @@ import kotlin.Double
 import kotlin.collections.List
 
 public data class RequestEntries(
-  @JsonProperty("cacheDataEntries")
+  @field:JsonProperty("cacheDataEntries")
   public val cacheDataEntries: List<DataEntry>,
-  @JsonProperty("returnCount")
+  @field:JsonProperty("returnCount")
   public val returnCount: Double,
 )

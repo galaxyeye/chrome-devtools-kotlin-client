@@ -49,8 +49,8 @@ public interface Runtime {
    */
   public suspend fun awaitPromise(
     @ParamName("promiseObjectId") promiseObjectId: String,
-    @ParamName("returnByValue") @Optional returnByValue: Boolean?,
-    @ParamName("generatePreview") @Optional generatePreview: Boolean?,
+    @ParamName("returnByValue") @Optional returnByValue: Boolean? = null,
+    @ParamName("generatePreview") @Optional generatePreview: Boolean? = null,
   ): AwaitPromise
 
   public suspend fun awaitPromise(@ParamName("promiseObjectId") promiseObjectId: String):
@@ -87,15 +87,15 @@ public interface Runtime {
    */
   public suspend fun callFunctionOn(
     @ParamName("functionDeclaration") functionDeclaration: String,
-    @ParamName("objectId") @Optional objectId: String?,
-    @ParamName("arguments") @Optional arguments: List<CallArgument>?,
-    @ParamName("silent") @Optional silent: Boolean?,
-    @ParamName("returnByValue") @Optional returnByValue: Boolean?,
-    @ParamName("generatePreview") @Optional @Experimental generatePreview: Boolean?,
-    @ParamName("userGesture") @Optional userGesture: Boolean?,
-    @ParamName("awaitPromise") @Optional awaitPromise: Boolean?,
-    @ParamName("executionContextId") @Optional executionContextId: Int?,
-    @ParamName("objectGroup") @Optional objectGroup: String?,
+    @ParamName("objectId") @Optional objectId: String? = null,
+    @ParamName("arguments") @Optional arguments: List<CallArgument>? = null,
+    @ParamName("silent") @Optional silent: Boolean? = null,
+    @ParamName("returnByValue") @Optional returnByValue: Boolean? = null,
+    @ParamName("generatePreview") @Optional @Experimental generatePreview: Boolean? = null,
+    @ParamName("userGesture") @Optional userGesture: Boolean? = null,
+    @ParamName("awaitPromise") @Optional awaitPromise: Boolean? = null,
+    @ParamName("executionContextId") @Optional executionContextId: Int? = null,
+    @ParamName("objectGroup") @Optional objectGroup: String? = null,
   ): CallFunctionOn
 
   public suspend fun callFunctionOn(@ParamName("functionDeclaration") functionDeclaration: String):
@@ -116,7 +116,7 @@ public interface Runtime {
     @ParamName("expression") expression: String,
     @ParamName("sourceURL") sourceURL: String,
     @ParamName("persistScript") persistScript: Boolean,
-    @ParamName("executionContextId") @Optional executionContextId: Int?,
+    @ParamName("executionContextId") @Optional executionContextId: Int? = null,
   ): CompileScript
 
   public suspend fun compileScript(
@@ -188,21 +188,21 @@ public interface Runtime {
    */
   public suspend fun evaluate(
     @ParamName("expression") expression: String,
-    @ParamName("objectGroup") @Optional objectGroup: String?,
-    @ParamName("includeCommandLineAPI") @Optional includeCommandLineAPI: Boolean?,
-    @ParamName("silent") @Optional silent: Boolean?,
-    @ParamName("contextId") @Optional contextId: Int?,
-    @ParamName("returnByValue") @Optional returnByValue: Boolean?,
-    @ParamName("generatePreview") @Optional @Experimental generatePreview: Boolean?,
-    @ParamName("userGesture") @Optional userGesture: Boolean?,
-    @ParamName("awaitPromise") @Optional awaitPromise: Boolean?,
-    @ParamName("throwOnSideEffect") @Optional @Experimental throwOnSideEffect: Boolean?,
-    @ParamName("timeout") @Optional @Experimental timeout: Double?,
-    @ParamName("disableBreaks") @Optional @Experimental disableBreaks: Boolean?,
-    @ParamName("replMode") @Optional @Experimental replMode: Boolean?,
+    @ParamName("objectGroup") @Optional objectGroup: String? = null,
+    @ParamName("includeCommandLineAPI") @Optional includeCommandLineAPI: Boolean? = null,
+    @ParamName("silent") @Optional silent: Boolean? = null,
+    @ParamName("contextId") @Optional contextId: Int? = null,
+    @ParamName("returnByValue") @Optional returnByValue: Boolean? = null,
+    @ParamName("generatePreview") @Optional @Experimental generatePreview: Boolean? = null,
+    @ParamName("userGesture") @Optional userGesture: Boolean? = null,
+    @ParamName("awaitPromise") @Optional awaitPromise: Boolean? = null,
+    @ParamName("throwOnSideEffect") @Optional @Experimental throwOnSideEffect: Boolean? = null,
+    @ParamName("timeout") @Optional @Experimental timeout: Double? = null,
+    @ParamName("disableBreaks") @Optional @Experimental disableBreaks: Boolean? = null,
+    @ParamName("replMode") @Optional @Experimental replMode: Boolean? = null,
     @ParamName("allowUnsafeEvalBlockedByCSP") @Optional @Experimental
-        allowUnsafeEvalBlockedByCSP: Boolean?,
-    @ParamName("uniqueContextId") @Optional @Experimental uniqueContextId: String?,
+        allowUnsafeEvalBlockedByCSP: Boolean? = null,
+    @ParamName("uniqueContextId") @Optional @Experimental uniqueContextId: String? = null,
   ): Evaluate
 
   public suspend fun evaluate(@ParamName("expression") expression: String): Evaluate {
@@ -238,9 +238,10 @@ public interface Runtime {
    */
   public suspend fun getProperties(
     @ParamName("objectId") objectId: String,
-    @ParamName("ownProperties") @Optional ownProperties: Boolean?,
-    @ParamName("accessorPropertiesOnly") @Optional @Experimental accessorPropertiesOnly: Boolean?,
-    @ParamName("generatePreview") @Optional @Experimental generatePreview: Boolean?,
+    @ParamName("ownProperties") @Optional ownProperties: Boolean? = null,
+    @ParamName("accessorPropertiesOnly") @Optional @Experimental accessorPropertiesOnly: Boolean? =
+        null,
+    @ParamName("generatePreview") @Optional @Experimental generatePreview: Boolean? = null,
   ): Properties
 
   public suspend fun getProperties(@ParamName("objectId") objectId: String): Properties {
@@ -255,7 +256,7 @@ public interface Runtime {
   @Returns("names")
   @ReturnTypeParameter(String::class)
   public suspend fun globalLexicalScopeNames(@ParamName("executionContextId") @Optional
-      executionContextId: Int?): List<String>
+      executionContextId: Int? = null): List<String>
 
   @Returns("names")
   @ReturnTypeParameter(String::class)
@@ -269,7 +270,7 @@ public interface Runtime {
    */
   @Returns("objects")
   public suspend fun queryObjects(@ParamName("prototypeObjectId") prototypeObjectId: String,
-      @ParamName("objectGroup") @Optional objectGroup: String?): RemoteObject
+      @ParamName("objectGroup") @Optional objectGroup: String? = null): RemoteObject
 
   @Returns("objects")
   public suspend fun queryObjects(@ParamName("prototypeObjectId") prototypeObjectId: String):
@@ -315,13 +316,13 @@ public interface Runtime {
    */
   public suspend fun runScript(
     @ParamName("scriptId") scriptId: String,
-    @ParamName("executionContextId") @Optional executionContextId: Int?,
-    @ParamName("objectGroup") @Optional objectGroup: String?,
-    @ParamName("silent") @Optional silent: Boolean?,
-    @ParamName("includeCommandLineAPI") @Optional includeCommandLineAPI: Boolean?,
-    @ParamName("returnByValue") @Optional returnByValue: Boolean?,
-    @ParamName("generatePreview") @Optional generatePreview: Boolean?,
-    @ParamName("awaitPromise") @Optional awaitPromise: Boolean?,
+    @ParamName("executionContextId") @Optional executionContextId: Int? = null,
+    @ParamName("objectGroup") @Optional objectGroup: String? = null,
+    @ParamName("silent") @Optional silent: Boolean? = null,
+    @ParamName("includeCommandLineAPI") @Optional includeCommandLineAPI: Boolean? = null,
+    @ParamName("returnByValue") @Optional returnByValue: Boolean? = null,
+    @ParamName("generatePreview") @Optional generatePreview: Boolean? = null,
+    @ParamName("awaitPromise") @Optional awaitPromise: Boolean? = null,
   ): RunScript
 
   public suspend fun runScript(@ParamName("scriptId") scriptId: String): RunScript {
@@ -368,8 +369,8 @@ public interface Runtime {
   @Experimental
   public suspend fun addBinding(
     @ParamName("name") name: String,
-    @ParamName("executionContextId") @Optional executionContextId: Int?,
-    @ParamName("executionContextName") @Optional @Experimental executionContextName: String?,
+    @ParamName("executionContextId") @Optional executionContextId: Int? = null,
+    @ParamName("executionContextName") @Optional @Experimental executionContextName: String? = null,
   )
 
   @Experimental

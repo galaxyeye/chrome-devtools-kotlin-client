@@ -11,9 +11,9 @@ import kotlin.String
  */
 @Experimental
 public data class CompilationCacheParams(
-  @JsonProperty("url")
+  @field:JsonProperty("url")
   public val url: String,
-  @JsonProperty("eager")
-  @Optional
+  @field:JsonProperty("eager")
+  @param:Optional
   public val eager: Boolean? = null,
 )

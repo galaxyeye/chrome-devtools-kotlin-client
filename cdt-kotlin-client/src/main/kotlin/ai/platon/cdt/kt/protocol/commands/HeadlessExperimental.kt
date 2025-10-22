@@ -41,10 +41,10 @@ public interface HeadlessExperimental {
    * during renderer initialization. In such a case, no screenshot data will be returned.
    */
   public suspend fun beginFrame(
-    @ParamName("frameTimeTicks") @Optional frameTimeTicks: Double?,
-    @ParamName("interval") @Optional interval: Double?,
-    @ParamName("noDisplayUpdates") @Optional noDisplayUpdates: Boolean?,
-    @ParamName("screenshot") @Optional screenshot: ScreenshotParams?,
+    @ParamName("frameTimeTicks") @Optional frameTimeTicks: Double? = null,
+    @ParamName("interval") @Optional interval: Double? = null,
+    @ParamName("noDisplayUpdates") @Optional noDisplayUpdates: Boolean? = null,
+    @ParamName("screenshot") @Optional screenshot: ScreenshotParams? = null,
   ): BeginFrame
 
   public suspend fun beginFrame(): BeginFrame {

@@ -8,9 +8,9 @@ import kotlin.String
  * Object internal property descriptor. This property isn't normally visible in JavaScript code.
  */
 public data class InternalPropertyDescriptor(
-  @JsonProperty("name")
+  @field:JsonProperty("name")
   public val name: String,
-  @JsonProperty("value")
-  @Optional
+  @field:JsonProperty("value")
+  @param:Optional
   public val `value`: RemoteObject? = null,
 )

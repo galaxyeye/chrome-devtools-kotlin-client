@@ -55,9 +55,9 @@ public interface Profiler {
    */
   @Returns("timestamp")
   public suspend fun startPreciseCoverage(
-    @ParamName("callCount") @Optional callCount: Boolean?,
-    @ParamName("detailed") @Optional detailed: Boolean?,
-    @ParamName("allowTriggeredUpdates") @Optional allowTriggeredUpdates: Boolean?,
+    @ParamName("callCount") @Optional callCount: Boolean? = null,
+    @ParamName("detailed") @Optional detailed: Boolean? = null,
+    @ParamName("allowTriggeredUpdates") @Optional allowTriggeredUpdates: Boolean? = null,
   ): Double
 
   @Returns("timestamp")

@@ -7,8 +7,8 @@ import kotlin.String
  * A cache's contents have been modified.
  */
 public data class CacheStorageContentUpdated(
-  @JsonProperty("origin")
+  @field:JsonProperty("origin")
   public val origin: String,
-  @JsonProperty("cacheName")
+  @field:JsonProperty("cacheName")
   public val cacheName: String,
 )

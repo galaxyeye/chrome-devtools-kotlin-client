@@ -10,44 +10,44 @@ import kotlin.collections.List
  * Information about the Frame on the page.
  */
 public data class Frame(
-  @JsonProperty("id")
+  @field:JsonProperty("id")
   public val id: String,
-  @JsonProperty("parentId")
-  @Optional
+  @field:JsonProperty("parentId")
+  @param:Optional
   public val parentId: String? = null,
-  @JsonProperty("loaderId")
+  @field:JsonProperty("loaderId")
   public val loaderId: String,
-  @JsonProperty("name")
-  @Optional
+  @field:JsonProperty("name")
+  @param:Optional
   public val name: String? = null,
-  @JsonProperty("url")
+  @field:JsonProperty("url")
   public val url: String,
-  @JsonProperty("urlFragment")
-  @Optional
-  @Experimental
+  @field:JsonProperty("urlFragment")
+  @param:Optional
+  @param:Experimental
   public val urlFragment: String? = null,
-  @JsonProperty("domainAndRegistry")
-  @Experimental
+  @field:JsonProperty("domainAndRegistry")
+  @param:Experimental
   public val domainAndRegistry: String,
-  @JsonProperty("securityOrigin")
+  @field:JsonProperty("securityOrigin")
   public val securityOrigin: String,
-  @JsonProperty("mimeType")
+  @field:JsonProperty("mimeType")
   public val mimeType: String,
-  @JsonProperty("unreachableUrl")
-  @Optional
-  @Experimental
+  @field:JsonProperty("unreachableUrl")
+  @param:Optional
+  @param:Experimental
   public val unreachableUrl: String? = null,
-  @JsonProperty("adFrameType")
-  @Optional
-  @Experimental
+  @field:JsonProperty("adFrameType")
+  @param:Optional
+  @param:Experimental
   public val adFrameType: AdFrameType? = null,
-  @JsonProperty("secureContextType")
-  @Experimental
+  @field:JsonProperty("secureContextType")
+  @param:Experimental
   public val secureContextType: SecureContextType,
-  @JsonProperty("crossOriginIsolatedContextType")
-  @Experimental
+  @field:JsonProperty("crossOriginIsolatedContextType")
+  @param:Experimental
   public val crossOriginIsolatedContextType: CrossOriginIsolatedContextType,
-  @JsonProperty("gatedAPIFeatures")
-  @Experimental
+  @field:JsonProperty("gatedAPIFeatures")
+  @param:Experimental
   public val gatedAPIFeatures: List<GatedAPIFeatures>,
 )

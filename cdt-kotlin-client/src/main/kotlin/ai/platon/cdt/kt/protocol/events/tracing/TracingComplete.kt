@@ -12,15 +12,15 @@ import kotlin.String
  * delivered via dataCollected events.
  */
 public data class TracingComplete(
-  @JsonProperty("dataLossOccurred")
+  @field:JsonProperty("dataLossOccurred")
   public val dataLossOccurred: Boolean,
-  @JsonProperty("stream")
-  @Optional
+  @field:JsonProperty("stream")
+  @param:Optional
   public val stream: String? = null,
-  @JsonProperty("traceFormat")
-  @Optional
+  @field:JsonProperty("traceFormat")
+  @param:Optional
   public val traceFormat: StreamFormat? = null,
-  @JsonProperty("streamCompression")
-  @Optional
+  @field:JsonProperty("streamCompression")
+  @param:Optional
   public val streamCompression: StreamCompression? = null,
 )

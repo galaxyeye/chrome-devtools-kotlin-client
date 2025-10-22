@@ -5,8 +5,8 @@ import kotlin.Boolean
 import kotlin.String
 
 public data class RequestMemoryDump(
-  @JsonProperty("dumpGuid")
+  @field:JsonProperty("dumpGuid")
   public val dumpGuid: String,
-  @JsonProperty("success")
+  @field:JsonProperty("success")
   public val success: Boolean,
 )

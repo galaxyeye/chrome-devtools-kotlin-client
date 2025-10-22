@@ -12,19 +12,19 @@ import kotlin.collections.List
  */
 @Experimental
 public data class ObjectPreview(
-  @JsonProperty("type")
+  @field:JsonProperty("type")
   public val type: ObjectPreviewType,
-  @JsonProperty("subtype")
-  @Optional
+  @field:JsonProperty("subtype")
+  @param:Optional
   public val subtype: ObjectPreviewSubtype? = null,
-  @JsonProperty("description")
-  @Optional
+  @field:JsonProperty("description")
+  @param:Optional
   public val description: String? = null,
-  @JsonProperty("overflow")
+  @field:JsonProperty("overflow")
   public val overflow: Boolean,
-  @JsonProperty("properties")
+  @field:JsonProperty("properties")
   public val properties: List<PropertyPreview>,
-  @JsonProperty("entries")
-  @Optional
+  @field:JsonProperty("entries")
+  @param:Optional
   public val entries: List<EntryPreview>? = null,
 )

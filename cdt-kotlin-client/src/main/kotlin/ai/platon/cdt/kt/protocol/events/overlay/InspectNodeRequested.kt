@@ -8,6 +8,6 @@ import kotlin.Int
  * user manually inspects an element.
  */
 public data class InspectNodeRequested(
-  @JsonProperty("backendNodeId")
+  @field:JsonProperty("backendNodeId")
   public val backendNodeId: Int,
 )

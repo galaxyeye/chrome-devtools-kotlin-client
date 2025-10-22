@@ -7,13 +7,13 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * Configuration data for the highlighting of Flex item elements.
  */
 public data class FlexItemHighlightConfig(
-  @JsonProperty("baseSizeBox")
-  @Optional
+  @field:JsonProperty("baseSizeBox")
+  @param:Optional
   public val baseSizeBox: BoxStyle? = null,
-  @JsonProperty("baseSizeBorder")
-  @Optional
+  @field:JsonProperty("baseSizeBorder")
+  @param:Optional
   public val baseSizeBorder: LineStyle? = null,
-  @JsonProperty("flexibilityArrow")
-  @Optional
+  @field:JsonProperty("flexibilityArrow")
+  @param:Optional
   public val flexibilityArrow: LineStyle? = null,
 )

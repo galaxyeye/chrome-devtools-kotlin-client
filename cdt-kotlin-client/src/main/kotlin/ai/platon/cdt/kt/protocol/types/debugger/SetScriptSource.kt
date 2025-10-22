@@ -10,20 +10,20 @@ import kotlin.Boolean
 import kotlin.collections.List
 
 public data class SetScriptSource(
-  @JsonProperty("callFrames")
-  @Optional
+  @field:JsonProperty("callFrames")
+  @param:Optional
   public val callFrames: List<CallFrame>? = null,
-  @JsonProperty("stackChanged")
-  @Optional
+  @field:JsonProperty("stackChanged")
+  @param:Optional
   public val stackChanged: Boolean? = null,
-  @JsonProperty("asyncStackTrace")
-  @Optional
+  @field:JsonProperty("asyncStackTrace")
+  @param:Optional
   public val asyncStackTrace: StackTrace? = null,
-  @JsonProperty("asyncStackTraceId")
-  @Optional
-  @Experimental
+  @field:JsonProperty("asyncStackTraceId")
+  @param:Optional
+  @param:Experimental
   public val asyncStackTraceId: StackTraceId? = null,
-  @JsonProperty("exceptionDetails")
-  @Optional
+  @field:JsonProperty("exceptionDetails")
+  @param:Optional
   public val exceptionDetails: ExceptionDetails? = null,
 )

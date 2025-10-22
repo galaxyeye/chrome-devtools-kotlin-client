@@ -8,8 +8,8 @@ import kotlin.String
  * Mirrors `DOMCharacterDataModified` event.
  */
 public data class CharacterDataModified(
-  @JsonProperty("nodeId")
+  @field:JsonProperty("nodeId")
   public val nodeId: Int,
-  @JsonProperty("characterData")
+  @field:JsonProperty("characterData")
   public val characterData: String,
 )

@@ -8,10 +8,10 @@ import kotlin.Boolean
  * transferred to a context that is not cross-origin isolated.
  */
 public data class SharedArrayBufferIssueDetails(
-  @JsonProperty("sourceCodeLocation")
+  @field:JsonProperty("sourceCodeLocation")
   public val sourceCodeLocation: SourceCodeLocation,
-  @JsonProperty("isWarning")
+  @field:JsonProperty("isWarning")
   public val isWarning: Boolean,
-  @JsonProperty("type")
+  @field:JsonProperty("type")
   public val type: SharedArrayBufferIssueType,
 )

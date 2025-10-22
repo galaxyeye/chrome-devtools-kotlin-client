@@ -9,6 +9,6 @@ import kotlin.String
  */
 @Experimental
 public data class FrameStoppedLoading(
-  @JsonProperty("frameId")
+  @field:JsonProperty("frameId")
   public val frameId: String,
 )

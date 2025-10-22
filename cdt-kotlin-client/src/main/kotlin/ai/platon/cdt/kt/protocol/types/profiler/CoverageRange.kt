@@ -7,10 +7,10 @@ import kotlin.Int
  * Coverage data for a source range.
  */
 public data class CoverageRange(
-  @JsonProperty("startOffset")
+  @field:JsonProperty("startOffset")
   public val startOffset: Int,
-  @JsonProperty("endOffset")
+  @field:JsonProperty("endOffset")
   public val endOffset: Int,
-  @JsonProperty("count")
+  @field:JsonProperty("count")
   public val count: Int,
 )

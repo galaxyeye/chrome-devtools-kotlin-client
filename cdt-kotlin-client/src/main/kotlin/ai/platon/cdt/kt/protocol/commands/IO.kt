@@ -27,8 +27,8 @@ public interface IO {
    */
   public suspend fun read(
     @ParamName("handle") handle: String,
-    @ParamName("offset") @Optional offset: Int?,
-    @ParamName("size") @Optional size: Int?,
+    @ParamName("offset") @Optional offset: Int? = null,
+    @ParamName("size") @Optional size: Int? = null,
   ): Read
 
   public suspend fun read(@ParamName("handle") handle: String): Read {

@@ -5,19 +5,19 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
 public data class MixedContentIssueDetails(
-  @JsonProperty("resourceType")
-  @Optional
+  @field:JsonProperty("resourceType")
+  @param:Optional
   public val resourceType: MixedContentResourceType? = null,
-  @JsonProperty("resolutionStatus")
+  @field:JsonProperty("resolutionStatus")
   public val resolutionStatus: MixedContentResolutionStatus,
-  @JsonProperty("insecureURL")
+  @field:JsonProperty("insecureURL")
   public val insecureURL: String,
-  @JsonProperty("mainResourceURL")
+  @field:JsonProperty("mainResourceURL")
   public val mainResourceURL: String,
-  @JsonProperty("request")
-  @Optional
+  @field:JsonProperty("request")
+  @param:Optional
   public val request: AffectedRequest? = null,
-  @JsonProperty("frame")
-  @Optional
+  @field:JsonProperty("frame")
+  @param:Optional
   public val frame: AffectedFrame? = null,
 )

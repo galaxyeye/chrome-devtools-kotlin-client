@@ -11,41 +11,41 @@ import kotlin.String
  * CSS stylesheet metainformation.
  */
 public data class CSSStyleSheetHeader(
-  @JsonProperty("styleSheetId")
+  @field:JsonProperty("styleSheetId")
   public val styleSheetId: String,
-  @JsonProperty("frameId")
+  @field:JsonProperty("frameId")
   public val frameId: String,
-  @JsonProperty("sourceURL")
+  @field:JsonProperty("sourceURL")
   public val sourceURL: String,
-  @JsonProperty("sourceMapURL")
-  @Optional
+  @field:JsonProperty("sourceMapURL")
+  @param:Optional
   public val sourceMapURL: String? = null,
-  @JsonProperty("origin")
+  @field:JsonProperty("origin")
   public val origin: StyleSheetOrigin,
-  @JsonProperty("title")
+  @field:JsonProperty("title")
   public val title: String,
-  @JsonProperty("ownerNode")
-  @Optional
+  @field:JsonProperty("ownerNode")
+  @param:Optional
   public val ownerNode: Int? = null,
-  @JsonProperty("disabled")
+  @field:JsonProperty("disabled")
   public val disabled: Boolean,
-  @JsonProperty("hasSourceURL")
-  @Optional
+  @field:JsonProperty("hasSourceURL")
+  @param:Optional
   public val hasSourceURL: Boolean? = null,
-  @JsonProperty("isInline")
+  @field:JsonProperty("isInline")
   public val isInline: Boolean,
-  @JsonProperty("isMutable")
+  @field:JsonProperty("isMutable")
   public val isMutable: Boolean,
-  @JsonProperty("isConstructed")
+  @field:JsonProperty("isConstructed")
   public val isConstructed: Boolean,
-  @JsonProperty("startLine")
+  @field:JsonProperty("startLine")
   public val startLine: Double,
-  @JsonProperty("startColumn")
+  @field:JsonProperty("startColumn")
   public val startColumn: Double,
-  @JsonProperty("length")
+  @field:JsonProperty("length")
   public val length: Double,
-  @JsonProperty("endLine")
+  @field:JsonProperty("endLine")
   public val endLine: Double,
-  @JsonProperty("endColumn")
+  @field:JsonProperty("endColumn")
   public val endColumn: Double,
 )

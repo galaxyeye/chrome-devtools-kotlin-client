@@ -6,9 +6,9 @@ import kotlin.Boolean
 import kotlin.String
 
 public data class BeginFrame(
-  @JsonProperty("hasDamage")
+  @field:JsonProperty("hasDamage")
   public val hasDamage: Boolean,
-  @JsonProperty("screenshotData")
-  @Optional
+  @field:JsonProperty("screenshotData")
+  @param:Optional
   public val screenshotData: String? = null,
 )

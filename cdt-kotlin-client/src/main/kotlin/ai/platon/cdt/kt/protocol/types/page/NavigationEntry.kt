@@ -8,14 +8,14 @@ import kotlin.String
  * Navigation history entry.
  */
 public data class NavigationEntry(
-  @JsonProperty("id")
+  @field:JsonProperty("id")
   public val id: Int,
-  @JsonProperty("url")
+  @field:JsonProperty("url")
   public val url: String,
-  @JsonProperty("userTypedURL")
+  @field:JsonProperty("userTypedURL")
   public val userTypedURL: String,
-  @JsonProperty("title")
+  @field:JsonProperty("title")
   public val title: String,
-  @JsonProperty("transitionType")
+  @field:JsonProperty("transitionType")
   public val transitionType: TransitionType,
 )

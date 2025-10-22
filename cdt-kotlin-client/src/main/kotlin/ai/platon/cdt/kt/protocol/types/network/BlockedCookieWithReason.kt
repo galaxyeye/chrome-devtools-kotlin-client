@@ -9,8 +9,8 @@ import kotlin.collections.List
  */
 @Experimental
 public data class BlockedCookieWithReason(
-  @JsonProperty("blockedReasons")
+  @field:JsonProperty("blockedReasons")
   public val blockedReasons: List<CookieBlockedReason>,
-  @JsonProperty("cookie")
+  @field:JsonProperty("cookie")
   public val cookie: Cookie,
 )

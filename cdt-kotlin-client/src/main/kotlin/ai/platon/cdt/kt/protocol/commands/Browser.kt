@@ -40,8 +40,8 @@ public interface Browser {
   public suspend fun setPermission(
     @ParamName("permission") permission: PermissionDescriptor,
     @ParamName("setting") setting: PermissionSetting,
-    @ParamName("origin") @Optional origin: String?,
-    @ParamName("browserContextId") @Optional browserContextId: String?,
+    @ParamName("origin") @Optional origin: String? = null,
+    @ParamName("browserContextId") @Optional browserContextId: String? = null,
   )
 
   @Experimental
@@ -60,8 +60,8 @@ public interface Browser {
   @Experimental
   public suspend fun grantPermissions(
     @ParamName("permissions") permissions: List<PermissionType>,
-    @ParamName("origin") @Optional origin: String?,
-    @ParamName("browserContextId") @Optional browserContextId: String?,
+    @ParamName("origin") @Optional origin: String? = null,
+    @ParamName("browserContextId") @Optional browserContextId: String? = null,
   )
 
   @Experimental
@@ -76,7 +76,7 @@ public interface Browser {
    */
   @Experimental
   public suspend fun resetPermissions(@ParamName("browserContextId") @Optional
-      browserContextId: String?)
+      browserContextId: String? = null)
 
   @Experimental
   public suspend fun resetPermissions() {
@@ -99,9 +99,9 @@ public interface Browser {
   @Experimental
   public suspend fun setDownloadBehavior(
     @ParamName("behavior") behavior: SetDownloadBehaviorBehavior,
-    @ParamName("browserContextId") @Optional browserContextId: String?,
-    @ParamName("downloadPath") @Optional downloadPath: String?,
-    @ParamName("eventsEnabled") @Optional eventsEnabled: Boolean?,
+    @ParamName("browserContextId") @Optional browserContextId: String? = null,
+    @ParamName("downloadPath") @Optional downloadPath: String? = null,
+    @ParamName("eventsEnabled") @Optional eventsEnabled: Boolean? = null,
   )
 
   @Experimental
@@ -118,7 +118,7 @@ public interface Browser {
    */
   @Experimental
   public suspend fun cancelDownload(@ParamName("guid") guid: String, @ParamName("browserContextId")
-      @Optional browserContextId: String?)
+      @Optional browserContextId: String? = null)
 
   @Experimental
   public suspend fun cancelDownload(@ParamName("guid") guid: String) {
@@ -166,8 +166,8 @@ public interface Browser {
   @Experimental
   @Returns("histograms")
   @ReturnTypeParameter(Histogram::class)
-  public suspend fun getHistograms(@ParamName("query") @Optional query: String?, @ParamName("delta")
-      @Optional delta: Boolean?): List<Histogram>
+  public suspend fun getHistograms(@ParamName("query") @Optional query: String? = null,
+      @ParamName("delta") @Optional delta: Boolean? = null): List<Histogram>
 
   @Experimental
   @Returns("histograms")
@@ -184,7 +184,7 @@ public interface Browser {
   @Experimental
   @Returns("histogram")
   public suspend fun getHistogram(@ParamName("name") name: String, @ParamName("delta") @Optional
-      delta: Boolean?): Histogram
+      delta: Boolean? = null): Histogram
 
   @Experimental
   @Returns("histogram")
@@ -206,7 +206,7 @@ public interface Browser {
    * is used.
    */
   @Experimental
-  public suspend fun getWindowForTarget(@ParamName("targetId") @Optional targetId: String?):
+  public suspend fun getWindowForTarget(@ParamName("targetId") @Optional targetId: String? = null):
       WindowForTarget
 
   @Experimental
@@ -231,8 +231,8 @@ public interface Browser {
    * @param image Png encoded image. (Encoded as a base64 string when passed over JSON)
    */
   @Experimental
-  public suspend fun setDockTile(@ParamName("badgeLabel") @Optional badgeLabel: String?,
-      @ParamName("image") @Optional image: String?)
+  public suspend fun setDockTile(@ParamName("badgeLabel") @Optional badgeLabel: String? = null,
+      @ParamName("image") @Optional image: String? = null)
 
   @Experimental
   public suspend fun setDockTile() {

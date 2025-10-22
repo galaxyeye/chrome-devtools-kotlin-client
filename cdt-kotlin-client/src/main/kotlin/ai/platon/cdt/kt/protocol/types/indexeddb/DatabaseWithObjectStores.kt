@@ -9,10 +9,10 @@ import kotlin.collections.List
  * Database with an array of object stores.
  */
 public data class DatabaseWithObjectStores(
-  @JsonProperty("name")
+  @field:JsonProperty("name")
   public val name: String,
-  @JsonProperty("version")
+  @field:JsonProperty("version")
   public val version: Double,
-  @JsonProperty("objectStores")
+  @field:JsonProperty("objectStores")
   public val objectStores: List<ObjectStore>,
 )

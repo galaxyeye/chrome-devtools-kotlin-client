@@ -17,15 +17,15 @@ import kotlin.collections.Map
  */
 @Experimental
 public data class ResponseReceivedExtraInfo(
-  @JsonProperty("requestId")
+  @field:JsonProperty("requestId")
   public val requestId: String,
-  @JsonProperty("blockedCookies")
+  @field:JsonProperty("blockedCookies")
   public val blockedCookies: List<BlockedSetCookieWithReason>,
-  @JsonProperty("headers")
+  @field:JsonProperty("headers")
   public val headers: Map<String, Any?>,
-  @JsonProperty("resourceIPAddressSpace")
+  @field:JsonProperty("resourceIPAddressSpace")
   public val resourceIPAddressSpace: IPAddressSpace,
-  @JsonProperty("headersText")
-  @Optional
+  @field:JsonProperty("headersText")
+  @param:Optional
   public val headersText: String? = null,
 )

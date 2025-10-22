@@ -9,11 +9,11 @@ import kotlin.String
  * Sent when new profile recording is started using console.profile() call.
  */
 public data class ConsoleProfileStarted(
-  @JsonProperty("id")
+  @field:JsonProperty("id")
   public val id: String,
-  @JsonProperty("location")
+  @field:JsonProperty("location")
   public val location: Location,
-  @JsonProperty("title")
-  @Optional
+  @field:JsonProperty("title")
+  @param:Optional
   public val title: String? = null,
 )

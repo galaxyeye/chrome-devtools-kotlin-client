@@ -5,12 +5,12 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
 public data class Navigate(
-  @JsonProperty("frameId")
+  @field:JsonProperty("frameId")
   public val frameId: String,
-  @JsonProperty("loaderId")
-  @Optional
+  @field:JsonProperty("loaderId")
+  @param:Optional
   public val loaderId: String? = null,
-  @JsonProperty("errorText")
-  @Optional
+  @field:JsonProperty("errorText")
+  @param:Optional
   public val errorText: String? = null,
 )

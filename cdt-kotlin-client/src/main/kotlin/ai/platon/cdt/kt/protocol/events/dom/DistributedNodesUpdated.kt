@@ -11,8 +11,8 @@ import kotlin.collections.List
  */
 @Experimental
 public data class DistributedNodesUpdated(
-  @JsonProperty("insertionPointId")
+  @field:JsonProperty("insertionPointId")
   public val insertionPointId: Int,
-  @JsonProperty("distributedNodes")
+  @field:JsonProperty("distributedNodes")
   public val distributedNodes: List<BackendNode>,
 )

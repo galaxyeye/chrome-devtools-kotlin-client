@@ -9,12 +9,12 @@ import kotlin.String
  * resolution and maximum framerate.
  */
 public data class VideoEncodeAcceleratorCapability(
-  @JsonProperty("profile")
+  @field:JsonProperty("profile")
   public val profile: String,
-  @JsonProperty("maxResolution")
+  @field:JsonProperty("maxResolution")
   public val maxResolution: Size,
-  @JsonProperty("maxFramerateNumerator")
+  @field:JsonProperty("maxFramerateNumerator")
   public val maxFramerateNumerator: Int,
-  @JsonProperty("maxFramerateDenominator")
+  @field:JsonProperty("maxFramerateDenominator")
   public val maxFramerateDenominator: Int,
 )

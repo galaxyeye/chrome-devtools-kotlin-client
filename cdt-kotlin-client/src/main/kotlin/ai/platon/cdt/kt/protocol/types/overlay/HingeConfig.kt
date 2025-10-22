@@ -9,12 +9,12 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * Configuration for dual screen hinge
  */
 public data class HingeConfig(
-  @JsonProperty("rect")
+  @field:JsonProperty("rect")
   public val rect: Rect,
-  @JsonProperty("contentColor")
-  @Optional
+  @field:JsonProperty("contentColor")
+  @param:Optional
   public val contentColor: RGBA? = null,
-  @JsonProperty("outlineColor")
-  @Optional
+  @field:JsonProperty("outlineColor")
+  @param:Optional
   public val outlineColor: RGBA? = null,
 )

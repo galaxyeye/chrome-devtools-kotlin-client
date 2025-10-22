@@ -10,8 +10,8 @@ import kotlin.collections.List
  */
 @Experimental
 public data class TypeProfileEntry(
-  @JsonProperty("offset")
+  @field:JsonProperty("offset")
   public val offset: Int,
-  @JsonProperty("types")
+  @field:JsonProperty("types")
   public val types: List<TypeObject>,
 )

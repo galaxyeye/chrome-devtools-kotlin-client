@@ -9,10 +9,10 @@ import kotlin.collections.List
  * CSS Shape Outside details.
  */
 public data class ShapeOutsideInfo(
-  @JsonProperty("bounds")
+  @field:JsonProperty("bounds")
   public val bounds: List<Double>,
-  @JsonProperty("shape")
+  @field:JsonProperty("shape")
   public val shape: List<Any?>,
-  @JsonProperty("marginShape")
+  @field:JsonProperty("marginShape")
   public val marginShape: List<Any?>,
 )

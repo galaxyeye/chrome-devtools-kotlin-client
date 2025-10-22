@@ -8,9 +8,9 @@ import kotlin.String
  * Information about a request that is affected by an inspector issue.
  */
 public data class AffectedRequest(
-  @JsonProperty("requestId")
+  @field:JsonProperty("requestId")
   public val requestId: String,
-  @JsonProperty("url")
-  @Optional
+  @field:JsonProperty("url")
+  @param:Optional
   public val url: String? = null,
 )

@@ -25,7 +25,7 @@ public interface Cast {
    * an |issueUpdated| event is fired.
    * @param presentationUrl
    */
-  public suspend fun enable(@ParamName("presentationUrl") @Optional presentationUrl: String?)
+  public suspend fun enable(@ParamName("presentationUrl") @Optional presentationUrl: String? = null)
 
   public suspend fun enable() {
     return enable(null)

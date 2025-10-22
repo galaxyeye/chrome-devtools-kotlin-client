@@ -9,19 +9,19 @@ import kotlin.collections.List
  * An explanation of an factor contributing to the security state.
  */
 public data class SecurityStateExplanation(
-  @JsonProperty("securityState")
+  @field:JsonProperty("securityState")
   public val securityState: SecurityState,
-  @JsonProperty("title")
+  @field:JsonProperty("title")
   public val title: String,
-  @JsonProperty("summary")
+  @field:JsonProperty("summary")
   public val summary: String,
-  @JsonProperty("description")
+  @field:JsonProperty("description")
   public val description: String,
-  @JsonProperty("mixedContentType")
+  @field:JsonProperty("mixedContentType")
   public val mixedContentType: MixedContentType,
-  @JsonProperty("certificate")
+  @field:JsonProperty("certificate")
   public val certificate: List<String>,
-  @JsonProperty("recommendations")
-  @Optional
+  @field:JsonProperty("recommendations")
+  @param:Optional
   public val recommendations: List<String>? = null,
 )

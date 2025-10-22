@@ -9,34 +9,34 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * add a new optional field to this type.
  */
 public data class InspectorIssueDetails(
-  @JsonProperty("sameSiteCookieIssueDetails")
-  @Optional
+  @field:JsonProperty("sameSiteCookieIssueDetails")
+  @param:Optional
   public val sameSiteCookieIssueDetails: SameSiteCookieIssueDetails? = null,
-  @JsonProperty("mixedContentIssueDetails")
-  @Optional
+  @field:JsonProperty("mixedContentIssueDetails")
+  @param:Optional
   public val mixedContentIssueDetails: MixedContentIssueDetails? = null,
-  @JsonProperty("blockedByResponseIssueDetails")
-  @Optional
+  @field:JsonProperty("blockedByResponseIssueDetails")
+  @param:Optional
   public val blockedByResponseIssueDetails: BlockedByResponseIssueDetails? = null,
-  @JsonProperty("heavyAdIssueDetails")
-  @Optional
+  @field:JsonProperty("heavyAdIssueDetails")
+  @param:Optional
   public val heavyAdIssueDetails: HeavyAdIssueDetails? = null,
-  @JsonProperty("contentSecurityPolicyIssueDetails")
-  @Optional
+  @field:JsonProperty("contentSecurityPolicyIssueDetails")
+  @param:Optional
   public val contentSecurityPolicyIssueDetails: ContentSecurityPolicyIssueDetails? = null,
-  @JsonProperty("sharedArrayBufferIssueDetails")
-  @Optional
+  @field:JsonProperty("sharedArrayBufferIssueDetails")
+  @param:Optional
   public val sharedArrayBufferIssueDetails: SharedArrayBufferIssueDetails? = null,
-  @JsonProperty("twaQualityEnforcementDetails")
-  @Optional
+  @field:JsonProperty("twaQualityEnforcementDetails")
+  @param:Optional
   public val twaQualityEnforcementDetails: TrustedWebActivityIssueDetails? = null,
-  @JsonProperty("lowTextContrastIssueDetails")
-  @Optional
+  @field:JsonProperty("lowTextContrastIssueDetails")
+  @param:Optional
   public val lowTextContrastIssueDetails: LowTextContrastIssueDetails? = null,
-  @JsonProperty("corsIssueDetails")
-  @Optional
+  @field:JsonProperty("corsIssueDetails")
+  @param:Optional
   public val corsIssueDetails: CorsIssueDetails? = null,
-  @JsonProperty("attributionReportingIssueDetails")
-  @Optional
+  @field:JsonProperty("attributionReportingIssueDetails")
+  @param:Optional
   public val attributionReportingIssueDetails: AttributionReportingIssueDetails? = null,
 )

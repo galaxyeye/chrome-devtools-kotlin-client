@@ -8,10 +8,10 @@ import kotlin.String
  * maximum resolutions.
  */
 public data class VideoDecodeAcceleratorCapability(
-  @JsonProperty("profile")
+  @field:JsonProperty("profile")
   public val profile: String,
-  @JsonProperty("maxResolution")
+  @field:JsonProperty("maxResolution")
   public val maxResolution: Size,
-  @JsonProperty("minResolution")
+  @field:JsonProperty("minResolution")
   public val minResolution: Size,
 )

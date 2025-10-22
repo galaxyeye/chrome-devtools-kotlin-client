@@ -8,12 +8,12 @@ import kotlin.collections.List
  * maximum resolutions and subsampling.
  */
 public data class ImageDecodeAcceleratorCapability(
-  @JsonProperty("imageType")
+  @field:JsonProperty("imageType")
   public val imageType: ImageType,
-  @JsonProperty("maxDimensions")
+  @field:JsonProperty("maxDimensions")
   public val maxDimensions: Size,
-  @JsonProperty("minDimensions")
+  @field:JsonProperty("minDimensions")
   public val minDimensions: Size,
-  @JsonProperty("subsamplings")
+  @field:JsonProperty("subsamplings")
   public val subsamplings: List<SubsamplingFormat>,
 )

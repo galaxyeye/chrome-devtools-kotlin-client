@@ -9,14 +9,14 @@ import kotlin.String
  * Sticky position constraints.
  */
 public data class StickyPositionConstraint(
-  @JsonProperty("stickyBoxRect")
+  @field:JsonProperty("stickyBoxRect")
   public val stickyBoxRect: Rect,
-  @JsonProperty("containingBlockRect")
+  @field:JsonProperty("containingBlockRect")
   public val containingBlockRect: Rect,
-  @JsonProperty("nearestLayerShiftingStickyBox")
-  @Optional
+  @field:JsonProperty("nearestLayerShiftingStickyBox")
+  @param:Optional
   public val nearestLayerShiftingStickyBox: String? = null,
-  @JsonProperty("nearestLayerShiftingContainingBlock")
-  @Optional
+  @field:JsonProperty("nearestLayerShiftingContainingBlock")
+  @param:Optional
   public val nearestLayerShiftingContainingBlock: String? = null,
 )

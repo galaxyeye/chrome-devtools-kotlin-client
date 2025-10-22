@@ -41,9 +41,9 @@ public interface DOMSnapshot {
   @Deprecated
   public suspend fun getSnapshot(
     @ParamName("computedStyleWhitelist") computedStyleWhitelist: List<String>,
-    @ParamName("includeEventListeners") @Optional includeEventListeners: Boolean?,
-    @ParamName("includePaintOrder") @Optional includePaintOrder: Boolean?,
-    @ParamName("includeUserAgentShadowTree") @Optional includeUserAgentShadowTree: Boolean?,
+    @ParamName("includeEventListeners") @Optional includeEventListeners: Boolean? = null,
+    @ParamName("includePaintOrder") @Optional includePaintOrder: Boolean? = null,
+    @ParamName("includeUserAgentShadowTree") @Optional includeUserAgentShadowTree: Boolean? = null,
   ): Snapshot
 
   @Deprecated
@@ -72,12 +72,12 @@ public interface DOMSnapshot {
    */
   public suspend fun captureSnapshot(
     @ParamName("computedStyles") computedStyles: List<String>,
-    @ParamName("includePaintOrder") @Optional includePaintOrder: Boolean?,
-    @ParamName("includeDOMRects") @Optional includeDOMRects: Boolean?,
+    @ParamName("includePaintOrder") @Optional includePaintOrder: Boolean? = null,
+    @ParamName("includeDOMRects") @Optional includeDOMRects: Boolean? = null,
     @ParamName("includeBlendedBackgroundColors") @Optional @Experimental
-        includeBlendedBackgroundColors: Boolean?,
+        includeBlendedBackgroundColors: Boolean? = null,
     @ParamName("includeTextColorOpacities") @Optional @Experimental
-        includeTextColorOpacities: Boolean?,
+        includeTextColorOpacities: Boolean? = null,
   ): CaptureSnapshot
 
   public suspend fun captureSnapshot(@ParamName("computedStyles") computedStyles: List<String>):

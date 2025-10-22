@@ -10,8 +10,8 @@ import kotlin.Boolean
  */
 @Experimental
 public data class LoadNetworkResourceOptions(
-  @JsonProperty("disableCache")
+  @field:JsonProperty("disableCache")
   public val disableCache: Boolean,
-  @JsonProperty("includeCredentials")
+  @field:JsonProperty("includeCredentials")
   public val includeCredentials: Boolean,
 )

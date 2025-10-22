@@ -10,8 +10,8 @@ import kotlin.Int
  */
 @Experimental
 public data class PseudoElementAdded(
-  @JsonProperty("parentId")
+  @field:JsonProperty("parentId")
   public val parentId: Int,
-  @JsonProperty("pseudoElement")
+  @field:JsonProperty("pseudoElement")
   public val pseudoElement: Node,
 )

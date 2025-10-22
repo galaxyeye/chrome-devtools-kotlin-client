@@ -10,18 +10,18 @@ import kotlin.collections.List
  * Key.
  */
 public data class Key(
-  @JsonProperty("type")
+  @field:JsonProperty("type")
   public val type: KeyType,
-  @JsonProperty("number")
-  @Optional
+  @field:JsonProperty("number")
+  @param:Optional
   public val number: Double? = null,
-  @JsonProperty("string")
-  @Optional
+  @field:JsonProperty("string")
+  @param:Optional
   public val string: String? = null,
-  @JsonProperty("date")
-  @Optional
+  @field:JsonProperty("date")
+  @param:Optional
   public val date: Double? = null,
-  @JsonProperty("array")
-  @Optional
+  @field:JsonProperty("array")
+  @param:Optional
   public val array: List<Key>? = null,
 )

@@ -7,12 +7,12 @@ import kotlin.Int
  * Text range within a resource. All numbers are zero-based.
  */
 public data class SourceRange(
-  @JsonProperty("startLine")
+  @field:JsonProperty("startLine")
   public val startLine: Int,
-  @JsonProperty("startColumn")
+  @field:JsonProperty("startColumn")
   public val startColumn: Int,
-  @JsonProperty("endLine")
+  @field:JsonProperty("endLine")
   public val endLine: Int,
-  @JsonProperty("endColumn")
+  @field:JsonProperty("endColumn")
   public val endColumn: Int,
 )

@@ -12,45 +12,45 @@ import kotlin.String
  * Cookie parameter object
  */
 public data class CookieParam(
-  @JsonProperty("name")
+  @field:JsonProperty("name")
   public val name: String,
-  @JsonProperty("value")
+  @field:JsonProperty("value")
   public val `value`: String,
-  @JsonProperty("url")
-  @Optional
+  @field:JsonProperty("url")
+  @param:Optional
   public val url: String? = null,
-  @JsonProperty("domain")
-  @Optional
+  @field:JsonProperty("domain")
+  @param:Optional
   public val domain: String? = null,
-  @JsonProperty("path")
-  @Optional
+  @field:JsonProperty("path")
+  @param:Optional
   public val path: String? = null,
-  @JsonProperty("secure")
-  @Optional
+  @field:JsonProperty("secure")
+  @param:Optional
   public val secure: Boolean? = null,
-  @JsonProperty("httpOnly")
-  @Optional
+  @field:JsonProperty("httpOnly")
+  @param:Optional
   public val httpOnly: Boolean? = null,
-  @JsonProperty("sameSite")
-  @Optional
+  @field:JsonProperty("sameSite")
+  @param:Optional
   public val sameSite: CookieSameSite? = null,
-  @JsonProperty("expires")
-  @Optional
+  @field:JsonProperty("expires")
+  @param:Optional
   public val expires: Double? = null,
-  @JsonProperty("priority")
-  @Optional
-  @Experimental
+  @field:JsonProperty("priority")
+  @param:Optional
+  @param:Experimental
   public val priority: CookiePriority? = null,
-  @JsonProperty("sameParty")
-  @Optional
-  @Experimental
+  @field:JsonProperty("sameParty")
+  @param:Optional
+  @param:Experimental
   public val sameParty: Boolean? = null,
-  @JsonProperty("sourceScheme")
-  @Optional
-  @Experimental
+  @field:JsonProperty("sourceScheme")
+  @param:Optional
+  @param:Experimental
   public val sourceScheme: CookieSourceScheme? = null,
-  @JsonProperty("sourcePort")
-  @Optional
-  @Experimental
+  @field:JsonProperty("sourcePort")
+  @param:Optional
+  @param:Experimental
   public val sourcePort: Int? = null,
 )

@@ -109,7 +109,7 @@ public interface ChromeDevTools {
    * can also keep track of stylesheets via the `styleSheetAdded`/`styleSheetRemoved` events and
    * subsequently load the required stylesheet contents using the `getStyleSheet[Text]()` methods.
    */
-  public val cSS: CSS
+  public val css: CSS
 
   public val cacheStorage: CacheStorage
 
@@ -132,23 +132,23 @@ public interface ChromeDevTools {
    * the nodes that were sent to the client.<p>Note that `iframe` owner elements will return
    * corresponding document elements as their child nodes.</p>
    */
-  public val dOM: DOM
+  public val dom: DOM
 
   /**
    * DOM debugging allows setting breakpoints on particular DOM operations and events. JavaScript
    * execution will stop on these operations as if there was a regular breakpoint set.
    */
-  public val dOMDebugger: DOMDebugger
+  public val domDebugger: DOMDebugger
 
   /**
    * This domain facilitates obtaining document snapshots with DOM, layout, and style information.
    */
-  public val dOMSnapshot: DOMSnapshot
+  public val domSnapshot: DOMSnapshot
 
   /**
    * Query and modify DOM storage.
    */
-  public val dOMStorage: DOMStorage
+  public val domStorage: DOMStorage
 
   public val database: Database
 
@@ -167,9 +167,9 @@ public interface ChromeDevTools {
   /**
    * Input/Output operations for streams produced by DevTools.
    */
-  public val iO: IO
+  public val io: IO
 
-  public val indexedDB: IndexedDB
+  public val indexedDb: IndexedDB
 
   public val input: Input
 

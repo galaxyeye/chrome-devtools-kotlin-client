@@ -9,10 +9,10 @@ import kotlin.String
  * Represents process info.
  */
 public data class ProcessInfo(
-  @JsonProperty("type")
+  @field:JsonProperty("type")
   public val type: String,
-  @JsonProperty("id")
+  @field:JsonProperty("id")
   public val id: Int,
-  @JsonProperty("cpuTime")
+  @field:JsonProperty("cpuTime")
   public val cpuTime: Double,
 )

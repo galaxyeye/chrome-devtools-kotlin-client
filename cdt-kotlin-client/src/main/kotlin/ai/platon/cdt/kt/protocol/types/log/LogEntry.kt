@@ -13,30 +13,30 @@ import kotlin.collections.List
  * Log entry.
  */
 public data class LogEntry(
-  @JsonProperty("source")
+  @field:JsonProperty("source")
   public val source: LogEntrySource,
-  @JsonProperty("level")
+  @field:JsonProperty("level")
   public val level: LogEntryLevel,
-  @JsonProperty("text")
+  @field:JsonProperty("text")
   public val text: String,
-  @JsonProperty("timestamp")
+  @field:JsonProperty("timestamp")
   public val timestamp: Double,
-  @JsonProperty("url")
-  @Optional
+  @field:JsonProperty("url")
+  @param:Optional
   public val url: String? = null,
-  @JsonProperty("lineNumber")
-  @Optional
+  @field:JsonProperty("lineNumber")
+  @param:Optional
   public val lineNumber: Int? = null,
-  @JsonProperty("stackTrace")
-  @Optional
+  @field:JsonProperty("stackTrace")
+  @param:Optional
   public val stackTrace: StackTrace? = null,
-  @JsonProperty("networkRequestId")
-  @Optional
+  @field:JsonProperty("networkRequestId")
+  @param:Optional
   public val networkRequestId: String? = null,
-  @JsonProperty("workerId")
-  @Optional
+  @field:JsonProperty("workerId")
+  @param:Optional
   public val workerId: String? = null,
-  @JsonProperty("args")
-  @Optional
+  @field:JsonProperty("args")
+  @param:Optional
   public val args: List<RemoteObject>? = null,
 )

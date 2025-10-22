@@ -49,8 +49,8 @@ public interface Debugger {
    * @param targetCallFrames
    */
   public suspend fun continueToLocation(@ParamName("location") location: Location,
-      @ParamName("targetCallFrames") @Optional
-      targetCallFrames: ContinueToLocationTargetCallFrames?)
+      @ParamName("targetCallFrames") @Optional targetCallFrames: ContinueToLocationTargetCallFrames?
+      = null)
 
   public suspend fun continueToLocation(@ParamName("location") location: Location) {
     return continueToLocation(location, null)
@@ -70,7 +70,7 @@ public interface Debugger {
    */
   @Returns("debuggerId")
   public suspend fun enable(@ParamName("maxScriptsCacheSize") @Optional @Experimental
-      maxScriptsCacheSize: Double?): String
+      maxScriptsCacheSize: Double? = null): String
 
   @Returns("debuggerId")
   public suspend fun enable(): String {
@@ -100,13 +100,13 @@ public interface Debugger {
   public suspend fun evaluateOnCallFrame(
     @ParamName("callFrameId") callFrameId: String,
     @ParamName("expression") expression: String,
-    @ParamName("objectGroup") @Optional objectGroup: String?,
-    @ParamName("includeCommandLineAPI") @Optional includeCommandLineAPI: Boolean?,
-    @ParamName("silent") @Optional silent: Boolean?,
-    @ParamName("returnByValue") @Optional returnByValue: Boolean?,
-    @ParamName("generatePreview") @Optional @Experimental generatePreview: Boolean?,
-    @ParamName("throwOnSideEffect") @Optional throwOnSideEffect: Boolean?,
-    @ParamName("timeout") @Optional @Experimental timeout: Double?,
+    @ParamName("objectGroup") @Optional objectGroup: String? = null,
+    @ParamName("includeCommandLineAPI") @Optional includeCommandLineAPI: Boolean? = null,
+    @ParamName("silent") @Optional silent: Boolean? = null,
+    @ParamName("returnByValue") @Optional returnByValue: Boolean? = null,
+    @ParamName("generatePreview") @Optional @Experimental generatePreview: Boolean? = null,
+    @ParamName("throwOnSideEffect") @Optional throwOnSideEffect: Boolean? = null,
+    @ParamName("timeout") @Optional @Experimental timeout: Double? = null,
   ): EvaluateOnCallFrame
 
   public suspend fun evaluateOnCallFrame(@ParamName("callFrameId") callFrameId: String,
@@ -128,8 +128,8 @@ public interface Debugger {
   @ReturnTypeParameter(BreakLocation::class)
   public suspend fun getPossibleBreakpoints(
     @ParamName("start") start: Location,
-    @ParamName("end") @Optional end: Location?,
-    @ParamName("restrictToFunction") @Optional restrictToFunction: Boolean?,
+    @ParamName("end") @Optional end: Location? = null,
+    @ParamName("restrictToFunction") @Optional restrictToFunction: Boolean? = null,
   ): List<BreakLocation>
 
   @Returns("locations")
@@ -197,7 +197,8 @@ public interface Debugger {
    * is actually resumed, at which point termination is triggered.
    * If execution is currently not paused, this parameter has no effect.
    */
-  public suspend fun resume(@ParamName("terminateOnResume") @Optional terminateOnResume: Boolean?)
+  public suspend fun resume(@ParamName("terminateOnResume") @Optional terminateOnResume: Boolean? =
+      null)
 
   public suspend fun resume() {
     return resume(null)
@@ -215,8 +216,8 @@ public interface Debugger {
   public suspend fun searchInContent(
     @ParamName("scriptId") scriptId: String,
     @ParamName("query") query: String,
-    @ParamName("caseSensitive") @Optional caseSensitive: Boolean?,
-    @ParamName("isRegex") @Optional isRegex: Boolean?,
+    @ParamName("caseSensitive") @Optional caseSensitive: Boolean? = null,
+    @ParamName("isRegex") @Optional isRegex: Boolean? = null,
   ): List<SearchMatch>
 
   @Returns("result")
@@ -263,7 +264,7 @@ public interface Debugger {
    * breakpoint if this expression evaluates to true.
    */
   public suspend fun setBreakpoint(@ParamName("location") location: Location,
-      @ParamName("condition") @Optional condition: String?): SetBreakpoint
+      @ParamName("condition") @Optional condition: String? = null): SetBreakpoint
 
   public suspend fun setBreakpoint(@ParamName("location") location: Location): SetBreakpoint {
     return setBreakpoint(location, null)
@@ -295,11 +296,11 @@ public interface Debugger {
    */
   public suspend fun setBreakpointByUrl(
     @ParamName("lineNumber") lineNumber: Int,
-    @ParamName("url") @Optional url: String?,
-    @ParamName("urlRegex") @Optional urlRegex: String?,
-    @ParamName("scriptHash") @Optional scriptHash: String?,
-    @ParamName("columnNumber") @Optional columnNumber: Int?,
-    @ParamName("condition") @Optional condition: String?,
+    @ParamName("url") @Optional url: String? = null,
+    @ParamName("urlRegex") @Optional urlRegex: String? = null,
+    @ParamName("scriptHash") @Optional scriptHash: String? = null,
+    @ParamName("columnNumber") @Optional columnNumber: Int? = null,
+    @ParamName("condition") @Optional condition: String? = null,
   ): SetBreakpointByUrl
 
   public suspend fun setBreakpointByUrl(@ParamName("lineNumber") lineNumber: Int):
@@ -318,7 +319,7 @@ public interface Debugger {
   @Experimental
   @Returns("breakpointId")
   public suspend fun setBreakpointOnFunctionCall(@ParamName("objectId") objectId: String,
-      @ParamName("condition") @Optional condition: String?): String
+      @ParamName("condition") @Optional condition: String? = null): String
 
   @Experimental
   @Returns("breakpointId")
@@ -357,7 +358,7 @@ public interface Debugger {
   public suspend fun setScriptSource(
     @ParamName("scriptId") scriptId: String,
     @ParamName("scriptSource") scriptSource: String,
-    @ParamName("dryRun") @Optional dryRun: Boolean?,
+    @ParamName("dryRun") @Optional dryRun: Boolean? = null,
   ): SetScriptSource
 
   public suspend fun setScriptSource(@ParamName("scriptId") scriptId: String,
@@ -396,8 +397,8 @@ public interface Debugger {
    * @param skipList The skipList specifies location ranges that should be skipped on step into.
    */
   public suspend fun stepInto(@ParamName("breakOnAsyncCall") @Optional @Experimental
-      breakOnAsyncCall: Boolean?, @ParamName("skipList") @Optional @Experimental
-      skipList: List<LocationRange>?)
+      breakOnAsyncCall: Boolean? = null, @ParamName("skipList") @Optional @Experimental
+      skipList: List<LocationRange>? = null)
 
   public suspend fun stepInto() {
     return stepInto(null, null)
@@ -413,7 +414,7 @@ public interface Debugger {
    * @param skipList The skipList specifies location ranges that should be skipped on step over.
    */
   public suspend fun stepOver(@ParamName("skipList") @Optional @Experimental
-      skipList: List<LocationRange>?)
+      skipList: List<LocationRange>? = null)
 
   public suspend fun stepOver() {
     return stepOver(null)

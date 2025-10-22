@@ -13,10 +13,10 @@ import kotlin.String
  */
 @Deprecated
 public data class CertificateError(
-  @JsonProperty("eventId")
+  @field:JsonProperty("eventId")
   public val eventId: Int,
-  @JsonProperty("errorType")
+  @field:JsonProperty("errorType")
   public val errorType: String,
-  @JsonProperty("requestURL")
+  @field:JsonProperty("requestURL")
   public val requestURL: String,
 )

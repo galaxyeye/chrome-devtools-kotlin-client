@@ -7,8 +7,8 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * Rectangle where scrolling happens on the main thread.
  */
 public data class ScrollRect(
-  @JsonProperty("rect")
+  @field:JsonProperty("rect")
   public val rect: Rect,
-  @JsonProperty("type")
+  @field:JsonProperty("type")
   public val type: ScrollRectType,
 )

@@ -5,8 +5,8 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
 public data class DomStorageItemRemoved(
-  @JsonProperty("storageId")
+  @field:JsonProperty("storageId")
   public val storageId: StorageId,
-  @JsonProperty("key")
+  @field:JsonProperty("key")
   public val key: String,
 )

@@ -8,14 +8,14 @@ import kotlin.String
  * Stack entry for runtime errors and assertions.
  */
 public data class CallFrame(
-  @JsonProperty("functionName")
+  @field:JsonProperty("functionName")
   public val functionName: String,
-  @JsonProperty("scriptId")
+  @field:JsonProperty("scriptId")
   public val scriptId: String,
-  @JsonProperty("url")
+  @field:JsonProperty("url")
   public val url: String,
-  @JsonProperty("lineNumber")
+  @field:JsonProperty("lineNumber")
   public val lineNumber: Int,
-  @JsonProperty("columnNumber")
+  @field:JsonProperty("columnNumber")
   public val columnNumber: Int,
 )

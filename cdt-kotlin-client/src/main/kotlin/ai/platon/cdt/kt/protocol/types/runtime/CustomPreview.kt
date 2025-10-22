@@ -7,9 +7,9 @@ import kotlin.String
 
 @Experimental
 public data class CustomPreview(
-  @JsonProperty("header")
+  @field:JsonProperty("header")
   public val `header`: String,
-  @JsonProperty("bodyGetterId")
-  @Optional
+  @field:JsonProperty("bodyGetterId")
+  @param:Optional
   public val bodyGetterId: String? = null,
 )

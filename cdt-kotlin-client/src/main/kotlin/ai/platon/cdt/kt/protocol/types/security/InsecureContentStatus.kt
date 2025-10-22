@@ -9,18 +9,18 @@ import kotlin.Boolean
  */
 @Deprecated
 public data class InsecureContentStatus(
-  @JsonProperty("ranMixedContent")
+  @field:JsonProperty("ranMixedContent")
   public val ranMixedContent: Boolean,
-  @JsonProperty("displayedMixedContent")
+  @field:JsonProperty("displayedMixedContent")
   public val displayedMixedContent: Boolean,
-  @JsonProperty("containedMixedForm")
+  @field:JsonProperty("containedMixedForm")
   public val containedMixedForm: Boolean,
-  @JsonProperty("ranContentWithCertErrors")
+  @field:JsonProperty("ranContentWithCertErrors")
   public val ranContentWithCertErrors: Boolean,
-  @JsonProperty("displayedContentWithCertErrors")
+  @field:JsonProperty("displayedContentWithCertErrors")
   public val displayedContentWithCertErrors: Boolean,
-  @JsonProperty("ranInsecureContentStyle")
+  @field:JsonProperty("ranInsecureContentStyle")
   public val ranInsecureContentStyle: SecurityState,
-  @JsonProperty("displayedInsecureContentStyle")
+  @field:JsonProperty("displayedInsecureContentStyle")
   public val displayedInsecureContentStyle: SecurityState,
 )

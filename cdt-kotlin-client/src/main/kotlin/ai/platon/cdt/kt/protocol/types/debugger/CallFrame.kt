@@ -10,22 +10,22 @@ import kotlin.collections.List
  * JavaScript call frame. Array of call frames form the call stack.
  */
 public data class CallFrame(
-  @JsonProperty("callFrameId")
+  @field:JsonProperty("callFrameId")
   public val callFrameId: String,
-  @JsonProperty("functionName")
+  @field:JsonProperty("functionName")
   public val functionName: String,
-  @JsonProperty("functionLocation")
-  @Optional
+  @field:JsonProperty("functionLocation")
+  @param:Optional
   public val functionLocation: Location? = null,
-  @JsonProperty("location")
+  @field:JsonProperty("location")
   public val location: Location,
-  @JsonProperty("url")
+  @field:JsonProperty("url")
   public val url: String,
-  @JsonProperty("scopeChain")
+  @field:JsonProperty("scopeChain")
   public val scopeChain: List<Scope>,
-  @JsonProperty("this")
+  @field:JsonProperty("this")
   public val `this`: RemoteObject,
-  @JsonProperty("returnValue")
-  @Optional
+  @field:JsonProperty("returnValue")
+  @param:Optional
   public val returnValue: RemoteObject? = null,
 )

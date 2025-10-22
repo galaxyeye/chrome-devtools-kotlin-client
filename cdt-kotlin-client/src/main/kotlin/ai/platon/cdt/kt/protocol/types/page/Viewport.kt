@@ -7,14 +7,14 @@ import kotlin.Double
  * Viewport for capturing screenshot.
  */
 public data class Viewport(
-  @JsonProperty("x")
+  @field:JsonProperty("x")
   public val x: Double,
-  @JsonProperty("y")
+  @field:JsonProperty("y")
   public val y: Double,
-  @JsonProperty("width")
+  @field:JsonProperty("width")
   public val width: Double,
-  @JsonProperty("height")
+  @field:JsonProperty("height")
   public val height: Double,
-  @JsonProperty("scale")
+  @field:JsonProperty("scale")
   public val scale: Double,
 )

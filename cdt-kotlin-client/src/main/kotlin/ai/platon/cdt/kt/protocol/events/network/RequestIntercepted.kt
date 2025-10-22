@@ -22,35 +22,35 @@ import kotlin.collections.Map
 @Experimental
 @Deprecated
 public data class RequestIntercepted(
-  @JsonProperty("interceptionId")
+  @field:JsonProperty("interceptionId")
   public val interceptionId: String,
-  @JsonProperty("request")
+  @field:JsonProperty("request")
   public val request: Request,
-  @JsonProperty("frameId")
+  @field:JsonProperty("frameId")
   public val frameId: String,
-  @JsonProperty("resourceType")
+  @field:JsonProperty("resourceType")
   public val resourceType: ResourceType,
-  @JsonProperty("isNavigationRequest")
+  @field:JsonProperty("isNavigationRequest")
   public val isNavigationRequest: Boolean,
-  @JsonProperty("isDownload")
-  @Optional
+  @field:JsonProperty("isDownload")
+  @param:Optional
   public val isDownload: Boolean? = null,
-  @JsonProperty("redirectUrl")
-  @Optional
+  @field:JsonProperty("redirectUrl")
+  @param:Optional
   public val redirectUrl: String? = null,
-  @JsonProperty("authChallenge")
-  @Optional
+  @field:JsonProperty("authChallenge")
+  @param:Optional
   public val authChallenge: AuthChallenge? = null,
-  @JsonProperty("responseErrorReason")
-  @Optional
+  @field:JsonProperty("responseErrorReason")
+  @param:Optional
   public val responseErrorReason: ErrorReason? = null,
-  @JsonProperty("responseStatusCode")
-  @Optional
+  @field:JsonProperty("responseStatusCode")
+  @param:Optional
   public val responseStatusCode: Int? = null,
-  @JsonProperty("responseHeaders")
-  @Optional
+  @field:JsonProperty("responseHeaders")
+  @param:Optional
   public val responseHeaders: Map<String, Any?>? = null,
-  @JsonProperty("requestId")
-  @Optional
+  @field:JsonProperty("requestId")
+  @param:Optional
   public val requestId: String? = null,
 )

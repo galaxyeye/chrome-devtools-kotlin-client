@@ -8,6 +8,6 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * `targetCreated` and `targetDestroyed`.
  */
 public data class TargetInfoChanged(
-  @JsonProperty("targetInfo")
+  @field:JsonProperty("targetInfo")
   public val targetInfo: TargetInfo,
 )

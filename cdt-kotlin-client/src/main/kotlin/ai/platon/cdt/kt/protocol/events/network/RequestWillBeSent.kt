@@ -14,30 +14,30 @@ import kotlin.String
  * Fired when page is about to send HTTP request.
  */
 public data class RequestWillBeSent(
-  @JsonProperty("requestId")
+  @field:JsonProperty("requestId")
   public val requestId: String,
-  @JsonProperty("loaderId")
+  @field:JsonProperty("loaderId")
   public val loaderId: String,
-  @JsonProperty("documentURL")
+  @field:JsonProperty("documentURL")
   public val documentURL: String,
-  @JsonProperty("request")
+  @field:JsonProperty("request")
   public val request: Request,
-  @JsonProperty("timestamp")
+  @field:JsonProperty("timestamp")
   public val timestamp: Double,
-  @JsonProperty("wallTime")
+  @field:JsonProperty("wallTime")
   public val wallTime: Double,
-  @JsonProperty("initiator")
+  @field:JsonProperty("initiator")
   public val initiator: Initiator,
-  @JsonProperty("redirectResponse")
-  @Optional
+  @field:JsonProperty("redirectResponse")
+  @param:Optional
   public val redirectResponse: Response? = null,
-  @JsonProperty("type")
-  @Optional
+  @field:JsonProperty("type")
+  @param:Optional
   public val type: ResourceType? = null,
-  @JsonProperty("frameId")
-  @Optional
+  @field:JsonProperty("frameId")
+  @param:Optional
   public val frameId: String? = null,
-  @JsonProperty("hasUserGesture")
-  @Optional
+  @field:JsonProperty("hasUserGesture")
+  @param:Optional
   public val hasUserGesture: Boolean? = null,
 )

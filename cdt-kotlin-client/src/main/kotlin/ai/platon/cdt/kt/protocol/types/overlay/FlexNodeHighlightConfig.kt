@@ -4,8 +4,8 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Int
 
 public data class FlexNodeHighlightConfig(
-  @JsonProperty("flexContainerHighlightConfig")
+  @field:JsonProperty("flexContainerHighlightConfig")
   public val flexContainerHighlightConfig: FlexContainerHighlightConfig,
-  @JsonProperty("nodeId")
+  @field:JsonProperty("nodeId")
   public val nodeId: Int,
 )

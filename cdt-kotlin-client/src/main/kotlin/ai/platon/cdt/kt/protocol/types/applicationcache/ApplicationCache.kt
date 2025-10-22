@@ -9,14 +9,14 @@ import kotlin.collections.List
  * Detailed application cache information.
  */
 public data class ApplicationCache(
-  @JsonProperty("manifestURL")
+  @field:JsonProperty("manifestURL")
   public val manifestURL: String,
-  @JsonProperty("size")
+  @field:JsonProperty("size")
   public val size: Double,
-  @JsonProperty("creationTime")
+  @field:JsonProperty("creationTime")
   public val creationTime: Double,
-  @JsonProperty("updateTime")
+  @field:JsonProperty("updateTime")
   public val updateTime: Double,
-  @JsonProperty("resources")
+  @field:JsonProperty("resources")
   public val resources: List<ApplicationCacheResource>,
 )

@@ -73,7 +73,8 @@ public interface Emulation {
    * be
    * cleared.
    */
-  public suspend fun setDefaultBackgroundColorOverride(@ParamName("color") @Optional color: RGBA?)
+  public suspend fun setDefaultBackgroundColorOverride(@ParamName("color") @Optional color: RGBA? =
+      null)
 
   public suspend fun setDefaultBackgroundColorOverride() {
     return setDefaultBackgroundColorOverride(null)
@@ -110,15 +111,15 @@ public interface Emulation {
     @ParamName("height") height: Int,
     @ParamName("deviceScaleFactor") deviceScaleFactor: Double,
     @ParamName("mobile") mobile: Boolean,
-    @ParamName("scale") @Optional @Experimental scale: Double?,
-    @ParamName("screenWidth") @Optional @Experimental screenWidth: Int?,
-    @ParamName("screenHeight") @Optional @Experimental screenHeight: Int?,
-    @ParamName("positionX") @Optional @Experimental positionX: Int?,
-    @ParamName("positionY") @Optional @Experimental positionY: Int?,
-    @ParamName("dontSetVisibleSize") @Optional @Experimental dontSetVisibleSize: Boolean?,
-    @ParamName("screenOrientation") @Optional screenOrientation: ScreenOrientation?,
-    @ParamName("viewport") @Optional @Experimental viewport: Viewport?,
-    @ParamName("displayFeature") @Optional @Experimental displayFeature: DisplayFeature?,
+    @ParamName("scale") @Optional @Experimental scale: Double? = null,
+    @ParamName("screenWidth") @Optional @Experimental screenWidth: Int? = null,
+    @ParamName("screenHeight") @Optional @Experimental screenHeight: Int? = null,
+    @ParamName("positionX") @Optional @Experimental positionX: Int? = null,
+    @ParamName("positionY") @Optional @Experimental positionY: Int? = null,
+    @ParamName("dontSetVisibleSize") @Optional @Experimental dontSetVisibleSize: Boolean? = null,
+    @ParamName("screenOrientation") @Optional screenOrientation: ScreenOrientation? = null,
+    @ParamName("viewport") @Optional @Experimental viewport: Viewport? = null,
+    @ParamName("displayFeature") @Optional @Experimental displayFeature: DisplayFeature? = null,
   )
 
   public suspend fun setDeviceMetricsOverride(
@@ -149,7 +150,8 @@ public interface Emulation {
    */
   @Experimental
   public suspend fun setEmitTouchEventsForMouse(@ParamName("enabled") enabled: Boolean,
-      @ParamName("configuration") @Optional configuration: SetEmitTouchEventsForMouseConfiguration?)
+      @ParamName("configuration") @Optional configuration: SetEmitTouchEventsForMouseConfiguration?
+      = null)
 
   @Experimental
   public suspend fun setEmitTouchEventsForMouse(@ParamName("enabled") enabled: Boolean) {
@@ -161,8 +163,8 @@ public interface Emulation {
    * @param media Media type to emulate. Empty string disables the override.
    * @param features Media features to emulate.
    */
-  public suspend fun setEmulatedMedia(@ParamName("media") @Optional media: String?,
-      @ParamName("features") @Optional features: List<MediaFeature>?)
+  public suspend fun setEmulatedMedia(@ParamName("media") @Optional media: String? = null,
+      @ParamName("features") @Optional features: List<MediaFeature>? = null)
 
   public suspend fun setEmulatedMedia() {
     return setEmulatedMedia(null, null)
@@ -184,9 +186,9 @@ public interface Emulation {
    * @param accuracy Mock accuracy
    */
   public suspend fun setGeolocationOverride(
-    @ParamName("latitude") @Optional latitude: Double?,
-    @ParamName("longitude") @Optional longitude: Double?,
-    @ParamName("accuracy") @Optional accuracy: Double?,
+    @ParamName("latitude") @Optional latitude: Double? = null,
+    @ParamName("longitude") @Optional longitude: Double? = null,
+    @ParamName("accuracy") @Optional accuracy: Double? = null,
   )
 
   public suspend fun setGeolocationOverride() {
@@ -235,7 +237,7 @@ public interface Emulation {
    * @param maxTouchPoints Maximum touch points supported. Defaults to one.
    */
   public suspend fun setTouchEmulationEnabled(@ParamName("enabled") enabled: Boolean,
-      @ParamName("maxTouchPoints") @Optional maxTouchPoints: Int?)
+      @ParamName("maxTouchPoints") @Optional maxTouchPoints: Int? = null)
 
   public suspend fun setTouchEmulationEnabled(@ParamName("enabled") enabled: Boolean) {
     return setTouchEmulationEnabled(enabled, null)
@@ -262,11 +264,11 @@ public interface Emulation {
   @Returns("virtualTimeTicksBase")
   public suspend fun setVirtualTimePolicy(
     @ParamName("policy") policy: VirtualTimePolicy,
-    @ParamName("budget") @Optional budget: Double?,
+    @ParamName("budget") @Optional budget: Double? = null,
     @ParamName("maxVirtualTimeTaskStarvationCount") @Optional
-        maxVirtualTimeTaskStarvationCount: Int?,
-    @ParamName("waitForNavigation") @Optional waitForNavigation: Boolean?,
-    @ParamName("initialVirtualTime") @Optional initialVirtualTime: Double?,
+        maxVirtualTimeTaskStarvationCount: Int? = null,
+    @ParamName("waitForNavigation") @Optional waitForNavigation: Boolean? = null,
+    @ParamName("initialVirtualTime") @Optional initialVirtualTime: Double? = null,
   ): Double
 
   @Experimental
@@ -282,7 +284,7 @@ public interface Emulation {
    * restores default host system locale.
    */
   @Experimental
-  public suspend fun setLocaleOverride(@ParamName("locale") @Optional locale: String?)
+  public suspend fun setLocaleOverride(@ParamName("locale") @Optional locale: String? = null)
 
   @Experimental
   public suspend fun setLocaleOverride() {
@@ -326,9 +328,10 @@ public interface Emulation {
    */
   public suspend fun setUserAgentOverride(
     @ParamName("userAgent") userAgent: String,
-    @ParamName("acceptLanguage") @Optional acceptLanguage: String?,
-    @ParamName("platform") @Optional platform: String?,
-    @ParamName("userAgentMetadata") @Optional @Experimental userAgentMetadata: UserAgentMetadata?,
+    @ParamName("acceptLanguage") @Optional acceptLanguage: String? = null,
+    @ParamName("platform") @Optional platform: String? = null,
+    @ParamName("userAgentMetadata") @Optional @Experimental userAgentMetadata: UserAgentMetadata? =
+        null,
   )
 
   public suspend fun setUserAgentOverride(@ParamName("userAgent") userAgent: String) {

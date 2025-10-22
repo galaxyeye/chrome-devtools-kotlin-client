@@ -5,8 +5,8 @@ import kotlin.Int
 import kotlin.String
 
 public data class PerformSearch(
-  @JsonProperty("searchId")
+  @field:JsonProperty("searchId")
   public val searchId: String,
-  @JsonProperty("resultCount")
+  @field:JsonProperty("resultCount")
   public val resultCount: Int,
 )

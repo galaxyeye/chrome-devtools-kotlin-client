@@ -142,11 +142,8 @@ class KotlinCommandsBuilder(
             )
         }
         if (command.experimental == java.lang.Boolean.TRUE) {
-            primaryMethod.addAnnotation(
-                AnnotationSpec.builder(context.deprecatedAnnotation)
-                    .addMember("%S", "Deprecated by protocol")
-                    .build()
-            )
+            // FIX: previously incorrectly added Deprecated annotation here
+            primaryMethod.addAnnotation(context.experimentalAnnotation)
         }
 
         if (returnComputation.returnsAnnotation != null) {
@@ -184,13 +181,14 @@ class KotlinCommandsBuilder(
             // Set default to null for optional params so callers can omit them
             paramBuilder.defaultValue("null")
         }
-        if (property.deprecated == java.lang.Boolean.TRUE) {
-            paramBuilder.addAnnotation(
-                AnnotationSpec.builder(context.deprecatedAnnotation)
-                    .addMember("%S", "Deprecated by protocol")
-                    .build()
-            )
-        }
+        // Avoid applying @Deprecated to value parameters; Kotlin does not support it here reliably.
+        // if (property.deprecated == java.lang.Boolean.TRUE) {
+        //     paramBuilder.addAnnotation(
+        //         AnnotationSpec.builder(context.deprecatedAnnotation)
+        //             .addMember("%S", "Deprecated by protocol")
+        //             .build()
+        //     )
+        // }
         if (property.experimental == java.lang.Boolean.TRUE) {
             paramBuilder.addAnnotation(context.experimentalAnnotation)
         }

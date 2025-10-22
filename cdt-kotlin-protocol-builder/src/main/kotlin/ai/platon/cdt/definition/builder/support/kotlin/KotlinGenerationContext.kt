@@ -318,7 +318,6 @@ class KotlinTypeMapper(private val context: KotlinGenerationContext) {
                 // paramBuilder.addAnnotation(context.deprecatedAnnotation)
                 paramBuilder.addAnnotation(
                     AnnotationSpec.builder(context.deprecatedAnnotation)
-                        .useSiteTarget(AnnotationSpec.UseSiteTarget.PARAM)
                         .addMember("%S", "Deprecated by protocol")
                         .build()
                 )

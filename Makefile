@@ -5,14 +5,15 @@ CP=cp
 RUN_JAR=$(JAVA) -jar
 
 PROTOCOL_PARSER_DIR=cdt-protocol-parser
-JAVA_PROTOCOL_BUILDER_DIR=cdt-kotlin-protocol-builder
-JAVA_PROTOCOL_BUILDER_JAR="$(JAVA_PROTOCOL_BUILDER_DIR)/target/cdt-kotlin-protocol-builder.jar"
+CDT_PROTOCOL_BUILDER_DIR=cdt-kotlin-protocol-builder
+CDT_PROTOCOL_BUILDER_JAR="$(CDT_PROTOCOL_BUILDER_DIR)/target/cdt-kotlin-protocol-builder.jar"
 PROTOCOL_PARSER=cdt-protocol-parser
 
-JAVA_CLIENT_DIR=cdt-kotlin-client
-JAVA_CLIENT_PACKAGE=ai/platon/cdt/protocol
+CDT_CLIENT_DIR=cdt-kotlin-client
+CDT_CLIENT_PACKAGE=ai/platon/cdt/protocol
 
 PACKAGE_NAME=ai.platon.cdt.protocol
+LANGUAGE=kotlin
 JS_PROTOCOL_JSON_FILE=./js_protocol.json
 BROWSER_PROTOCOL_JSON_FILE=./browser_protocol.json
 
@@ -30,25 +31,34 @@ build-all-modules:
 
 compile-cdt-kotlin-client:
 	# Compiling cdt-kotlin-client project...
-	$(MVN) --file "$(JAVA_CLIENT_DIR)/" clean compile
+	$(MVN) --file "$(CDT_CLIENT_DIR)/" clean compile
 
 clean-cdt-kotlin-protocol-builder:
 	# Cleaning cdt-kotlin-protocol-builder project...
-	$(MVN) --file "$(JAVA_PROTOCOL_BUILDER_DIR)/" clean
+	$(MVN) --file "$(CDT_PROTOCOL_BUILDER_DIR)/" clean
 
 clean-cdt-kotlin-client:
 	# Cleaning cdt-kotlin-client project...
-	$(MVN) --file "$(JAVA_CLIENT_DIR)/" clean
+	$(MVN) --file "$(CDT_CLIENT_DIR)/" clean
 
 clean-previous-protocol:
 	# Cleaning previous protocol...
-	$(RM) -rf $(JAVA_CLIENT_DIR)/src/main/java/$(JAVA_CLIENT_PACKAGE)/types
-	$(RM) -rf $(JAVA_CLIENT_DIR)/src/main/java/$(JAVA_CLIENT_PACKAGE)/events
-	$(RM) -rf $(JAVA_CLIENT_DIR)/src/main/java/$(JAVA_CLIENT_PACKAGE)/commands
+	$(RM) -rf $(CDT_CLIENT_DIR)/src/main/$(LANGUAGE)/$(CDT_CLIENT_PACKAGE)/types
+	$(RM) -rf $(CDT_CLIENT_DIR)/src/main/$(LANGUAGE)/$(CDT_CLIENT_PACKAGE)/events
+	$(RM) -rf $(CDT_CLIENT_DIR)/src/main/$(LANGUAGE)/$(CDT_CLIENT_PACKAGE)/commands
+
+generate-chrome-devtools-client:
+	# Generating chrome devtools client ...
+	$(RUN_JAR) $(CDT_PROTOCOL_BUILDER_JAR) --base-package="$(PACKAGE_NAME)" \
+		--language=$(LANGUAGE) \
+		--output=./$(CDT_CLIENT_DIR)/ \
+		--js-protocol=$(JS_PROTOCOL_JSON_FILE) \
+		--browser-protocol=$(BROWSER_PROTOCOL_JSON_FILE)
 
 upgrade-protocol: copy-protocol-files-to-test-resources build-all-modules clean-previous-protocol
-	$(RUN_JAR) $(JAVA_PROTOCOL_BUILDER_JAR) --base-package="$(PACKAGE_NAME)" \
-		--output=./$(JAVA_CLIENT_DIR)/ \
+	$(RUN_JAR) $(CDT_PROTOCOL_BUILDER_JAR) --base-package="$(PACKAGE_NAME)" \
+		--language=$(LANGUAGE) \
+		--output=./$(CDT_CLIENT_DIR)/ \
 		--js-protocol=$(JS_PROTOCOL_JSON_FILE) \
 		--browser-protocol=$(BROWSER_PROTOCOL_JSON_FILE)
 	# Apply the formatting on the codebase
@@ -65,8 +75,8 @@ update-copyright-license-header:
 
 sonar-analysis:
 	# Running sonar analysis
-	cd $(JAVA_PROTOCOL_BUILDER_DIR)/ && make sonar-analysis
-	cd $(JAVA_CLIENT_DIR)/ && make sonar-analysis
+	cd $(CDT_PROTOCOL_BUILDER_DIR)/ && make sonar-analysis
+	cd $(CDT_CLIENT_DIR)/ && make sonar-analysis
 
 verify:
 	# Running unit tests

@@ -274,7 +274,7 @@ class EventDispatcher : Consumer<String>, AutoCloseable {
             }
 
             try {
-                listener.handler.onEvent(event!!)
+                listener.handler.onEvent(event!!)  // onEvent is suspend, automatically awaited in this suspend function
             } catch (e: Exception) {
                 logger.warn("Failed to handle event, rethrow ChromeRPCException. Enable debug logging to see the stack trace | {}", e.message)
                 logger.debug("Failed to handle event", e)

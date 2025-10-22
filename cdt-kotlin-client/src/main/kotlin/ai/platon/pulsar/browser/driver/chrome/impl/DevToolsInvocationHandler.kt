@@ -106,7 +106,7 @@ class DevToolsInvocationHandler(impl: Any) : SuspendAwareHandler(impl) {
                 EventHandler { event -> f(event) }
             }
             is Function1<*, *> -> {
-                // (T) -> Unit
+                // (T) -> Unit - wrap in suspend adapter
                 val f = arg as (Any) -> Unit
                 EventHandler { event -> f(event) }
             }

@@ -83,7 +83,7 @@ public class KotlinSourceFile {
     // Pattern: public followed by whitespace, then a Kotlin keyword
     code =
         code.replaceAll(
-            "(?m)^(\\s*)public\\s+(data\\s+class|class|object|interface|fun|val|var|typealias)\\b",
+            "(?m)^(\\s*)public\\s+(data\\s+class|class|object|interface|suspend|fun|val|var|typealias)\\b",
             "$1$2");
 
     // Remove 'public ' from within function parameters and constructor parameters

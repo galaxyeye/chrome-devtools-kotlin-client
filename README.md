@@ -95,6 +95,11 @@ To go over each module and each source java file to update copyright license hea
 make update-copyright-license-header
 ```
 
+## Release
+
+- 2.x - Kotlin 2.x
+- 1.x - Kotlin 1.x
+
 ## License
 
 Chrome DevTools Kotlin Client is licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE.txt) for the full license text.

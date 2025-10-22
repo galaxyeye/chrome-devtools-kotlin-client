@@ -340,7 +340,7 @@ class KotlinTypeMapper(private val context: KotlinGenerationContext) {
                 // Attach JsonProperty to the getter explicitly
                 .addAnnotation(
                     AnnotationSpec.builder(context.jsonProperty)
-                        .useSiteTarget(AnnotationSpec.UseSiteTarget.FIELD)
+                        .useSiteTarget(AnnotationSpec.UseSiteTarget.PARAM)
                         .addMember("%S", property.name)
                         .build()
                 )

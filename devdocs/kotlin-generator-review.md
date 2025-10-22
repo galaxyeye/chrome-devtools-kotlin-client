@@ -64,11 +64,11 @@ There are redundant 'public' modifier in generated kotlin code.
 Before:
 ```kotlin
 public data class BackendNode(
-  @field:JsonProperty("nodeType")
+  @param:JsonProperty("nodeType")
   public val nodeType: Int,
-  @field:JsonProperty("nodeName")
+  @param:JsonProperty("nodeName")
   public val nodeName: String,
-  @field:JsonProperty("backendNodeId")
+  @param:JsonProperty("backendNodeId")
   public val backendNodeId: Int,
 )
 ```
@@ -76,11 +76,11 @@ public data class BackendNode(
 After:
 ```kotlin
 data class BackendNode(
-  @field:JsonProperty("nodeType")
+  @param:JsonProperty("nodeType")
   val nodeType: Int,
-  @field:JsonProperty("nodeName")
+  @param:JsonProperty("nodeName")
   val nodeName: String,
-  @field:JsonProperty("backendNodeId")
+  @param:JsonProperty("backendNodeId")
   val backendNodeId: Int,
 )
 ```
@@ -157,13 +157,13 @@ public data class BackgroundColors(
 After
 ```kotlin
 public data class BackgroundColors(
-  @field:JsonProperty("backgroundColors")
+  @param:JsonProperty("backgroundColors")
   @field:Optional
   public val backgroundColors: List<String>? = null,
-  @field:JsonProperty("computedFontSize")
+  @param:JsonProperty("computedFontSize")
   @field:Optional
   public val computedFontSize: String? = null,
-  @field:JsonProperty("computedFontWeight")
+  @param:JsonProperty("computedFontWeight")
   @field:Optional
   public val computedFontWeight: String? = null,
 )
@@ -176,15 +176,15 @@ public data class BackgroundColors(
 Before
 ```kotlin
 public data class AXValue(
-  @field:JsonProperty("type")
+  @param:JsonProperty("type")
   public val type: AXValueType,
-  @field:JsonProperty("value")
+  @param:JsonProperty("value")
   @param:Optional
   public val `value`: Any? = null,
-  @field:JsonProperty("relatedNodes")
+  @param:JsonProperty("relatedNodes")
   @param:Optional
   public val relatedNodes: List<AXRelatedNode>? = null,
-  @field:JsonProperty("sources")
+  @param:JsonProperty("sources")
   @param:Optional
   public val sources: List<AXValueSource>? = null,
 )
@@ -194,15 +194,15 @@ public data class AXValue(
 After
 ```kotlin
 data class AXValue(
-  @field:JsonProperty("type")
+  @param:JsonProperty("type")
   val type: AXValueType,
-  @field:JsonProperty("value")
+  @param:JsonProperty("value")
   @param:Optional
   val `value`: Any? = null,
-  @field:JsonProperty("relatedNodes")
+  @param:JsonProperty("relatedNodes")
   @param:Optional
   val relatedNodes: List<AXRelatedNode>? = null,
-  @field:JsonProperty("sources")
+  @param:JsonProperty("sources")
   @param:Optional
   val sources: List<AXValueSource>? = null,
 )

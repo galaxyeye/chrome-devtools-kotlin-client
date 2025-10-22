@@ -31,7 +31,9 @@ class KotlinGenerationContext(
     val supportAnnotationsPackage: String
 ) {
     val optionalAnnotation = ClassName(supportAnnotationsPackage, "Optional")
-    val deprecatedAnnotation = ClassName("java.lang", "Deprecated")
+    @Deprecated("Deprecated")
+    val deprecatedJavaAnnotation = ClassName("java.lang", "Deprecated")
+    val deprecatedAnnotation = ClassName("kotlin", "Deprecated")
     val experimentalAnnotation = ClassName(supportAnnotationsPackage, "Experimental")
     val returnsAnnotation = ClassName(supportAnnotationsPackage, "Returns")
     val returnTypeParameterAnnotation = ClassName(supportAnnotationsPackage, "ReturnTypeParameter")
@@ -274,7 +276,11 @@ class KotlinTypeMapper(private val context: KotlinGenerationContext) {
                 typeBuilder.addAnnotation(context.experimentalAnnotation)
             }
             if (objectType.deprecated == java.lang.Boolean.TRUE) {
-                typeBuilder.addAnnotation(context.deprecatedAnnotation)
+                typeBuilder.addAnnotation(
+                    AnnotationSpec.builder(context.deprecatedAnnotation)
+                        .addMember("%S", "Deprecated by protocol")
+                        .build()
+                )
             }
             val file = FileSpec.builder(packageName, className)
                 .addType(typeBuilder.build())
@@ -313,6 +319,7 @@ class KotlinTypeMapper(private val context: KotlinGenerationContext) {
                 paramBuilder.addAnnotation(
                     AnnotationSpec.builder(context.deprecatedAnnotation)
                         .useSiteTarget(AnnotationSpec.UseSiteTarget.PARAM)
+                        .addMember("%S", "Deprecated by protocol")
                         .build()
                 )
             }
@@ -345,7 +352,11 @@ class KotlinTypeMapper(private val context: KotlinGenerationContext) {
             typeBuilder.addAnnotation(context.experimentalAnnotation)
         }
         if (objectType.deprecated == java.lang.Boolean.TRUE) {
-            typeBuilder.addAnnotation(context.deprecatedAnnotation)
+            typeBuilder.addAnnotation(
+                AnnotationSpec.builder(context.deprecatedAnnotation)
+                    .addMember("%S", "Deprecated")
+                    .build()
+            )
         }
 
         typeBuilder.primaryConstructor(ctorBuilder.build())

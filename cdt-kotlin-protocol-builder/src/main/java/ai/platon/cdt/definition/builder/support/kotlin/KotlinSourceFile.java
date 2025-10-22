@@ -55,6 +55,8 @@ public class KotlinSourceFile {
       // Generate the code from FileSpec and remove redundant public modifiers
       String code = fileSpec.toString();
       code = removeRedundantPublicModifiers(code);
+      // Ensure the file-level suppress annotation is the very first line
+      code = ensureFileSuppressUnusedAnnotation(code);
 
       Path packageDir = outputRoot.resolve(packageName.replace('.', java.io.File.separatorChar));
       Files.createDirectories(packageDir);
@@ -68,7 +70,25 @@ public class KotlinSourceFile {
     Files.createDirectories(packageDir);
     String outName = fileName.contains(".") ? fileName : fileName + ".kt";
     Path targetFile = packageDir.resolve(outName);
-    Files.writeString(targetFile, rawContent, StandardCharsets.UTF_8);
+    String code = ensureFileSuppressUnusedAnnotation(rawContent);
+    Files.writeString(targetFile, code, StandardCharsets.UTF_8);
+  }
+
+  /**
+   * Ensures the first line of the file is `@file:Suppress("unused")`. If it's already present as
+   * the first line, no changes are made.
+   */
+  private String ensureFileSuppressUnusedAnnotation(String code) {
+    String header = "@file:Suppress(\"unused\")";
+    if (code == null || code.isEmpty()) {
+      return header + System.lineSeparator();
+    }
+    // If already starts with the exact header, return as-is
+    if (code.startsWith(header)) {
+      return code;
+    }
+    // Otherwise, prepend the header and a newline
+    return header + System.lineSeparator() + code;
   }
 
   /**

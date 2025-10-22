@@ -179,10 +179,10 @@ class KotlinProtocolGenerator(
 
         val fileBuilder = FileSpec.builder(typesPkg, "SupportTypes")
 
-        // fun interface EventHandler<T> { fun onEvent(event: T) }
+        // fun interface EventHandler<T> { suspend fun onEvent(event: T) }
         val tType = TypeVariableName("T")
         val handleFun = FunSpec.builder("onEvent")
-            .addModifiers(KModifier.ABSTRACT)
+            .addModifiers(KModifier.ABSTRACT, KModifier.SUSPEND)
             .addParameter("event", tType)
             .build()
         val eventHandler = TypeSpec.interfaceBuilder("EventHandler")

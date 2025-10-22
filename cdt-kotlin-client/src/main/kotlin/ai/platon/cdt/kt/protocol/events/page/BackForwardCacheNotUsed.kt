@@ -11,9 +11,9 @@ import kotlin.String
  * when bfcache navigation fails.
  */
 @Experimental
-public data class BackForwardCacheNotUsed(
+data class BackForwardCacheNotUsed(
   @field:JsonProperty("loaderId")
-  public val loaderId: String,
+  val loaderId: String,
   @field:JsonProperty("frameId")
-  public val frameId: String,
+  val frameId: String,
 )

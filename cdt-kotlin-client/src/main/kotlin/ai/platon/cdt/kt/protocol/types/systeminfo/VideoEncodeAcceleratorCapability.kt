@@ -8,13 +8,13 @@ import kotlin.String
  * Describes a supported video encoding profile with its associated maximum
  * resolution and maximum framerate.
  */
-public data class VideoEncodeAcceleratorCapability(
+data class VideoEncodeAcceleratorCapability(
   @field:JsonProperty("profile")
-  public val profile: String,
+  val profile: String,
   @field:JsonProperty("maxResolution")
-  public val maxResolution: Size,
+  val maxResolution: Size,
   @field:JsonProperty("maxFramerateNumerator")
-  public val maxFramerateNumerator: Int,
+  val maxFramerateNumerator: Int,
   @field:JsonProperty("maxFramerateDenominator")
-  public val maxFramerateDenominator: Int,
+  val maxFramerateDenominator: Int,
 )

@@ -9,26 +9,26 @@ import kotlin.String
  * Generic font families collection.
  */
 @Experimental
-public data class FontFamilies(
+data class FontFamilies(
   @field:JsonProperty("standard")
   @param:Optional
-  public val standard: String? = null,
+  val standard: String? = null,
   @field:JsonProperty("fixed")
   @param:Optional
-  public val fixed: String? = null,
+  val fixed: String? = null,
   @field:JsonProperty("serif")
   @param:Optional
-  public val serif: String? = null,
+  val serif: String? = null,
   @field:JsonProperty("sansSerif")
   @param:Optional
-  public val sansSerif: String? = null,
+  val sansSerif: String? = null,
   @field:JsonProperty("cursive")
   @param:Optional
-  public val cursive: String? = null,
+  val cursive: String? = null,
   @field:JsonProperty("fantasy")
   @param:Optional
-  public val fantasy: String? = null,
+  val fantasy: String? = null,
   @field:JsonProperty("pictograph")
   @param:Optional
-  public val pictograph: String? = null,
+  val pictograph: String? = null,
 )

@@ -9,9 +9,9 @@ import kotlin.Boolean
  * CORB and streaming.
  */
 @Experimental
-public data class LoadNetworkResourceOptions(
+data class LoadNetworkResourceOptions(
   @field:JsonProperty("disableCache")
-  public val disableCache: Boolean,
+  val disableCache: Boolean,
   @field:JsonProperty("includeCredentials")
-  public val includeCredentials: Boolean,
+  val includeCredentials: Boolean,
 )

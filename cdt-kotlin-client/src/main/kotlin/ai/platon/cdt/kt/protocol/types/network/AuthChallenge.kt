@@ -9,14 +9,14 @@ import kotlin.String
  * Authorization challenge for HTTP status code 401 or 407.
  */
 @Experimental
-public data class AuthChallenge(
+data class AuthChallenge(
   @field:JsonProperty("source")
   @param:Optional
-  public val source: AuthChallengeSource? = null,
+  val source: AuthChallengeSource? = null,
   @field:JsonProperty("origin")
-  public val origin: String,
+  val origin: String,
   @field:JsonProperty("scheme")
-  public val scheme: String,
+  val scheme: String,
   @field:JsonProperty("realm")
-  public val realm: String,
+  val realm: String,
 )

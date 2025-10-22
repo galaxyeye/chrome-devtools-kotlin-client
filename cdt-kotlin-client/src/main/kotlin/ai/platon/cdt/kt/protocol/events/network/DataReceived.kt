@@ -8,13 +8,13 @@ import kotlin.String
 /**
  * Fired when data chunk was received over the network.
  */
-public data class DataReceived(
+data class DataReceived(
   @field:JsonProperty("requestId")
-  public val requestId: String,
+  val requestId: String,
   @field:JsonProperty("timestamp")
-  public val timestamp: Double,
+  val timestamp: Double,
   @field:JsonProperty("dataLength")
-  public val dataLength: Int,
+  val dataLength: Int,
   @field:JsonProperty("encodedDataLength")
-  public val encodedDataLength: Int,
+  val encodedDataLength: Int,
 )

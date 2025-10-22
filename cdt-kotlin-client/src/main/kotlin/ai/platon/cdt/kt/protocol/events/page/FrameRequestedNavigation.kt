@@ -11,13 +11,13 @@ import kotlin.String
  * Navigation may still be cancelled after the event is issued.
  */
 @Experimental
-public data class FrameRequestedNavigation(
+data class FrameRequestedNavigation(
   @field:JsonProperty("frameId")
-  public val frameId: String,
+  val frameId: String,
   @field:JsonProperty("reason")
-  public val reason: ClientNavigationReason,
+  val reason: ClientNavigationReason,
   @field:JsonProperty("url")
-  public val url: String,
+  val url: String,
   @field:JsonProperty("disposition")
-  public val disposition: ClientNavigationDisposition,
+  val disposition: ClientNavigationDisposition,
 )

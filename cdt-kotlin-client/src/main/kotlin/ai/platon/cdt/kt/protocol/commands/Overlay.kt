@@ -34,7 +34,7 @@ import kotlin.collections.Map
  * This domain provides various functionality related to drawing atop the inspected page.
  */
 @Experimental
-public interface Overlay {
+interface Overlay {
   /**
    * Disables domain notifications.
    */
@@ -65,8 +65,7 @@ public interface Overlay {
 
   @Returns("highlight")
   @ReturnTypeParameter(String::class, Any::class)
-  public suspend fun getHighlightObjectForTest(@ParamName("nodeId") nodeId: Int):
-      Map<String, Any?> {
+  public suspend fun getHighlightObjectForTest(@ParamName("nodeId") nodeId: Int): Map<String, Any?> {
     return getHighlightObjectForTest(nodeId, null, null, null, null)
   }
 
@@ -76,8 +75,7 @@ public interface Overlay {
    */
   @Returns("highlights")
   @ReturnTypeParameter(String::class, Any::class)
-  public suspend fun getGridHighlightObjectsForTest(@ParamName("nodeIds") nodeIds: List<Int>):
-      Map<String, Any?>
+  public suspend fun getGridHighlightObjectsForTest(@ParamName("nodeIds") nodeIds: List<Int>): Map<String, Any?>
 
   /**
    * For Source Order Viewer testing.
@@ -85,8 +83,7 @@ public interface Overlay {
    */
   @Returns("highlight")
   @ReturnTypeParameter(String::class, Any::class)
-  public suspend fun getSourceOrderHighlightObjectForTest(@ParamName("nodeId") nodeId: Int):
-      Map<String, Any?>
+  public suspend fun getSourceOrderHighlightObjectForTest(@ParamName("nodeId") nodeId: Int): Map<String, Any?>
 
   /**
    * Hides any highlight.
@@ -188,8 +185,7 @@ public interface Overlay {
     @ParamName("objectId") @Optional objectId: String? = null,
   )
 
-  public suspend fun highlightSourceOrder(@ParamName("sourceOrderConfig")
-      sourceOrderConfig: SourceOrderConfig) {
+  public suspend fun highlightSourceOrder(@ParamName("sourceOrderConfig") sourceOrderConfig: SourceOrderConfig) {
     return highlightSourceOrder(sourceOrderConfig, null, null, null)
   }
 
@@ -197,12 +193,10 @@ public interface Overlay {
    * Enters the 'inspect' mode. In this mode, elements that user is hovering over are highlighted.
    * Backend then generates 'inspectNodeRequested' event upon element selection.
    * @param mode Set an inspection mode.
-   * @param highlightConfig A descriptor for the highlight appearance of hovered-over nodes. May be
-   * omitted if `enabled
+   * @param highlightConfig A descriptor for the highlight appearance of hovered-over nodes. May be omitted if `enabled
    * == false`.
    */
-  public suspend fun setInspectMode(@ParamName("mode") mode: InspectMode,
-      @ParamName("highlightConfig") @Optional highlightConfig: HighlightConfig? = null)
+  public suspend fun setInspectMode(@ParamName("mode") mode: InspectMode, @ParamName("highlightConfig") @Optional highlightConfig: HighlightConfig? = null)
 
   public suspend fun setInspectMode(@ParamName("mode") mode: InspectMode) {
     return setInspectMode(mode, null)
@@ -217,8 +211,7 @@ public interface Overlay {
   /**
    * @param message The message to display, also triggers resume and step over controls.
    */
-  public suspend fun setPausedInDebuggerMessage(@ParamName("message") @Optional message: String? =
-      null)
+  public suspend fun setPausedInDebuggerMessage(@ParamName("message") @Optional message: String? = null)
 
   public suspend fun setPausedInDebuggerMessage() {
     return setPausedInDebuggerMessage(null)
@@ -238,25 +231,19 @@ public interface Overlay {
 
   /**
    * Highlight multiple elements with the CSS Grid overlay.
-   * @param gridNodeHighlightConfigs An array of node identifiers and descriptors for the highlight
-   * appearance.
+   * @param gridNodeHighlightConfigs An array of node identifiers and descriptors for the highlight appearance.
    */
-  public suspend fun setShowGridOverlays(@ParamName("gridNodeHighlightConfigs")
-      gridNodeHighlightConfigs: List<GridNodeHighlightConfig>)
+  public suspend fun setShowGridOverlays(@ParamName("gridNodeHighlightConfigs") gridNodeHighlightConfigs: List<GridNodeHighlightConfig>)
 
   /**
-   * @param flexNodeHighlightConfigs An array of node identifiers and descriptors for the highlight
-   * appearance.
+   * @param flexNodeHighlightConfigs An array of node identifiers and descriptors for the highlight appearance.
    */
-  public suspend fun setShowFlexOverlays(@ParamName("flexNodeHighlightConfigs")
-      flexNodeHighlightConfigs: List<FlexNodeHighlightConfig>)
+  public suspend fun setShowFlexOverlays(@ParamName("flexNodeHighlightConfigs") flexNodeHighlightConfigs: List<FlexNodeHighlightConfig>)
 
   /**
-   * @param scrollSnapHighlightConfigs An array of node identifiers and descriptors for the
-   * highlight appearance.
+   * @param scrollSnapHighlightConfigs An array of node identifiers and descriptors for the highlight appearance.
    */
-  public suspend fun setShowScrollSnapOverlays(@ParamName("scrollSnapHighlightConfigs")
-      scrollSnapHighlightConfigs: List<ScrollSnapHighlightConfig>)
+  public suspend fun setShowScrollSnapOverlays(@ParamName("scrollSnapHighlightConfigs") scrollSnapHighlightConfigs: List<ScrollSnapHighlightConfig>)
 
   /**
    * Requests that backend shows paint rectangles
@@ -298,40 +285,33 @@ public interface Overlay {
    * Add a dual screen device hinge
    * @param hingeConfig hinge data, null means hideHinge
    */
-  public suspend fun setShowHinge(@ParamName("hingeConfig") @Optional hingeConfig: HingeConfig? =
-      null)
+  public suspend fun setShowHinge(@ParamName("hingeConfig") @Optional hingeConfig: HingeConfig? = null)
 
   public suspend fun setShowHinge() {
     return setShowHinge(null)
   }
 
   @EventName("inspectNodeRequested")
-  public fun onInspectNodeRequested(eventListener: EventHandler<InspectNodeRequested>):
-      EventListener
+  fun onInspectNodeRequested(eventListener: EventHandler<InspectNodeRequested>): EventListener
 
   @EventName("inspectNodeRequested")
-  public fun onInspectNodeRequested(eventListener: suspend (InspectNodeRequested) -> Unit):
-      EventListener
+  fun onInspectNodeRequested(eventListener: suspend (InspectNodeRequested) -> Unit): EventListener
 
   @EventName("nodeHighlightRequested")
-  public fun onNodeHighlightRequested(eventListener: EventHandler<NodeHighlightRequested>):
-      EventListener
+  fun onNodeHighlightRequested(eventListener: EventHandler<NodeHighlightRequested>): EventListener
 
   @EventName("nodeHighlightRequested")
-  public fun onNodeHighlightRequested(eventListener: suspend (NodeHighlightRequested) -> Unit):
-      EventListener
+  fun onNodeHighlightRequested(eventListener: suspend (NodeHighlightRequested) -> Unit): EventListener
 
   @EventName("screenshotRequested")
-  public fun onScreenshotRequested(eventListener: EventHandler<ScreenshotRequested>): EventListener
+  fun onScreenshotRequested(eventListener: EventHandler<ScreenshotRequested>): EventListener
 
   @EventName("screenshotRequested")
-  public fun onScreenshotRequested(eventListener: suspend (ScreenshotRequested) -> Unit):
-      EventListener
+  fun onScreenshotRequested(eventListener: suspend (ScreenshotRequested) -> Unit): EventListener
 
   @EventName("inspectModeCanceled")
-  public fun onInspectModeCanceled(eventListener: EventHandler<InspectModeCanceled>): EventListener
+  fun onInspectModeCanceled(eventListener: EventHandler<InspectModeCanceled>): EventListener
 
   @EventName("inspectModeCanceled")
-  public fun onInspectModeCanceled(eventListener: suspend (InspectModeCanceled) -> Unit):
-      EventListener
+  fun onInspectModeCanceled(eventListener: suspend (InspectModeCanceled) -> Unit): EventListener
 }

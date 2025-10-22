@@ -9,9 +9,9 @@ import kotlin.collections.List
  * Fired when backend wants to provide client with the missing DOM structure. This happens upon
  * most of the calls requesting node ids.
  */
-public data class SetChildNodes(
+data class SetChildNodes(
   @field:JsonProperty("parentId")
-  public val parentId: Int,
+  val parentId: Int,
   @field:JsonProperty("nodes")
-  public val nodes: List<Node>,
+  val nodes: List<Node>,
 )

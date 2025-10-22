@@ -12,23 +12,23 @@ import kotlin.String
  * Information about the Resource on the page.
  */
 @Experimental
-public data class FrameResource(
+data class FrameResource(
   @field:JsonProperty("url")
-  public val url: String,
+  val url: String,
   @field:JsonProperty("type")
-  public val type: ResourceType,
+  val type: ResourceType,
   @field:JsonProperty("mimeType")
-  public val mimeType: String,
+  val mimeType: String,
   @field:JsonProperty("lastModified")
   @param:Optional
-  public val lastModified: Double? = null,
+  val lastModified: Double? = null,
   @field:JsonProperty("contentSize")
   @param:Optional
-  public val contentSize: Double? = null,
+  val contentSize: Double? = null,
   @field:JsonProperty("failed")
   @param:Optional
-  public val failed: Boolean? = null,
+  val failed: Boolean? = null,
   @field:JsonProperty("canceled")
   @param:Optional
-  public val canceled: Boolean? = null,
+  val canceled: Boolean? = null,
 )

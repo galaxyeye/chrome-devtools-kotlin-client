@@ -6,9 +6,9 @@ import kotlin.String
 /**
  * A cache's contents have been modified.
  */
-public data class CacheStorageContentUpdated(
+data class CacheStorageContentUpdated(
   @field:JsonProperty("origin")
-  public val origin: String,
+  val origin: String,
   @field:JsonProperty("cacheName")
-  public val cacheName: String,
+  val cacheName: String,
 )

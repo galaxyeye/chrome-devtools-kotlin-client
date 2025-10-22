@@ -7,7 +7,7 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * Called with all existing backgroundServiceEvents when enabled, and all new
  * events afterwards if enabled and recording.
  */
-public data class BackgroundServiceEventReceived(
+data class BackgroundServiceEventReceived(
   @field:JsonProperty("backgroundServiceEvent")
-  public val backgroundServiceEvent: BackgroundServiceEvent,
+  val backgroundServiceEvent: BackgroundServiceEvent,
 )

@@ -9,9 +9,9 @@ import kotlin.collections.List
  * This can be called multiple times, and can be used to set / override /
  * remove player properties. A null propValue indicates removal.
  */
-public data class PlayerPropertiesChanged(
+data class PlayerPropertiesChanged(
   @field:JsonProperty("playerId")
-  public val playerId: String,
+  val playerId: String,
   @field:JsonProperty("properties")
-  public val properties: List<PlayerProperty>,
+  val properties: List<PlayerProperty>,
 )

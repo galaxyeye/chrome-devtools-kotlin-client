@@ -6,9 +6,9 @@ import kotlin.String
 /**
  * Corresponds to kMediaError
  */
-public data class PlayerError(
+data class PlayerError(
   @field:JsonProperty("type")
-  public val type: PlayerErrorType,
+  val type: PlayerErrorType,
   @field:JsonProperty("errorCode")
-  public val errorCode: String,
+  val errorCode: String,
 )

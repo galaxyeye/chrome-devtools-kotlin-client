@@ -15,20 +15,20 @@ import kotlin.String
  * or after the response was received.
  */
 @Experimental
-public data class TrustTokenOperationDone(
+data class TrustTokenOperationDone(
   @field:JsonProperty("status")
-  public val status: TrustTokenOperationDoneStatus,
+  val status: TrustTokenOperationDoneStatus,
   @field:JsonProperty("type")
-  public val type: TrustTokenOperationType,
+  val type: TrustTokenOperationType,
   @field:JsonProperty("requestId")
-  public val requestId: String,
+  val requestId: String,
   @field:JsonProperty("topLevelOrigin")
   @param:Optional
-  public val topLevelOrigin: String? = null,
+  val topLevelOrigin: String? = null,
   @field:JsonProperty("issuerOrigin")
   @param:Optional
-  public val issuerOrigin: String? = null,
+  val issuerOrigin: String? = null,
   @field:JsonProperty("issuedTokenCount")
   @param:Optional
-  public val issuedTokenCount: Int? = null,
+  val issuedTokenCount: Int? = null,
 )

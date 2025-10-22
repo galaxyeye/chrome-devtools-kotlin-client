@@ -6,7 +6,7 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 /**
  * Notifies that a new AudioParam has been created.
  */
-public data class AudioParamCreated(
+data class AudioParamCreated(
   @field:JsonProperty("param")
-  public val `param`: AudioParam,
+  val `param`: AudioParam,
 )

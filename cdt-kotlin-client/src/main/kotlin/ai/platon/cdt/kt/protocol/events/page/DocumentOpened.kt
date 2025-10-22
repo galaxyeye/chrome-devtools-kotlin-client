@@ -8,7 +8,7 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * Fired when opening document to write to.
  */
 @Experimental
-public data class DocumentOpened(
+data class DocumentOpened(
   @field:JsonProperty("frame")
-  public val frame: Frame,
+  val frame: Frame,
 )

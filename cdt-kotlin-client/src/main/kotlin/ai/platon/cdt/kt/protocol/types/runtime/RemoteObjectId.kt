@@ -2,4 +2,4 @@ package ai.platon.cdt.kt.protocol.types.runtime
 
 import kotlin.String
 
-public typealias RemoteObjectId = String
+typealias RemoteObjectId = String

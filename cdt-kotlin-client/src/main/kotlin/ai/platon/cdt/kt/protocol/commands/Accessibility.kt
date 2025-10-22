@@ -12,17 +12,15 @@ import kotlin.String
 import kotlin.collections.List
 
 @Experimental
-public interface Accessibility {
+interface Accessibility {
   /**
    * Disables the accessibility domain.
    */
   public suspend fun disable()
 
   /**
-   * Enables the accessibility domain which causes `AXNodeId`s to remain consistent between method
-   * calls.
-   * This turns on accessibility for the page, which can impact performance until accessibility is
-   * disabled.
+   * Enables the accessibility domain which causes `AXNodeId`s to remain consistent between method calls.
+   * This turns on accessibility for the page, which can impact performance until accessibility is disabled.
    */
   public suspend fun enable()
 
@@ -30,10 +28,8 @@ public interface Accessibility {
    * Fetches the accessibility node and partial accessibility tree for this DOM node, if it exists.
    * @param nodeId Identifier of the node to get the partial accessibility tree for.
    * @param backendNodeId Identifier of the backend node to get the partial accessibility tree for.
-   * @param objectId JavaScript object id of the node wrapper to get the partial accessibility tree
-   * for.
-   * @param fetchRelatives Whether to fetch this nodes ancestors, siblings and children. Defaults to
-   * true.
+   * @param objectId JavaScript object id of the node wrapper to get the partial accessibility tree for.
+   * @param fetchRelatives Whether to fetch this nodes ancestors, siblings and children. Defaults to true.
    */
   @Experimental
   @Returns("nodes")
@@ -60,8 +56,7 @@ public interface Accessibility {
   @Experimental
   @Returns("nodes")
   @ReturnTypeParameter(AXNode::class)
-  public suspend fun getFullAXTree(@ParamName("max_depth") @Optional max_depth: Int? = null):
-      List<AXNode>
+  public suspend fun getFullAXTree(@ParamName("max_depth") @Optional max_depth: Int? = null): List<AXNode>
 
   @Experimental
   @Returns("nodes")

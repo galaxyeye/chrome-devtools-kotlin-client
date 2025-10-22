@@ -8,11 +8,11 @@ import kotlin.String
  * Location range within one script.
  */
 @Experimental
-public data class LocationRange(
+data class LocationRange(
   @field:JsonProperty("scriptId")
-  public val scriptId: String,
+  val scriptId: String,
   @field:JsonProperty("start")
-  public val start: ScriptPosition,
+  val start: ScriptPosition,
   @field:JsonProperty("end")
-  public val end: ScriptPosition,
+  val end: ScriptPosition,
 )

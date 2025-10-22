@@ -12,11 +12,11 @@ import kotlin.String
  * certificate errors at the same time.
  */
 @Deprecated
-public data class CertificateError(
+data class CertificateError(
   @field:JsonProperty("eventId")
-  public val eventId: Int,
+  val eventId: Int,
   @field:JsonProperty("errorType")
-  public val errorType: String,
+  val errorType: String,
   @field:JsonProperty("requestURL")
-  public val requestURL: String,
+  val requestURL: String,
 )

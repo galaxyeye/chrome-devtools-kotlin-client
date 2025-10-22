@@ -5,18 +5,18 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Int
 import kotlin.String
 
-public data class TrustedWebActivityIssueDetails(
+data class TrustedWebActivityIssueDetails(
   @field:JsonProperty("url")
-  public val url: String,
+  val url: String,
   @field:JsonProperty("violationType")
-  public val violationType: TwaQualityEnforcementViolationType,
+  val violationType: TwaQualityEnforcementViolationType,
   @field:JsonProperty("httpStatusCode")
   @param:Optional
-  public val httpStatusCode: Int? = null,
+  val httpStatusCode: Int? = null,
   @field:JsonProperty("packageName")
   @param:Optional
-  public val packageName: String? = null,
+  val packageName: String? = null,
   @field:JsonProperty("signature")
   @param:Optional
-  public val signature: String? = null,
+  val signature: String? = null,
 )

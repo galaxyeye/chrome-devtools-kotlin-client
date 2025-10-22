@@ -4,7 +4,7 @@ import ai.platon.cdt.kt.protocol.types.serviceworker.ServiceWorkerVersion
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.collections.List
 
-public data class WorkerVersionUpdated(
+data class WorkerVersionUpdated(
   @field:JsonProperty("versions")
-  public val versions: List<ServiceWorkerVersion>,
+  val versions: List<ServiceWorkerVersion>,
 )

@@ -8,11 +8,11 @@ import kotlin.String
 /**
  * Represents process info.
  */
-public data class ProcessInfo(
+data class ProcessInfo(
   @field:JsonProperty("type")
-  public val type: String,
+  val type: String,
   @field:JsonProperty("id")
-  public val id: Int,
+  val id: Int,
   @field:JsonProperty("cpuTime")
-  public val cpuTime: Double,
+  val cpuTime: Double,
 )

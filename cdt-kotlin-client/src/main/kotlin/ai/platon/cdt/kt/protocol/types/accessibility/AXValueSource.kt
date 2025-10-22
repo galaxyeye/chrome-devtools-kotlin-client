@@ -8,31 +8,31 @@ import kotlin.String
 /**
  * A single source for a computed AX property.
  */
-public data class AXValueSource(
+data class AXValueSource(
   @field:JsonProperty("type")
-  public val type: AXValueSourceType,
+  val type: AXValueSourceType,
   @field:JsonProperty("value")
   @param:Optional
-  public val `value`: AXValue? = null,
+  val `value`: AXValue? = null,
   @field:JsonProperty("attribute")
   @param:Optional
-  public val attribute: String? = null,
+  val attribute: String? = null,
   @field:JsonProperty("attributeValue")
   @param:Optional
-  public val attributeValue: AXValue? = null,
+  val attributeValue: AXValue? = null,
   @field:JsonProperty("superseded")
   @param:Optional
-  public val superseded: Boolean? = null,
+  val superseded: Boolean? = null,
   @field:JsonProperty("nativeSource")
   @param:Optional
-  public val nativeSource: AXValueNativeSourceType? = null,
+  val nativeSource: AXValueNativeSourceType? = null,
   @field:JsonProperty("nativeSourceValue")
   @param:Optional
-  public val nativeSourceValue: AXValue? = null,
+  val nativeSourceValue: AXValue? = null,
   @field:JsonProperty("invalid")
   @param:Optional
-  public val invalid: Boolean? = null,
+  val invalid: Boolean? = null,
   @field:JsonProperty("invalidReason")
   @param:Optional
-  public val invalidReason: String? = null,
+  val invalidReason: String? = null,
 )

@@ -8,9 +8,9 @@ import kotlin.String
  * Fired when same-document navigation happens, e.g. due to history API usage or anchor navigation.
  */
 @Experimental
-public data class NavigatedWithinDocument(
+data class NavigatedWithinDocument(
   @field:JsonProperty("frameId")
-  public val frameId: String,
+  val frameId: String,
   @field:JsonProperty("url")
-  public val url: String,
+  val url: String,
 )

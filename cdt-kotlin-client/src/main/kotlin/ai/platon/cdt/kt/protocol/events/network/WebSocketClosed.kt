@@ -7,9 +7,9 @@ import kotlin.String
 /**
  * Fired when WebSocket is closed.
  */
-public data class WebSocketClosed(
+data class WebSocketClosed(
   @field:JsonProperty("requestId")
-  public val requestId: String,
+  val requestId: String,
   @field:JsonProperty("timestamp")
-  public val timestamp: Double,
+  val timestamp: Double,
 )

@@ -8,14 +8,14 @@ import kotlin.String
 /**
  * Notifies that an AudioNode is disconnected to an AudioParam.
  */
-public data class NodeParamDisconnected(
+data class NodeParamDisconnected(
   @field:JsonProperty("contextId")
-  public val contextId: String,
+  val contextId: String,
   @field:JsonProperty("sourceId")
-  public val sourceId: String,
+  val sourceId: String,
   @field:JsonProperty("destinationId")
-  public val destinationId: String,
+  val destinationId: String,
   @field:JsonProperty("sourceOutputIndex")
   @param:Optional
-  public val sourceOutputIndex: Double? = null,
+  val sourceOutputIndex: Double? = null,
 )

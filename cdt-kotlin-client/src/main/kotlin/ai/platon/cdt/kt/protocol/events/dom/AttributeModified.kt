@@ -7,11 +7,11 @@ import kotlin.String
 /**
  * Fired when `Element`'s attribute is modified.
  */
-public data class AttributeModified(
+data class AttributeModified(
   @field:JsonProperty("nodeId")
-  public val nodeId: Int,
+  val nodeId: Int,
   @field:JsonProperty("name")
-  public val name: String,
+  val name: String,
   @field:JsonProperty("value")
-  public val `value`: String,
+  val `value`: String,
 )

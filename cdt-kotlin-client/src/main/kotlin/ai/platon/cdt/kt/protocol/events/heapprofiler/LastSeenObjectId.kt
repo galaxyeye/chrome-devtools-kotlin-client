@@ -9,9 +9,9 @@ import kotlin.Int
  * seen object id and corresponding timestamp. If the were changes in the heap since last event
  * then one or more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
  */
-public data class LastSeenObjectId(
+data class LastSeenObjectId(
   @field:JsonProperty("lastSeenObjectId")
-  public val lastSeenObjectId: Int,
+  val lastSeenObjectId: Int,
   @field:JsonProperty("timestamp")
-  public val timestamp: Double,
+  val timestamp: Double,
 )

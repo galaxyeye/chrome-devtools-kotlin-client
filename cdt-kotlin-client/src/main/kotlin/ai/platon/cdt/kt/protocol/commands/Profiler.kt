@@ -23,7 +23,7 @@ import kotlin.Int
 import kotlin.Unit
 import kotlin.collections.List
 
-public interface Profiler {
+interface Profiler {
   public suspend fun disable()
 
   public suspend fun enable()
@@ -45,8 +45,7 @@ public interface Profiler {
   public suspend fun start()
 
   /**
-   * Enable precise code coverage. Coverage data for JavaScript executed before enabling precise
-   * code
+   * Enable precise code coverage. Coverage data for JavaScript executed before enabling precise code
    * coverage may be incomplete. Enabling prevents running optimized code and resets execution
    * counters.
    * @param callCount Collect accurate call counts beyond simple 'covered' or 'not covered'.
@@ -75,8 +74,7 @@ public interface Profiler {
   public suspend fun stop(): Profile
 
   /**
-   * Disable precise code coverage. Disabling releases unnecessary execution count records and
-   * allows
+   * Disable precise code coverage. Disabling releases unnecessary execution count records and allows
    * executing optimized code.
    */
   public suspend fun stopPreciseCoverage()
@@ -142,29 +140,22 @@ public interface Profiler {
   public suspend fun getRuntimeCallStats(): List<RuntimeCallCounterInfo>
 
   @EventName("consoleProfileFinished")
-  public fun onConsoleProfileFinished(eventListener: EventHandler<ConsoleProfileFinished>):
-      EventListener
+  fun onConsoleProfileFinished(eventListener: EventHandler<ConsoleProfileFinished>): EventListener
 
   @EventName("consoleProfileFinished")
-  public fun onConsoleProfileFinished(eventListener: suspend (ConsoleProfileFinished) -> Unit):
-      EventListener
+  fun onConsoleProfileFinished(eventListener: suspend (ConsoleProfileFinished) -> Unit): EventListener
 
   @EventName("consoleProfileStarted")
-  public fun onConsoleProfileStarted(eventListener: EventHandler<ConsoleProfileStarted>):
-      EventListener
+  fun onConsoleProfileStarted(eventListener: EventHandler<ConsoleProfileStarted>): EventListener
 
   @EventName("consoleProfileStarted")
-  public fun onConsoleProfileStarted(eventListener: suspend (ConsoleProfileStarted) -> Unit):
-      EventListener
+  fun onConsoleProfileStarted(eventListener: suspend (ConsoleProfileStarted) -> Unit): EventListener
 
   @EventName("preciseCoverageDeltaUpdate")
   @Experimental
-  public fun onPreciseCoverageDeltaUpdate(eventListener: EventHandler<PreciseCoverageDeltaUpdate>):
-      EventListener
+  fun onPreciseCoverageDeltaUpdate(eventListener: EventHandler<PreciseCoverageDeltaUpdate>): EventListener
 
   @EventName("preciseCoverageDeltaUpdate")
   @Experimental
-  public
-      fun onPreciseCoverageDeltaUpdate(eventListener: suspend (PreciseCoverageDeltaUpdate) -> Unit):
-      EventListener
+  fun onPreciseCoverageDeltaUpdate(eventListener: suspend (PreciseCoverageDeltaUpdate) -> Unit): EventListener
 }

@@ -9,13 +9,13 @@ import kotlin.String
 /**
  * Emitted only when `page.interceptFileChooser` is enabled.
  */
-public data class FileChooserOpened(
+data class FileChooserOpened(
   @field:JsonProperty("frameId")
   @param:Experimental
-  public val frameId: String,
+  val frameId: String,
   @field:JsonProperty("backendNodeId")
   @param:Experimental
-  public val backendNodeId: Int,
+  val backendNodeId: Int,
   @field:JsonProperty("mode")
-  public val mode: FileChooserOpenedMode,
+  val mode: FileChooserOpenedMode,
 )

@@ -11,13 +11,13 @@ import kotlin.String
  */
 @Experimental
 @Deprecated
-public data class DownloadWillBegin(
+data class DownloadWillBegin(
   @field:JsonProperty("frameId")
-  public val frameId: String,
+  val frameId: String,
   @field:JsonProperty("guid")
-  public val guid: String,
+  val guid: String,
   @field:JsonProperty("url")
-  public val url: String,
+  val url: String,
   @field:JsonProperty("suggestedFilename")
-  public val suggestedFilename: String,
+  val suggestedFilename: String,
 )

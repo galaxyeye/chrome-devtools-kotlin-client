@@ -8,20 +8,20 @@ import kotlin.String
 /**
  * Console message.
  */
-public data class ConsoleMessage(
+data class ConsoleMessage(
   @field:JsonProperty("source")
-  public val source: ConsoleMessageSource,
+  val source: ConsoleMessageSource,
   @field:JsonProperty("level")
-  public val level: ConsoleMessageLevel,
+  val level: ConsoleMessageLevel,
   @field:JsonProperty("text")
-  public val text: String,
+  val text: String,
   @field:JsonProperty("url")
   @param:Optional
-  public val url: String? = null,
+  val url: String? = null,
   @field:JsonProperty("line")
   @param:Optional
-  public val line: Int? = null,
+  val line: Int? = null,
   @field:JsonProperty("column")
   @param:Optional
-  public val column: Int? = null,
+  val column: Int? = null,
 )

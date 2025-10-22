@@ -6,7 +6,7 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 /**
  * Event for animation that has been started.
  */
-public data class AnimationStarted(
+data class AnimationStarted(
   @field:JsonProperty("animation")
-  public val animation: Animation,
+  val animation: Animation,
 )

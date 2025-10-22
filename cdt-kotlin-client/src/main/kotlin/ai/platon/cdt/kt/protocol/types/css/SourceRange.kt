@@ -6,13 +6,13 @@ import kotlin.Int
 /**
  * Text range within a resource. All numbers are zero-based.
  */
-public data class SourceRange(
+data class SourceRange(
   @field:JsonProperty("startLine")
-  public val startLine: Int,
+  val startLine: Int,
   @field:JsonProperty("startColumn")
-  public val startColumn: Int,
+  val startColumn: Int,
   @field:JsonProperty("endLine")
-  public val endLine: Int,
+  val endLine: Int,
   @field:JsonProperty("endColumn")
-  public val endColumn: Int,
+  val endColumn: Int,
 )

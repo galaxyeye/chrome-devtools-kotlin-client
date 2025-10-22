@@ -7,11 +7,11 @@ import kotlin.String
 /**
  * ServiceWorker registration.
  */
-public data class ServiceWorkerRegistration(
+data class ServiceWorkerRegistration(
   @field:JsonProperty("registrationId")
-  public val registrationId: String,
+  val registrationId: String,
   @field:JsonProperty("scopeURL")
-  public val scopeURL: String,
+  val scopeURL: String,
   @field:JsonProperty("isDeleted")
-  public val isDeleted: Boolean,
+  val isDeleted: Boolean,
 )

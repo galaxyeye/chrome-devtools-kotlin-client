@@ -5,14 +5,14 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Int
 import kotlin.String
 
-public data class SourceCodeLocation(
+data class SourceCodeLocation(
   @field:JsonProperty("scriptId")
   @param:Optional
-  public val scriptId: String? = null,
+  val scriptId: String? = null,
   @field:JsonProperty("url")
-  public val url: String,
+  val url: String,
   @field:JsonProperty("lineNumber")
-  public val lineNumber: Int,
+  val lineNumber: Int,
   @field:JsonProperty("columnNumber")
-  public val columnNumber: Int,
+  val columnNumber: Int,
 )

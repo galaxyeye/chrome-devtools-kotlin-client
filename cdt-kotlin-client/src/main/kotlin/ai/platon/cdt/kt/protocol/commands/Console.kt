@@ -11,7 +11,7 @@ import kotlin.Unit
  * This domain is deprecated - use Runtime or Log instead.
  */
 @Deprecated
-public interface Console {
+interface Console {
   /**
    * Does nothing.
    */
@@ -29,8 +29,8 @@ public interface Console {
   public suspend fun enable()
 
   @EventName("messageAdded")
-  public fun onMessageAdded(eventListener: EventHandler<MessageAdded>): EventListener
+  fun onMessageAdded(eventListener: EventHandler<MessageAdded>): EventListener
 
   @EventName("messageAdded")
-  public fun onMessageAdded(eventListener: suspend (MessageAdded) -> Unit): EventListener
+  fun onMessageAdded(eventListener: suspend (MessageAdded) -> Unit): EventListener
 }

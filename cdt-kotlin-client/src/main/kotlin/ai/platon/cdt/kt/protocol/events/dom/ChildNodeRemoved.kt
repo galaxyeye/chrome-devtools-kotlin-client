@@ -6,9 +6,9 @@ import kotlin.Int
 /**
  * Mirrors `DOMNodeRemoved` event.
  */
-public data class ChildNodeRemoved(
+data class ChildNodeRemoved(
   @field:JsonProperty("parentNodeId")
-  public val parentNodeId: Int,
+  val parentNodeId: Int,
   @field:JsonProperty("nodeId")
-  public val nodeId: Int,
+  val nodeId: Int,
 )

@@ -10,33 +10,33 @@ import kotlin.collections.List
 /**
  * A node in the accessibility tree.
  */
-public data class AXNode(
+data class AXNode(
   @field:JsonProperty("nodeId")
-  public val nodeId: String,
+  val nodeId: String,
   @field:JsonProperty("ignored")
-  public val ignored: Boolean,
+  val ignored: Boolean,
   @field:JsonProperty("ignoredReasons")
   @param:Optional
-  public val ignoredReasons: List<AXProperty>? = null,
+  val ignoredReasons: List<AXProperty>? = null,
   @field:JsonProperty("role")
   @param:Optional
-  public val role: AXValue? = null,
+  val role: AXValue? = null,
   @field:JsonProperty("name")
   @param:Optional
-  public val name: AXValue? = null,
+  val name: AXValue? = null,
   @field:JsonProperty("description")
   @param:Optional
-  public val description: AXValue? = null,
+  val description: AXValue? = null,
   @field:JsonProperty("value")
   @param:Optional
-  public val `value`: AXValue? = null,
+  val `value`: AXValue? = null,
   @field:JsonProperty("properties")
   @param:Optional
-  public val properties: List<AXProperty>? = null,
+  val properties: List<AXProperty>? = null,
   @field:JsonProperty("childIds")
   @param:Optional
-  public val childIds: List<String>? = null,
+  val childIds: List<String>? = null,
   @field:JsonProperty("backendDOMNodeId")
   @param:Optional
-  public val backendDOMNodeId: Int? = null,
+  val backendDOMNodeId: Int? = null,
 )

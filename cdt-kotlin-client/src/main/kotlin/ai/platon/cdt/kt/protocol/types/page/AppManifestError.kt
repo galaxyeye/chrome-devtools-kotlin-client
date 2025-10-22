@@ -7,13 +7,13 @@ import kotlin.String
 /**
  * Error while paring app manifest.
  */
-public data class AppManifestError(
+data class AppManifestError(
   @field:JsonProperty("message")
-  public val message: String,
+  val message: String,
   @field:JsonProperty("critical")
-  public val critical: Int,
+  val critical: Int,
   @field:JsonProperty("line")
-  public val line: Int,
+  val line: Int,
   @field:JsonProperty("column")
-  public val column: Int,
+  val column: Int,
 )

@@ -7,13 +7,13 @@ import kotlin.String
 /**
  * Executable module information
  */
-public data class Module(
+data class Module(
   @field:JsonProperty("name")
-  public val name: String,
+  val name: String,
   @field:JsonProperty("uuid")
-  public val uuid: String,
+  val uuid: String,
   @field:JsonProperty("baseAddress")
-  public val baseAddress: String,
+  val baseAddress: String,
   @field:JsonProperty("size")
-  public val size: Double,
+  val size: Double,
 )

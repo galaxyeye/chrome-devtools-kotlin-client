@@ -10,21 +10,21 @@ import kotlin.collections.List
 /**
  * Profile node. Holds callsite information, execution statistics and child nodes.
  */
-public data class ProfileNode(
+data class ProfileNode(
   @field:JsonProperty("id")
-  public val id: Int,
+  val id: Int,
   @field:JsonProperty("callFrame")
-  public val callFrame: CallFrame,
+  val callFrame: CallFrame,
   @field:JsonProperty("hitCount")
   @param:Optional
-  public val hitCount: Int? = null,
+  val hitCount: Int? = null,
   @field:JsonProperty("children")
   @param:Optional
-  public val children: List<Int>? = null,
+  val children: List<Int>? = null,
   @field:JsonProperty("deoptReason")
   @param:Optional
-  public val deoptReason: String? = null,
+  val deoptReason: String? = null,
   @field:JsonProperty("positionTicks")
   @param:Optional
-  public val positionTicks: List<PositionTickInfo>? = null,
+  val positionTicks: List<PositionTickInfo>? = null,
 )

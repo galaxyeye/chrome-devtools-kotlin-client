@@ -16,7 +16,7 @@ import kotlin.Unit
  * functionalities.
  */
 @Experimental
-public interface Cast {
+interface Cast {
   /**
    * Starts observing for sinks that can be used for tab mirroring, and if set,
    * sinks compatible with |presentationUrl| as well. When sinks are found, a
@@ -56,14 +56,14 @@ public interface Cast {
   public suspend fun stopCasting(@ParamName("sinkName") sinkName: String)
 
   @EventName("sinksUpdated")
-  public fun onSinksUpdated(eventListener: EventHandler<SinksUpdated>): EventListener
+  fun onSinksUpdated(eventListener: EventHandler<SinksUpdated>): EventListener
 
   @EventName("sinksUpdated")
-  public fun onSinksUpdated(eventListener: suspend (SinksUpdated) -> Unit): EventListener
+  fun onSinksUpdated(eventListener: suspend (SinksUpdated) -> Unit): EventListener
 
   @EventName("issueUpdated")
-  public fun onIssueUpdated(eventListener: EventHandler<IssueUpdated>): EventListener
+  fun onIssueUpdated(eventListener: EventHandler<IssueUpdated>): EventListener
 
   @EventName("issueUpdated")
-  public fun onIssueUpdated(eventListener: suspend (IssueUpdated) -> Unit): EventListener
+  fun onIssueUpdated(eventListener: suspend (IssueUpdated) -> Unit): EventListener
 }

@@ -7,15 +7,15 @@ import kotlin.String
 /**
  * Fired when EventSource message is received.
  */
-public data class EventSourceMessageReceived(
+data class EventSourceMessageReceived(
   @field:JsonProperty("requestId")
-  public val requestId: String,
+  val requestId: String,
   @field:JsonProperty("timestamp")
-  public val timestamp: Double,
+  val timestamp: Double,
   @field:JsonProperty("eventName")
-  public val eventName: String,
+  val eventName: String,
   @field:JsonProperty("eventId")
-  public val eventId: String,
+  val eventId: String,
   @field:JsonProperty("data")
-  public val `data`: String,
+  val `data`: String,
 )

@@ -9,14 +9,14 @@ import kotlin.String
 /**
  * Fired when HTTP request has finished loading.
  */
-public data class LoadingFinished(
+data class LoadingFinished(
   @field:JsonProperty("requestId")
-  public val requestId: String,
+  val requestId: String,
   @field:JsonProperty("timestamp")
-  public val timestamp: Double,
+  val timestamp: Double,
   @field:JsonProperty("encodedDataLength")
-  public val encodedDataLength: Double,
+  val encodedDataLength: Double,
   @field:JsonProperty("shouldReportCorbBlocking")
   @param:Optional
-  public val shouldReportCorbBlocking: Boolean? = null,
+  val shouldReportCorbBlocking: Boolean? = null,
 )

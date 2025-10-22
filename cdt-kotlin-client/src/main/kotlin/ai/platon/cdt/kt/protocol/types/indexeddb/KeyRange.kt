@@ -7,15 +7,15 @@ import kotlin.Boolean
 /**
  * Key range.
  */
-public data class KeyRange(
+data class KeyRange(
   @field:JsonProperty("lower")
   @param:Optional
-  public val lower: Key? = null,
+  val lower: Key? = null,
   @field:JsonProperty("upper")
   @param:Optional
-  public val upper: Key? = null,
+  val upper: Key? = null,
   @field:JsonProperty("lowerOpen")
-  public val lowerOpen: Boolean,
+  val lowerOpen: Boolean,
   @field:JsonProperty("upperOpen")
-  public val upperOpen: Boolean,
+  val upperOpen: Boolean,
 )

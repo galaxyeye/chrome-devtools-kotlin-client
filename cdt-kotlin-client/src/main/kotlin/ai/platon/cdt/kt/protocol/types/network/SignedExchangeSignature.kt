@@ -12,26 +12,26 @@ import kotlin.collections.List
  * https://wicg.github.io/webpackage/draft-yasskin-httpbis-origin-signed-exchanges-impl.html#rfc.section.3.1
  */
 @Experimental
-public data class SignedExchangeSignature(
+data class SignedExchangeSignature(
   @field:JsonProperty("label")
-  public val label: String,
+  val label: String,
   @field:JsonProperty("signature")
-  public val signature: String,
+  val signature: String,
   @field:JsonProperty("integrity")
-  public val integrity: String,
+  val integrity: String,
   @field:JsonProperty("certUrl")
   @param:Optional
-  public val certUrl: String? = null,
+  val certUrl: String? = null,
   @field:JsonProperty("certSha256")
   @param:Optional
-  public val certSha256: String? = null,
+  val certSha256: String? = null,
   @field:JsonProperty("validityUrl")
-  public val validityUrl: String,
+  val validityUrl: String,
   @field:JsonProperty("date")
-  public val date: Int,
+  val date: Int,
   @field:JsonProperty("expires")
-  public val expires: Int,
+  val expires: Int,
   @field:JsonProperty("certificates")
   @param:Optional
-  public val certificates: List<String>? = null,
+  val certificates: List<String>? = null,
 )

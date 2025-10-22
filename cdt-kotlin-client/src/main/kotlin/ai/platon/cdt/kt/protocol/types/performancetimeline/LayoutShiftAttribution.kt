@@ -5,12 +5,12 @@ import ai.platon.cdt.kt.protocol.types.dom.Rect
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Int
 
-public data class LayoutShiftAttribution(
+data class LayoutShiftAttribution(
   @field:JsonProperty("previousRect")
-  public val previousRect: Rect,
+  val previousRect: Rect,
   @field:JsonProperty("currentRect")
-  public val currentRect: Rect,
+  val currentRect: Rect,
   @field:JsonProperty("nodeId")
   @param:Optional
-  public val nodeId: Int? = null,
+  val nodeId: Int? = null,
 )

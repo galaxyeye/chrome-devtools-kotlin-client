@@ -10,7 +10,7 @@ import ai.platon.cdt.kt.protocol.support.types.EventListener
 import kotlin.Unit
 
 @Experimental
-public interface Inspector {
+interface Inspector {
   /**
    * Disables inspector domain notifications.
    */
@@ -22,22 +22,20 @@ public interface Inspector {
   public suspend fun enable()
 
   @EventName("detached")
-  public fun onDetached(eventListener: EventHandler<Detached>): EventListener
+  fun onDetached(eventListener: EventHandler<Detached>): EventListener
 
   @EventName("detached")
-  public fun onDetached(eventListener: suspend (Detached) -> Unit): EventListener
+  fun onDetached(eventListener: suspend (Detached) -> Unit): EventListener
 
   @EventName("targetCrashed")
-  public fun onTargetCrashed(eventListener: EventHandler<TargetCrashed>): EventListener
+  fun onTargetCrashed(eventListener: EventHandler<TargetCrashed>): EventListener
 
   @EventName("targetCrashed")
-  public fun onTargetCrashed(eventListener: suspend (TargetCrashed) -> Unit): EventListener
+  fun onTargetCrashed(eventListener: suspend (TargetCrashed) -> Unit): EventListener
 
   @EventName("targetReloadedAfterCrash")
-  public fun onTargetReloadedAfterCrash(eventListener: EventHandler<TargetReloadedAfterCrash>):
-      EventListener
+  fun onTargetReloadedAfterCrash(eventListener: EventHandler<TargetReloadedAfterCrash>): EventListener
 
   @EventName("targetReloadedAfterCrash")
-  public fun onTargetReloadedAfterCrash(eventListener: suspend (TargetReloadedAfterCrash) -> Unit):
-      EventListener
+  fun onTargetReloadedAfterCrash(eventListener: suspend (TargetReloadedAfterCrash) -> Unit): EventListener
 }

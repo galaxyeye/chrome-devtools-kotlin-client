@@ -10,13 +10,13 @@ import kotlin.String
  * Fired when frame schedules a potential navigation.
  */
 @Deprecated
-public data class FrameScheduledNavigation(
+data class FrameScheduledNavigation(
   @field:JsonProperty("frameId")
-  public val frameId: String,
+  val frameId: String,
   @field:JsonProperty("delay")
-  public val delay: Double,
+  val delay: Double,
   @field:JsonProperty("reason")
-  public val reason: ClientNavigationReason,
+  val reason: ClientNavigationReason,
   @field:JsonProperty("url")
-  public val url: String,
+  val url: String,
 )

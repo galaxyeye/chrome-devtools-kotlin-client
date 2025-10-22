@@ -10,7 +10,7 @@ import kotlin.Boolean
  * beginFrame to detect whether the frames were suppressed.
  */
 @Deprecated
-public data class NeedsBeginFramesChanged(
+data class NeedsBeginFramesChanged(
   @field:JsonProperty("needsBeginFrames")
-  public val needsBeginFrames: Boolean,
+  val needsBeginFrames: Boolean,
 )

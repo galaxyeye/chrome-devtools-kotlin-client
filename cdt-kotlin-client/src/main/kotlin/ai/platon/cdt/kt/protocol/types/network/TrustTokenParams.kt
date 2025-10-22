@@ -12,12 +12,12 @@ import kotlin.collections.List
  * are specified in third_party/blink/renderer/core/fetch/trust_token.idl.
  */
 @Experimental
-public data class TrustTokenParams(
+data class TrustTokenParams(
   @field:JsonProperty("type")
-  public val type: TrustTokenOperationType,
+  val type: TrustTokenOperationType,
   @field:JsonProperty("refreshPolicy")
-  public val refreshPolicy: TrustTokenParamsRefreshPolicy,
+  val refreshPolicy: TrustTokenParamsRefreshPolicy,
   @field:JsonProperty("issuers")
   @param:Optional
-  public val issuers: List<String>? = null,
+  val issuers: List<String>? = null,
 )

@@ -10,15 +10,15 @@ import kotlin.String
  * Issued when the domain is enabled with handleAuthRequests set to true.
  * The request is paused until client responds with continueWithAuth.
  */
-public data class AuthRequired(
+data class AuthRequired(
   @field:JsonProperty("requestId")
-  public val requestId: String,
+  val requestId: String,
   @field:JsonProperty("request")
-  public val request: Request,
+  val request: Request,
   @field:JsonProperty("frameId")
-  public val frameId: String,
+  val frameId: String,
   @field:JsonProperty("resourceType")
-  public val resourceType: ResourceType,
+  val resourceType: ResourceType,
   @field:JsonProperty("authChallenge")
-  public val authChallenge: AuthChallenge,
+  val authChallenge: AuthChallenge,
 )

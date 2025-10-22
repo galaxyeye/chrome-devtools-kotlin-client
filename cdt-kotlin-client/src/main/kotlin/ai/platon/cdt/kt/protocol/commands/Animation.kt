@@ -17,7 +17,7 @@ import kotlin.Unit
 import kotlin.collections.List
 
 @Experimental
-public interface Animation {
+interface Animation {
   /**
    * Disables animation domain notifications.
    */
@@ -59,16 +59,14 @@ public interface Animation {
    * @param animations List of animation ids to seek.
    * @param currentTime Set the current time of each animation.
    */
-  public suspend fun seekAnimations(@ParamName("animations") animations: List<String>,
-      @ParamName("currentTime") currentTime: Double)
+  public suspend fun seekAnimations(@ParamName("animations") animations: List<String>, @ParamName("currentTime") currentTime: Double)
 
   /**
    * Sets the paused state of a set of animations.
    * @param animations Animations to set the pause state of.
    * @param paused Paused state to set to.
    */
-  public suspend fun setPaused(@ParamName("animations") animations: List<String>,
-      @ParamName("paused") paused: Boolean)
+  public suspend fun setPaused(@ParamName("animations") animations: List<String>, @ParamName("paused") paused: Boolean)
 
   /**
    * Sets the playback rate of the document timeline.
@@ -89,20 +87,20 @@ public interface Animation {
   )
 
   @EventName("animationCanceled")
-  public fun onAnimationCanceled(eventListener: EventHandler<AnimationCanceled>): EventListener
+  fun onAnimationCanceled(eventListener: EventHandler<AnimationCanceled>): EventListener
 
   @EventName("animationCanceled")
-  public fun onAnimationCanceled(eventListener: suspend (AnimationCanceled) -> Unit): EventListener
+  fun onAnimationCanceled(eventListener: suspend (AnimationCanceled) -> Unit): EventListener
 
   @EventName("animationCreated")
-  public fun onAnimationCreated(eventListener: EventHandler<AnimationCreated>): EventListener
+  fun onAnimationCreated(eventListener: EventHandler<AnimationCreated>): EventListener
 
   @EventName("animationCreated")
-  public fun onAnimationCreated(eventListener: suspend (AnimationCreated) -> Unit): EventListener
+  fun onAnimationCreated(eventListener: suspend (AnimationCreated) -> Unit): EventListener
 
   @EventName("animationStarted")
-  public fun onAnimationStarted(eventListener: EventHandler<AnimationStarted>): EventListener
+  fun onAnimationStarted(eventListener: EventHandler<AnimationStarted>): EventListener
 
   @EventName("animationStarted")
-  public fun onAnimationStarted(eventListener: suspend (AnimationStarted) -> Unit): EventListener
+  fun onAnimationStarted(eventListener: suspend (AnimationStarted) -> Unit): EventListener
 }

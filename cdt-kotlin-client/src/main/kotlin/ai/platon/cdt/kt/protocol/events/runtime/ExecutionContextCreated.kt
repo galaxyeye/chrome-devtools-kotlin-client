@@ -6,7 +6,7 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 /**
  * Issued when new execution context is created.
  */
-public data class ExecutionContextCreated(
+data class ExecutionContextCreated(
   @field:JsonProperty("context")
-  public val context: ExecutionContextDescription,
+  val context: ExecutionContextDescription,
 )

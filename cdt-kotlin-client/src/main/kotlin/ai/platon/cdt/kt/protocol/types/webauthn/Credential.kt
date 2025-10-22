@@ -6,22 +6,22 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
 
-public data class Credential(
+data class Credential(
   @field:JsonProperty("credentialId")
-  public val credentialId: String,
+  val credentialId: String,
   @field:JsonProperty("isResidentCredential")
-  public val isResidentCredential: Boolean,
+  val isResidentCredential: Boolean,
   @field:JsonProperty("rpId")
   @param:Optional
-  public val rpId: String? = null,
+  val rpId: String? = null,
   @field:JsonProperty("privateKey")
-  public val privateKey: String,
+  val privateKey: String,
   @field:JsonProperty("userHandle")
   @param:Optional
-  public val userHandle: String? = null,
+  val userHandle: String? = null,
   @field:JsonProperty("signCount")
-  public val signCount: Int,
+  val signCount: Int,
   @field:JsonProperty("largeBlob")
   @param:Optional
-  public val largeBlob: String? = null,
+  val largeBlob: String? = null,
 )

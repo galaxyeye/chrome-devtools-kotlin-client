@@ -14,7 +14,7 @@ import kotlin.Unit
 import kotlin.collections.List
 
 @Experimental
-public interface Database {
+interface Database {
   /**
    * Disables database tracking, prevents database events from being sent to the client.
    */
@@ -29,20 +29,18 @@ public interface Database {
    * @param databaseId
    * @param query
    */
-  public suspend fun executeSQL(@ParamName("databaseId") databaseId: String, @ParamName("query")
-      query: String): ExecuteSQL
+  public suspend fun executeSQL(@ParamName("databaseId") databaseId: String, @ParamName("query") query: String): ExecuteSQL
 
   /**
    * @param databaseId
    */
   @Returns("tableNames")
   @ReturnTypeParameter(String::class)
-  public suspend fun getDatabaseTableNames(@ParamName("databaseId") databaseId: String):
-      List<String>
+  public suspend fun getDatabaseTableNames(@ParamName("databaseId") databaseId: String): List<String>
 
   @EventName("addDatabase")
-  public fun onAddDatabase(eventListener: EventHandler<AddDatabase>): EventListener
+  fun onAddDatabase(eventListener: EventHandler<AddDatabase>): EventListener
 
   @EventName("addDatabase")
-  public fun onAddDatabase(eventListener: suspend (AddDatabase) -> Unit): EventListener
+  fun onAddDatabase(eventListener: suspend (AddDatabase) -> Unit): EventListener
 }

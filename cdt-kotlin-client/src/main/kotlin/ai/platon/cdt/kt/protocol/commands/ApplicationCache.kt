@@ -15,7 +15,7 @@ import kotlin.Unit
 import kotlin.collections.List
 
 @Experimental
-public interface ApplicationCache {
+interface ApplicationCache {
   /**
    * Enables application cache domain notifications.
    */
@@ -23,12 +23,10 @@ public interface ApplicationCache {
 
   /**
    * Returns relevant application cache data for the document in given frame.
-   * @param frameId Identifier of the frame containing document whose application cache is
-   * retrieved.
+   * @param frameId Identifier of the frame containing document whose application cache is retrieved.
    */
   @Returns("applicationCache")
-  public suspend fun getApplicationCacheForFrame(@ParamName("frameId") frameId: String):
-      ai.platon.cdt.kt.protocol.types.applicationcache.ApplicationCache
+  public suspend fun getApplicationCacheForFrame(@ParamName("frameId") frameId: String): ai.platon.cdt.kt.protocol.types.applicationcache.ApplicationCache
 
   /**
    * Returns array of frame identifiers with manifest urls for each frame containing a document
@@ -46,19 +44,14 @@ public interface ApplicationCache {
   public suspend fun getManifestForFrame(@ParamName("frameId") frameId: String): String
 
   @EventName("applicationCacheStatusUpdated")
-  public
-      fun onApplicationCacheStatusUpdated(eventListener: EventHandler<ApplicationCacheStatusUpdated>):
-      EventListener
+  fun onApplicationCacheStatusUpdated(eventListener: EventHandler<ApplicationCacheStatusUpdated>): EventListener
 
   @EventName("applicationCacheStatusUpdated")
-  public
-      fun onApplicationCacheStatusUpdated(eventListener: suspend (ApplicationCacheStatusUpdated) -> Unit):
-      EventListener
+  fun onApplicationCacheStatusUpdated(eventListener: suspend (ApplicationCacheStatusUpdated) -> Unit): EventListener
 
   @EventName("networkStateUpdated")
-  public fun onNetworkStateUpdated(eventListener: EventHandler<NetworkStateUpdated>): EventListener
+  fun onNetworkStateUpdated(eventListener: EventHandler<NetworkStateUpdated>): EventListener
 
   @EventName("networkStateUpdated")
-  public fun onNetworkStateUpdated(eventListener: suspend (NetworkStateUpdated) -> Unit):
-      EventListener
+  fun onNetworkStateUpdated(eventListener: suspend (NetworkStateUpdated) -> Unit): EventListener
 }

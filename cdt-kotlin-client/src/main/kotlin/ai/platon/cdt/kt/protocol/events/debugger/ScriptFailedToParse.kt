@@ -14,52 +14,52 @@ import kotlin.collections.Map
 /**
  * Fired when virtual machine fails to parse the script.
  */
-public data class ScriptFailedToParse(
+data class ScriptFailedToParse(
   @field:JsonProperty("scriptId")
-  public val scriptId: String,
+  val scriptId: String,
   @field:JsonProperty("url")
-  public val url: String,
+  val url: String,
   @field:JsonProperty("startLine")
-  public val startLine: Int,
+  val startLine: Int,
   @field:JsonProperty("startColumn")
-  public val startColumn: Int,
+  val startColumn: Int,
   @field:JsonProperty("endLine")
-  public val endLine: Int,
+  val endLine: Int,
   @field:JsonProperty("endColumn")
-  public val endColumn: Int,
+  val endColumn: Int,
   @field:JsonProperty("executionContextId")
-  public val executionContextId: Int,
+  val executionContextId: Int,
   @field:JsonProperty("hash")
-  public val hash: String,
+  val hash: String,
   @field:JsonProperty("executionContextAuxData")
   @param:Optional
-  public val executionContextAuxData: Map<String, Any?>? = null,
+  val executionContextAuxData: Map<String, Any?>? = null,
   @field:JsonProperty("sourceMapURL")
   @param:Optional
-  public val sourceMapURL: String? = null,
+  val sourceMapURL: String? = null,
   @field:JsonProperty("hasSourceURL")
   @param:Optional
-  public val hasSourceURL: Boolean? = null,
+  val hasSourceURL: Boolean? = null,
   @field:JsonProperty("isModule")
   @param:Optional
-  public val isModule: Boolean? = null,
+  val isModule: Boolean? = null,
   @field:JsonProperty("length")
   @param:Optional
-  public val length: Int? = null,
+  val length: Int? = null,
   @field:JsonProperty("stackTrace")
   @param:Optional
   @param:Experimental
-  public val stackTrace: StackTrace? = null,
+  val stackTrace: StackTrace? = null,
   @field:JsonProperty("codeOffset")
   @param:Optional
   @param:Experimental
-  public val codeOffset: Int? = null,
+  val codeOffset: Int? = null,
   @field:JsonProperty("scriptLanguage")
   @param:Optional
   @param:Experimental
-  public val scriptLanguage: ScriptLanguage? = null,
+  val scriptLanguage: ScriptLanguage? = null,
   @field:JsonProperty("embedderName")
   @param:Optional
   @param:Experimental
-  public val embedderName: String? = null,
+  val embedderName: String? = null,
 )

@@ -6,7 +6,7 @@ import kotlin.String
 /**
  * Cached response
  */
-public data class CachedResponse(
+data class CachedResponse(
   @field:JsonProperty("body")
-  public val body: String,
+  val body: String,
 )

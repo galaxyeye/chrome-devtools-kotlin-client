@@ -9,20 +9,20 @@ import kotlin.collections.List
 /**
  * Box model.
  */
-public data class BoxModel(
+data class BoxModel(
   @field:JsonProperty("content")
-  public val content: List<Double>,
+  val content: List<Double>,
   @field:JsonProperty("padding")
-  public val padding: List<Double>,
+  val padding: List<Double>,
   @field:JsonProperty("border")
-  public val border: List<Double>,
+  val border: List<Double>,
   @field:JsonProperty("margin")
-  public val margin: List<Double>,
+  val margin: List<Double>,
   @field:JsonProperty("width")
-  public val width: Int,
+  val width: Int,
   @field:JsonProperty("height")
-  public val height: Int,
+  val height: Int,
   @field:JsonProperty("shapeOutside")
   @param:Optional
-  public val shapeOutside: ShapeOutsideInfo? = null,
+  val shapeOutside: ShapeOutsideInfo? = null,
 )

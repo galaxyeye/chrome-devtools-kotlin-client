@@ -8,7 +8,7 @@ import kotlin.String
  * Fired when frame has started loading.
  */
 @Experimental
-public data class FrameStartedLoading(
+data class FrameStartedLoading(
   @field:JsonProperty("frameId")
-  public val frameId: String,
+  val frameId: String,
 )

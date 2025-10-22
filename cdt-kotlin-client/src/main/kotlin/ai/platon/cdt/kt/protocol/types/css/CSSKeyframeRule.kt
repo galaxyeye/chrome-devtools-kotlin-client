@@ -7,14 +7,14 @@ import kotlin.String
 /**
  * CSS keyframe rule representation.
  */
-public data class CSSKeyframeRule(
+data class CSSKeyframeRule(
   @field:JsonProperty("styleSheetId")
   @param:Optional
-  public val styleSheetId: String? = null,
+  val styleSheetId: String? = null,
   @field:JsonProperty("origin")
-  public val origin: StyleSheetOrigin,
+  val origin: StyleSheetOrigin,
   @field:JsonProperty("keyText")
-  public val keyText: Value,
+  val keyText: Value,
   @field:JsonProperty("style")
-  public val style: CSSStyle,
+  val style: CSSStyle,
 )

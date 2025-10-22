@@ -12,31 +12,31 @@ import kotlin.collections.List
 /**
  * Log entry.
  */
-public data class LogEntry(
+data class LogEntry(
   @field:JsonProperty("source")
-  public val source: LogEntrySource,
+  val source: LogEntrySource,
   @field:JsonProperty("level")
-  public val level: LogEntryLevel,
+  val level: LogEntryLevel,
   @field:JsonProperty("text")
-  public val text: String,
+  val text: String,
   @field:JsonProperty("timestamp")
-  public val timestamp: Double,
+  val timestamp: Double,
   @field:JsonProperty("url")
   @param:Optional
-  public val url: String? = null,
+  val url: String? = null,
   @field:JsonProperty("lineNumber")
   @param:Optional
-  public val lineNumber: Int? = null,
+  val lineNumber: Int? = null,
   @field:JsonProperty("stackTrace")
   @param:Optional
-  public val stackTrace: StackTrace? = null,
+  val stackTrace: StackTrace? = null,
   @field:JsonProperty("networkRequestId")
   @param:Optional
-  public val networkRequestId: String? = null,
+  val networkRequestId: String? = null,
   @field:JsonProperty("workerId")
   @param:Optional
-  public val workerId: String? = null,
+  val workerId: String? = null,
   @field:JsonProperty("args")
   @param:Optional
-  public val args: List<RemoteObject>? = null,
+  val args: List<RemoteObject>? = null,
 )

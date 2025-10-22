@@ -6,9 +6,9 @@ import kotlin.String
 /**
  * Response HTTP header entry
  */
-public data class HeaderEntry(
+data class HeaderEntry(
   @field:JsonProperty("name")
-  public val name: String,
+  val name: String,
   @field:JsonProperty("value")
-  public val `value`: String,
+  val `value`: String,
 )

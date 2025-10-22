@@ -5,9 +5,9 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
 @Experimental
-public data class PermissionsPolicyBlockLocator(
+data class PermissionsPolicyBlockLocator(
   @field:JsonProperty("frameId")
-  public val frameId: String,
+  val frameId: String,
   @field:JsonProperty("blockReason")
-  public val blockReason: PermissionsPolicyBlockReason,
+  val blockReason: PermissionsPolicyBlockReason,
 )

@@ -9,9 +9,9 @@ import kotlin.collections.List
  * The installability error
  */
 @Experimental
-public data class InstallabilityError(
+data class InstallabilityError(
   @field:JsonProperty("errorId")
-  public val errorId: String,
+  val errorId: String,
   @field:JsonProperty("errorArguments")
-  public val errorArguments: List<InstallabilityErrorArgument>,
+  val errorArguments: List<InstallabilityErrorArgument>,
 )

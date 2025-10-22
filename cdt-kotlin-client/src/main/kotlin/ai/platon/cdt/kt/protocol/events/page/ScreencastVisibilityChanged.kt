@@ -8,7 +8,7 @@ import kotlin.Boolean
  * Fired when the page with currently enabled screencast was shown or hidden `.
  */
 @Experimental
-public data class ScreencastVisibilityChanged(
+data class ScreencastVisibilityChanged(
   @field:JsonProperty("visible")
-  public val visible: Boolean,
+  val visible: Boolean,
 )

@@ -11,19 +11,19 @@ import kotlin.String
  * https://w3c.github.io/permissions/#dictdef-permissiondescriptor.
  */
 @Experimental
-public data class PermissionDescriptor(
+data class PermissionDescriptor(
   @field:JsonProperty("name")
-  public val name: String,
+  val name: String,
   @field:JsonProperty("sysex")
   @param:Optional
-  public val sysex: Boolean? = null,
+  val sysex: Boolean? = null,
   @field:JsonProperty("userVisibleOnly")
   @param:Optional
-  public val userVisibleOnly: Boolean? = null,
+  val userVisibleOnly: Boolean? = null,
   @field:JsonProperty("allowWithoutSanitization")
   @param:Optional
-  public val allowWithoutSanitization: Boolean? = null,
+  val allowWithoutSanitization: Boolean? = null,
   @field:JsonProperty("panTiltZoom")
   @param:Optional
-  public val panTiltZoom: Boolean? = null,
+  val panTiltZoom: Boolean? = null,
 )

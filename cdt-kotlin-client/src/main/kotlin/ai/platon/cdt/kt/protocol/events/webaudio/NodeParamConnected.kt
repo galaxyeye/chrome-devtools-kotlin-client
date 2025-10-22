@@ -8,14 +8,14 @@ import kotlin.String
 /**
  * Notifies that an AudioNode is connected to an AudioParam.
  */
-public data class NodeParamConnected(
+data class NodeParamConnected(
   @field:JsonProperty("contextId")
-  public val contextId: String,
+  val contextId: String,
   @field:JsonProperty("sourceId")
-  public val sourceId: String,
+  val sourceId: String,
   @field:JsonProperty("destinationId")
-  public val destinationId: String,
+  val destinationId: String,
   @field:JsonProperty("sourceOutputIndex")
   @param:Optional
-  public val sourceOutputIndex: Double? = null,
+  val sourceOutputIndex: Double? = null,
 )

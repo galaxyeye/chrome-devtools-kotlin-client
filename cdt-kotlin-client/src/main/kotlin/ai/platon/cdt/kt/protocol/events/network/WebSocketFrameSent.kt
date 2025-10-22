@@ -8,11 +8,11 @@ import kotlin.String
 /**
  * Fired when WebSocket message is sent.
  */
-public data class WebSocketFrameSent(
+data class WebSocketFrameSent(
   @field:JsonProperty("requestId")
-  public val requestId: String,
+  val requestId: String,
   @field:JsonProperty("timestamp")
-  public val timestamp: Double,
+  val timestamp: Double,
   @field:JsonProperty("response")
-  public val response: WebSocketFrame,
+  val response: WebSocketFrame,
 )

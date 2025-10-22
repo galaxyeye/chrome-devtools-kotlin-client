@@ -16,16 +16,16 @@ import kotlin.collections.Map
  * it, and responseReceivedExtraInfo may be fired before or after responseReceived.
  */
 @Experimental
-public data class ResponseReceivedExtraInfo(
+data class ResponseReceivedExtraInfo(
   @field:JsonProperty("requestId")
-  public val requestId: String,
+  val requestId: String,
   @field:JsonProperty("blockedCookies")
-  public val blockedCookies: List<BlockedSetCookieWithReason>,
+  val blockedCookies: List<BlockedSetCookieWithReason>,
   @field:JsonProperty("headers")
-  public val headers: Map<String, Any?>,
+  val headers: Map<String, Any?>,
   @field:JsonProperty("resourceIPAddressSpace")
-  public val resourceIPAddressSpace: IPAddressSpace,
+  val resourceIPAddressSpace: IPAddressSpace,
   @field:JsonProperty("headersText")
   @param:Optional
-  public val headersText: String? = null,
+  val headersText: String? = null,
 )

@@ -8,13 +8,13 @@ import kotlin.String
 /**
  * CSS coverage information.
  */
-public data class RuleUsage(
+data class RuleUsage(
   @field:JsonProperty("styleSheetId")
-  public val styleSheetId: String,
+  val styleSheetId: String,
   @field:JsonProperty("startOffset")
-  public val startOffset: Double,
+  val startOffset: Double,
   @field:JsonProperty("endOffset")
-  public val endOffset: Double,
+  val endOffset: Double,
   @field:JsonProperty("used")
-  public val used: Boolean,
+  val used: Boolean,
 )

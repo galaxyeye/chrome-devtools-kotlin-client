@@ -6,9 +6,9 @@ import kotlin.Int
 /**
  * Configurations for Persistent Grid Highlight
  */
-public data class GridNodeHighlightConfig(
+data class GridNodeHighlightConfig(
   @field:JsonProperty("gridHighlightConfig")
-  public val gridHighlightConfig: GridHighlightConfig,
+  val gridHighlightConfig: GridHighlightConfig,
   @field:JsonProperty("nodeId")
-  public val nodeId: Int,
+  val nodeId: Int,
 )

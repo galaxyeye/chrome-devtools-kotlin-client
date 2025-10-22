@@ -6,7 +6,7 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 /**
  * Issued when new console message is added.
  */
-public data class MessageAdded(
+data class MessageAdded(
   @field:JsonProperty("message")
-  public val message: ConsoleMessage,
+  val message: ConsoleMessage,
 )

@@ -9,7 +9,7 @@ import kotlin.collections.List
  * a list of active players. If an agent is restored, it will receive the full
  * list of player ids and all events again.
  */
-public data class PlayersCreated(
+data class PlayersCreated(
   @field:JsonProperty("players")
-  public val players: List<String>,
+  val players: List<String>,
 )

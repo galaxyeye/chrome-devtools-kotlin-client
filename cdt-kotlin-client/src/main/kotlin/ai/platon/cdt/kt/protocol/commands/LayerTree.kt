@@ -22,7 +22,7 @@ import kotlin.collections.List
 import kotlin.collections.Map
 
 @Experimental
-public interface LayerTree {
+interface LayerTree {
   /**
    * Provides the reasons why the given layer was composited.
    * @param layerId The id of the layer for which we want to get the reasons it was composited.
@@ -70,8 +70,7 @@ public interface LayerTree {
 
   @Returns("timings")
   @ReturnTypeParameter(Double::class)
-  public suspend fun profileSnapshot(@ParamName("snapshotId") snapshotId: String):
-      List<List<Double>> {
+  public suspend fun profileSnapshot(@ParamName("snapshotId") snapshotId: String): List<List<Double>> {
     return profileSnapshot(snapshotId, null, null, null)
   }
 
@@ -107,19 +106,17 @@ public interface LayerTree {
    */
   @Returns("commandLog")
   @ReturnTypeParameter(String::class, Any::class)
-  public suspend fun snapshotCommandLog(@ParamName("snapshotId") snapshotId: String):
-      List<Map<String, Any?>>
+  public suspend fun snapshotCommandLog(@ParamName("snapshotId") snapshotId: String): List<Map<String, Any?>>
 
   @EventName("layerPainted")
-  public fun onLayerPainted(eventListener: EventHandler<LayerPainted>): EventListener
+  fun onLayerPainted(eventListener: EventHandler<LayerPainted>): EventListener
 
   @EventName("layerPainted")
-  public fun onLayerPainted(eventListener: suspend (LayerPainted) -> Unit): EventListener
+  fun onLayerPainted(eventListener: suspend (LayerPainted) -> Unit): EventListener
 
   @EventName("layerTreeDidChange")
-  public fun onLayerTreeDidChange(eventListener: EventHandler<LayerTreeDidChange>): EventListener
+  fun onLayerTreeDidChange(eventListener: EventHandler<LayerTreeDidChange>): EventListener
 
   @EventName("layerTreeDidChange")
-  public fun onLayerTreeDidChange(eventListener: suspend (LayerTreeDidChange) -> Unit):
-      EventListener
+  fun onLayerTreeDidChange(eventListener: suspend (LayerTreeDidChange) -> Unit): EventListener
 }

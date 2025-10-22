@@ -6,11 +6,11 @@ import kotlin.String
 /**
  * The origin's IndexedDB object store has been modified.
  */
-public data class IndexedDBContentUpdated(
+data class IndexedDBContentUpdated(
   @field:JsonProperty("origin")
-  public val origin: String,
+  val origin: String,
   @field:JsonProperty("databaseName")
-  public val databaseName: String,
+  val databaseName: String,
   @field:JsonProperty("objectStoreName")
-  public val objectStoreName: String,
+  val objectStoreName: String,
 )

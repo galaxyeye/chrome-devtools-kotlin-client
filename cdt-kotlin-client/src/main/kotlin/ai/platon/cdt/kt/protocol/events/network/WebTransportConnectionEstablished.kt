@@ -7,9 +7,9 @@ import kotlin.String
 /**
  * Fired when WebTransport handshake is finished.
  */
-public data class WebTransportConnectionEstablished(
+data class WebTransportConnectionEstablished(
   @field:JsonProperty("transportId")
-  public val transportId: String,
+  val transportId: String,
   @field:JsonProperty("timestamp")
-  public val timestamp: Double,
+  val timestamp: Double,
 )

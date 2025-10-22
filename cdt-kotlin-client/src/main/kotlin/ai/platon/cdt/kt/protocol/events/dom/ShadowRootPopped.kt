@@ -8,9 +8,9 @@ import kotlin.Int
  * Called when shadow root is popped from the element.
  */
 @Experimental
-public data class ShadowRootPopped(
+data class ShadowRootPopped(
   @field:JsonProperty("hostId")
-  public val hostId: Int,
+  val hostId: Int,
   @field:JsonProperty("rootId")
-  public val rootId: Int,
+  val rootId: Int,
 )

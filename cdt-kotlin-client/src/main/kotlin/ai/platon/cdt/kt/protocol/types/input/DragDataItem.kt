@@ -6,15 +6,15 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
 @Experimental
-public data class DragDataItem(
+data class DragDataItem(
   @field:JsonProperty("mimeType")
-  public val mimeType: String,
+  val mimeType: String,
   @field:JsonProperty("data")
-  public val `data`: String,
+  val `data`: String,
   @field:JsonProperty("title")
   @param:Optional
-  public val title: String? = null,
+  val title: String? = null,
   @field:JsonProperty("baseURL")
   @param:Optional
-  public val baseURL: String? = null,
+  val baseURL: String? = null,
 )

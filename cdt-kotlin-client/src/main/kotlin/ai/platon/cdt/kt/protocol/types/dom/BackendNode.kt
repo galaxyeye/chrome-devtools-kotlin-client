@@ -7,11 +7,11 @@ import kotlin.String
 /**
  * Backend node with a friendly name.
  */
-public data class BackendNode(
+data class BackendNode(
   @field:JsonProperty("nodeType")
-  public val nodeType: Int,
+  val nodeType: Int,
   @field:JsonProperty("nodeName")
-  public val nodeName: String,
+  val nodeName: String,
   @field:JsonProperty("backendNodeId")
-  public val backendNodeId: Int,
+  val backendNodeId: Int,
 )

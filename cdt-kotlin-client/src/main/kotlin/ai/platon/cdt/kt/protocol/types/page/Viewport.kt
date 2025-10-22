@@ -6,15 +6,15 @@ import kotlin.Double
 /**
  * Viewport for capturing screenshot.
  */
-public data class Viewport(
+data class Viewport(
   @field:JsonProperty("x")
-  public val x: Double,
+  val x: Double,
   @field:JsonProperty("y")
-  public val y: Double,
+  val y: Double,
   @field:JsonProperty("width")
-  public val width: Double,
+  val width: Double,
   @field:JsonProperty("height")
-  public val height: Double,
+  val height: Double,
   @field:JsonProperty("scale")
-  public val scale: Double,
+  val scale: Double,
 )

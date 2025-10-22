@@ -7,15 +7,15 @@ import kotlin.String
 /**
  * Stack entry for runtime errors and assertions.
  */
-public data class CallFrame(
+data class CallFrame(
   @field:JsonProperty("functionName")
-  public val functionName: String,
+  val functionName: String,
   @field:JsonProperty("scriptId")
-  public val scriptId: String,
+  val scriptId: String,
   @field:JsonProperty("url")
-  public val url: String,
+  val url: String,
   @field:JsonProperty("lineNumber")
-  public val lineNumber: Int,
+  val lineNumber: Int,
   @field:JsonProperty("columnNumber")
-  public val columnNumber: Int,
+  val columnNumber: Int,
 )

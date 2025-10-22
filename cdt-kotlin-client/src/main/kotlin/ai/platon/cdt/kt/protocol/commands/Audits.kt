@@ -18,7 +18,7 @@ import kotlin.Unit
  * Audits domain allows investigation of page violations and possible improvements.
  */
 @Experimental
-public interface Audits {
+interface Audits {
   /**
    * Returns the response body and size if it were re-encoded with the specified settings. Only
    * applies to images.
@@ -34,8 +34,7 @@ public interface Audits {
     @ParamName("sizeOnly") @Optional sizeOnly: Boolean? = null,
   ): EncodedResponse
 
-  public suspend fun getEncodedResponse(@ParamName("requestId") requestId: String,
-      @ParamName("encoding") encoding: GetEncodedResponseEncoding): EncodedResponse {
+  public suspend fun getEncodedResponse(@ParamName("requestId") requestId: String, @ParamName("encoding") encoding: GetEncodedResponseEncoding): EncodedResponse {
     return getEncodedResponse(requestId, encoding, null, null)
   }
 
@@ -62,8 +61,8 @@ public interface Audits {
   }
 
   @EventName("issueAdded")
-  public fun onIssueAdded(eventListener: EventHandler<IssueAdded>): EventListener
+  fun onIssueAdded(eventListener: EventHandler<IssueAdded>): EventListener
 
   @EventName("issueAdded")
-  public fun onIssueAdded(eventListener: suspend (IssueAdded) -> Unit): EventListener
+  fun onIssueAdded(eventListener: suspend (IssueAdded) -> Unit): EventListener
 }

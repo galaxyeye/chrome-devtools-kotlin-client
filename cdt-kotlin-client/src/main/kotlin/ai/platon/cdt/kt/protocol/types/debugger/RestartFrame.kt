@@ -7,14 +7,14 @@ import ai.platon.cdt.kt.protocol.types.runtime.StackTraceId
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.collections.List
 
-public data class RestartFrame(
+data class RestartFrame(
   @field:JsonProperty("callFrames")
-  public val callFrames: List<CallFrame>,
+  val callFrames: List<CallFrame>,
   @field:JsonProperty("asyncStackTrace")
   @param:Optional
-  public val asyncStackTrace: StackTrace? = null,
+  val asyncStackTrace: StackTrace? = null,
   @field:JsonProperty("asyncStackTraceId")
   @param:Optional
   @param:Experimental
-  public val asyncStackTraceId: StackTraceId? = null,
+  val asyncStackTraceId: StackTraceId? = null,
 )

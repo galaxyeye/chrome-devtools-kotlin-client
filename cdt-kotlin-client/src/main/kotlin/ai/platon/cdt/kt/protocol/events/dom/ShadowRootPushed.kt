@@ -9,9 +9,9 @@ import kotlin.Int
  * Called when shadow root is pushed into the element.
  */
 @Experimental
-public data class ShadowRootPushed(
+data class ShadowRootPushed(
   @field:JsonProperty("hostId")
-  public val hostId: Int,
+  val hostId: Int,
   @field:JsonProperty("root")
-  public val root: Node,
+  val root: Node,
 )

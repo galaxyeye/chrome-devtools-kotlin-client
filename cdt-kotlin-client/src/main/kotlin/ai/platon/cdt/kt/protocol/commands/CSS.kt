@@ -41,7 +41,7 @@ import kotlin.collections.List
  * subsequently load the required stylesheet contents using the `getStyleSheet[Text]()` methods.
  */
 @Experimental
-public interface CSS {
+interface CSS {
   /**
    * Inserts a new rule with the given `ruleText` in a stylesheet with given `styleSheetId`, at the
    * position specified by `location`.
@@ -62,8 +62,7 @@ public interface CSS {
    */
   @Returns("classNames")
   @ReturnTypeParameter(String::class)
-  public suspend fun collectClassNames(@ParamName("styleSheetId") styleSheetId: String):
-      List<String>
+  public suspend fun collectClassNames(@ParamName("styleSheetId") styleSheetId: String): List<String>
 
   /**
    * Creates a new special "via-inspector" stylesheet in the frame with given `frameId`.
@@ -84,14 +83,12 @@ public interface CSS {
   public suspend fun enable()
 
   /**
-   * Ensures that the given node will have specified pseudo-classes whenever its style is computed
-   * by
+   * Ensures that the given node will have specified pseudo-classes whenever its style is computed by
    * the browser.
    * @param nodeId The element id for which to force the pseudo state.
    * @param forcedPseudoClasses Element pseudo classes to force when computing the element's style.
    */
-  public suspend fun forcePseudoState(@ParamName("nodeId") nodeId: Int,
-      @ParamName("forcedPseudoClasses") forcedPseudoClasses: List<String>)
+  public suspend fun forcePseudoState(@ParamName("nodeId") nodeId: Int, @ParamName("forcedPseudoClasses") forcedPseudoClasses: List<String>)
 
   /**
    * @param nodeId Id of the node to get background colors for.
@@ -104,12 +101,10 @@ public interface CSS {
    */
   @Returns("computedStyle")
   @ReturnTypeParameter(CSSComputedStyleProperty::class)
-  public suspend fun getComputedStyleForNode(@ParamName("nodeId") nodeId: Int):
-      List<CSSComputedStyleProperty>
+  public suspend fun getComputedStyleForNode(@ParamName("nodeId") nodeId: Int): List<CSSComputedStyleProperty>
 
   /**
-   * Returns the styles defined inline (explicitly in the "style" attribute and implicitly, using
-   * DOM
+   * Returns the styles defined inline (explicitly in the "style" attribute and implicitly, using DOM
    * attributes) for a DOM node identified by `nodeId`.
    * @param nodeId
    */
@@ -135,8 +130,7 @@ public interface CSS {
    */
   @Returns("fonts")
   @ReturnTypeParameter(PlatformFontUsage::class)
-  public suspend fun getPlatformFontsForNode(@ParamName("nodeId") nodeId: Int):
-      List<PlatformFontUsage>
+  public suspend fun getPlatformFontsForNode(@ParamName("nodeId") nodeId: Int): List<PlatformFontUsage>
 
   /**
    * Returns the current textual content for a stylesheet.
@@ -155,8 +149,7 @@ public interface CSS {
    * @param propertiesToTrack
    */
   @Experimental
-  public suspend fun trackComputedStyleUpdates(@ParamName("propertiesToTrack")
-      propertiesToTrack: List<CSSComputedStyleProperty>)
+  public suspend fun trackComputedStyleUpdates(@ParamName("propertiesToTrack") propertiesToTrack: List<CSSComputedStyleProperty>)
 
   /**
    * Polls the next batch of computed style updates.
@@ -224,8 +217,7 @@ public interface CSS {
    * @param text
    */
   @Returns("sourceMapURL")
-  public suspend fun setStyleSheetText(@ParamName("styleSheetId") styleSheetId: String,
-      @ParamName("text") text: String): String?
+  public suspend fun setStyleSheetText(@ParamName("styleSheetId") styleSheetId: String, @ParamName("text") text: String): String?
 
   /**
    * Applies specified style edits one after another in the given order.
@@ -233,8 +225,7 @@ public interface CSS {
    */
   @Returns("styles")
   @ReturnTypeParameter(CSSStyle::class)
-  public suspend fun setStyleTexts(@ParamName("edits") edits: List<StyleDeclarationEdit>):
-      List<CSSStyle>
+  public suspend fun setStyleTexts(@ParamName("edits") edits: List<StyleDeclarationEdit>): List<CSSStyle>
 
   /**
    * Enables the selector recording.
@@ -250,8 +241,7 @@ public interface CSS {
   public suspend fun stopRuleUsageTracking(): List<RuleUsage>
 
   /**
-   * Obtain list of rules that became used since last call to this method (or since start of
-   * coverage
+   * Obtain list of rules that became used since last call to this method (or since start of coverage
    * instrumentation)
    */
   public suspend fun takeCoverageDelta(): TakeCoverageDelta
@@ -264,34 +254,32 @@ public interface CSS {
   public suspend fun setLocalFontsEnabled(@ParamName("enabled") enabled: Boolean)
 
   @EventName("fontsUpdated")
-  public fun onFontsUpdated(eventListener: EventHandler<FontsUpdated>): EventListener
+  fun onFontsUpdated(eventListener: EventHandler<FontsUpdated>): EventListener
 
   @EventName("fontsUpdated")
-  public fun onFontsUpdated(eventListener: suspend (FontsUpdated) -> Unit): EventListener
+  fun onFontsUpdated(eventListener: suspend (FontsUpdated) -> Unit): EventListener
 
   @EventName("mediaQueryResultChanged")
-  public fun onMediaQueryResultChanged(eventListener: EventHandler<MediaQueryResultChanged>):
-      EventListener
+  fun onMediaQueryResultChanged(eventListener: EventHandler<MediaQueryResultChanged>): EventListener
 
   @EventName("mediaQueryResultChanged")
-  public fun onMediaQueryResultChanged(eventListener: suspend (MediaQueryResultChanged) -> Unit):
-      EventListener
+  fun onMediaQueryResultChanged(eventListener: suspend (MediaQueryResultChanged) -> Unit): EventListener
 
   @EventName("styleSheetAdded")
-  public fun onStyleSheetAdded(eventListener: EventHandler<StyleSheetAdded>): EventListener
+  fun onStyleSheetAdded(eventListener: EventHandler<StyleSheetAdded>): EventListener
 
   @EventName("styleSheetAdded")
-  public fun onStyleSheetAdded(eventListener: suspend (StyleSheetAdded) -> Unit): EventListener
+  fun onStyleSheetAdded(eventListener: suspend (StyleSheetAdded) -> Unit): EventListener
 
   @EventName("styleSheetChanged")
-  public fun onStyleSheetChanged(eventListener: EventHandler<StyleSheetChanged>): EventListener
+  fun onStyleSheetChanged(eventListener: EventHandler<StyleSheetChanged>): EventListener
 
   @EventName("styleSheetChanged")
-  public fun onStyleSheetChanged(eventListener: suspend (StyleSheetChanged) -> Unit): EventListener
+  fun onStyleSheetChanged(eventListener: suspend (StyleSheetChanged) -> Unit): EventListener
 
   @EventName("styleSheetRemoved")
-  public fun onStyleSheetRemoved(eventListener: EventHandler<StyleSheetRemoved>): EventListener
+  fun onStyleSheetRemoved(eventListener: EventHandler<StyleSheetRemoved>): EventListener
 
   @EventName("styleSheetRemoved")
-  public fun onStyleSheetRemoved(eventListener: suspend (StyleSheetRemoved) -> Unit): EventListener
+  fun onStyleSheetRemoved(eventListener: suspend (StyleSheetRemoved) -> Unit): EventListener
 }

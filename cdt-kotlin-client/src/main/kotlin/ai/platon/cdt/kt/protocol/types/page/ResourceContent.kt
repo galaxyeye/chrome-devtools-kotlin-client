@@ -4,9 +4,9 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Boolean
 import kotlin.String
 
-public data class ResourceContent(
+data class ResourceContent(
   @field:JsonProperty("content")
-  public val content: String,
+  val content: String,
   @field:JsonProperty("base64Encoded")
-  public val base64Encoded: Boolean,
+  val base64Encoded: Boolean,
 )

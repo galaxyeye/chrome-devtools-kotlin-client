@@ -14,7 +14,7 @@ import kotlin.String
 import kotlin.collections.List
 
 @Experimental
-public interface CacheStorage {
+interface CacheStorage {
   /**
    * Deletes a cache.
    * @param cacheId Id of cache for deletion.
@@ -26,8 +26,7 @@ public interface CacheStorage {
    * @param cacheId Id of cache where the entry will be deleted.
    * @param request URL spec of the request.
    */
-  public suspend fun deleteEntry(@ParamName("cacheId") cacheId: String, @ParamName("request")
-      request: String)
+  public suspend fun deleteEntry(@ParamName("cacheId") cacheId: String, @ParamName("request") request: String)
 
   /**
    * Requests cache names.
@@ -35,8 +34,7 @@ public interface CacheStorage {
    */
   @Returns("caches")
   @ReturnTypeParameter(Cache::class)
-  public suspend fun requestCacheNames(@ParamName("securityOrigin") securityOrigin: String):
-      List<Cache>
+  public suspend fun requestCacheNames(@ParamName("securityOrigin") securityOrigin: String): List<Cache>
 
   /**
    * Fetches cache entry.

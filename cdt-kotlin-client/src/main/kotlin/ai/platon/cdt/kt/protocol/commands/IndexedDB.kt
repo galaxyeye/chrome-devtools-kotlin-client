@@ -14,7 +14,7 @@ import kotlin.String
 import kotlin.collections.List
 
 @Experimental
-public interface IndexedDB {
+interface IndexedDB {
   /**
    * Clears all entries from an object store.
    * @param securityOrigin Security origin.
@@ -32,8 +32,7 @@ public interface IndexedDB {
    * @param securityOrigin Security origin.
    * @param databaseName Database name.
    */
-  public suspend fun deleteDatabase(@ParamName("securityOrigin") securityOrigin: String,
-      @ParamName("databaseName") databaseName: String)
+  public suspend fun deleteDatabase(@ParamName("securityOrigin") securityOrigin: String, @ParamName("databaseName") databaseName: String)
 
   /**
    * Delete a range of entries from an object store
@@ -87,8 +86,7 @@ public interface IndexedDB {
     @ParamName("skipCount") skipCount: Int,
     @ParamName("pageSize") pageSize: Int,
   ): RequestData {
-    return requestData(securityOrigin, databaseName, objectStoreName, indexName, skipCount,
-        pageSize, null)
+    return requestData(securityOrigin, databaseName, objectStoreName, indexName, skipCount, pageSize, null)
   }
 
   /**
@@ -109,8 +107,7 @@ public interface IndexedDB {
    * @param databaseName Database name.
    */
   @Returns("databaseWithObjectStores")
-  public suspend fun requestDatabase(@ParamName("securityOrigin") securityOrigin: String,
-      @ParamName("databaseName") databaseName: String): DatabaseWithObjectStores
+  public suspend fun requestDatabase(@ParamName("securityOrigin") securityOrigin: String, @ParamName("databaseName") databaseName: String): DatabaseWithObjectStores
 
   /**
    * Requests database names for given security origin.
@@ -118,6 +115,5 @@ public interface IndexedDB {
    */
   @Returns("databaseNames")
   @ReturnTypeParameter(String::class)
-  public suspend fun requestDatabaseNames(@ParamName("securityOrigin") securityOrigin: String):
-      List<String>
+  public suspend fun requestDatabaseNames(@ParamName("securityOrigin") securityOrigin: String): List<String>
 }

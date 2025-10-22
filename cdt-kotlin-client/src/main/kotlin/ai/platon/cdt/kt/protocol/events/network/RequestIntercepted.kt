@@ -21,36 +21,36 @@ import kotlin.collections.Map
  */
 @Experimental
 @Deprecated
-public data class RequestIntercepted(
+data class RequestIntercepted(
   @field:JsonProperty("interceptionId")
-  public val interceptionId: String,
+  val interceptionId: String,
   @field:JsonProperty("request")
-  public val request: Request,
+  val request: Request,
   @field:JsonProperty("frameId")
-  public val frameId: String,
+  val frameId: String,
   @field:JsonProperty("resourceType")
-  public val resourceType: ResourceType,
+  val resourceType: ResourceType,
   @field:JsonProperty("isNavigationRequest")
-  public val isNavigationRequest: Boolean,
+  val isNavigationRequest: Boolean,
   @field:JsonProperty("isDownload")
   @param:Optional
-  public val isDownload: Boolean? = null,
+  val isDownload: Boolean? = null,
   @field:JsonProperty("redirectUrl")
   @param:Optional
-  public val redirectUrl: String? = null,
+  val redirectUrl: String? = null,
   @field:JsonProperty("authChallenge")
   @param:Optional
-  public val authChallenge: AuthChallenge? = null,
+  val authChallenge: AuthChallenge? = null,
   @field:JsonProperty("responseErrorReason")
   @param:Optional
-  public val responseErrorReason: ErrorReason? = null,
+  val responseErrorReason: ErrorReason? = null,
   @field:JsonProperty("responseStatusCode")
   @param:Optional
-  public val responseStatusCode: Int? = null,
+  val responseStatusCode: Int? = null,
   @field:JsonProperty("responseHeaders")
   @param:Optional
-  public val responseHeaders: Map<String, Any?>? = null,
+  val responseHeaders: Map<String, Any?>? = null,
   @field:JsonProperty("requestId")
   @param:Optional
-  public val requestId: String? = null,
+  val requestId: String? = null,
 )

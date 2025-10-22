@@ -9,28 +9,28 @@ import kotlin.String
  * Detailed information about exception (or error) that was thrown during script compilation or
  * execution.
  */
-public data class ExceptionDetails(
+data class ExceptionDetails(
   @field:JsonProperty("exceptionId")
-  public val exceptionId: Int,
+  val exceptionId: Int,
   @field:JsonProperty("text")
-  public val text: String,
+  val text: String,
   @field:JsonProperty("lineNumber")
-  public val lineNumber: Int,
+  val lineNumber: Int,
   @field:JsonProperty("columnNumber")
-  public val columnNumber: Int,
+  val columnNumber: Int,
   @field:JsonProperty("scriptId")
   @param:Optional
-  public val scriptId: String? = null,
+  val scriptId: String? = null,
   @field:JsonProperty("url")
   @param:Optional
-  public val url: String? = null,
+  val url: String? = null,
   @field:JsonProperty("stackTrace")
   @param:Optional
-  public val stackTrace: StackTrace? = null,
+  val stackTrace: StackTrace? = null,
   @field:JsonProperty("exception")
   @param:Optional
-  public val exception: RemoteObject? = null,
+  val exception: RemoteObject? = null,
   @field:JsonProperty("executionContextId")
   @param:Optional
-  public val executionContextId: Int? = null,
+  val executionContextId: Int? = null,
 )

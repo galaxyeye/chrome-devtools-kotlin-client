@@ -6,9 +6,9 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 /**
  * Configuration data for drawing the source order of an elements children.
  */
-public data class SourceOrderConfig(
+data class SourceOrderConfig(
   @field:JsonProperty("parentOutlineColor")
-  public val parentOutlineColor: RGBA,
+  val parentOutlineColor: RGBA,
   @field:JsonProperty("childOutlineColor")
-  public val childOutlineColor: RGBA,
+  val childOutlineColor: RGBA,
 )

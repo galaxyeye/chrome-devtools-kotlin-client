@@ -8,7 +8,7 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * The security state of the page changed.
  */
 @Experimental
-public data class VisibleSecurityStateChanged(
+data class VisibleSecurityStateChanged(
   @field:JsonProperty("visibleSecurityState")
-  public val visibleSecurityState: VisibleSecurityState,
+  val visibleSecurityState: VisibleSecurityState,
 )

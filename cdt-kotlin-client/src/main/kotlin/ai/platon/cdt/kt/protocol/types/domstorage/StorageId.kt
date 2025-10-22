@@ -7,9 +7,9 @@ import kotlin.String
 /**
  * DOM Storage identifier.
  */
-public data class StorageId(
+data class StorageId(
   @field:JsonProperty("securityOrigin")
-  public val securityOrigin: String,
+  val securityOrigin: String,
   @field:JsonProperty("isLocalStorage")
-  public val isLocalStorage: Boolean,
+  val isLocalStorage: Boolean,
 )

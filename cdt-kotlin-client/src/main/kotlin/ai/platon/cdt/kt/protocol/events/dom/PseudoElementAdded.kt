@@ -9,9 +9,9 @@ import kotlin.Int
  * Called when a pseudo element is added to an element.
  */
 @Experimental
-public data class PseudoElementAdded(
+data class PseudoElementAdded(
   @field:JsonProperty("parentId")
-  public val parentId: Int,
+  val parentId: Int,
   @field:JsonProperty("pseudoElement")
-  public val pseudoElement: Node,
+  val pseudoElement: Node,
 )

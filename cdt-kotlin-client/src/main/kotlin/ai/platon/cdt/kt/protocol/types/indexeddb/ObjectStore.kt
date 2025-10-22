@@ -8,13 +8,13 @@ import kotlin.collections.List
 /**
  * Object store.
  */
-public data class ObjectStore(
+data class ObjectStore(
   @field:JsonProperty("name")
-  public val name: String,
+  val name: String,
   @field:JsonProperty("keyPath")
-  public val keyPath: KeyPath,
+  val keyPath: KeyPath,
   @field:JsonProperty("autoIncrement")
-  public val autoIncrement: Boolean,
+  val autoIncrement: Boolean,
   @field:JsonProperty("indexes")
-  public val indexes: List<ObjectStoreIndex>,
+  val indexes: List<ObjectStoreIndex>,
 )

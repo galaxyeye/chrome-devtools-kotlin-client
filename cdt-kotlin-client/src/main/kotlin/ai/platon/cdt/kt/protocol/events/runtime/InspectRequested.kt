@@ -10,9 +10,9 @@ import kotlin.collections.Map
  * Issued when object should be inspected (for example, as a result of inspect() command line API
  * call).
  */
-public data class InspectRequested(
+data class InspectRequested(
   @field:JsonProperty("object")
-  public val `object`: RemoteObject,
+  val `object`: RemoteObject,
   @field:JsonProperty("hints")
-  public val hints: Map<String, Any?>,
+  val hints: Map<String, Any?>,
 )

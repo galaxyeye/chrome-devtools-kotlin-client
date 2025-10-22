@@ -8,11 +8,11 @@ import kotlin.Int
  * Chrome histogram bucket.
  */
 @Experimental
-public data class Bucket(
+data class Bucket(
   @field:JsonProperty("low")
-  public val low: Int,
+  val low: Int,
   @field:JsonProperty("high")
-  public val high: Int,
+  val high: Int,
   @field:JsonProperty("count")
-  public val count: Int,
+  val count: Int,
 )

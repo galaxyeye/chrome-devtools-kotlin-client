@@ -6,15 +6,15 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
 @Experimental
-public data class CrossOriginEmbedderPolicyStatus(
+data class CrossOriginEmbedderPolicyStatus(
   @field:JsonProperty("value")
-  public val `value`: CrossOriginEmbedderPolicyValue,
+  val `value`: CrossOriginEmbedderPolicyValue,
   @field:JsonProperty("reportOnlyValue")
-  public val reportOnlyValue: CrossOriginEmbedderPolicyValue,
+  val reportOnlyValue: CrossOriginEmbedderPolicyValue,
   @field:JsonProperty("reportingEndpoint")
   @param:Optional
-  public val reportingEndpoint: String? = null,
+  val reportingEndpoint: String? = null,
   @field:JsonProperty("reportOnlyReportingEndpoint")
   @param:Optional
-  public val reportOnlyReportingEndpoint: String? = null,
+  val reportOnlyReportingEndpoint: String? = null,
 )

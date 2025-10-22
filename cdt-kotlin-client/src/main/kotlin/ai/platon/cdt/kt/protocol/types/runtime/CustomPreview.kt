@@ -6,10 +6,10 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
 @Experimental
-public data class CustomPreview(
+data class CustomPreview(
   @field:JsonProperty("header")
-  public val `header`: String,
+  val `header`: String,
   @field:JsonProperty("bodyGetterId")
   @param:Optional
-  public val bodyGetterId: String? = null,
+  val bodyGetterId: String? = null,
 )

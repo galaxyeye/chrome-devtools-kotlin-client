@@ -9,14 +9,14 @@ import kotlin.String
 /**
  * Fired upon WebTransport creation.
  */
-public data class WebTransportCreated(
+data class WebTransportCreated(
   @field:JsonProperty("transportId")
-  public val transportId: String,
+  val transportId: String,
   @field:JsonProperty("url")
-  public val url: String,
+  val url: String,
   @field:JsonProperty("timestamp")
-  public val timestamp: Double,
+  val timestamp: Double,
   @field:JsonProperty("initiator")
   @param:Optional
-  public val initiator: Initiator? = null,
+  val initiator: Initiator? = null,
 )

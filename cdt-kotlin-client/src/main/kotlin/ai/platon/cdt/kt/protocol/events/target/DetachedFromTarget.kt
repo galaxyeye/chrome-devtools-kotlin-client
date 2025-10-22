@@ -11,11 +11,11 @@ import kotlin.String
  * issued multiple times per target if multiple sessions have been attached to it.
  */
 @Experimental
-public data class DetachedFromTarget(
+data class DetachedFromTarget(
   @field:JsonProperty("sessionId")
-  public val sessionId: String,
+  val sessionId: String,
   @field:JsonProperty("targetId")
   @param:Optional
   @param:Deprecated
-  public val targetId: String? = null,
+  val targetId: String? = null,
 )

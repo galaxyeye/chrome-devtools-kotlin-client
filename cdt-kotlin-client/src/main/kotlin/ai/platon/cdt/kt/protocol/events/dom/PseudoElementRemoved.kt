@@ -8,9 +8,9 @@ import kotlin.Int
  * Called when a pseudo element is removed from an element.
  */
 @Experimental
-public data class PseudoElementRemoved(
+data class PseudoElementRemoved(
   @field:JsonProperty("parentId")
-  public val parentId: Int,
+  val parentId: Int,
   @field:JsonProperty("pseudoElementId")
-  public val pseudoElementId: Int,
+  val pseudoElementId: Int,
 )

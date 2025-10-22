@@ -6,14 +6,13 @@ import kotlin.Double
 import kotlin.String
 
 /**
- * WebSocket message data. This represents an entire WebSocket message, not just a fragmented frame
- * as the name suggests.
+ * WebSocket message data. This represents an entire WebSocket message, not just a fragmented frame as the name suggests.
  */
-public data class WebSocketFrame(
+data class WebSocketFrame(
   @field:JsonProperty("opcode")
-  public val opcode: Double,
+  val opcode: Double,
   @field:JsonProperty("mask")
-  public val mask: Boolean,
+  val mask: Boolean,
   @field:JsonProperty("payloadData")
-  public val payloadData: String,
+  val payloadData: String,
 )

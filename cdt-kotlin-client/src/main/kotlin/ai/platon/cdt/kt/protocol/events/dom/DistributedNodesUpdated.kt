@@ -10,9 +10,9 @@ import kotlin.collections.List
  * Called when distribution is changed.
  */
 @Experimental
-public data class DistributedNodesUpdated(
+data class DistributedNodesUpdated(
   @field:JsonProperty("insertionPointId")
-  public val insertionPointId: Int,
+  val insertionPointId: Int,
   @field:JsonProperty("distributedNodes")
-  public val distributedNodes: List<BackendNode>,
+  val distributedNodes: List<BackendNode>,
 )

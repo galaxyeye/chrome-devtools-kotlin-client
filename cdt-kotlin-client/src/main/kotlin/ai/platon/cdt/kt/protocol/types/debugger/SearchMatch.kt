@@ -7,9 +7,9 @@ import kotlin.String
 /**
  * Search match for resource.
  */
-public data class SearchMatch(
+data class SearchMatch(
   @field:JsonProperty("lineNumber")
-  public val lineNumber: Double,
+  val lineNumber: Double,
   @field:JsonProperty("lineContent")
-  public val lineContent: String,
+  val lineContent: String,
 )

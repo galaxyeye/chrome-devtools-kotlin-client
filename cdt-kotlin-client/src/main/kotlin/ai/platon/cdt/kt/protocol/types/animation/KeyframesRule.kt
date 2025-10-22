@@ -8,10 +8,10 @@ import kotlin.collections.List
 /**
  * Keyframes Rule
  */
-public data class KeyframesRule(
+data class KeyframesRule(
   @field:JsonProperty("name")
   @param:Optional
-  public val name: String? = null,
+  val name: String? = null,
   @field:JsonProperty("keyframes")
-  public val keyframes: List<KeyframeStyle>,
+  val keyframes: List<KeyframeStyle>,
 )

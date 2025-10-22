@@ -7,11 +7,11 @@ import kotlin.String
 /**
  * Issued when a target has crashed.
  */
-public data class TargetCrashed(
+data class TargetCrashed(
   @field:JsonProperty("targetId")
-  public val targetId: String,
+  val targetId: String,
   @field:JsonProperty("status")
-  public val status: String,
+  val status: String,
   @field:JsonProperty("errorCode")
-  public val errorCode: Int,
+  val errorCode: Int,
 )

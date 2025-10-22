@@ -6,11 +6,11 @@ import kotlin.String
 /**
  * A descriptor of operation to mutate style declaration text.
  */
-public data class StyleDeclarationEdit(
+data class StyleDeclarationEdit(
   @field:JsonProperty("styleSheetId")
-  public val styleSheetId: String,
+  val styleSheetId: String,
   @field:JsonProperty("range")
-  public val range: SourceRange,
+  val range: SourceRange,
   @field:JsonProperty("text")
-  public val text: String,
+  val text: String,
 )

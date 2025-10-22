@@ -6,7 +6,7 @@ import kotlin.Int
 /**
  * Issued when execution context is destroyed.
  */
-public data class ExecutionContextDestroyed(
+data class ExecutionContextDestroyed(
   @field:JsonProperty("executionContextId")
-  public val executionContextId: Int,
+  val executionContextId: Int,
 )

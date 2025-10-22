@@ -6,16 +6,16 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 import kotlin.collections.List
 
-public data class AppManifest(
+data class AppManifest(
   @field:JsonProperty("url")
-  public val url: String,
+  val url: String,
   @field:JsonProperty("errors")
-  public val errors: List<AppManifestError>,
+  val errors: List<AppManifestError>,
   @field:JsonProperty("data")
   @param:Optional
-  public val `data`: String? = null,
+  val `data`: String? = null,
   @field:JsonProperty("parsed")
   @param:Optional
   @param:Experimental
-  public val parsed: AppManifestParsedProperties? = null,
+  val parsed: AppManifestParsedProperties? = null,
 )

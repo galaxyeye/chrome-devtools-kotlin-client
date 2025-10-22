@@ -6,7 +6,7 @@ import kotlin.String
 /**
  * Fired whenever an active document stylesheet is removed.
  */
-public data class StyleSheetRemoved(
+data class StyleSheetRemoved(
   @field:JsonProperty("styleSheetId")
-  public val styleSheetId: String,
+  val styleSheetId: String,
 )

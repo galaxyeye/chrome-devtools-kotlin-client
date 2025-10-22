@@ -10,28 +10,28 @@ import kotlin.String
 /**
  * Object event listener.
  */
-public data class EventListener(
+data class EventListener(
   @field:JsonProperty("type")
-  public val type: String,
+  val type: String,
   @field:JsonProperty("useCapture")
-  public val useCapture: Boolean,
+  val useCapture: Boolean,
   @field:JsonProperty("passive")
-  public val passive: Boolean,
+  val passive: Boolean,
   @field:JsonProperty("once")
-  public val once: Boolean,
+  val once: Boolean,
   @field:JsonProperty("scriptId")
-  public val scriptId: String,
+  val scriptId: String,
   @field:JsonProperty("lineNumber")
-  public val lineNumber: Int,
+  val lineNumber: Int,
   @field:JsonProperty("columnNumber")
-  public val columnNumber: Int,
+  val columnNumber: Int,
   @field:JsonProperty("handler")
   @param:Optional
-  public val handler: RemoteObject? = null,
+  val handler: RemoteObject? = null,
   @field:JsonProperty("originalHandler")
   @param:Optional
-  public val originalHandler: RemoteObject? = null,
+  val originalHandler: RemoteObject? = null,
   @field:JsonProperty("backendNodeId")
   @param:Optional
-  public val backendNodeId: Int? = null,
+  val backendNodeId: Int? = null,
 )

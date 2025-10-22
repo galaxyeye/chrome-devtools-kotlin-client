@@ -10,42 +10,42 @@ import kotlin.String
 /**
  * CSS stylesheet metainformation.
  */
-public data class CSSStyleSheetHeader(
+data class CSSStyleSheetHeader(
   @field:JsonProperty("styleSheetId")
-  public val styleSheetId: String,
+  val styleSheetId: String,
   @field:JsonProperty("frameId")
-  public val frameId: String,
+  val frameId: String,
   @field:JsonProperty("sourceURL")
-  public val sourceURL: String,
+  val sourceURL: String,
   @field:JsonProperty("sourceMapURL")
   @param:Optional
-  public val sourceMapURL: String? = null,
+  val sourceMapURL: String? = null,
   @field:JsonProperty("origin")
-  public val origin: StyleSheetOrigin,
+  val origin: StyleSheetOrigin,
   @field:JsonProperty("title")
-  public val title: String,
+  val title: String,
   @field:JsonProperty("ownerNode")
   @param:Optional
-  public val ownerNode: Int? = null,
+  val ownerNode: Int? = null,
   @field:JsonProperty("disabled")
-  public val disabled: Boolean,
+  val disabled: Boolean,
   @field:JsonProperty("hasSourceURL")
   @param:Optional
-  public val hasSourceURL: Boolean? = null,
+  val hasSourceURL: Boolean? = null,
   @field:JsonProperty("isInline")
-  public val isInline: Boolean,
+  val isInline: Boolean,
   @field:JsonProperty("isMutable")
-  public val isMutable: Boolean,
+  val isMutable: Boolean,
   @field:JsonProperty("isConstructed")
-  public val isConstructed: Boolean,
+  val isConstructed: Boolean,
   @field:JsonProperty("startLine")
-  public val startLine: Double,
+  val startLine: Double,
   @field:JsonProperty("startColumn")
-  public val startColumn: Double,
+  val startColumn: Double,
   @field:JsonProperty("length")
-  public val length: Double,
+  val length: Double,
   @field:JsonProperty("endLine")
-  public val endLine: Double,
+  val endLine: Double,
   @field:JsonProperty("endColumn")
-  public val endColumn: Double,
+  val endColumn: Double,
 )

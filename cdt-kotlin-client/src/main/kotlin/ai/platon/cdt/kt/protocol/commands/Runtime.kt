@@ -39,12 +39,11 @@ import kotlin.collections.List
  * maintained in memory unless they are either explicitly released or are released along with the
  * other objects in their object group.
  */
-public interface Runtime {
+interface Runtime {
   /**
    * Add handler to promise with given promise object id.
    * @param promiseObjectId Identifier of the promise.
-   * @param returnByValue Whether the result is expected to be a JSON object that should be sent by
-   * value.
+   * @param returnByValue Whether the result is expected to be a JSON object that should be sent by value.
    * @param generatePreview Whether preview should be generated for the result.
    */
   public suspend fun awaitPromise(
@@ -53,8 +52,7 @@ public interface Runtime {
     @ParamName("generatePreview") @Optional generatePreview: Boolean? = null,
   ): AwaitPromise
 
-  public suspend fun awaitPromise(@ParamName("promiseObjectId") promiseObjectId: String):
-      AwaitPromise {
+  public suspend fun awaitPromise(@ParamName("promiseObjectId") promiseObjectId: String): AwaitPromise {
     return awaitPromise(promiseObjectId, null, null)
   }
 
@@ -62,27 +60,20 @@ public interface Runtime {
    * Calls function with given declaration on the given object. Object group of the result is
    * inherited from the target object.
    * @param functionDeclaration Declaration of the function to call.
-   * @param objectId Identifier of the object to call function on. Either objectId or
-   * executionContextId should
+   * @param objectId Identifier of the object to call function on. Either objectId or executionContextId should
    * be specified.
-   * @param arguments Call arguments. All call arguments must belong to the same JavaScript world as
-   * the target
+   * @param arguments Call arguments. All call arguments must belong to the same JavaScript world as the target
    * object.
-   * @param silent In silent mode exceptions thrown during evaluation are not reported and do not
-   * pause
+   * @param silent In silent mode exceptions thrown during evaluation are not reported and do not pause
    * execution. Overrides `setPauseOnException` state.
-   * @param returnByValue Whether the result is expected to be a JSON object which should be sent by
-   * value.
+   * @param returnByValue Whether the result is expected to be a JSON object which should be sent by value.
    * @param generatePreview Whether preview should be generated for the result.
    * @param userGesture Whether execution should be treated as initiated by user in the UI.
-   * @param awaitPromise Whether execution should `await` for resulting value and return once
-   * awaited promise is
+   * @param awaitPromise Whether execution should `await` for resulting value and return once awaited promise is
    * resolved.
-   * @param executionContextId Specifies execution context which global object will be used to call
-   * function on. Either
+   * @param executionContextId Specifies execution context which global object will be used to call function on. Either
    * executionContextId or objectId should be specified.
-   * @param objectGroup Symbolic group name that can be used to release multiple objects. If
-   * objectGroup is not
+   * @param objectGroup Symbolic group name that can be used to release multiple objects. If objectGroup is not
    * specified and objectId is, objectGroup will be inherited from object.
    */
   public suspend fun callFunctionOn(
@@ -98,8 +89,7 @@ public interface Runtime {
     @ParamName("objectGroup") @Optional objectGroup: String? = null,
   ): CallFunctionOn
 
-  public suspend fun callFunctionOn(@ParamName("functionDeclaration") functionDeclaration: String):
-      CallFunctionOn {
+  public suspend fun callFunctionOn(@ParamName("functionDeclaration") functionDeclaration: String): CallFunctionOn {
     return callFunctionOn(functionDeclaration, null, null, null, null, null, null, null, null, null)
   }
 
@@ -108,8 +98,7 @@ public interface Runtime {
    * @param expression Expression to compile.
    * @param sourceURL Source url to be set for the script.
    * @param persistScript Specifies whether the compiled script should be persisted.
-   * @param executionContextId Specifies in which execution context to perform script run. If the
-   * parameter is omitted the
+   * @param executionContextId Specifies in which execution context to perform script run. If the parameter is omitted the
    * evaluation will be performed in the context of the inspected page.
    */
   public suspend fun compileScript(
@@ -148,34 +137,27 @@ public interface Runtime {
    * Evaluates expression on global object.
    * @param expression Expression to evaluate.
    * @param objectGroup Symbolic group name that can be used to release multiple objects.
-   * @param includeCommandLineAPI Determines whether Command Line API should be available during the
-   * evaluation.
-   * @param silent In silent mode exceptions thrown during evaluation are not reported and do not
-   * pause
+   * @param includeCommandLineAPI Determines whether Command Line API should be available during the evaluation.
+   * @param silent In silent mode exceptions thrown during evaluation are not reported and do not pause
    * execution. Overrides `setPauseOnException` state.
-   * @param contextId Specifies in which execution context to perform evaluation. If the parameter
-   * is omitted the
+   * @param contextId Specifies in which execution context to perform evaluation. If the parameter is omitted the
    * evaluation will be performed in the context of the inspected page.
    * This is mutually exclusive with `uniqueContextId`, which offers an
    * alternative way to identify the execution context that is more reliable
    * in a multi-process environment.
-   * @param returnByValue Whether the result is expected to be a JSON object that should be sent by
-   * value.
+   * @param returnByValue Whether the result is expected to be a JSON object that should be sent by value.
    * @param generatePreview Whether preview should be generated for the result.
    * @param userGesture Whether execution should be treated as initiated by user in the UI.
-   * @param awaitPromise Whether execution should `await` for resulting value and return once
-   * awaited promise is
+   * @param awaitPromise Whether execution should `await` for resulting value and return once awaited promise is
    * resolved.
-   * @param throwOnSideEffect Whether to throw an exception if side effect cannot be ruled out
-   * during evaluation.
+   * @param throwOnSideEffect Whether to throw an exception if side effect cannot be ruled out during evaluation.
    * This implies `disableBreaks` below.
    * @param timeout Terminate execution after timing out (number of milliseconds).
    * @param disableBreaks Disable breakpoints during execution.
    * @param replMode Setting this flag to true enables `let` re-declaration and top-level `await`.
    * Note that `let` variables can only be re-declared if they originate from
    * `replMode` themselves.
-   * @param allowUnsafeEvalBlockedByCSP The Content Security Policy (CSP) for the target might block
-   * 'unsafe-eval'
+   * @param allowUnsafeEvalBlockedByCSP The Content Security Policy (CSP) for the target might block 'unsafe-eval'
    * which includes eval(), Function(), setTimeout() and setInterval()
    * when called with non-callable arguments. This flag bypasses CSP for this
    * evaluation and allows unsafe-eval. Defaults to true.
@@ -200,14 +182,12 @@ public interface Runtime {
     @ParamName("timeout") @Optional @Experimental timeout: Double? = null,
     @ParamName("disableBreaks") @Optional @Experimental disableBreaks: Boolean? = null,
     @ParamName("replMode") @Optional @Experimental replMode: Boolean? = null,
-    @ParamName("allowUnsafeEvalBlockedByCSP") @Optional @Experimental
-        allowUnsafeEvalBlockedByCSP: Boolean? = null,
+    @ParamName("allowUnsafeEvalBlockedByCSP") @Optional @Experimental allowUnsafeEvalBlockedByCSP: Boolean? = null,
     @ParamName("uniqueContextId") @Optional @Experimental uniqueContextId: String? = null,
   ): Evaluate
 
   public suspend fun evaluate(@ParamName("expression") expression: String): Evaluate {
-    return evaluate(expression, null, null, null, null, null, null, null, null, null, null, null,
-        null, null, null)
+    return evaluate(expression, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
   }
 
   /**
@@ -228,19 +208,16 @@ public interface Runtime {
    * Returns properties of a given object. Object group of the result is inherited from the target
    * object.
    * @param objectId Identifier of the object to return properties for.
-   * @param ownProperties If true, returns properties belonging only to the element itself, not to
-   * its prototype
+   * @param ownProperties If true, returns properties belonging only to the element itself, not to its prototype
    * chain.
-   * @param accessorPropertiesOnly If true, returns accessor properties (with getter/setter) only;
-   * internal properties are not
+   * @param accessorPropertiesOnly If true, returns accessor properties (with getter/setter) only; internal properties are not
    * returned either.
    * @param generatePreview Whether preview should be generated for the results.
    */
   public suspend fun getProperties(
     @ParamName("objectId") objectId: String,
     @ParamName("ownProperties") @Optional ownProperties: Boolean? = null,
-    @ParamName("accessorPropertiesOnly") @Optional @Experimental accessorPropertiesOnly: Boolean? =
-        null,
+    @ParamName("accessorPropertiesOnly") @Optional @Experimental accessorPropertiesOnly: Boolean? = null,
     @ParamName("generatePreview") @Optional @Experimental generatePreview: Boolean? = null,
   ): Properties
 
@@ -250,13 +227,11 @@ public interface Runtime {
 
   /**
    * Returns all let, const and class variables from global scope.
-   * @param executionContextId Specifies in which execution context to lookup global scope
-   * variables.
+   * @param executionContextId Specifies in which execution context to lookup global scope variables.
    */
   @Returns("names")
   @ReturnTypeParameter(String::class)
-  public suspend fun globalLexicalScopeNames(@ParamName("executionContextId") @Optional
-      executionContextId: Int? = null): List<String>
+  public suspend fun globalLexicalScopeNames(@ParamName("executionContextId") @Optional executionContextId: Int? = null): List<String>
 
   @Returns("names")
   @ReturnTypeParameter(String::class)
@@ -269,12 +244,10 @@ public interface Runtime {
    * @param objectGroup Symbolic group name that can be used to release the results.
    */
   @Returns("objects")
-  public suspend fun queryObjects(@ParamName("prototypeObjectId") prototypeObjectId: String,
-      @ParamName("objectGroup") @Optional objectGroup: String? = null): RemoteObject
+  public suspend fun queryObjects(@ParamName("prototypeObjectId") prototypeObjectId: String, @ParamName("objectGroup") @Optional objectGroup: String? = null): RemoteObject
 
   @Returns("objects")
-  public suspend fun queryObjects(@ParamName("prototypeObjectId") prototypeObjectId: String):
-      RemoteObject {
+  public suspend fun queryObjects(@ParamName("prototypeObjectId") prototypeObjectId: String): RemoteObject {
     return queryObjects(prototypeObjectId, null)
   }
 
@@ -298,20 +271,15 @@ public interface Runtime {
   /**
    * Runs script with given id in a given context.
    * @param scriptId Id of the script to run.
-   * @param executionContextId Specifies in which execution context to perform script run. If the
-   * parameter is omitted the
+   * @param executionContextId Specifies in which execution context to perform script run. If the parameter is omitted the
    * evaluation will be performed in the context of the inspected page.
    * @param objectGroup Symbolic group name that can be used to release multiple objects.
-   * @param silent In silent mode exceptions thrown during evaluation are not reported and do not
-   * pause
+   * @param silent In silent mode exceptions thrown during evaluation are not reported and do not pause
    * execution. Overrides `setPauseOnException` state.
-   * @param includeCommandLineAPI Determines whether Command Line API should be available during the
-   * evaluation.
-   * @param returnByValue Whether the result is expected to be a JSON object which should be sent by
-   * value.
+   * @param includeCommandLineAPI Determines whether Command Line API should be available during the evaluation.
+   * @param returnByValue Whether the result is expected to be a JSON object which should be sent by value.
    * @param generatePreview Whether preview should be generated for the result.
-   * @param awaitPromise Whether execution should `await` for resulting value and return once
-   * awaited promise is
+   * @param awaitPromise Whether execution should `await` for resulting value and return once awaited promise is
    * resolved.
    */
   public suspend fun runScript(
@@ -388,58 +356,51 @@ public interface Runtime {
 
   @EventName("bindingCalled")
   @Experimental
-  public fun onBindingCalled(eventListener: EventHandler<BindingCalled>): EventListener
+  fun onBindingCalled(eventListener: EventHandler<BindingCalled>): EventListener
 
   @EventName("bindingCalled")
   @Experimental
-  public fun onBindingCalled(eventListener: suspend (BindingCalled) -> Unit): EventListener
+  fun onBindingCalled(eventListener: suspend (BindingCalled) -> Unit): EventListener
 
   @EventName("consoleAPICalled")
-  public fun onConsoleAPICalled(eventListener: EventHandler<ConsoleAPICalled>): EventListener
+  fun onConsoleAPICalled(eventListener: EventHandler<ConsoleAPICalled>): EventListener
 
   @EventName("consoleAPICalled")
-  public fun onConsoleAPICalled(eventListener: suspend (ConsoleAPICalled) -> Unit): EventListener
+  fun onConsoleAPICalled(eventListener: suspend (ConsoleAPICalled) -> Unit): EventListener
 
   @EventName("exceptionRevoked")
-  public fun onExceptionRevoked(eventListener: EventHandler<ExceptionRevoked>): EventListener
+  fun onExceptionRevoked(eventListener: EventHandler<ExceptionRevoked>): EventListener
 
   @EventName("exceptionRevoked")
-  public fun onExceptionRevoked(eventListener: suspend (ExceptionRevoked) -> Unit): EventListener
+  fun onExceptionRevoked(eventListener: suspend (ExceptionRevoked) -> Unit): EventListener
 
   @EventName("exceptionThrown")
-  public fun onExceptionThrown(eventListener: EventHandler<ExceptionThrown>): EventListener
+  fun onExceptionThrown(eventListener: EventHandler<ExceptionThrown>): EventListener
 
   @EventName("exceptionThrown")
-  public fun onExceptionThrown(eventListener: suspend (ExceptionThrown) -> Unit): EventListener
+  fun onExceptionThrown(eventListener: suspend (ExceptionThrown) -> Unit): EventListener
 
   @EventName("executionContextCreated")
-  public fun onExecutionContextCreated(eventListener: EventHandler<ExecutionContextCreated>):
-      EventListener
+  fun onExecutionContextCreated(eventListener: EventHandler<ExecutionContextCreated>): EventListener
 
   @EventName("executionContextCreated")
-  public fun onExecutionContextCreated(eventListener: suspend (ExecutionContextCreated) -> Unit):
-      EventListener
+  fun onExecutionContextCreated(eventListener: suspend (ExecutionContextCreated) -> Unit): EventListener
 
   @EventName("executionContextDestroyed")
-  public fun onExecutionContextDestroyed(eventListener: EventHandler<ExecutionContextDestroyed>):
-      EventListener
+  fun onExecutionContextDestroyed(eventListener: EventHandler<ExecutionContextDestroyed>): EventListener
 
   @EventName("executionContextDestroyed")
-  public
-      fun onExecutionContextDestroyed(eventListener: suspend (ExecutionContextDestroyed) -> Unit):
-      EventListener
+  fun onExecutionContextDestroyed(eventListener: suspend (ExecutionContextDestroyed) -> Unit): EventListener
 
   @EventName("executionContextsCleared")
-  public fun onExecutionContextsCleared(eventListener: EventHandler<ExecutionContextsCleared>):
-      EventListener
+  fun onExecutionContextsCleared(eventListener: EventHandler<ExecutionContextsCleared>): EventListener
 
   @EventName("executionContextsCleared")
-  public fun onExecutionContextsCleared(eventListener: suspend (ExecutionContextsCleared) -> Unit):
-      EventListener
+  fun onExecutionContextsCleared(eventListener: suspend (ExecutionContextsCleared) -> Unit): EventListener
 
   @EventName("inspectRequested")
-  public fun onInspectRequested(eventListener: EventHandler<InspectRequested>): EventListener
+  fun onInspectRequested(eventListener: EventHandler<InspectRequested>): EventListener
 
   @EventName("inspectRequested")
-  public fun onInspectRequested(eventListener: suspend (InspectRequested) -> Unit): EventListener
+  fun onInspectRequested(eventListener: suspend (InspectRequested) -> Unit): EventListener
 }

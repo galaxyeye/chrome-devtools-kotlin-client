@@ -6,29 +6,29 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Boolean
 import kotlin.String
 
-public data class TargetInfo(
+data class TargetInfo(
   @field:JsonProperty("targetId")
-  public val targetId: String,
+  val targetId: String,
   @field:JsonProperty("type")
-  public val type: String,
+  val type: String,
   @field:JsonProperty("title")
-  public val title: String,
+  val title: String,
   @field:JsonProperty("url")
-  public val url: String,
+  val url: String,
   @field:JsonProperty("attached")
-  public val attached: Boolean,
+  val attached: Boolean,
   @field:JsonProperty("openerId")
   @param:Optional
-  public val openerId: String? = null,
+  val openerId: String? = null,
   @field:JsonProperty("canAccessOpener")
   @param:Experimental
-  public val canAccessOpener: Boolean,
+  val canAccessOpener: Boolean,
   @field:JsonProperty("openerFrameId")
   @param:Optional
   @param:Experimental
-  public val openerFrameId: String? = null,
+  val openerFrameId: String? = null,
   @field:JsonProperty("browserContextId")
   @param:Optional
   @param:Experimental
-  public val browserContextId: String? = null,
+  val browserContextId: String? = null,
 )

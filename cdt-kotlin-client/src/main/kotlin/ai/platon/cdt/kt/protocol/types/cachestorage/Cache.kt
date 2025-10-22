@@ -6,11 +6,11 @@ import kotlin.String
 /**
  * Cache identifier.
  */
-public data class Cache(
+data class Cache(
   @field:JsonProperty("cacheId")
-  public val cacheId: String,
+  val cacheId: String,
   @field:JsonProperty("securityOrigin")
-  public val securityOrigin: String,
+  val securityOrigin: String,
   @field:JsonProperty("cacheName")
-  public val cacheName: String,
+  val cacheName: String,
 )

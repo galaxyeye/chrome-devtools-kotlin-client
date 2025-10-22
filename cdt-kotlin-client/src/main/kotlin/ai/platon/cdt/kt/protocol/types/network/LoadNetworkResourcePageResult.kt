@@ -13,22 +13,22 @@ import kotlin.collections.Map
  * An object providing the result of a network resource load.
  */
 @Experimental
-public data class LoadNetworkResourcePageResult(
+data class LoadNetworkResourcePageResult(
   @field:JsonProperty("success")
-  public val success: Boolean,
+  val success: Boolean,
   @field:JsonProperty("netError")
   @param:Optional
-  public val netError: Double? = null,
+  val netError: Double? = null,
   @field:JsonProperty("netErrorName")
   @param:Optional
-  public val netErrorName: String? = null,
+  val netErrorName: String? = null,
   @field:JsonProperty("httpStatusCode")
   @param:Optional
-  public val httpStatusCode: Double? = null,
+  val httpStatusCode: Double? = null,
   @field:JsonProperty("stream")
   @param:Optional
-  public val stream: String? = null,
+  val stream: String? = null,
   @field:JsonProperty("headers")
   @param:Optional
-  public val headers: Map<String, Any?>? = null,
+  val headers: Map<String, Any?>? = null,
 )

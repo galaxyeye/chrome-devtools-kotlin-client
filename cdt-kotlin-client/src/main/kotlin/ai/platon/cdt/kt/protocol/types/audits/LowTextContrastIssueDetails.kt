@@ -5,19 +5,19 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String
 
-public data class LowTextContrastIssueDetails(
+data class LowTextContrastIssueDetails(
   @field:JsonProperty("violatingNodeId")
-  public val violatingNodeId: Int,
+  val violatingNodeId: Int,
   @field:JsonProperty("violatingNodeSelector")
-  public val violatingNodeSelector: String,
+  val violatingNodeSelector: String,
   @field:JsonProperty("contrastRatio")
-  public val contrastRatio: Double,
+  val contrastRatio: Double,
   @field:JsonProperty("thresholdAA")
-  public val thresholdAA: Double,
+  val thresholdAA: Double,
   @field:JsonProperty("thresholdAAA")
-  public val thresholdAAA: Double,
+  val thresholdAAA: Double,
   @field:JsonProperty("fontSize")
-  public val fontSize: String,
+  val fontSize: String,
   @field:JsonProperty("fontWeight")
-  public val fontWeight: String,
+  val fontWeight: String,
 )

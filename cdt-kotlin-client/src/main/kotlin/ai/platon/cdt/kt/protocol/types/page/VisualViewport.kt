@@ -7,22 +7,22 @@ import kotlin.Double
 /**
  * Visual viewport position, dimensions, and scale.
  */
-public data class VisualViewport(
+data class VisualViewport(
   @field:JsonProperty("offsetX")
-  public val offsetX: Double,
+  val offsetX: Double,
   @field:JsonProperty("offsetY")
-  public val offsetY: Double,
+  val offsetY: Double,
   @field:JsonProperty("pageX")
-  public val pageX: Double,
+  val pageX: Double,
   @field:JsonProperty("pageY")
-  public val pageY: Double,
+  val pageY: Double,
   @field:JsonProperty("clientWidth")
-  public val clientWidth: Double,
+  val clientWidth: Double,
   @field:JsonProperty("clientHeight")
-  public val clientHeight: Double,
+  val clientHeight: Double,
   @field:JsonProperty("scale")
-  public val scale: Double,
+  val scale: Double,
   @field:JsonProperty("zoom")
   @param:Optional
-  public val zoom: Double? = null,
+  val zoom: Double? = null,
 )

@@ -9,16 +9,16 @@ import kotlin.collections.List
  * Information about a signed exchange response.
  */
 @Experimental
-public data class SignedExchangeInfo(
+data class SignedExchangeInfo(
   @field:JsonProperty("outerResponse")
-  public val outerResponse: Response,
+  val outerResponse: Response,
   @field:JsonProperty("header")
   @param:Optional
-  public val `header`: SignedExchangeHeader? = null,
+  val `header`: SignedExchangeHeader? = null,
   @field:JsonProperty("securityDetails")
   @param:Optional
-  public val securityDetails: SecurityDetails? = null,
+  val securityDetails: SecurityDetails? = null,
   @field:JsonProperty("errors")
   @param:Optional
-  public val errors: List<SignedExchangeError>? = null,
+  val errors: List<SignedExchangeError>? = null,
 )

@@ -3,9 +3,9 @@ package ai.platon.cdt.kt.protocol.types.runtime
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Double
 
-public data class HeapUsage(
+data class HeapUsage(
   @field:JsonProperty("usedSize")
-  public val usedSize: Double,
+  val usedSize: Double,
   @field:JsonProperty("totalSize")
-  public val totalSize: Double,
+  val totalSize: Double,
 )

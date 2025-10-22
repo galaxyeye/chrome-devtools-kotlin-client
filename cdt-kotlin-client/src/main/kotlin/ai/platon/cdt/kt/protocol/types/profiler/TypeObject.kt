@@ -8,7 +8,7 @@ import kotlin.String
  * Describes a type collected during runtime.
  */
 @Experimental
-public data class TypeObject(
+data class TypeObject(
   @field:JsonProperty("name")
-  public val name: String,
+  val name: String,
 )

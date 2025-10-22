@@ -4,9 +4,9 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Int
 import kotlin.String
 
-public data class PerformSearch(
+data class PerformSearch(
   @field:JsonProperty("searchId")
-  public val searchId: String,
+  val searchId: String,
   @field:JsonProperty("resultCount")
-  public val resultCount: Int,
+  val resultCount: Int,
 )

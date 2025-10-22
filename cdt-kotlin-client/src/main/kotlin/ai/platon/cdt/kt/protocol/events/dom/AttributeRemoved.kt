@@ -7,9 +7,9 @@ import kotlin.String
 /**
  * Fired when `Element`'s attribute is removed.
  */
-public data class AttributeRemoved(
+data class AttributeRemoved(
   @field:JsonProperty("nodeId")
-  public val nodeId: Int,
+  val nodeId: Int,
   @field:JsonProperty("name")
-  public val name: String,
+  val name: String,
 )

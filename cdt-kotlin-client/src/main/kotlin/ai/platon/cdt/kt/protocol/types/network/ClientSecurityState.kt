@@ -5,11 +5,11 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Boolean
 
 @Experimental
-public data class ClientSecurityState(
+data class ClientSecurityState(
   @field:JsonProperty("initiatorIsSecureContext")
-  public val initiatorIsSecureContext: Boolean,
+  val initiatorIsSecureContext: Boolean,
   @field:JsonProperty("initiatorIPAddressSpace")
-  public val initiatorIPAddressSpace: IPAddressSpace,
+  val initiatorIPAddressSpace: IPAddressSpace,
   @field:JsonProperty("privateNetworkRequestPolicy")
-  public val privateNetworkRequestPolicy: PrivateNetworkRequestPolicy,
+  val privateNetworkRequestPolicy: PrivateNetworkRequestPolicy,
 )

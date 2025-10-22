@@ -6,9 +6,9 @@ import kotlin.String
 /**
  * Keyframe Style
  */
-public data class KeyframeStyle(
+data class KeyframeStyle(
   @field:JsonProperty("offset")
-  public val offset: String,
+  val offset: String,
   @field:JsonProperty("easing")
-  public val easing: String,
+  val easing: String,
 )

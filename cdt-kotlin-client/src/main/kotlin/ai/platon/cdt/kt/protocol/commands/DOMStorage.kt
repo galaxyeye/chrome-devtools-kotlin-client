@@ -20,7 +20,7 @@ import kotlin.collections.List
  * Query and modify DOM storage.
  */
 @Experimental
-public interface DOMStorage {
+interface DOMStorage {
   /**
    * @param storageId
    */
@@ -41,15 +41,13 @@ public interface DOMStorage {
    */
   @Returns("entries")
   @ReturnTypeParameter(String::class)
-  public suspend fun getDOMStorageItems(@ParamName("storageId") storageId: StorageId):
-      List<List<String>>
+  public suspend fun getDOMStorageItems(@ParamName("storageId") storageId: StorageId): List<List<String>>
 
   /**
    * @param storageId
    * @param key
    */
-  public suspend fun removeDOMStorageItem(@ParamName("storageId") storageId: StorageId,
-      @ParamName("key") key: String)
+  public suspend fun removeDOMStorageItem(@ParamName("storageId") storageId: StorageId, @ParamName("key") key: String)
 
   /**
    * @param storageId
@@ -63,33 +61,26 @@ public interface DOMStorage {
   )
 
   @EventName("domStorageItemAdded")
-  public fun onDomStorageItemAdded(eventListener: EventHandler<DomStorageItemAdded>): EventListener
+  fun onDomStorageItemAdded(eventListener: EventHandler<DomStorageItemAdded>): EventListener
 
   @EventName("domStorageItemAdded")
-  public fun onDomStorageItemAdded(eventListener: suspend (DomStorageItemAdded) -> Unit):
-      EventListener
+  fun onDomStorageItemAdded(eventListener: suspend (DomStorageItemAdded) -> Unit): EventListener
 
   @EventName("domStorageItemRemoved")
-  public fun onDomStorageItemRemoved(eventListener: EventHandler<DomStorageItemRemoved>):
-      EventListener
+  fun onDomStorageItemRemoved(eventListener: EventHandler<DomStorageItemRemoved>): EventListener
 
   @EventName("domStorageItemRemoved")
-  public fun onDomStorageItemRemoved(eventListener: suspend (DomStorageItemRemoved) -> Unit):
-      EventListener
+  fun onDomStorageItemRemoved(eventListener: suspend (DomStorageItemRemoved) -> Unit): EventListener
 
   @EventName("domStorageItemUpdated")
-  public fun onDomStorageItemUpdated(eventListener: EventHandler<DomStorageItemUpdated>):
-      EventListener
+  fun onDomStorageItemUpdated(eventListener: EventHandler<DomStorageItemUpdated>): EventListener
 
   @EventName("domStorageItemUpdated")
-  public fun onDomStorageItemUpdated(eventListener: suspend (DomStorageItemUpdated) -> Unit):
-      EventListener
+  fun onDomStorageItemUpdated(eventListener: suspend (DomStorageItemUpdated) -> Unit): EventListener
 
   @EventName("domStorageItemsCleared")
-  public fun onDomStorageItemsCleared(eventListener: EventHandler<DomStorageItemsCleared>):
-      EventListener
+  fun onDomStorageItemsCleared(eventListener: EventHandler<DomStorageItemsCleared>): EventListener
 
   @EventName("domStorageItemsCleared")
-  public fun onDomStorageItemsCleared(eventListener: suspend (DomStorageItemsCleared) -> Unit):
-      EventListener
+  fun onDomStorageItemsCleared(eventListener: suspend (DomStorageItemsCleared) -> Unit): EventListener
 }

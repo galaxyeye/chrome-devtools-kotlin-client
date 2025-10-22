@@ -8,7 +8,7 @@ import kotlin.String
  * Fired when frame no longer has a scheduled navigation.
  */
 @Deprecated
-public data class FrameClearedScheduledNavigation(
+data class FrameClearedScheduledNavigation(
   @field:JsonProperty("frameId")
-  public val frameId: String,
+  val frameId: String,
 )

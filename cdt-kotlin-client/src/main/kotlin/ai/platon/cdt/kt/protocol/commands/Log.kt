@@ -12,7 +12,7 @@ import kotlin.collections.List
 /**
  * Provides access to log entries.
  */
-public interface Log {
+interface Log {
   /**
    * Clears the log.
    */
@@ -41,8 +41,8 @@ public interface Log {
   public suspend fun stopViolationsReport()
 
   @EventName("entryAdded")
-  public fun onEntryAdded(eventListener: EventHandler<EntryAdded>): EventListener
+  fun onEntryAdded(eventListener: EventHandler<EntryAdded>): EventListener
 
   @EventName("entryAdded")
-  public fun onEntryAdded(eventListener: suspend (EntryAdded) -> Unit): EventListener
+  fun onEntryAdded(eventListener: suspend (EntryAdded) -> Unit): EventListener
 }

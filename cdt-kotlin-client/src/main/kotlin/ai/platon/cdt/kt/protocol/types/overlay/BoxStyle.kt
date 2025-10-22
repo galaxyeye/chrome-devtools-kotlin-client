@@ -7,11 +7,11 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 /**
  * Style information for drawing a box.
  */
-public data class BoxStyle(
+data class BoxStyle(
   @field:JsonProperty("fillColor")
   @param:Optional
-  public val fillColor: RGBA? = null,
+  val fillColor: RGBA? = null,
   @field:JsonProperty("hatchColor")
   @param:Optional
-  public val hatchColor: RGBA? = null,
+  val hatchColor: RGBA? = null,
 )

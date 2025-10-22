@@ -5,9 +5,9 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
 @Experimental
-public data class InstallabilityErrorArgument(
+data class InstallabilityErrorArgument(
   @field:JsonProperty("name")
-  public val name: String,
+  val name: String,
   @field:JsonProperty("value")
-  public val `value`: String,
+  val `value`: String,
 )

@@ -11,7 +11,7 @@ import kotlin.Boolean
 import kotlin.Int
 
 @Experimental
-public interface Memory {
+interface Memory {
   public suspend fun getDOMCounters(): DOMCounters
 
   public suspend fun prepareForLeakDetection()
@@ -25,8 +25,7 @@ public interface Memory {
    * Enable/disable suppressing memory pressure notifications in all processes.
    * @param suppressed If true, memory pressure notifications will be suppressed.
    */
-  public suspend fun setPressureNotificationsSuppressed(@ParamName("suppressed")
-      suppressed: Boolean)
+  public suspend fun setPressureNotificationsSuppressed(@ParamName("suppressed") suppressed: Boolean)
 
   /**
    * Simulate a memory pressure notification in all processes.
@@ -39,8 +38,7 @@ public interface Memory {
    * @param samplingInterval Average number of bytes between samples.
    * @param suppressRandomness Do not randomize intervals between samples.
    */
-  public suspend fun startSampling(@ParamName("samplingInterval") @Optional samplingInterval: Int? =
-      null, @ParamName("suppressRandomness") @Optional suppressRandomness: Boolean? = null)
+  public suspend fun startSampling(@ParamName("samplingInterval") @Optional samplingInterval: Int? = null, @ParamName("suppressRandomness") @Optional suppressRandomness: Boolean? = null)
 
   public suspend fun startSampling() {
     return startSampling(null, null)

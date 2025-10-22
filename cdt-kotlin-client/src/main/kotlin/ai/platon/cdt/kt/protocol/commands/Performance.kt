@@ -16,7 +16,7 @@ import java.lang.Deprecated
 import kotlin.Unit
 import kotlin.collections.List
 
-public interface Performance {
+interface Performance {
   /**
    * Disable collecting and reporting metrics.
    */
@@ -50,8 +50,8 @@ public interface Performance {
   public suspend fun getMetrics(): List<Metric>
 
   @EventName("metrics")
-  public fun onMetrics(eventListener: EventHandler<Metrics>): EventListener
+  fun onMetrics(eventListener: EventHandler<Metrics>): EventListener
 
   @EventName("metrics")
-  public fun onMetrics(eventListener: suspend (Metrics) -> Unit): EventListener
+  fun onMetrics(eventListener: suspend (Metrics) -> Unit): EventListener
 }

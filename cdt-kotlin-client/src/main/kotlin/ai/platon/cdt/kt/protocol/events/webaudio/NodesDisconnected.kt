@@ -6,20 +6,19 @@ import kotlin.Double
 import kotlin.String
 
 /**
- * Notifies that AudioNodes are disconnected. The destination can be null, and it means all the
- * outgoing connections from the source are disconnected.
+ * Notifies that AudioNodes are disconnected. The destination can be null, and it means all the outgoing connections from the source are disconnected.
  */
-public data class NodesDisconnected(
+data class NodesDisconnected(
   @field:JsonProperty("contextId")
-  public val contextId: String,
+  val contextId: String,
   @field:JsonProperty("sourceId")
-  public val sourceId: String,
+  val sourceId: String,
   @field:JsonProperty("destinationId")
-  public val destinationId: String,
+  val destinationId: String,
   @field:JsonProperty("sourceOutputIndex")
   @param:Optional
-  public val sourceOutputIndex: Double? = null,
+  val sourceOutputIndex: Double? = null,
   @field:JsonProperty("destinationInputIndex")
   @param:Optional
-  public val destinationInputIndex: Double? = null,
+  val destinationInputIndex: Double? = null,
 )

@@ -9,9 +9,9 @@ import kotlin.String
  * Fired when a signed exchange was received over the network
  */
 @Experimental
-public data class SignedExchangeReceived(
+data class SignedExchangeReceived(
   @field:JsonProperty("requestId")
-  public val requestId: String,
+  val requestId: String,
   @field:JsonProperty("info")
-  public val info: SignedExchangeInfo,
+  val info: SignedExchangeInfo,
 )

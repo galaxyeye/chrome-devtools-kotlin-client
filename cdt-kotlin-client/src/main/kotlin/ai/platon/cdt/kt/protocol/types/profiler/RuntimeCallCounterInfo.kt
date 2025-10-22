@@ -9,11 +9,11 @@ import kotlin.String
  * Runtime call counter information.
  */
 @Experimental
-public data class RuntimeCallCounterInfo(
+data class RuntimeCallCounterInfo(
   @field:JsonProperty("name")
-  public val name: String,
+  val name: String,
   @field:JsonProperty("value")
-  public val `value`: Double,
+  val `value`: Double,
   @field:JsonProperty("time")
-  public val time: Double,
+  val time: Double,
 )

@@ -15,7 +15,7 @@ import kotlin.Unit
  * Defines events for background web platform features.
  */
 @Experimental
-public interface BackgroundService {
+interface BackgroundService {
   /**
    * Enables event updates for the service.
    * @param service
@@ -33,8 +33,7 @@ public interface BackgroundService {
    * @param shouldRecord
    * @param service
    */
-  public suspend fun setRecording(@ParamName("shouldRecord") shouldRecord: Boolean,
-      @ParamName("service") service: ServiceName)
+  public suspend fun setRecording(@ParamName("shouldRecord") shouldRecord: Boolean, @ParamName("service") service: ServiceName)
 
   /**
    * Clears all stored data for the service.
@@ -43,20 +42,14 @@ public interface BackgroundService {
   public suspend fun clearEvents(@ParamName("service") service: ServiceName)
 
   @EventName("recordingStateChanged")
-  public fun onRecordingStateChanged(eventListener: EventHandler<RecordingStateChanged>):
-      EventListener
+  fun onRecordingStateChanged(eventListener: EventHandler<RecordingStateChanged>): EventListener
 
   @EventName("recordingStateChanged")
-  public fun onRecordingStateChanged(eventListener: suspend (RecordingStateChanged) -> Unit):
-      EventListener
+  fun onRecordingStateChanged(eventListener: suspend (RecordingStateChanged) -> Unit): EventListener
 
   @EventName("backgroundServiceEventReceived")
-  public
-      fun onBackgroundServiceEventReceived(eventListener: EventHandler<BackgroundServiceEventReceived>):
-      EventListener
+  fun onBackgroundServiceEventReceived(eventListener: EventHandler<BackgroundServiceEventReceived>): EventListener
 
   @EventName("backgroundServiceEventReceived")
-  public
-      fun onBackgroundServiceEventReceived(eventListener: suspend (BackgroundServiceEventReceived) -> Unit):
-      EventListener
+  fun onBackgroundServiceEventReceived(eventListener: suspend (BackgroundServiceEventReceived) -> Unit): EventListener
 }

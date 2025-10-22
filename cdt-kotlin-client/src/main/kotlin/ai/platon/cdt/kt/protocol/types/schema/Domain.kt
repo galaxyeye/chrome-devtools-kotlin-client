@@ -6,9 +6,9 @@ import kotlin.String
 /**
  * Description of the protocol domain.
  */
-public data class Domain(
+data class Domain(
   @field:JsonProperty("name")
-  public val name: String,
+  val name: String,
   @field:JsonProperty("version")
-  public val version: String,
+  val version: String,
 )

@@ -8,9 +8,9 @@ import kotlin.String
  * Used to specify User Agent Cient Hints to emulate. See https://wicg.github.io/ua-client-hints
  */
 @Experimental
-public data class UserAgentBrandVersion(
+data class UserAgentBrandVersion(
   @field:JsonProperty("brand")
-  public val brand: String,
+  val brand: String,
   @field:JsonProperty("version")
-  public val version: String,
+  val version: String,
 )

@@ -13,7 +13,7 @@ import kotlin.String
 import kotlin.Unit
 
 @Experimental
-public interface ServiceWorker {
+interface ServiceWorker {
   /**
    * @param origin
    * @param registrationId
@@ -61,8 +61,7 @@ public interface ServiceWorker {
   /**
    * @param forceUpdateOnPageLoad
    */
-  public suspend fun setForceUpdateOnPageLoad(@ParamName("forceUpdateOnPageLoad")
-      forceUpdateOnPageLoad: Boolean)
+  public suspend fun setForceUpdateOnPageLoad(@ParamName("forceUpdateOnPageLoad") forceUpdateOnPageLoad: Boolean)
 
   /**
    * @param scopeURL
@@ -92,26 +91,20 @@ public interface ServiceWorker {
   public suspend fun updateRegistration(@ParamName("scopeURL") scopeURL: String)
 
   @EventName("workerErrorReported")
-  public fun onWorkerErrorReported(eventListener: EventHandler<WorkerErrorReported>): EventListener
+  fun onWorkerErrorReported(eventListener: EventHandler<WorkerErrorReported>): EventListener
 
   @EventName("workerErrorReported")
-  public fun onWorkerErrorReported(eventListener: suspend (WorkerErrorReported) -> Unit):
-      EventListener
+  fun onWorkerErrorReported(eventListener: suspend (WorkerErrorReported) -> Unit): EventListener
 
   @EventName("workerRegistrationUpdated")
-  public fun onWorkerRegistrationUpdated(eventListener: EventHandler<WorkerRegistrationUpdated>):
-      EventListener
+  fun onWorkerRegistrationUpdated(eventListener: EventHandler<WorkerRegistrationUpdated>): EventListener
 
   @EventName("workerRegistrationUpdated")
-  public
-      fun onWorkerRegistrationUpdated(eventListener: suspend (WorkerRegistrationUpdated) -> Unit):
-      EventListener
+  fun onWorkerRegistrationUpdated(eventListener: suspend (WorkerRegistrationUpdated) -> Unit): EventListener
 
   @EventName("workerVersionUpdated")
-  public fun onWorkerVersionUpdated(eventListener: EventHandler<WorkerVersionUpdated>):
-      EventListener
+  fun onWorkerVersionUpdated(eventListener: EventHandler<WorkerVersionUpdated>): EventListener
 
   @EventName("workerVersionUpdated")
-  public fun onWorkerVersionUpdated(eventListener: suspend (WorkerVersionUpdated) -> Unit):
-      EventListener
+  fun onWorkerVersionUpdated(eventListener: suspend (WorkerVersionUpdated) -> Unit): EventListener
 }

@@ -11,7 +11,7 @@ import kotlin.collections.List
  * The SystemInfo domain defines methods and events for querying low-level system information.
  */
 @Experimental
-public interface SystemInfo {
+interface SystemInfo {
   /**
    * Returns information about the system.
    */

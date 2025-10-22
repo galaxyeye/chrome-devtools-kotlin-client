@@ -7,11 +7,11 @@ import kotlin.String
 /**
  * Detailed application cache resource information.
  */
-public data class ApplicationCacheResource(
+data class ApplicationCacheResource(
   @field:JsonProperty("url")
-  public val url: String,
+  val url: String,
   @field:JsonProperty("size")
-  public val size: Int,
+  val size: Int,
   @field:JsonProperty("type")
-  public val type: String,
+  val type: String,
 )

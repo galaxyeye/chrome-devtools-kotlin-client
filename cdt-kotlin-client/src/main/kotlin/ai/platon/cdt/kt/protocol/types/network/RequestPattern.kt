@@ -9,14 +9,14 @@ import kotlin.String
  * Request pattern for interception.
  */
 @Experimental
-public data class RequestPattern(
+data class RequestPattern(
   @field:JsonProperty("urlPattern")
   @param:Optional
-  public val urlPattern: String? = null,
+  val urlPattern: String? = null,
   @field:JsonProperty("resourceType")
   @param:Optional
-  public val resourceType: ResourceType? = null,
+  val resourceType: ResourceType? = null,
   @field:JsonProperty("interceptionStage")
   @param:Optional
-  public val interceptionStage: InterceptionStage? = null,
+  val interceptionStage: InterceptionStage? = null,
 )

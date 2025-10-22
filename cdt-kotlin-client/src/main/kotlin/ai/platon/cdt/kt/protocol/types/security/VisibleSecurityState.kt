@@ -10,15 +10,15 @@ import kotlin.collections.List
  * Security state information about the page.
  */
 @Experimental
-public data class VisibleSecurityState(
+data class VisibleSecurityState(
   @field:JsonProperty("securityState")
-  public val securityState: SecurityState,
+  val securityState: SecurityState,
   @field:JsonProperty("certificateSecurityState")
   @param:Optional
-  public val certificateSecurityState: CertificateSecurityState? = null,
+  val certificateSecurityState: CertificateSecurityState? = null,
   @field:JsonProperty("safetyTipInfo")
   @param:Optional
-  public val safetyTipInfo: SafetyTipInfo? = null,
+  val safetyTipInfo: SafetyTipInfo? = null,
   @field:JsonProperty("securityStateIssueIds")
-  public val securityStateIssueIds: List<String>,
+  val securityStateIssueIds: List<String>,
 )

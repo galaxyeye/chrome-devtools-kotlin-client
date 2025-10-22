@@ -10,22 +10,22 @@ import kotlin.collections.List
  * time finding a specific cookie. With this, we can convey specific error
  * information without the cookie.
  */
-public data class SameSiteCookieIssueDetails(
+data class SameSiteCookieIssueDetails(
   @field:JsonProperty("cookie")
-  public val cookie: AffectedCookie,
+  val cookie: AffectedCookie,
   @field:JsonProperty("cookieWarningReasons")
-  public val cookieWarningReasons: List<SameSiteCookieWarningReason>,
+  val cookieWarningReasons: List<SameSiteCookieWarningReason>,
   @field:JsonProperty("cookieExclusionReasons")
-  public val cookieExclusionReasons: List<SameSiteCookieExclusionReason>,
+  val cookieExclusionReasons: List<SameSiteCookieExclusionReason>,
   @field:JsonProperty("operation")
-  public val operation: SameSiteCookieOperation,
+  val operation: SameSiteCookieOperation,
   @field:JsonProperty("siteForCookies")
   @param:Optional
-  public val siteForCookies: String? = null,
+  val siteForCookies: String? = null,
   @field:JsonProperty("cookieUrl")
   @param:Optional
-  public val cookieUrl: String? = null,
+  val cookieUrl: String? = null,
   @field:JsonProperty("request")
   @param:Optional
-  public val request: AffectedRequest? = null,
+  val request: AffectedRequest? = null,
 )

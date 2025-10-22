@@ -10,13 +10,13 @@ import kotlin.collections.List
  * Chrome histogram.
  */
 @Experimental
-public data class Histogram(
+data class Histogram(
   @field:JsonProperty("name")
-  public val name: String,
+  val name: String,
   @field:JsonProperty("sum")
-  public val sum: Int,
+  val sum: Int,
   @field:JsonProperty("count")
-  public val count: Int,
+  val count: Int,
   @field:JsonProperty("buckets")
-  public val buckets: List<Bucket>,
+  val buckets: List<Bucket>,
 )

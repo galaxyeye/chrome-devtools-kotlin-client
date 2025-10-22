@@ -6,11 +6,11 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 /**
  * Data entry.
  */
-public data class DataEntry(
+data class DataEntry(
   @field:JsonProperty("key")
-  public val key: RemoteObject,
+  val key: RemoteObject,
   @field:JsonProperty("primaryKey")
-  public val primaryKey: RemoteObject,
+  val primaryKey: RemoteObject,
   @field:JsonProperty("value")
-  public val `value`: RemoteObject,
+  val `value`: RemoteObject,
 )

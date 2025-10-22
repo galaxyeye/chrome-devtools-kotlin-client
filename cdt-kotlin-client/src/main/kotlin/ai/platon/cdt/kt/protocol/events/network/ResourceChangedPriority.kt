@@ -10,11 +10,11 @@ import kotlin.String
  * Fired when resource loading priority is changed
  */
 @Experimental
-public data class ResourceChangedPriority(
+data class ResourceChangedPriority(
   @field:JsonProperty("requestId")
-  public val requestId: String,
+  val requestId: String,
   @field:JsonProperty("newPriority")
-  public val newPriority: ResourcePriority,
+  val newPriority: ResourcePriority,
   @field:JsonProperty("timestamp")
-  public val timestamp: Double,
+  val timestamp: Double,
 )

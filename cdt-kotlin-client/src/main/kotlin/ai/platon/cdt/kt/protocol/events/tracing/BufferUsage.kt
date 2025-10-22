@@ -4,14 +4,14 @@ import ai.platon.cdt.kt.protocol.support.annotations.Optional
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Double
 
-public data class BufferUsage(
+data class BufferUsage(
   @field:JsonProperty("percentFull")
   @param:Optional
-  public val percentFull: Double? = null,
+  val percentFull: Double? = null,
   @field:JsonProperty("eventCount")
   @param:Optional
-  public val eventCount: Double? = null,
+  val eventCount: Double? = null,
   @field:JsonProperty("value")
   @param:Optional
-  public val `value`: Double? = null,
+  val `value`: Double? = null,
 )

@@ -8,18 +8,18 @@ import kotlin.String
 /**
  * Scope description.
  */
-public data class Scope(
+data class Scope(
   @field:JsonProperty("type")
-  public val type: ScopeType,
+  val type: ScopeType,
   @field:JsonProperty("object")
-  public val `object`: RemoteObject,
+  val `object`: RemoteObject,
   @field:JsonProperty("name")
   @param:Optional
-  public val name: String? = null,
+  val name: String? = null,
   @field:JsonProperty("startLocation")
   @param:Optional
-  public val startLocation: Location? = null,
+  val startLocation: Location? = null,
   @field:JsonProperty("endLocation")
   @param:Optional
-  public val endLocation: Location? = null,
+  val endLocation: Location? = null,
 )

@@ -7,13 +7,13 @@ import kotlin.collections.List
  * Describes a supported image decoding profile with its associated minimum and
  * maximum resolutions and subsampling.
  */
-public data class ImageDecodeAcceleratorCapability(
+data class ImageDecodeAcceleratorCapability(
   @field:JsonProperty("imageType")
-  public val imageType: ImageType,
+  val imageType: ImageType,
   @field:JsonProperty("maxDimensions")
-  public val maxDimensions: Size,
+  val maxDimensions: Size,
   @field:JsonProperty("minDimensions")
-  public val minDimensions: Size,
+  val minDimensions: Size,
   @field:JsonProperty("subsamplings")
-  public val subsamplings: List<SubsamplingFormat>,
+  val subsamplings: List<SubsamplingFormat>,
 )

@@ -10,7 +10,7 @@ import kotlin.collections.Map
  * Contains an bucket of collected trace events. When tracing is stopped collected events will be
  * send as a sequence of dataCollected events followed by tracingComplete event.
  */
-public data class DataCollected(
+data class DataCollected(
   @field:JsonProperty("value")
-  public val `value`: List<Map<String, Any?>>,
+  val `value`: List<Map<String, Any?>>,
 )

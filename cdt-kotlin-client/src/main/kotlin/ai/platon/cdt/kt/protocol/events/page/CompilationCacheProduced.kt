@@ -9,9 +9,9 @@ import kotlin.String
  * if Page.setGenerateCompilationCache is enabled.
  */
 @Experimental
-public data class CompilationCacheProduced(
+data class CompilationCacheProduced(
   @field:JsonProperty("url")
-  public val url: String,
+  val url: String,
   @field:JsonProperty("data")
-  public val `data`: String,
+  val `data`: String,
 )

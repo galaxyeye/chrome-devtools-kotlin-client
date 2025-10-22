@@ -8,12 +8,12 @@ import kotlin.String
 /**
  * Location in the source code.
  */
-public data class Location(
+data class Location(
   @field:JsonProperty("scriptId")
-  public val scriptId: String,
+  val scriptId: String,
   @field:JsonProperty("lineNumber")
-  public val lineNumber: Int,
+  val lineNumber: Int,
   @field:JsonProperty("columnNumber")
   @param:Optional
-  public val columnNumber: Int? = null,
+  val columnNumber: Int? = null,
 )

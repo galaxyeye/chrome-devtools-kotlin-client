@@ -7,13 +7,13 @@ import kotlin.String
 /**
  * Fired for top level page lifecycle events such as navigation, load, paint, etc.
  */
-public data class LifecycleEvent(
+data class LifecycleEvent(
   @field:JsonProperty("frameId")
-  public val frameId: String,
+  val frameId: String,
   @field:JsonProperty("loaderId")
-  public val loaderId: String,
+  val loaderId: String,
   @field:JsonProperty("name")
-  public val name: String,
+  val name: String,
   @field:JsonProperty("timestamp")
-  public val timestamp: Double,
+  val timestamp: Double,
 )

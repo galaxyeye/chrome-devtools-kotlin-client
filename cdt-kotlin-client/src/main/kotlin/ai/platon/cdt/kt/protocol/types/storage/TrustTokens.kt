@@ -10,9 +10,9 @@ import kotlin.String
  * Tokens from that issuer.
  */
 @Experimental
-public data class TrustTokens(
+data class TrustTokens(
   @field:JsonProperty("issuerOrigin")
-  public val issuerOrigin: String,
+  val issuerOrigin: String,
   @field:JsonProperty("count")
-  public val count: Double,
+  val count: Double,
 )

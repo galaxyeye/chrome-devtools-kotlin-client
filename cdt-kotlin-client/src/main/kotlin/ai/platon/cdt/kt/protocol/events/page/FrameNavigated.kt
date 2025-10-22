@@ -8,10 +8,10 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 /**
  * Fired once navigation of the frame has completed. Frame is now associated with the new loader.
  */
-public data class FrameNavigated(
+data class FrameNavigated(
   @field:JsonProperty("frame")
-  public val frame: Frame,
+  val frame: Frame,
   @field:JsonProperty("type")
   @param:Experimental
-  public val type: NavigationType,
+  val type: NavigationType,
 )

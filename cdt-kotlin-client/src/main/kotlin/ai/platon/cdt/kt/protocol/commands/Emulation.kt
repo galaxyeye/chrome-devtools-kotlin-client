@@ -29,7 +29,7 @@ import kotlin.collections.List
 /**
  * This domain emulates different environments for the page.
  */
-public interface Emulation {
+interface Emulation {
   /**
    * Tells whether emulation is supported.
    */
@@ -69,12 +69,10 @@ public interface Emulation {
   /**
    * Sets or clears an override of the default background color of the frame. This override is used
    * if the content does not specify one.
-   * @param color RGBA of the default background color. If not specified, any existing override will
-   * be
+   * @param color RGBA of the default background color. If not specified, any existing override will be
    * cleared.
    */
-  public suspend fun setDefaultBackgroundColorOverride(@ParamName("color") @Optional color: RGBA? =
-      null)
+  public suspend fun setDefaultBackgroundColorOverride(@ParamName("color") @Optional color: RGBA? = null)
 
   public suspend fun setDefaultBackgroundColorOverride() {
     return setDefaultBackgroundColorOverride(null)
@@ -84,13 +82,10 @@ public interface Emulation {
    * Overrides the values of device screen dimensions (window.screen.width, window.screen.height,
    * window.innerWidth, window.innerHeight, and "device-width"/"device-height"-related CSS media
    * query results).
-   * @param width Overriding width value in pixels (minimum 0, maximum 10000000). 0 disables the
-   * override.
-   * @param height Overriding height value in pixels (minimum 0, maximum 10000000). 0 disables the
-   * override.
+   * @param width Overriding width value in pixels (minimum 0, maximum 10000000). 0 disables the override.
+   * @param height Overriding height value in pixels (minimum 0, maximum 10000000). 0 disables the override.
    * @param deviceScaleFactor Overriding device scale factor value. 0 disables the override.
-   * @param mobile Whether to emulate mobile device. This includes viewport meta tag, overlay
-   * scrollbars, text
+   * @param mobile Whether to emulate mobile device. This includes viewport meta tag, overlay scrollbars, text
    * autosizing and more.
    * @param scale Scale to apply to resulting view image.
    * @param screenWidth Overriding screen width value in pixels (minimum 0, maximum 10000000).
@@ -99,11 +94,9 @@ public interface Emulation {
    * @param positionY Overriding view Y position on screen in pixels (minimum 0, maximum 10000000).
    * @param dontSetVisibleSize Do not set visible view size, rely upon explicit setVisibleSize call.
    * @param screenOrientation Screen orientation override.
-   * @param viewport If set, the visible area of the page will be overridden to this viewport. This
-   * viewport
+   * @param viewport If set, the visible area of the page will be overridden to this viewport. This viewport
    * change is not observed by the page, e.g. viewport-relative elements do not change positions.
-   * @param displayFeature If set, the display feature of a multi-segment screen. If not set,
-   * multi-segment support
+   * @param displayFeature If set, the display feature of a multi-segment screen. If not set, multi-segment support
    * is turned-off.
    */
   public suspend fun setDeviceMetricsOverride(
@@ -128,8 +121,7 @@ public interface Emulation {
     @ParamName("deviceScaleFactor") deviceScaleFactor: Double,
     @ParamName("mobile") mobile: Boolean,
   ) {
-    return setDeviceMetricsOverride(width, height, deviceScaleFactor, mobile, null, null, null,
-        null, null, null, null, null, null)
+    return setDeviceMetricsOverride(width, height, deviceScaleFactor, mobile, null, null, null, null, null, null, null, null, null)
   }
 
   /**
@@ -149,9 +141,7 @@ public interface Emulation {
    * @param configuration Touch/gesture events configuration. Default: current platform.
    */
   @Experimental
-  public suspend fun setEmitTouchEventsForMouse(@ParamName("enabled") enabled: Boolean,
-      @ParamName("configuration") @Optional configuration: SetEmitTouchEventsForMouseConfiguration?
-      = null)
+  public suspend fun setEmitTouchEventsForMouse(@ParamName("enabled") enabled: Boolean, @ParamName("configuration") @Optional configuration: SetEmitTouchEventsForMouseConfiguration? = null)
 
   @Experimental
   public suspend fun setEmitTouchEventsForMouse(@ParamName("enabled") enabled: Boolean) {
@@ -163,8 +153,7 @@ public interface Emulation {
    * @param media Media type to emulate. Empty string disables the override.
    * @param features Media features to emulate.
    */
-  public suspend fun setEmulatedMedia(@ParamName("media") @Optional media: String? = null,
-      @ParamName("features") @Optional features: List<MediaFeature>? = null)
+  public suspend fun setEmulatedMedia(@ParamName("media") @Optional media: String? = null, @ParamName("features") @Optional features: List<MediaFeature>? = null)
 
   public suspend fun setEmulatedMedia() {
     return setEmulatedMedia(null, null)
@@ -175,8 +164,7 @@ public interface Emulation {
    * @param type Vision deficiency to emulate.
    */
   @Experimental
-  public suspend fun setEmulatedVisionDeficiency(@ParamName("type")
-      type: SetEmulatedVisionDeficiencyType)
+  public suspend fun setEmulatedVisionDeficiency(@ParamName("type") type: SetEmulatedVisionDeficiencyType)
 
   /**
    * Overrides the Geolocation Position or Error. Omitting any of the parameters emulates position
@@ -201,8 +189,7 @@ public interface Emulation {
    * @param isScreenUnlocked Mock isScreenUnlocked
    */
   @Experimental
-  public suspend fun setIdleOverride(@ParamName("isUserActive") isUserActive: Boolean,
-      @ParamName("isScreenUnlocked") isScreenUnlocked: Boolean)
+  public suspend fun setIdleOverride(@ParamName("isUserActive") isUserActive: Boolean, @ParamName("isScreenUnlocked") isScreenUnlocked: Boolean)
 
   /**
    * Clears Idle state overrides.
@@ -236,37 +223,30 @@ public interface Emulation {
    * @param enabled Whether the touch event emulation should be enabled.
    * @param maxTouchPoints Maximum touch points supported. Defaults to one.
    */
-  public suspend fun setTouchEmulationEnabled(@ParamName("enabled") enabled: Boolean,
-      @ParamName("maxTouchPoints") @Optional maxTouchPoints: Int? = null)
+  public suspend fun setTouchEmulationEnabled(@ParamName("enabled") enabled: Boolean, @ParamName("maxTouchPoints") @Optional maxTouchPoints: Int? = null)
 
   public suspend fun setTouchEmulationEnabled(@ParamName("enabled") enabled: Boolean) {
     return setTouchEmulationEnabled(enabled, null)
   }
 
   /**
-   * Turns on virtual time for all frames (replacing real-time with a synthetic time source) and
-   * sets
+   * Turns on virtual time for all frames (replacing real-time with a synthetic time source) and sets
    * the current virtual time policy.  Note this supersedes any previous time budget.
    * @param policy
-   * @param budget If set, after this many virtual milliseconds have elapsed virtual time will be
-   * paused and a
+   * @param budget If set, after this many virtual milliseconds have elapsed virtual time will be paused and a
    * virtualTimeBudgetExpired event is sent.
-   * @param maxVirtualTimeTaskStarvationCount If set this specifies the maximum number of tasks that
-   * can be run before virtual is forced
+   * @param maxVirtualTimeTaskStarvationCount If set this specifies the maximum number of tasks that can be run before virtual is forced
    * forwards to prevent deadlock.
-   * @param waitForNavigation If set the virtual time policy change should be deferred until any
-   * frame starts navigating.
+   * @param waitForNavigation If set the virtual time policy change should be deferred until any frame starts navigating.
    * Note any previous deferred policy change is superseded.
-   * @param initialVirtualTime If set, base::Time::Now will be overridden to initially return this
-   * value.
+   * @param initialVirtualTime If set, base::Time::Now will be overridden to initially return this value.
    */
   @Experimental
   @Returns("virtualTimeTicksBase")
   public suspend fun setVirtualTimePolicy(
     @ParamName("policy") policy: VirtualTimePolicy,
     @ParamName("budget") @Optional budget: Double? = null,
-    @ParamName("maxVirtualTimeTaskStarvationCount") @Optional
-        maxVirtualTimeTaskStarvationCount: Int? = null,
+    @ParamName("maxVirtualTimeTaskStarvationCount") @Optional maxVirtualTimeTaskStarvationCount: Int? = null,
     @ParamName("waitForNavigation") @Optional waitForNavigation: Boolean? = null,
     @ParamName("initialVirtualTime") @Optional initialVirtualTime: Double? = null,
   ): Double
@@ -279,8 +259,7 @@ public interface Emulation {
 
   /**
    * Overrides default host system locale with the specified one.
-   * @param locale ICU style C locale (e.g. "en_US"). If not specified or empty, disables the
-   * override and
+   * @param locale ICU style C locale (e.g. "en_US"). If not specified or empty, disables the override and
    * restores default host system locale.
    */
   @Experimental
@@ -308,30 +287,26 @@ public interface Emulation {
    */
   @Deprecated
   @Experimental
-  public suspend fun setVisibleSize(@ParamName("width") width: Int, @ParamName("height")
-      height: Int)
+  public suspend fun setVisibleSize(@ParamName("width") width: Int, @ParamName("height") height: Int)
 
   /**
    * @param imageTypes Image types to disable.
    */
   @Experimental
-  public suspend fun setDisabledImageTypes(@ParamName("imageTypes")
-      imageTypes: List<DisabledImageType>)
+  public suspend fun setDisabledImageTypes(@ParamName("imageTypes") imageTypes: List<DisabledImageType>)
 
   /**
    * Allows overriding user agent with the given string.
    * @param userAgent User agent to use.
    * @param acceptLanguage Browser langugage to emulate.
    * @param platform The platform navigator.platform should return.
-   * @param userAgentMetadata To be sent in Sec-CH-UA-* headers and returned in
-   * navigator.userAgentData
+   * @param userAgentMetadata To be sent in Sec-CH-UA-* headers and returned in navigator.userAgentData
    */
   public suspend fun setUserAgentOverride(
     @ParamName("userAgent") userAgent: String,
     @ParamName("acceptLanguage") @Optional acceptLanguage: String? = null,
     @ParamName("platform") @Optional platform: String? = null,
-    @ParamName("userAgentMetadata") @Optional @Experimental userAgentMetadata: UserAgentMetadata? =
-        null,
+    @ParamName("userAgentMetadata") @Optional @Experimental userAgentMetadata: UserAgentMetadata? = null,
   )
 
   public suspend fun setUserAgentOverride(@ParamName("userAgent") userAgent: String) {
@@ -340,11 +315,9 @@ public interface Emulation {
 
   @EventName("virtualTimeBudgetExpired")
   @Experimental
-  public fun onVirtualTimeBudgetExpired(eventListener: EventHandler<VirtualTimeBudgetExpired>):
-      EventListener
+  fun onVirtualTimeBudgetExpired(eventListener: EventHandler<VirtualTimeBudgetExpired>): EventListener
 
   @EventName("virtualTimeBudgetExpired")
   @Experimental
-  public fun onVirtualTimeBudgetExpired(eventListener: suspend (VirtualTimeBudgetExpired) -> Unit):
-      EventListener
+  fun onVirtualTimeBudgetExpired(eventListener: suspend (VirtualTimeBudgetExpired) -> Unit): EventListener
 }

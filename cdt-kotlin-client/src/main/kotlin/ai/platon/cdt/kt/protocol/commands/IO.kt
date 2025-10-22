@@ -10,7 +10,7 @@ import kotlin.String
 /**
  * Input/Output operations for streams produced by DevTools.
  */
-public interface IO {
+interface IO {
   /**
    * Close the stream, discard any temporary backing storage.
    * @param handle Handle of the stream to close.
@@ -20,8 +20,7 @@ public interface IO {
   /**
    * Read a chunk of the stream
    * @param handle Handle of the stream to read.
-   * @param offset Seek to the specified offset before reading (if not specificed, proceed with
-   * offset
+   * @param offset Seek to the specified offset before reading (if not specificed, proceed with offset
    * following the last read). Some types of streams may only support sequential reads.
    * @param size Maximum number of bytes to read (left upon the agent discretion if not specified).
    */

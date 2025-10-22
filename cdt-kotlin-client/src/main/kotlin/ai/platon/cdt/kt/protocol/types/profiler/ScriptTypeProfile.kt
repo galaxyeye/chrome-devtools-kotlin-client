@@ -9,11 +9,11 @@ import kotlin.collections.List
  * Type profile data collected during runtime for a JavaScript script.
  */
 @Experimental
-public data class ScriptTypeProfile(
+data class ScriptTypeProfile(
   @field:JsonProperty("scriptId")
-  public val scriptId: String,
+  val scriptId: String,
   @field:JsonProperty("url")
-  public val url: String,
+  val url: String,
   @field:JsonProperty("entries")
-  public val entries: List<TypeProfileEntry>,
+  val entries: List<TypeProfileEntry>,
 )

@@ -7,11 +7,11 @@ import kotlin.collections.List
 /**
  * Coverage data for a JavaScript script.
  */
-public data class ScriptCoverage(
+data class ScriptCoverage(
   @field:JsonProperty("scriptId")
-  public val scriptId: String,
+  val scriptId: String,
   @field:JsonProperty("url")
-  public val url: String,
+  val url: String,
   @field:JsonProperty("functions")
-  public val functions: List<FunctionCoverage>,
+  val functions: List<FunctionCoverage>,
 )

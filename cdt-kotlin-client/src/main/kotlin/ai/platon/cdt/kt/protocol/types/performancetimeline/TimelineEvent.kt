@@ -5,22 +5,22 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Double
 import kotlin.String
 
-public data class TimelineEvent(
+data class TimelineEvent(
   @field:JsonProperty("frameId")
-  public val frameId: String,
+  val frameId: String,
   @field:JsonProperty("type")
-  public val type: String,
+  val type: String,
   @field:JsonProperty("name")
-  public val name: String,
+  val name: String,
   @field:JsonProperty("time")
-  public val time: Double,
+  val time: Double,
   @field:JsonProperty("duration")
   @param:Optional
-  public val duration: Double? = null,
+  val duration: Double? = null,
   @field:JsonProperty("lcpDetails")
   @param:Optional
-  public val lcpDetails: LargestContentfulPaint? = null,
+  val lcpDetails: LargestContentfulPaint? = null,
   @field:JsonProperty("layoutShiftDetails")
   @param:Optional
-  public val layoutShiftDetails: LayoutShift? = null,
+  val layoutShiftDetails: LayoutShift? = null,
 )

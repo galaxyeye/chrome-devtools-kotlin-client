@@ -9,21 +9,21 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Boolean
 import kotlin.collections.List
 
-public data class SetScriptSource(
+data class SetScriptSource(
   @field:JsonProperty("callFrames")
   @param:Optional
-  public val callFrames: List<CallFrame>? = null,
+  val callFrames: List<CallFrame>? = null,
   @field:JsonProperty("stackChanged")
   @param:Optional
-  public val stackChanged: Boolean? = null,
+  val stackChanged: Boolean? = null,
   @field:JsonProperty("asyncStackTrace")
   @param:Optional
-  public val asyncStackTrace: StackTrace? = null,
+  val asyncStackTrace: StackTrace? = null,
   @field:JsonProperty("asyncStackTraceId")
   @param:Optional
   @param:Experimental
-  public val asyncStackTraceId: StackTraceId? = null,
+  val asyncStackTraceId: StackTraceId? = null,
   @field:JsonProperty("exceptionDetails")
   @param:Optional
-  public val exceptionDetails: ExceptionDetails? = null,
+  val exceptionDetails: ExceptionDetails? = null,
 )

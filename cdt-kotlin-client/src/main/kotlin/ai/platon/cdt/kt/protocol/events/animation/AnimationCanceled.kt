@@ -6,7 +6,7 @@ import kotlin.String
 /**
  * Event for when an animation has been cancelled.
  */
-public data class AnimationCanceled(
+data class AnimationCanceled(
   @field:JsonProperty("id")
-  public val id: String,
+  val id: String,
 )

@@ -9,11 +9,11 @@ import kotlin.Int
  * Default font sizes.
  */
 @Experimental
-public data class FontSizes(
+data class FontSizes(
   @field:JsonProperty("standard")
   @param:Optional
-  public val standard: Int? = null,
+  val standard: Int? = null,
   @field:JsonProperty("fixed")
   @param:Optional
-  public val fixed: Int? = null,
+  val fixed: Int? = null,
 )

@@ -6,7 +6,7 @@ import kotlin.String
 /**
  * A cache has been added/deleted.
  */
-public data class CacheStorageListUpdated(
+data class CacheStorageListUpdated(
   @field:JsonProperty("origin")
-  public val origin: String,
+  val origin: String,
 )

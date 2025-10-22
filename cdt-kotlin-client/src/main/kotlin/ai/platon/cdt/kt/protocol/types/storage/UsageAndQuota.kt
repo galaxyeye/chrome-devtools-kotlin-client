@@ -5,13 +5,13 @@ import kotlin.Boolean
 import kotlin.Double
 import kotlin.collections.List
 
-public data class UsageAndQuota(
+data class UsageAndQuota(
   @field:JsonProperty("usage")
-  public val usage: Double,
+  val usage: Double,
   @field:JsonProperty("quota")
-  public val quota: Double,
+  val quota: Double,
   @field:JsonProperty("overrideActive")
-  public val overrideActive: Boolean,
+  val overrideActive: Boolean,
   @field:JsonProperty("usageBreakdown")
-  public val usageBreakdown: List<UsageForType>,
+  val usageBreakdown: List<UsageForType>,
 )

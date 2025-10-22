@@ -10,11 +10,11 @@ import kotlin.String
  * Issued when attached to target because of auto-attach or `attachToTarget` command.
  */
 @Experimental
-public data class AttachedToTarget(
+data class AttachedToTarget(
   @field:JsonProperty("sessionId")
-  public val sessionId: String,
+  val sessionId: String,
   @field:JsonProperty("targetInfo")
-  public val targetInfo: TargetInfo,
+  val targetInfo: TargetInfo,
   @field:JsonProperty("waitingForDebugger")
-  public val waitingForDebugger: Boolean,
+  val waitingForDebugger: Boolean,
 )

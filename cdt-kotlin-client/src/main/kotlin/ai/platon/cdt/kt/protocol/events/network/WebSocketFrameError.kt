@@ -7,11 +7,11 @@ import kotlin.String
 /**
  * Fired when WebSocket message error occurs.
  */
-public data class WebSocketFrameError(
+data class WebSocketFrameError(
   @field:JsonProperty("requestId")
-  public val requestId: String,
+  val requestId: String,
   @field:JsonProperty("timestamp")
-  public val timestamp: Double,
+  val timestamp: Double,
   @field:JsonProperty("errorMessage")
-  public val errorMessage: String,
+  val errorMessage: String,
 )

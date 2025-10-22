@@ -7,9 +7,9 @@ import kotlin.String
 /**
  * Informs that port was successfully bound and got a specified connection id.
  */
-public data class Accepted(
+data class Accepted(
   @field:JsonProperty("port")
-  public val port: Int,
+  val port: Int,
   @field:JsonProperty("connectionId")
-  public val connectionId: String,
+  val connectionId: String,
 )

@@ -22,7 +22,7 @@ import kotlin.collections.List
 /**
  * A domain for letting clients substitute browser's network layer with client code.
  */
-public interface Fetch {
+interface Fetch {
   /**
    * Disables the fetch domain.
    */
@@ -34,12 +34,10 @@ public interface Fetch {
    * @param patterns If specified, only requests matching any of these patterns will produce
    * fetchRequested event and will be paused until clients response. If not set,
    * all requests will be affected.
-   * @param handleAuthRequests If true, authRequired events will be issued and requests will be
-   * paused
+   * @param handleAuthRequests If true, authRequired events will be issued and requests will be paused
    * expecting a call to continueWithAuth.
    */
-  public suspend fun enable(@ParamName("patterns") @Optional patterns: List<RequestPattern>? = null,
-      @ParamName("handleAuthRequests") @Optional handleAuthRequests: Boolean? = null)
+  public suspend fun enable(@ParamName("patterns") @Optional patterns: List<RequestPattern>? = null, @ParamName("handleAuthRequests") @Optional handleAuthRequests: Boolean? = null)
 
   public suspend fun enable() {
     return enable(null, null)
@@ -50,8 +48,7 @@ public interface Fetch {
    * @param requestId An id the client received in requestPaused event.
    * @param errorReason Causes the request to fail with the given reason.
    */
-  public suspend fun failRequest(@ParamName("requestId") requestId: String,
-      @ParamName("errorReason") errorReason: ErrorReason)
+  public suspend fun failRequest(@ParamName("requestId") requestId: String, @ParamName("errorReason") errorReason: ErrorReason)
 
   /**
    * Provides response to the request.
@@ -75,8 +72,7 @@ public interface Fetch {
     @ParamName("responsePhrase") @Optional responsePhrase: String? = null,
   )
 
-  public suspend fun fulfillRequest(@ParamName("requestId") requestId: String,
-      @ParamName("responseCode") responseCode: Int) {
+  public suspend fun fulfillRequest(@ParamName("requestId") requestId: String, @ParamName("responseCode") responseCode: Int) {
     return fulfillRequest(requestId, responseCode, null, null, null, null)
   }
 
@@ -85,8 +81,7 @@ public interface Fetch {
    * @param requestId An id the client received in requestPaused event.
    * @param url If set, the request url will be modified in a way that's not observable by page.
    * @param method If set, the request method is overridden.
-   * @param postData If set, overrides the post data in the request. (Encoded as a base64 string
-   * when passed over JSON)
+   * @param postData If set, overrides the post data in the request. (Encoded as a base64 string when passed over JSON)
    * @param headers If set, overrides the request headers.
    */
   public suspend fun continueRequest(
@@ -106,8 +101,7 @@ public interface Fetch {
    * @param requestId An id the client received in authRequired event.
    * @param authChallengeResponse Response to  with an authChallenge.
    */
-  public suspend fun continueWithAuth(@ParamName("requestId") requestId: String,
-      @ParamName("authChallengeResponse") authChallengeResponse: AuthChallengeResponse)
+  public suspend fun continueWithAuth(@ParamName("requestId") requestId: String, @ParamName("authChallengeResponse") authChallengeResponse: AuthChallengeResponse)
 
   /**
    * Causes the body of the response to be received from the server and
@@ -137,14 +131,14 @@ public interface Fetch {
   public suspend fun takeResponseBodyAsStream(@ParamName("requestId") requestId: String): String
 
   @EventName("requestPaused")
-  public fun onRequestPaused(eventListener: EventHandler<RequestPaused>): EventListener
+  fun onRequestPaused(eventListener: EventHandler<RequestPaused>): EventListener
 
   @EventName("requestPaused")
-  public fun onRequestPaused(eventListener: suspend (RequestPaused) -> Unit): EventListener
+  fun onRequestPaused(eventListener: suspend (RequestPaused) -> Unit): EventListener
 
   @EventName("authRequired")
-  public fun onAuthRequired(eventListener: EventHandler<AuthRequired>): EventListener
+  fun onAuthRequired(eventListener: EventHandler<AuthRequired>): EventListener
 
   @EventName("authRequired")
-  public fun onAuthRequired(eventListener: suspend (AuthRequired) -> Unit): EventListener
+  fun onAuthRequired(eventListener: suspend (AuthRequired) -> Unit): EventListener
 }

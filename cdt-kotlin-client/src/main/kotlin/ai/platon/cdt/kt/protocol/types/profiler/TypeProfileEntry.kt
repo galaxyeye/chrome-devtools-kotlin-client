@@ -9,9 +9,9 @@ import kotlin.collections.List
  * Source offset and types for a parameter or return value.
  */
 @Experimental
-public data class TypeProfileEntry(
+data class TypeProfileEntry(
   @field:JsonProperty("offset")
-  public val offset: Int,
+  val offset: Int,
   @field:JsonProperty("types")
-  public val types: List<TypeObject>,
+  val types: List<TypeObject>,
 )

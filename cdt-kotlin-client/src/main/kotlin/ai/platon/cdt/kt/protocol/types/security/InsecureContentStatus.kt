@@ -8,19 +8,19 @@ import kotlin.Boolean
  * Information about insecure content on the page.
  */
 @Deprecated
-public data class InsecureContentStatus(
+data class InsecureContentStatus(
   @field:JsonProperty("ranMixedContent")
-  public val ranMixedContent: Boolean,
+  val ranMixedContent: Boolean,
   @field:JsonProperty("displayedMixedContent")
-  public val displayedMixedContent: Boolean,
+  val displayedMixedContent: Boolean,
   @field:JsonProperty("containedMixedForm")
-  public val containedMixedForm: Boolean,
+  val containedMixedForm: Boolean,
   @field:JsonProperty("ranContentWithCertErrors")
-  public val ranContentWithCertErrors: Boolean,
+  val ranContentWithCertErrors: Boolean,
   @field:JsonProperty("displayedContentWithCertErrors")
-  public val displayedContentWithCertErrors: Boolean,
+  val displayedContentWithCertErrors: Boolean,
   @field:JsonProperty("ranInsecureContentStyle")
-  public val ranInsecureContentStyle: SecurityState,
+  val ranInsecureContentStyle: SecurityState,
   @field:JsonProperty("displayedInsecureContentStyle")
-  public val displayedInsecureContentStyle: SecurityState,
+  val displayedInsecureContentStyle: SecurityState,
 )

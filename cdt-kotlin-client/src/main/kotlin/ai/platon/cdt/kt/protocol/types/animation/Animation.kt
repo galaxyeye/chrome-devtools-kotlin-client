@@ -9,27 +9,27 @@ import kotlin.String
 /**
  * Animation instance.
  */
-public data class Animation(
+data class Animation(
   @field:JsonProperty("id")
-  public val id: String,
+  val id: String,
   @field:JsonProperty("name")
-  public val name: String,
+  val name: String,
   @field:JsonProperty("pausedState")
-  public val pausedState: Boolean,
+  val pausedState: Boolean,
   @field:JsonProperty("playState")
-  public val playState: String,
+  val playState: String,
   @field:JsonProperty("playbackRate")
-  public val playbackRate: Double,
+  val playbackRate: Double,
   @field:JsonProperty("startTime")
-  public val startTime: Double,
+  val startTime: Double,
   @field:JsonProperty("currentTime")
-  public val currentTime: Double,
+  val currentTime: Double,
   @field:JsonProperty("type")
-  public val type: AnimationType,
+  val type: AnimationType,
   @field:JsonProperty("source")
   @param:Optional
-  public val source: AnimationEffect? = null,
+  val source: AnimationEffect? = null,
   @field:JsonProperty("cssId")
   @param:Optional
-  public val cssId: String? = null,
+  val cssId: String? = null,
 )

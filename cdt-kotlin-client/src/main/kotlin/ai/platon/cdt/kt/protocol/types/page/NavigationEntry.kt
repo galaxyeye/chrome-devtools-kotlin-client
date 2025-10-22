@@ -7,15 +7,15 @@ import kotlin.String
 /**
  * Navigation history entry.
  */
-public data class NavigationEntry(
+data class NavigationEntry(
   @field:JsonProperty("id")
-  public val id: Int,
+  val id: Int,
   @field:JsonProperty("url")
-  public val url: String,
+  val url: String,
   @field:JsonProperty("userTypedURL")
-  public val userTypedURL: String,
+  val userTypedURL: String,
   @field:JsonProperty("title")
-  public val title: String,
+  val title: String,
   @field:JsonProperty("transitionType")
-  public val transitionType: TransitionType,
+  val transitionType: TransitionType,
 )

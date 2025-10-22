@@ -13,13 +13,13 @@ import kotlin.String
  */
 @Experimental
 @Deprecated
-public data class DownloadProgress(
+data class DownloadProgress(
   @field:JsonProperty("guid")
-  public val guid: String,
+  val guid: String,
   @field:JsonProperty("totalBytes")
-  public val totalBytes: Double,
+  val totalBytes: Double,
   @field:JsonProperty("receivedBytes")
-  public val receivedBytes: Double,
+  val receivedBytes: Double,
   @field:JsonProperty("state")
-  public val state: DownloadProgressState,
+  val state: DownloadProgressState,
 )

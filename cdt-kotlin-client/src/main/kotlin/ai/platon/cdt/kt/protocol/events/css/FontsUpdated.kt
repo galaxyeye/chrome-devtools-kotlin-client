@@ -8,8 +8,8 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * Fires whenever a web font is updated.  A non-empty font parameter indicates a successfully loaded
  * web font
  */
-public data class FontsUpdated(
+data class FontsUpdated(
   @field:JsonProperty("font")
   @param:Optional
-  public val font: FontFace? = null,
+  val font: FontFace? = null,
 )

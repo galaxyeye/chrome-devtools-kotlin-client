@@ -6,9 +6,9 @@ import kotlin.Int
 import kotlin.collections.List
 
 @Experimental
-public data class DragData(
+data class DragData(
   @field:JsonProperty("items")
-  public val items: List<DragDataItem>,
+  val items: List<DragDataItem>,
   @field:JsonProperty("dragOperationsMask")
-  public val dragOperationsMask: Int,
+  val dragOperationsMask: Int,
 )

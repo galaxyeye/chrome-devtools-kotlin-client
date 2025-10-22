@@ -5,15 +5,15 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Int
 import kotlin.String
 
-public data class BreakLocation(
+data class BreakLocation(
   @field:JsonProperty("scriptId")
-  public val scriptId: String,
+  val scriptId: String,
   @field:JsonProperty("lineNumber")
-  public val lineNumber: Int,
+  val lineNumber: Int,
   @field:JsonProperty("columnNumber")
   @param:Optional
-  public val columnNumber: Int? = null,
+  val columnNumber: Int? = null,
   @field:JsonProperty("type")
   @param:Optional
-  public val type: BreakLocationType? = null,
+  val type: BreakLocationType? = null,
 )

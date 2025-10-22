@@ -6,12 +6,12 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Boolean
 
 @Experimental
-public data class PermissionsPolicyFeatureState(
+data class PermissionsPolicyFeatureState(
   @field:JsonProperty("feature")
-  public val feature: PermissionsPolicyFeature,
+  val feature: PermissionsPolicyFeature,
   @field:JsonProperty("allowed")
-  public val allowed: Boolean,
+  val allowed: Boolean,
   @field:JsonProperty("locator")
   @param:Optional
-  public val locator: PermissionsPolicyBlockLocator? = null,
+  val locator: PermissionsPolicyBlockLocator? = null,
 )

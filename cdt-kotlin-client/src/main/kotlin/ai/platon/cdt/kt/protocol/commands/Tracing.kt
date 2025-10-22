@@ -26,7 +26,7 @@ import kotlin.Unit
 import kotlin.collections.List
 
 @Experimental
-public interface Tracing {
+interface Tracing {
   /**
    * Stop trace events collection.
    */
@@ -50,9 +50,7 @@ public interface Tracing {
    * @param deterministic Enables more deterministic results by forcing garbage collection
    * @param levelOfDetail Specifies level of details in memory dump. Defaults to "detailed".
    */
-  public suspend fun requestMemoryDump(@ParamName("deterministic") @Optional deterministic: Boolean?
-      = null, @ParamName("levelOfDetail") @Optional levelOfDetail: MemoryDumpLevelOfDetail? = null):
-      RequestMemoryDump
+  public suspend fun requestMemoryDump(@ParamName("deterministic") @Optional deterministic: Boolean? = null, @ParamName("levelOfDetail") @Optional levelOfDetail: MemoryDumpLevelOfDetail? = null): RequestMemoryDump
 
   public suspend fun requestMemoryDump(): RequestMemoryDump {
     return requestMemoryDump(null, null)
@@ -62,15 +60,12 @@ public interface Tracing {
    * Start trace events collection.
    * @param categories Category/tag filter
    * @param options Tracing options
-   * @param bufferUsageReportingInterval If set, the agent will issue bufferUsage events at this
-   * interval, specified in milliseconds
-   * @param transferMode Whether to report trace events as series of dataCollected events or to save
-   * trace to a
+   * @param bufferUsageReportingInterval If set, the agent will issue bufferUsage events at this interval, specified in milliseconds
+   * @param transferMode Whether to report trace events as series of dataCollected events or to save trace to a
    * stream (defaults to `ReportEvents`).
    * @param streamFormat Trace data format to use. This only applies when using `ReturnAsStream`
    * transfer mode (defaults to `json`).
-   * @param streamCompression Compression format to use. This only applies when using
-   * `ReturnAsStream`
+   * @param streamCompression Compression format to use. This only applies when using `ReturnAsStream`
    * transfer mode (defaults to `none`)
    * @param traceConfig
    * @param perfettoConfig Base64-encoded serialized perfetto.protos.TraceConfig protobuf message
@@ -81,8 +76,7 @@ public interface Tracing {
   public suspend fun start(
     @ParamName("categories") @Optional @Deprecated categories: String? = null,
     @ParamName("options") @Optional @Deprecated options: String? = null,
-    @ParamName("bufferUsageReportingInterval") @Optional bufferUsageReportingInterval: Double? =
-        null,
+    @ParamName("bufferUsageReportingInterval") @Optional bufferUsageReportingInterval: Double? = null,
     @ParamName("transferMode") @Optional transferMode: StartTransferMode? = null,
     @ParamName("streamFormat") @Optional streamFormat: StreamFormat? = null,
     @ParamName("streamCompression") @Optional streamCompression: StreamCompression? = null,
@@ -96,20 +90,20 @@ public interface Tracing {
   }
 
   @EventName("bufferUsage")
-  public fun onBufferUsage(eventListener: EventHandler<BufferUsage>): EventListener
+  fun onBufferUsage(eventListener: EventHandler<BufferUsage>): EventListener
 
   @EventName("bufferUsage")
-  public fun onBufferUsage(eventListener: suspend (BufferUsage) -> Unit): EventListener
+  fun onBufferUsage(eventListener: suspend (BufferUsage) -> Unit): EventListener
 
   @EventName("dataCollected")
-  public fun onDataCollected(eventListener: EventHandler<DataCollected>): EventListener
+  fun onDataCollected(eventListener: EventHandler<DataCollected>): EventListener
 
   @EventName("dataCollected")
-  public fun onDataCollected(eventListener: suspend (DataCollected) -> Unit): EventListener
+  fun onDataCollected(eventListener: suspend (DataCollected) -> Unit): EventListener
 
   @EventName("tracingComplete")
-  public fun onTracingComplete(eventListener: EventHandler<TracingComplete>): EventListener
+  fun onTracingComplete(eventListener: EventHandler<TracingComplete>): EventListener
 
   @EventName("tracingComplete")
-  public fun onTracingComplete(eventListener: suspend (TracingComplete) -> Unit): EventListener
+  fun onTracingComplete(eventListener: suspend (TracingComplete) -> Unit): EventListener
 }

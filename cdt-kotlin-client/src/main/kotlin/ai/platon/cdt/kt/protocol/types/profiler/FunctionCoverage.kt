@@ -8,11 +8,11 @@ import kotlin.collections.List
 /**
  * Coverage data for a JavaScript function.
  */
-public data class FunctionCoverage(
+data class FunctionCoverage(
   @field:JsonProperty("functionName")
-  public val functionName: String,
+  val functionName: String,
   @field:JsonProperty("ranges")
-  public val ranges: List<CoverageRange>,
+  val ranges: List<CoverageRange>,
   @field:JsonProperty("isBlockCoverage")
-  public val isBlockCoverage: Boolean,
+  val isBlockCoverage: Boolean,
 )

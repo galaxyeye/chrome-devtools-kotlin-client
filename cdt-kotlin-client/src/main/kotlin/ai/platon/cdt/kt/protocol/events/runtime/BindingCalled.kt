@@ -9,11 +9,11 @@ import kotlin.String
  * Notification is issued every time when binding is called.
  */
 @Experimental
-public data class BindingCalled(
+data class BindingCalled(
   @field:JsonProperty("name")
-  public val name: String,
+  val name: String,
   @field:JsonProperty("payload")
-  public val payload: String,
+  val payload: String,
   @field:JsonProperty("executionContextId")
-  public val executionContextId: Int,
+  val executionContextId: Int,
 )

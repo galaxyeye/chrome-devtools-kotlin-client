@@ -8,12 +8,12 @@ import kotlin.String
 /**
  * Fired upon WebSocket creation.
  */
-public data class WebSocketCreated(
+data class WebSocketCreated(
   @field:JsonProperty("requestId")
-  public val requestId: String,
+  val requestId: String,
   @field:JsonProperty("url")
-  public val url: String,
+  val url: String,
   @field:JsonProperty("initiator")
   @param:Optional
-  public val initiator: Initiator? = null,
+  val initiator: Initiator? = null,
 )

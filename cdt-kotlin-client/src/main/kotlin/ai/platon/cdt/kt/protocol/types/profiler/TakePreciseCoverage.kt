@@ -4,9 +4,9 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Double
 import kotlin.collections.List
 
-public data class TakePreciseCoverage(
+data class TakePreciseCoverage(
   @field:JsonProperty("result")
-  public val result: List<ScriptCoverage>,
+  val result: List<ScriptCoverage>,
   @field:JsonProperty("timestamp")
-  public val timestamp: Double,
+  val timestamp: Double,
 )

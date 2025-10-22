@@ -15,7 +15,7 @@ import kotlin.collections.List
  * https://w3c.github.io/performance-timeline/#dom-performanceobserver.
  */
 @Experimental
-public interface PerformanceTimeline {
+interface PerformanceTimeline {
   /**
    * Previously buffered events would be reported before method returns.
    * See also: timelineEventAdded
@@ -28,9 +28,8 @@ public interface PerformanceTimeline {
   public suspend fun enable(@ParamName("eventTypes") eventTypes: List<String>)
 
   @EventName("timelineEventAdded")
-  public fun onTimelineEventAdded(eventListener: EventHandler<TimelineEventAdded>): EventListener
+  fun onTimelineEventAdded(eventListener: EventHandler<TimelineEventAdded>): EventListener
 
   @EventName("timelineEventAdded")
-  public fun onTimelineEventAdded(eventListener: suspend (TimelineEventAdded) -> Unit):
-      EventListener
+  fun onTimelineEventAdded(eventListener: suspend (TimelineEventAdded) -> Unit): EventListener
 }

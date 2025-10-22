@@ -9,20 +9,20 @@ import kotlin.Double
  * Screencast frame metadata.
  */
 @Experimental
-public data class ScreencastFrameMetadata(
+data class ScreencastFrameMetadata(
   @field:JsonProperty("offsetTop")
-  public val offsetTop: Double,
+  val offsetTop: Double,
   @field:JsonProperty("pageScaleFactor")
-  public val pageScaleFactor: Double,
+  val pageScaleFactor: Double,
   @field:JsonProperty("deviceWidth")
-  public val deviceWidth: Double,
+  val deviceWidth: Double,
   @field:JsonProperty("deviceHeight")
-  public val deviceHeight: Double,
+  val deviceHeight: Double,
   @field:JsonProperty("scrollOffsetX")
-  public val scrollOffsetX: Double,
+  val scrollOffsetX: Double,
   @field:JsonProperty("scrollOffsetY")
-  public val scrollOffsetY: Double,
+  val scrollOffsetY: Double,
   @field:JsonProperty("timestamp")
   @param:Optional
-  public val timestamp: Double? = null,
+  val timestamp: Double? = null,
 )

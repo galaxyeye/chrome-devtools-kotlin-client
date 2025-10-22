@@ -6,28 +6,27 @@ import kotlin.String
 import kotlin.collections.List
 
 /**
- * Properties of a web font:
- * https://www.w3.org/TR/2008/REC-CSS2-20080411/fonts.html#font-descriptions
+ * Properties of a web font: https://www.w3.org/TR/2008/REC-CSS2-20080411/fonts.html#font-descriptions
  * and additional information such as platformFontFamily and fontVariationAxes.
  */
-public data class FontFace(
+data class FontFace(
   @field:JsonProperty("fontFamily")
-  public val fontFamily: String,
+  val fontFamily: String,
   @field:JsonProperty("fontStyle")
-  public val fontStyle: String,
+  val fontStyle: String,
   @field:JsonProperty("fontVariant")
-  public val fontVariant: String,
+  val fontVariant: String,
   @field:JsonProperty("fontWeight")
-  public val fontWeight: String,
+  val fontWeight: String,
   @field:JsonProperty("fontStretch")
-  public val fontStretch: String,
+  val fontStretch: String,
   @field:JsonProperty("unicodeRange")
-  public val unicodeRange: String,
+  val unicodeRange: String,
   @field:JsonProperty("src")
-  public val src: String,
+  val src: String,
   @field:JsonProperty("platformFontFamily")
-  public val platformFontFamily: String,
+  val platformFontFamily: String,
   @field:JsonProperty("fontVariationAxes")
   @param:Optional
-  public val fontVariationAxes: List<FontVariationAxis>? = null,
+  val fontVariationAxes: List<FontVariationAxis>? = null,
 )

@@ -9,13 +9,13 @@ import kotlin.String
  * Notifies about a new protocol message received from the session (as reported in
  * `attachedToTarget` event).
  */
-public data class ReceivedMessageFromTarget(
+data class ReceivedMessageFromTarget(
   @field:JsonProperty("sessionId")
-  public val sessionId: String,
+  val sessionId: String,
   @field:JsonProperty("message")
-  public val message: String,
+  val message: String,
   @field:JsonProperty("targetId")
   @param:Optional
   @param:Deprecated
-  public val targetId: String? = null,
+  val targetId: String? = null,
 )

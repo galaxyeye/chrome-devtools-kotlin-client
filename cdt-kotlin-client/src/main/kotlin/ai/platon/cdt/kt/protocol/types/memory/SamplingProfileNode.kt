@@ -8,11 +8,11 @@ import kotlin.collections.List
 /**
  * Heap profile sample.
  */
-public data class SamplingProfileNode(
+data class SamplingProfileNode(
   @field:JsonProperty("size")
-  public val size: Double,
+  val size: Double,
   @field:JsonProperty("total")
-  public val total: Double,
+  val total: Double,
   @field:JsonProperty("stack")
-  public val stack: List<String>,
+  val stack: List<String>,
 )

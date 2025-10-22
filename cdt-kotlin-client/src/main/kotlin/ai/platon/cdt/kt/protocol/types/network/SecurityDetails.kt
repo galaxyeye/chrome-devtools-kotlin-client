@@ -10,33 +10,33 @@ import kotlin.collections.List
 /**
  * Security details about a request.
  */
-public data class SecurityDetails(
+data class SecurityDetails(
   @field:JsonProperty("protocol")
-  public val protocol: String,
+  val protocol: String,
   @field:JsonProperty("keyExchange")
-  public val keyExchange: String,
+  val keyExchange: String,
   @field:JsonProperty("keyExchangeGroup")
   @param:Optional
-  public val keyExchangeGroup: String? = null,
+  val keyExchangeGroup: String? = null,
   @field:JsonProperty("cipher")
-  public val cipher: String,
+  val cipher: String,
   @field:JsonProperty("mac")
   @param:Optional
-  public val mac: String? = null,
+  val mac: String? = null,
   @field:JsonProperty("certificateId")
-  public val certificateId: Int,
+  val certificateId: Int,
   @field:JsonProperty("subjectName")
-  public val subjectName: String,
+  val subjectName: String,
   @field:JsonProperty("sanList")
-  public val sanList: List<String>,
+  val sanList: List<String>,
   @field:JsonProperty("issuer")
-  public val issuer: String,
+  val issuer: String,
   @field:JsonProperty("validFrom")
-  public val validFrom: Double,
+  val validFrom: Double,
   @field:JsonProperty("validTo")
-  public val validTo: Double,
+  val validTo: Double,
   @field:JsonProperty("signedCertificateTimestampList")
-  public val signedCertificateTimestampList: List<SignedCertificateTimestamp>,
+  val signedCertificateTimestampList: List<SignedCertificateTimestamp>,
   @field:JsonProperty("certificateTransparencyCompliance")
-  public val certificateTransparencyCompliance: CertificateTransparencyCompliance,
+  val certificateTransparencyCompliance: CertificateTransparencyCompliance,
 )

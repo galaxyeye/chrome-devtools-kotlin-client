@@ -8,17 +8,17 @@ import kotlin.String
 /**
  * Notifies that two AudioNodes are connected.
  */
-public data class NodesConnected(
+data class NodesConnected(
   @field:JsonProperty("contextId")
-  public val contextId: String,
+  val contextId: String,
   @field:JsonProperty("sourceId")
-  public val sourceId: String,
+  val sourceId: String,
   @field:JsonProperty("destinationId")
-  public val destinationId: String,
+  val destinationId: String,
   @field:JsonProperty("sourceOutputIndex")
   @param:Optional
-  public val sourceOutputIndex: Double? = null,
+  val sourceOutputIndex: Double? = null,
   @field:JsonProperty("destinationInputIndex")
   @param:Optional
-  public val destinationInputIndex: Double? = null,
+  val destinationInputIndex: Double? = null,
 )

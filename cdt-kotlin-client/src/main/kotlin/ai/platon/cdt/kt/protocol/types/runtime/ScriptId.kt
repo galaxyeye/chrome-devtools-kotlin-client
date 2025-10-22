@@ -2,4 +2,4 @@ package ai.platon.cdt.kt.protocol.types.runtime
 
 import kotlin.String
 
-public typealias ScriptId = String
+typealias ScriptId = String

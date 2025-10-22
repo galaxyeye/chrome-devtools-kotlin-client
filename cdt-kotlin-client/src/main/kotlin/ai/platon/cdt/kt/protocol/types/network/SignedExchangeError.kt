@@ -10,13 +10,13 @@ import kotlin.String
  * Information about a signed exchange response.
  */
 @Experimental
-public data class SignedExchangeError(
+data class SignedExchangeError(
   @field:JsonProperty("message")
-  public val message: String,
+  val message: String,
   @field:JsonProperty("signatureIndex")
   @param:Optional
-  public val signatureIndex: Int? = null,
+  val signatureIndex: Int? = null,
   @field:JsonProperty("errorField")
   @param:Optional
-  public val errorField: SignedExchangeErrorField? = null,
+  val errorField: SignedExchangeErrorField? = null,
 )

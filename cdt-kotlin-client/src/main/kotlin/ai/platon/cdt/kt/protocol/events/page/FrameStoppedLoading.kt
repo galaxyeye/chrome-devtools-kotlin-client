@@ -8,7 +8,7 @@ import kotlin.String
  * Fired when frame has stopped loading.
  */
 @Experimental
-public data class FrameStoppedLoading(
+data class FrameStoppedLoading(
   @field:JsonProperty("frameId")
-  public val frameId: String,
+  val frameId: String,
 )

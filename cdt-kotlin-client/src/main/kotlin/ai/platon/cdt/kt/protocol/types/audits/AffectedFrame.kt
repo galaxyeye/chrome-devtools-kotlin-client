@@ -6,7 +6,7 @@ import kotlin.String
 /**
  * Information about the frame affected by an inspector issue.
  */
-public data class AffectedFrame(
+data class AffectedFrame(
   @field:JsonProperty("frameId")
-  public val frameId: String,
+  val frameId: String,
 )

@@ -3,9 +3,9 @@ package ai.platon.cdt.kt.protocol.types.overlay
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Int
 
-public data class ScrollSnapHighlightConfig(
+data class ScrollSnapHighlightConfig(
   @field:JsonProperty("scrollSnapContainerHighlightConfig")
-  public val scrollSnapContainerHighlightConfig: ScrollSnapContainerHighlightConfig,
+  val scrollSnapContainerHighlightConfig: ScrollSnapContainerHighlightConfig,
   @field:JsonProperty("nodeId")
-  public val nodeId: Int,
+  val nodeId: Int,
 )

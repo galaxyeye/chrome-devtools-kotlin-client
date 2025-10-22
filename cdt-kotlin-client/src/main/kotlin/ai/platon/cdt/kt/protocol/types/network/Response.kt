@@ -13,65 +13,65 @@ import kotlin.collections.Map
 /**
  * HTTP response data.
  */
-public data class Response(
+data class Response(
   @field:JsonProperty("url")
-  public val url: String,
+  val url: String,
   @field:JsonProperty("status")
-  public val status: Int,
+  val status: Int,
   @field:JsonProperty("statusText")
-  public val statusText: String,
+  val statusText: String,
   @field:JsonProperty("headers")
-  public val headers: Map<String, Any?>,
+  val headers: Map<String, Any?>,
   @field:JsonProperty("headersText")
   @param:Optional
-  public val headersText: String? = null,
+  val headersText: String? = null,
   @field:JsonProperty("mimeType")
-  public val mimeType: String,
+  val mimeType: String,
   @field:JsonProperty("requestHeaders")
   @param:Optional
-  public val requestHeaders: Map<String, Any?>? = null,
+  val requestHeaders: Map<String, Any?>? = null,
   @field:JsonProperty("requestHeadersText")
   @param:Optional
-  public val requestHeadersText: String? = null,
+  val requestHeadersText: String? = null,
   @field:JsonProperty("connectionReused")
-  public val connectionReused: Boolean,
+  val connectionReused: Boolean,
   @field:JsonProperty("connectionId")
-  public val connectionId: Double,
+  val connectionId: Double,
   @field:JsonProperty("remoteIPAddress")
   @param:Optional
-  public val remoteIPAddress: String? = null,
+  val remoteIPAddress: String? = null,
   @field:JsonProperty("remotePort")
   @param:Optional
-  public val remotePort: Int? = null,
+  val remotePort: Int? = null,
   @field:JsonProperty("fromDiskCache")
   @param:Optional
-  public val fromDiskCache: Boolean? = null,
+  val fromDiskCache: Boolean? = null,
   @field:JsonProperty("fromServiceWorker")
   @param:Optional
-  public val fromServiceWorker: Boolean? = null,
+  val fromServiceWorker: Boolean? = null,
   @field:JsonProperty("fromPrefetchCache")
   @param:Optional
-  public val fromPrefetchCache: Boolean? = null,
+  val fromPrefetchCache: Boolean? = null,
   @field:JsonProperty("encodedDataLength")
-  public val encodedDataLength: Double,
+  val encodedDataLength: Double,
   @field:JsonProperty("timing")
   @param:Optional
-  public val timing: ResourceTiming? = null,
+  val timing: ResourceTiming? = null,
   @field:JsonProperty("serviceWorkerResponseSource")
   @param:Optional
-  public val serviceWorkerResponseSource: ServiceWorkerResponseSource? = null,
+  val serviceWorkerResponseSource: ServiceWorkerResponseSource? = null,
   @field:JsonProperty("responseTime")
   @param:Optional
-  public val responseTime: Double? = null,
+  val responseTime: Double? = null,
   @field:JsonProperty("cacheStorageCacheName")
   @param:Optional
-  public val cacheStorageCacheName: String? = null,
+  val cacheStorageCacheName: String? = null,
   @field:JsonProperty("protocol")
   @param:Optional
-  public val protocol: String? = null,
+  val protocol: String? = null,
   @field:JsonProperty("securityState")
-  public val securityState: SecurityState,
+  val securityState: SecurityState,
   @field:JsonProperty("securityDetails")
   @param:Optional
-  public val securityDetails: SecurityDetails? = null,
+  val securityDetails: SecurityDetails? = null,
 )

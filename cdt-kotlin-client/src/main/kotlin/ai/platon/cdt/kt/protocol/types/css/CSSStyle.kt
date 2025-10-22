@@ -8,18 +8,18 @@ import kotlin.collections.List
 /**
  * CSS style representation.
  */
-public data class CSSStyle(
+data class CSSStyle(
   @field:JsonProperty("styleSheetId")
   @param:Optional
-  public val styleSheetId: String? = null,
+  val styleSheetId: String? = null,
   @field:JsonProperty("cssProperties")
-  public val cssProperties: List<CSSProperty>,
+  val cssProperties: List<CSSProperty>,
   @field:JsonProperty("shorthandEntries")
-  public val shorthandEntries: List<ShorthandEntry>,
+  val shorthandEntries: List<ShorthandEntry>,
   @field:JsonProperty("cssText")
   @param:Optional
-  public val cssText: String? = null,
+  val cssText: String? = null,
   @field:JsonProperty("range")
   @param:Optional
-  public val range: SourceRange? = null,
+  val range: SourceRange? = null,
 )

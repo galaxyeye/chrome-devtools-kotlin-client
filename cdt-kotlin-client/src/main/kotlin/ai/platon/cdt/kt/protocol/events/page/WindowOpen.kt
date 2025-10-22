@@ -9,13 +9,13 @@ import kotlin.collections.List
  * Fired when a new window is going to be opened, via window.open(), link click, form submission,
  * etc.
  */
-public data class WindowOpen(
+data class WindowOpen(
   @field:JsonProperty("url")
-  public val url: String,
+  val url: String,
   @field:JsonProperty("windowName")
-  public val windowName: String,
+  val windowName: String,
   @field:JsonProperty("windowFeatures")
-  public val windowFeatures: List<String>,
+  val windowFeatures: List<String>,
   @field:JsonProperty("userGesture")
-  public val userGesture: Boolean,
+  val userGesture: Boolean,
 )

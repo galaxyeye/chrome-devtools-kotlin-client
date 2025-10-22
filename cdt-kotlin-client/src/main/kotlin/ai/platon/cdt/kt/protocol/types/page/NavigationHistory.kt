@@ -4,9 +4,9 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Int
 import kotlin.collections.List
 
-public data class NavigationHistory(
+data class NavigationHistory(
   @field:JsonProperty("currentIndex")
-  public val currentIndex: Int,
+  val currentIndex: Int,
   @field:JsonProperty("entries")
-  public val entries: List<NavigationEntry>,
+  val entries: List<NavigationEntry>,
 )

@@ -5,7 +5,7 @@ import ai.platon.cdt.kt.protocol.support.annotations.ParamName
 import kotlin.Double
 
 @Experimental
-public interface DeviceOrientation {
+interface DeviceOrientation {
   /**
    * Clears the overridden Device Orientation.
    */

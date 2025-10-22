@@ -6,14 +6,14 @@ import ai.platon.cdt.kt.protocol.types.profiler.Profile
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
-public data class ConsoleProfileFinished(
+data class ConsoleProfileFinished(
   @field:JsonProperty("id")
-  public val id: String,
+  val id: String,
   @field:JsonProperty("location")
-  public val location: Location,
+  val location: Location,
   @field:JsonProperty("profile")
-  public val profile: Profile,
+  val profile: Profile,
   @field:JsonProperty("title")
   @param:Optional
-  public val title: String? = null,
+  val title: String? = null,
 )

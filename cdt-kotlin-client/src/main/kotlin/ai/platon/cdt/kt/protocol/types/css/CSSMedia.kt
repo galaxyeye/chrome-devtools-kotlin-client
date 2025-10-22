@@ -8,21 +8,21 @@ import kotlin.collections.List
 /**
  * CSS media rule descriptor.
  */
-public data class CSSMedia(
+data class CSSMedia(
   @field:JsonProperty("text")
-  public val text: String,
+  val text: String,
   @field:JsonProperty("source")
-  public val source: CSSMediaSource,
+  val source: CSSMediaSource,
   @field:JsonProperty("sourceURL")
   @param:Optional
-  public val sourceURL: String? = null,
+  val sourceURL: String? = null,
   @field:JsonProperty("range")
   @param:Optional
-  public val range: SourceRange? = null,
+  val range: SourceRange? = null,
   @field:JsonProperty("styleSheetId")
   @param:Optional
-  public val styleSheetId: String? = null,
+  val styleSheetId: String? = null,
   @field:JsonProperty("mediaList")
   @param:Optional
-  public val mediaList: List<MediaQuery>? = null,
+  val mediaList: List<MediaQuery>? = null,
 )

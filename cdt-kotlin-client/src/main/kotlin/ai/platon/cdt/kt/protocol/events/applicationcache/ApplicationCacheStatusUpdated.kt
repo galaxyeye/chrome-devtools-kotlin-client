@@ -4,11 +4,11 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Int
 import kotlin.String
 
-public data class ApplicationCacheStatusUpdated(
+data class ApplicationCacheStatusUpdated(
   @field:JsonProperty("frameId")
-  public val frameId: String,
+  val frameId: String,
   @field:JsonProperty("manifestURL")
-  public val manifestURL: String,
+  val manifestURL: String,
   @field:JsonProperty("status")
-  public val status: Int,
+  val status: Int,
 )

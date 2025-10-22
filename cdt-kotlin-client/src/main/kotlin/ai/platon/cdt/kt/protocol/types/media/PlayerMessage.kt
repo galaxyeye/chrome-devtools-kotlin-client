@@ -7,9 +7,9 @@ import kotlin.String
  * Have one type per entry in MediaLogRecord::Type
  * Corresponds to kMessage
  */
-public data class PlayerMessage(
+data class PlayerMessage(
   @field:JsonProperty("level")
-  public val level: PlayerMessageLevel,
+  val level: PlayerMessageLevel,
   @field:JsonProperty("message")
-  public val message: String,
+  val message: String,
 )

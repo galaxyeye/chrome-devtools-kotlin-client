@@ -7,8 +7,8 @@ import kotlin.String
 /**
  * Post data entry for HTTP request
  */
-public data class PostDataEntry(
+data class PostDataEntry(
   @field:JsonProperty("bytes")
   @param:Optional
-  public val bytes: String? = null,
+  val bytes: String? = null,
 )

@@ -6,9 +6,9 @@ import kotlin.String
 /**
  * Corresponds to kMediaPropertyChange
  */
-public data class PlayerProperty(
+data class PlayerProperty(
   @field:JsonProperty("name")
-  public val name: String,
+  val name: String,
   @field:JsonProperty("value")
-  public val `value`: String,
+  val `value`: String,
 )

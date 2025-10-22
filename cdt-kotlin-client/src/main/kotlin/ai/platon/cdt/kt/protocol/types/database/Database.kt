@@ -6,13 +6,13 @@ import kotlin.String
 /**
  * Database object.
  */
-public data class Database(
+data class Database(
   @field:JsonProperty("id")
-  public val id: String,
+  val id: String,
   @field:JsonProperty("domain")
-  public val domain: String,
+  val domain: String,
   @field:JsonProperty("name")
-  public val name: String,
+  val name: String,
   @field:JsonProperty("version")
-  public val version: String,
+  val version: String,
 )

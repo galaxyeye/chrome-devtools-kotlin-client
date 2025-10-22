@@ -6,7 +6,7 @@ import kotlin.String
 /**
  * Issued when a target is destroyed.
  */
-public data class TargetDestroyed(
+data class TargetDestroyed(
   @field:JsonProperty("targetId")
-  public val targetId: String,
+  val targetId: String,
 )

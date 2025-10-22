@@ -8,11 +8,11 @@ import kotlin.String
 /**
  * Fired when WebSocket handshake response becomes available.
  */
-public data class WebSocketHandshakeResponseReceived(
+data class WebSocketHandshakeResponseReceived(
   @field:JsonProperty("requestId")
-  public val requestId: String,
+  val requestId: String,
   @field:JsonProperty("timestamp")
-  public val timestamp: Double,
+  val timestamp: Double,
   @field:JsonProperty("response")
-  public val response: WebSocketResponse,
+  val response: WebSocketResponse,
 )

@@ -7,17 +7,17 @@ import kotlin.String
 /**
  * ServiceWorker error message.
  */
-public data class ServiceWorkerErrorMessage(
+data class ServiceWorkerErrorMessage(
   @field:JsonProperty("errorMessage")
-  public val errorMessage: String,
+  val errorMessage: String,
   @field:JsonProperty("registrationId")
-  public val registrationId: String,
+  val registrationId: String,
   @field:JsonProperty("versionId")
-  public val versionId: String,
+  val versionId: String,
   @field:JsonProperty("sourceURL")
-  public val sourceURL: String,
+  val sourceURL: String,
   @field:JsonProperty("lineNumber")
-  public val lineNumber: Int,
+  val lineNumber: Int,
   @field:JsonProperty("columnNumber")
-  public val columnNumber: Int,
+  val columnNumber: Int,
 )

@@ -7,9 +7,9 @@ import kotlin.collections.List
 /**
  * Selector list data.
  */
-public data class SelectorList(
+data class SelectorList(
   @field:JsonProperty("selectors")
-  public val selectors: List<Value>,
+  val selectors: List<Value>,
   @field:JsonProperty("text")
-  public val text: String,
+  val text: String,
 )

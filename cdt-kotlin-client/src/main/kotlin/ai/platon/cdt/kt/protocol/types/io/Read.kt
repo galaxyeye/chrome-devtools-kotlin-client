@@ -5,12 +5,12 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Boolean
 import kotlin.String
 
-public data class Read(
+data class Read(
   @field:JsonProperty("base64Encoded")
   @param:Optional
-  public val base64Encoded: Boolean? = null,
+  val base64Encoded: Boolean? = null,
   @field:JsonProperty("data")
-  public val `data`: String,
+  val `data`: String,
   @field:JsonProperty("eof")
-  public val eof: Boolean,
+  val eof: Boolean,
 )

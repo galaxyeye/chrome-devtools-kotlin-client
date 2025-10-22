@@ -6,7 +6,7 @@ import kotlin.String
 /**
  * Notifies that an existing BaseAudioContext will be destroyed.
  */
-public data class ContextWillBeDestroyed(
+data class ContextWillBeDestroyed(
   @field:JsonProperty("contextId")
-  public val contextId: String,
+  val contextId: String,
 )

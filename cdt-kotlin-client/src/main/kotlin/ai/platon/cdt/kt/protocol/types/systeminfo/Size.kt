@@ -6,9 +6,9 @@ import kotlin.Int
 /**
  * Describes the width and height dimensions of an entity.
  */
-public data class Size(
+data class Size(
   @field:JsonProperty("width")
-  public val width: Int,
+  val width: Int,
   @field:JsonProperty("height")
-  public val height: Int,
+  val height: Int,
 )

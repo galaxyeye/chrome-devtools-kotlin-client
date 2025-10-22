@@ -52,7 +52,15 @@ public class KotlinSourceFile {
 
   public void writeTo(Path outputRoot) throws IOException {
     if (fileSpec != null) {
-      fileSpec.writeTo(outputRoot);
+      // Generate the code from FileSpec and remove redundant public modifiers
+      String code = fileSpec.toString();
+      code = removeRedundantPublicModifiers(code);
+
+      Path packageDir = outputRoot.resolve(packageName.replace('.', java.io.File.separatorChar));
+      Files.createDirectories(packageDir);
+      String outName = fileName.contains(".") ? fileName : fileName + ".kt";
+      Path targetFile = packageDir.resolve(outName);
+      Files.writeString(targetFile, code, StandardCharsets.UTF_8);
       return;
     }
 
@@ -61,5 +69,27 @@ public class KotlinSourceFile {
     String outName = fileName.contains(".") ? fileName : fileName + ".kt";
     Path targetFile = packageDir.resolve(outName);
     Files.writeString(targetFile, rawContent, StandardCharsets.UTF_8);
+  }
+
+  /**
+   * Removes redundant 'public' modifiers from Kotlin code. In Kotlin, 'public' is the default
+   * visibility modifier and doesn't need to be specified. This method removes explicit 'public'
+   * modifiers from: - data classes, classes, objects, interfaces - properties and methods -
+   * function parameters and constructor parameters
+   */
+  private String removeRedundantPublicModifiers(String code) {
+    // Remove 'public ' before data/class/object/interface/fun/val/var keywords at start of line or
+    // after annotations
+    // Pattern: public followed by whitespace, then a Kotlin keyword
+    code =
+        code.replaceAll(
+            "(?m)^(\\s*)public\\s+(data\\s+class|class|object|interface|fun|val|var|typealias)\\b",
+            "$1$2");
+
+    // Remove 'public ' from within function parameters and constructor parameters
+    // This handles cases like: public val name: String
+    code = code.replaceAll("\\bpublic\\s+(val|var)\\s+", "$1 ");
+
+    return code;
   }
 }

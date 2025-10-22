@@ -17,14 +17,14 @@ import kotlin.collections.Map
  * or requestWillBeSentExtraInfo will be fired first for the same request.
  */
 @Experimental
-public data class RequestWillBeSentExtraInfo(
+data class RequestWillBeSentExtraInfo(
   @field:JsonProperty("requestId")
-  public val requestId: String,
+  val requestId: String,
   @field:JsonProperty("associatedCookies")
-  public val associatedCookies: List<BlockedCookieWithReason>,
+  val associatedCookies: List<BlockedCookieWithReason>,
   @field:JsonProperty("headers")
-  public val headers: Map<String, Any?>,
+  val headers: Map<String, Any?>,
   @field:JsonProperty("clientSecurityState")
   @param:Optional
-  public val clientSecurityState: ClientSecurityState? = null,
+  val clientSecurityState: ClientSecurityState? = null,
 )

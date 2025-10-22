@@ -10,10 +10,10 @@ import kotlin.String
  * Per-script compilation cache parameters for `Page.produceCompilationCache`
  */
 @Experimental
-public data class CompilationCacheParams(
+data class CompilationCacheParams(
   @field:JsonProperty("url")
-  public val url: String,
+  val url: String,
   @field:JsonProperty("eager")
   @param:Optional
-  public val eager: Boolean? = null,
+  val eager: Boolean? = null,
 )

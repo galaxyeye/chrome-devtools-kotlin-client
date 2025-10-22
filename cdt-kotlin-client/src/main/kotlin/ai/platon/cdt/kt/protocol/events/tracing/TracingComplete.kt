@@ -11,16 +11,16 @@ import kotlin.String
  * Signals that tracing is stopped and there is no trace buffers pending flush, all data were
  * delivered via dataCollected events.
  */
-public data class TracingComplete(
+data class TracingComplete(
   @field:JsonProperty("dataLossOccurred")
-  public val dataLossOccurred: Boolean,
+  val dataLossOccurred: Boolean,
   @field:JsonProperty("stream")
   @param:Optional
-  public val stream: String? = null,
+  val stream: String? = null,
   @field:JsonProperty("traceFormat")
   @param:Optional
-  public val traceFormat: StreamFormat? = null,
+  val traceFormat: StreamFormat? = null,
   @field:JsonProperty("streamCompression")
   @param:Optional
-  public val streamCompression: StreamCompression? = null,
+  val streamCompression: StreamCompression? = null,
 )

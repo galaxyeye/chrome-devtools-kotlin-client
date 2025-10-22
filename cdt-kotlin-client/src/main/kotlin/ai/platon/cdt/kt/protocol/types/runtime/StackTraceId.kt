@@ -10,10 +10,10 @@ import kotlin.String
  * allows to track cross-debugger calls. See `Runtime.StackTrace` and `Debugger.paused` for usages.
  */
 @Experimental
-public data class StackTraceId(
+data class StackTraceId(
   @field:JsonProperty("id")
-  public val id: String,
+  val id: String,
   @field:JsonProperty("debuggerId")
   @param:Optional
-  public val debuggerId: String? = null,
+  val debuggerId: String? = null,
 )

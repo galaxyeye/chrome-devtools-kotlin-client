@@ -4,9 +4,9 @@ import ai.platon.cdt.kt.protocol.types.domstorage.StorageId
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
-public data class DomStorageItemRemoved(
+data class DomStorageItemRemoved(
   @field:JsonProperty("storageId")
-  public val storageId: StorageId,
+  val storageId: StorageId,
   @field:JsonProperty("key")
-  public val key: String,
+  val key: String,
 )

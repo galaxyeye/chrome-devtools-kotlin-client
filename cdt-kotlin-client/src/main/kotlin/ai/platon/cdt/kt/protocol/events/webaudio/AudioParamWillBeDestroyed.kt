@@ -6,11 +6,11 @@ import kotlin.String
 /**
  * Notifies that an existing AudioParam has been destroyed.
  */
-public data class AudioParamWillBeDestroyed(
+data class AudioParamWillBeDestroyed(
   @field:JsonProperty("contextId")
-  public val contextId: String,
+  val contextId: String,
   @field:JsonProperty("nodeId")
-  public val nodeId: String,
+  val nodeId: String,
   @field:JsonProperty("paramId")
-  public val paramId: String,
+  val paramId: String,
 )

@@ -8,11 +8,11 @@ import kotlin.collections.List
 /**
  * CSS Shape Outside details.
  */
-public data class ShapeOutsideInfo(
+data class ShapeOutsideInfo(
   @field:JsonProperty("bounds")
-  public val bounds: List<Double>,
+  val bounds: List<Double>,
   @field:JsonProperty("shape")
-  public val shape: List<Any?>,
+  val shape: List<Any?>,
   @field:JsonProperty("marginShape")
-  public val marginShape: List<Any?>,
+  val marginShape: List<Any?>,
 )

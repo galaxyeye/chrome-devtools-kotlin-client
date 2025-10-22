@@ -6,7 +6,7 @@ import kotlin.String
 /**
  * The origin's IndexedDB database list has been modified.
  */
-public data class IndexedDBListUpdated(
+data class IndexedDBListUpdated(
   @field:JsonProperty("origin")
-  public val origin: String,
+  val origin: String,
 )

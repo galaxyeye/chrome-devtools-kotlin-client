@@ -9,19 +9,19 @@ import kotlin.String
  * Details for issues around "Attribution Reporting API" usage.
  * Explainer: https://github.com/WICG/conversion-measurement-api
  */
-public data class AttributionReportingIssueDetails(
+data class AttributionReportingIssueDetails(
   @field:JsonProperty("violationType")
-  public val violationType: AttributionReportingIssueType,
+  val violationType: AttributionReportingIssueType,
   @field:JsonProperty("frame")
   @param:Optional
-  public val frame: AffectedFrame? = null,
+  val frame: AffectedFrame? = null,
   @field:JsonProperty("request")
   @param:Optional
-  public val request: AffectedRequest? = null,
+  val request: AffectedRequest? = null,
   @field:JsonProperty("violatingNodeId")
   @param:Optional
-  public val violatingNodeId: Int? = null,
+  val violatingNodeId: Int? = null,
   @field:JsonProperty("invalidParameter")
   @param:Optional
-  public val invalidParameter: String? = null,
+  val invalidParameter: String? = null,
 )

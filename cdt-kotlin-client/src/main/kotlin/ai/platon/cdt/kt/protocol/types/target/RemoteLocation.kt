@@ -6,9 +6,9 @@ import kotlin.Int
 import kotlin.String
 
 @Experimental
-public data class RemoteLocation(
+data class RemoteLocation(
   @field:JsonProperty("host")
-  public val host: String,
+  val host: String,
   @field:JsonProperty("port")
-  public val port: Int,
+  val port: Int,
 )

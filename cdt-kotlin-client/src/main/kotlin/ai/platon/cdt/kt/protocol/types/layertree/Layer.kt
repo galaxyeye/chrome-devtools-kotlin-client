@@ -11,46 +11,46 @@ import kotlin.collections.List
 /**
  * Information about a compositing layer.
  */
-public data class Layer(
+data class Layer(
   @field:JsonProperty("layerId")
-  public val layerId: String,
+  val layerId: String,
   @field:JsonProperty("parentLayerId")
   @param:Optional
-  public val parentLayerId: String? = null,
+  val parentLayerId: String? = null,
   @field:JsonProperty("backendNodeId")
   @param:Optional
-  public val backendNodeId: Int? = null,
+  val backendNodeId: Int? = null,
   @field:JsonProperty("offsetX")
-  public val offsetX: Double,
+  val offsetX: Double,
   @field:JsonProperty("offsetY")
-  public val offsetY: Double,
+  val offsetY: Double,
   @field:JsonProperty("width")
-  public val width: Double,
+  val width: Double,
   @field:JsonProperty("height")
-  public val height: Double,
+  val height: Double,
   @field:JsonProperty("transform")
   @param:Optional
-  public val transform: List<Double>? = null,
+  val transform: List<Double>? = null,
   @field:JsonProperty("anchorX")
   @param:Optional
-  public val anchorX: Double? = null,
+  val anchorX: Double? = null,
   @field:JsonProperty("anchorY")
   @param:Optional
-  public val anchorY: Double? = null,
+  val anchorY: Double? = null,
   @field:JsonProperty("anchorZ")
   @param:Optional
-  public val anchorZ: Double? = null,
+  val anchorZ: Double? = null,
   @field:JsonProperty("paintCount")
-  public val paintCount: Int,
+  val paintCount: Int,
   @field:JsonProperty("drawsContent")
-  public val drawsContent: Boolean,
+  val drawsContent: Boolean,
   @field:JsonProperty("invisible")
   @param:Optional
-  public val invisible: Boolean? = null,
+  val invisible: Boolean? = null,
   @field:JsonProperty("scrollRects")
   @param:Optional
-  public val scrollRects: List<ScrollRect>? = null,
+  val scrollRects: List<ScrollRect>? = null,
   @field:JsonProperty("stickyPositionConstraint")
   @param:Optional
-  public val stickyPositionConstraint: StickyPositionConstraint? = null,
+  val stickyPositionConstraint: StickyPositionConstraint? = null,
 )

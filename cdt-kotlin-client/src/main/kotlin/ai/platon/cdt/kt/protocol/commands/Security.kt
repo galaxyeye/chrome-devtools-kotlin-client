@@ -17,7 +17,7 @@ import kotlin.Unit
 /**
  * Security
  */
-public interface Security {
+interface Security {
   /**
    * Disables tracking security state changes.
    */
@@ -41,13 +41,11 @@ public interface Security {
    * @param action The action to take on the certificate error.
    */
   @Deprecated
-  public suspend fun handleCertificateError(@ParamName("eventId") eventId: Int, @ParamName("action")
-      action: CertificateErrorAction)
+  public suspend fun handleCertificateError(@ParamName("eventId") eventId: Int, @ParamName("action") action: CertificateErrorAction)
 
   /**
    * Enable/disable overriding certificate errors. If enabled, all certificate error events need to
-   * be handled by the DevTools client and should be answered with `handleCertificateError`
-   * commands.
+   * be handled by the DevTools client and should be answered with `handleCertificateError` commands.
    * @param override If true, certificate errors will be overridden.
    */
   @Deprecated
@@ -55,29 +53,23 @@ public interface Security {
 
   @EventName("certificateError")
   @Deprecated
-  public fun onCertificateError(eventListener: EventHandler<CertificateError>): EventListener
+  fun onCertificateError(eventListener: EventHandler<CertificateError>): EventListener
 
   @EventName("certificateError")
   @Deprecated
-  public fun onCertificateError(eventListener: suspend (CertificateError) -> Unit): EventListener
+  fun onCertificateError(eventListener: suspend (CertificateError) -> Unit): EventListener
 
   @EventName("visibleSecurityStateChanged")
   @Experimental
-  public
-      fun onVisibleSecurityStateChanged(eventListener: EventHandler<VisibleSecurityStateChanged>):
-      EventListener
+  fun onVisibleSecurityStateChanged(eventListener: EventHandler<VisibleSecurityStateChanged>): EventListener
 
   @EventName("visibleSecurityStateChanged")
   @Experimental
-  public
-      fun onVisibleSecurityStateChanged(eventListener: suspend (VisibleSecurityStateChanged) -> Unit):
-      EventListener
+  fun onVisibleSecurityStateChanged(eventListener: suspend (VisibleSecurityStateChanged) -> Unit): EventListener
 
   @EventName("securityStateChanged")
-  public fun onSecurityStateChanged(eventListener: EventHandler<SecurityStateChanged>):
-      EventListener
+  fun onSecurityStateChanged(eventListener: EventHandler<SecurityStateChanged>): EventListener
 
   @EventName("securityStateChanged")
-  public fun onSecurityStateChanged(eventListener: suspend (SecurityStateChanged) -> Unit):
-      EventListener
+  fun onSecurityStateChanged(eventListener: suspend (SecurityStateChanged) -> Unit): EventListener
 }

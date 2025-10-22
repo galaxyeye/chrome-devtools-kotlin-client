@@ -8,7 +8,7 @@ import kotlin.String
  * Parsed app manifest properties.
  */
 @Experimental
-public data class AppManifestParsedProperties(
+data class AppManifestParsedProperties(
   @field:JsonProperty("scope")
-  public val scope: String,
+  val scope: String,
 )

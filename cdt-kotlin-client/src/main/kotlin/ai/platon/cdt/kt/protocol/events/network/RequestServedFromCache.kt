@@ -6,7 +6,7 @@ import kotlin.String
 /**
  * Fired if request ended up loading from cache.
  */
-public data class RequestServedFromCache(
+data class RequestServedFromCache(
   @field:JsonProperty("requestId")
-  public val requestId: String,
+  val requestId: String,
 )

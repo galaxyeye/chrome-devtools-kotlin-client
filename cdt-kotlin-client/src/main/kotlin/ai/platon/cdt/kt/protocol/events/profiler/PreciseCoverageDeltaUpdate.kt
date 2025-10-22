@@ -14,11 +14,11 @@ import kotlin.collections.List
  * trigger collection of coverage data immediatelly at a certain point in time.
  */
 @Experimental
-public data class PreciseCoverageDeltaUpdate(
+data class PreciseCoverageDeltaUpdate(
   @field:JsonProperty("timestamp")
-  public val timestamp: Double,
+  val timestamp: Double,
   @field:JsonProperty("occassion")
-  public val occassion: String,
+  val occassion: String,
   @field:JsonProperty("result")
-  public val result: List<ScriptCoverage>,
+  val result: List<ScriptCoverage>,
 )

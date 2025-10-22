@@ -4,13 +4,13 @@ import ai.platon.cdt.kt.protocol.types.domstorage.StorageId
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
-public data class DomStorageItemUpdated(
+data class DomStorageItemUpdated(
   @field:JsonProperty("storageId")
-  public val storageId: StorageId,
+  val storageId: StorageId,
   @field:JsonProperty("key")
-  public val key: String,
+  val key: String,
   @field:JsonProperty("oldValue")
-  public val oldValue: String,
+  val oldValue: String,
   @field:JsonProperty("newValue")
-  public val newValue: String,
+  val newValue: String,
 )

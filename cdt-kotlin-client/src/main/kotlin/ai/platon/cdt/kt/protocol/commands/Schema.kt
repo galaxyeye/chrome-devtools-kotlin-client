@@ -10,7 +10,7 @@ import kotlin.collections.List
  * This domain is deprecated.
  */
 @Deprecated
-public interface Schema {
+interface Schema {
   /**
    * Returns supported domains.
    */

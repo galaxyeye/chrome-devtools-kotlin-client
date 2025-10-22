@@ -7,10 +7,10 @@ import kotlin.String
 /**
  * Information about a request that is affected by an inspector issue.
  */
-public data class AffectedRequest(
+data class AffectedRequest(
   @field:JsonProperty("requestId")
-  public val requestId: String,
+  val requestId: String,
   @field:JsonProperty("url")
   @param:Optional
-  public val url: String? = null,
+  val url: String? = null,
 )

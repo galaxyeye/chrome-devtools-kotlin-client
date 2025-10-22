@@ -11,38 +11,38 @@ import kotlin.String
 /**
  * Cookie object
  */
-public data class Cookie(
+data class Cookie(
   @field:JsonProperty("name")
-  public val name: String,
+  val name: String,
   @field:JsonProperty("value")
-  public val `value`: String,
+  val `value`: String,
   @field:JsonProperty("domain")
-  public val domain: String,
+  val domain: String,
   @field:JsonProperty("path")
-  public val path: String,
+  val path: String,
   @field:JsonProperty("expires")
-  public val expires: Double,
+  val expires: Double,
   @field:JsonProperty("size")
-  public val size: Int,
+  val size: Int,
   @field:JsonProperty("httpOnly")
-  public val httpOnly: Boolean,
+  val httpOnly: Boolean,
   @field:JsonProperty("secure")
-  public val secure: Boolean,
+  val secure: Boolean,
   @field:JsonProperty("session")
-  public val session: Boolean,
+  val session: Boolean,
   @field:JsonProperty("sameSite")
   @param:Optional
-  public val sameSite: CookieSameSite? = null,
+  val sameSite: CookieSameSite? = null,
   @field:JsonProperty("priority")
   @param:Experimental
-  public val priority: CookiePriority,
+  val priority: CookiePriority,
   @field:JsonProperty("sameParty")
   @param:Experimental
-  public val sameParty: Boolean,
+  val sameParty: Boolean,
   @field:JsonProperty("sourceScheme")
   @param:Experimental
-  public val sourceScheme: CookieSourceScheme,
+  val sourceScheme: CookieSourceScheme,
   @field:JsonProperty("sourcePort")
   @param:Experimental
-  public val sourcePort: Int,
+  val sourcePort: Int,
 )

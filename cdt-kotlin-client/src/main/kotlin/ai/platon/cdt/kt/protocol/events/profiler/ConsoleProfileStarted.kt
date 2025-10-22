@@ -8,12 +8,12 @@ import kotlin.String
 /**
  * Sent when new profile recording is started using console.profile() call.
  */
-public data class ConsoleProfileStarted(
+data class ConsoleProfileStarted(
   @field:JsonProperty("id")
-  public val id: String,
+  val id: String,
   @field:JsonProperty("location")
-  public val location: Location,
+  val location: Location,
   @field:JsonProperty("title")
   @param:Optional
-  public val title: String? = null,
+  val title: String? = null,
 )

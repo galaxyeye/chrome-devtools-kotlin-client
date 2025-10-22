@@ -4,9 +4,9 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Double
 import kotlin.collections.List
 
-public data class RequestEntries(
+data class RequestEntries(
   @field:JsonProperty("cacheDataEntries")
-  public val cacheDataEntries: List<DataEntry>,
+  val cacheDataEntries: List<DataEntry>,
   @field:JsonProperty("returnCount")
-  public val returnCount: Double,
+  val returnCount: Double,
 )

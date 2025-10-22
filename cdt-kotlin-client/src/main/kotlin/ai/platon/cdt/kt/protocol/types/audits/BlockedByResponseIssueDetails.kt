@@ -8,15 +8,15 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * code. Currently only used for COEP/COOP, but may be extended to include
  * some CSP errors in the future.
  */
-public data class BlockedByResponseIssueDetails(
+data class BlockedByResponseIssueDetails(
   @field:JsonProperty("request")
-  public val request: AffectedRequest,
+  val request: AffectedRequest,
   @field:JsonProperty("parentFrame")
   @param:Optional
-  public val parentFrame: AffectedFrame? = null,
+  val parentFrame: AffectedFrame? = null,
   @field:JsonProperty("blockedFrame")
   @param:Optional
-  public val blockedFrame: AffectedFrame? = null,
+  val blockedFrame: AffectedFrame? = null,
   @field:JsonProperty("reason")
-  public val reason: BlockedByResponseReason,
+  val reason: BlockedByResponseReason,
 )

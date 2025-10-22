@@ -11,17 +11,17 @@ import kotlin.collections.Map
 /**
  * Description of an isolated world.
  */
-public data class ExecutionContextDescription(
+data class ExecutionContextDescription(
   @field:JsonProperty("id")
-  public val id: Int,
+  val id: Int,
   @field:JsonProperty("origin")
-  public val origin: String,
+  val origin: String,
   @field:JsonProperty("name")
-  public val name: String,
+  val name: String,
   @field:JsonProperty("uniqueId")
   @param:Experimental
-  public val uniqueId: String,
+  val uniqueId: String,
   @field:JsonProperty("auxData")
   @param:Optional
-  public val auxData: Map<String, Any?>? = null,
+  val auxData: Map<String, Any?>? = null,
 )

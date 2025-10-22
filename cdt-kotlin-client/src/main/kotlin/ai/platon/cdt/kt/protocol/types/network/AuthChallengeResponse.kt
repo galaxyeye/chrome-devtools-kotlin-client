@@ -9,13 +9,13 @@ import kotlin.String
  * Response to an AuthChallenge.
  */
 @Experimental
-public data class AuthChallengeResponse(
+data class AuthChallengeResponse(
   @field:JsonProperty("response")
-  public val response: AuthChallengeResponseResponse,
+  val response: AuthChallengeResponseResponse,
   @field:JsonProperty("username")
   @param:Optional
-  public val username: String? = null,
+  val username: String? = null,
   @field:JsonProperty("password")
   @param:Optional
-  public val password: String? = null,
+  val password: String? = null,
 )

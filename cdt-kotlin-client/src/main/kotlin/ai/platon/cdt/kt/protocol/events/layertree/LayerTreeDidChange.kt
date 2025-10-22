@@ -5,8 +5,8 @@ import ai.platon.cdt.kt.protocol.types.layertree.Layer
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.collections.List
 
-public data class LayerTreeDidChange(
+data class LayerTreeDidChange(
   @field:JsonProperty("layers")
   @param:Optional
-  public val layers: List<Layer>? = null,
+  val layers: List<Layer>? = null,
 )

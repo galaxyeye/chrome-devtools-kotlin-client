@@ -9,27 +9,27 @@ import kotlin.String
 /**
  * AnimationEffect instance
  */
-public data class AnimationEffect(
+data class AnimationEffect(
   @field:JsonProperty("delay")
-  public val delay: Double,
+  val delay: Double,
   @field:JsonProperty("endDelay")
-  public val endDelay: Double,
+  val endDelay: Double,
   @field:JsonProperty("iterationStart")
-  public val iterationStart: Double,
+  val iterationStart: Double,
   @field:JsonProperty("iterations")
-  public val iterations: Double,
+  val iterations: Double,
   @field:JsonProperty("duration")
-  public val duration: Double,
+  val duration: Double,
   @field:JsonProperty("direction")
-  public val direction: String,
+  val direction: String,
   @field:JsonProperty("fill")
-  public val fill: String,
+  val fill: String,
   @field:JsonProperty("backendNodeId")
   @param:Optional
-  public val backendNodeId: Int? = null,
+  val backendNodeId: Int? = null,
   @field:JsonProperty("keyframesRule")
   @param:Optional
-  public val keyframesRule: KeyframesRule? = null,
+  val keyframesRule: KeyframesRule? = null,
   @field:JsonProperty("easing")
-  public val easing: String,
+  val easing: String,
 )

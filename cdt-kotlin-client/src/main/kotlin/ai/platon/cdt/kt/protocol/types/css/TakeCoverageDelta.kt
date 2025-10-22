@@ -4,9 +4,9 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Double
 import kotlin.collections.List
 
-public data class TakeCoverageDelta(
+data class TakeCoverageDelta(
   @field:JsonProperty("coverage")
-  public val coverage: List<RuleUsage>,
+  val coverage: List<RuleUsage>,
   @field:JsonProperty("timestamp")
-  public val timestamp: Double,
+  val timestamp: Double,
 )

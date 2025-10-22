@@ -7,9 +7,9 @@ import kotlin.String
 /**
  * Fired when WebTransport is disposed.
  */
-public data class WebTransportClosed(
+data class WebTransportClosed(
   @field:JsonProperty("transportId")
-  public val transportId: String,
+  val transportId: String,
   @field:JsonProperty("timestamp")
-  public val timestamp: Double,
+  val timestamp: Double,
 )

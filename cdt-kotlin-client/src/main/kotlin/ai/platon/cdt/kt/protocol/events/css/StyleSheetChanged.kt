@@ -6,7 +6,7 @@ import kotlin.String
 /**
  * Fired whenever a stylesheet is changed as a result of the client operation.
  */
-public data class StyleSheetChanged(
+data class StyleSheetChanged(
   @field:JsonProperty("styleSheetId")
-  public val styleSheetId: String,
+  val styleSheetId: String,
 )

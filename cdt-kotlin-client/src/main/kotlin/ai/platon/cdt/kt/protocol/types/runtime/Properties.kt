@@ -5,17 +5,17 @@ import ai.platon.cdt.kt.protocol.support.annotations.Optional
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.collections.List
 
-public data class Properties(
+data class Properties(
   @field:JsonProperty("result")
-  public val result: List<PropertyDescriptor>,
+  val result: List<PropertyDescriptor>,
   @field:JsonProperty("internalProperties")
   @param:Optional
-  public val internalProperties: List<InternalPropertyDescriptor>? = null,
+  val internalProperties: List<InternalPropertyDescriptor>? = null,
   @field:JsonProperty("privateProperties")
   @param:Optional
   @param:Experimental
-  public val privateProperties: List<PrivatePropertyDescriptor>? = null,
+  val privateProperties: List<PrivatePropertyDescriptor>? = null,
   @field:JsonProperty("exceptionDetails")
   @param:Optional
-  public val exceptionDetails: ExceptionDetails? = null,
+  val exceptionDetails: ExceptionDetails? = null,
 )

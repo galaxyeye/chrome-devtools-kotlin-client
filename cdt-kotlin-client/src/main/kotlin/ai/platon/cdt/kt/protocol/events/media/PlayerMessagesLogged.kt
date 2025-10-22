@@ -8,9 +8,9 @@ import kotlin.collections.List
 /**
  * Send a list of any messages that need to be delivered.
  */
-public data class PlayerMessagesLogged(
+data class PlayerMessagesLogged(
   @field:JsonProperty("playerId")
-  public val playerId: String,
+  val playerId: String,
   @field:JsonProperty("messages")
-  public val messages: List<PlayerMessage>,
+  val messages: List<PlayerMessage>,
 )

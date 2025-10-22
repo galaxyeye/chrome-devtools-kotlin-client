@@ -10,12 +10,12 @@ import kotlin.collections.List
  * A cookie which was not stored from a response with the corresponding reason.
  */
 @Experimental
-public data class BlockedSetCookieWithReason(
+data class BlockedSetCookieWithReason(
   @field:JsonProperty("blockedReasons")
-  public val blockedReasons: List<SetCookieBlockedReason>,
+  val blockedReasons: List<SetCookieBlockedReason>,
   @field:JsonProperty("cookieLine")
-  public val cookieLine: String,
+  val cookieLine: String,
   @field:JsonProperty("cookie")
   @param:Optional
-  public val cookie: Cookie? = null,
+  val cookie: Cookie? = null,
 )

@@ -7,9 +7,9 @@ import kotlin.String
 /**
  * Fired when breakpoint is resolved to an actual script and location.
  */
-public data class BreakpointResolved(
+data class BreakpointResolved(
   @field:JsonProperty("breakpointId")
-  public val breakpointId: String,
+  val breakpointId: String,
   @field:JsonProperty("location")
-  public val location: Location,
+  val location: Location,
 )

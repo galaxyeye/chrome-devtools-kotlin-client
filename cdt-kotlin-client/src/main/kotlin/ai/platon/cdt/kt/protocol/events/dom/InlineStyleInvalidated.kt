@@ -9,7 +9,7 @@ import kotlin.collections.List
  * Fired when `Element`'s inline style is modified via a CSS property modification.
  */
 @Experimental
-public data class InlineStyleInvalidated(
+data class InlineStyleInvalidated(
   @field:JsonProperty("nodeIds")
-  public val nodeIds: List<Int>,
+  val nodeIds: List<Int>,
 )

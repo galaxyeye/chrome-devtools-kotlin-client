@@ -6,9 +6,9 @@ import kotlin.String
 /**
  * Protocol object for AudioListener
  */
-public data class AudioListener(
+data class AudioListener(
   @field:JsonProperty("listenerId")
-  public val listenerId: String,
+  val listenerId: String,
   @field:JsonProperty("contextId")
-  public val contextId: String,
+  val contextId: String,
 )

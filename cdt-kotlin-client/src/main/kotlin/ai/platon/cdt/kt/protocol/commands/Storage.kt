@@ -23,14 +23,13 @@ import kotlin.Unit
 import kotlin.collections.List
 
 @Experimental
-public interface Storage {
+interface Storage {
   /**
    * Clears storage for origin.
    * @param origin Security origin.
    * @param storageTypes Comma separated list of StorageType to clear.
    */
-  public suspend fun clearDataForOrigin(@ParamName("origin") origin: String,
-      @ParamName("storageTypes") storageTypes: String)
+  public suspend fun clearDataForOrigin(@ParamName("origin") origin: String, @ParamName("storageTypes") storageTypes: String)
 
   /**
    * Returns all browser cookies.
@@ -38,8 +37,7 @@ public interface Storage {
    */
   @Returns("cookies")
   @ReturnTypeParameter(Cookie::class)
-  public suspend fun getCookies(@ParamName("browserContextId") @Optional browserContextId: String? =
-      null): List<Cookie>
+  public suspend fun getCookies(@ParamName("browserContextId") @Optional browserContextId: String? = null): List<Cookie>
 
   @Returns("cookies")
   @ReturnTypeParameter(Cookie::class)
@@ -52,8 +50,7 @@ public interface Storage {
    * @param cookies Cookies to be set.
    * @param browserContextId Browser context to use when called on the browser endpoint.
    */
-  public suspend fun setCookies(@ParamName("cookies") cookies: List<CookieParam>,
-      @ParamName("browserContextId") @Optional browserContextId: String? = null)
+  public suspend fun setCookies(@ParamName("cookies") cookies: List<CookieParam>, @ParamName("browserContextId") @Optional browserContextId: String? = null)
 
   public suspend fun setCookies(@ParamName("cookies") cookies: List<CookieParam>) {
     return setCookies(cookies, null)
@@ -63,8 +60,7 @@ public interface Storage {
    * Clears cookies.
    * @param browserContextId Browser context to use when called on the browser endpoint.
    */
-  public suspend fun clearCookies(@ParamName("browserContextId") @Optional browserContextId: String?
-      = null)
+  public suspend fun clearCookies(@ParamName("browserContextId") @Optional browserContextId: String? = null)
 
   public suspend fun clearCookies() {
     return clearCookies(null)
@@ -88,8 +84,7 @@ public interface Storage {
    * disabled (called without a quotaSize).
    */
   @Experimental
-  public suspend fun overrideQuotaForOrigin(@ParamName("origin") origin: String,
-      @ParamName("quotaSize") @Optional quotaSize: Double? = null)
+  public suspend fun overrideQuotaForOrigin(@ParamName("origin") origin: String, @ParamName("quotaSize") @Optional quotaSize: Double? = null)
 
   @Experimental
   public suspend fun overrideQuotaForOrigin(@ParamName("origin") origin: String) {
@@ -139,35 +134,26 @@ public interface Storage {
   public suspend fun clearTrustTokens(@ParamName("issuerOrigin") issuerOrigin: String): Boolean
 
   @EventName("cacheStorageContentUpdated")
-  public fun onCacheStorageContentUpdated(eventListener: EventHandler<CacheStorageContentUpdated>):
-      EventListener
+  fun onCacheStorageContentUpdated(eventListener: EventHandler<CacheStorageContentUpdated>): EventListener
 
   @EventName("cacheStorageContentUpdated")
-  public
-      fun onCacheStorageContentUpdated(eventListener: suspend (CacheStorageContentUpdated) -> Unit):
-      EventListener
+  fun onCacheStorageContentUpdated(eventListener: suspend (CacheStorageContentUpdated) -> Unit): EventListener
 
   @EventName("cacheStorageListUpdated")
-  public fun onCacheStorageListUpdated(eventListener: EventHandler<CacheStorageListUpdated>):
-      EventListener
+  fun onCacheStorageListUpdated(eventListener: EventHandler<CacheStorageListUpdated>): EventListener
 
   @EventName("cacheStorageListUpdated")
-  public fun onCacheStorageListUpdated(eventListener: suspend (CacheStorageListUpdated) -> Unit):
-      EventListener
+  fun onCacheStorageListUpdated(eventListener: suspend (CacheStorageListUpdated) -> Unit): EventListener
 
   @EventName("indexedDBContentUpdated")
-  public fun onIndexedDBContentUpdated(eventListener: EventHandler<IndexedDBContentUpdated>):
-      EventListener
+  fun onIndexedDBContentUpdated(eventListener: EventHandler<IndexedDBContentUpdated>): EventListener
 
   @EventName("indexedDBContentUpdated")
-  public fun onIndexedDBContentUpdated(eventListener: suspend (IndexedDBContentUpdated) -> Unit):
-      EventListener
+  fun onIndexedDBContentUpdated(eventListener: suspend (IndexedDBContentUpdated) -> Unit): EventListener
 
   @EventName("indexedDBListUpdated")
-  public fun onIndexedDBListUpdated(eventListener: EventHandler<IndexedDBListUpdated>):
-      EventListener
+  fun onIndexedDBListUpdated(eventListener: EventHandler<IndexedDBListUpdated>): EventListener
 
   @EventName("indexedDBListUpdated")
-  public fun onIndexedDBListUpdated(eventListener: suspend (IndexedDBListUpdated) -> Unit):
-      EventListener
+  fun onIndexedDBListUpdated(eventListener: suspend (IndexedDBListUpdated) -> Unit): EventListener
 }

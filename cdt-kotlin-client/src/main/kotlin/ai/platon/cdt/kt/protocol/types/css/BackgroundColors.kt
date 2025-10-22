@@ -5,14 +5,14 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 import kotlin.collections.List
 
-public data class BackgroundColors(
+data class BackgroundColors(
   @field:JsonProperty("backgroundColors")
   @param:Optional
-  public val backgroundColors: List<String>? = null,
+  val backgroundColors: List<String>? = null,
   @field:JsonProperty("computedFontSize")
   @param:Optional
-  public val computedFontSize: String? = null,
+  val computedFontSize: String? = null,
   @field:JsonProperty("computedFontWeight")
   @param:Optional
-  public val computedFontWeight: String? = null,
+  val computedFontWeight: String? = null,
 )

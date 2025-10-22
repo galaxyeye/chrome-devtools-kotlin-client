@@ -10,11 +10,11 @@ import kotlin.String
  * Compressed image data requested by the `startScreencast`.
  */
 @Experimental
-public data class ScreencastFrame(
+data class ScreencastFrame(
   @field:JsonProperty("data")
-  public val `data`: String,
+  val `data`: String,
   @field:JsonProperty("metadata")
-  public val metadata: ScreencastFrameMetadata,
+  val metadata: ScreencastFrameMetadata,
   @field:JsonProperty("sessionId")
-  public val sessionId: Int,
+  val sessionId: Int,
 )

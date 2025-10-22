@@ -8,14 +8,14 @@ import kotlin.Int
 /**
  * A structure holding an RGBA color.
  */
-public data class RGBA(
+data class RGBA(
   @field:JsonProperty("r")
-  public val r: Int,
+  val r: Int,
   @field:JsonProperty("g")
-  public val g: Int,
+  val g: Int,
   @field:JsonProperty("b")
-  public val b: Int,
+  val b: Int,
   @field:JsonProperty("a")
   @param:Optional
-  public val a: Double? = null,
+  val a: Double? = null,
 )

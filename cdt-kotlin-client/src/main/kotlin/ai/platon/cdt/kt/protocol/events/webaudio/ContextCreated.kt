@@ -6,7 +6,7 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 /**
  * Notifies that a new BaseAudioContext has been created.
  */
-public data class ContextCreated(
+data class ContextCreated(
   @field:JsonProperty("context")
-  public val context: BaseAudioContext,
+  val context: BaseAudioContext,
 )

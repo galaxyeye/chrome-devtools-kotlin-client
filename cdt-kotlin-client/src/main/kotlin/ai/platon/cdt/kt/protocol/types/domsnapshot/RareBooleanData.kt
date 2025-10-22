@@ -4,7 +4,7 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Int
 import kotlin.collections.List
 
-public data class RareBooleanData(
+data class RareBooleanData(
   @field:JsonProperty("index")
-  public val index: List<Int>,
+  val index: List<Int>,
 )

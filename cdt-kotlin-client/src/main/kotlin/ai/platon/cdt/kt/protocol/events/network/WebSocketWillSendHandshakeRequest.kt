@@ -8,13 +8,13 @@ import kotlin.String
 /**
  * Fired when WebSocket is about to initiate handshake.
  */
-public data class WebSocketWillSendHandshakeRequest(
+data class WebSocketWillSendHandshakeRequest(
   @field:JsonProperty("requestId")
-  public val requestId: String,
+  val requestId: String,
   @field:JsonProperty("timestamp")
-  public val timestamp: Double,
+  val timestamp: Double,
   @field:JsonProperty("wallTime")
-  public val wallTime: Double,
+  val wallTime: Double,
   @field:JsonProperty("request")
-  public val request: WebSocketRequest,
+  val request: WebSocketRequest,
 )

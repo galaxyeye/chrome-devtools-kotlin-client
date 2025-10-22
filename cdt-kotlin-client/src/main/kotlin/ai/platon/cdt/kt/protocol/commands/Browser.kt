@@ -28,7 +28,7 @@ import kotlin.collections.List
 /**
  * The Browser domain defines methods and events for browser managing.
  */
-public interface Browser {
+interface Browser {
   /**
    * Set permission settings for given origin.
    * @param permission Descriptor of permission to override.
@@ -45,8 +45,7 @@ public interface Browser {
   )
 
   @Experimental
-  public suspend fun setPermission(@ParamName("permission") permission: PermissionDescriptor,
-      @ParamName("setting") setting: PermissionSetting) {
+  public suspend fun setPermission(@ParamName("permission") permission: PermissionDescriptor, @ParamName("setting") setting: PermissionSetting) {
     return setPermission(permission, setting, null, null)
   }
 
@@ -54,8 +53,7 @@ public interface Browser {
    * Grant specific permissions to the given origin and reject all others.
    * @param permissions
    * @param origin Origin the permission applies to, all origins if not specified.
-   * @param browserContextId BrowserContext to override permissions. When omitted, default browser
-   * context is used.
+   * @param browserContextId BrowserContext to override permissions. When omitted, default browser context is used.
    */
   @Experimental
   public suspend fun grantPermissions(
@@ -71,12 +69,10 @@ public interface Browser {
 
   /**
    * Reset all permission management for all origins.
-   * @param browserContextId BrowserContext to reset permissions. When omitted, default browser
-   * context is used.
+   * @param browserContextId BrowserContext to reset permissions. When omitted, default browser context is used.
    */
   @Experimental
-  public suspend fun resetPermissions(@ParamName("browserContextId") @Optional
-      browserContextId: String? = null)
+  public suspend fun resetPermissions(@ParamName("browserContextId") @Optional browserContextId: String? = null)
 
   @Experimental
   public suspend fun resetPermissions() {
@@ -85,14 +81,11 @@ public interface Browser {
 
   /**
    * Set the behavior when downloading a file.
-   * @param behavior Whether to allow all or deny all download requests, or use default Chrome
-   * behavior if
+   * @param behavior Whether to allow all or deny all download requests, or use default Chrome behavior if
    * available (otherwise deny). |allowAndName| allows download and names files according to
    * their dowmload guids.
-   * @param browserContextId BrowserContext to set download behavior. When omitted, default browser
-   * context is used.
-   * @param downloadPath The default path to save downloaded files to. This is required if behavior
-   * is set to 'allow'
+   * @param browserContextId BrowserContext to set download behavior. When omitted, default browser context is used.
+   * @param downloadPath The default path to save downloaded files to. This is required if behavior is set to 'allow'
    * or 'allowAndName'.
    * @param eventsEnabled Whether to emit download events (defaults to false).
    */
@@ -105,20 +98,17 @@ public interface Browser {
   )
 
   @Experimental
-  public suspend fun setDownloadBehavior(@ParamName("behavior")
-      behavior: SetDownloadBehaviorBehavior) {
+  public suspend fun setDownloadBehavior(@ParamName("behavior") behavior: SetDownloadBehaviorBehavior) {
     return setDownloadBehavior(behavior, null, null, null)
   }
 
   /**
    * Cancel a download if in progress
    * @param guid Global unique identifier of the download.
-   * @param browserContextId BrowserContext to perform the action in. When omitted, default browser
-   * context is used.
+   * @param browserContextId BrowserContext to perform the action in. When omitted, default browser context is used.
    */
   @Experimental
-  public suspend fun cancelDownload(@ParamName("guid") guid: String, @ParamName("browserContextId")
-      @Optional browserContextId: String? = null)
+  public suspend fun cancelDownload(@ParamName("guid") guid: String, @ParamName("browserContextId") @Optional browserContextId: String? = null)
 
   @Experimental
   public suspend fun cancelDownload(@ParamName("guid") guid: String) {
@@ -166,8 +156,7 @@ public interface Browser {
   @Experimental
   @Returns("histograms")
   @ReturnTypeParameter(Histogram::class)
-  public suspend fun getHistograms(@ParamName("query") @Optional query: String? = null,
-      @ParamName("delta") @Optional delta: Boolean? = null): List<Histogram>
+  public suspend fun getHistograms(@ParamName("query") @Optional query: String? = null, @ParamName("delta") @Optional delta: Boolean? = null): List<Histogram>
 
   @Experimental
   @Returns("histograms")
@@ -183,8 +172,7 @@ public interface Browser {
    */
   @Experimental
   @Returns("histogram")
-  public suspend fun getHistogram(@ParamName("name") name: String, @ParamName("delta") @Optional
-      delta: Boolean? = null): Histogram
+  public suspend fun getHistogram(@ParamName("name") name: String, @ParamName("delta") @Optional delta: Boolean? = null): Histogram
 
   @Experimental
   @Returns("histogram")
@@ -202,12 +190,10 @@ public interface Browser {
 
   /**
    * Get the browser window that contains the devtools target.
-   * @param targetId Devtools agent host id. If called as a part of the session, associated targetId
-   * is used.
+   * @param targetId Devtools agent host id. If called as a part of the session, associated targetId is used.
    */
   @Experimental
-  public suspend fun getWindowForTarget(@ParamName("targetId") @Optional targetId: String? = null):
-      WindowForTarget
+  public suspend fun getWindowForTarget(@ParamName("targetId") @Optional targetId: String? = null): WindowForTarget
 
   @Experimental
   public suspend fun getWindowForTarget(): WindowForTarget {
@@ -217,13 +203,11 @@ public interface Browser {
   /**
    * Set position and/or size of the browser window.
    * @param windowId Browser window id.
-   * @param bounds New window bounds. The 'minimized', 'maximized' and 'fullscreen' states cannot be
-   * combined
+   * @param bounds New window bounds. The 'minimized', 'maximized' and 'fullscreen' states cannot be combined
    * with 'left', 'top', 'width' or 'height'. Leaves unspecified fields unchanged.
    */
   @Experimental
-  public suspend fun setWindowBounds(@ParamName("windowId") windowId: Int, @ParamName("bounds")
-      bounds: Bounds)
+  public suspend fun setWindowBounds(@ParamName("windowId") windowId: Int, @ParamName("bounds") bounds: Bounds)
 
   /**
    * Set dock tile details, platform-specific.
@@ -231,8 +215,7 @@ public interface Browser {
    * @param image Png encoded image. (Encoded as a base64 string when passed over JSON)
    */
   @Experimental
-  public suspend fun setDockTile(@ParamName("badgeLabel") @Optional badgeLabel: String? = null,
-      @ParamName("image") @Optional image: String? = null)
+  public suspend fun setDockTile(@ParamName("badgeLabel") @Optional badgeLabel: String? = null, @ParamName("image") @Optional image: String? = null)
 
   @Experimental
   public suspend fun setDockTile() {
@@ -248,17 +231,17 @@ public interface Browser {
 
   @EventName("downloadWillBegin")
   @Experimental
-  public fun onDownloadWillBegin(eventListener: EventHandler<DownloadWillBegin>): EventListener
+  fun onDownloadWillBegin(eventListener: EventHandler<DownloadWillBegin>): EventListener
 
   @EventName("downloadWillBegin")
   @Experimental
-  public fun onDownloadWillBegin(eventListener: suspend (DownloadWillBegin) -> Unit): EventListener
+  fun onDownloadWillBegin(eventListener: suspend (DownloadWillBegin) -> Unit): EventListener
 
   @EventName("downloadProgress")
   @Experimental
-  public fun onDownloadProgress(eventListener: EventHandler<DownloadProgress>): EventListener
+  fun onDownloadProgress(eventListener: EventHandler<DownloadProgress>): EventListener
 
   @EventName("downloadProgress")
   @Experimental
-  public fun onDownloadProgress(eventListener: suspend (DownloadProgress) -> Unit): EventListener
+  fun onDownloadProgress(eventListener: suspend (DownloadProgress) -> Unit): EventListener
 }

@@ -9,14 +9,14 @@ import kotlin.String
  * Represents function call argument. Either remote object id `objectId`, primitive `value`,
  * unserializable primitive value or neither of (for undefined) them should be specified.
  */
-public data class CallArgument(
+data class CallArgument(
   @field:JsonProperty("value")
   @param:Optional
-  public val `value`: Any? = null,
+  val `value`: Any? = null,
   @field:JsonProperty("unserializableValue")
   @param:Optional
-  public val unserializableValue: String? = null,
+  val unserializableValue: String? = null,
   @field:JsonProperty("objectId")
   @param:Optional
-  public val objectId: String? = null,
+  val objectId: String? = null,
 )

@@ -7,9 +7,9 @@ import kotlin.collections.List
 /**
  * CSS rule collection for a single pseudo style.
  */
-public data class PseudoElementMatches(
+data class PseudoElementMatches(
   @field:JsonProperty("pseudoType")
-  public val pseudoType: PseudoType,
+  val pseudoType: PseudoType,
   @field:JsonProperty("matches")
-  public val matches: List<RuleMatch>,
+  val matches: List<RuleMatch>,
 )

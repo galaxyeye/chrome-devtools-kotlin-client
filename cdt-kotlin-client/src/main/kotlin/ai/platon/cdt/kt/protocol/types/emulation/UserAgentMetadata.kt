@@ -12,21 +12,21 @@ import kotlin.collections.List
  * Missing optional values will be filled in by the target with what it would normally use.
  */
 @Experimental
-public data class UserAgentMetadata(
+data class UserAgentMetadata(
   @field:JsonProperty("brands")
   @param:Optional
-  public val brands: List<UserAgentBrandVersion>? = null,
+  val brands: List<UserAgentBrandVersion>? = null,
   @field:JsonProperty("fullVersion")
   @param:Optional
-  public val fullVersion: String? = null,
+  val fullVersion: String? = null,
   @field:JsonProperty("platform")
-  public val platform: String,
+  val platform: String,
   @field:JsonProperty("platformVersion")
-  public val platformVersion: String,
+  val platformVersion: String,
   @field:JsonProperty("architecture")
-  public val architecture: String,
+  val architecture: String,
   @field:JsonProperty("model")
-  public val model: String,
+  val model: String,
   @field:JsonProperty("mobile")
-  public val mobile: Boolean,
+  val mobile: Boolean,
 )

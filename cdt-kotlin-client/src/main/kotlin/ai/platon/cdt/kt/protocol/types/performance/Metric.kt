@@ -7,9 +7,9 @@ import kotlin.String
 /**
  * Run-time execution metric.
  */
-public data class Metric(
+data class Metric(
   @field:JsonProperty("name")
-  public val name: String,
+  val name: String,
   @field:JsonProperty("value")
-  public val `value`: Double,
+  val `value`: Double,
 )

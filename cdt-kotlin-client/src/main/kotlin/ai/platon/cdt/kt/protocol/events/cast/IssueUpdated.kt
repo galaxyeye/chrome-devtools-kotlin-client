@@ -7,7 +7,7 @@ import kotlin.String
  * This is fired whenever the outstanding issue/error message changes.
  * |issueMessage| is empty if there is no issue.
  */
-public data class IssueUpdated(
+data class IssueUpdated(
   @field:JsonProperty("issueMessage")
-  public val issueMessage: String,
+  val issueMessage: String,
 )

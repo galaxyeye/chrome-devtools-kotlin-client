@@ -7,10 +7,10 @@ import kotlin.String
 /**
  * Object internal property descriptor. This property isn't normally visible in JavaScript code.
  */
-public data class InternalPropertyDescriptor(
+data class InternalPropertyDescriptor(
   @field:JsonProperty("name")
-  public val name: String,
+  val name: String,
   @field:JsonProperty("value")
   @param:Optional
-  public val `value`: RemoteObject? = null,
+  val `value`: RemoteObject? = null,
 )

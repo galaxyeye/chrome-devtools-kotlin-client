@@ -12,22 +12,22 @@ import kotlin.String
 /**
  * Fired when HTTP request has failed to load.
  */
-public data class LoadingFailed(
+data class LoadingFailed(
   @field:JsonProperty("requestId")
-  public val requestId: String,
+  val requestId: String,
   @field:JsonProperty("timestamp")
-  public val timestamp: Double,
+  val timestamp: Double,
   @field:JsonProperty("type")
-  public val type: ResourceType,
+  val type: ResourceType,
   @field:JsonProperty("errorText")
-  public val errorText: String,
+  val errorText: String,
   @field:JsonProperty("canceled")
   @param:Optional
-  public val canceled: Boolean? = null,
+  val canceled: Boolean? = null,
   @field:JsonProperty("blockedReason")
   @param:Optional
-  public val blockedReason: BlockedReason? = null,
+  val blockedReason: BlockedReason? = null,
   @field:JsonProperty("corsErrorStatus")
   @param:Optional
-  public val corsErrorStatus: CorsErrorStatus? = null,
+  val corsErrorStatus: CorsErrorStatus? = null,
 )

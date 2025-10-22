@@ -7,7 +7,7 @@ import kotlin.Int
  * Fired when the node should be inspected. This happens after call to `setInspectMode` or when
  * user manually inspects an element.
  */
-public data class InspectNodeRequested(
+data class InspectNodeRequested(
   @field:JsonProperty("backendNodeId")
-  public val backendNodeId: Int,
+  val backendNodeId: Int,
 )

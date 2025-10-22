@@ -9,9 +9,9 @@ import kotlin.String
  * Collected counter information.
  */
 @Experimental
-public data class CounterInfo(
+data class CounterInfo(
   @field:JsonProperty("name")
-  public val name: String,
+  val name: String,
   @field:JsonProperty("value")
-  public val `value`: Int,
+  val `value`: Int,
 )

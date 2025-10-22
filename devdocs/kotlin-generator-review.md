@@ -39,6 +39,24 @@ public suspend fun describeNode(
 ): Node
 ```
 
+5) Correct Any::class generation
+
+Before:
+```kotlin
+  @Returns("commandLog")
+  @ReturnTypeParameter(String::class, Any?::class)
+  public suspend fun snapshotCommandLog(@ParamName("snapshotId") snapshotId: String):
+      List<Map<String, Any?>>
+```
+
+After:
+```kotlin
+  @Returns("commandLog")
+  @ReturnTypeParameter(String::class, Any::class)
+  public suspend fun snapshotCommandLog(@ParamName("snapshotId") snapshotId: String):
+      List<Map<String, Any?>>
+```
+
 Edge cases
 - Collections: `List<T>? = null`, `Map<K, V>? = null` are valid for optional collections.
 - Enums: `MyEnum? = null` when optional.

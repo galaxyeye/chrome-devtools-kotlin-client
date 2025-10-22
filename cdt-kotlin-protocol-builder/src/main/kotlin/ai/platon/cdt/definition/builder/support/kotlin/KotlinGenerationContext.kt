@@ -425,7 +425,8 @@ private fun KotlinGenerationContext.collectReturnGenerics(typeName: TypeName, ac
         typeName.typeArguments.forEach { argument ->
             this.collectReturnGenerics(argument, acc)
             if (argument is ClassName) {
-                acc.add(argument)
+                // Strip nullability from type arguments for @ReturnTypeParameter annotation
+                acc.add(argument.copy(nullable = false))
             }
         }
     }

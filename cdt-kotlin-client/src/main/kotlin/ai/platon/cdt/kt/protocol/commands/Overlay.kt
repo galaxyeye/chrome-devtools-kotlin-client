@@ -54,7 +54,7 @@ public interface Overlay {
    * @param showAccessibilityInfo Whether to show accessibility info (default: true).
    */
   @Returns("highlight")
-  @ReturnTypeParameter(String::class, Any?::class)
+  @ReturnTypeParameter(String::class, Any::class)
   public suspend fun getHighlightObjectForTest(
     @ParamName("nodeId") nodeId: Int,
     @ParamName("includeDistance") @Optional includeDistance: Boolean? = null,
@@ -64,7 +64,7 @@ public interface Overlay {
   ): Map<String, Any?>
 
   @Returns("highlight")
-  @ReturnTypeParameter(String::class, Any?::class)
+  @ReturnTypeParameter(String::class, Any::class)
   public suspend fun getHighlightObjectForTest(@ParamName("nodeId") nodeId: Int):
       Map<String, Any?> {
     return getHighlightObjectForTest(nodeId, null, null, null, null)
@@ -75,7 +75,7 @@ public interface Overlay {
    * @param nodeIds Ids of the node to get highlight object for.
    */
   @Returns("highlights")
-  @ReturnTypeParameter(String::class, Any?::class)
+  @ReturnTypeParameter(String::class, Any::class)
   public suspend fun getGridHighlightObjectsForTest(@ParamName("nodeIds") nodeIds: List<Int>):
       Map<String, Any?>
 
@@ -84,7 +84,7 @@ public interface Overlay {
    * @param nodeId Id of the node to highlight.
    */
   @Returns("highlight")
-  @ReturnTypeParameter(String::class, Any?::class)
+  @ReturnTypeParameter(String::class, Any::class)
   public suspend fun getSourceOrderHighlightObjectForTest(@ParamName("nodeId") nodeId: Int):
       Map<String, Any?>
 

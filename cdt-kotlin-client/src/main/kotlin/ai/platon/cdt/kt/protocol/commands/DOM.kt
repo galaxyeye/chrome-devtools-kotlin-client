@@ -198,7 +198,7 @@ interface DOM {
    */
   @Experimental
   @Returns("quads")
-  @ReturnTypeParameter(Double::class)
+  @ReturnTypeParameter(List::class, Double::class)
   suspend fun getContentQuads(
     @ParamName("nodeId") @Optional nodeId: Int? = null,
     @ParamName("backendNodeId") @Optional backendNodeId: Int? = null,
@@ -207,7 +207,7 @@ interface DOM {
 
   @Experimental
   @Returns("quads")
-  @ReturnTypeParameter(Double::class)
+  @ReturnTypeParameter(List::class, Double::class)
   suspend fun getContentQuads(): List<List<Double>> {
     return getContentQuads(null, null, null)
   }
@@ -302,11 +302,6 @@ interface DOM {
     @ParamName("backendNodeId") @Optional backendNodeId: Int? = null,
     @ParamName("objectId") @Optional objectId: String? = null,
   ): String
-
-  @Returns("outerHTML")
-  suspend fun getOuterHTML(): String {
-    return getOuterHTML(null, null, null)
-  }
 
   /**
    * Returns the id of the nearest ancestor that is a relayout boundary.

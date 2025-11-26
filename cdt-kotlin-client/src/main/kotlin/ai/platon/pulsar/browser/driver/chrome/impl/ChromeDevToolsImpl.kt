@@ -36,7 +36,7 @@ class CachedDevToolsInvocationHandlerProxies(impl: Any) : SuspendAwareHandler(im
     // Typical proxy:
     //   - jdk.proxy1.$Proxy24
     // Typical methods:
-    //   - public abstract void com.github.kklisura.cdt.protocol.v2023.commands.Page.enable()
+    //   - public abstract void com.github.kklisura.cdt.protocol.commands.Page.enable()
     //   - public abstract com...page.Navigate com...Page.navigate(java.lang.String)
     override fun invoke(proxy: Any, method: Method, args: Array<out Any>?): Any? {
         return commands.computeIfAbsent(method) {
@@ -122,32 +122,50 @@ abstract class ChromeDevToolsImpl(
         returnProperty: String?,
         returnTypeClasses: Array<Class<out Any>>?,
         method: MethodInvocation
+    ): T? = invokeInternal(clazz, returnProperty, returnTypeClasses, method, null)
+
+    @Throws(ChromeRPCException::class)
+    internal suspend fun <T> invokeInternal(
+        clazz: Class<T>,
+        returnProperty: String?,
+        returnTypeClasses: Array<Class<out Any>>?,
+        method: MethodInvocation,
+        // for test purpose
+        mockRpcResult: RpcResult? = null
     ): T? {
+        numInvokes.inc()
+
         // Serialize the method invocation into a message to be sent to the remote server.
         val message = dispatcher.serialize(method)
 
         // Send the request and await the result in a coroutine-friendly way.
-        val rpcResult = sendAndReceive(method.id, method.method, returnProperty, message)
+        val rpcResult = mockRpcResult ?: sendAndReceive(method.id, method.method, returnProperty, message)
 
         // If no result is received within the timeout, throw a timeout exception.
         if (rpcResult == null) {
             val methodName = method.method
             val readTimeout = config.readTimeout
-            throw ChromeRPCTimeoutException("Response timeout $methodName | #${numInvokes.count}, ($readTimeout)")
+            throw ChromeRPCTimeoutException("No response | $methodName | #${numInvokes.count}, ($readTimeout)")
         }
 
         // Handle the result based on its success status and the expected return type.
         return when {
             // If the result indicates failure, handle the error and throw an exception.
-            !rpcResult.isSuccess -> handleFailedFurther(rpcResult.result).let {
-                throw ChromeRPCException(
-                    it.first.code,
-                    it.second
-                )
+            !rpcResult.isSuccess -> {
+                handleFailedFurther(rpcResult.result).let { e ->
+                    //
+                    // Known errors:
+                    // * -3200L Could not find node with given id
+                    if (e.errorCode != -3200L) {
+                        // -3200L is expected and handled in higher layer, so no log needed
+                        logger.info("Protocol return error: {}/{} | request: {}", e.errorCode, e.errorMessage, message)
+                    }
+                    throw e
+                }
             }
-
             // If the expected return type is `Void`, return null.
             Void.TYPE == clazz -> null
+            rpcResult.result == null -> null
 
             // If returnTypeClasses is provided, use it for deserialization.
             returnTypeClasses != null -> dispatcher.deserialize(returnTypeClasses, clazz, rpcResult.result)
@@ -157,7 +175,7 @@ abstract class ChromeDevToolsImpl(
         }
     }
 
-    @Throws(ChromeIOException::class, InterruptedException::class)
+    @Throws(ChromeIOException::class)
     private suspend fun sendAndReceive(
         methodId: Long, method: String, returnProperty: String?, rawMessage: String
     ): RpcResult? {
@@ -190,12 +208,12 @@ abstract class ChromeDevToolsImpl(
     }
 
     @Throws(ChromeRPCException::class, IOException::class)
-    private fun handleFailedFurther(result: RpcResult): Pair<ErrorObject, String> {
+    private fun handleFailedFurther(result: RpcResult): CDPReturnError {
         return handleFailedFurther(result.result)
     }
 
     @Throws(ChromeRPCException::class, IOException::class)
-    private fun handleFailedFurther(error: JsonNode?): Pair<ErrorObject, String> {
+    private fun handleFailedFurther(error: JsonNode?): CDPReturnError {
         // Received an error
         val error = dispatcher.deserialize(ErrorObject::class.java, error)
         val sb = StringBuilder(error.message)
@@ -204,7 +222,7 @@ abstract class ChromeDevToolsImpl(
             sb.append(error.data)
         }
 
-        return error to sb.toString()
+        return CDPReturnError(error.code, error.data, error.message, sb.toString())
     }
 
     override fun addEventListener(

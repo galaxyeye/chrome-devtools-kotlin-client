@@ -1,4 +1,9 @@
-MVN=mvn
+ifeq ($(OS),Windows_NT)
+MVN=.\\mvnw.cmd
+else
+MVN=./mvnw
+endif
+
 RM=rm
 JAVA=java
 CP=cp
@@ -24,35 +29,35 @@ BROWSER_PROTOCOL_JSON_FILE=./browser_protocol.json
 EXAMPLES_DIR=cdt-examples
 
 copy-protocol-files-to-test-resources:
-	# Copy protocol files to cdt-protocol-parser test resources dir.
+	@echo Copy protocol files to cdt-protocol-parser test resources dir.
 	$(CP) $(JS_PROTOCOL_JSON_FILE) "./$(PROTOCOL_PARSER)/src/test/resources/js_protocol.json"
 	$(CP) $(BROWSER_PROTOCOL_JSON_FILE) "./$(PROTOCOL_PARSER)/src/test/resources/browser_protocol.json"
 	$(MVN) --file "$(PROTOCOL_PARSER_DIR)/" clean install
 
 build-all-modules:
-	# Building all modules
+	@echo Building all modules
 	$(MVN) clean package
 
 compile-cdt-kotlin-client:
-	# Compiling cdt-kotlin-client project...
+	@echo Compiling cdt-kotlin-client project...
 	$(MVN) --file "$(CDT_CLIENT_DIR)/" clean compile
 
 clean-cdt-kotlin-protocol-builder:
-	# Cleaning cdt-kotlin-protocol-builder project...
+	@echo Cleaning cdt-kotlin-protocol-builder project...
 	$(MVN) --file "$(CDT_PROTOCOL_BUILDER_DIR)/" clean
 
 clean-cdt-kotlin-client:
-	# Cleaning cdt-kotlin-client project...
+	@echo Cleaning cdt-kotlin-client project...
 	$(MVN) --file "$(CDT_CLIENT_DIR)/" clean
 
 clean-previous-protocol:
-	# Cleaning previous protocol...
+	@echo Cleaning previous protocol...
 	$(RM) -rf $(CDT_CLIENT_DIR)/src/main/$(LANGUAGE)/$(CDT_CLIENT_PACKAGE)/types
 	$(RM) -rf $(CDT_CLIENT_DIR)/src/main/$(LANGUAGE)/$(CDT_CLIENT_PACKAGE)/events
 	$(RM) -rf $(CDT_CLIENT_DIR)/src/main/$(LANGUAGE)/$(CDT_CLIENT_PACKAGE)/commands
 
 generate-chrome-devtools-client:
-	# Generating chrome devtools client ...
+	@echo Generating chrome devtools client ...
 	$(RUN_JAR) $(CDT_PROTOCOL_BUILDER_JAR) --base-package="$(PACKAGE_NAME)" \
 		--language=$(LANGUAGE) \
 		--output=./$(CDT_CLIENT_DIR)/ \
@@ -60,33 +65,32 @@ generate-chrome-devtools-client:
 		--browser-protocol=$(BROWSER_PROTOCOL_JSON_FILE)
 
 upgrade-protocol: copy-protocol-files-to-test-resources build-all-modules clean-previous-protocol
+	@echo Upgrading protocol
 	$(RUN_JAR) $(CDT_PROTOCOL_BUILDER_JAR) --base-package="$(PACKAGE_NAME)" \
 		--language=$(LANGUAGE) \
 		--output=./$(CDT_CLIENT_DIR)/ \
 		--js-protocol=$(JS_PROTOCOL_JSON_FILE) \
 		--browser-protocol=$(BROWSER_PROTOCOL_JSON_FILE)
-	# Apply the formatting on the codebase
-	$(MVN) com.coveo:fmt-maven-plugin:format
 
 update-protocol: upgrade-protocol
-	# Updated protocol on cdt-kotlin-client
+	@echo Updated protocol on cdt-kotlin-client
 	$(MVN) verify
 
 update-copyright-license-header:
+	@echo Updating copyright license header
 	$(MVN) clean license:update-file-header
-	# Apply the formatting on the codebase
 	$(MVN) com.coveo:fmt-maven-plugin:format
 
 sonar-analysis:
-	# Running sonar analysis
+	@echo Running sonar analysis
 	cd $(CDT_PROTOCOL_BUILDER_DIR)/ && make sonar-analysis
 	cd $(CDT_CLIENT_DIR)/ && make sonar-analysis
 
 verify:
-	# Running unit tests
+	@echo Running unit tests
 	$(MVN) verify
 
 download-latest-protocol:
-	# Downloads the latest protocol json files
+	@echo Downloads the latest protocol json files
 	curl -o browser_protocol.json https://raw.githubusercontent.com/ChromeDevTools/devtools-protocol/master/json/browser_protocol.json
 	curl -o js_protocol.json https://raw.githubusercontent.com/ChromeDevTools/devtools-protocol/master/json/js_protocol.json

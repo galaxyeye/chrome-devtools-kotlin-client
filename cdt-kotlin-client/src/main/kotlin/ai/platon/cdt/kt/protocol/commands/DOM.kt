@@ -222,6 +222,11 @@ interface DOM {
   @Returns("root")
   suspend fun getDocument(@ParamName("depth") @Optional depth: Int? = null, @ParamName("pierce") @Optional pierce: Boolean? = null): Node
 
+  @Returns("root")
+  suspend fun getDocument(): Node {
+    return getDocument(null, null)
+  }
+
   /**
    * Returns the root DOM node (and optionally the subtree) to the caller.
    * Deprecated, as it is not designed to work well with the rest of the DOM agent.
@@ -297,6 +302,11 @@ interface DOM {
     @ParamName("backendNodeId") @Optional backendNodeId: Int? = null,
     @ParamName("objectId") @Optional objectId: String? = null,
   ): String
+
+  @Returns("outerHTML")
+  suspend fun getOuterHTML(): String {
+    return getOuterHTML(null, null, null)
+  }
 
   /**
    * Returns the id of the nearest ancestor that is a relayout boundary.
@@ -457,6 +467,11 @@ interface DOM {
     @ParamName("objectGroup") @Optional objectGroup: String? = null,
     @ParamName("executionContextId") @Optional executionContextId: Int? = null,
   ): RemoteObject
+
+  @Returns("object")
+  suspend fun resolveNode(): RemoteObject {
+    return resolveNode(null, null, null, null)
+  }
 
   /**
    * Sets attribute for an element with given id.

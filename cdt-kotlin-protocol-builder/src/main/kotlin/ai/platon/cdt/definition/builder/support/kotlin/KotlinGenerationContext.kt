@@ -433,6 +433,10 @@ fun KotlinGenerationContext.collectReturnGenerics(typeName: TypeName): List<Type
 private fun KotlinGenerationContext.collectReturnGenerics(typeName: TypeName, acc: MutableList<TypeName>) {
     if (typeName is com.squareup.kotlinpoet.ParameterizedTypeName) {
         typeName.typeArguments.forEach { argument ->
+            if (argument is com.squareup.kotlinpoet.ParameterizedTypeName) {
+                // Add the raw type (e.g., List from List<Double>) for parameterized type arguments
+                acc.add(argument.rawType.copy(nullable = false))
+            }
             this.collectReturnGenerics(argument, acc)
             if (argument is ClassName) {
                 // Strip nullability from type arguments for @ReturnTypeParameter annotation

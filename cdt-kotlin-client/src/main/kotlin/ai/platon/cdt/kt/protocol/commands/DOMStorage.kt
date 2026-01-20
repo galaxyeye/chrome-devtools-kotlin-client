@@ -41,7 +41,7 @@ interface DOMStorage {
    * @param storageId
    */
   @Returns("entries")
-  @ReturnTypeParameter(String::class)
+  @ReturnTypeParameter(List::class, String::class)
   suspend fun getDOMStorageItems(@ParamName("storageId") storageId: StorageId): List<List<String>>
 
   /**

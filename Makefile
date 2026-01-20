@@ -1,10 +1,21 @@
 ifeq ($(OS),Windows_NT)
 MVN=.\\mvnw.cmd
+define copy_file
+	powershell -NoProfile -Command "Copy-Item -LiteralPath '$(1)' -Destination '$(2)' -Force"
+endef
+define remove_tree
+	powershell -NoProfile -Command "Remove-Item -LiteralPath '$(1)' -Recurse -Force -ErrorAction SilentlyContinue"
+endef
 else
 MVN=./mvnw
+define copy_file
+	cp $(1) $(2)
+endef
+define remove_tree
+	rm -rf $(1)
+endef
 endif
 
-RM=rm
 JAVA=java
 CP=cp
 RUN_JAR=$(JAVA) -jar
@@ -30,8 +41,8 @@ EXAMPLES_DIR=cdt-examples
 
 copy-protocol-files-to-test-resources:
 	@echo Copy protocol files to cdt-protocol-parser test resources dir.
-	$(CP) $(JS_PROTOCOL_JSON_FILE) "./$(PROTOCOL_PARSER)/src/test/resources/js_protocol.json"
-	$(CP) $(BROWSER_PROTOCOL_JSON_FILE) "./$(PROTOCOL_PARSER)/src/test/resources/browser_protocol.json"
+	$(call copy_file,$(JS_PROTOCOL_JSON_FILE),./$(PROTOCOL_PARSER)/src/test/resources/js_protocol.json)
+	$(call copy_file,$(BROWSER_PROTOCOL_JSON_FILE),./$(PROTOCOL_PARSER)/src/test/resources/browser_protocol.json)
 	$(MVN) --file "$(PROTOCOL_PARSER_DIR)/" clean install
 
 build-all-modules:
@@ -52,9 +63,9 @@ clean-cdt-kotlin-client:
 
 clean-previous-protocol:
 	@echo Cleaning previous protocol...
-	$(RM) -rf $(CDT_CLIENT_DIR)/src/main/$(LANGUAGE)/$(CDT_CLIENT_PACKAGE)/types
-	$(RM) -rf $(CDT_CLIENT_DIR)/src/main/$(LANGUAGE)/$(CDT_CLIENT_PACKAGE)/events
-	$(RM) -rf $(CDT_CLIENT_DIR)/src/main/$(LANGUAGE)/$(CDT_CLIENT_PACKAGE)/commands
+	$(call remove_tree,$(CDT_CLIENT_DIR)/src/main/$(LANGUAGE)/$(CDT_CLIENT_PACKAGE)/types)
+	$(call remove_tree,$(CDT_CLIENT_DIR)/src/main/$(LANGUAGE)/$(CDT_CLIENT_PACKAGE)/events)
+	$(call remove_tree,$(CDT_CLIENT_DIR)/src/main/$(LANGUAGE)/$(CDT_CLIENT_PACKAGE)/commands)
 
 generate-chrome-devtools-client:
 	@echo Generating chrome devtools client ...

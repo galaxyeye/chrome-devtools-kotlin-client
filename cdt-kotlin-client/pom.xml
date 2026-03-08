@@ -43,13 +43,9 @@
     </scm>
 
     <distributionManagement>
-        <snapshotRepository>
-            <id>central</id>
-            <url>https://central.sonatype.com/content/repositories/snapshots</url>
-        </snapshotRepository>
         <repository>
             <id>central</id>
-            <url>https://central.sonatype.com/service/local/staging/deploy/maven2</url>
+            <url>https://central.sonatype.com/api/v1/publisher</url>
         </repository>
     </distributionManagement>
 
@@ -59,6 +55,7 @@
             <url>https://repo1.maven.org/maven2/</url>
         </repository>
     </repositories>
+
     <!-- Required by dokka-maven-plugin -->
     <pluginRepositories>
         <pluginRepository>
@@ -371,6 +368,17 @@
                             </execution>
                         </executions>
                     </plugin>
+
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>${central-publishing-maven-plugin.version}</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                        </configuration>
+                    </plugin>
+
                 </plugins>
             </build>
         </profile>
@@ -662,16 +670,6 @@
                         </fileSet>
                     </fileSets>
                     <failIfNoFiles>false</failIfNoFiles>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.sonatype.central</groupId>
-                <artifactId>central-publishing-maven-plugin</artifactId>
-                <version>${central-publishing-maven-plugin.version}</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <publishingServerId>central</publishingServerId>
                 </configuration>
             </plugin>
 

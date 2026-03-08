@@ -57,7 +57,8 @@ interface ChromeService : AutoCloseable {
 
     // Compatibility
     @Throws(ChromeServiceException::class)
-    fun createDevToolsService(tab: ChromeTab, config: DevToolsConfig = DevToolsConfig()): ChromeDevToolsService = createDevTools(tab, config)
+    fun createDevToolsService(tab: ChromeTab, config: DevToolsConfig = DevToolsConfig()): ChromeDevToolsService =
+        createDevTools(tab, config)
 }
 
 interface ChromeDevToolsService : ChromeDevTools, AutoCloseable {

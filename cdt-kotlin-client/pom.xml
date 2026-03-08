@@ -329,6 +329,15 @@
                                 <goals>
                                     <goal>jar-no-fork</goal>
                                 </goals>
+                                <configuration>
+                                    <includes>
+                                        <include>src/main/java/**</include>
+                                        <include>src/main/kotlin/**</include>
+                                    </includes>
+                                    <excludes>
+                                        <exclude>target/**</exclude>
+                                    </excludes>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>

@@ -10,4 +10,8 @@ public enum class PrivateNetworkRequestPolicy {
   BLOCK_FROM_INSECURE_TO_MORE_PRIVATE,
   @JsonProperty("WarnFromInsecureToMorePrivate")
   WARN_FROM_INSECURE_TO_MORE_PRIVATE,
+
+  // Patch: vincent, 20251025, protocol upgraded. Or you can modify the received message before deserialization.
+  @JsonProperty("WarnFromInsecureToMorePrivate")
+  PERMISSION_BLOCK,
 }

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-class ProtocolTest {
+class ProtocolAXTreeTest {
 
     @Test
     @DisplayName("Given AXTree json then deserialize correctly by OBJECT_MAPPER")

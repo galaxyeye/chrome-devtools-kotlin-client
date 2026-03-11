@@ -43,6 +43,7 @@ class KotlinGenerationContext(
     val eventHandlerClass = ClassName(supportTypesPackage, "EventHandler")
     val eventListenerClass = ClassName(supportTypesPackage, "EventListener")
 
+    val jsonEnumDefaultValue = ClassName("com.fasterxml.jackson.annotation", "JsonEnumDefaultValue")
     val jsonProperty = ClassName("com.fasterxml.jackson.annotation", "JsonProperty")
 
     fun typeDomainPackage(domain: Domain): String =
@@ -407,15 +408,29 @@ class KotlinTypeMapper(private val context: KotlinGenerationContext) {
         val enumBuilder = TypeSpec.enumBuilder(enumName)
         description?.takeIf { it.isNotBlank() }?.let { enumBuilder.addKdoc("%L", it) }
 
-        if (values.isEmpty()) {
-            enumBuilder.addEnumConstant("UNKNOWN")
-        } else {
+        var hasExplicitUnknown = false
+        if (values.isNotEmpty()) {
             values.forEach { rawValue ->
                 val constName = StringUtils.toEnumConstant(rawValue)
                 val constantBuilder = TypeSpec.anonymousClassBuilder()
                     .addAnnotation(AnnotationSpec.builder(context.jsonProperty).addMember("%S", rawValue).build())
+
+                if (constName == "UNKNOWN") {
+                    hasExplicitUnknown = true
+                    constantBuilder.addAnnotation(AnnotationSpec.builder(context.jsonEnumDefaultValue).build())
+                }
+
                 enumBuilder.addEnumConstant(constName, constantBuilder.build())
             }
+        }
+
+        if (!hasExplicitUnknown) {
+            enumBuilder.addEnumConstant(
+                "UNKNOWN",
+                TypeSpec.anonymousClassBuilder()
+                    .addAnnotation(AnnotationSpec.builder(context.jsonEnumDefaultValue).build())
+                    .build()
+            )
         }
 
         return FileSpec.builder(packageName, enumName)

@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,6 +25,7 @@ import ai.platon.cdt.protocol.definition.DevToolsProtocol
 import ai.platon.cdt.protocol.definition.types.Command
 import ai.platon.cdt.protocol.definition.types.Domain
 import ai.platon.cdt.protocol.definition.types.Event
+import ai.platon.cdt.protocol.definition.types.type.EnumType
 import ai.platon.cdt.protocol.definition.types.type.`object`.ObjectType
 import ai.platon.cdt.protocol.definition.types.type.`object`.properties.ArrayProperty
 import ai.platon.cdt.protocol.definition.types.type.`object`.properties.StringProperty
@@ -155,6 +156,33 @@ class KotlinGeneratorsTest {
         assertTrue(content.contains("@param:Optional"))
         assertTrue(content.contains("val mimeType: String?"))
         assertTrue(content.contains("mimeType: String? = null"))
+    }
+
+    @Test
+    fun `types builder emits enum fallback for unknown protocol values`() {
+        val driftedEnum = EnumType().apply {
+            id = "DriftedState"
+            enumValues = listOf("open", "closed")
+        }
+        val explicitUnknownEnum = EnumType().apply {
+            id = "ExplicitUnknownState"
+            enumValues = listOf("known", "unknown")
+        }
+
+        val domain = Domain().apply {
+            domain = "Runtime"
+            types = listOf(driftedEnum, explicitUnknownEnum)
+        }
+
+        val files = typesBuilder.build(domain, resolver)
+        val driftedCode = files.first { it.fileName == "DriftedState" }.fileSpec.toString()
+        val explicitUnknownCode = files.first { it.fileName == "ExplicitUnknownState" }.fileSpec.toString()
+
+        assertTrue(driftedCode.contains("JsonEnumDefaultValue"))
+        assertTrue(driftedCode.contains("UNKNOWN"))
+        assertTrue(explicitUnknownCode.contains("@JsonProperty(\"unknown\")"))
+        assertTrue(explicitUnknownCode.contains("JsonEnumDefaultValue"))
+        assertEquals(1, Regex("\\n\\s+UNKNOWN,").findAll(explicitUnknownCode).count())
     }
 
     @OptIn(ExperimentalCompilerApi::class)

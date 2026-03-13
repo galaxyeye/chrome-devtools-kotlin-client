@@ -7,7 +7,7 @@
 
     <groupId>ai.platon.cdt</groupId>
     <artifactId>cdt-kotlin-client</artifactId>
-    <version>4.0.5-SNAPSHOT</version>
+    <version>4.0.6-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>cdt-kotlin-client</name>
@@ -92,6 +92,7 @@
         <mockwebserver.version>2.7.5</mockwebserver.version>
 
         <dokka.version>1.9.10</dokka.version>
+        <version.maven-compiler-plugin>3.14.1</version.maven-compiler-plugin>
         <maven.surefire.plugin.version>3.2.5</maven.surefire.plugin.version>
         <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
         <version.checksum-maven-plugin>1.11</version.checksum-maven-plugin>
@@ -529,6 +530,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${version.maven-compiler-plugin}</version>
                 <configuration>
                     <source>11</source>
                     <target>11</target>

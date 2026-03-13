@@ -14,11 +14,15 @@ import kotlin.collections.List
  */
 @Experimental
 data class TrustTokenParams(
+    // vincent, 2025/10/29,
+    // com.fasterxml.jackson.databind.exc.ValueInstantiationException: Cannot construct instance of `ai.platon.cdt.kt.protocol.types.network.TrustTokenParams`, problem: Parameter specified as non-null is null: method ai.platon.cdt.kt.protocol.types.network.TrustTokenParams.<init>, parameter type
   @param:JsonProperty("type")
-  val type: TrustTokenOperationType,
+  @param:Optional
+  val type: TrustTokenOperationType? = null,
   @param:JsonProperty("refreshPolicy")
   val refreshPolicy: TrustTokenParamsRefreshPolicy,
   @param:JsonProperty("issuers")
   @param:Optional
   val issuers: List<String>? = null,
 )
+

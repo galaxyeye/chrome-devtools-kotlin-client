@@ -1,4 +1,6 @@
 #!/usr/bin/env pwsh
 
-Set-Location cdt-kotlin-client
-.\mvnw -Prelease clean deploy -DskipTests
+$repoRoot = (git rev-parse --show-toplevel 2>$null)
+Set-Location $repoRoot
+
+.\mvnw -Prelease clean deploy -DskipTests -pl cdt-kotlin-client -am

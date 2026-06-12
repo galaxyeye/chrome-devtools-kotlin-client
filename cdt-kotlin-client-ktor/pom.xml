@@ -5,10 +5,13 @@
     <!-- NOTE(kklisura): Do not add parent tag here, since it gets deployed (via mvn deploy)[at least on snapshot repo],
          so clients won't be able to pull it unless parent is also deployed -->
 
-    <groupId>ai.platon.cdt</groupId>
+    <parent>
+        <groupId>ai.platon.cdt</groupId>
+        <artifactId>cdt-client-root</artifactId>
+        <version>4.8.0-SNAPSHOT</version>
+    </parent>
+
     <artifactId>cdt-kotlin-client-ktor</artifactId>
-    <version>4.8.5-SNAPSHOT</version>
-    <packaging>jar</packaging>
 
     <name>cdt-kotlin-client-ktor</name>
     <description>Chrome DevTools Kotlin client Ktor implementation</description>
@@ -42,44 +45,21 @@
         <url>https://github.com/galaxyeye/chrome-devtools-kotlin-client</url>
     </scm>
 
-    <distributionManagement>
-        <repository>
-            <id>central</id>
-            <url>https://central.sonatype.com/api/v1/publisher</url>
-        </repository>
-    </distributionManagement>
-
-    <repositories>
-        <repository>
-            <id>Central</id>
-            <url>https://repo1.maven.org/maven2/</url>
-        </repository>
-    </repositories>
-
-    <!-- Required by dokka-maven-plugin -->
-    <pluginRepositories>
-        <pluginRepository>
-            <id>jcenter</id>
-            <name>JCenter</name>
-            <url>https://jcenter.bintray.com/</url>
-        </pluginRepository>
-    </pluginRepositories>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.inceptionYear>2025</project.inceptionYear>
 
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+<!--        <maven.compiler.source>17</maven.compiler.source>-->
+<!--        <maven.compiler.target>17</maven.compiler.target>-->
 
-        <kotlin.version>2.2.20</kotlin.version>
-        <kotlin.coroutine.version>1.10.2</kotlin.coroutine.version>
-        <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
+<!--        <kotlin.version>2.2.20</kotlin.version>-->
+<!--        <kotlin.coroutine.version>1.10.2</kotlin.coroutine.version>-->
+<!--        <kotlin.compiler.incremental>true</kotlin.compiler.incremental>-->
 
         <cdt-kotlin-client.version>4.8.5-SNAPSHOT</cdt-kotlin-client.version>
 
         <websocket.api.version>1.1</websocket.api.version>
-        <ktor.version>2.3.13</ktor.version>
+<!--        <ktor.version>2.3.13</ktor.version>-->
 
         <jackson.version>2.15.0</jackson.version>
         <javassist.version>3.24.1-GA</javassist.version>
@@ -93,13 +73,13 @@
         <jsonassert.version>1.5.0</jsonassert.version>
         <mockwebserver.version>2.7.5</mockwebserver.version>
 
-        <dokka.version>1.9.10</dokka.version>
+<!--        <dokka.version>1.9.10</dokka.version>-->
         <version.maven-compiler-plugin>3.14.1</version.maven-compiler-plugin>
         <maven.surefire.plugin.version>3.2.5</maven.surefire.plugin.version>
-        <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
-        <version.checksum-maven-plugin>1.11</version.checksum-maven-plugin>
-        <checksum-maven-plugin.version>1.11</checksum-maven-plugin.version>
-        <central-publishing-maven-plugin.version>0.9.0</central-publishing-maven-plugin.version>
+<!--        <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>-->
+<!--        <version.checksum-maven-plugin>1.11</version.checksum-maven-plugin>-->
+<!--        <checksum-maven-plugin.version>1.11</checksum-maven-plugin.version>-->
+<!--        <central-publishing-maven-plugin.version>0.9.0</central-publishing-maven-plugin.version>-->
     </properties>
 
     <dependencyManagement>

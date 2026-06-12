@@ -62,6 +62,7 @@
         <jsonassert.version>1.5.0</jsonassert.version>
         <mockwebserver.version>2.7.5</mockwebserver.version>
 
+
         <version.maven-compiler-plugin>3.14.1</version.maven-compiler-plugin>
         <maven.surefire.plugin.version>3.2.5</maven.surefire.plugin.version>
     </properties>
@@ -375,8 +376,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${version.maven-compiler-plugin}</version>
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
+                    <source>${javac.src.version}</source>
+                    <target>${javac.target.version}</target>
                 </configuration>
             </plugin>
 

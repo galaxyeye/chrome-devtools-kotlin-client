@@ -7,7 +7,7 @@
 
     <groupId>ai.platon.cdt</groupId>
     <artifactId>cdt-kotlin-client-ktor</artifactId>
-    <version>2.0.1-SNAPSHOT</version>
+    <version>4.8.5-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>cdt-kotlin-client-ktor</name>

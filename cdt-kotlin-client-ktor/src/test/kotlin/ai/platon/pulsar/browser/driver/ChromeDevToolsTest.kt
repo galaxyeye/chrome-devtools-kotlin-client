@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,10 +26,9 @@ import ai.platon.pulsar.browser.driver.chrome.RemoteDevTools
 import ai.platon.pulsar.browser.driver.chrome.common.LauncherOptions
 import ai.platon.pulsar.browser.driver.chrome.invoke
 import ai.platon.pulsar.common.browser.BrowserFiles
+import ai.platon.pulsar.common.serialize.json.Pson
 import ai.platon.pulsar.common.sleepSeconds
-import com.google.gson.Gson
 import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.Tag
 import kotlin.test.*
 
 class ChromeDevToolsTest {
@@ -46,7 +45,7 @@ class ChromeDevToolsTest {
         chrome = launcher.launch()
 
         val tab = chrome.createTab()
-        val versionString = Gson().toJson(chrome.version)
+        val versionString = Pson.toJson(chrome.version)
         assertTrue(!chrome.version.browser.isNullOrBlank())
         assertTrue(versionString.contains("Mozilla"))
 

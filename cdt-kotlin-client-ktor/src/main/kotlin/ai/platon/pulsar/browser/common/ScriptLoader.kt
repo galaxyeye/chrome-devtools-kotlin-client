@@ -2,10 +2,9 @@ package ai.platon.pulsar.browser.common
 
 import ai.platon.pulsar.common.AppPaths
 import ai.platon.pulsar.common.ResourceLoader
-import ai.platon.pulsar.common.alwaysFalse
 import ai.platon.pulsar.common.config.AppConstants
 import ai.platon.pulsar.common.getLogger
-import com.google.gson.GsonBuilder
+import ai.platon.pulsar.common.serialize.json.pulsarObjectMapper
 import java.nio.file.Files
 import kotlin.io.path.isReadable
 import kotlin.io.path.listDirectoryEntries
@@ -39,6 +38,7 @@ open class ScriptLoader(
     }
 
     private val jsCache: MutableMap<String, String> = LinkedHashMap()
+
     /**
      * The javascript code to inject into the browser.
      * */
@@ -90,10 +90,10 @@ open class ScriptLoader(
 
     private fun generatePredefinedJsConfig(): String {
         // Note: Json-2.6.2 does not recognize MutableMap, but knows Map
-        val configs = GsonBuilder().create().toJson(jsInitParameters.toMap())
+        val configs = pulsarObjectMapper().writeValueAsString(jsInitParameters.toMap())
 
         // set predefined variables shared between javascript and jvm program
-        val configVar = confuser.confuse( "__pulsar_CONFIGS")
+        val configVar = confuser.confuse("__pulsar_CONFIGS")
         return """
             ;
             let $configVar = $configs;

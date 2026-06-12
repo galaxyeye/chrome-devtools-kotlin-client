@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,7 +22,7 @@ package ai.platon.pulsar.browser.driver.examples
 import ai.platon.cdt.kt.protocol.events.overlay.ScreenshotRequested
 import ai.platon.cdt.kt.protocol.types.dom.RGBA
 import ai.platon.cdt.kt.protocol.types.overlay.HighlightConfig
-import com.google.gson.GsonBuilder
+import ai.platon.pulsar.common.serialize.json.Pson
 
 class OverlayExample : BrowserExampleBase() {
 
@@ -67,7 +67,7 @@ class OverlayExample : BrowserExampleBase() {
         overlay.highlightNode(highlightConfig, nodeId, null, null, selector)
 //        Thread.sleep(5000)
         val obj = overlay.getHighlightObjectForTest(nodeId)
-        val json = GsonBuilder().setPrettyPrinting().create().toJson(obj)
+        val json = Pson.toJson(obj)
         println(json)
     }
 }

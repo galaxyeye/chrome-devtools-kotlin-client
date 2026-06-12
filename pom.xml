@@ -15,6 +15,7 @@
         <module>cdt-protocol-parser</module>
         <module>cdt-kotlin-protocol-builder</module>
         <module>cdt-kotlin-client</module>
+        <module>cdt-kotlin-client-ktor</module>
     </modules>
 
     <licenses>

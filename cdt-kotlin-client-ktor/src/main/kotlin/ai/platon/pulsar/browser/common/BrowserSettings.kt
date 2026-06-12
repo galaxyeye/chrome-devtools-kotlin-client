@@ -4,6 +4,7 @@ import ai.platon.pulsar.browser.driver.chrome.common.ChromeOptions
 import ai.platon.pulsar.common.config.AppConstants
 import ai.platon.pulsar.common.config.CapabilityTypes
 import ai.platon.pulsar.common.config.ImmutableConfig
+import ai.platon.pulsar.common.math.geometric.DimI
 import ai.platon.pulsar.common.proxy.ProxyEntry
 import java.awt.Dimension
 import java.net.URI
@@ -18,7 +19,7 @@ open class BrowserSettings constructor(
         /**
          * The viewport size for browser to rendering all webpages.
          * */
-        var SCREEN_VIEWPORT = AppConstants.DEFAULT_VIEW_PORT
+        var SCREEN_VIEWPORT: DimI = DimI(1920, 1080)
 
         /**
          * The screenshot quality.
@@ -35,14 +36,17 @@ open class BrowserSettings constructor(
         var SCRIPT_CONFUSER: ScriptConfuser = SimpleScriptConfuser()
 
     }
+
     /**
      * The script confuser.
      * */
     val confuser = BrowserSettings.SCRIPT_CONFUSER
+
     /**
      * The script loader.
      * */
     val scriptLoader = ScriptLoader(confuser, jsPropertyNames)
+
     /**
      * The javascript to execute by Web browsers.
      * */
@@ -58,6 +62,7 @@ open class BrowserSettings constructor(
      * The supervisor process
      * */
     val supervisorProcess get() = config.get(CapabilityTypes.BROWSER_LAUNCH_SUPERVISOR_PROCESS)
+
     /**
      * The supervisor process arguments
      * */
@@ -76,11 +81,13 @@ open class BrowserSettings constructor(
      * 1. execution of loads and fetches has no timeout limit, so we can interact with the page as long as we want.
      * */
     val isSPA get() = config.getBoolean(CapabilityTypes.BROWSER_SPA_MODE, false)
+
     /**
      * The probability to block resource requests.
      * The probability must be in [0, 1].
      * */
     val resourceBlockProbability get() = config.getFloat(CapabilityTypes.BROWSER_RESOURCE_BLOCK_PROBABILITY, 0.0f)
+
     /**
      * Check if user agent overriding is enabled. User agent overriding is disabled by default,
      * because inappropriate user agent overriding can be detected by the website,
@@ -88,15 +95,18 @@ open class BrowserSettings constructor(
      * */
     val isUserAgentOverridingEnabled get() = config.getBoolean(CapabilityTypes.BROWSER_ENABLE_UA_OVERRIDING, false)
 
-    val fetchTaskTimeout get() = config.getDuration(
-        CapabilityTypes.FETCH_TASK_TIMEOUT,
-        AppConstants.FETCH_TASK_TIMEOUT_DEFAULT
-    )
+    val fetchTaskTimeout
+        get() = config.getDuration(
+            CapabilityTypes.FETCH_TASK_TIMEOUT,
+            AppConstants.FETCH_TASK_TIMEOUT_DEFAULT
+        )
 
-    val pollingDriverTimeout get() = config.getDuration(
-        CapabilityTypes.POLLING_DRIVER_TIMEOUT,
-        AppConstants.POLLING_DRIVER_TIMEOUT_DEFAULT
-    )
+    val pollingDriverTimeout
+        get() = config.getDuration(
+            CapabilityTypes.POLLING_DRIVER_TIMEOUT,
+            AppConstants.POLLING_DRIVER_TIMEOUT_DEFAULT
+        )
+
     /**
      * Page load strategy.
      *

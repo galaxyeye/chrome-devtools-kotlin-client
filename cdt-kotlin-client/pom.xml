@@ -407,7 +407,7 @@
 
         <jackson.version>2.21.3</jackson.version>
 
-        <dokka.version>1.9.10</dokka.version>
+        <dokka.version>2.2.0</dokka.version>
         <version.maven-compiler-plugin>3.14.1</version.maven-compiler-plugin>
         <maven.surefire.plugin.version>3.2.5</maven.surefire.plugin.version>
         <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>

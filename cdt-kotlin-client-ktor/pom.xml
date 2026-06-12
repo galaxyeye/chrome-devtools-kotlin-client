@@ -2,9 +2,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- NOTE(kklisura): Do not add parent tag here, since it gets deployed (via mvn deploy)[at least on snapshot repo],
-         so clients won't be able to pull it unless parent is also deployed -->
-
     <parent>
         <groupId>ai.platon.cdt</groupId>
         <artifactId>cdt-client-root</artifactId>
@@ -14,7 +11,7 @@
     <artifactId>cdt-kotlin-client-ktor</artifactId>
 
     <name>cdt-kotlin-client-ktor</name>
-    <description>Chrome DevTools Kotlin client Ktor implementation</description>
+    <description>A simple Chrome DevTools Client Implementation based on Ktor</description>
     <url>https://github.com/galaxyeye/chrome-devtools-kotlin-client</url>
 
     <developers>
@@ -49,17 +46,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.inceptionYear>2025</project.inceptionYear>
 
-<!--        <maven.compiler.source>17</maven.compiler.source>-->
-<!--        <maven.compiler.target>17</maven.compiler.target>-->
-
-<!--        <kotlin.version>2.2.20</kotlin.version>-->
-<!--        <kotlin.coroutine.version>1.10.2</kotlin.coroutine.version>-->
-<!--        <kotlin.compiler.incremental>true</kotlin.compiler.incremental>-->
-
         <cdt-kotlin-client.version>4.8.5-SNAPSHOT</cdt-kotlin-client.version>
 
         <websocket.api.version>1.1</websocket.api.version>
-<!--        <ktor.version>2.3.13</ktor.version>-->
 
         <jackson.version>2.15.0</jackson.version>
         <javassist.version>3.24.1-GA</javassist.version>
@@ -73,13 +62,8 @@
         <jsonassert.version>1.5.0</jsonassert.version>
         <mockwebserver.version>2.7.5</mockwebserver.version>
 
-<!--        <dokka.version>1.9.10</dokka.version>-->
         <version.maven-compiler-plugin>3.14.1</version.maven-compiler-plugin>
         <maven.surefire.plugin.version>3.2.5</maven.surefire.plugin.version>
-<!--        <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>-->
-<!--        <version.checksum-maven-plugin>1.11</version.checksum-maven-plugin>-->
-<!--        <checksum-maven-plugin.version>1.11</checksum-maven-plugin.version>-->
-<!--        <central-publishing-maven-plugin.version>0.9.0</central-publishing-maven-plugin.version>-->
     </properties>
 
     <dependencyManagement>

@@ -1,0 +1,53 @@
+@file:Suppress("unused")
+package ai.platon.cdt.kt.serialization.protocol.types.browser
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+@Serializable
+public enum class PermissionType {
+  @SerialName("accessibilityEvents")
+  ACCESSIBILITY_EVENTS,
+  @SerialName("audioCapture")
+  AUDIO_CAPTURE,
+  @SerialName("backgroundSync")
+  BACKGROUND_SYNC,
+  @SerialName("backgroundFetch")
+  BACKGROUND_FETCH,
+  @SerialName("clipboardReadWrite")
+  CLIPBOARD_READ_WRITE,
+  @SerialName("clipboardSanitizedWrite")
+  CLIPBOARD_SANITIZED_WRITE,
+  @SerialName("displayCapture")
+  DISPLAY_CAPTURE,
+  @SerialName("durableStorage")
+  DURABLE_STORAGE,
+  @SerialName("flash")
+  FLASH,
+  @SerialName("geolocation")
+  GEOLOCATION,
+  @SerialName("midi")
+  MIDI,
+  @SerialName("midiSysex")
+  MIDI_SYSEX,
+  @SerialName("nfc")
+  NFC,
+  @SerialName("notifications")
+  NOTIFICATIONS,
+  @SerialName("paymentHandler")
+  PAYMENT_HANDLER,
+  @SerialName("periodicBackgroundSync")
+  PERIODIC_BACKGROUND_SYNC,
+  @SerialName("protectedMediaIdentifier")
+  PROTECTED_MEDIA_IDENTIFIER,
+  @SerialName("sensors")
+  SENSORS,
+  @SerialName("videoCapture")
+  VIDEO_CAPTURE,
+  @SerialName("videoCapturePanTiltZoom")
+  VIDEO_CAPTURE_PAN_TILT_ZOOM,
+  @SerialName("idleDetection")
+  IDLE_DETECTION,
+  @SerialName("wakeLockScreen")
+  WAKE_LOCK_SCREEN,
+  @SerialName("wakeLockSystem")
+  WAKE_LOCK_SYSTEM,
+}

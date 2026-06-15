@@ -76,16 +76,55 @@ make download-latest-protocol
 
 This will download `browser_protocol.json` and `js_protocol.json` (protocol definitions) from https://github.com/ChromeDevTools/devtools-protocol repo.
 
+## Modules
+
+| Module | Description | Serialization |
+|--------|-------------|---------------|
+| [cdt-kotlin-client](cdt-kotlin-client/) | Chrome DevTools Kotlin client (Jackson `@JsonProperty` annotations) | Jackson |
+| [cdt-kotlin-client-serialization](cdt-kotlin-client-serialization/) | Chrome DevTools Kotlin client (kotlinx.serialization `@Serializable`/`@SerialName`) | kotlinx.serialization |
+| [cdt-kotlin-client-ktor](cdt-kotlin-client-ktor/) | Ktor-based transport implementation | — |
+| [cdt-kotlin-protocol-builder](cdt-kotlin-protocol-builder/) | Code generator that produces the client sources from protocol JSON | — |
+
+### Choosing a module
+
+- Use **`cdt-kotlin-client`** when you need Jackson compatibility (e.g., existing projects that already use Jackson).
+- Use **`cdt-kotlin-client-serialization`** when you prefer kotlinx.serialization — it has zero Jackson/Gson dependency and is a natural fit for Kotlin-first projects.
+
 ## Update protocol (generate Kotlin files from protocol definitions)
 
 Make sure you have correct or latest protocol definitions. See [Download latest protocol](#download-latest-protocol) on how to update protocol definitions to latest version.
+
+### Standard (Jackson) client
 
 Run following:
 ```
 make update-protocol
 ```
 
-This will build the tools for parsing and generating Kotlin files, [cdt-kotlin-protocol-builder](cdt-kotlin-protocol-builder/) project. The input for this tool are protocol definitions files: `browser_protocol.json` and `js_protocol.json`. The generated Kotlin files will be present in [cdt-kotlin-client](cdt-kotlin-client/) project. After building Kotlin files, the [cdt-kotlin-client](cdt-kotlin-client/) will be compiled. If everything goes successfully, consider the protocol updated. :)
+### kotlinx.serialization client
+
+Run following:
+```
+make update-protocol-serialization
+```
+
+### PowerShell (Windows)
+
+```powershell
+# Standard mode (Jackson)
+.\bin\generate-kotlin.ps1
+
+# Serialization mode (kotlinx.serialization)
+.\bin\generate-kotlin.ps1 -Serialization
+
+# Skip rebuild of the builder JAR
+.\bin\generate-kotlin.ps1 -Serialization -SkipBuild
+
+# Custom output directory
+.\bin\generate-kotlin.ps1 -Serialization -OutputProject "my-client"
+```
+
+This will build the tools for parsing and generating Kotlin files, [cdt-kotlin-protocol-builder](cdt-kotlin-protocol-builder/) project. The input for this tool are protocol definitions files: `browser_protocol.json` and `js_protocol.json`. The generated Kotlin files will be present in the target module. After building Kotlin files, the target module will be compiled. If everything goes successfully, consider the protocol updated. :)
 
 ## Updating copyright license header
 

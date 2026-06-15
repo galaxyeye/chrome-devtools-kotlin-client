@@ -21,6 +21,9 @@ import ai.platon.cdt.protocol.definition.types.type.array.items.StringArrayItem 
 
 /**
  * Shared Kotlin generation context and helpers backing Kotlin CDP output.
+ *
+ * @property useSerialization When true, generates kotlinx.serialization annotations
+ *   (@Serializable, @SerialName) instead of Jackson annotations (@JsonProperty, @JsonEnumDefaultValue).
  */
 class KotlinGenerationContext(
     val basePackage: String,
@@ -28,7 +31,8 @@ class KotlinGenerationContext(
     val eventsPackage: String,
     val commandsPackage: String,
     val supportTypesPackage: String,
-    val supportAnnotationsPackage: String
+    val supportAnnotationsPackage: String,
+    val useSerialization: Boolean = false
 ) {
     val optionalAnnotation = ClassName(supportAnnotationsPackage, "Optional")
     @Deprecated("Deprecated")
@@ -43,6 +47,11 @@ class KotlinGenerationContext(
     val eventHandlerClass = ClassName(supportTypesPackage, "EventHandler")
     val eventListenerClass = ClassName(supportTypesPackage, "EventListener")
 
+    /** kotlinx.serialization annotations */
+    val serializableAnnotation = ClassName("kotlinx.serialization", "Serializable")
+    val serialNameAnnotation = ClassName("kotlinx.serialization", "SerialName")
+
+    /** Jackson annotations (used when useSerialization is false) */
     val jsonEnumDefaultValue = ClassName("com.fasterxml.jackson.annotation", "JsonEnumDefaultValue")
     val jsonProperty = ClassName("com.fasterxml.jackson.annotation", "JsonProperty")
 
@@ -293,6 +302,10 @@ class KotlinTypeMapper(private val context: KotlinGenerationContext) {
         val typeBuilder = TypeSpec.classBuilder(className)
             .addModifiers(KModifier.DATA)
 
+        if (context.useSerialization) {
+            typeBuilder.addAnnotation(context.serializableAnnotation)
+        }
+
         objectType.description?.takeIf { it.isNotBlank() }?.let { typeBuilder.addKdoc("%L", it) }
 
         val additionalFiles = mutableListOf<FileSpec>()
@@ -338,13 +351,22 @@ class KotlinTypeMapper(private val context: KotlinGenerationContext) {
 
             val propertyBuilder = PropertySpec.builder(property.name, resolution.typeName)
                 .initializer(property.name)
-                // Attach JsonProperty to the getter explicitly
-                .addAnnotation(
+            // Attach property name annotation to the getter explicitly
+            if (context.useSerialization) {
+                propertyBuilder.addAnnotation(
+                    AnnotationSpec.builder(context.serialNameAnnotation)
+                        .useSiteTarget(AnnotationSpec.UseSiteTarget.PARAM)
+                        .addMember("%S", property.name)
+                        .build()
+                )
+            } else {
+                propertyBuilder.addAnnotation(
                     AnnotationSpec.builder(context.jsonProperty)
                         .useSiteTarget(AnnotationSpec.UseSiteTarget.PARAM)
                         .addMember("%S", property.name)
                         .build()
                 )
+            }
             typeBuilder.addProperty(propertyBuilder.build())
         }
 
@@ -408,16 +430,37 @@ class KotlinTypeMapper(private val context: KotlinGenerationContext) {
         val enumBuilder = TypeSpec.enumBuilder(enumName)
         description?.takeIf { it.isNotBlank() }?.let { enumBuilder.addKdoc("%L", it) }
 
+        if (context.useSerialization) {
+            enumBuilder.addAnnotation(context.serializableAnnotation)
+        }
+
+        val nameAnnotationClass = if (context.useSerialization) {
+            context.serialNameAnnotation
+        } else {
+            context.jsonProperty
+        }
+
         var hasExplicitUnknown = false
         if (values.isNotEmpty()) {
             values.forEach { rawValue ->
                 val constName = StringUtils.toEnumConstant(rawValue)
                 val constantBuilder = TypeSpec.anonymousClassBuilder()
-                    .addAnnotation(AnnotationSpec.builder(context.jsonProperty).addMember("%S", rawValue).build())
+                    .addAnnotation(
+                        AnnotationSpec.builder(nameAnnotationClass)
+                            .addMember("%S", rawValue)
+                            .build()
+                    )
 
                 if (constName == "UNKNOWN") {
                     hasExplicitUnknown = true
-                    constantBuilder.addAnnotation(AnnotationSpec.builder(context.jsonEnumDefaultValue).build())
+                    if (!context.useSerialization) {
+                        constantBuilder.addAnnotation(
+                            AnnotationSpec.builder(context.jsonEnumDefaultValue).build()
+                        )
+                    }
+                    // Note: kotlinx.serialization has no equivalent of @JsonEnumDefaultValue.
+                    // Users should configure Json { coerceInputValues = true } or use a custom
+                    // serializer if they need to gracefully handle unknown enum values.
                 }
 
                 enumBuilder.addEnumConstant(constName, constantBuilder.build())
@@ -425,12 +468,13 @@ class KotlinTypeMapper(private val context: KotlinGenerationContext) {
         }
 
         if (!hasExplicitUnknown) {
-            enumBuilder.addEnumConstant(
-                "UNKNOWN",
-                TypeSpec.anonymousClassBuilder()
-                    .addAnnotation(AnnotationSpec.builder(context.jsonEnumDefaultValue).build())
-                    .build()
-            )
+            val unknownBuilder = TypeSpec.anonymousClassBuilder()
+            if (!context.useSerialization) {
+                unknownBuilder.addAnnotation(
+                    AnnotationSpec.builder(context.jsonEnumDefaultValue).build()
+                )
+            }
+            enumBuilder.addEnumConstant("UNKNOWN", unknownBuilder.build())
         }
 
         return FileSpec.builder(packageName, enumName)

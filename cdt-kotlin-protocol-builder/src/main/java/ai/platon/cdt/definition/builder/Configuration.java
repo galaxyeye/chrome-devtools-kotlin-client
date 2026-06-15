@@ -63,4 +63,10 @@ public class Configuration {
       usage = "Generation language: java | kotlin (default: java)",
       metaVar = "LANG")
   private String language = "java";
+
+  @Option(
+      name = "--serialization",
+      usage = "Use kotlinx.serialization annotations (@Serializable, @SerialName) instead of Jackson (@JsonProperty, @JsonEnumDefaultValue). Only applicable when --language=kotlin.",
+      metaVar = "BOOL")
+  private boolean serialization = false;
 }

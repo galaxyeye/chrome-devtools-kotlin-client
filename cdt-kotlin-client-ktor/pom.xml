@@ -46,7 +46,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.inceptionYear>2025</project.inceptionYear>
 
-        <cdt-kotlin-client.version>4.8.5-SNAPSHOT</cdt-kotlin-client.version>
+        <cdt-kotlin-client.version>4.8.0</cdt-kotlin-client.version>
 
         <websocket.api.version>1.1</websocket.api.version>
 

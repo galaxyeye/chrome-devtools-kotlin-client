@@ -10,7 +10,7 @@
         </layout>
     </appender>
 
-    <root level="${log.level:-INFO}">
+    <root level="${log.level:-TRACE}">
         <appender-ref ref="CONSOLE"/>
     </root>
 

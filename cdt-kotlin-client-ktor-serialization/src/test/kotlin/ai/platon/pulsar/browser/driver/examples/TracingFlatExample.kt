@@ -1,18 +1,20 @@
-@file:OptIn(InternalSerializationApi::class)
-
 package ai.platon.pulsar.browser.driver.examples
 
+import ai.platon.cdt.kt.serialization.protocol.events.page.LoadEventFired
 import ai.platon.cdt.kt.serialization.protocol.events.tracing.DataCollected
+import ai.platon.cdt.kt.serialization.protocol.events.tracing.TracingComplete
 import ai.platon.cdt.kt.serialization.protocol.support.types.EventHandler
 import ai.platon.pulsar.browser.driver.chrome.ChromeLauncher
 import ai.platon.pulsar.browser.driver.chrome.RemoteDevTools
 import ai.platon.pulsar.browser.driver.chrome.impl.BrowserProtocol
 import ai.platon.pulsar.browser.driver.chrome.impl.DirectChromeProtocol
-import kotlinx.serialization.InternalSerializationApi
-import kotlinx.serialization.KSerializer
-import kotlinx.serialization.json.*
-import kotlinx.serialization.serializer
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.buildJsonArray
 import java.nio.file.Paths
+
+private val json = Json { prettyPrint = true }
 
 private data class EmptyResult(val ignored: String? = null)
 
@@ -23,7 +25,7 @@ suspend fun main() {
     val devTools: RemoteDevTools = chromeService.createDevToolsService(tab)
     val bp: BrowserProtocol = DirectChromeProtocol(devTools)
 
-    val dataCollectedList = mutableListOf<Any>()
+    val dataCollectedList = mutableListOf<JsonObject?>()
 
     devTools.addEventListener(
         "Tracing", "dataCollected",
@@ -38,23 +40,23 @@ suspend fun main() {
             val path = Paths.get("/tmp/tracing.json")
             println("Tracing completed! Dumping to $path")
 
-            @Suppress("UNCHECKED_CAST")
             val jsonArray = buildJsonArray {
                 dataCollectedList.forEach { item ->
-                    val serializer = item::class.serializer() as KSerializer<Any>
-                    add(Json.encodeToJsonElement(serializer, item))
+                    if (item != null) {
+                        add(item)
+                    }
                 }
             }
-            path.toFile().writeText(Json { prettyPrint = true }.encodeToString(jsonArray))
+            path.toFile().writeText(json.encodeToString(JsonArray.serializer(), jsonArray))
             devTools.close()
-        }, Any::class.java
+        }, TracingComplete::class.java
     )
 
     devTools.addEventListener(
         "Page", "loadEventFired",
         EventHandler {
             devTools.execute("Tracing.end", null, EmptyResult::class)
-        }, Any::class.java
+        }, LoadEventFired::class.java
     )
 
     bp.pageEnable()

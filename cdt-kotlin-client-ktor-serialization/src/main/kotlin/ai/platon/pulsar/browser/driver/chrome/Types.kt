@@ -130,7 +130,7 @@ class NetworkResourceResponse(
             val httpStatusCode = res.httpStatusCode?.toInt() ?: 400
             // All pulsar added headers have a prefix Q-
             val headers = res.headers?.toMutableMap() ?: mutableMapOf()
-            headers["Q-client"] = "Chrome"
+            // headers["Q-client"] = "Chrome"
             return NetworkResourceResponse(success, netError, netErrorName, httpStatusCode, res.stream, headers)
         }
     }

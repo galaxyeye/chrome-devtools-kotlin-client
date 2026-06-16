@@ -1,13 +1,13 @@
-@file:OptIn(InternalSerializationApi::class)
-
 package ai.platon.pulsar.browser.driver.examples
 
+import ai.platon.cdt.kt.serialization.protocol.events.page.LoadEventFired
 import ai.platon.cdt.kt.serialization.protocol.events.tracing.DataCollected
+import ai.platon.cdt.kt.serialization.protocol.events.tracing.TracingComplete
 import ai.platon.cdt.kt.serialization.protocol.support.types.EventHandler
-import kotlinx.serialization.InternalSerializationApi
-import kotlinx.serialization.KSerializer
-import kotlinx.serialization.json.*
-import kotlinx.serialization.serializer
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.buildJsonArray
 import java.io.IOException
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -18,8 +18,12 @@ class TracingExample : BrowserExampleBase() {
 
     private data class EmptyResult(val ignored: String? = null)
 
+    companion object {
+        private val json = Json { prettyPrint = true }
+    }
+
     override suspend fun run() {
-        val dataCollectedList = mutableListOf<Any>()
+        val dataCollectedList = mutableListOf<JsonObject?>()
 
         // Add tracing data to dataCollectedList
         remoteDevTools.addEventListener(
@@ -37,13 +41,13 @@ class TracingExample : BrowserExampleBase() {
                 println("Tracing completed! Dumping to $path")
                 dump(path, dataCollectedList)
                 remoteDevTools.close()
-            }, Any::class.java
+            }, TracingComplete::class.java
         )
 
         remoteDevTools.addEventListener(
             "Page", "loadEventFired",
             EventHandler { remoteDevTools.execute("Tracing.end", null, EmptyResult::class) },
-            Any::class.java
+            LoadEventFired::class.java
         )
 
         devTools.pageEnable()
@@ -51,16 +55,17 @@ class TracingExample : BrowserExampleBase() {
         devTools.navigate(testUrl)
     }
 
-    private fun dump(path: Path, data: List<Any>) {
+    private fun dump(path: Path, data: List<JsonObject?>) {
         try {
-            @Suppress("UNCHECKED_CAST")
             val jsonArray = buildJsonArray {
                 data.forEach { item ->
-                    val serializer = item::class.serializer() as KSerializer<Any>
-                    add(Json.encodeToJsonElement(serializer, item))
+                    if (item != null) {
+                        add(item)
+                    }
                 }
             }
-            path.toFile().writeText(Json { prettyPrint = true }.encodeToString(jsonArray))
+            val jsonString = json.encodeToString(JsonArray.serializer(), jsonArray)
+            path.toFile().writeText(jsonString)
         } catch (e: IOException) {
             e.printStackTrace()
         }

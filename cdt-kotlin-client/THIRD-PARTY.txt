@@ -2,6 +2,6 @@
 Lists of 5 third-party dependencies.
      (The Apache Software License, Version 2.0) Jackson-annotations (com.fasterxml.jackson.core:jackson-annotations:2.21 - https://github.com/FasterXML/jackson)
      (The Apache Software License, Version 2.0) IntelliJ IDEA Annotations (org.jetbrains:annotations:13.0 - http://www.jetbrains.org)
-     (Apache-2.0) Kotlin Stdlib (org.jetbrains.kotlin:kotlin-stdlib:2.2.20 - https://kotlinlang.org/)
-     (Apache-2.0) Kotlin Stdlib Jdk7 (org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.2.20 - https://kotlinlang.org/)
-     (Apache-2.0) Kotlin Stdlib Jdk8 (org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.2.20 - https://kotlinlang.org/)
+     (Apache-2.0) Kotlin Stdlib (org.jetbrains.kotlin:kotlin-stdlib:2.3.21 - https://kotlinlang.org/)
+     (Apache-2.0) Kotlin Stdlib Jdk7 (org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.3.21 - https://kotlinlang.org/)
+     (Apache-2.0) Kotlin Stdlib Jdk8 (org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.3.21 - https://kotlinlang.org/)

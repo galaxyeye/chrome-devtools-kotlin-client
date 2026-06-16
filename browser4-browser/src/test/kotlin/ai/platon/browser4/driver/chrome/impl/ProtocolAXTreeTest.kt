@@ -52,7 +52,7 @@ class ProtocolAXTreeTest {
     @DisplayName("Given AXTree json WITH BAD FIELDS then deserialize correctly by EventDispatcher")
     fun givenAxtreeJsonWithBadFieldsThenDeserializeCorrectlyByEventDispatcher() {
         val json = ResourceLoader.readString("dom/AXTree.json")
-            .replace("uninteresting", "UNINTERESTINGREPLACEDFORTEST")
+//            .replace("uninteresting", "UNINTERESTINGREPLACEDFORTEST") // for old protocol, no need to replace since 4.8.1
 
         val jsonElement = EventDispatcher.JSON.parseToJsonElement(json)
         val jsonNodes = jsonElement.jsonObject.getValue("result").jsonObject.getValue("nodes")

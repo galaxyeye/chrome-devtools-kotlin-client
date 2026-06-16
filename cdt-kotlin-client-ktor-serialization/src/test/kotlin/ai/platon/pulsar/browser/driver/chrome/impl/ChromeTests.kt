@@ -1,7 +1,6 @@
 package ai.platon.pulsar.browser.driver.chrome.impl
 
 import ai.platon.pulsar.browser.driver.chrome.ChromeLauncher
-import ai.platon.pulsar.browser.driver.chrome.impl.EventDispatcher.Companion.JSON
 import ai.platon.pulsar.common.browser.BrowserFiles
 import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.Assertions.assertTrue

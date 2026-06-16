@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Form Test</title>
+</head>
+<body>
+  <h1>Form Test Page</h1>
+  <form id="test-form">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" placeholder="Enter your name" value="">
+    <br>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" placeholder="Enter your email" value="">
+    <br>
+    <input type="checkbox" id="agree" name="agree">
+    <label for="agree">I agree to the terms</label>
+    <br>
+    <label for="choice">Choose:</label>
+    <select id="choice" name="choice">
+      <option value="">-- Select --</option>
+      <option value="a">Option A</option>
+      <option value="b">Option B</option>
+      <option value="c">Option C</option>
+    </select>
+    <br>
+    <button type="button" id="submit-btn" onclick="this.textContent='clicked'; this.dataset.clicked='true'">Submit</button>
+    <button type="reset" id="reset-btn">Reset</button>
+  </form>
+  <div id="output"></div>
+</body>
+</html>

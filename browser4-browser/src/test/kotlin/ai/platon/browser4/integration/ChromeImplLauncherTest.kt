@@ -1,5 +1,8 @@
-package ai.platon.browser4.chrome
+package ai.platon.browser4.integration
 
+import ai.platon.browser4.chrome.ChromeLauncher
+import ai.platon.browser4.chrome.RemoteChrome
+import ai.platon.browser4.chrome.RemoteDevTools
 import ai.platon.browser4.chrome.protocol.RemoteChromeProtocol
 import ai.platon.browser4.api.ChromeOptions
 import ai.platon.browser4.api.LauncherOptions
@@ -9,16 +12,15 @@ import ai.platon.pulsar.common.serialize.json.Pson
 import ai.platon.pulsar.common.serialize.json.prettyPulsarObjectMapper
 import ai.platon.pulsar.common.sleepSeconds
 import kotlinx.coroutines.runBlocking
+import org.junit.jupiter.api.Tag
 import java.nio.file.Files
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
+@Tag("integration")
 class ChromeImplLauncherTest {
     private val USER_DATA_DIR_REGEX = ".+pulsar-.+/context/cx.+".toRegex()
 
-    /**
-     * Test ChromeLauncher
-     * */
     @Test
     fun testUserDataDirRegex() {
         val text = """
@@ -57,7 +59,7 @@ class ChromeImplLauncherTest {
 
             println("Tab id: " + tab.id)
             println("Protocol version: " + version.protocolVersion)
-            println("Browser version" + version.browser)
+            println("Browser version: " + version.browser)
 
             println(prettyPulsarObjectMapper().writeValueAsString(tab))
             println(prettyPulsarObjectMapper().writeValueAsString(chrome.version))
@@ -86,10 +88,8 @@ class ChromeImplLauncherTest {
         launcher.use {
             val chrome = launcher.launch(launchOptions)
 
-            // Verify CDP URL file was created
             assertTrue(Files.exists(cdpUrlPath), "CDP URL file should exist")
 
-            // Read and validate CDP URL
             val cdpUrl = Files.readString(cdpUrlPath).trim()
             assertTrue(cdpUrl.isNotBlank(), "CDP URL should not be blank")
             assertTrue(cdpUrl.startsWith("ws://"), "CDP URL should start with ws://")
@@ -97,7 +97,6 @@ class ChromeImplLauncherTest {
 
             println("CDP URL: $cdpUrl")
 
-            // Verify we can use the chrome instance
             val version = chrome.version
             assertTrue(!version.browser.isNullOrBlank(), "Browser version should not be blank")
 
@@ -113,26 +112,20 @@ class ChromeImplLauncherTest {
         val userDataDir = BrowserFiles.computeTestContextDir()
         val cdpUrlPath = userDataDir.resolveSibling(CDP_URL_FILE_NAME)
 
-        // First launch
         val launcher1 = ChromeLauncher(userDataDir, options = LauncherOptions())
         val chrome1 = launcher1.launch(launchOptions)
 
-        // Verify CDP URL file exists
         assertTrue(Files.exists(cdpUrlPath), "CDP URL file should exist after first launch")
         val cdpUrl1 = Files.readString(cdpUrlPath).trim()
         println("First launch CDP URL: $cdpUrl1")
 
-        // Second launcher with same userDataDir (should reuse)
         val launcher2 = ChromeLauncher(userDataDir, options = LauncherOptions())
         val chrome2 = launcher2.launch(launchOptions)
 
-        // Verify CDP URL is still available
         assertTrue(Files.exists(cdpUrlPath), "CDP URL file should still exist")
         val cdpUrl2 = Files.readString(cdpUrlPath).trim()
         println("Second launch CDP URL: $cdpUrl2")
 
-        // In a real scenario, these would be the same if reused
-        // But since we're testing, they might be different instances
         assertTrue(cdpUrl2.isNotBlank(), "CDP URL should not be blank on reuse")
 
         launcher1.close()

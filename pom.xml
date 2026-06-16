@@ -18,7 +18,6 @@
         <module>cdt-kotlin-client-serialization</module>
         <module>cdt-kotlin-client-ktor</module>
         <module>cdt-kotlin-client-ktor-serialization</module>
-        <module>pulsar-tests-common</module>
     </modules>
 
     <licenses>

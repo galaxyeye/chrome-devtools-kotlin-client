@@ -27,7 +27,6 @@ import ai.platon.pulsar.browser.driver.chrome.impl.BrowserProtocol
 import ai.platon.pulsar.common.browser.BrowserFiles
 import ai.platon.pulsar.common.sleepSeconds
 import kotlinx.coroutines.runBlocking
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach

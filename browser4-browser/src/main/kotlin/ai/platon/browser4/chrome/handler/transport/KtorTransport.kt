@@ -4,11 +4,9 @@ import ai.platon.browser4.chrome.Transport
 import ai.platon.browser4.chrome.util.ChromeDriverException
 import ai.platon.browser4.chrome.util.ChromeIOException
 import ai.platon.pulsar.common.brief
-import ai.platon.pulsar.common.config.AppConstants
 import ai.platon.pulsar.common.getLogger
 import ai.platon.pulsar.common.getTracerOrNull
 import ai.platon.pulsar.common.warnForClose
-import com.codahale.metrics.SharedMetricRegistries
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.*
@@ -38,10 +36,6 @@ internal class KtorTransport : Transport {
     private var client: HttpClient? = null
     private var session: DefaultClientWebSocketSession? = null
     private val messageConsumer = AtomicReference<Consumer<String>?>(null)
-
-    private val metricsPrefix = "c.i.WebSocketClient"
-    private val metrics = SharedMetricRegistries.getOrCreate(AppConstants.DEFAULT_METRICS_NAME)
-    private val meterRequests = metrics.meter("$metricsPrefix.requests")
 
     private var uri: URI? = null
 
@@ -110,6 +104,7 @@ internal class KtorTransport : Transport {
                     e,
                     open
                 )
+
                 is IOException -> throw ChromeIOException("Failed connecting to ws server | $normalizedUri", e, open)
                 else -> throw ChromeIOException("Failed connecting to ws server | $normalizedUri", e, open)
             }
@@ -117,7 +112,6 @@ internal class KtorTransport : Transport {
     }
 
     override suspend fun send(message: String) {
-        meterRequests.mark()
         val ws = session ?: return
 
         tracer?.trace("▶ Send {}", shortenMessage(message))

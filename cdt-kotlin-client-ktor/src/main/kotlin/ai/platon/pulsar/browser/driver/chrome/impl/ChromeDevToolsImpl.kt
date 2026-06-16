@@ -55,18 +55,6 @@ abstract class ChromeDevToolsImpl(
         private val startTime = Instant.now()
         private var lastActiveTime = startTime
         private val idleTime get() = Duration.between(lastActiveTime, Instant.now())
-
-        private val metrics = SharedMetricRegistries.getOrCreate(AppConstants.DEFAULT_METRICS_NAME)
-        private val metricsPrefix = "c.i.BasicDevTools.global"
-        private val numInvokes = metrics.counter("$metricsPrefix.invokes")
-        val numAccepts = metrics.counter("$metricsPrefix.accepts")
-        private val gauges = mapOf(
-            "idleTime" to Gauge { idleTime.readable() }
-        )
-
-        init {
-            gauges.forEach { (name, gauge) -> metrics.gauge("$metricsPrefix.$name") { gauge } }
-        }
     }
 
     private val logger = LoggerFactory.getLogger(ChromeDevToolsImpl::class.java)
@@ -133,8 +121,6 @@ abstract class ChromeDevToolsImpl(
         // for test purpose
         mockRpcResult: RpcResult? = null
     ): T? {
-        numInvokes.inc()
-
         // Serialize the method invocation into a message to be sent to the remote server.
         val message = dispatcher.serialize(method)
 
@@ -145,7 +131,7 @@ abstract class ChromeDevToolsImpl(
         if (rpcResult == null) {
             val methodName = method.method
             val readTimeout = config.readTimeout
-            throw ChromeRPCTimeoutException("No response | $methodName | #${numInvokes.count}, ($readTimeout)")
+            throw ChromeRPCTimeoutException("No response | $methodName | ($readTimeout)")
         }
 
         // Handle the result based on its success status and the expected return type.

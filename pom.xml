@@ -14,11 +14,20 @@
     <modules>
         <module>cdt-protocol-parser</module>
         <module>cdt-kotlin-protocol-builder</module>
-        <module>cdt-kotlin-client</module>
-        <module>cdt-kotlin-client-serialization</module>
         <module>cdt-kotlin-client-ktor</module>
         <module>cdt-kotlin-client-ktor-serialization</module>
+        <module>browser4-browser</module>
     </modules>
+
+    <profiles>
+        <profile>
+            <id>generated</id>
+            <modules>
+                <module>cdt-kotlin-client</module>
+                <module>cdt-kotlin-client-serialization</module>
+            </modules>
+        </profile>
+    </profiles>
 
     <licenses>
         <license>

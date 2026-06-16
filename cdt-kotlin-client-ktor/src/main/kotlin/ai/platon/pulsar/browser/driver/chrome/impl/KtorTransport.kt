@@ -4,14 +4,12 @@ import ai.platon.pulsar.browser.driver.chrome.Transport
 import ai.platon.pulsar.browser.driver.chrome.util.ChromeDriverException
 import ai.platon.pulsar.browser.driver.chrome.util.ChromeIOException
 import ai.platon.pulsar.common.brief
-import ai.platon.pulsar.common.config.AppConstants
 import ai.platon.pulsar.common.getLogger
 import ai.platon.pulsar.common.getTracerOrNull
 import ai.platon.pulsar.common.warnForClose
-import com.codahale.metrics.SharedMetricRegistries
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
-import io.ktor.client.plugins.HttpTimeout
+import io.ktor.client.plugins.*
 import io.ktor.client.plugins.websocket.*
 import io.ktor.websocket.*
 import kotlinx.coroutines.*
@@ -38,10 +36,6 @@ class KtorTransport : Transport {
     private var client: HttpClient? = null
     private var session: DefaultClientWebSocketSession? = null
     private val messageConsumer = AtomicReference<Consumer<String>?>(null)
-
-    private val metricsPrefix = "c.i.WebSocketClient"
-    private val metrics = SharedMetricRegistries.getOrCreate(AppConstants.DEFAULT_METRICS_NAME)
-    private val meterRequests = metrics.meter("$metricsPrefix.requests")
 
     private var uri: URI? = null
 
@@ -105,7 +99,12 @@ class KtorTransport : Transport {
             val open = isOpen
             when (e) {
                 is ChromeIOException -> throw e
-                is TimeoutCancellationException -> throw ChromeIOException("Timed out connecting to ws server | $normalizedUri", e, open)
+                is TimeoutCancellationException -> throw ChromeIOException(
+                    "Timed out connecting to ws server | $normalizedUri",
+                    e,
+                    open
+                )
+
                 is IOException -> throw ChromeIOException("Failed connecting to ws server | $normalizedUri", e, open)
                 else -> throw ChromeIOException("Failed connecting to ws server | $normalizedUri", e, open)
             }
@@ -113,7 +112,6 @@ class KtorTransport : Transport {
     }
 
     override suspend fun send(message: String) {
-        meterRequests.mark()
         val ws = session ?: return
 
         tracer?.trace("▶ Send {}", shortenMessage(message))

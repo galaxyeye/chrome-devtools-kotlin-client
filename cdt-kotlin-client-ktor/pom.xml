@@ -99,11 +99,6 @@
             <artifactId>pulsar-common</artifactId>
             <version>4.8.4</version>
         </dependency>
-        <dependency>
-            <groupId>io.dropwizard.metrics</groupId>
-            <artifactId>metrics-core</artifactId>
-            <version>4.2.12</version>
-        </dependency>
 
         <dependency>
             <groupId>javax.websocket</groupId>

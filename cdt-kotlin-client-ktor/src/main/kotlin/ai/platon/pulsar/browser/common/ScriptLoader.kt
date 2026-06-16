@@ -10,8 +10,7 @@ import kotlin.io.path.isReadable
 import kotlin.io.path.listDirectoryEntries
 
 open class ScriptLoader(
-    val confuser: ScriptConfuser,
-    val jsPropertyNames: List<String>
+    val confuser: ScriptConfuser
 ) {
     companion object {
         private val logger = getLogger(this)
@@ -125,7 +124,6 @@ open class ScriptLoader(
 
     private fun initDefaultJsParameters() {
         mapOf(
-            "propertyNames" to jsPropertyNames,
             "viewPortWidth" to BrowserSettings.SCREEN_VIEWPORT.width,
             "viewPortHeight" to BrowserSettings.SCREEN_VIEWPORT.height,
 

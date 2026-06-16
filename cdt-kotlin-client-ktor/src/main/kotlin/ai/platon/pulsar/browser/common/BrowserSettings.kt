@@ -1,20 +1,12 @@
 package ai.platon.pulsar.browser.common
 
 import ai.platon.pulsar.browser.driver.chrome.common.ChromeOptions
-import ai.platon.pulsar.common.config.AppConstants
-import ai.platon.pulsar.common.config.CapabilityTypes
-import ai.platon.pulsar.common.config.ImmutableConfig
 import ai.platon.pulsar.common.math.geometric.DimI
 import ai.platon.pulsar.common.proxy.ProxyEntry
 import java.awt.Dimension
 import java.net.URI
 
-open class BrowserSettings constructor(
-    /**
-     * The configuration.
-     * */
-    val config: ImmutableConfig = ImmutableConfig()
-) {
+open class BrowserSettings {
     companion object {
         /**
          * The viewport size for browser to rendering all webpages.
@@ -34,7 +26,6 @@ open class BrowserSettings constructor(
          * If you are using spring boot, you should set the field in a ApplicationContextInitializer.
          * */
         var SCRIPT_CONFUSER: ScriptConfuser = SimpleScriptConfuser()
-
     }
 
     /**
@@ -45,13 +36,7 @@ open class BrowserSettings constructor(
     /**
      * The script loader.
      * */
-    val scriptLoader = ScriptLoader(confuser, jsPropertyNames)
-
-    /**
-     * The javascript to execute by Web browsers.
-     * */
-    private val jsPropertyNames: List<String>
-        get() = config[CapabilityTypes.FETCH_CLIENT_JS_COMPUTED_STYLES, AppConstants.CLIENT_JS_PROPERTY_NAMES].split(", ")
+    val scriptLoader = ScriptLoader(confuser)
 
     /**
      * The screen viewport.
@@ -61,18 +46,18 @@ open class BrowserSettings constructor(
     /**
      * The supervisor process
      * */
-    val supervisorProcess get() = config.get(CapabilityTypes.BROWSER_LAUNCH_SUPERVISOR_PROCESS)
+    val supervisorProcess = false
 
     /**
      * The supervisor process arguments
      * */
-    val supervisorProcessArgs get() = config.getTrimmedStringCollection(CapabilityTypes.BROWSER_LAUNCH_SUPERVISOR_PROCESS_ARGS)
+    val supervisorProcessArgs = false
 
     /**
      * Add a --no-sandbox flag to launch the chrome if we are running inside a virtual machine,
      * for example, virtualbox, vmware or WSL
      * */
-    val noSandbox get() = config.getBoolean(CapabilityTypes.BROWSER_LAUNCH_NO_SANDBOX, true)
+    val noSandbox = false
 
     /**
      * Check if it's SPA mode, SPA stands for Single Page Application.
@@ -80,32 +65,20 @@ open class BrowserSettings constructor(
      * If PulsarPRA works in SPA mode:
      * 1. execution of loads and fetches has no timeout limit, so we can interact with the page as long as we want.
      * */
-    val isSPA get() = config.getBoolean(CapabilityTypes.BROWSER_SPA_MODE, false)
+    val isSPA get() = false
 
     /**
      * The probability to block resource requests.
      * The probability must be in [0, 1].
      * */
-    val resourceBlockProbability get() = config.getFloat(CapabilityTypes.BROWSER_RESOURCE_BLOCK_PROBABILITY, 0.0f)
+    val resourceBlockProbability = false
 
     /**
      * Check if user agent overriding is enabled. User agent overriding is disabled by default,
      * because inappropriate user agent overriding can be detected by the website,
      * furthermore, there is no obvious benefits to rotate the user agent.
      * */
-    val isUserAgentOverridingEnabled get() = config.getBoolean(CapabilityTypes.BROWSER_ENABLE_UA_OVERRIDING, false)
-
-    val fetchTaskTimeout
-        get() = config.getDuration(
-            CapabilityTypes.FETCH_TASK_TIMEOUT,
-            AppConstants.FETCH_TASK_TIMEOUT_DEFAULT
-        )
-
-    val pollingDriverTimeout
-        get() = config.getDuration(
-            CapabilityTypes.POLLING_DRIVER_TIMEOUT,
-            AppConstants.POLLING_DRIVER_TIMEOUT_DEFAULT
-        )
+    val isUserAgentOverridingEnabled = false
 
     /**
      * Page load strategy.

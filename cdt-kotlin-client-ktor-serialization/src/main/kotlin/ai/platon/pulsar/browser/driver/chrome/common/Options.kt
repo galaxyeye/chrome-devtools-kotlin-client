@@ -180,5 +180,7 @@ class ChromeOptions(
         return result
     }
 
-    override fun toString() = toList().joinToString(" ") { it }
+    fun toCommandLineString() = toList().joinToString(" ") { it }
+
+    override fun toString() = toCommandLineString()
 }

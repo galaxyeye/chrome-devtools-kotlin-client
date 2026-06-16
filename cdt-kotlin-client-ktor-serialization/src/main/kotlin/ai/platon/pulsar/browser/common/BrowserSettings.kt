@@ -48,8 +48,8 @@ open class BrowserSettings constructor(
 
     /**
      * The screen viewport.
-     * */
-    val viewportSize get() = Dimension(1920, 1080);
+     */
+    val viewportSize by lazy { Dimension(SCREEN_VIEWPORT.width, SCREEN_VIEWPORT.height) }
 
     /**
      * The supervisor process

@@ -4,6 +4,7 @@ import ai.platon.pulsar.common.AppPaths
 import ai.platon.pulsar.common.ResourceLoader
 import ai.platon.pulsar.common.config.AppConstants
 import ai.platon.pulsar.common.getLogger
+import kotlinx.serialization.json.Json
 import java.nio.file.Files
 import kotlin.io.path.isReadable
 import kotlin.io.path.listDirectoryEntries
@@ -14,6 +15,16 @@ open class ScriptLoader(
     companion object {
         private val logger = getLogger(this)
 
+        private val jsInitParameters: MutableMap<String, Any> = mutableMapOf()
+
+        /**
+         * addInitParameter("ATTR_ELEMENT_NODE_DATA", AppConstants.PULSAR_ATTR_ELEMENT_NODE_DATA)
+         * addInitParameter("ATTR_COMPUTED_STYLE", AppConstants.PULSAR_ATTR_COMPUTED_STYLE)
+         */
+        fun addInitParameter(name: String, value: String) {
+            jsInitParameters[name] = value
+        }
+
         val RESOURCES = """
             stealth.js
             stagehand.js
@@ -23,13 +34,17 @@ open class ScriptLoader(
             feature_calculator.js
             __pulsar_utils__.js
         """.trimIndent().split("\n").map { "js/" + it.trim() }.toMutableList()
+
+        private val configJson = Json {
+            encodeDefaults = true
+        }
     }
 
     private val jsCache: MutableMap<String, String> = LinkedHashMap()
 
     /**
      * The javascript code to inject into the browser.
-     * */
+     */
     private var preloadJs = ""
 
     init {
@@ -38,7 +53,7 @@ open class ScriptLoader(
 
     /**
      * Make sure generatePreloadJs is thread safe
-     * */
+     */
     @Synchronized
     fun getPreloadJs(reload: Boolean = false): String {
         if (reload) {
@@ -52,10 +67,18 @@ open class ScriptLoader(
         return preloadJs
     }
 
+    @Synchronized
+    fun reload() {
+        load()
+    }
+
     private fun load(): String {
         jsCache.clear()
 
         val sb = StringBuilder()
+
+        val jsVariables = generatePredefinedJsConfig()
+        sb.appendLine(jsVariables).appendLine("\n\n\n")
 
         loadExternalResource()
         loadDefaultResource()
@@ -66,6 +89,31 @@ open class ScriptLoader(
         reportPreloadJs(preloadJs)
 
         return preloadJs
+    }
+
+    private fun generatePredefinedJsConfig(): String {
+        val jsonObject = kotlinx.serialization.json.buildJsonObject {
+            jsInitParameters.forEach { (key, value) ->
+                put(key, anyToJsonPrimitive(value))
+            }
+        }
+        val configs = configJson.encodeToString(jsonObject)
+        val configVar = confuser.confuse("__pulsar_CONFIGS")
+        return """
+            ;
+            let $configVar = $configs;
+        """.trimIndent()
+    }
+
+    private fun anyToJsonPrimitive(value: Any?): kotlinx.serialization.json.JsonElement {
+        return when (value) {
+            null -> kotlinx.serialization.json.JsonNull
+            is kotlinx.serialization.json.JsonElement -> value
+            is String -> kotlinx.serialization.json.JsonPrimitive(value)
+            is Number -> kotlinx.serialization.json.JsonPrimitive(value)
+            is Boolean -> kotlinx.serialization.json.JsonPrimitive(value)
+            else -> kotlinx.serialization.json.JsonPrimitive(value.toString())
+        }
     }
 
     private fun loadDefaultResource() {
@@ -103,6 +151,7 @@ open class ScriptLoader(
             "ATTR_OVERFLOW_VISIBLE" to AppConstants.PULSAR_ATTR_OVERFLOW_VISIBLE,
             "ATTR_ELEMENT_NODE_VI" to AppConstants.PULSAR_ATTR_ELEMENT_NODE_VI,
             "ATTR_TEXT_NODE_VI" to AppConstants.PULSAR_ATTR_TEXT_NODE_VI
-        )
+        ).also { jsInitParameters.putAll(it) }
     }
+
 }

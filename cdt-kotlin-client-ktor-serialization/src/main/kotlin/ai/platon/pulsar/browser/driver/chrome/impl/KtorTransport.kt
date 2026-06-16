@@ -1,7 +1,7 @@
 package ai.platon.pulsar.browser.driver.chrome.impl
 
-import ai.platon.pulsar.browser.common.Utils
 import ai.platon.pulsar.browser.driver.chrome.Transport
+import org.apache.commons.lang3.StringUtils
 import ai.platon.pulsar.browser.driver.chrome.util.ChromeDriverException
 import ai.platon.pulsar.browser.driver.chrome.util.ChromeIOException
 import ai.platon.pulsar.common.brief
@@ -152,7 +152,7 @@ internal class KtorTransport : Transport {
     }
 
     private fun shortenMessage(message: String, length: Int = 500): String {
-        return Utils.abbreviateMiddle(message, "...", length)
+        return StringUtils.abbreviateMiddle(message, "...", length)
     }
 
     /**

@@ -48,8 +48,8 @@ internal class ChromeDevToolsImpl(
          */
         fun createMethodInvocation(method: String, params: Map<String, Any?>?): MethodInvocation {
             val params0 = (params ?: emptyMap()).toMutableMap()
-            val methodId = params0[EventDispatcher.ID_PROPERTY]?.toString()?.toLongOrNull() ?: nextId()
-            params0[EventDispatcher.ID_PROPERTY] = methodId.toString()
+            val methodId = params0[CdpMessageCodec.ID_PROPERTY]?.toString()?.toLongOrNull() ?: nextId()
+            params0[CdpMessageCodec.ID_PROPERTY] = methodId.toString()
 
             val params1: Map<String, Any> = params0.entries
                 .filter { it.value != null }

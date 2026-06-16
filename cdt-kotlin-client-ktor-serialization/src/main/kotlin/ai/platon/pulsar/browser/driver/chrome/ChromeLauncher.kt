@@ -13,9 +13,6 @@ import ai.platon.pulsar.common.browser.BrowserFiles.PORT_FILE_NAME
 import ai.platon.pulsar.common.browser.Browsers
 import ai.platon.pulsar.common.concurrent.RuntimeShutdownHookRegistry
 import ai.platon.pulsar.common.concurrent.ShutdownHookRegistry
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonPrimitive
-import kotlinx.serialization.json.buildJsonObject
 import org.apache.commons.lang3.SystemUtils
 import org.slf4j.LoggerFactory
 import java.io.BufferedReader
@@ -31,8 +28,7 @@ import java.nio.file.Files
 import java.nio.file.NoSuchFileException
 import java.nio.file.Path
 import java.nio.file.StandardOpenOption
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.regex.Pattern
 import kotlin.io.path.deleteIfExists
@@ -610,190 +606,19 @@ Kill all Chrome processes and run the program again.
     }
 
     /**
-     * Builds comprehensive launch report data.
-     */
-    private fun buildLaunchReportData(
-        chromeBinaryPath: Path,
-        options: ChromeOptions,
-        port: Int,
-        launchDuration: Long
-    ): Map<String, Any> {
-        val currentProcess = process
-        val reportData = mutableMapOf<String, Any>()
-
-        // Launch information
-        val launchInfo = mutableMapOf<String, Any>()
-        launchInfo["timestamp"] = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-        launchInfo["launchDuration"] = "${launchDuration}ms"
-        launchInfo["devToolsPort"] = port
-        launchInfo["userDataDirectory"] = userDataDir.toString()
-        launchInfo["chromeBinary"] = chromeBinaryPath.toString()
-        reportData["launchInfo"] = launchInfo
-
-        // Process information
-        val processInfo = mutableMapOf<String, Any>()
-        processInfo["pid"] = currentProcess?.pid() ?: 0
-        processInfo["isAlive"] = currentProcess?.isAlive() ?: false
-        processInfo["supervisorProcess"] = this.options.supervisorProcess ?: "none"
-        reportData["processInfo"] = processInfo
-
-        // Chrome options
-        val chromeOptionsInfo = mutableMapOf<String, Any>()
-        chromeOptionsInfo["headless"] = options.headless
-        chromeOptionsInfo["arguments"] = options.toList()
-        chromeOptionsInfo["isSystemDefaultBrowser"] =
-            userDataDir.startsWith(AppPaths.SYSTEM_DEFAULT_BROWSER_DATA_DIR_PLACEHOLDER)
-        reportData["chromeOptions"] = chromeOptionsInfo
-
-        // System information
-        val systemInfo = mutableMapOf<String, Any>()
-
-        // Operating system info
-        val osInfo = mutableMapOf<String, Any>()
-        osInfo["name"] = System.getProperty("os.name")
-        osInfo["version"] = System.getProperty("os.version")
-        osInfo["arch"] = System.getProperty("os.arch")
-        osInfo["isWindows"] = SystemUtils.IS_OS_WINDOWS
-        osInfo["hasGuiSupport"] = !Runtimes.hasOnlyHeadlessBrowser()
-        systemInfo["os"] = osInfo
-
-        // JVM information
-        val jvmInfo = mutableMapOf<String, Any>()
-        jvmInfo["version"] = System.getProperty("java.version")
-        jvmInfo["vendor"] = System.getProperty("java.vendor")
-        jvmInfo["home"] = System.getProperty("java.home")
-        jvmInfo["maxMemory"] = "${Runtime.getRuntime().maxMemory() / 1024 / 1024}MB"
-        jvmInfo["totalMemory"] = "${Runtime.getRuntime().totalMemory() / 1024 / 1024}MB"
-        jvmInfo["freeMemory"] = "${Runtime.getRuntime().freeMemory() / 1024 / 1024}MB"
-        systemInfo["jvm"] = jvmInfo
-
-        // Encoding information
-        val encodingInfo = mutableMapOf<String, Any>()
-        encodingInfo["fileEncoding"] = System.getProperty("file.encoding")
-        encodingInfo["charset"] = if (org.apache.commons.lang3.SystemUtils.IS_OS_WINDOWS) "GBK" else "UTF-8"
-        systemInfo["encoding"] = encodingInfo
-
-        reportData["systemInfo"] = systemInfo
-
-        // File system information
-        val fileSystemInfo = mutableMapOf<String, Any>()
-        fileSystemInfo["portFilePath"] = portPath.toString()
-        fileSystemInfo["pidFilePath"] = pidPath.toString()
-        fileSystemInfo["userDataDirExists"] = Files.exists(userDataDir)
-        fileSystemInfo["userDataDirSize"] = getUserDataDirSize()
-        reportData["fileSystem"] = fileSystemInfo
-
-        // Performance information
-        val performanceInfo = mutableMapOf<String, Any>()
-        performanceInfo["startupWaitTime"] = this.options.startupWaitTime.toString()
-        performanceInfo["shutdownWaitTime"] = this.options.shutdownWaitTime.toString()
-        performanceInfo["threadWaitTime"] = this.options.threadWaitTime.toString()
-        performanceInfo["systemChromeProcessCount"] = Runtimes.countSystemProcess("chrome")
-        reportData["performance"] = performanceInfo
-
-        return reportData
-    }
-
-    /**
-     * Formats the report data as human-readable text.
-     */
-    private fun formatTextReport(data: Map<String, Any>): String {
-        val report = StringBuilder()
-        report.appendLine("Chrome Launch Report")
-        report.appendLine("=".repeat(50))
-
-        val launchInfo = data["launchInfo"] as Map<String, Any>
-        report.appendLine("Launch Time: ${launchInfo["timestamp"]}")
-        report.appendLine("Duration: ${launchInfo["launchDuration"]}")
-        report.appendLine("DevTools Port: ${launchInfo["devToolsPort"]}")
-        report.appendLine("Chrome Binary: ${launchInfo["chromeBinary"]}")
-        report.appendLine("User Data Dir: ${launchInfo["userDataDirectory"]}")
-
-        val processInfo = data["processInfo"] as Map<String, Any>
-        report.appendLine("Process ID: ${processInfo["pid"]}")
-        report.appendLine("Process Alive: ${processInfo["isAlive"]}")
-
-        val chromeOptions = data["chromeOptions"] as Map<String, Any>
-        report.appendLine("Headless Mode: ${chromeOptions["headless"]}")
-        val args = chromeOptions["arguments"] as List<String>
-        report.appendLine("Arguments: ${args.joinToString(" ")}")
-
-        report.appendLine("=".repeat(50))
-        return report.toString()
-    }
-
-    /**
-     * Formats the report data as JSON.
-     */
-    private fun formatJsonReport(data: Map<String, Any>): String {
-        val jsonElement = buildJsonObject {
-            data.forEach { (key, value) ->
-                put(key, valueToJsonElement(value))
-            }
-        }
-        return Json { prettyPrint = true }.encodeToString(jsonElement)
-    }
-
-    private fun valueToJsonElement(value: Any?): kotlinx.serialization.json.JsonElement {
-        return when (value) {
-            null -> kotlinx.serialization.json.JsonNull
-            is kotlinx.serialization.json.JsonElement -> value
-            is String -> JsonPrimitive(value)
-            is Number -> JsonPrimitive(value)
-            is Boolean -> JsonPrimitive(value)
-            is Map<*, *> -> buildJsonObject {
-                @Suppress("UNCHECKED_CAST")
-                (value as Map<String, Any?>).forEach { (k, v) ->
-                    put(k, valueToJsonElement(v))
-                }
-            }
-
-            is List<*> -> kotlinx.serialization.json.buildJsonArray {
-                value.forEach { add(valueToJsonElement(it)) }
-            }
-
-            else -> JsonPrimitive(value.toString())
-        }
-    }
-
-    /**
-     * Gets the size of the user data directory.
-     */
-    private fun getUserDataDirSize(): String {
-        return try {
-            if (Files.exists(userDataDir)) {
-                val size = Files.walk(userDataDir)
-                    .filter { Files.isRegularFile(it) }
-                    .mapToLong { Files.size(it) }
-                    .sum()
-                "${size / 1024 / 1024}MB"
-            } else {
-                "0MB"
-            }
-        } catch (e: Exception) {
-            "unknown"
-        }
-    }
-
-    /**
-     * Writes the launch arguments to a separate file, with each argument on its own line.
+     * Writes the launch arguments to a separate file, one argument per line.
      *
      * @param executable The chrome executable path.
      * @param arguments The list of arguments used to launch chrome.
      */
     private fun writeLaunchArgumentsToFile(executable: String, arguments: List<String>) {
-        return try {
+        try {
             val argsFile = userDataDir.resolveSibling("chrome-launch-arguments.txt")
-            Files.writeString(argsFile, "", StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)
-
-            // Write the executable path
-            Files.writeString(argsFile, "$executable", StandardOpenOption.APPEND)
-
-            // Write each argument on a new line
-            arguments.forEach { arg ->
-                Files.writeString(argsFile, "\n$arg", StandardOpenOption.APPEND)
+            val content = buildString {
+                appendLine(executable)
+                arguments.forEach { appendLine(it) }
             }
-
+            Files.writeString(argsFile, content)
             logger.debug("Chrome launch arguments saved to: {}", argsFile)
         } catch (e: Exception) {
             logger.warn("Failed to write launch arguments to file: {}", e.message)

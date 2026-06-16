@@ -6,10 +6,10 @@ import ai.platon.browser4.chrome.protocol.util.CheckableElementJs
 import ai.platon.browser4.chrome.protocol.util.withNodeObjectId
 import ai.platon.browser4.chrome.util.ChromeDriverException
 import ai.platon.browser4.chrome.util.ChromeRPCException
-import ai.platon.cdt.kt.serialization.protocol.types.dom.Rect
-import ai.platon.cdt.kt.serialization.protocol.types.page.Navigate
-import ai.platon.cdt.kt.serialization.protocol.types.page.ReferrerPolicy
-import ai.platon.cdt.kt.serialization.protocol.types.page.TransitionType
+import ai.platon.browser4.chrome.protocol.types.dom.Rect
+import ai.platon.browser4.chrome.protocol.types.page.Navigate
+import ai.platon.browser4.chrome.protocol.types.page.ReferrerPolicy
+import ai.platon.browser4.chrome.protocol.types.page.TransitionType
 import ai.platon.browser4.api.model.BrowserSettings
 import ai.platon.browser4.api.BrowserProtocol
 import ai.platon.browser4.api.model.NodeRef
@@ -32,7 +32,7 @@ class PageHandler constructor(
 
     private val logger = getLogger(this)
 
-    private val chromeProtocol = browserProtocol as RemoteChromeProtocol
+    private val chromeProtocol = browserProtocol as DirectChromeProtocol
 
     private val isActive get() = AppContext.isActive && chromeProtocol.isOpen
 

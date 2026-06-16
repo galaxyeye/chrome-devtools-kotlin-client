@@ -1,9 +1,9 @@
 package ai.platon.browser4.chrome.protocol
 
 import ai.platon.browser4.chrome.protocol.util.withNodeObjectId
-import ai.platon.cdt.kt.serialization.protocol.types.input.DispatchDragEventType
-import ai.platon.cdt.kt.serialization.protocol.types.input.DispatchKeyEventType
-import ai.platon.cdt.kt.serialization.protocol.types.input.DragData
+import ai.platon.browser4.chrome.protocol.types.input.DispatchDragEventType
+import ai.platon.browser4.chrome.protocol.types.input.DispatchKeyEventType
+import ai.platon.browser4.chrome.protocol.types.input.DragData
 import ai.platon.browser4.api.BrowserProtocol
 import ai.platon.browser4.api.model.NodeRef
 import ai.platon.pulsar.common.DescriptiveResult

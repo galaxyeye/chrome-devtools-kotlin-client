@@ -4,8 +4,8 @@ import ai.platon.browser4.chrome.RemoteChrome
 import ai.platon.browser4.chrome.RemoteDevTools
 import ai.platon.browser4.chrome.util.ChromeIOException
 import ai.platon.browser4.chrome.util.ChromeServiceException
-import ai.platon.cdt.kt.serialization.protocol.support.types.EventHandler
-import ai.platon.cdt.kt.serialization.protocol.support.types.EventListener
+import ai.platon.browser4.chrome.protocol.support.EventHandler
+import ai.platon.browser4.chrome.protocol.support.EventListener
 import ai.platon.browser4.api.model.BrowserTab
 import ai.platon.browser4.api.model.ChromeVersion
 import ai.platon.browser4.api.model.DevToolsConfig

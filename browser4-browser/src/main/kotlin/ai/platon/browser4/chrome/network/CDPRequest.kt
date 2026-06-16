@@ -1,11 +1,11 @@
 package ai.platon.browser4.chrome.network
 
 import ai.platon.browser4.chrome.util.ChromeRPCException
-import ai.platon.cdt.kt.serialization.protocol.types.fetch.HeaderEntry
-import ai.platon.cdt.kt.serialization.protocol.types.network.ErrorReason
-import ai.platon.cdt.kt.serialization.protocol.types.network.Initiator
-import ai.platon.cdt.kt.serialization.protocol.types.network.Request
-import ai.platon.cdt.kt.serialization.protocol.types.network.ResourceType
+import ai.platon.browser4.chrome.protocol.types.fetch.HeaderEntry
+import ai.platon.browser4.chrome.protocol.types.network.ErrorReason
+import ai.platon.browser4.chrome.protocol.types.network.Initiator
+import ai.platon.browser4.chrome.protocol.types.network.Request
+import ai.platon.browser4.chrome.protocol.types.network.ResourceType
 import ai.platon.browser4.api.WebDriver
 import ai.platon.browser4.api.BrowserProtocol
 import ai.platon.pulsar.common.http.HttpStatus

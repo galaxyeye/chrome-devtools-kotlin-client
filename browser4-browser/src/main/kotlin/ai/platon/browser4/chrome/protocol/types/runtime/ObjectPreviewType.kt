@@ -1,0 +1,29 @@
+@file:Suppress("unused")
+package ai.platon.browser4.chrome.protocol.types.runtime
+
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
+/**
+ * Object type.
+ */
+@Serializable
+public enum class ObjectPreviewType {
+  @SerialName("object")
+  OBJECT,
+  @SerialName("function")
+  FUNCTION,
+  @SerialName("undefined")
+  UNDEFINED,
+  @SerialName("string")
+  STRING,
+  @SerialName("number")
+  NUMBER,
+  @SerialName("boolean")
+  BOOLEAN,
+  @SerialName("symbol")
+  SYMBOL,
+  @SerialName("bigint")
+  BIGINT,
+  UNKNOWN,
+}

@@ -1,6 +1,6 @@
 package ai.platon.browser4.chrome.dom.impl
 
-import ai.platon.cdt.kt.serialization.protocol.types.dom.Node
+import ai.platon.browser4.chrome.protocol.types.dom.Node
 import ai.platon.browser4.api.BrowserProtocol
 import ai.platon.browser4.api.model.MergedDOMTreeNode
 import ai.platon.browser4.api.model.NodeType

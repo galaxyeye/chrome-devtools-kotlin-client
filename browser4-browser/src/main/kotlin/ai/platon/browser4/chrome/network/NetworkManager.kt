@@ -2,13 +2,13 @@ package ai.platon.browser4.chrome.network
 
 import ai.platon.browser4.chrome.util.ChromeRPCException
 import ai.platon.browser4.chrome.util.Credentials
-import ai.platon.cdt.kt.serialization.protocol.events.fetch.AuthRequired
-import ai.platon.cdt.kt.serialization.protocol.events.fetch.RequestPaused
-import ai.platon.cdt.kt.serialization.protocol.events.network.*
-import ai.platon.cdt.kt.serialization.protocol.types.fetch.AuthChallengeResponse
-import ai.platon.cdt.kt.serialization.protocol.types.fetch.AuthChallengeResponseResponse
-import ai.platon.cdt.kt.serialization.protocol.types.fetch.RequestPattern
-import ai.platon.cdt.kt.serialization.protocol.types.network.Response
+import ai.platon.browser4.chrome.protocol.events.fetch.AuthRequired
+import ai.platon.browser4.chrome.protocol.events.fetch.RequestPaused
+import ai.platon.browser4.chrome.protocol.events.network.*
+import ai.platon.browser4.chrome.protocol.types.fetch.AuthChallengeResponse
+import ai.platon.browser4.chrome.protocol.types.fetch.AuthChallengeResponseResponse
+import ai.platon.browser4.chrome.protocol.types.fetch.RequestPattern
+import ai.platon.browser4.chrome.protocol.types.network.Response
 import ai.platon.browser4.api.BrowserProtocol
 import ai.platon.pulsar.common.DateTimes
 import ai.platon.pulsar.common.event.AbstractEventEmitter

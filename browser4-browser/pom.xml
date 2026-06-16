@@ -46,7 +46,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.inceptionYear>2025</project.inceptionYear>
 
-        <cdt-kotlin-client-serialization.version>4.8.1</cdt-kotlin-client-serialization.version>
         <kotlinx.serialization.version>1.8.1</kotlinx.serialization.version>
         <jackson.verson>2.21.2</jackson.verson>
 
@@ -87,13 +86,6 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- Protocol types with kotlinx.serialization annotations -->
-        <dependency>
-            <groupId>ai.platon.cdt</groupId>
-            <artifactId>cdt-kotlin-client-serialization</artifactId>
-            <version>${cdt-kotlin-client-serialization.version}</version>
-        </dependency>
-
         <dependency>
             <groupId>ai.platon.pulsar</groupId>
             <artifactId>pulsar-common</artifactId>

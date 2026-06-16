@@ -2,7 +2,7 @@ package ai.platon.browser4.chrome.protocol
 
 import ai.platon.browser4.chrome.protocol.transport.EventDispatcher
 import ai.platon.pulsar.common.ResourceLoader
-import ai.platon.cdt.kt.serialization.protocol.types.accessibility.AXNode
+import ai.platon.browser4.chrome.protocol.types.accessibility.AXNode
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject

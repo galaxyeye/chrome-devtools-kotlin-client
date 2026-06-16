@@ -1,9 +1,9 @@
 package ai.platon.browser4.chrome.network
 
-import ai.platon.cdt.kt.serialization.protocol.events.fetch.RequestPaused
-import ai.platon.cdt.kt.serialization.protocol.events.network.RequestWillBeSent
-import ai.platon.cdt.kt.serialization.protocol.events.network.RequestWillBeSentExtraInfo
-import ai.platon.cdt.kt.serialization.protocol.events.network.ResponseReceivedExtraInfo
+import ai.platon.browser4.chrome.protocol.events.fetch.RequestPaused
+import ai.platon.browser4.chrome.protocol.events.network.RequestWillBeSent
+import ai.platon.browser4.chrome.protocol.events.network.RequestWillBeSentExtraInfo
+import ai.platon.browser4.chrome.protocol.events.network.ResponseReceivedExtraInfo
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 

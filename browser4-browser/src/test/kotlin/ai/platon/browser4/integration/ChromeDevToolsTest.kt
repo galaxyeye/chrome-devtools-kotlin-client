@@ -3,7 +3,7 @@ package ai.platon.browser4.integration
 import ai.platon.browser4.chrome.ChromeLauncher
 import ai.platon.browser4.chrome.RemoteChrome
 import ai.platon.browser4.chrome.RemoteDevTools
-import ai.platon.browser4.chrome.protocol.RemoteChromeProtocol
+import ai.platon.browser4.chrome.protocol.DirectChromeProtocol
 import ai.platon.browser4.api.LauncherOptions
 import ai.platon.browser4.api.BrowserProtocol
 import ai.platon.pulsar.common.browser.BrowserFiles
@@ -38,7 +38,7 @@ class ChromeDevToolsTest {
         assertTrue(versionString.contains("Mozilla"))
 
         devTools = chrome.createDevTools(tab)
-        browserProtocol = RemoteChromeProtocol(devTools)
+        browserProtocol = DirectChromeProtocol(devTools)
 
         runBlocking { browserProtocol.pageEnable() }
     }

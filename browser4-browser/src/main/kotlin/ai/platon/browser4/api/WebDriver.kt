@@ -353,7 +353,7 @@ interface WebDriver : Closeable {
      * chrome://newtab
      * chrome://settings
      *
-     * see [ai.platon.cdt.kt.serialization.protocol.types.page.NavigationEntry.userTypedURL]
+     * see [ai.platon.browser4.chrome.protocol.types.page.NavigationEntry.userTypedURL]
      *
      * @return A string containing the URL of the document, or the passed in url to navigate.
      */

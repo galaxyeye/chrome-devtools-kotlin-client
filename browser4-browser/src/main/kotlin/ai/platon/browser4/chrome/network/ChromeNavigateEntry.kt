@@ -1,11 +1,11 @@
 package ai.platon.browser4.chrome.network
 
-import ai.platon.cdt.kt.serialization.protocol.events.network.RequestWillBeSent
-import ai.platon.cdt.kt.serialization.protocol.events.network.RequestWillBeSentExtraInfo
-import ai.platon.cdt.kt.serialization.protocol.events.network.ResponseReceived
-import ai.platon.cdt.kt.serialization.protocol.events.page.FrameNavigated
-import ai.platon.cdt.kt.serialization.protocol.types.network.Cookie
-import ai.platon.cdt.kt.serialization.protocol.types.network.ResourceType
+import ai.platon.browser4.chrome.protocol.events.network.RequestWillBeSent
+import ai.platon.browser4.chrome.protocol.events.network.RequestWillBeSentExtraInfo
+import ai.platon.browser4.chrome.protocol.events.network.ResponseReceived
+import ai.platon.browser4.chrome.protocol.events.page.FrameNavigated
+import ai.platon.browser4.chrome.protocol.types.network.Cookie
+import ai.platon.browser4.chrome.protocol.types.network.ResourceType
 import ai.platon.browser4.api.model.NavigateEntry
 import ai.platon.pulsar.common.getLogger
 import com.fasterxml.jackson.annotation.JsonInclude

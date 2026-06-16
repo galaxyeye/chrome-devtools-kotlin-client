@@ -1,6 +1,6 @@
 package ai.platon.browser4.chrome.network
 
-import ai.platon.cdt.kt.serialization.protocol.types.network.Response
+import ai.platon.browser4.chrome.protocol.types.network.Response
 import ai.platon.browser4.api.BrowserProtocol
 
 class CDPResponse(

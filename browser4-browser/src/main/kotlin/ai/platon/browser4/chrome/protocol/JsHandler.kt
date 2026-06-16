@@ -4,8 +4,8 @@ import ai.platon.browser4.chrome.IsolatedWorldManager
 import ai.platon.browser4.chrome.protocol.util.releaseNodeObjectIfNeeded
 import ai.platon.browser4.chrome.protocol.util.resolveNodeObjectId
 import ai.platon.browser4.chrome.util.ChromeDriverException
-import ai.platon.cdt.kt.serialization.protocol.types.runtime.CallFunctionOn
-import ai.platon.cdt.kt.serialization.protocol.types.runtime.Evaluate
+import ai.platon.browser4.chrome.protocol.types.runtime.CallFunctionOn
+import ai.platon.browser4.chrome.protocol.types.runtime.Evaluate
 import ai.platon.browser4.api.BrowserProtocol
 import ai.platon.pulsar.common.getLogger
 import ai.platon.pulsar.common.js.JsUtils

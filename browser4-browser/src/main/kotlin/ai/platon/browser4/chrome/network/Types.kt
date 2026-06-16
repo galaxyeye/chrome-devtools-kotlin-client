@@ -1,10 +1,10 @@
 package ai.platon.browser4.chrome.network
 
-import ai.platon.cdt.kt.serialization.protocol.events.network.LoadingFailed
-import ai.platon.cdt.kt.serialization.protocol.events.network.LoadingFinished
-import ai.platon.cdt.kt.serialization.protocol.events.network.RequestWillBeSent
-import ai.platon.cdt.kt.serialization.protocol.events.network.ResponseReceived
-import ai.platon.cdt.kt.serialization.protocol.types.fetch.HeaderEntry
+import ai.platon.browser4.chrome.protocol.events.network.LoadingFailed
+import ai.platon.browser4.chrome.protocol.events.network.LoadingFinished
+import ai.platon.browser4.chrome.protocol.events.network.RequestWillBeSent
+import ai.platon.browser4.chrome.protocol.events.network.ResponseReceived
+import ai.platon.browser4.chrome.protocol.types.fetch.HeaderEntry
 
 /**
  * The network events, used to intercept requests.

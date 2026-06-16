@@ -2,12 +2,11 @@
 
 package ai.platon.browser4.chrome.protocol.transport
 
-import ai.platon.browser4.chrome.RemoteDevTools
+import ai.platon.browser4.chrome.BrowserDevTools
 import ai.platon.browser4.chrome.Transport
 import ai.platon.browser4.chrome.util.*
-import ai.platon.cdt.kt.serialization.protocol.commands.*
-import ai.platon.cdt.kt.serialization.protocol.support.types.EventHandler
-import ai.platon.cdt.kt.serialization.protocol.support.types.EventListener
+import ai.platon.browser4.chrome.protocol.support.EventHandler
+import ai.platon.browser4.chrome.protocol.support.EventListener
 import ai.platon.browser4.api.model.DevToolsConfig
 import ai.platon.browser4.api.model.MethodInvocation
 import ai.platon.pulsar.common.warnForClose
@@ -17,10 +16,8 @@ import kotlinx.coroutines.withTimeoutOrNull
 import kotlinx.serialization.json.JsonElement
 import org.slf4j.LoggerFactory
 import java.io.IOException
-import java.lang.reflect.Proxy
 import java.time.Duration
 import java.time.Instant
-import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.reflect.KClass
@@ -31,7 +28,7 @@ internal class ChromeDevToolsImpl(
     private val browserTransport: Transport,
     private val pageTransport: Transport,
     private val config: DevToolsConfig
-) : RemoteDevTools, AutoCloseable {
+) : BrowserDevTools {
 
     companion object {
         private val startTime = Instant.now()
@@ -47,82 +44,12 @@ internal class ChromeDevToolsImpl(
 
     private val dispatcher = EventDispatcher()
 
-    // Domain proxy support — replaces javassist-based CachedDevToolsInvocationHandlerProxies
-    private val domainHandler = DevToolsInvocationHandler(this).also { it.devTools = this }
-    private val domainProxies = ConcurrentHashMap<Class<*>, Any>()
-
-    private fun <T> getOrCreateDomainProxy(clazz: Class<T>): T {
-        return domainProxies.computeIfAbsent(clazz) {
-            Proxy.newProxyInstance(clazz.classLoader, arrayOf(clazz), domainHandler)
-        } as T
-    }
-
     init {
         browserTransport.addMessageHandler(dispatcher)
         pageTransport.addMessageHandler(dispatcher)
     }
 
-    // ── ChromeDevTools domain accessors ──────────────────────────────────────
-
-    override val console: Console get() = getOrCreateDomainProxy(Console::class.java)
-    override val debugger: Debugger get() = getOrCreateDomainProxy(Debugger::class.java)
-    override val heapProfiler: HeapProfiler get() = getOrCreateDomainProxy(HeapProfiler::class.java)
-    override val profiler: Profiler get() = getOrCreateDomainProxy(Profiler::class.java)
-    override val runtime: Runtime get() = getOrCreateDomainProxy(Runtime::class.java)
-    override val schema: Schema get() = getOrCreateDomainProxy(Schema::class.java)
-    override val accessibility: Accessibility get() = getOrCreateDomainProxy(Accessibility::class.java)
-    override val ads: Ads get() = getOrCreateDomainProxy(Ads::class.java)
-    override val animation: Animation get() = getOrCreateDomainProxy(Animation::class.java)
-    override val audits: Audits get() = getOrCreateDomainProxy(Audits::class.java)
-    override val autofill: Autofill get() = getOrCreateDomainProxy(Autofill::class.java)
-    override val backgroundService: BackgroundService get() = getOrCreateDomainProxy(BackgroundService::class.java)
-    override val bluetoothEmulation: BluetoothEmulation get() = getOrCreateDomainProxy(BluetoothEmulation::class.java)
-    override val browser: Browser get() = getOrCreateDomainProxy(Browser::class.java)
-    override val css: CSS get() = getOrCreateDomainProxy(CSS::class.java)
-    override val cacheStorage: CacheStorage get() = getOrCreateDomainProxy(CacheStorage::class.java)
-    override val cast: Cast get() = getOrCreateDomainProxy(Cast::class.java)
-    override val crashReportContext: CrashReportContext get() = getOrCreateDomainProxy(CrashReportContext::class.java)
-    override val dom: DOM get() = getOrCreateDomainProxy(DOM::class.java)
-    override val domDebugger: DOMDebugger get() = getOrCreateDomainProxy(DOMDebugger::class.java)
-    override val domSnapshot: DOMSnapshot get() = getOrCreateDomainProxy(DOMSnapshot::class.java)
-    override val domStorage: DOMStorage get() = getOrCreateDomainProxy(DOMStorage::class.java)
-    override val deviceAccess: DeviceAccess get() = getOrCreateDomainProxy(DeviceAccess::class.java)
-    override val deviceOrientation: DeviceOrientation get() = getOrCreateDomainProxy(DeviceOrientation::class.java)
-    override val emulation: Emulation get() = getOrCreateDomainProxy(Emulation::class.java)
-    override val eventBreakpoints: EventBreakpoints get() = getOrCreateDomainProxy(EventBreakpoints::class.java)
-    override val extensions: Extensions get() = getOrCreateDomainProxy(Extensions::class.java)
-    override val fedCm: FedCm get() = getOrCreateDomainProxy(FedCm::class.java)
-    override val fetch: Fetch get() = getOrCreateDomainProxy(Fetch::class.java)
-    override val fileSystem: FileSystem get() = getOrCreateDomainProxy(FileSystem::class.java)
-    override val headlessExperimental: HeadlessExperimental get() = getOrCreateDomainProxy(HeadlessExperimental::class.java)
-    override val io: IO get() = getOrCreateDomainProxy(IO::class.java)
-    override val indexedDb: IndexedDB get() = getOrCreateDomainProxy(IndexedDB::class.java)
-    override val input: Input get() = getOrCreateDomainProxy(Input::class.java)
-    override val inspector: Inspector get() = getOrCreateDomainProxy(Inspector::class.java)
-    override val layerTree: LayerTree get() = getOrCreateDomainProxy(LayerTree::class.java)
-    override val log: Log get() = getOrCreateDomainProxy(Log::class.java)
-    override val media: Media get() = getOrCreateDomainProxy(Media::class.java)
-    override val memory: Memory get() = getOrCreateDomainProxy(Memory::class.java)
-    override val network: Network get() = getOrCreateDomainProxy(Network::class.java)
-    override val overlay: Overlay get() = getOrCreateDomainProxy(Overlay::class.java)
-    override val pwa: PWA get() = getOrCreateDomainProxy(PWA::class.java)
-    override val page: Page get() = getOrCreateDomainProxy(Page::class.java)
-    override val performance: Performance get() = getOrCreateDomainProxy(Performance::class.java)
-    override val performanceTimeline: PerformanceTimeline get() = getOrCreateDomainProxy(PerformanceTimeline::class.java)
-    override val preload: Preload get() = getOrCreateDomainProxy(Preload::class.java)
-    override val security: Security get() = getOrCreateDomainProxy(Security::class.java)
-    override val serviceWorker: ServiceWorker get() = getOrCreateDomainProxy(ServiceWorker::class.java)
-    override val smartCardEmulation: SmartCardEmulation get() = getOrCreateDomainProxy(SmartCardEmulation::class.java)
-    override val storage: Storage get() = getOrCreateDomainProxy(Storage::class.java)
-    override val systemInfo: SystemInfo get() = getOrCreateDomainProxy(SystemInfo::class.java)
-    override val target: ai.platon.cdt.kt.serialization.protocol.commands.Target get() = getOrCreateDomainProxy(ai.platon.cdt.kt.serialization.protocol.commands.Target::class.java)
-    override val tethering: Tethering get() = getOrCreateDomainProxy(Tethering::class.java)
-    override val tracing: Tracing get() = getOrCreateDomainProxy(Tracing::class.java)
-    override val webAudio: WebAudio get() = getOrCreateDomainProxy(WebAudio::class.java)
-    override val webAuthn: WebAuthn get() = getOrCreateDomainProxy(WebAuthn::class.java)
-    override val webMcp: WebMCP get() = getOrCreateDomainProxy(WebMCP::class.java)
-
-    // ── RemoteDevTools command methods ───────────────────────────────────────
+    // ── BrowserDevTools command methods ──────────────────────────────────────
 
     @Throws(ChromeIOException::class, ChromeRPCException::class)
     override suspend operator fun <T : Any> invoke(

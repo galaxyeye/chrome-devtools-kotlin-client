@@ -9,7 +9,7 @@ import ai.platon.browser4.chrome.dom.util.DomDebug
 import ai.platon.browser4.chrome.dom.util.HashUtils
 import ai.platon.browser4.chrome.dom.util.ScrollUtils
 import ai.platon.browser4.chrome.dom.util.XPathUtils
-import ai.platon.cdt.kt.serialization.protocol.types.accessibility.AXNode
+import ai.platon.browser4.chrome.protocol.types.accessibility.AXNode
 import ai.platon.browser4.api.BrowserProtocol
 import ai.platon.browser4.api.snapshot.SnapshotService
 import ai.platon.browser4.api.model.*

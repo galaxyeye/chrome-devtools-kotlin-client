@@ -6,7 +6,7 @@ import ai.platon.browser4.api.ChromeOptions
 import ai.platon.browser4.chrome.ChromeLauncher
 import ai.platon.browser4.chrome.RemoteChrome
 import ai.platon.browser4.chrome.RemoteDevTools
-import ai.platon.browser4.chrome.protocol.RemoteChromeProtocol
+import ai.platon.browser4.chrome.protocol.DirectChromeProtocol
 import ai.platon.pulsar.common.browser.BrowserFiles
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.AfterEach
@@ -52,7 +52,7 @@ abstract class BrowserIntegrationTest {
 
         val tab = chrome.createTab()
         devTools = chrome.createDevTools(tab)
-        bp = RemoteChromeProtocol(devTools)
+        bp = DirectChromeProtocol(devTools)
 
         runBlocking {
             bp.pageEnable()

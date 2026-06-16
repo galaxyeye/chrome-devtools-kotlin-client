@@ -4,12 +4,12 @@ import ai.platon.browser4.chrome.RemoteDevTools
 import ai.platon.browser4.chrome.util.ChromeIOException
 import ai.platon.browser4.chrome.util.ChromeRPCException
 import ai.platon.browser4.deprecated.ReflectUtils
-import ai.platon.cdt.kt.serialization.protocol.support.annotations.EventName
-import ai.platon.cdt.kt.serialization.protocol.support.annotations.ParamName
-import ai.platon.cdt.kt.serialization.protocol.support.annotations.ReturnTypeParameter
-import ai.platon.cdt.kt.serialization.protocol.support.annotations.Returns
-import ai.platon.cdt.kt.serialization.protocol.support.types.EventHandler
-import ai.platon.cdt.kt.serialization.protocol.support.types.EventListener
+import ai.platon.browser4.chrome.protocol.support.EventHandler
+import ai.platon.browser4.chrome.protocol.support.EventListener
+import ai.platon.browser4.chrome.protocol.support.EventName
+import ai.platon.browser4.chrome.protocol.support.ParamName
+import ai.platon.browser4.chrome.protocol.support.ReturnTypeParameter
+import ai.platon.browser4.chrome.protocol.support.Returns
 import ai.platon.browser4.api.model.MethodInvocation
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -173,7 +173,7 @@ class DevToolsInvocationHandler : InvocationHandler {
         }
 
         // Typical `parameters`:
-        // 0: `kotlin.jvm.functions.Function2<? super ai.platon.cdt.kt.serialization.protocol.events.network.RequestWillBeSent, ? super kotlin.coroutines.Continuation<? super kotlin.Unit>, ?> arg0`
+        // 0: `kotlin.jvm.functions.Function2<? super ai.platon.browser4.chrome.protocol.events.network.RequestWillBeSent, ? super kotlin.coroutines.Continuation<? super kotlin.Unit>, ?> arg0`
         //
         val parameter = parameters[0]
 

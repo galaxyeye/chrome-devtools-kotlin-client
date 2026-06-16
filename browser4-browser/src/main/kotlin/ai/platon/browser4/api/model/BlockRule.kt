@@ -1,6 +1,6 @@
 package ai.platon.browser4.api.model
 
-import ai.platon.cdt.kt.serialization.protocol.types.network.ResourceType
+import ai.platon.browser4.chrome.protocol.types.network.ResourceType
 import ai.platon.pulsar.common.Wildchar
 
 /**

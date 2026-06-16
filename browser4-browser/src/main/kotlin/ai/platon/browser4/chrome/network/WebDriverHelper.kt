@@ -1,11 +1,11 @@
 package ai.platon.browser4.chrome.network
 
 import ai.platon.browser4.chrome.protocol.PageHandler
-import ai.platon.cdt.kt.serialization.protocol.events.network.ResponseReceived
-import ai.platon.cdt.kt.serialization.protocol.types.network.Cookie
-import ai.platon.cdt.kt.serialization.protocol.types.network.ResourceType
-import ai.platon.cdt.kt.serialization.protocol.types.runtime.CallFunctionOn
-import ai.platon.cdt.kt.serialization.protocol.types.runtime.Evaluate
+import ai.platon.browser4.chrome.protocol.events.network.ResponseReceived
+import ai.platon.browser4.chrome.protocol.types.network.Cookie
+import ai.platon.browser4.chrome.protocol.types.network.ResourceType
+import ai.platon.browser4.chrome.protocol.types.runtime.CallFunctionOn
+import ai.platon.browser4.chrome.protocol.types.runtime.Evaluate
 import ai.platon.browser4.api.WebDriver
 import ai.platon.browser4.api.model.JsEvaluation
 import ai.platon.browser4.api.model.JsException

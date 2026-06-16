@@ -1,10 +1,9 @@
 package ai.platon.browser4.chrome
 
+import ai.platon.browser4.chrome.protocol.support.EventHandler
+import ai.platon.browser4.chrome.protocol.support.EventListener
 import ai.platon.browser4.chrome.util.ChromeIOException
 import ai.platon.browser4.chrome.util.ChromeServiceException
-import ai.platon.cdt.kt.serialization.protocol.ChromeDevTools
-import ai.platon.cdt.kt.serialization.protocol.support.types.EventHandler
-import ai.platon.cdt.kt.serialization.protocol.support.types.EventListener
 import ai.platon.browser4.api.model.BrowserTab
 import ai.platon.browser4.api.model.ChromeVersion
 import ai.platon.browser4.api.model.DevToolsConfig
@@ -53,19 +52,23 @@ interface ChromeService : AutoCloseable {
     fun closeTab(tab: BrowserTab)
 
     @Throws(ChromeServiceException::class)
-    fun createDevTools(tab: BrowserTab, config: DevToolsConfig = DevToolsConfig()): ChromeDevToolsService
+    fun createDevTools(tab: BrowserTab, config: DevToolsConfig = DevToolsConfig()): BrowserDevTools
 
     // Compatibility
     @Throws(ChromeServiceException::class)
-    fun createDevToolsService(tab: BrowserTab): ChromeDevToolsService = createDevTools(tab, DevToolsConfig())
+    fun createDevToolsService(tab: BrowserTab): BrowserDevTools = createDevTools(tab, DevToolsConfig())
 
     // Compatibility
     @Throws(ChromeServiceException::class)
-    fun createDevToolsService(tab: BrowserTab, config: DevToolsConfig = DevToolsConfig()): ChromeDevToolsService =
+    fun createDevToolsService(tab: BrowserTab, config: DevToolsConfig = DevToolsConfig()): BrowserDevTools =
         createDevTools(tab, config)
 }
 
-interface ChromeDevToolsService : ChromeDevTools, AutoCloseable {
+/**
+ * Minimal DevTools interface for browser4-browser.
+ * Replaces ChromeDevToolsService which extended ChromeDevTools from cdt-kotlin-client-serialization.
+ */
+interface BrowserDevTools : AutoCloseable {
 
     val isOpen: Boolean
 
@@ -105,10 +108,11 @@ interface ChromeDevToolsService : ChromeDevTools, AutoCloseable {
     fun waitUntilClosed() = awaitTermination()
 }
 
-suspend inline operator fun <reified T : Any> RemoteDevTools.invoke(
+suspend inline operator fun <reified T : Any> BrowserDevTools.invoke(
     method: String, params: Map<String, Any?>?, returnProperty: String? = null
 ): T? = invoke(method, params, T::class, returnProperty)
 
 // Compatibility
 typealias RemoteChrome = ChromeService
-typealias RemoteDevTools = ChromeDevToolsService
+typealias RemoteDevTools = BrowserDevTools
+typealias ChromeDevToolsService = BrowserDevTools

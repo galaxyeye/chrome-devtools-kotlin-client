@@ -1,6 +1,6 @@
 package ai.platon.browser4.api.model
 
-import ai.platon.cdt.kt.serialization.protocol.types.network.LoadNetworkResourcePageResult
+import ai.platon.browser4.chrome.protocol.types.network.LoadNetworkResourcePageResult
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.time.Duration
 import java.time.Instant

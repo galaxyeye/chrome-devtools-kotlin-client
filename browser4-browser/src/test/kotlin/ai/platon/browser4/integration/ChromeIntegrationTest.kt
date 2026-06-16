@@ -1,6 +1,6 @@
 package ai.platon.browser4.integration
 
-import ai.platon.cdt.kt.serialization.protocol.types.page.CaptureScreenshotFormat
+import ai.platon.browser4.chrome.protocol.types.page.CaptureScreenshotFormat
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName

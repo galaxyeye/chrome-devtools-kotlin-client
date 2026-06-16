@@ -1,10 +1,10 @@
 package ai.platon.browser4.chrome.dom.impl
 
 import ai.platon.browser4.chrome.dom.util.DomDebug
-import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
-import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
-import ai.platon.cdt.kt.serialization.protocol.support.annotations.ParamName
-import ai.platon.cdt.kt.serialization.protocol.types.domsnapshot.CaptureSnapshot
+import ai.platon.browser4.chrome.protocol.support.annotations.Experimental
+import ai.platon.browser4.chrome.protocol.support.annotations.Optional
+import ai.platon.browser4.chrome.protocol.support.annotations.ParamName
+import ai.platon.browser4.chrome.protocol.types.domsnapshot.CaptureSnapshot
 import ai.platon.browser4.api.BrowserProtocol
 import ai.platon.browser4.api.model.DOMRect
 import ai.platon.browser4.api.model.SnapshotNodeEx

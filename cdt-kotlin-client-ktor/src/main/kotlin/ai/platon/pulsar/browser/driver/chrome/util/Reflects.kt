@@ -61,76 +61,73 @@ object ReflectUtils {
      * returns `Object` and the actual type is stored in the Continuation's generic argument.
      */
     fun resolveReturnType(method: Method): Pair<Class<*>, Array<Class<*>>?> {
-        var typeParams: Array<Class<*>>? = null
-
-        fun classFromType(t: java.lang.reflect.Type): Class<*> = when (t) {
-            is Class<*> -> t
-            is ParameterizedType -> t.rawType as Class<*>
-            is java.lang.reflect.WildcardType -> {
-                val lb = t.lowerBounds.firstOrNull()
-                val ub = t.upperBounds.firstOrNull()
-                when (lb) {
-                    is Class<*> -> lb
-                    is ParameterizedType -> lb.rawType as Class<*>
-                    else -> when (ub) {
-                        is Class<*> -> ub
-                        is ParameterizedType -> ub.rawType as Class<*>
-                        else -> Any::class.java
-                    }
-                }
-            }
-            else -> Any::class.java
-        }
-
         val isSuspend = method.parameterTypes.lastOrNull()?.let { Continuation::class.java.isAssignableFrom(it) } == true
+
         if (isSuspend) {
             val lastGeneric = method.genericParameterTypes.last()
-            if (lastGeneric is ParameterizedType) {
-                val t = lastGeneric.actualTypeArguments.firstOrNull()
-                if (t != null) {
-                    val clazz = when (t) {
-                        is Class<*> -> t
-                        is ParameterizedType -> {
-                            val rawType = t.rawType as Class<*>
-                            val inferred = t.actualTypeArguments.map { arg -> classFromType(arg) }.toTypedArray()
-                            if (inferred.isNotEmpty()) typeParams = inferred
-                            rawType
-                        }
-                        is java.lang.reflect.WildcardType -> {
-                            val bound = t.lowerBounds.firstOrNull() ?: t.upperBounds.firstOrNull()
-                            when (bound) {
-                                is ParameterizedType -> {
-                                    val rawType = bound.rawType as Class<*>
-                                    val inferred = bound.actualTypeArguments.map { arg -> classFromType(arg) }.toTypedArray()
-                                    if (inferred.isNotEmpty()) typeParams = inferred
-                                    rawType
-                                }
-                                is Class<*> -> bound
-                                else -> classFromType(t)
-                            }
-                        }
-                        else -> Any::class.java
-                    }
-                    return unboxIfWrapper(clazz) to typeParams
-                }
-            }
-            return Any::class.java to null
+            if (lastGeneric !is ParameterizedType) return Any::class.java to null
+
+            val returnType = lastGeneric.actualTypeArguments.firstOrNull() ?: return Any::class.java to null
+            val (clazz, typeParams) = resolveType(returnType)
+            return unboxIfWrapper(clazz) to typeParams
         } else {
+            // Non-suspend path — rare in CDP usage, preserved for compatibility
             val rt = method.genericReturnType
             return when (rt) {
                 is Class<*> -> unboxIfWrapper(rt) to null
                 is ParameterizedType -> {
                     val args = rt.actualTypeArguments
-                    val clazz = if (args.isNotEmpty()) classFromType(args[0]) else classFromType(rt.rawType)
+                    val clazz = if (args.isNotEmpty()) rawOf(args[0]) else rawOf(rt.rawType)
+                    var typeParams: Array<Class<*>>? = null
                     if (args.isNotEmpty() && args[0] is ParameterizedType) {
                         val inner = args[0] as ParameterizedType
-                        val inferred = inner.actualTypeArguments.map { a -> classFromType(a) }.toTypedArray()
+                        val inferred = inner.actualTypeArguments.map { a -> rawOf(a) }.toTypedArray()
                         if (inferred.isNotEmpty()) typeParams = inferred
                     }
                     unboxIfWrapper(clazz) to typeParams
                 }
                 else -> Any::class.java to null
             }
+        }
+    }
+
+    /** Extract the raw Class from a [java.lang.reflect.Type], resolving wildcard bounds if present. */
+    private fun rawOf(t: java.lang.reflect.Type): Class<*> = when (t) {
+        is Class<*> -> t
+        is ParameterizedType -> t.rawType as Class<*>
+        is java.lang.reflect.WildcardType -> {
+            val bound = t.lowerBounds.firstOrNull() ?: t.upperBounds.firstOrNull()
+            when (bound) {
+                is Class<*> -> bound
+                is ParameterizedType -> bound.rawType as Class<*>
+                else -> Any::class.java
+            }
+        }
+        else -> Any::class.java
+    }
+
+    /** Resolve a [java.lang.reflect.Type] into (rawClass, typeParameters). */
+    private fun resolveType(type: java.lang.reflect.Type): Pair<Class<*>, Array<Class<*>>?> {
+        return when (type) {
+            is Class<*> -> type to null
+            is ParameterizedType -> {
+                val typeParams = type.actualTypeArguments.map { rawOf(it) }.toTypedArray()
+                val params = if (typeParams.isNotEmpty()) typeParams else null
+                (type.rawType as Class<*>) to params
+            }
+            is java.lang.reflect.WildcardType -> {
+                val bound = type.lowerBounds.firstOrNull() ?: type.upperBounds.firstOrNull()
+                when (bound) {
+                    is ParameterizedType -> {
+                        val typeParams = bound.actualTypeArguments.map { rawOf(it) }.toTypedArray()
+                        val params = if (typeParams.isNotEmpty()) typeParams else null
+                        (bound.rawType as Class<*>) to params
+                    }
+                    is Class<*> -> bound to null
+                    else -> Any::class.java to null
+                }
+            }
+            else -> Any::class.java to null
         }
     }
 }

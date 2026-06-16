@@ -16,7 +16,6 @@ import ai.platon.pulsar.common.concurrent.ShutdownHookRegistry
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonObject
-import kotlinx.serialization.json.put
 import org.apache.commons.lang3.SystemUtils
 import org.slf4j.LoggerFactory
 import java.io.BufferedReader
@@ -748,9 +747,11 @@ Kill all Chrome processes and run the program again.
                     put(k, valueToJsonElement(v))
                 }
             }
+
             is List<*> -> kotlinx.serialization.json.buildJsonArray {
                 value.forEach { add(valueToJsonElement(it)) }
             }
+
             else -> JsonPrimitive(value.toString())
         }
     }

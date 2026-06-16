@@ -2,8 +2,10 @@ package ai.platon.pulsar.browser.driver.examples
 
 import ai.platon.cdt.kt.serialization.protocol.events.page.*
 import ai.platon.cdt.kt.serialization.protocol.support.types.EventHandler
+import ai.platon.pulsar.browser.driver.chrome.ChromeLauncher
 import ai.platon.pulsar.common.AppFiles
 import ai.platon.pulsar.common.AppPaths
+import ai.platon.pulsar.common.browser.BrowserFiles
 import ai.platon.pulsar.common.serialize.json.Pson
 import java.util.concurrent.TimeUnit
 

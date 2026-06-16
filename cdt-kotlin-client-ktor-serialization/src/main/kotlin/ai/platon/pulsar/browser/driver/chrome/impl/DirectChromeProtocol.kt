@@ -51,6 +51,7 @@ import ai.platon.cdt.kt.serialization.protocol.types.runtime.CallFunctionOn
 import ai.platon.cdt.kt.serialization.protocol.types.runtime.Evaluate
 import ai.platon.cdt.kt.serialization.protocol.types.runtime.RemoteObject
 import ai.platon.pulsar.browser.driver.chrome.RemoteDevTools
+import kotlinx.serialization.Serializable
 
 /**
  * CDP is the single access point for all Chrome DevTools Protocol (CDP) domain APIs.
@@ -64,7 +65,9 @@ import ai.platon.pulsar.browser.driver.chrome.RemoteDevTools
 class DirectChromeProtocol(
     override val remoteDevToolsOrNull: RemoteDevTools
 ) : BrowserProtocol {
-    private data class EmptyResult(val ignored: String? = null)
+
+    @Serializable
+    data class EmptyResult(val ignored: String? = null)
 
     private val remoteDevTools: RemoteDevTools = remoteDevToolsOrNull
     override val isOpen: Boolean get() = remoteDevToolsOrNull.isOpen

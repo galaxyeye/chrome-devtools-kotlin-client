@@ -12,14 +12,14 @@ import ai.platon.pulsar.browser.driver.chrome.impl.EventDispatcher.Companion.ID_
 import ai.platon.pulsar.browser.driver.chrome.util.ChromeIOException
 import ai.platon.pulsar.browser.driver.chrome.util.ChromeRPCException
 import ai.platon.pulsar.browser.driver.chrome.util.ReflectUtils
-import ai.platon.pulsar.browser.driver.chrome.util.SuspendAwareHandler
 import kotlinx.coroutines.runBlocking
+import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 import java.util.concurrent.atomic.AtomicLong
 
-class DevToolsInvocationHandler(impl: Any) : SuspendAwareHandler(impl) {
+class DevToolsInvocationHandler : InvocationHandler {
     companion object {
         private const val EVENT_LISTENER_PREFIX = "on"
         private val ID_SUPPLIER = AtomicLong(1L)

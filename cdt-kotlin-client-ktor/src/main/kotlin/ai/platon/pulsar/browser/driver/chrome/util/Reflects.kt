@@ -1,42 +1,15 @@
 package ai.platon.pulsar.browser.driver.chrome.util
 
-import ai.platon.pulsar.common.alwaysTrue
 import ai.platon.pulsar.common.getLogger
 import javassist.Modifier
 import javassist.util.proxy.MethodHandler
 import javassist.util.proxy.ProxyFactory
-import kotlinx.coroutines.*
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Proxy
 import kotlin.coroutines.Continuation
-import kotlin.coroutines.intrinsics.COROUTINE_SUSPENDED
-import kotlin.coroutines.resume
-import kotlin.reflect.full.callSuspend
-import kotlin.reflect.full.declaredFunctions
 import kotlin.reflect.KVariance
-
-open class SuspendAwareHandler(private val impl: Any) : InvocationHandler {
-    private val eventHandlerScope = CoroutineScope(Dispatchers.Default) + CoroutineName("CDTHandler")
-
-    override fun invoke(proxy: Any, method: Method, args: Array<out Any>?): Any? {
-        val kFunc = impl::class.declaredFunctions.find { it.name == method.name } ?: return null
-        val realArgs = args ?: emptyArray()
-
-        // 检查是否是 suspend 函数
-        return if (kFunc.isSuspend) {
-            val cont = realArgs.last() as Continuation<Any?>
-            eventHandlerScope.launch(cont.context) {
-                val result = kFunc.callSuspend(impl, *realArgs.dropLast(1).toTypedArray())
-                cont.resume(result)
-            }
-            COROUTINE_SUSPENDED
-        } else {
-            kFunc.call(impl, *realArgs)
-        }
-    }
-}
 
 object ReflectUtils {
 
@@ -180,7 +153,7 @@ object ProxyClasses {
      */
     @Throws(Exception::class)
     fun <T> createProxyFromAbstract(
-        clazz: Class<T>, paramTypes: Array<Class<*>>, args: Array<Any>? = null, invocationHandler: SuspendAwareHandler
+        clazz: Class<T>, paramTypes: Array<Class<*>>, args: Array<Any>? = null, invocationHandler: InvocationHandler
     ): T {
         try {
             val factory = ProxyFactory()
@@ -221,7 +194,7 @@ object ProxyClasses {
     @Throws(Exception::class)
     fun <T> createCoroutineSupportedProxyFromAbstract(
         clazz: Class<T>, paramTypes: Array<Class<*>>, args: Array<Any>? = null,
-        invocationHandler: SuspendAwareHandler
+        invocationHandler: InvocationHandler
     ): T {
         if (isDebugEnabled) {
             debugParameters(clazz, paramTypes, args)
@@ -238,47 +211,11 @@ object ProxyClasses {
      * @param <T> Class type.
      * @return Proxy instance.
      */
-    fun <T> createProxy(clazz: Class<T>, invocationHandler: SuspendAwareHandler?): T {
-        val bridgeHandler = toJvmInvocationHandler(invocationHandler)
-
-        val proxy = Proxy.newProxyInstance(clazz.classLoader, arrayOf<Class<*>>(clazz), bridgeHandler)
+    fun <T> createProxy(clazz: Class<T>, invocationHandler: InvocationHandler?): T {
+        val proxy = Proxy.newProxyInstance(clazz.classLoader, arrayOf<Class<*>>(clazz), invocationHandler)
 
         @Suppress("UNCHECKED_CAST")
         return proxy as T
-    }
-
-    fun toJvmInvocationHandler(handler: SuspendAwareHandler?): InvocationHandler? {
-        if (alwaysTrue()) {
-            return handler
-        }
-
-
-        if (handler == null) {
-            return null
-        }
-
-        val bridgeHandler = InvocationHandler { proxy, method, methodArgs ->
-            if (isDebugEnabled) {
-                // Typical proxy:
-                //   - jdk.proxy1.$Proxy24
-                // Typical methods:
-                //   - public abstract void ai.platon.pulsar.cdt.protocol.commands.Page.enable()
-                //   - public abstract com...page.Navigate com...Page.navigate(java.lang.String)
-                debugParameters(proxy, method, methodArgs)
-            }
-
-            when (method.name) {
-                "equals" -> methodArgs?.getOrNull(0)?.let { proxy === it } ?: false
-                "hashCode" -> System.identityHashCode(proxy)
-                else -> {
-                    runBlocking {
-                        handler.invoke(proxy, method, methodArgs as Array<Any>?)
-                    }
-                }
-            }
-        }
-
-        return bridgeHandler
     }
 
     /**

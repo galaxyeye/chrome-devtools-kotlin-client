@@ -1,35 +1,8 @@
 package ai.platon.browser4.deprecated
 
-import kotlinx.coroutines.*
 import java.lang.reflect.*
 import kotlin.coroutines.Continuation
-import kotlin.coroutines.intrinsics.COROUTINE_SUSPENDED
-import kotlin.coroutines.resume
 import kotlin.reflect.KVariance
-import kotlin.reflect.full.callSuspend
-import kotlin.reflect.full.declaredFunctions
-
-open class SuspendAwareHandler(private val impl: Any) : InvocationHandler {
-    private val eventHandlerScope = CoroutineScope(SupervisorJob() + Dispatchers.Default + CoroutineName("CDTHandler"))
-
-    @Suppress("UNCHECKED_CAST")
-    override fun invoke(proxy: Any, method: Method, args: Array<out Any>?): Any? {
-        val kFunc = impl::class.declaredFunctions.find { it.name == method.name } ?: return null
-        val realArgs = args ?: emptyArray()
-
-        // 检查是否是 suspend 函数
-        return if (kFunc.isSuspend) {
-            val cont = realArgs.last() as Continuation<Any?>
-            eventHandlerScope.launch(cont.context) {
-                val result = kFunc.callSuspend(impl, *realArgs.dropLast(1).toTypedArray())
-                cont.resume(result)
-            }
-            COROUTINE_SUSPENDED
-        } else {
-            kFunc.call(impl, *realArgs)
-        }
-    }
-}
 
 /**
  * TODO: will remove reflection approach in the future, as it is too fragile and hard to maintain. The main reason for

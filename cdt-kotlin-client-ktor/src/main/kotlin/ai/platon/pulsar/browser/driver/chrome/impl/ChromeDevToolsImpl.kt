@@ -7,6 +7,7 @@ import ai.platon.pulsar.browser.driver.chrome.MethodInvocation
 import ai.platon.pulsar.browser.driver.chrome.RemoteDevTools
 import ai.platon.pulsar.browser.driver.chrome.Transport
 import ai.platon.pulsar.browser.driver.chrome.util.*
+import java.lang.reflect.InvocationHandler
 import ai.platon.pulsar.common.config.AppConstants
 import ai.platon.pulsar.common.readable
 import ai.platon.pulsar.common.sleepSeconds
@@ -25,8 +26,8 @@ import java.util.concurrent.CountDownLatch
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.reflect.KClass
 
-class CachedDevToolsInvocationHandlerProxies(impl: Any) : SuspendAwareHandler(impl) {
-    val commandHandler: DevToolsInvocationHandler = DevToolsInvocationHandler(impl)
+class CachedDevToolsInvocationHandlerProxies : InvocationHandler {
+    val commandHandler: DevToolsInvocationHandler = DevToolsInvocationHandler()
     val commands: MutableMap<Method, Any> = ConcurrentHashMap()
 
     init {

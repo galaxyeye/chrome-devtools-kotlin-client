@@ -4,7 +4,6 @@ import ai.platon.browser4.chrome.RemoteDevTools
 import ai.platon.browser4.chrome.util.ChromeIOException
 import ai.platon.browser4.chrome.util.ChromeRPCException
 import ai.platon.browser4.deprecated.ReflectUtils
-import ai.platon.browser4.deprecated.SuspendAwareHandler
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.EventName
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.ParamName
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.ReturnTypeParameter
@@ -16,6 +15,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
 import java.util.concurrent.atomic.AtomicLong
 import kotlin.coroutines.Continuation
@@ -23,7 +23,7 @@ import kotlin.coroutines.intrinsics.COROUTINE_SUSPENDED
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
-class DevToolsInvocationHandler(impl: Any) : SuspendAwareHandler(impl) {
+class DevToolsInvocationHandler : InvocationHandler {
     companion object {
         private const val EVENT_LISTENER_PREFIX = "on"
         private val ID_SUPPLIER = AtomicLong(1L)

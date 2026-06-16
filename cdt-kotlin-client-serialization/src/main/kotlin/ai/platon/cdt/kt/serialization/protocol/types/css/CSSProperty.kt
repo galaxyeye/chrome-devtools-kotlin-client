@@ -1,9 +1,11 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.css
 
+import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Boolean
 import kotlin.String
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -34,4 +36,8 @@ data class CSSProperty(
   @property:SerialName("range")
   @param:Optional
   val range: SourceRange? = null,
+  @property:SerialName("longhandProperties")
+  @param:Optional
+  @param:Experimental
+  val longhandProperties: List<CSSProperty>? = null,
 )

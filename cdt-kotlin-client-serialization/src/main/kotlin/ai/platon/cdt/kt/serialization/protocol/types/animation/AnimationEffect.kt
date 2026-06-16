@@ -20,7 +20,8 @@ data class AnimationEffect(
   @property:SerialName("iterationStart")
   val iterationStart: Double,
   @property:SerialName("iterations")
-  val iterations: Double,
+  @param:Optional
+  val iterations: Double? = null,
   @property:SerialName("duration")
   val duration: Double,
   @property:SerialName("direction")

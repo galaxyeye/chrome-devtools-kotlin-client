@@ -8,8 +8,8 @@ import kotlinx.serialization.Serializable
 public enum class CrossOriginEmbedderPolicyValue {
   @SerialName("None")
   NONE,
-  @SerialName("CorsOrCredentialless")
-  CORS_OR_CREDENTIALLESS,
+  @SerialName("Credentialless")
+  CREDENTIALLESS,
   @SerialName("RequireCorp")
   REQUIRE_CORP,
   UNKNOWN,

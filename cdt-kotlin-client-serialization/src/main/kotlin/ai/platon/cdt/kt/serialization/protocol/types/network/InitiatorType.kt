@@ -19,6 +19,8 @@ public enum class InitiatorType {
   SIGNED_EXCHANGE,
   @SerialName("preflight")
   PREFLIGHT,
+  @SerialName("FedCM")
+  FED_CM,
   @SerialName("other")
   OTHER,
   UNKNOWN,

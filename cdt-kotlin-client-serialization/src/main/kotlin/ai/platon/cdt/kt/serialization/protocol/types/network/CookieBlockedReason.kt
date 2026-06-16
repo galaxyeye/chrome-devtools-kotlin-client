@@ -25,6 +25,10 @@ public enum class CookieBlockedReason {
   SAME_SITE_NONE_INSECURE,
   @SerialName("UserPreferences")
   USER_PREFERENCES,
+  @SerialName("ThirdPartyPhaseout")
+  THIRD_PARTY_PHASEOUT,
+  @SerialName("ThirdPartyBlockedInFirstPartySet")
+  THIRD_PARTY_BLOCKED_IN_FIRST_PARTY_SET,
   @SerialName("UnknownError")
   UNKNOWN_ERROR,
   @SerialName("SchemefulSameSiteStrict")
@@ -33,7 +37,13 @@ public enum class CookieBlockedReason {
   SCHEMEFUL_SAME_SITE_LAX,
   @SerialName("SchemefulSameSiteUnspecifiedTreatedAsLax")
   SCHEMEFUL_SAME_SITE_UNSPECIFIED_TREATED_AS_LAX,
-  @SerialName("SamePartyFromCrossPartyContext")
-  SAME_PARTY_FROM_CROSS_PARTY_CONTEXT,
+  @SerialName("NameValuePairExceedsMaxSize")
+  NAME_VALUE_PAIR_EXCEEDS_MAX_SIZE,
+  @SerialName("PortMismatch")
+  PORT_MISMATCH,
+  @SerialName("SchemeMismatch")
+  SCHEME_MISMATCH,
+  @SerialName("AnonymousContext")
+  ANONYMOUS_CONTEXT,
   UNKNOWN,
 }

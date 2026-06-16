@@ -13,24 +13,44 @@ public enum class PseudoType {
   FIRST_LINE,
   @SerialName("first-letter")
   FIRST_LETTER,
+  @SerialName("checkmark")
+  CHECKMARK,
   @SerialName("before")
   BEFORE,
   @SerialName("after")
   AFTER,
+  @SerialName("expand-icon")
+  EXPAND_ICON,
+  @SerialName("picker-icon")
+  PICKER_ICON,
+  @SerialName("interest-button")
+  INTEREST_BUTTON,
   @SerialName("marker")
   MARKER,
   @SerialName("backdrop")
   BACKDROP,
+  @SerialName("column")
+  COLUMN,
   @SerialName("selection")
   SELECTION,
+  @SerialName("search-text")
+  SEARCH_TEXT,
   @SerialName("target-text")
   TARGET_TEXT,
   @SerialName("spelling-error")
   SPELLING_ERROR,
   @SerialName("grammar-error")
   GRAMMAR_ERROR,
+  @SerialName("highlight")
+  HIGHLIGHT,
   @SerialName("first-line-inherited")
   FIRST_LINE_INHERITED,
+  @SerialName("scroll-marker")
+  SCROLL_MARKER,
+  @SerialName("scroll-marker-group")
+  SCROLL_MARKER_GROUP,
+  @SerialName("scroll-button")
+  SCROLL_BUTTON,
   @SerialName("scrollbar")
   SCROLLBAR,
   @SerialName("scrollbar-thumb")
@@ -47,5 +67,31 @@ public enum class PseudoType {
   RESIZER,
   @SerialName("input-list-button")
   INPUT_LIST_BUTTON,
+  @SerialName("view-transition")
+  VIEW_TRANSITION,
+  @SerialName("view-transition-group")
+  VIEW_TRANSITION_GROUP,
+  @SerialName("view-transition-image-pair")
+  VIEW_TRANSITION_IMAGE_PAIR,
+  @SerialName("view-transition-group-children")
+  VIEW_TRANSITION_GROUP_CHILDREN,
+  @SerialName("view-transition-old")
+  VIEW_TRANSITION_OLD,
+  @SerialName("view-transition-new")
+  VIEW_TRANSITION_NEW,
+  @SerialName("placeholder")
+  PLACEHOLDER,
+  @SerialName("file-selector-button")
+  FILE_SELECTOR_BUTTON,
+  @SerialName("details-content")
+  DETAILS_CONTENT,
+  @SerialName("picker")
+  PICKER,
+  @SerialName("permission-icon")
+  PERMISSION_ICON,
+  @SerialName("overscroll-area-parent")
+  OVERSCROLL_AREA_PARENT,
+  @SerialName("skeleton")
+  SKELETON,
   UNKNOWN,
 }

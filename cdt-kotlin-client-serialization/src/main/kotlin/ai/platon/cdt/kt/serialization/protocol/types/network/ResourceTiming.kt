@@ -2,6 +2,7 @@
 package ai.platon.cdt.kt.serialization.protocol.types.network
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
+import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Double
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -41,6 +42,14 @@ data class ResourceTiming(
   @property:SerialName("workerRespondWithSettled")
   @param:Experimental
   val workerRespondWithSettled: Double,
+  @property:SerialName("workerRouterEvaluationStart")
+  @param:Optional
+  @param:Experimental
+  val workerRouterEvaluationStart: Double? = null,
+  @property:SerialName("workerCacheLookupStart")
+  @param:Optional
+  @param:Experimental
+  val workerCacheLookupStart: Double? = null,
   @property:SerialName("sendStart")
   val sendStart: Double,
   @property:SerialName("sendEnd")
@@ -51,6 +60,9 @@ data class ResourceTiming(
   @property:SerialName("pushEnd")
   @param:Experimental
   val pushEnd: Double,
+  @property:SerialName("receiveHeadersStart")
+  @param:Experimental
+  val receiveHeadersStart: Double,
   @property:SerialName("receiveHeadersEnd")
   val receiveHeadersEnd: Double,
 )

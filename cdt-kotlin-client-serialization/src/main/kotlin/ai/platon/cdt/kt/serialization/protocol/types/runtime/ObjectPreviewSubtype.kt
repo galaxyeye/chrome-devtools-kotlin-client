@@ -47,5 +47,7 @@ public enum class ObjectPreviewSubtype {
   WEBASSEMBLYMEMORY,
   @SerialName("wasmvalue")
   WASMVALUE,
+  @SerialName("trustedtype")
+  TRUSTEDTYPE,
   UNKNOWN,
 }

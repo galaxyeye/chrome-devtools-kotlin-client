@@ -1,6 +1,8 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.network
 
+import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
+import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
@@ -20,4 +22,8 @@ data class DataReceived(
   val dataLength: Int,
   @property:SerialName("encodedDataLength")
   val encodedDataLength: Int,
+  @property:SerialName("data")
+  @param:Optional
+  @param:Experimental
+  val `data`: String? = null,
 )

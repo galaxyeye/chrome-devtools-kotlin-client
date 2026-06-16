@@ -12,6 +12,10 @@ import kotlinx.serialization.Serializable
 data class CacheStorageContentUpdated(
   @property:SerialName("origin")
   val origin: String,
+  @property:SerialName("storageKey")
+  val storageKey: String,
+  @property:SerialName("bucketId")
+  val bucketId: String,
   @property:SerialName("cacheName")
   val cacheName: String,
 )

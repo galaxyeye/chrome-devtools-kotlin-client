@@ -6,6 +6,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 public enum class MixedContentResourceType {
+  @SerialName("AttributionSrc")
+  ATTRIBUTION_SRC,
   @SerialName("Audio")
   AUDIO,
   @SerialName("Beacon")
@@ -28,6 +30,8 @@ public enum class MixedContentResourceType {
   IMAGE,
   @SerialName("Import")
   IMPORT,
+  @SerialName("JSON")
+  JSON,
   @SerialName("Manifest")
   MANIFEST,
   @SerialName("Ping")
@@ -46,6 +50,8 @@ public enum class MixedContentResourceType {
   SERVICE_WORKER,
   @SerialName("SharedWorker")
   SHARED_WORKER,
+  @SerialName("SpeculationRules")
+  SPECULATION_RULES,
   @SerialName("Stylesheet")
   STYLESHEET,
   @SerialName("Track")

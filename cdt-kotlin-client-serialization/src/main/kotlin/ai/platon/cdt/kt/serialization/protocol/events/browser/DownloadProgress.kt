@@ -2,6 +2,7 @@
 package ai.platon.cdt.kt.serialization.protocol.events.browser
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
+import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.serialization.protocol.types.browser.DownloadProgressState
 import kotlin.Double
 import kotlin.String
@@ -22,4 +23,8 @@ data class DownloadProgress(
   val receivedBytes: Double,
   @property:SerialName("state")
   val state: DownloadProgressState,
+  @property:SerialName("filePath")
+  @param:Optional
+  @param:Experimental
+  val filePath: String? = null,
 )

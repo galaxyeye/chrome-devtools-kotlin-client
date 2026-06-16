@@ -21,6 +21,10 @@ public enum class SetCookieBlockedReason {
   SAME_SITE_NONE_INSECURE,
   @SerialName("UserPreferences")
   USER_PREFERENCES,
+  @SerialName("ThirdPartyPhaseout")
+  THIRD_PARTY_PHASEOUT,
+  @SerialName("ThirdPartyBlockedInFirstPartySet")
+  THIRD_PARTY_BLOCKED_IN_FIRST_PARTY_SET,
   @SerialName("SyntaxError")
   SYNTAX_ERROR,
   @SerialName("SchemeNotSupported")
@@ -39,9 +43,11 @@ public enum class SetCookieBlockedReason {
   SCHEMEFUL_SAME_SITE_LAX,
   @SerialName("SchemefulSameSiteUnspecifiedTreatedAsLax")
   SCHEMEFUL_SAME_SITE_UNSPECIFIED_TREATED_AS_LAX,
-  @SerialName("SamePartyFromCrossPartyContext")
-  SAME_PARTY_FROM_CROSS_PARTY_CONTEXT,
-  @SerialName("SamePartyConflictsWithOtherAttributes")
-  SAME_PARTY_CONFLICTS_WITH_OTHER_ATTRIBUTES,
+  @SerialName("NameValuePairExceedsMaxSize")
+  NAME_VALUE_PAIR_EXCEEDS_MAX_SIZE,
+  @SerialName("DisallowedCharacter")
+  DISALLOWED_CHARACTER,
+  @SerialName("NoCookieContent")
+  NO_COOKIE_CONTENT,
   UNKNOWN,
 }

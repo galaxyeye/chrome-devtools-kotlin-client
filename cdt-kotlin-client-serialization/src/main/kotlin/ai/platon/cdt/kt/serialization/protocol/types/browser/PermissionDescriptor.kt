@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
 
 /**
  * Definition of PermissionDescriptor defined in the Permissions API:
- * https://w3c.github.io/permissions/#dictdef-permissiondescriptor.
+ * https://w3c.github.io/permissions/#dom-permissiondescriptor.
  */
 @Serializable
 @Experimental
@@ -26,6 +26,9 @@ data class PermissionDescriptor(
   @property:SerialName("allowWithoutSanitization")
   @param:Optional
   val allowWithoutSanitization: Boolean? = null,
+  @property:SerialName("allowWithoutGesture")
+  @param:Optional
+  val allowWithoutGesture: Boolean? = null,
   @property:SerialName("panTiltZoom")
   @param:Optional
   val panTiltZoom: Boolean? = null,

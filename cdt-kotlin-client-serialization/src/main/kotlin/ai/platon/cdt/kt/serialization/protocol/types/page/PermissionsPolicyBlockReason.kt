@@ -13,5 +13,9 @@ public enum class PermissionsPolicyBlockReason {
   HEADER,
   @SerialName("IframeAttribute")
   IFRAME_ATTRIBUTE,
+  @SerialName("InFencedFrameTree")
+  IN_FENCED_FRAME_TREE,
+  @SerialName("InIsolatedApp")
+  IN_ISOLATED_APP,
   UNKNOWN,
 }

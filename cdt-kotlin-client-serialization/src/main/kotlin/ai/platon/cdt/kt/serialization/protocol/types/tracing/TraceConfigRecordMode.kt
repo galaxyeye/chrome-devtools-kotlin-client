@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * Controls how the trace buffer stores data.
+ * Controls how the trace buffer stores data. The default is `recordUntilFull`.
  */
 @Serializable
 public enum class TraceConfigRecordMode {

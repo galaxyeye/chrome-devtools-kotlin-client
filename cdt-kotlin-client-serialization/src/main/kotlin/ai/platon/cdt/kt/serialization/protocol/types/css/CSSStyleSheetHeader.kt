@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.css
 
+import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Boolean
 import kotlin.Double
@@ -51,4 +52,8 @@ data class CSSStyleSheetHeader(
   val endLine: Double,
   @property:SerialName("endColumn")
   val endColumn: Double,
+  @property:SerialName("loadingFailed")
+  @param:Optional
+  @param:Experimental
+  val loadingFailed: Boolean? = null,
 )

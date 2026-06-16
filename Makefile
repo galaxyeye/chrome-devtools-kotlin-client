@@ -106,7 +106,7 @@ generate-chrome-devtools-client-serialization:
 	@echo Generating chrome devtools client with kotlinx.serialization ...
 	$(RUN_JAR) $(CDT_PROTOCOL_BUILDER_JAR) --base-package="$(SERIALIZATION_PACKAGE_NAME)" \
 		--language=$(LANGUAGE) \
-		--serialization=true \
+		--serialization \
 		--output=./$(CDT_SERIALIZATION_CLIENT_DIR)/ \
 		--js-protocol=$(JS_PROTOCOL_JSON_FILE) \
 		--browser-protocol=$(BROWSER_PROTOCOL_JSON_FILE)
@@ -123,7 +123,7 @@ upgrade-protocol-serialization: copy-protocol-files-to-test-resources build-all-
 	@echo Upgrading serialization protocol
 	$(RUN_JAR) $(CDT_PROTOCOL_BUILDER_JAR) --base-package="$(SERIALIZATION_PACKAGE_NAME)" \
 		--language=$(LANGUAGE) \
-		--serialization=true \
+		--serialization \
 		--output=./$(CDT_SERIALIZATION_CLIENT_DIR)/ \
 		--js-protocol=$(JS_PROTOCOL_JSON_FILE) \
 		--browser-protocol=$(BROWSER_PROTOCOL_JSON_FILE)

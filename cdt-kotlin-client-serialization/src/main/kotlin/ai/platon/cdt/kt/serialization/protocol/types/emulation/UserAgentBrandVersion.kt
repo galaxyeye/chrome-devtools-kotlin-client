@@ -7,7 +7,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * Used to specify User Agent Cient Hints to emulate. See https://wicg.github.io/ua-client-hints
+ * Used to specify User Agent Client Hints to emulate. See https://wicg.github.io/ua-client-hints
  */
 @Serializable
 @Experimental

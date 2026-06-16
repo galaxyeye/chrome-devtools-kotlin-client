@@ -10,5 +10,7 @@ public enum class Ctap2Version {
   CTAP_2_0,
   @SerialName("ctap2_1")
   CTAP_2_1,
+  @SerialName("ctap2_2")
+  CTAP_2_2,
   UNKNOWN,
 }

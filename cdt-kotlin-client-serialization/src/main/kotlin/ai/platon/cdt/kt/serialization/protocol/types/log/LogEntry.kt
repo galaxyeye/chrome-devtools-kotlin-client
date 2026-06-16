@@ -22,6 +22,9 @@ data class LogEntry(
   val level: LogEntryLevel,
   @property:SerialName("text")
   val text: String,
+  @property:SerialName("category")
+  @param:Optional
+  val category: LogEntryCategory? = null,
   @property:SerialName("timestamp")
   val timestamp: Double,
   @property:SerialName("url")

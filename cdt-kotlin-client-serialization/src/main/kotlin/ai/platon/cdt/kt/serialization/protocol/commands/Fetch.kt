@@ -4,6 +4,7 @@ package ai.platon.cdt.kt.serialization.protocol.commands
 import ai.platon.cdt.kt.serialization.protocol.events.fetch.AuthRequired
 import ai.platon.cdt.kt.serialization.protocol.events.fetch.RequestPaused
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.EventName
+import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.ParamName
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Returns
@@ -60,7 +61,9 @@ interface Fetch {
    * series of name: value pairs. Prefer the above method unless you
    * need to represent some non-UTF8 values that can't be transmitted
    * over the protocol as text. (Encoded as a base64 string when passed over JSON)
-   * @param body A response body. (Encoded as a base64 string when passed over JSON)
+   * @param body A response body. If absent, original response body will be used if
+   * the request is intercepted at the response stage and empty body
+   * will be used if the request is intercepted at the request stage. (Encoded as a base64 string when passed over JSON)
    * @param responsePhrase A textual representation of responseCode.
    * If absent, a standard phrase matching responseCode is used.
    */
@@ -83,7 +86,10 @@ interface Fetch {
    * @param url If set, the request url will be modified in a way that's not observable by page.
    * @param method If set, the request method is overridden.
    * @param postData If set, overrides the post data in the request. (Encoded as a base64 string when passed over JSON)
-   * @param headers If set, overrides the request headers.
+   * @param headers If set, overrides the request headers. Note that the overrides do not
+   * extend to subsequent redirect hops, if a redirect happens. Another override
+   * may be applied to a different request produced by a redirect.
+   * @param interceptResponse If set, overrides response interception behavior for this request.
    */
   suspend fun continueRequest(
     @ParamName("requestId") requestId: String,
@@ -91,10 +97,11 @@ interface Fetch {
     @ParamName("method") @Optional method: String? = null,
     @ParamName("postData") @Optional postData: String? = null,
     @ParamName("headers") @Optional headers: List<HeaderEntry>? = null,
+    @ParamName("interceptResponse") @Optional @Experimental interceptResponse: Boolean? = null,
   )
 
   suspend fun continueRequest(@ParamName("requestId") requestId: String) {
-    return continueRequest(requestId, null, null, null, null)
+    return continueRequest(requestId, null, null, null, null, null)
   }
 
   /**
@@ -105,12 +112,44 @@ interface Fetch {
   suspend fun continueWithAuth(@ParamName("requestId") requestId: String, @ParamName("authChallengeResponse") authChallengeResponse: AuthChallengeResponse)
 
   /**
+   * Continues loading of the paused response, optionally modifying the
+   * response headers. If either responseCode or headers are modified, all of them
+   * must be present.
+   * @param requestId An id the client received in requestPaused event.
+   * @param responseCode An HTTP response code. If absent, original response code will be used.
+   * @param responsePhrase A textual representation of responseCode.
+   * If absent, a standard phrase matching responseCode is used.
+   * @param responseHeaders Response headers. If absent, original response headers will be used.
+   * @param binaryResponseHeaders Alternative way of specifying response headers as a \0-separated
+   * series of name: value pairs. Prefer the above method unless you
+   * need to represent some non-UTF8 values that can't be transmitted
+   * over the protocol as text. (Encoded as a base64 string when passed over JSON)
+   */
+  @Experimental
+  suspend fun continueResponse(
+    @ParamName("requestId") requestId: String,
+    @ParamName("responseCode") @Optional responseCode: Int? = null,
+    @ParamName("responsePhrase") @Optional responsePhrase: String? = null,
+    @ParamName("responseHeaders") @Optional responseHeaders: List<HeaderEntry>? = null,
+    @ParamName("binaryResponseHeaders") @Optional binaryResponseHeaders: String? = null,
+  )
+
+  @Experimental
+  suspend fun continueResponse(@ParamName("requestId") requestId: String) {
+    return continueResponse(requestId, null, null, null, null)
+  }
+
+  /**
    * Causes the body of the response to be received from the server and
    * returned as a single string. May only be issued for a request that
    * is paused in the Response stage and is mutually exclusive with
    * takeResponseBodyForInterceptionAsStream. Calling other methods that
    * affect the request or disabling fetch domain before body is received
    * results in an undefined behavior.
+   * Note that the response body is not available for redirects. Requests
+   * paused in the _redirect received_ state may be differentiated by
+   * `responseCode` and presence of `location` response header, see
+   * comments to `requestPaused` for details.
    * @param requestId Identifier for the intercepted request to get body for.
    */
   suspend fun getResponseBody(@ParamName("requestId") requestId: String): ResponseBody

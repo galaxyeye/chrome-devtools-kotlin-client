@@ -6,21 +6,25 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 public enum class ClientNavigationReason {
+  @SerialName("anchorClick")
+  ANCHOR_CLICK,
   @SerialName("formSubmissionGet")
   FORM_SUBMISSION_GET,
   @SerialName("formSubmissionPost")
   FORM_SUBMISSION_POST,
   @SerialName("httpHeaderRefresh")
   HTTP_HEADER_REFRESH,
-  @SerialName("scriptInitiated")
-  SCRIPT_INITIATED,
+  @SerialName("initialFrameNavigation")
+  INITIAL_FRAME_NAVIGATION,
   @SerialName("metaTagRefresh")
   META_TAG_REFRESH,
+  @SerialName("other")
+  OTHER,
   @SerialName("pageBlockInterstitial")
   PAGE_BLOCK_INTERSTITIAL,
   @SerialName("reload")
   RELOAD,
-  @SerialName("anchorClick")
-  ANCHOR_CLICK,
+  @SerialName("scriptInitiated")
+  SCRIPT_INITIATED,
   UNKNOWN,
 }

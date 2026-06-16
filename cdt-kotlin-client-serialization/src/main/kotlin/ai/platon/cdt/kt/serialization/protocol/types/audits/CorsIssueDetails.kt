@@ -22,6 +22,9 @@ data class CorsIssueDetails(
   val isWarning: Boolean,
   @property:SerialName("request")
   val request: AffectedRequest,
+  @property:SerialName("location")
+  @param:Optional
+  val location: SourceCodeLocation? = null,
   @property:SerialName("initiatorOrigin")
   @param:Optional
   val initiatorOrigin: String? = null,

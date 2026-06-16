@@ -5,6 +5,7 @@ import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.serialization.protocol.types.security.MixedContentType
 import kotlin.Boolean
+import kotlin.Deprecated
 import kotlin.String
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -27,6 +28,7 @@ data class Request(
   val headers: JsonObject?,
   @property:SerialName("postData")
   @param:Optional
+  @Deprecated("Deprecated by protocol")
   val postData: String? = null,
   @property:SerialName("hasPostData")
   @param:Optional
@@ -49,4 +51,12 @@ data class Request(
   @param:Optional
   @param:Experimental
   val trustTokenParams: TrustTokenParams? = null,
+  @property:SerialName("isSameSite")
+  @param:Optional
+  @param:Experimental
+  val isSameSite: Boolean? = null,
+  @property:SerialName("isAdRelated")
+  @param:Optional
+  @param:Experimental
+  val isAdRelated: Boolean? = null,
 )

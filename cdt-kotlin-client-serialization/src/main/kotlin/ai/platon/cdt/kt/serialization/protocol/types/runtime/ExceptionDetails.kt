@@ -1,11 +1,13 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.runtime
 
+import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Int
 import kotlin.String
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonObject
 
 /**
  * Detailed information about exception (or error) that was thrown during script compilation or
@@ -36,4 +38,8 @@ data class ExceptionDetails(
   @property:SerialName("executionContextId")
   @param:Optional
   val executionContextId: Int? = null,
+  @property:SerialName("exceptionMetaData")
+  @param:Optional
+  @param:Experimental
+  val exceptionMetaData: JsonObject? = null,
 )

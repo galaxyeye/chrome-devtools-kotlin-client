@@ -23,4 +23,6 @@ data class BackgroundServiceEvent(
   val instanceId: String,
   @property:SerialName("eventMetadata")
   val eventMetadata: List<EventMetadata>,
+  @property:SerialName("storageKey")
+  val storageKey: String,
 )

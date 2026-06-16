@@ -9,8 +9,6 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 public enum class DebugSymbolsType {
-  @SerialName("None")
-  NONE,
   @SerialName("SourceMap")
   SOURCE_MAP,
   @SerialName("EmbeddedDWARF")

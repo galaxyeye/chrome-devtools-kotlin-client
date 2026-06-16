@@ -57,7 +57,13 @@ public enum class CorsError {
   HEADER_DISALLOWED_BY_PREFLIGHT_RESPONSE,
   @SerialName("RedirectContainsCredentials")
   REDIRECT_CONTAINS_CREDENTIALS,
-  @SerialName("InsecurePrivateNetwork")
-  INSECURE_PRIVATE_NETWORK,
+  @SerialName("InsecureLocalNetwork")
+  INSECURE_LOCAL_NETWORK,
+  @SerialName("InvalidLocalNetworkAccess")
+  INVALID_LOCAL_NETWORK_ACCESS,
+  @SerialName("NoCorsRedirectModeNotFollow")
+  NO_CORS_REDIRECT_MODE_NOT_FOLLOW,
+  @SerialName("LocalNetworkAccessPermissionDenied")
+  LOCAL_NETWORK_ACCESS_PERMISSION_DENIED,
   UNKNOWN,
 }

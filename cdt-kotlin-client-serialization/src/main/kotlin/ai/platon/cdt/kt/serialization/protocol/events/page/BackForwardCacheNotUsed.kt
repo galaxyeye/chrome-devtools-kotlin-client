@@ -2,7 +2,11 @@
 package ai.platon.cdt.kt.serialization.protocol.events.page
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
+import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
+import ai.platon.cdt.kt.serialization.protocol.types.page.BackForwardCacheNotRestoredExplanation
+import ai.platon.cdt.kt.serialization.protocol.types.page.BackForwardCacheNotRestoredExplanationTree
 import kotlin.String
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -19,4 +23,9 @@ data class BackForwardCacheNotUsed(
   val loaderId: String,
   @property:SerialName("frameId")
   val frameId: String,
+  @property:SerialName("notRestoredExplanations")
+  val notRestoredExplanations: List<BackForwardCacheNotRestoredExplanation>,
+  @property:SerialName("notRestoredExplanationsTree")
+  @param:Optional
+  val notRestoredExplanationsTree: BackForwardCacheNotRestoredExplanationTree? = null,
 )

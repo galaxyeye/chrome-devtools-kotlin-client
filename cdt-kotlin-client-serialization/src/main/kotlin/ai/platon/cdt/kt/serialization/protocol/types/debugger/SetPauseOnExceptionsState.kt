@@ -11,6 +11,8 @@ import kotlinx.serialization.Serializable
 public enum class SetPauseOnExceptionsState {
   @SerialName("none")
   NONE,
+  @SerialName("caught")
+  CAUGHT,
   @SerialName("uncaught")
   UNCAUGHT,
   @SerialName("all")

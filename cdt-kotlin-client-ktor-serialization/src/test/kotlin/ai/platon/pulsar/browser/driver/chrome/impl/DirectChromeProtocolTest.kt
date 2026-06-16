@@ -683,7 +683,7 @@ class DirectChromeProtocolTest {
             Cookie(
                 name = "session", `value` = "abc123", domain = "example.com",
                 path = "/", expires = 9999999.0, size = 10, httpOnly = false, secure = true,
-                session = false, sameSite = null, priority = CookiePriority.MEDIUM, sameParty = false,
+                session = false, sameSite = null, priority = CookiePriority.MEDIUM,
                 sourceScheme = CookieSourceScheme.SECURE, sourcePort = 443,
             )
         )

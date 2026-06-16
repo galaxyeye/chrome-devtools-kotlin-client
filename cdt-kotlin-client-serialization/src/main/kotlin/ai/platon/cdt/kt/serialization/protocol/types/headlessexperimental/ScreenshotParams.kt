@@ -2,6 +2,7 @@
 package ai.platon.cdt.kt.serialization.protocol.types.headlessexperimental
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
+import kotlin.Boolean
 import kotlin.Int
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -17,4 +18,7 @@ data class ScreenshotParams(
   @property:SerialName("quality")
   @param:Optional
   val quality: Int? = null,
+  @property:SerialName("optimizeForSpeed")
+  @param:Optional
+  val optimizeForSpeed: Boolean? = null,
 )

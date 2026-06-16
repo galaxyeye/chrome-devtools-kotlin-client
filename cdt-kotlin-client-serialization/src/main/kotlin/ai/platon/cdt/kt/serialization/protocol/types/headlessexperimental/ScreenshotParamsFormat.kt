@@ -13,5 +13,7 @@ public enum class ScreenshotParamsFormat {
   JPEG,
   @SerialName("png")
   PNG,
+  @SerialName("webp")
+  WEBP,
   UNKNOWN,
 }

@@ -1,9 +1,11 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.network
 
+import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.serialization.protocol.types.security.SecurityState
 import kotlin.Boolean
+import kotlin.Deprecated
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
@@ -26,14 +28,18 @@ data class Response(
   val headers: JsonObject?,
   @property:SerialName("headersText")
   @param:Optional
+  @Deprecated("Deprecated by protocol")
   val headersText: String? = null,
   @property:SerialName("mimeType")
   val mimeType: String,
+  @property:SerialName("charset")
+  val charset: String,
   @property:SerialName("requestHeaders")
   @param:Optional
   val requestHeaders: JsonObject? = null,
   @property:SerialName("requestHeadersText")
   @param:Optional
+  @Deprecated("Deprecated by protocol")
   val requestHeadersText: String? = null,
   @property:SerialName("connectionReused")
   val connectionReused: Boolean,
@@ -54,6 +60,13 @@ data class Response(
   @property:SerialName("fromPrefetchCache")
   @param:Optional
   val fromPrefetchCache: Boolean? = null,
+  @property:SerialName("fromEarlyHints")
+  @param:Optional
+  val fromEarlyHints: Boolean? = null,
+  @property:SerialName("serviceWorkerRouterInfo")
+  @param:Optional
+  @param:Experimental
+  val serviceWorkerRouterInfo: ServiceWorkerRouterInfo? = null,
   @property:SerialName("encodedDataLength")
   val encodedDataLength: Double,
   @property:SerialName("timing")
@@ -71,6 +84,10 @@ data class Response(
   @property:SerialName("protocol")
   @param:Optional
   val protocol: String? = null,
+  @property:SerialName("alternateProtocolUsage")
+  @param:Optional
+  @param:Experimental
+  val alternateProtocolUsage: AlternateProtocolUsage? = null,
   @property:SerialName("securityState")
   val securityState: SecurityState,
   @property:SerialName("securityDetails")

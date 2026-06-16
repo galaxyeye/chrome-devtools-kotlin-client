@@ -27,4 +27,16 @@ data class Credential(
   @property:SerialName("largeBlob")
   @param:Optional
   val largeBlob: String? = null,
+  @property:SerialName("backupEligibility")
+  @param:Optional
+  val backupEligibility: Boolean? = null,
+  @property:SerialName("backupState")
+  @param:Optional
+  val backupState: Boolean? = null,
+  @property:SerialName("userName")
+  @param:Optional
+  val userName: String? = null,
+  @property:SerialName("userDisplayName")
+  @param:Optional
+  val userDisplayName: String? = null,
 )

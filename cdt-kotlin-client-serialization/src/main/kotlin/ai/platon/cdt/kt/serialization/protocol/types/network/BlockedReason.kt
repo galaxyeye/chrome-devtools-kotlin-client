@@ -19,6 +19,8 @@ public enum class BlockedReason {
   ORIGIN,
   @SerialName("inspector")
   INSPECTOR,
+  @SerialName("integrity")
+  INTEGRITY,
   @SerialName("subresource-filter")
   SUBRESOURCE_FILTER,
   @SerialName("content-type")
@@ -31,7 +33,13 @@ public enum class BlockedReason {
   CORP_NOT_SAME_ORIGIN,
   @SerialName("corp-not-same-origin-after-defaulted-to-same-origin-by-coep")
   CORP_NOT_SAME_ORIGIN_AFTER_DEFAULTED_TO_SAME_ORIGIN_BY_COEP,
+  @SerialName("corp-not-same-origin-after-defaulted-to-same-origin-by-dip")
+  CORP_NOT_SAME_ORIGIN_AFTER_DEFAULTED_TO_SAME_ORIGIN_BY_DIP,
+  @SerialName("corp-not-same-origin-after-defaulted-to-same-origin-by-coep-and-dip")
+  CORP_NOT_SAME_ORIGIN_AFTER_DEFAULTED_TO_SAME_ORIGIN_BY_COEP_AND_DIP,
   @SerialName("corp-not-same-site")
   CORP_NOT_SAME_SITE,
+  @SerialName("sri-message-signature-mismatch")
+  SRI_MESSAGE_SIGNATURE_MISMATCH,
   UNKNOWN,
 }

@@ -9,15 +9,12 @@ import kotlinx.serialization.Serializable
 
 /**
  * Details for issues around "Attribution Reporting API" usage.
- * Explainer: https://github.com/WICG/conversion-measurement-api
+ * Explainer: https://github.com/WICG/attribution-reporting-api
  */
 @Serializable
 data class AttributionReportingIssueDetails(
   @property:SerialName("violationType")
   val violationType: AttributionReportingIssueType,
-  @property:SerialName("frame")
-  @param:Optional
-  val frame: AffectedFrame? = null,
   @property:SerialName("request")
   @param:Optional
   val request: AffectedRequest? = null,

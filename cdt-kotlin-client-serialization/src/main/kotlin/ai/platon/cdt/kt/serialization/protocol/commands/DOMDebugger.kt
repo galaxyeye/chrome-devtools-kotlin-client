@@ -60,13 +60,6 @@ interface DOMDebugger {
   }
 
   /**
-   * Removes breakpoint on particular native event.
-   * @param eventName Instrumentation name to stop on.
-   */
-  @Experimental
-  suspend fun removeInstrumentationBreakpoint(@ParamName("eventName") eventName: String)
-
-  /**
    * Removes breakpoint from XMLHttpRequest.
    * @param url Resource URL substring.
    */
@@ -97,13 +90,6 @@ interface DOMDebugger {
   suspend fun setEventListenerBreakpoint(@ParamName("eventName") eventName: String) {
     return setEventListenerBreakpoint(eventName, null)
   }
-
-  /**
-   * Sets breakpoint on particular native event.
-   * @param eventName Instrumentation name to stop on.
-   */
-  @Experimental
-  suspend fun setInstrumentationBreakpoint(@ParamName("eventName") eventName: String)
 
   /**
    * Sets breakpoint on XMLHttpRequest.

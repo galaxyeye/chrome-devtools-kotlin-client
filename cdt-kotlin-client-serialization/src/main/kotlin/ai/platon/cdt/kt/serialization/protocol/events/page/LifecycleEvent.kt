@@ -7,7 +7,8 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * Fired for top level page lifecycle events such as navigation, load, paint, etc.
+ * Fired for lifecycle events (navigation, load, paint, etc) in the current
+ * target (including local frames).
  */
 @Serializable
 data class LifecycleEvent(

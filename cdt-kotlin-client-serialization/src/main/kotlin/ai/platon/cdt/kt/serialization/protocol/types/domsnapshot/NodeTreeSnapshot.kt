@@ -18,6 +18,9 @@ data class NodeTreeSnapshot(
   @property:SerialName("nodeType")
   @param:Optional
   val nodeType: List<Int>? = null,
+  @property:SerialName("shadowRootType")
+  @param:Optional
+  val shadowRootType: RareStringData? = null,
   @property:SerialName("nodeName")
   @param:Optional
   val nodeName: List<Int>? = null,
@@ -48,6 +51,9 @@ data class NodeTreeSnapshot(
   @property:SerialName("pseudoType")
   @param:Optional
   val pseudoType: RareStringData? = null,
+  @property:SerialName("pseudoIdentifier")
+  @param:Optional
+  val pseudoIdentifier: RareStringData? = null,
   @property:SerialName("isClickable")
   @param:Optional
   val isClickable: RareBooleanData? = null,

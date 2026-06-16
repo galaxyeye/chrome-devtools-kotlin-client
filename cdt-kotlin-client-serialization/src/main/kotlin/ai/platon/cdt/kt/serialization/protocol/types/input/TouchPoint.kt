@@ -32,12 +32,10 @@ data class TouchPoint(
   val tangentialPressure: Double? = null,
   @property:SerialName("tiltX")
   @param:Optional
-  @param:Experimental
-  val tiltX: Int? = null,
+  val tiltX: Double? = null,
   @property:SerialName("tiltY")
   @param:Optional
-  @param:Experimental
-  val tiltY: Int? = null,
+  val tiltY: Double? = null,
   @property:SerialName("twist")
   @param:Optional
   @param:Experimental

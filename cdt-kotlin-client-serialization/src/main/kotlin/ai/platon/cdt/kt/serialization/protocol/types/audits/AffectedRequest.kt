@@ -12,8 +12,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class AffectedRequest(
   @property:SerialName("requestId")
-  val requestId: String,
-  @property:SerialName("url")
   @param:Optional
-  val url: String? = null,
+  val requestId: String? = null,
+  @property:SerialName("url")
+  val url: String,
 )

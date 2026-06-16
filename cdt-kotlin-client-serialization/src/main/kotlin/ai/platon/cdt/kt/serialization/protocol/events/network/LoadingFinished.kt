@@ -1,8 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.network
 
-import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
-import kotlin.Boolean
 import kotlin.Double
 import kotlin.String
 import kotlinx.serialization.SerialName
@@ -19,7 +17,4 @@ data class LoadingFinished(
   val timestamp: Double,
   @property:SerialName("encodedDataLength")
   val encodedDataLength: Double,
-  @property:SerialName("shouldReportCorbBlocking")
-  @param:Optional
-  val shouldReportCorbBlocking: Boolean? = null,
 )

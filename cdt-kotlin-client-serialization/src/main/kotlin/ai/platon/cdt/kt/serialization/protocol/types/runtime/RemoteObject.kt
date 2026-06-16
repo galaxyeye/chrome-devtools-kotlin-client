@@ -30,6 +30,10 @@ data class RemoteObject(
   @property:SerialName("description")
   @param:Optional
   val description: String? = null,
+  @property:SerialName("deepSerializedValue")
+  @param:Optional
+  @param:Experimental
+  val deepSerializedValue: DeepSerializedValue? = null,
   @property:SerialName("objectId")
   @param:Optional
   val objectId: String? = null,

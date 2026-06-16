@@ -12,9 +12,13 @@ public enum class ContentSecurityPolicyViolationType {
   K_EVAL_VIOLATION,
   @SerialName("kURLViolation")
   K_URL_VIOLATION,
+  @SerialName("kSRIViolation")
+  K_SRI_VIOLATION,
   @SerialName("kTrustedTypesSinkViolation")
   K_TRUSTED_TYPES_SINK_VIOLATION,
   @SerialName("kTrustedTypesPolicyViolation")
   K_TRUSTED_TYPES_POLICY_VIOLATION,
+  @SerialName("kWasmEvalViolation")
+  K_WASM_EVAL_VIOLATION,
   UNKNOWN,
 }

@@ -9,8 +9,6 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 public enum class StorageType {
-  @SerialName("appcache")
-  APPCACHE,
   @SerialName("cookies")
   COOKIES,
   @SerialName("file_systems")
@@ -27,6 +25,12 @@ public enum class StorageType {
   SERVICE_WORKERS,
   @SerialName("cache_storage")
   CACHE_STORAGE,
+  @SerialName("interest_groups")
+  INTEREST_GROUPS,
+  @SerialName("shared_storage")
+  SHARED_STORAGE,
+  @SerialName("storage_buckets")
+  STORAGE_BUCKETS,
   @SerialName("all")
   ALL,
   @SerialName("other")

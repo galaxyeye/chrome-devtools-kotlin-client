@@ -35,4 +35,7 @@ data class ServiceWorkerVersion(
   @property:SerialName("targetId")
   @param:Optional
   val targetId: String? = null,
+  @property:SerialName("routerRules")
+  @param:Optional
+  val routerRules: String? = null,
 )

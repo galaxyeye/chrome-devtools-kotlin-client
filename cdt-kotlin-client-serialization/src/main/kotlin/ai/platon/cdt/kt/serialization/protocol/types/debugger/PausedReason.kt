@@ -33,5 +33,7 @@ public enum class PausedReason {
   PROMISE_REJECTION,
   @SerialName("XHR")
   XHR,
+  @SerialName("step")
+  STEP,
   UNKNOWN,
 }

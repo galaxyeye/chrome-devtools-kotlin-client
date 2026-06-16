@@ -1,7 +1,9 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.dom
 
+import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
+import ai.platon.cdt.kt.serialization.protocol.types.network.AdProvenance
 import kotlin.Boolean
 import kotlin.Deprecated
 import kotlin.Int
@@ -67,6 +69,9 @@ data class Node(
   @property:SerialName("pseudoType")
   @param:Optional
   val pseudoType: PseudoType? = null,
+  @property:SerialName("pseudoIdentifier")
+  @param:Optional
+  val pseudoIdentifier: String? = null,
   @property:SerialName("shadowRootType")
   @param:Optional
   val shadowRootType: ShadowRootType? = null,
@@ -95,4 +100,26 @@ data class Node(
   @property:SerialName("isSVG")
   @param:Optional
   val isSVG: Boolean? = null,
+  @property:SerialName("compatibilityMode")
+  @param:Optional
+  val compatibilityMode: CompatibilityMode? = null,
+  @property:SerialName("assignedSlot")
+  @param:Optional
+  val assignedSlot: BackendNode? = null,
+  @property:SerialName("isScrollable")
+  @param:Optional
+  @param:Experimental
+  val isScrollable: Boolean? = null,
+  @property:SerialName("affectedByStartingStyles")
+  @param:Optional
+  @param:Experimental
+  val affectedByStartingStyles: Boolean? = null,
+  @property:SerialName("adoptedStyleSheets")
+  @param:Optional
+  @param:Experimental
+  val adoptedStyleSheets: List<String>? = null,
+  @property:SerialName("adProvenance")
+  @param:Optional
+  @param:Experimental
+  val adProvenance: AdProvenance? = null,
 )

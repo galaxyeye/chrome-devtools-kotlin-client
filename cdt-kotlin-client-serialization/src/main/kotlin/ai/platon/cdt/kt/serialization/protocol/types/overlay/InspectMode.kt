@@ -12,8 +12,6 @@ public enum class InspectMode {
   SEARCH_FOR_UA_SHADOW_DOM,
   @SerialName("captureAreaScreenshot")
   CAPTURE_AREA_SCREENSHOT,
-  @SerialName("showDistances")
-  SHOW_DISTANCES,
   @SerialName("none")
   NONE,
   UNKNOWN,

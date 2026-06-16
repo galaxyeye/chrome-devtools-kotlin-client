@@ -35,4 +35,7 @@ data class Animation(
   @property:SerialName("cssId")
   @param:Optional
   val cssId: String? = null,
+  @property:SerialName("viewOrScrollTimeline")
+  @param:Optional
+  val viewOrScrollTimeline: ViewOrScrollTimeline? = null,
 )

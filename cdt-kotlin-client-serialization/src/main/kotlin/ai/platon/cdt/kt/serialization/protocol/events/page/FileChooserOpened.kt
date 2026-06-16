@@ -2,6 +2,7 @@
 package ai.platon.cdt.kt.serialization.protocol.events.page
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
+import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.serialization.protocol.types.page.FileChooserOpenedMode
 import kotlin.Int
 import kotlin.String
@@ -16,9 +17,10 @@ data class FileChooserOpened(
   @property:SerialName("frameId")
   @param:Experimental
   val frameId: String,
-  @property:SerialName("backendNodeId")
-  @param:Experimental
-  val backendNodeId: Int,
   @property:SerialName("mode")
   val mode: FileChooserOpenedMode,
+  @property:SerialName("backendNodeId")
+  @param:Optional
+  @param:Experimental
+  val backendNodeId: Int? = null,
 )

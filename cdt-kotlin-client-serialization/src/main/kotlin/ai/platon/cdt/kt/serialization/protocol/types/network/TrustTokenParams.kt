@@ -16,8 +16,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 @Experimental
 data class TrustTokenParams(
-  @property:SerialName("type")
-  val type: TrustTokenOperationType,
+  @property:SerialName("operation")
+  val operation: TrustTokenOperationType,
   @property:SerialName("refreshPolicy")
   val refreshPolicy: TrustTokenParamsRefreshPolicy,
   @property:SerialName("issuers")

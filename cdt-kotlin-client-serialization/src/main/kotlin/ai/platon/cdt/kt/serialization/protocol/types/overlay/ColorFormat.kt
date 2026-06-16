@@ -10,6 +10,8 @@ public enum class ColorFormat {
   RGB,
   @SerialName("hsl")
   HSL,
+  @SerialName("hwb")
+  HWB,
   @SerialName("hex")
   HEX,
   UNKNOWN,

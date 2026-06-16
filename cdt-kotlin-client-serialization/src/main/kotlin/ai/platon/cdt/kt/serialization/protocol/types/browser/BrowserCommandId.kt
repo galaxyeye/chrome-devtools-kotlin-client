@@ -13,5 +13,7 @@ public enum class BrowserCommandId {
   OPEN_TAB_SEARCH,
   @SerialName("closeTabSearch")
   CLOSE_TAB_SEARCH,
+  @SerialName("openGlic")
+  OPEN_GLIC,
   UNKNOWN,
 }

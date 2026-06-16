@@ -6,10 +6,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 public enum class IPAddressSpace {
+  @SerialName("Loopback")
+  LOOPBACK,
   @SerialName("Local")
   LOCAL,
-  @SerialName("Private")
-  PRIVATE,
   @SerialName("Public")
   PUBLIC,
   @SerialName("Unknown")

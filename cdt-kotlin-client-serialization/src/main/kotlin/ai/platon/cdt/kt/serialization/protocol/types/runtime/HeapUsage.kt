@@ -11,4 +11,8 @@ data class HeapUsage(
   val usedSize: Double,
   @property:SerialName("totalSize")
   val totalSize: Double,
+  @property:SerialName("embedderHeapUsedSize")
+  val embedderHeapUsedSize: Double,
+  @property:SerialName("backingStorageSize")
+  val backingStorageSize: Double,
 )

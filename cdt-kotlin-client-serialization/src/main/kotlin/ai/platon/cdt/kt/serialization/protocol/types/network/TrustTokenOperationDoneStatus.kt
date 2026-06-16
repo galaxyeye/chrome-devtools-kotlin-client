@@ -16,14 +16,18 @@ public enum class TrustTokenOperationDoneStatus {
   OK,
   @SerialName("InvalidArgument")
   INVALID_ARGUMENT,
+  @SerialName("MissingIssuerKeys")
+  MISSING_ISSUER_KEYS,
   @SerialName("FailedPrecondition")
   FAILED_PRECONDITION,
   @SerialName("ResourceExhausted")
   RESOURCE_EXHAUSTED,
   @SerialName("AlreadyExists")
   ALREADY_EXISTS,
-  @SerialName("Unavailable")
-  UNAVAILABLE,
+  @SerialName("ResourceLimited")
+  RESOURCE_LIMITED,
+  @SerialName("Unauthorized")
+  UNAUTHORIZED,
   @SerialName("BadResponse")
   BAD_RESPONSE,
   @SerialName("InternalError")
@@ -32,5 +36,7 @@ public enum class TrustTokenOperationDoneStatus {
   UNKNOWN_ERROR,
   @SerialName("FulfilledLocally")
   FULFILLED_LOCALLY,
+  @SerialName("SiteIssuerLimit")
+  SITE_ISSUER_LIMIT,
   UNKNOWN,
 }

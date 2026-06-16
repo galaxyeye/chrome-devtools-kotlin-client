@@ -16,10 +16,12 @@ import ai.platon.cdt.kt.serialization.protocol.support.types.EventHandler
 import ai.platon.cdt.kt.serialization.protocol.support.types.EventListener
 import ai.platon.cdt.kt.serialization.protocol.types.debugger.BreakLocation
 import ai.platon.cdt.kt.serialization.protocol.types.debugger.ContinueToLocationTargetCallFrames
+import ai.platon.cdt.kt.serialization.protocol.types.debugger.DisassembleWasmModule
 import ai.platon.cdt.kt.serialization.protocol.types.debugger.EvaluateOnCallFrame
 import ai.platon.cdt.kt.serialization.protocol.types.debugger.Location
 import ai.platon.cdt.kt.serialization.protocol.types.debugger.LocationRange
 import ai.platon.cdt.kt.serialization.protocol.types.debugger.RestartFrame
+import ai.platon.cdt.kt.serialization.protocol.types.debugger.RestartFrameMode
 import ai.platon.cdt.kt.serialization.protocol.types.debugger.ScriptPosition
 import ai.platon.cdt.kt.serialization.protocol.types.debugger.ScriptSource
 import ai.platon.cdt.kt.serialization.protocol.types.debugger.SearchMatch
@@ -28,6 +30,7 @@ import ai.platon.cdt.kt.serialization.protocol.types.debugger.SetBreakpointByUrl
 import ai.platon.cdt.kt.serialization.protocol.types.debugger.SetInstrumentationBreakpointInstrumentation
 import ai.platon.cdt.kt.serialization.protocol.types.debugger.SetPauseOnExceptionsState
 import ai.platon.cdt.kt.serialization.protocol.types.debugger.SetScriptSource
+import ai.platon.cdt.kt.serialization.protocol.types.debugger.WasmDisassemblyChunk
 import ai.platon.cdt.kt.serialization.protocol.types.runtime.CallArgument
 import ai.platon.cdt.kt.serialization.protocol.types.runtime.StackTrace
 import ai.platon.cdt.kt.serialization.protocol.types.runtime.StackTraceId
@@ -64,7 +67,7 @@ interface Debugger {
    * Enables debugger for the given page. Clients should not assume that the debugging has been
    * enabled until the result for this command is received.
    * @param maxScriptsCacheSize The maximum size in bytes of collected scripts (not referenced by other heap objects)
-   * the debugger can hold. Puts no limit if paramter is omitted.
+   * the debugger can hold. Puts no limit if parameter is omitted.
    */
   @Returns("debuggerId")
   suspend fun enable(@ParamName("maxScriptsCacheSize") @Optional @Experimental maxScriptsCacheSize: Double? = null): String
@@ -134,6 +137,23 @@ interface Debugger {
   suspend fun getScriptSource(@ParamName("scriptId") scriptId: String): ScriptSource
 
   /**
+   * @param scriptId Id of the script to disassemble
+   */
+  @Experimental
+  suspend fun disassembleWasmModule(@ParamName("scriptId") scriptId: String): DisassembleWasmModule
+
+  /**
+   * Disassemble the next chunk of lines for the module corresponding to the
+   * stream. If disassembly is complete, this API will invalidate the streamId
+   * and return an empty chunk. Any subsequent calls for the now invalid stream
+   * will return errors.
+   * @param streamId
+   */
+  @Experimental
+  @Returns("chunk")
+  suspend fun nextWasmDisassemblyChunk(@ParamName("streamId") streamId: String): WasmDisassemblyChunk
+
+  /**
    * This command is deprecated. Use getScriptSource instead.
    * @param scriptId Id of the Wasm script to get source for.
    */
@@ -168,10 +188,28 @@ interface Debugger {
   suspend fun removeBreakpoint(@ParamName("breakpointId") breakpointId: String)
 
   /**
-   * Restarts particular call frame from the beginning.
+   * Restarts particular call frame from the beginning. The old, deprecated
+   * behavior of `restartFrame` is to stay paused and allow further CDP commands
+   * after a restart was scheduled. This can cause problems with restarting, so
+   * we now continue execution immediatly after it has been scheduled until we
+   * reach the beginning of the restarted frame.
+   *
+   * To stay back-wards compatible, `restartFrame` now expects a `mode`
+   * parameter to be present. If the `mode` parameter is missing, `restartFrame`
+   * errors out.
+   *
+   * The various return values are deprecated and `callFrames` is always empty.
+   * Use the call frames from the `Debugger#paused` events instead, that fires
+   * once V8 pauses at the beginning of the restarted function.
    * @param callFrameId Call frame identifier to evaluate on.
+   * @param mode The `mode` parameter must be present and set to 'StepInto', otherwise
+   * `restartFrame` will error out.
    */
-  suspend fun restartFrame(@ParamName("callFrameId") callFrameId: String): RestartFrame
+  suspend fun restartFrame(@ParamName("callFrameId") callFrameId: String, @ParamName("mode") @Optional @Experimental mode: RestartFrameMode? = null): RestartFrame
+
+  suspend fun restartFrame(@ParamName("callFrameId") callFrameId: String): RestartFrame {
+    return restartFrame(callFrameId, null)
+  }
 
   /**
    * Resumes JavaScript execution.
@@ -217,13 +255,28 @@ interface Debugger {
   suspend fun setAsyncCallStackDepth(@ParamName("maxDepth") maxDepth: Int)
 
   /**
+   * Replace previous blackbox execution contexts with passed ones. Forces backend to skip
+   * stepping/pausing in scripts in these execution contexts. VM will try to leave blackboxed script by
+   * performing 'step in' several times, finally resorting to 'step out' if unsuccessful.
+   * @param uniqueIds Array of execution context unique ids for the debugger to ignore.
+   */
+  @Experimental
+  suspend fun setBlackboxExecutionContexts(@ParamName("uniqueIds") uniqueIds: List<String>)
+
+  /**
    * Replace previous blackbox patterns with passed ones. Forces backend to skip stepping/pausing in
    * scripts with url matching one of the patterns. VM will try to leave blackboxed script by
    * performing 'step in' several times, finally resorting to 'step out' if unsuccessful.
    * @param patterns Array of regexps that will be used to check script url for blackbox state.
+   * @param skipAnonymous If true, also ignore scripts with no source url.
    */
   @Experimental
-  suspend fun setBlackboxPatterns(@ParamName("patterns") patterns: List<String>)
+  suspend fun setBlackboxPatterns(@ParamName("patterns") patterns: List<String>, @ParamName("skipAnonymous") @Optional skipAnonymous: Boolean? = null)
+
+  @Experimental
+  suspend fun setBlackboxPatterns(@ParamName("patterns") patterns: List<String>) {
+    return setBlackboxPatterns(patterns, null)
+  }
 
   /**
    * Makes backend skip steps in the script in blackboxed ranges. VM will try leave blacklisted
@@ -307,8 +360,8 @@ interface Debugger {
   suspend fun setBreakpointsActive(@ParamName("active") active: Boolean)
 
   /**
-   * Defines pause on exceptions state. Can be set to stop on all exceptions, uncaught exceptions or
-   * no exceptions. Initial pause on exceptions state is `none`.
+   * Defines pause on exceptions state. Can be set to stop on all exceptions, uncaught exceptions,
+   * or caught exceptions, no exceptions. Initial pause on exceptions state is `none`.
    * @param state Pause on exceptions mode.
    */
   suspend fun setPauseOnExceptions(@ParamName("state") state: SetPauseOnExceptionsState)
@@ -322,19 +375,28 @@ interface Debugger {
 
   /**
    * Edits JavaScript source live.
+   *
+   * In general, functions that are currently on the stack can not be edited with
+   * a single exception: If the edited function is the top-most stack frame and
+   * that is the only activation of that function on the stack. In this case
+   * the live edit will be successful and a `Debugger.restartFrame` for the
+   * top-most function is automatically triggered.
    * @param scriptId Id of the script to edit.
    * @param scriptSource New content of the script.
    * @param dryRun If true the change will not actually be applied. Dry run may be used to get result
    * description without actually modifying the code.
+   * @param allowTopFrameEditing If true, then `scriptSource` is allowed to change the function on top of the stack
+   * as long as the top-most stack frame is the only activation of that function.
    */
   suspend fun setScriptSource(
     @ParamName("scriptId") scriptId: String,
     @ParamName("scriptSource") scriptSource: String,
     @ParamName("dryRun") @Optional dryRun: Boolean? = null,
+    @ParamName("allowTopFrameEditing") @Optional @Experimental allowTopFrameEditing: Boolean? = null,
   ): SetScriptSource
 
   suspend fun setScriptSource(@ParamName("scriptId") scriptId: String, @ParamName("scriptSource") scriptSource: String): SetScriptSource {
-    return setScriptSource(scriptId, scriptSource, null)
+    return setScriptSource(scriptId, scriptSource, null, null)
   }
 
   /**
@@ -387,9 +449,11 @@ interface Debugger {
   }
 
   @EventName("breakpointResolved")
+  @Deprecated("Deprecated by protocol")
   fun onBreakpointResolved(eventListener: EventHandler<BreakpointResolved>): EventListener
 
   @EventName("breakpointResolved")
+  @Deprecated("Deprecated by protocol")
   fun onBreakpointResolved(eventListener: suspend (BreakpointResolved) -> Unit): EventListener
 
   @EventName("paused")

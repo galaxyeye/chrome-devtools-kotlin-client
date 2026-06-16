@@ -14,6 +14,8 @@ import kotlinx.serialization.Serializable
 data class PlatformFontUsage(
   @property:SerialName("familyName")
   val familyName: String,
+  @property:SerialName("postScriptName")
+  val postScriptName: String,
   @property:SerialName("isCustomFont")
   val isCustomFont: Boolean,
   @property:SerialName("glyphCount")

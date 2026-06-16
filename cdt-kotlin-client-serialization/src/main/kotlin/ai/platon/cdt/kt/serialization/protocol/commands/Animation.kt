@@ -4,6 +4,7 @@ package ai.platon.cdt.kt.serialization.protocol.commands
 import ai.platon.cdt.kt.serialization.protocol.events.animation.AnimationCanceled
 import ai.platon.cdt.kt.serialization.protocol.events.animation.AnimationCreated
 import ai.platon.cdt.kt.serialization.protocol.events.animation.AnimationStarted
+import ai.platon.cdt.kt.serialization.protocol.events.animation.AnimationUpdated
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.EventName
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.ParamName
@@ -104,4 +105,10 @@ interface Animation {
 
   @EventName("animationStarted")
   fun onAnimationStarted(eventListener: suspend (AnimationStarted) -> Unit): EventListener
+
+  @EventName("animationUpdated")
+  fun onAnimationUpdated(eventListener: EventHandler<AnimationUpdated>): EventListener
+
+  @EventName("animationUpdated")
+  fun onAnimationUpdated(eventListener: suspend (AnimationUpdated) -> Unit): EventListener
 }

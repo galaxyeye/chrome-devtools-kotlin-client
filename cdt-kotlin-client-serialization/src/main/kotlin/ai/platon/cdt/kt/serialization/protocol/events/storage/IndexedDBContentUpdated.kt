@@ -12,6 +12,10 @@ import kotlinx.serialization.Serializable
 data class IndexedDBContentUpdated(
   @property:SerialName("origin")
   val origin: String,
+  @property:SerialName("storageKey")
+  val storageKey: String,
+  @property:SerialName("bucketId")
+  val bucketId: String,
   @property:SerialName("databaseName")
   val databaseName: String,
   @property:SerialName("objectStoreName")

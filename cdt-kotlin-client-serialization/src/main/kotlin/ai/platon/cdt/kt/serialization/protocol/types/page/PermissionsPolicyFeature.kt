@@ -6,18 +6,33 @@ import kotlinx.serialization.Serializable
 
 /**
  * All Permissions Policy features. This enum should match the one defined
- * in renderer/core/feature_policy/feature_policy_features.json5.
+ * in services/network/public/cpp/permissions_policy/permissions_policy_features.json5.
+ * LINT.IfChange(PermissionsPolicyFeature)
  */
 @Serializable
 public enum class PermissionsPolicyFeature {
   @SerialName("accelerometer")
   ACCELEROMETER,
+  @SerialName("all-screens-capture")
+  ALL_SCREENS_CAPTURE,
   @SerialName("ambient-light-sensor")
   AMBIENT_LIGHT_SENSOR,
+  @SerialName("aria-notify")
+  ARIA_NOTIFY,
+  @SerialName("attribution-reporting")
+  ATTRIBUTION_REPORTING,
+  @SerialName("autofill")
+  AUTOFILL,
   @SerialName("autoplay")
   AUTOPLAY,
+  @SerialName("bluetooth")
+  BLUETOOTH,
+  @SerialName("browsing-topics")
+  BROWSING_TOPICS,
   @SerialName("camera")
   CAMERA,
+  @SerialName("captured-surface-control")
+  CAPTURED_SURFACE_CONTROL,
   @SerialName("ch-dpr")
   CH_DPR,
   @SerialName("ch-device-memory")
@@ -26,24 +41,42 @@ public enum class PermissionsPolicyFeature {
   CH_DOWNLINK,
   @SerialName("ch-ect")
   CH_ECT,
-  @SerialName("ch-lang")
-  CH_LANG,
+  @SerialName("ch-prefers-color-scheme")
+  CH_PREFERS_COLOR_SCHEME,
+  @SerialName("ch-prefers-reduced-motion")
+  CH_PREFERS_REDUCED_MOTION,
+  @SerialName("ch-prefers-reduced-transparency")
+  CH_PREFERS_REDUCED_TRANSPARENCY,
   @SerialName("ch-rtt")
   CH_RTT,
+  @SerialName("ch-save-data")
+  CH_SAVE_DATA,
   @SerialName("ch-ua")
   CH_UA,
   @SerialName("ch-ua-arch")
   CH_UA_ARCH,
+  @SerialName("ch-ua-bitness")
+  CH_UA_BITNESS,
+  @SerialName("ch-ua-high-entropy-values")
+  CH_UA_HIGH_ENTROPY_VALUES,
   @SerialName("ch-ua-platform")
   CH_UA_PLATFORM,
   @SerialName("ch-ua-model")
   CH_UA_MODEL,
   @SerialName("ch-ua-mobile")
   CH_UA_MOBILE,
+  @SerialName("ch-ua-form-factors")
+  CH_UA_FORM_FACTORS,
   @SerialName("ch-ua-full-version")
   CH_UA_FULL_VERSION,
+  @SerialName("ch-ua-full-version-list")
+  CH_UA_FULL_VERSION_LIST,
   @SerialName("ch-ua-platform-version")
   CH_UA_PLATFORM_VERSION,
+  @SerialName("ch-ua-wow64")
+  CH_UA_WOW_64,
+  @SerialName("ch-viewport-height")
+  CH_VIEWPORT_HEIGHT,
   @SerialName("ch-viewport-width")
   CH_VIEWPORT_WIDTH,
   @SerialName("ch-width")
@@ -52,10 +85,26 @@ public enum class PermissionsPolicyFeature {
   CLIPBOARD_READ,
   @SerialName("clipboard-write")
   CLIPBOARD_WRITE,
-  @SerialName("conversion-measurement")
-  CONVERSION_MEASUREMENT,
+  @SerialName("compute-pressure")
+  COMPUTE_PRESSURE,
+  @SerialName("controlled-frame")
+  CONTROLLED_FRAME,
   @SerialName("cross-origin-isolated")
   CROSS_ORIGIN_ISOLATED,
+  @SerialName("deferred-fetch")
+  DEFERRED_FETCH,
+  @SerialName("deferred-fetch-minimal")
+  DEFERRED_FETCH_MINIMAL,
+  @SerialName("device-attributes")
+  DEVICE_ATTRIBUTES,
+  @SerialName("digital-credentials-create")
+  DIGITAL_CREDENTIALS_CREATE,
+  @SerialName("digital-credentials-get")
+  DIGITAL_CREDENTIALS_GET,
+  @SerialName("direct-sockets")
+  DIRECT_SOCKETS,
+  @SerialName("direct-sockets-multicast")
+  DIRECT_SOCKETS_MULTICAST,
   @SerialName("display-capture")
   DISPLAY_CAPTURE,
   @SerialName("document-domain")
@@ -80,40 +129,106 @@ public enum class PermissionsPolicyFeature {
   GYROSCOPE,
   @SerialName("hid")
   HID,
+  @SerialName("identity-credentials-get")
+  IDENTITY_CREDENTIALS_GET,
   @SerialName("idle-detection")
   IDLE_DETECTION,
   @SerialName("interest-cohort")
   INTEREST_COHORT,
+  @SerialName("join-ad-interest-group")
+  JOIN_AD_INTEREST_GROUP,
+  @SerialName("keyboard-map")
+  KEYBOARD_MAP,
+  @SerialName("language-detector")
+  LANGUAGE_DETECTOR,
+  @SerialName("language-model")
+  LANGUAGE_MODEL,
+  @SerialName("local-fonts")
+  LOCAL_FONTS,
+  @SerialName("local-network")
+  LOCAL_NETWORK,
+  @SerialName("local-network-access")
+  LOCAL_NETWORK_ACCESS,
+  @SerialName("loopback-network")
+  LOOPBACK_NETWORK,
   @SerialName("magnetometer")
   MAGNETOMETER,
+  @SerialName("manual-text")
+  MANUAL_TEXT,
+  @SerialName("media-playback-while-not-visible")
+  MEDIA_PLAYBACK_WHILE_NOT_VISIBLE,
   @SerialName("microphone")
   MICROPHONE,
   @SerialName("midi")
   MIDI,
+  @SerialName("on-device-speech-recognition")
+  ON_DEVICE_SPEECH_RECOGNITION,
   @SerialName("otp-credentials")
   OTP_CREDENTIALS,
   @SerialName("payment")
   PAYMENT,
   @SerialName("picture-in-picture")
   PICTURE_IN_PICTURE,
+  @SerialName("private-aggregation")
+  PRIVATE_AGGREGATION,
+  @SerialName("private-state-token-issuance")
+  PRIVATE_STATE_TOKEN_ISSUANCE,
+  @SerialName("private-state-token-redemption")
+  PRIVATE_STATE_TOKEN_REDEMPTION,
+  @SerialName("publickey-credentials-create")
+  PUBLICKEY_CREDENTIALS_CREATE,
   @SerialName("publickey-credentials-get")
   PUBLICKEY_CREDENTIALS_GET,
+  @SerialName("record-ad-auction-events")
+  RECORD_AD_AUCTION_EVENTS,
+  @SerialName("rewriter")
+  REWRITER,
+  @SerialName("run-ad-auction")
+  RUN_AD_AUCTION,
   @SerialName("screen-wake-lock")
   SCREEN_WAKE_LOCK,
   @SerialName("serial")
   SERIAL,
-  @SerialName("storage-access-api")
-  STORAGE_ACCESS_API,
+  @SerialName("shared-storage")
+  SHARED_STORAGE,
+  @SerialName("shared-storage-select-url")
+  SHARED_STORAGE_SELECT_URL,
+  @SerialName("smart-card")
+  SMART_CARD,
+  @SerialName("speaker-selection")
+  SPEAKER_SELECTION,
+  @SerialName("storage-access")
+  STORAGE_ACCESS,
+  @SerialName("sub-apps")
+  SUB_APPS,
+  @SerialName("summarizer")
+  SUMMARIZER,
   @SerialName("sync-xhr")
   SYNC_XHR,
-  @SerialName("trust-token-redemption")
-  TRUST_TOKEN_REDEMPTION,
+  @SerialName("tools")
+  TOOLS,
+  @SerialName("translator")
+  TRANSLATOR,
+  @SerialName("unload")
+  UNLOAD,
   @SerialName("usb")
   USB,
+  @SerialName("usb-unrestricted")
+  USB_UNRESTRICTED,
   @SerialName("vertical-scroll")
   VERTICAL_SCROLL,
+  @SerialName("web-app-installation")
+  WEB_APP_INSTALLATION,
+  @SerialName("webnn")
+  WEBNN,
+  @SerialName("web-printing")
+  WEB_PRINTING,
   @SerialName("web-share")
   WEB_SHARE,
+  @SerialName("window-management")
+  WINDOW_MANAGEMENT,
+  @SerialName("writer")
+  WRITER,
   @SerialName("xr-spatial-tracking")
   XR_SPATIAL_TRACKING,
   UNKNOWN,

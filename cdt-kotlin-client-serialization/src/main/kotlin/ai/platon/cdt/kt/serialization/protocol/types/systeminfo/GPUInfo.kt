@@ -27,6 +27,4 @@ data class GPUInfo(
   val videoDecoding: List<VideoDecodeAcceleratorCapability>,
   @property:SerialName("videoEncoding")
   val videoEncoding: List<VideoEncodeAcceleratorCapability>,
-  @property:SerialName("imageDecoding")
-  val imageDecoding: List<ImageDecodeAcceleratorCapability>,
 )

@@ -3,6 +3,7 @@ package ai.platon.cdt.kt.serialization.protocol.types.network
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
+import kotlin.Boolean
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -15,6 +16,8 @@ import kotlinx.serialization.Serializable
 data class SignedExchangeInfo(
   @property:SerialName("outerResponse")
   val outerResponse: Response,
+  @property:SerialName("hasExtraInfo")
+  val hasExtraInfo: Boolean,
   @property:SerialName("header")
   @param:Optional
   val `header`: SignedExchangeHeader? = null,

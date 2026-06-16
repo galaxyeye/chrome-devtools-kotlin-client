@@ -27,6 +27,8 @@ public enum class ResourceType {
   XHR,
   @SerialName("Fetch")
   FETCH,
+  @SerialName("Prefetch")
+  PREFETCH,
   @SerialName("EventSource")
   EVENT_SOURCE,
   @SerialName("WebSocket")
@@ -41,6 +43,8 @@ public enum class ResourceType {
   CSP_VIOLATION_REPORT,
   @SerialName("Preflight")
   PREFLIGHT,
+  @SerialName("FedCM")
+  FED_CM,
   @SerialName("Other")
   OTHER,
   UNKNOWN,

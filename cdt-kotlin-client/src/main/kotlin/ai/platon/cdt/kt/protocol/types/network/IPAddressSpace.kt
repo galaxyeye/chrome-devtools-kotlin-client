@@ -15,3 +15,4 @@ public enum class IPAddressSpace {
   @JsonEnumDefaultValue
   UNKNOWN,
 }
+

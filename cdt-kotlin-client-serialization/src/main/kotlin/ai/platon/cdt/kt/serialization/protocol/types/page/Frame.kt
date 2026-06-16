@@ -34,16 +34,20 @@ data class Frame(
   val domainAndRegistry: String,
   @property:SerialName("securityOrigin")
   val securityOrigin: String,
+  @property:SerialName("securityOriginDetails")
+  @param:Optional
+  @param:Experimental
+  val securityOriginDetails: SecurityOriginDetails? = null,
   @property:SerialName("mimeType")
   val mimeType: String,
   @property:SerialName("unreachableUrl")
   @param:Optional
   @param:Experimental
   val unreachableUrl: String? = null,
-  @property:SerialName("adFrameType")
+  @property:SerialName("adFrameStatus")
   @param:Optional
   @param:Experimental
-  val adFrameType: AdFrameType? = null,
+  val adFrameStatus: AdFrameStatus? = null,
   @property:SerialName("secureContextType")
   @param:Experimental
   val secureContextType: SecureContextType,

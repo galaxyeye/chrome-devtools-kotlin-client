@@ -27,10 +27,28 @@ data class VirtualAuthenticatorOptions(
   @property:SerialName("hasCredBlob")
   @param:Optional
   val hasCredBlob: Boolean? = null,
+  @property:SerialName("hasMinPinLength")
+  @param:Optional
+  val hasMinPinLength: Boolean? = null,
+  @property:SerialName("hasPrf")
+  @param:Optional
+  val hasPrf: Boolean? = null,
+  @property:SerialName("hasHmacSecret")
+  @param:Optional
+  val hasHmacSecret: Boolean? = null,
+  @property:SerialName("hasHmacSecretMc")
+  @param:Optional
+  val hasHmacSecretMc: Boolean? = null,
   @property:SerialName("automaticPresenceSimulation")
   @param:Optional
   val automaticPresenceSimulation: Boolean? = null,
   @property:SerialName("isUserVerified")
   @param:Optional
   val isUserVerified: Boolean? = null,
+  @property:SerialName("defaultBackupEligibility")
+  @param:Optional
+  val defaultBackupEligibility: Boolean? = null,
+  @property:SerialName("defaultBackupState")
+  @param:Optional
+  val defaultBackupState: Boolean? = null,
 )

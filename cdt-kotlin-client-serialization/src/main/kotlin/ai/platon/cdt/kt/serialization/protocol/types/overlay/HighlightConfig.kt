@@ -66,4 +66,7 @@ data class HighlightConfig(
   @property:SerialName("contrastAlgorithm")
   @param:Optional
   val contrastAlgorithm: ContrastAlgorithm? = null,
+  @property:SerialName("containerQueryContainerHighlightConfig")
+  @param:Optional
+  val containerQueryContainerHighlightConfig: ContainerQueryContainerHighlightConfig? = null,
 )

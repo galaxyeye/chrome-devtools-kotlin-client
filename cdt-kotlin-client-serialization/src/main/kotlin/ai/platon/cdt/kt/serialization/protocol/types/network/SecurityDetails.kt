@@ -2,6 +2,7 @@
 package ai.platon.cdt.kt.serialization.protocol.types.network
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
+import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
@@ -42,4 +43,9 @@ data class SecurityDetails(
   val signedCertificateTimestampList: List<SignedCertificateTimestamp>,
   @property:SerialName("certificateTransparencyCompliance")
   val certificateTransparencyCompliance: CertificateTransparencyCompliance,
+  @property:SerialName("serverSignatureAlgorithm")
+  @param:Optional
+  val serverSignatureAlgorithm: Int? = null,
+  @property:SerialName("encryptedClientHello")
+  val encryptedClientHello: Boolean,
 )

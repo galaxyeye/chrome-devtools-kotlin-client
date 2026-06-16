@@ -4,11 +4,13 @@ package ai.platon.cdt.kt.serialization.protocol.events.debugger
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.serialization.protocol.types.debugger.DebugSymbols
+import ai.platon.cdt.kt.serialization.protocol.types.debugger.ResolvedBreakpoint
 import ai.platon.cdt.kt.serialization.protocol.types.debugger.ScriptLanguage
 import ai.platon.cdt.kt.serialization.protocol.types.runtime.StackTrace
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonObject
@@ -35,6 +37,8 @@ data class ScriptParsed(
   val executionContextId: Int,
   @property:SerialName("hash")
   val hash: String,
+  @property:SerialName("buildId")
+  val buildId: String,
   @property:SerialName("executionContextAuxData")
   @param:Optional
   val executionContextAuxData: JsonObject? = null,
@@ -69,9 +73,13 @@ data class ScriptParsed(
   @property:SerialName("debugSymbols")
   @param:Optional
   @param:Experimental
-  val debugSymbols: DebugSymbols? = null,
+  val debugSymbols: List<DebugSymbols>? = null,
   @property:SerialName("embedderName")
   @param:Optional
   @param:Experimental
   val embedderName: String? = null,
+  @property:SerialName("resolvedBreakpoints")
+  @param:Optional
+  @param:Experimental
+  val resolvedBreakpoints: List<ResolvedBreakpoint>? = null,
 )

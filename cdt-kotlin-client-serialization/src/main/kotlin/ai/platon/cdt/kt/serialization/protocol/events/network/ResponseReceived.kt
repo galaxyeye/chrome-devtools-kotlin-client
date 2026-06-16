@@ -1,9 +1,11 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.network
 
+import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.serialization.protocol.types.network.ResourceType
 import ai.platon.cdt.kt.serialization.protocol.types.network.Response
+import kotlin.Boolean
 import kotlin.Double
 import kotlin.String
 import kotlinx.serialization.SerialName
@@ -24,6 +26,9 @@ data class ResponseReceived(
   val type: ResourceType,
   @property:SerialName("response")
   val response: Response,
+  @property:SerialName("hasExtraInfo")
+  @param:Experimental
+  val hasExtraInfo: Boolean,
   @property:SerialName("frameId")
   @param:Optional
   val frameId: String? = null,

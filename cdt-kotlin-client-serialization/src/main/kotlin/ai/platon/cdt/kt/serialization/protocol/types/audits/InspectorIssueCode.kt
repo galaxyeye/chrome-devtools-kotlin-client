@@ -11,8 +11,8 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 public enum class InspectorIssueCode {
-  @SerialName("SameSiteCookieIssue")
-  SAME_SITE_COOKIE_ISSUE,
+  @SerialName("CookieIssue")
+  COOKIE_ISSUE,
   @SerialName("MixedContentIssue")
   MIXED_CONTENT_ISSUE,
   @SerialName("BlockedByResponseIssue")
@@ -23,13 +23,53 @@ public enum class InspectorIssueCode {
   CONTENT_SECURITY_POLICY_ISSUE,
   @SerialName("SharedArrayBufferIssue")
   SHARED_ARRAY_BUFFER_ISSUE,
-  @SerialName("TrustedWebActivityIssue")
-  TRUSTED_WEB_ACTIVITY_ISSUE,
-  @SerialName("LowTextContrastIssue")
-  LOW_TEXT_CONTRAST_ISSUE,
   @SerialName("CorsIssue")
   CORS_ISSUE,
   @SerialName("AttributionReportingIssue")
   ATTRIBUTION_REPORTING_ISSUE,
+  @SerialName("QuirksModeIssue")
+  QUIRKS_MODE_ISSUE,
+  @SerialName("PartitioningBlobURLIssue")
+  PARTITIONING_BLOB_URL_ISSUE,
+  @SerialName("NavigatorUserAgentIssue")
+  NAVIGATOR_USER_AGENT_ISSUE,
+  @SerialName("GenericIssue")
+  GENERIC_ISSUE,
+  @SerialName("DeprecationIssue")
+  DEPRECATION_ISSUE,
+  @SerialName("ClientHintIssue")
+  CLIENT_HINT_ISSUE,
+  @SerialName("FederatedAuthRequestIssue")
+  FEDERATED_AUTH_REQUEST_ISSUE,
+  @SerialName("BounceTrackingIssue")
+  BOUNCE_TRACKING_ISSUE,
+  @SerialName("CookieDeprecationMetadataIssue")
+  COOKIE_DEPRECATION_METADATA_ISSUE,
+  @SerialName("StylesheetLoadingIssue")
+  STYLESHEET_LOADING_ISSUE,
+  @SerialName("FederatedAuthUserInfoRequestIssue")
+  FEDERATED_AUTH_USER_INFO_REQUEST_ISSUE,
+  @SerialName("PropertyRuleIssue")
+  PROPERTY_RULE_ISSUE,
+  @SerialName("SharedDictionaryIssue")
+  SHARED_DICTIONARY_ISSUE,
+  @SerialName("ElementAccessibilityIssue")
+  ELEMENT_ACCESSIBILITY_ISSUE,
+  @SerialName("SRIMessageSignatureIssue")
+  SRI_MESSAGE_SIGNATURE_ISSUE,
+  @SerialName("UnencodedDigestIssue")
+  UNENCODED_DIGEST_ISSUE,
+  @SerialName("ConnectionAllowlistIssue")
+  CONNECTION_ALLOWLIST_ISSUE,
+  @SerialName("UserReidentificationIssue")
+  USER_REIDENTIFICATION_ISSUE,
+  @SerialName("PermissionElementIssue")
+  PERMISSION_ELEMENT_ISSUE,
+  @SerialName("PerformanceIssue")
+  PERFORMANCE_ISSUE,
+  @SerialName("SelectivePermissionsInterventionIssue")
+  SELECTIVE_PERMISSIONS_INTERVENTION_ISSUE,
+  @SerialName("EmailVerificationRequestIssue")
+  EMAIL_VERIFICATION_REQUEST_ISSUE,
   UNKNOWN,
 }

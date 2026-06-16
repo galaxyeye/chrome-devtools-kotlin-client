@@ -15,5 +15,7 @@ public enum class ContentEncoding {
   GZIP,
   @SerialName("br")
   BR,
+  @SerialName("zstd")
+  ZSTD,
   UNKNOWN,
 }

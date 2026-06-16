@@ -3,6 +3,8 @@ package ai.platon.cdt.kt.serialization.protocol.commands
 
 import ai.platon.cdt.kt.serialization.protocol.events.overlay.InspectModeCanceled
 import ai.platon.cdt.kt.serialization.protocol.events.overlay.InspectNodeRequested
+import ai.platon.cdt.kt.serialization.protocol.events.overlay.InspectPanelShowRequested
+import ai.platon.cdt.kt.serialization.protocol.events.overlay.InspectedElementWindowRestored
 import ai.platon.cdt.kt.serialization.protocol.events.overlay.NodeHighlightRequested
 import ai.platon.cdt.kt.serialization.protocol.events.overlay.ScreenshotRequested
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.EventName
@@ -14,14 +16,19 @@ import ai.platon.cdt.kt.serialization.protocol.support.types.EventHandler
 import ai.platon.cdt.kt.serialization.protocol.support.types.EventListener
 import ai.platon.cdt.kt.serialization.protocol.types.dom.RGBA
 import ai.platon.cdt.kt.serialization.protocol.types.overlay.ColorFormat
+import ai.platon.cdt.kt.serialization.protocol.types.overlay.ContainerQueryHighlightConfig
 import ai.platon.cdt.kt.serialization.protocol.types.overlay.FlexNodeHighlightConfig
 import ai.platon.cdt.kt.serialization.protocol.types.overlay.GridNodeHighlightConfig
 import ai.platon.cdt.kt.serialization.protocol.types.overlay.HighlightConfig
 import ai.platon.cdt.kt.serialization.protocol.types.overlay.HingeConfig
 import ai.platon.cdt.kt.serialization.protocol.types.overlay.InspectMode
+import ai.platon.cdt.kt.serialization.protocol.types.overlay.InspectedElementAnchorConfig
+import ai.platon.cdt.kt.serialization.protocol.types.overlay.IsolatedElementHighlightConfig
 import ai.platon.cdt.kt.serialization.protocol.types.overlay.ScrollSnapHighlightConfig
 import ai.platon.cdt.kt.serialization.protocol.types.overlay.SourceOrderConfig
+import ai.platon.cdt.kt.serialization.protocol.types.overlay.WindowControlsOverlayConfig
 import kotlin.Boolean
+import kotlin.Deprecated
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
@@ -87,16 +94,21 @@ interface Overlay {
 
   /**
    * Highlights owner element of the frame with given id.
+   * Deprecated: Doesn't work reliably and cannot be fixed due to process
+   * separation (the owner node might be in a different process). Determine
+   * the owner node in the client and use highlightNode.
    * @param frameId Identifier of the frame to highlight.
    * @param contentColor The content box highlight fill color (default: transparent).
    * @param contentOutlineColor The content box highlight outline color (default: transparent).
    */
+  @Deprecated("Deprecated by protocol")
   suspend fun highlightFrame(
     @ParamName("frameId") frameId: String,
     @ParamName("contentColor") @Optional contentColor: RGBA? = null,
     @ParamName("contentOutlineColor") @Optional contentOutlineColor: RGBA? = null,
   )
 
+  @Deprecated("Deprecated by protocol")
   suspend fun highlightFrame(@ParamName("frameId") frameId: String) {
     return highlightFrame(frameId, null, null)
   }
@@ -140,6 +152,9 @@ interface Overlay {
 
   /**
    * Highlights given rectangle. Coordinates are absolute with respect to the main frame viewport.
+   * Issue: the method does not handle device pixel ratio (DPR) correctly.
+   * The coordinates currently have to be adjusted by the client
+   * if DPR is not 1 (see crbug.com/437807128).
    * @param x X coordinate
    * @param y Y coordinate
    * @param width Rectangle width
@@ -241,6 +256,16 @@ interface Overlay {
   suspend fun setShowScrollSnapOverlays(@ParamName("scrollSnapHighlightConfigs") scrollSnapHighlightConfigs: List<ScrollSnapHighlightConfig>)
 
   /**
+   * @param containerQueryHighlightConfigs An array of node identifiers and descriptors for the highlight appearance.
+   */
+  suspend fun setShowContainerQueryOverlays(@ParamName("containerQueryHighlightConfigs") containerQueryHighlightConfigs: List<ContainerQueryHighlightConfig>)
+
+  /**
+   * @param inspectedElementAnchorConfig Node identifier for which to show an anchor for.
+   */
+  suspend fun setShowInspectedElementAnchor(@ParamName("inspectedElementAnchorConfig") inspectedElementAnchorConfig: InspectedElementAnchorConfig)
+
+  /**
    * Requests that backend shows paint rectangles
    * @param result True for showing paint rectangles
    */
@@ -259,15 +284,17 @@ interface Overlay {
   suspend fun setShowScrollBottleneckRects(@ParamName("show") show: Boolean)
 
   /**
-   * Requests that backend shows hit-test borders on layers
+   * Deprecated, no longer has any effect.
    * @param show True for showing hit-test borders
    */
+  @Deprecated("Deprecated by protocol")
   suspend fun setShowHitTestBorders(@ParamName("show") show: Boolean)
 
   /**
-   * Request that backend shows an overlay with web vital metrics.
+   * Deprecated, no longer has any effect.
    * @param show
    */
+  @Deprecated("Deprecated by protocol")
   suspend fun setShowWebVitals(@ParamName("show") show: Boolean)
 
   /**
@@ -284,6 +311,22 @@ interface Overlay {
 
   suspend fun setShowHinge() {
     return setShowHinge(null)
+  }
+
+  /**
+   * Show elements in isolation mode with overlays.
+   * @param isolatedElementHighlightConfigs An array of node identifiers and descriptors for the highlight appearance.
+   */
+  suspend fun setShowIsolatedElements(@ParamName("isolatedElementHighlightConfigs") isolatedElementHighlightConfigs: List<IsolatedElementHighlightConfig>)
+
+  /**
+   * Show Window Controls Overlay for PWA
+   * @param windowControlsOverlayConfig Window Controls Overlay data, null means hide Window Controls Overlay
+   */
+  suspend fun setShowWindowControlsOverlay(@ParamName("windowControlsOverlayConfig") @Optional windowControlsOverlayConfig: WindowControlsOverlayConfig? = null)
+
+  suspend fun setShowWindowControlsOverlay() {
+    return setShowWindowControlsOverlay(null)
   }
 
   @EventName("inspectNodeRequested")
@@ -303,6 +346,18 @@ interface Overlay {
 
   @EventName("screenshotRequested")
   fun onScreenshotRequested(eventListener: suspend (ScreenshotRequested) -> Unit): EventListener
+
+  @EventName("inspectPanelShowRequested")
+  fun onInspectPanelShowRequested(eventListener: EventHandler<InspectPanelShowRequested>): EventListener
+
+  @EventName("inspectPanelShowRequested")
+  fun onInspectPanelShowRequested(eventListener: suspend (InspectPanelShowRequested) -> Unit): EventListener
+
+  @EventName("inspectedElementWindowRestored")
+  fun onInspectedElementWindowRestored(eventListener: EventHandler<InspectedElementWindowRestored>): EventListener
+
+  @EventName("inspectedElementWindowRestored")
+  fun onInspectedElementWindowRestored(eventListener: suspend (InspectedElementWindowRestored) -> Unit): EventListener
 
   @EventName("inspectModeCanceled")
   fun onInspectModeCanceled(eventListener: EventHandler<InspectModeCanceled>): EventListener

@@ -13,6 +13,6 @@ data class ClientSecurityState(
   val initiatorIsSecureContext: Boolean,
   @property:SerialName("initiatorIPAddressSpace")
   val initiatorIPAddressSpace: IPAddressSpace,
-  @property:SerialName("privateNetworkRequestPolicy")
-  val privateNetworkRequestPolicy: PrivateNetworkRequestPolicy,
+  @property:SerialName("localNetworkAccessRequestPolicy")
+  val localNetworkAccessRequestPolicy: LocalNetworkAccessRequestPolicy,
 )

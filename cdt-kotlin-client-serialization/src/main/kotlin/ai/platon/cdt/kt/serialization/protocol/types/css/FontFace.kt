@@ -23,6 +23,8 @@ data class FontFace(
   val fontWeight: String,
   @property:SerialName("fontStretch")
   val fontStretch: String,
+  @property:SerialName("fontDisplay")
+  val fontDisplay: String,
   @property:SerialName("unicodeRange")
   val unicodeRange: String,
   @property:SerialName("src")

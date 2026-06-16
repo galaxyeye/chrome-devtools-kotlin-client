@@ -9,6 +9,8 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 public enum class AXValueNativeSourceType {
+  @SerialName("description")
+  DESCRIPTION,
   @SerialName("figcaption")
   FIGCAPTION,
   @SerialName("label")

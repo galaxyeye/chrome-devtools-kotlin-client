@@ -6,14 +6,20 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 public enum class PermissionType {
-  @SerialName("accessibilityEvents")
-  ACCESSIBILITY_EVENTS,
+  @SerialName("ar")
+  AR,
   @SerialName("audioCapture")
   AUDIO_CAPTURE,
-  @SerialName("backgroundSync")
-  BACKGROUND_SYNC,
+  @SerialName("automaticFullscreen")
+  AUTOMATIC_FULLSCREEN,
   @SerialName("backgroundFetch")
   BACKGROUND_FETCH,
+  @SerialName("backgroundSync")
+  BACKGROUND_SYNC,
+  @SerialName("cameraPanTiltZoom")
+  CAMERA_PAN_TILT_ZOOM,
+  @SerialName("capturedSurfaceControl")
+  CAPTURED_SURFACE_CONTROL,
   @SerialName("clipboardReadWrite")
   CLIPBOARD_READ_WRITE,
   @SerialName("clipboardSanitizedWrite")
@@ -22,10 +28,22 @@ public enum class PermissionType {
   DISPLAY_CAPTURE,
   @SerialName("durableStorage")
   DURABLE_STORAGE,
-  @SerialName("flash")
-  FLASH,
   @SerialName("geolocation")
   GEOLOCATION,
+  @SerialName("handTracking")
+  HAND_TRACKING,
+  @SerialName("idleDetection")
+  IDLE_DETECTION,
+  @SerialName("keyboardLock")
+  KEYBOARD_LOCK,
+  @SerialName("localFonts")
+  LOCAL_FONTS,
+  @SerialName("localNetwork")
+  LOCAL_NETWORK,
+  @SerialName("localNetworkAccess")
+  LOCAL_NETWORK_ACCESS,
+  @SerialName("loopbackNetwork")
+  LOOPBACK_NETWORK,
   @SerialName("midi")
   MIDI,
   @SerialName("midiSysex")
@@ -38,19 +56,33 @@ public enum class PermissionType {
   PAYMENT_HANDLER,
   @SerialName("periodicBackgroundSync")
   PERIODIC_BACKGROUND_SYNC,
+  @SerialName("pointerLock")
+  POINTER_LOCK,
   @SerialName("protectedMediaIdentifier")
   PROTECTED_MEDIA_IDENTIFIER,
   @SerialName("sensors")
   SENSORS,
+  @SerialName("smartCard")
+  SMART_CARD,
+  @SerialName("speakerSelection")
+  SPEAKER_SELECTION,
+  @SerialName("storageAccess")
+  STORAGE_ACCESS,
+  @SerialName("topLevelStorageAccess")
+  TOP_LEVEL_STORAGE_ACCESS,
   @SerialName("videoCapture")
   VIDEO_CAPTURE,
-  @SerialName("videoCapturePanTiltZoom")
-  VIDEO_CAPTURE_PAN_TILT_ZOOM,
-  @SerialName("idleDetection")
-  IDLE_DETECTION,
+  @SerialName("vr")
+  VR,
   @SerialName("wakeLockScreen")
   WAKE_LOCK_SCREEN,
   @SerialName("wakeLockSystem")
   WAKE_LOCK_SYSTEM,
+  @SerialName("webAppInstallation")
+  WEB_APP_INSTALLATION,
+  @SerialName("webPrinting")
+  WEB_PRINTING,
+  @SerialName("windowManagement")
+  WINDOW_MANAGEMENT,
   UNKNOWN,
 }

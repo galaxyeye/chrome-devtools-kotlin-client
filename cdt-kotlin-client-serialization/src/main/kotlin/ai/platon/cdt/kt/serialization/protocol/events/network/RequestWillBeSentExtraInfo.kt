@@ -3,8 +3,11 @@ package ai.platon.cdt.kt.serialization.protocol.events.network
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
-import ai.platon.cdt.kt.serialization.protocol.types.network.BlockedCookieWithReason
+import ai.platon.cdt.kt.serialization.protocol.types.network.AssociatedCookie
 import ai.platon.cdt.kt.serialization.protocol.types.network.ClientSecurityState
+import ai.platon.cdt.kt.serialization.protocol.types.network.ConnectTiming
+import ai.platon.cdt.kt.serialization.protocol.types.network.DeviceBoundSessionWithUsage
+import kotlin.Boolean
 import kotlin.String
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -23,10 +26,22 @@ data class RequestWillBeSentExtraInfo(
   @property:SerialName("requestId")
   val requestId: String,
   @property:SerialName("associatedCookies")
-  val associatedCookies: List<BlockedCookieWithReason>,
+  val associatedCookies: List<AssociatedCookie>,
   @property:SerialName("headers")
   val headers: JsonObject?,
+  @property:SerialName("connectTiming")
+  @param:Experimental
+  val connectTiming: ConnectTiming,
+  @property:SerialName("deviceBoundSessionUsages")
+  @param:Optional
+  val deviceBoundSessionUsages: List<DeviceBoundSessionWithUsage>? = null,
   @property:SerialName("clientSecurityState")
   @param:Optional
   val clientSecurityState: ClientSecurityState? = null,
+  @property:SerialName("siteHasCookieInOtherPartition")
+  @param:Optional
+  val siteHasCookieInOtherPartition: Boolean? = null,
+  @property:SerialName("appliedNetworkConditionsId")
+  @param:Optional
+  val appliedNetworkConditionsId: String? = null,
 )

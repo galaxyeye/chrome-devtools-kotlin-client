@@ -1,8 +1,11 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.debugger
 
+import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.serialization.protocol.types.runtime.RemoteObject
+import kotlin.Boolean
+import kotlin.Deprecated
 import kotlin.String
 import kotlin.collections.List
 import kotlinx.serialization.SerialName
@@ -23,6 +26,7 @@ data class CallFrame(
   @property:SerialName("location")
   val location: Location,
   @property:SerialName("url")
+  @Deprecated("Deprecated by protocol")
   val url: String,
   @property:SerialName("scopeChain")
   val scopeChain: List<Scope>,
@@ -31,4 +35,8 @@ data class CallFrame(
   @property:SerialName("returnValue")
   @param:Optional
   val returnValue: RemoteObject? = null,
+  @property:SerialName("canBeRestarted")
+  @param:Optional
+  @param:Experimental
+  val canBeRestarted: Boolean? = null,
 )

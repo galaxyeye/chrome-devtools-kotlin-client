@@ -15,5 +15,7 @@ public enum class ContextState {
   RUNNING,
   @SerialName("closed")
   CLOSED,
+  @SerialName("interrupted")
+  INTERRUPTED,
   UNKNOWN,
 }

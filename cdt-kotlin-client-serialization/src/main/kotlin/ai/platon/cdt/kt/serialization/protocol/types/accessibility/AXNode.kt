@@ -24,6 +24,9 @@ data class AXNode(
   @property:SerialName("role")
   @param:Optional
   val role: AXValue? = null,
+  @property:SerialName("chromeRole")
+  @param:Optional
+  val chromeRole: AXValue? = null,
   @property:SerialName("name")
   @param:Optional
   val name: AXValue? = null,
@@ -36,10 +39,16 @@ data class AXNode(
   @property:SerialName("properties")
   @param:Optional
   val properties: List<AXProperty>? = null,
+  @property:SerialName("parentId")
+  @param:Optional
+  val parentId: String? = null,
   @property:SerialName("childIds")
   @param:Optional
   val childIds: List<String>? = null,
   @property:SerialName("backendDOMNodeId")
   @param:Optional
   val backendDOMNodeId: Int? = null,
+  @property:SerialName("frameId")
+  @param:Optional
+  val frameId: String? = null,
 )

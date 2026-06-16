@@ -45,6 +45,12 @@ interface Cast {
   suspend fun setSinkToUse(@ParamName("sinkName") sinkName: String)
 
   /**
+   * Starts mirroring the desktop to the sink.
+   * @param sinkName
+   */
+  suspend fun startDesktopMirroring(@ParamName("sinkName") sinkName: String)
+
+  /**
    * Starts mirroring the tab to the sink.
    * @param sinkName
    */

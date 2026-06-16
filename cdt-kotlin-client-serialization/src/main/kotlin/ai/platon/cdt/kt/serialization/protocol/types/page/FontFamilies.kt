@@ -31,7 +31,7 @@ data class FontFamilies(
   @property:SerialName("fantasy")
   @param:Optional
   val fantasy: String? = null,
-  @property:SerialName("pictograph")
+  @property:SerialName("math")
   @param:Optional
-  val pictograph: String? = null,
+  val math: String? = null,
 )

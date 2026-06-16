@@ -1,12 +1,14 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.tracing
 
+import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Double
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
+@Experimental
 data class BufferUsage(
   @property:SerialName("percentFull")
   @param:Optional

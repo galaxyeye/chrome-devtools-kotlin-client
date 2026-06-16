@@ -13,9 +13,10 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * The security state of the page changed.
+ * The security state of the page changed. No longer being sent.
  */
 @Serializable
+@Deprecated("Deprecated")
 data class SecurityStateChanged(
   @property:SerialName("securityState")
   val securityState: SecurityState,
@@ -23,11 +24,13 @@ data class SecurityStateChanged(
   @Deprecated("Deprecated by protocol")
   val schemeIsCryptographic: Boolean,
   @property:SerialName("explanations")
+  @Deprecated("Deprecated by protocol")
   val explanations: List<SecurityStateExplanation>,
   @property:SerialName("insecureContentStatus")
   @Deprecated("Deprecated by protocol")
   val insecureContentStatus: InsecureContentStatus,
   @property:SerialName("summary")
   @param:Optional
+  @Deprecated("Deprecated by protocol")
   val summary: String? = null,
 )

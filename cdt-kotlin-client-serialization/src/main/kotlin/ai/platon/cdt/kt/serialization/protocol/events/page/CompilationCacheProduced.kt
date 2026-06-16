@@ -7,8 +7,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * Issued for every compilation cache generated. Is only available
- * if Page.setGenerateCompilationCache is enabled.
+ * Issued for every compilation cache generated.
  */
 @Serializable
 @Experimental

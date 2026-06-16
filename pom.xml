@@ -17,6 +17,7 @@
         <module>cdt-kotlin-client</module>
         <module>cdt-kotlin-client-serialization</module>
         <module>cdt-kotlin-client-ktor</module>
+        <module>cdt-kotlin-client-ktor-serialization</module>
     </modules>
 
     <licenses>

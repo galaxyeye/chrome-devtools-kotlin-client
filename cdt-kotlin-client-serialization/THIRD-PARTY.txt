@@ -1,0 +1,9 @@
+
+Lists of 7 third-party dependencies.
+     (The Apache Software License, Version 2.0) IntelliJ IDEA Annotations (org.jetbrains:annotations:13.0 - http://www.jetbrains.org)
+     (Apache-2.0) Kotlin Stdlib (org.jetbrains.kotlin:kotlin-stdlib:2.2.20 - https://kotlinlang.org/)
+     (Apache-2.0) Kotlin Stdlib Jdk7 (org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.2.20 - https://kotlinlang.org/)
+     (Apache-2.0) Kotlin Stdlib Jdk8 (org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.2.20 - https://kotlinlang.org/)
+     (Apache-2.0) kotlinx-serialization-core (org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.8.1 - https://github.com/Kotlin/kotlinx.serialization)
+     (Apache-2.0) kotlinx-serialization-json (org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1 - https://github.com/Kotlin/kotlinx.serialization)
+     (Apache-2.0) kotlinx-serialization-json (org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.8.1 - https://github.com/Kotlin/kotlinx.serialization)

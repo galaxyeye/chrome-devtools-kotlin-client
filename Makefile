@@ -61,6 +61,14 @@ compile-cdt-kotlin-client-serialization:
 	@echo Compiling cdt-kotlin-client-serialization project...
 	$(MVN) --file "$(CDT_SERIALIZATION_CLIENT_DIR)/" clean compile
 
+compile-cdt-kotlin-client-ktor-serialization:
+	@echo Compiling cdt-kotlin-client-ktor-serialization project...
+	$(MVN) --file cdt-kotlin-client-ktor-serialization/ clean compile
+
+clean-cdt-kotlin-client-ktor-serialization:
+	@echo Cleaning cdt-kotlin-client-ktor-serialization project...
+	$(MVN) --file cdt-kotlin-client-ktor-serialization/ clean
+
 clean-cdt-kotlin-protocol-builder:
 	@echo Cleaning cdt-kotlin-protocol-builder project...
 	$(MVN) --file "$(CDT_PROTOCOL_BUILDER_DIR)/" clean

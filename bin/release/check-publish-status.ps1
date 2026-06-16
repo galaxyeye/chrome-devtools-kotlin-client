@@ -9,7 +9,7 @@
 # ═══════════════════════════════════════════════════════════════════
 <#
 .SYNOPSIS
-    Checks if the current project version and browser4-cli version have been fully published.
+    Checks if the current project version has been fully published.
 
 .DESCRIPTION
     Compares the local version against the latest GitHub release and determines
@@ -19,51 +19,28 @@
       - [GO] Local version is the next patch/minor/major — ready to publish.
       - [XX] Local version is BEHIND the latest release — something is wrong.
 
-    Also shows browser4-cli versions for reference (no judgment):
-      - Reads the CLI version from cli/VERSION-CLI
-      - Shows the latest vX.Y.Z-cli tag on GitHub (if any)
-      - Shows the published version on npm (browser4-cli package)
-
     Provides detailed information about the latest release, including publish
     date, author, release URL, and asset list.
 
-    Exits with code 0 if the main project version is published or is the natural
+    Exits with code 0 if the project version is published or is the natural
     next version in sequence, non-zero otherwise.
-    The CLI status is informational only and does not affect the exit code.
 
 .PARAMETER Version
     The version to check (without the -SNAPSHOT suffix).
     If omitted, reads the version from the VERSION file in the repo root.
 
-.PARAMETER CliVersion
-    The CLI version to check.
-    If omitted, reads the version from cli/VERSION-CLI.
-
-.PARAMETER SkipCli
-    Skip the browser4-cli release status check.
-
 .EXAMPLE
     .\check-publish-status.ps1
-    Checks both main and CLI versions from their respective version files.
+    Checks the version from the VERSION file.
 
 .EXAMPLE
     .\check-publish-status.ps1 -Version 4.8.4
     Checks version 4.8.4 explicitly.
-
-.EXAMPLE
-    .\check-publish-status.ps1 -SkipCli
-    Only checks the main project version.
 #>
 [CmdletBinding()]
 param (
     [Parameter(HelpMessage = "The version to check (without -SNAPSHOT)")]
-    [string]$Version,
-
-    [Parameter(HelpMessage = "The CLI version to check")]
-    [string]$CliVersion,
-
-    [Parameter(HelpMessage = "Skip the CLI release status check")]
-    [switch]$SkipCli
+    [string]$Version
 )
 
 $ErrorActionPreference = "Stop"
@@ -97,7 +74,7 @@ if ($Version -notmatch "^\d+\.\d+\.\d+") {
 
 Write-Host ""
 Write-Host "══════════════════════════════════════════════" -ForegroundColor Cyan
-Write-Host "  Browser4 Release Status Check"              -ForegroundColor Cyan
+Write-Host "  Release Status Check"                       -ForegroundColor Cyan
 Write-Host "══════════════════════════════════════════════" -ForegroundColor Cyan
 
 # Derive GitHub repository from the git remote
@@ -112,12 +89,12 @@ Write-Host "  Current version   : v$Version"
 Write-Host ""
 
 # ---------------------------------------------------------------
-# Helper: Fetch latest release from GitHub using gh CLI
+# Helper: Fetch latest release from GitHub using gh
 # ---------------------------------------------------------------
 function Get-GitHubLatestRelease {
     param(
         [string]$GitHubRepo,
-        [string]$ReleaseTagPattern = "*"   # e.g. "*-cli" for CLI releases
+        [string]$ReleaseTagPattern = "*"
     )
 
     $result = @{
@@ -149,7 +126,7 @@ function Get-GitHubLatestRelease {
                 $allReleases = $releases | ConvertFrom-Json
 
                 if ($ReleaseTagPattern -ne "*") {
-                    # Filter releases matching the tag pattern (e.g. "*-cli")
+                    # Filter releases matching the tag pattern
                     $wildcard = [System.Management.Automation.WildcardPattern]::new($ReleaseTagPattern, [System.Management.Automation.WildcardOptions]::IgnoreCase)
                     $allReleases = @($allReleases | Where-Object { $wildcard.IsMatch($_.tagName) })
                 }
@@ -269,10 +246,10 @@ function Test-NextVersion {
 }
 
 # ---------------------------------------------------------------
-# Check 1: Main project release status
+# Release status check
 # ---------------------------------------------------------------
 Write-Host "────────────────────────────────────────────────" -ForegroundColor Yellow
-Write-Host "  Check 1: Browser4 (main project) release"    -ForegroundColor Yellow
+Write-Host "  Release Status"                               -ForegroundColor Yellow
 Write-Host "────────────────────────────────────────────────" -ForegroundColor Yellow
 Write-Host ""
 
@@ -422,122 +399,6 @@ if ($null -ne $latestReleaseInfo.Tag) {
 }
 
 # ---------------------------------------------------------------
-# Check 2: browser4-cli release status
-# ---------------------------------------------------------------
-if (-not $SkipCli) {
-    Write-Host ""
-    Write-Host "────────────────────────────────────────────────" -ForegroundColor Yellow
-    Write-Host "  Check 2: browser4-cli release"                -ForegroundColor Yellow
-    Write-Host "────────────────────────────────────────────────" -ForegroundColor Yellow
-    Write-Host ""
-
-    # Resolve CLI version
-    if (-not $CliVersion) {
-        $cliVersionFile = Join-Path $repoRoot "cli/VERSION-CLI"
-        if (Test-Path $cliVersionFile) {
-            $CliVersion = (Get-Content $cliVersionFile -TotalCount 1).Trim()
-        } else {
-            Write-Host "  [!] cli/VERSION-CLI not found. Skipping CLI check." -ForegroundColor Yellow
-            $SkipCli = $true
-        }
-    }
-
-    if (-not $SkipCli) {
-        # Validate CLI version format
-        if ($CliVersion -notmatch "^\d+\.\d+\.\d+") {
-            Write-Host "  [!] CLI version '$CliVersion' does not match X.Y.Z format. Skipping." -ForegroundColor Yellow
-            $SkipCli = $true
-        }
-    }
-
-    if (-not $SkipCli) {
-        $cliLatestRemoteTag = $null
-        $npmPublishedVersion = $null
-
-        # ── 2a: Fetch latest remote *-cli tag (informational only) ──
-        $cliReleaseInfo = Get-GitHubLatestRelease -GitHubRepo $githubRepo -ReleaseTagPattern "*-cli"
-
-        if ($null -ne $cliReleaseInfo.Tag) {
-            $cliLatestRemoteTag = $cliReleaseInfo.Tag
-        }
-
-        # ── 2b: Fetch npm registry version (informational only) ──
-        try {
-            $npmRaw = npm view "browser4-cli" version 2>$null
-            if ($npmRaw) {
-                $npmPublishedVersion = ($npmRaw -split '\s+')[0].Trim()
-            }
-        } catch {
-            # npm view failed — non-critical
-        }
-
-        # ── 2c: GitHub *-cli tag (temporary — for reference only) ──
-        Write-Host "  ── GitHub *-cli tag (temporary / reference only) ──"
-        Write-Host ""
-        Write-Host "  Local            : v${CliVersion}-cli"
-
-        if ($cliLatestRemoteTag) {
-            Write-Host "  Latest GitHub    : $cliLatestRemoteTag"
-            if ($cliReleaseInfo.PublishedAt) {
-                Write-Host "  GitHub published : $($cliReleaseInfo.PublishedAt)"
-            }
-            if ($cliReleaseInfo.Author) {
-                Write-Host "  GitHub author    : @$($cliReleaseInfo.Author)"
-            }
-            if ($cliReleaseInfo.IsPrerelease -or $cliReleaseInfo.IsDraft) {
-                $cliFlags = @()
-                if ($cliReleaseInfo.IsPrerelease) { $cliFlags += "PRE-RELEASE" }
-                if ($cliReleaseInfo.IsDraft)     { $cliFlags += "DRAFT" }
-                Write-Host "  GitHub flags     : $($cliFlags -join ', ')" -ForegroundColor Yellow
-            }
-        } else {
-            Write-Host "  Latest GitHub    : (none found)"
-        }
-
-        Write-Host ""
-        Write-Host "  (GitHub *-cli tags are temporary — shown for reference only.)" -ForegroundColor DarkGray
-
-        # ── 2d: npm registry (real release — compare properly) ──
-        Write-Host ""
-        Write-Host "  ── npm Registry (browser4-cli) ──"
-
-        if ($npmPublishedVersion) {
-            Write-Host ""
-            Write-Host "  Local version    : $CliVersion"
-            Write-Host "  npm version      : $npmPublishedVersion"
-
-            $cliNpmStatus = Test-NextVersion -LatestVersion $npmPublishedVersion -LocalVersion $CliVersion
-
-            switch ($cliNpmStatus) {
-                'same' {
-                    Write-Host "  [OK] CLI version is published on npm." -ForegroundColor Green
-                }
-                'next-patch' {
-                    Write-Host "  [GO] CLI is the next PATCH — ready to publish to npm." -ForegroundColor Green
-                }
-                'next-minor' {
-                    Write-Host "  [GO] CLI is the next MINOR — ready to publish to npm." -ForegroundColor Green
-                }
-                'next-major' {
-                    Write-Host "  [GO] CLI is the next MAJOR — ready to publish to npm." -ForegroundColor Green
-                }
-                'behind' {
-                    Write-Host "  [XX] Local CLI is BEHIND npm ($npmPublishedVersion)." -ForegroundColor Red
-                }
-                'ahead' {
-                    Write-Host "  [!!] Local CLI is AHEAD of npm by more than one step." -ForegroundColor Yellow
-                }
-                default {
-                    Write-Host "  [!!] Could not determine version relationship." -ForegroundColor Yellow
-                }
-            }
-        } else {
-            Write-Host "  [!!] Package 'browser4-cli' not found on npm (unpublished?)." -ForegroundColor Yellow
-        }
-    }
-}
-
-# ---------------------------------------------------------------
 # Summary
 # ---------------------------------------------------------------
 Write-Host ""
@@ -546,7 +407,6 @@ Write-Host "  Summary"                                    -ForegroundColor Cyan
 Write-Host "══════════════════════════════════════════════" -ForegroundColor Cyan
 Write-Host ""
 
-Write-Host "  ── Browser4 (main) ──"
 Write-Host "  Local version    : v$Version"
 Write-Host "  Latest release   : $($latestReleaseInfo.Tag)"
 Write-Host "  Status           : $(
@@ -561,27 +421,6 @@ Write-Host "  Status           : $(
     }
 )"
 Write-Host ""
-
-if (-not $SkipCli -and $CliVersion) {
-    Write-Host "  ── browser4-cli ──"
-    Write-Host "  Local             : v${CliVersion}-cli"
-    Write-Host "  GitHub *-cli tag  : $(if ($cliLatestRemoteTag) { "$cliLatestRemoteTag (temporary)" } else { '(none)' })"
-    Write-Host "  npm registry      : $(if ($npmPublishedVersion) { $npmPublishedVersion } else { '(not found)' })"
-    if ($npmPublishedVersion) {
-        Write-Host "  npm status        : $(
-            switch ($cliNpmStatus) {
-                'same'        { '[OK] Published' }
-                'next-patch'  { '[GO] Next patch — can publish' }
-                'next-minor'  { '[GO] Next minor — can publish' }
-                'next-major'  { '[GO] Next major — can publish' }
-                'behind'      { '[XX] BEHIND npm' }
-                'ahead'       { '[!!] Ahead (not next in sequence)' }
-                default       { '[??] Unknown' }
-            }
-        )"
-    }
-    Write-Host ""
-}
 
 if ($isLatestRelease) {
     Write-Host "Version v$Version is ready (published or next in sequence)." -ForegroundColor Green

@@ -31,7 +31,7 @@
         <kotlin-compile-testing>1.6.0</kotlin-compile-testing>
 
         <!-- Updated to a version compatible with modern JDKs -->
-        <lombok.version>1.18.34</lombok.version>
+        <lombok.version>1.18.46</lombok.version>
         <logback.version>1.5.13</logback.version>
         <args4j.version>2.33</args4j.version>
         <google.java.format.version>1.5</google.java.format.version>

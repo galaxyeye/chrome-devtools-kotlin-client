@@ -8,24 +8,25 @@
 
     Two output modes are supported:
 
-    - **Standard mode** (default): produces sources under the `cdt-kotlin-client`
-      module (package `ai.platon.cdt.kt.protocol`) with Jackson (`@JsonProperty`,
-      `@JsonEnumDefaultValue`) annotations.
-
-    - **Serialization mode** (`-Serialization`): produces sources under the
+    - **Serialization mode** (default): produces sources under the
       `cdt-kotlin-client-serialization` module (package
       `ai.platon.cdt.kt.serialization.protocol`) with kotlinx.serialization
       (`@Serializable`, `@SerialName`) annotations. No Jackson/Gson dependency.
 
+    - **Jackson mode** (`-Jackson`): produces sources under the
+      `cdt-kotlin-client` module (package
+      `ai.platon.cdt.kt.protocol`) with Jackson (`@JsonProperty`,
+      `@JsonEnumDefaultValue`) annotations.
+
 .PARAMETER BasePackage
     Base Kotlin package for the generated sources.
-    Standard mode default: `ai.platon.cdt.kt.protocol`
     Serialization mode default: `ai.platon.cdt.kt.serialization.protocol`
+    Jackson mode default: `ai.platon.cdt.kt.protocol`
 
 .PARAMETER OutputProject
     Directory name under the project root where generated sources are written.
-    Standard mode default: `cdt-kotlin-client`
     Serialization mode default: `cdt-kotlin-client-serialization`
+    Jackson mode default: `cdt-kotlin-client`
 
 .PARAMETER JsProtocol
     Path (relative to project root) to the js_protocol.json file.
@@ -36,30 +37,30 @@
 .PARAMETER Language
     Generation language: `java` or `kotlin`. Default is `kotlin`.
 
-.PARAMETER Serialization
-    When set, generates code annotated with kotlinx.serialization annotations
-    (`@Serializable`, `@SerialName`) instead of Jackson. Also switches the
-    default output directory and package to the serialization module.
+.PARAMETER Jackson
+    When set, generates code annotated with Jackson annotations
+    (`@JsonProperty`, `@JsonEnumDefaultValue`) instead of kotlinx.serialization.
+    Also switches the default output directory and package to the Jackson module.
 
 .PARAMETER SkipBuild
     When set, skips the Maven build of `cdt-kotlin-protocol-builder`. The JAR
     must already exist at `cdt-kotlin-protocol-builder/target/cdt-kotlin-protocol-builder.jar`.
 
 .EXAMPLE
-    # Generate Jackson-annotated sources into cdt-kotlin-client
+    # Generate kotlinx.serialization-annotated sources (default)
     .\bin\generate-kotlin.ps1
 
 .EXAMPLE
-    # Generate kotlinx.serialization-annotated sources
-    .\bin\generate-kotlin.ps1 -Serialization
+    # Generate Jackson-annotated sources
+    .\bin\generate-kotlin.ps1 -Jackson
 
 .EXAMPLE
     # Generate serialization sources with a custom output directory
-    .\bin\generate-kotlin.ps1 -Serialization -OutputProject "my-serialization-client"
+    .\bin\generate-kotlin.ps1 -OutputProject "my-serialization-client"
 
 .EXAMPLE
     # Skip the builder build (use when iterating on protocol JSON only)
-    .\bin\generate-kotlin.ps1 -Serialization -SkipBuild
+    .\bin\generate-kotlin.ps1 -SkipBuild
 #>
 
 [CmdletBinding()]
@@ -70,7 +71,7 @@ param(
     [string]$BrowserProtocol = "browser_protocol.json",
     [ValidateSet("java", "kotlin")]
     [string]$Language = "kotlin",
-    [switch]$Serialization,
+    [switch]$Jackson,
     [switch]$SkipBuild
 )
 
@@ -94,24 +95,24 @@ try {
         exit 1
     }
 
-    # ---- resolve defaults driven by -Serialization -----------------------
-    $serializationFlag = if ($Serialization) { $true } else { $false }
+    # ---- resolve defaults (Serialization is default; -Jackson opts in to Jackson) ----
+    $useJackson = if ($Jackson) { $true } else { $false }
 
     if (-not $PSBoundParameters.ContainsKey('BasePackage')) {
-        if ($Serialization) {
-            $BasePackage = "ai.platon.cdt.kt.serialization.protocol"
+        if ($useJackson) {
+            $BasePackage = "ai.platon.cdt.kt.protocol"
         }
         else {
-            $BasePackage = "ai.platon.cdt.kt.protocol"
+            $BasePackage = "ai.platon.cdt.kt.serialization.protocol"
         }
     }
 
     if (-not $PSBoundParameters.ContainsKey('OutputProject')) {
-        if ($Serialization) {
-            $OutputProject = "cdt-kotlin-client-serialization"
+        if ($useJackson) {
+            $OutputProject = "cdt-kotlin-client"
         }
         else {
-            $OutputProject = "cdt-kotlin-client"
+            $OutputProject = "cdt-kotlin-client-serialization"
         }
     }
 
@@ -161,7 +162,7 @@ try {
     }
 
     # ---- run the generator ------------------------------------------------
-    $modeLabel = if ($Serialization) { "kotlinx.serialization" } else { "Jackson" }
+    $modeLabel = if ($useJackson) { "Jackson" } else { "kotlinx.serialization" }
     Write-Host "Running Kotlin protocol generator ($modeLabel mode)..."
 
     $javaArgs = @(
@@ -173,8 +174,8 @@ try {
         "--language", $Language
     )
 
-    if ($Serialization) {
-        $javaArgs += "--serialization=true"
+    if (-not $useJackson) {
+        $javaArgs += "--serialization"
     }
 
     & java @javaArgs

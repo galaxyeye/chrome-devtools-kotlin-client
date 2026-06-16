@@ -1,7 +1,9 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.dom
 
+import ai.platon.cdt.kt.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
+import ai.platon.cdt.kt.protocol.types.network.AdProvenance
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Boolean
 import kotlin.Deprecated
@@ -65,6 +67,9 @@ data class Node(
   @param:JsonProperty("pseudoType")
   @param:Optional
   val pseudoType: PseudoType? = null,
+  @param:JsonProperty("pseudoIdentifier")
+  @param:Optional
+  val pseudoIdentifier: String? = null,
   @param:JsonProperty("shadowRootType")
   @param:Optional
   val shadowRootType: ShadowRootType? = null,
@@ -93,4 +98,26 @@ data class Node(
   @param:JsonProperty("isSVG")
   @param:Optional
   val isSVG: Boolean? = null,
+  @param:JsonProperty("compatibilityMode")
+  @param:Optional
+  val compatibilityMode: CompatibilityMode? = null,
+  @param:JsonProperty("assignedSlot")
+  @param:Optional
+  val assignedSlot: BackendNode? = null,
+  @param:JsonProperty("isScrollable")
+  @param:Optional
+  @param:Experimental
+  val isScrollable: Boolean? = null,
+  @param:JsonProperty("affectedByStartingStyles")
+  @param:Optional
+  @param:Experimental
+  val affectedByStartingStyles: Boolean? = null,
+  @param:JsonProperty("adoptedStyleSheets")
+  @param:Optional
+  @param:Experimental
+  val adoptedStyleSheets: List<String>? = null,
+  @param:JsonProperty("adProvenance")
+  @param:Optional
+  @param:Experimental
+  val adProvenance: AdProvenance? = null,
 )

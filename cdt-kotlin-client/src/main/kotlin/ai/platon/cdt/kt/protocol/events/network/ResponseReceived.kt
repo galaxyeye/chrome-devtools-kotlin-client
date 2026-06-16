@@ -1,10 +1,12 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.network
 
+import ai.platon.cdt.kt.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.protocol.types.network.ResourceType
 import ai.platon.cdt.kt.protocol.types.network.Response
 import com.fasterxml.jackson.`annotation`.JsonProperty
+import kotlin.Boolean
 import kotlin.Double
 import kotlin.String
 
@@ -22,6 +24,9 @@ data class ResponseReceived(
   val type: ResourceType,
   @param:JsonProperty("response")
   val response: Response,
+  @param:JsonProperty("hasExtraInfo")
+  @param:Experimental
+  val hasExtraInfo: Boolean,
   @param:JsonProperty("frameId")
   @param:Optional
   val frameId: String? = null,

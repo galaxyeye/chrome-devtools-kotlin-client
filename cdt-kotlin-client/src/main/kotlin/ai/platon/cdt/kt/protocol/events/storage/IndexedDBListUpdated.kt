@@ -10,4 +10,8 @@ import kotlin.String
 data class IndexedDBListUpdated(
   @param:JsonProperty("origin")
   val origin: String,
+  @param:JsonProperty("storageKey")
+  val storageKey: String,
+  @param:JsonProperty("bucketId")
+  val bucketId: String,
 )

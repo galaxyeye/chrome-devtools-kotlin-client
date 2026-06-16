@@ -37,13 +37,18 @@ data class Cookie(
   @param:JsonProperty("priority")
   @param:Experimental
   val priority: CookiePriority,
-  @param:JsonProperty("sameParty")
-  @param:Experimental
-  val sameParty: Boolean,
   @param:JsonProperty("sourceScheme")
   @param:Experimental
   val sourceScheme: CookieSourceScheme,
   @param:JsonProperty("sourcePort")
   @param:Experimental
   val sourcePort: Int,
+  @param:JsonProperty("partitionKey")
+  @param:Optional
+  @param:Experimental
+  val partitionKey: CookiePartitionKey? = null,
+  @param:JsonProperty("partitionKeyOpaque")
+  @param:Optional
+  @param:Experimental
+  val partitionKeyOpaque: Boolean? = null,
 )

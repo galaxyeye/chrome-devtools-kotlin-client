@@ -5,7 +5,7 @@ import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
- * Controls how the trace buffer stores data.
+ * Controls how the trace buffer stores data. The default is `recordUntilFull`.
  */
 public enum class TraceConfigRecordMode {
   @JsonProperty("recordUntilFull")

@@ -9,7 +9,7 @@ import kotlin.String
 
 /**
  * Definition of PermissionDescriptor defined in the Permissions API:
- * https://w3c.github.io/permissions/#dictdef-permissiondescriptor.
+ * https://w3c.github.io/permissions/#dom-permissiondescriptor.
  */
 @Experimental
 data class PermissionDescriptor(
@@ -24,6 +24,9 @@ data class PermissionDescriptor(
   @param:JsonProperty("allowWithoutSanitization")
   @param:Optional
   val allowWithoutSanitization: Boolean? = null,
+  @param:JsonProperty("allowWithoutGesture")
+  @param:Optional
+  val allowWithoutGesture: Boolean? = null,
   @param:JsonProperty("panTiltZoom")
   @param:Optional
   val panTiltZoom: Boolean? = null,

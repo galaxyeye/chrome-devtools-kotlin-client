@@ -1,6 +1,9 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.commands
 
+import ai.platon.cdt.kt.protocol.events.dom.AdRelatedStateUpdated
+import ai.platon.cdt.kt.protocol.events.dom.AdoptedStyleSheetsModified
+import ai.platon.cdt.kt.protocol.events.dom.AffectedByStartingStylesFlagUpdated
 import ai.platon.cdt.kt.protocol.events.dom.AttributeModified
 import ai.platon.cdt.kt.protocol.events.dom.AttributeRemoved
 import ai.platon.cdt.kt.protocol.events.dom.CharacterDataModified
@@ -12,9 +15,11 @@ import ai.platon.cdt.kt.protocol.events.dom.DocumentUpdated
 import ai.platon.cdt.kt.protocol.events.dom.InlineStyleInvalidated
 import ai.platon.cdt.kt.protocol.events.dom.PseudoElementAdded
 import ai.platon.cdt.kt.protocol.events.dom.PseudoElementRemoved
+import ai.platon.cdt.kt.protocol.events.dom.ScrollableFlagUpdated
 import ai.platon.cdt.kt.protocol.events.dom.SetChildNodes
 import ai.platon.cdt.kt.protocol.events.dom.ShadowRootPopped
 import ai.platon.cdt.kt.protocol.events.dom.ShadowRootPushed
+import ai.platon.cdt.kt.protocol.events.dom.TopLayerElementsUpdated
 import ai.platon.cdt.kt.protocol.support.annotations.EventName
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
@@ -25,10 +30,15 @@ import ai.platon.cdt.kt.protocol.support.types.EventHandler
 import ai.platon.cdt.kt.protocol.support.types.EventListener
 import ai.platon.cdt.kt.protocol.types.dom.BoxModel
 import ai.platon.cdt.kt.protocol.types.dom.CSSComputedStyleProperty
+import ai.platon.cdt.kt.protocol.types.dom.DetachedElementInfo
+import ai.platon.cdt.kt.protocol.types.dom.EnableIncludeWhitespace
 import ai.platon.cdt.kt.protocol.types.dom.FrameOwner
+import ai.platon.cdt.kt.protocol.types.dom.GetElementByRelationRelation
+import ai.platon.cdt.kt.protocol.types.dom.LogicalAxes
 import ai.platon.cdt.kt.protocol.types.dom.Node
 import ai.platon.cdt.kt.protocol.types.dom.NodeForLocation
 import ai.platon.cdt.kt.protocol.types.dom.PerformSearch
+import ai.platon.cdt.kt.protocol.types.dom.PhysicalAxes
 import ai.platon.cdt.kt.protocol.types.dom.Rect
 import ai.platon.cdt.kt.protocol.types.runtime.RemoteObject
 import ai.platon.cdt.kt.protocol.types.runtime.StackTrace
@@ -46,8 +56,8 @@ import kotlin.collections.List
  * the JavaScript object wrapper, etc. It is important that client receives DOM events only for the
  * nodes that are known to the client. Backend keeps track of the nodes that were sent to the client
  * and never sends the same node twice. It is client's responsibility to collect information about
- * the nodes that were sent to the client.<p>Note that `iframe` owner elements will return
- * corresponding document elements as their child nodes.</p>
+ * the nodes that were sent to the client. Note that `iframe` owner elements will return
+ * corresponding document elements as their child nodes.
  */
 interface DOM {
   /**
@@ -116,7 +126,6 @@ interface DOM {
    * @param rect The rect to be scrolled into view, relative to the node's border box, in CSS pixels.
    * When omitted, center of the node will be used, similar to Element.scrollIntoView.
    */
-  @Experimental
   suspend fun scrollIntoViewIfNeeded(
     @ParamName("nodeId") @Optional nodeId: Int? = null,
     @ParamName("backendNodeId") @Optional backendNodeId: Int? = null,
@@ -124,7 +133,6 @@ interface DOM {
     @ParamName("rect") @Optional rect: Rect? = null,
   )
 
-  @Experimental
   suspend fun scrollIntoViewIfNeeded() {
     return scrollIntoViewIfNeeded(null, null, null, null)
   }
@@ -144,8 +152,13 @@ interface DOM {
 
   /**
    * Enables DOM agent for the given page.
+   * @param includeWhitespace Whether to include whitespaces in the children array of returned Nodes.
    */
-  suspend fun enable()
+  suspend fun enable(@ParamName("includeWhitespace") @Optional @Experimental includeWhitespace: EnableIncludeWhitespace? = null)
+
+  suspend fun enable() {
+    return enable(null)
+  }
 
   /**
    * Focuses the given element.
@@ -165,7 +178,7 @@ interface DOM {
 
   /**
    * Returns attributes for the specified node.
-   * @param nodeId Id of the node to retrieve attibutes for.
+   * @param nodeId Id of the node to retrieve attributes for.
    */
   @Returns("attributes")
   @ReturnTypeParameter(String::class)
@@ -214,6 +227,7 @@ interface DOM {
 
   /**
    * Returns the root DOM node (and optionally the subtree) to the caller.
+   * Implicitly enables the DOM domain events for the current target.
    * @param depth The maximum depth at which children should be retrieved, defaults to 1. Use -1 for the
    * entire subtree or provide an integer larger than 0.
    * @param pierce Whether or not iframes and shadow roots should be traversed when returning the subtree
@@ -295,17 +309,19 @@ interface DOM {
    * @param nodeId Identifier of the node.
    * @param backendNodeId Identifier of the backend node.
    * @param objectId JavaScript object id of the node wrapper.
+   * @param includeShadowDOM Include all shadow roots. Equals to false if not specified.
    */
   @Returns("outerHTML")
   suspend fun getOuterHTML(
     @ParamName("nodeId") @Optional nodeId: Int? = null,
     @ParamName("backendNodeId") @Optional backendNodeId: Int? = null,
     @ParamName("objectId") @Optional objectId: String? = null,
+    @ParamName("includeShadowDOM") @Optional @Experimental includeShadowDOM: Boolean? = null,
   ): String
 
   @Returns("outerHTML")
   suspend fun getOuterHTML(): String {
-    return getOuterHTML(null, null, null)
+    return getOuterHTML(null, null, null, null)
   }
 
   /**
@@ -404,6 +420,25 @@ interface DOM {
   @Returns("nodeIds")
   @ReturnTypeParameter(Int::class)
   suspend fun querySelectorAll(@ParamName("nodeId") nodeId: Int, @ParamName("selector") selector: String): List<Int>
+
+  /**
+   * Returns NodeIds of current top layer elements.
+   * Top layer is rendered closest to the user within a viewport, therefore its elements always
+   * appear on top of all other content.
+   */
+  @Experimental
+  @Returns("nodeIds")
+  @ReturnTypeParameter(Int::class)
+  suspend fun getTopLayerElements(): List<Int>
+
+  /**
+   * Returns the NodeId of the matched element according to certain relations.
+   * @param nodeId Id of the node from which to query the relation.
+   * @param relation Type of relation to get.
+   */
+  @Experimental
+  @Returns("nodeId")
+  suspend fun getElementByRelation(@ParamName("nodeId") nodeId: Int, @ParamName("relation") relation: GetElementByRelationRelation): Int
 
   /**
    * Re-does the last undone action.
@@ -546,6 +581,14 @@ interface DOM {
   suspend fun getFileInfo(@ParamName("objectId") objectId: String): String
 
   /**
+   * Returns list of detached nodes
+   */
+  @Experimental
+  @Returns("detachedNodes")
+  @ReturnTypeParameter(DetachedElementInfo::class)
+  suspend fun getDetachedDomNodes(): List<DetachedElementInfo>
+
+  /**
    * Enables console to refer to the node with given id via $x (see Command Line API for more details
    * $x functions).
    * @param nodeId DOM node id to be accessible by means of $x command line API.
@@ -588,11 +631,105 @@ interface DOM {
   @Experimental
   suspend fun getFrameOwner(@ParamName("frameId") frameId: String): FrameOwner
 
+  /**
+   * Returns the query container of the given node based on container query
+   * conditions: containerName, physical and logical axes, and whether it queries
+   * scroll-state or anchored elements. If no axes are provided and
+   * queriesScrollState is false, the style container is returned, which is the
+   * direct parent or the closest element with a matching container-name.
+   * @param nodeId
+   * @param containerName
+   * @param physicalAxes
+   * @param logicalAxes
+   * @param queriesScrollState
+   * @param queriesAnchored
+   */
+  @Experimental
+  @Returns("nodeId")
+  suspend fun getContainerForNode(
+    @ParamName("nodeId") nodeId: Int,
+    @ParamName("containerName") @Optional containerName: String? = null,
+    @ParamName("physicalAxes") @Optional physicalAxes: PhysicalAxes? = null,
+    @ParamName("logicalAxes") @Optional logicalAxes: LogicalAxes? = null,
+    @ParamName("queriesScrollState") @Optional queriesScrollState: Boolean? = null,
+    @ParamName("queriesAnchored") @Optional queriesAnchored: Boolean? = null,
+  ): Int?
+
+  @Experimental
+  @Returns("nodeId")
+  suspend fun getContainerForNode(@ParamName("nodeId") nodeId: Int): Int? {
+    return getContainerForNode(nodeId, null, null, null, null, null)
+  }
+
+  /**
+   * Returns the descendants of a container query container that have
+   * container queries against this container.
+   * @param nodeId Id of the container node to find querying descendants from.
+   */
+  @Experimental
+  @Returns("nodeIds")
+  @ReturnTypeParameter(Int::class)
+  suspend fun getQueryingDescendantsForContainer(@ParamName("nodeId") nodeId: Int): List<Int>
+
+  /**
+   * Returns the target anchor element of the given anchor query according to
+   * https://www.w3.org/TR/css-anchor-position-1/#target.
+   * @param nodeId Id of the positioned element from which to find the anchor.
+   * @param anchorSpecifier An optional anchor specifier, as defined in
+   * https://www.w3.org/TR/css-anchor-position-1/#anchor-specifier.
+   * If not provided, it will return the implicit anchor element for
+   * the given positioned element.
+   */
+  @Experimental
+  @Returns("nodeId")
+  suspend fun getAnchorElement(@ParamName("nodeId") nodeId: Int, @ParamName("anchorSpecifier") @Optional anchorSpecifier: String? = null): Int
+
+  @Experimental
+  @Returns("nodeId")
+  suspend fun getAnchorElement(@ParamName("nodeId") nodeId: Int): Int {
+    return getAnchorElement(nodeId, null)
+  }
+
+  /**
+   * When enabling, this API force-opens the popover identified by nodeId
+   * and keeps it open until disabled.
+   * @param nodeId Id of the popover HTMLElement
+   * @param enable If true, opens the popover and keeps it open. If false, closes the
+   * popover if it was previously force-opened.
+   * @param invokerNodeId Optional ID of the element invoking this popover, used to establish the implicit anchor.
+   * If not provided, it will fall back to the first invoker in the document, preferring
+   * elements with a popovertarget attribute over those with a commandfor attribute. Note that
+   * if there are multiple invokers, this is just an estimate.
+   */
+  @Experimental
+  @Returns("nodeIds")
+  @ReturnTypeParameter(Int::class)
+  suspend fun forceShowPopover(
+    @ParamName("nodeId") nodeId: Int,
+    @ParamName("enable") enable: Boolean,
+    @ParamName("invokerNodeId") @Optional invokerNodeId: Int? = null,
+  ): List<Int>
+
+  @Experimental
+  @Returns("nodeIds")
+  @ReturnTypeParameter(Int::class)
+  suspend fun forceShowPopover(@ParamName("nodeId") nodeId: Int, @ParamName("enable") enable: Boolean): List<Int> {
+    return forceShowPopover(nodeId, enable, null)
+  }
+
   @EventName("attributeModified")
   fun onAttributeModified(eventListener: EventHandler<AttributeModified>): EventListener
 
   @EventName("attributeModified")
   fun onAttributeModified(eventListener: suspend (AttributeModified) -> Unit): EventListener
+
+  @EventName("adoptedStyleSheetsModified")
+  @Experimental
+  fun onAdoptedStyleSheetsModified(eventListener: EventHandler<AdoptedStyleSheetsModified>): EventListener
+
+  @EventName("adoptedStyleSheetsModified")
+  @Experimental
+  fun onAdoptedStyleSheetsModified(eventListener: suspend (AdoptedStyleSheetsModified) -> Unit): EventListener
 
   @EventName("attributeRemoved")
   fun onAttributeRemoved(eventListener: EventHandler<AttributeRemoved>): EventListener
@@ -653,6 +790,38 @@ interface DOM {
   @EventName("pseudoElementAdded")
   @Experimental
   fun onPseudoElementAdded(eventListener: suspend (PseudoElementAdded) -> Unit): EventListener
+
+  @EventName("topLayerElementsUpdated")
+  @Experimental
+  fun onTopLayerElementsUpdated(eventListener: EventHandler<TopLayerElementsUpdated>): EventListener
+
+  @EventName("topLayerElementsUpdated")
+  @Experimental
+  fun onTopLayerElementsUpdated(eventListener: suspend (TopLayerElementsUpdated) -> Unit): EventListener
+
+  @EventName("scrollableFlagUpdated")
+  @Experimental
+  fun onScrollableFlagUpdated(eventListener: EventHandler<ScrollableFlagUpdated>): EventListener
+
+  @EventName("scrollableFlagUpdated")
+  @Experimental
+  fun onScrollableFlagUpdated(eventListener: suspend (ScrollableFlagUpdated) -> Unit): EventListener
+
+  @EventName("adRelatedStateUpdated")
+  @Experimental
+  fun onAdRelatedStateUpdated(eventListener: EventHandler<AdRelatedStateUpdated>): EventListener
+
+  @EventName("adRelatedStateUpdated")
+  @Experimental
+  fun onAdRelatedStateUpdated(eventListener: suspend (AdRelatedStateUpdated) -> Unit): EventListener
+
+  @EventName("affectedByStartingStylesFlagUpdated")
+  @Experimental
+  fun onAffectedByStartingStylesFlagUpdated(eventListener: EventHandler<AffectedByStartingStylesFlagUpdated>): EventListener
+
+  @EventName("affectedByStartingStylesFlagUpdated")
+  @Experimental
+  fun onAffectedByStartingStylesFlagUpdated(eventListener: suspend (AffectedByStartingStylesFlagUpdated) -> Unit): EventListener
 
   @EventName("pseudoElementRemoved")
   @Experimental

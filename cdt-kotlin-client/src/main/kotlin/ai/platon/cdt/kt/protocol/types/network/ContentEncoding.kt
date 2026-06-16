@@ -14,6 +14,8 @@ public enum class ContentEncoding {
   GZIP,
   @JsonProperty("br")
   BR,
+  @JsonProperty("zstd")
+  ZSTD,
   @JsonEnumDefaultValue
   UNKNOWN,
 }

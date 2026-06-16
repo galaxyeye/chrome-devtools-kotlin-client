@@ -10,4 +10,8 @@ import kotlin.String
 data class CacheStorageListUpdated(
   @param:JsonProperty("origin")
   val origin: String,
+  @param:JsonProperty("storageKey")
+  val storageKey: String,
+  @param:JsonProperty("bucketId")
+  val bucketId: String,
 )

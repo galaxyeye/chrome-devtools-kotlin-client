@@ -2,6 +2,7 @@
 package ai.platon.cdt.kt.protocol.events.page
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
+import ai.platon.cdt.kt.protocol.types.page.NavigatedWithinDocumentNavigationType
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
@@ -14,4 +15,6 @@ data class NavigatedWithinDocument(
   val frameId: String,
   @param:JsonProperty("url")
   val url: String,
+  @param:JsonProperty("navigationType")
+  val navigationType: NavigatedWithinDocumentNavigationType,
 )

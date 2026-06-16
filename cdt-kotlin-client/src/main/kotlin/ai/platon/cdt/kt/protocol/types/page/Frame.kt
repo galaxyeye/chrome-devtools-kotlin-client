@@ -32,16 +32,20 @@ data class Frame(
   val domainAndRegistry: String,
   @param:JsonProperty("securityOrigin")
   val securityOrigin: String,
+  @param:JsonProperty("securityOriginDetails")
+  @param:Optional
+  @param:Experimental
+  val securityOriginDetails: SecurityOriginDetails? = null,
   @param:JsonProperty("mimeType")
   val mimeType: String,
   @param:JsonProperty("unreachableUrl")
   @param:Optional
   @param:Experimental
   val unreachableUrl: String? = null,
-  @param:JsonProperty("adFrameType")
+  @param:JsonProperty("adFrameStatus")
   @param:Optional
   @param:Experimental
-  val adFrameType: AdFrameType? = null,
+  val adFrameStatus: AdFrameStatus? = null,
   @param:JsonProperty("secureContextType")
   @param:Experimental
   val secureContextType: SecureContextType,

@@ -18,6 +18,8 @@ public enum class BlockedReason {
   ORIGIN,
   @JsonProperty("inspector")
   INSPECTOR,
+  @JsonProperty("integrity")
+  INTEGRITY,
   @JsonProperty("subresource-filter")
   SUBRESOURCE_FILTER,
   @JsonProperty("content-type")
@@ -30,8 +32,14 @@ public enum class BlockedReason {
   CORP_NOT_SAME_ORIGIN,
   @JsonProperty("corp-not-same-origin-after-defaulted-to-same-origin-by-coep")
   CORP_NOT_SAME_ORIGIN_AFTER_DEFAULTED_TO_SAME_ORIGIN_BY_COEP,
+  @JsonProperty("corp-not-same-origin-after-defaulted-to-same-origin-by-dip")
+  CORP_NOT_SAME_ORIGIN_AFTER_DEFAULTED_TO_SAME_ORIGIN_BY_DIP,
+  @JsonProperty("corp-not-same-origin-after-defaulted-to-same-origin-by-coep-and-dip")
+  CORP_NOT_SAME_ORIGIN_AFTER_DEFAULTED_TO_SAME_ORIGIN_BY_COEP_AND_DIP,
   @JsonProperty("corp-not-same-site")
   CORP_NOT_SAME_SITE,
+  @JsonProperty("sri-message-signature-mismatch")
+  SRI_MESSAGE_SIGNATURE_MISMATCH,
   @JsonEnumDefaultValue
   UNKNOWN,
 }

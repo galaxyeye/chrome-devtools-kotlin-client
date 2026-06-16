@@ -46,6 +46,8 @@ public enum class ObjectPreviewSubtype {
   WEBASSEMBLYMEMORY,
   @JsonProperty("wasmvalue")
   WASMVALUE,
+  @JsonProperty("trustedtype")
+  TRUSTEDTYPE,
   @JsonEnumDefaultValue
   UNKNOWN,
 }

@@ -78,7 +78,7 @@ interface Input {
    * 0).
    * @param commands Editing commands to send with the key event (e.g., 'selectAll') (default: []).
    * These are related to but not equal the command names used in `document.execCommand` and NSStandardKeyBindingResponding.
-   * See https://source.chromium.org/chromium/chromium/src/+/master:third_party/blink/renderer/core/editing/commands/editor_command_names.h for valid command names.
+   * See https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/core/editing/commands/editor_command_names.h for valid command names.
    */
   suspend fun dispatchKeyEvent(
     @ParamName("type") type: DispatchKeyEventType,
@@ -109,6 +109,34 @@ interface Input {
    */
   @Experimental
   suspend fun insertText(@ParamName("text") text: String)
+
+  /**
+   * This method sets the current candidate text for IME.
+   * Use imeCommitComposition to commit the final text.
+   * Use imeSetComposition with empty string as text to cancel composition.
+   * @param text The text to insert
+   * @param selectionStart selection start
+   * @param selectionEnd selection end
+   * @param replacementStart replacement start
+   * @param replacementEnd replacement end
+   */
+  @Experimental
+  suspend fun imeSetComposition(
+    @ParamName("text") text: String,
+    @ParamName("selectionStart") selectionStart: Int,
+    @ParamName("selectionEnd") selectionEnd: Int,
+    @ParamName("replacementStart") @Optional replacementStart: Int? = null,
+    @ParamName("replacementEnd") @Optional replacementEnd: Int? = null,
+  )
+
+  @Experimental
+  suspend fun imeSetComposition(
+    @ParamName("text") text: String,
+    @ParamName("selectionStart") selectionStart: Int,
+    @ParamName("selectionEnd") selectionEnd: Int,
+  ) {
+    return imeSetComposition(text, selectionStart, selectionEnd, null, null)
+  }
 
   /**
    * Dispatches a mouse event to the page.
@@ -143,8 +171,8 @@ interface Input {
     @ParamName("clickCount") @Optional clickCount: Int? = null,
     @ParamName("force") @Optional @Experimental force: Double? = null,
     @ParamName("tangentialPressure") @Optional @Experimental tangentialPressure: Double? = null,
-    @ParamName("tiltX") @Optional @Experimental tiltX: Int? = null,
-    @ParamName("tiltY") @Optional @Experimental tiltY: Int? = null,
+    @ParamName("tiltX") @Optional tiltX: Double? = null,
+    @ParamName("tiltY") @Optional tiltY: Double? = null,
     @ParamName("twist") @Optional @Experimental twist: Int? = null,
     @ParamName("deltaX") @Optional deltaX: Double? = null,
     @ParamName("deltaY") @Optional deltaY: Double? = null,
@@ -180,6 +208,11 @@ interface Input {
   suspend fun dispatchTouchEvent(@ParamName("type") type: DispatchTouchEventType, @ParamName("touchPoints") touchPoints: List<TouchPoint>) {
     return dispatchTouchEvent(type, touchPoints, null, null)
   }
+
+  /**
+   * Cancels any active dragging in the page.
+   */
+  suspend fun cancelDragging()
 
   /**
    * Emulates touch event from the mouse event parameters.

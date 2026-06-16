@@ -30,12 +30,10 @@ data class TouchPoint(
   val tangentialPressure: Double? = null,
   @param:JsonProperty("tiltX")
   @param:Optional
-  @param:Experimental
-  val tiltX: Int? = null,
+  val tiltX: Double? = null,
   @param:JsonProperty("tiltY")
   @param:Optional
-  @param:Experimental
-  val tiltY: Int? = null,
+  val tiltY: Double? = null,
   @param:JsonProperty("twist")
   @param:Optional
   @param:Experimental

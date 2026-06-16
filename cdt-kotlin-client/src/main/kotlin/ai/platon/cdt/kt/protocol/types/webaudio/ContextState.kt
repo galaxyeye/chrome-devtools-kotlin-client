@@ -14,6 +14,8 @@ public enum class ContextState {
   RUNNING,
   @JsonProperty("closed")
   CLOSED,
+  @JsonProperty("interrupted")
+  INTERRUPTED,
   @JsonEnumDefaultValue
   UNKNOWN,
 }

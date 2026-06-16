@@ -48,6 +48,8 @@ public enum class RemoteObjectSubtype {
   WEBASSEMBLYMEMORY,
   @JsonProperty("wasmvalue")
   WASMVALUE,
+  @JsonProperty("trustedtype")
+  TRUSTEDTYPE,
   @JsonEnumDefaultValue
   UNKNOWN,
 }

@@ -12,6 +12,10 @@ public enum class PermissionsPolicyBlockReason {
   HEADER,
   @JsonProperty("IframeAttribute")
   IFRAME_ATTRIBUTE,
+  @JsonProperty("InFencedFrameTree")
+  IN_FENCED_FRAME_TREE,
+  @JsonProperty("InIsolatedApp")
+  IN_ISOLATED_APP,
   @JsonEnumDefaultValue
   UNKNOWN,
 }

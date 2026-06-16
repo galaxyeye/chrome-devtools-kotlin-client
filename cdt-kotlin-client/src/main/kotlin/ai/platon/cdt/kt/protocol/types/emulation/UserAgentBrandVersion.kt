@@ -6,7 +6,7 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
 /**
- * Used to specify User Agent Cient Hints to emulate. See https://wicg.github.io/ua-client-hints
+ * Used to specify User Agent Client Hints to emulate. See https://wicg.github.io/ua-client-hints
  */
 @Experimental
 data class UserAgentBrandVersion(

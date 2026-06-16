@@ -32,6 +32,8 @@ public enum class PausedReason {
   PROMISE_REJECTION,
   @JsonProperty("XHR")
   XHR,
+  @JsonProperty("step")
+  STEP,
   @JsonEnumDefaultValue
   UNKNOWN,
 }

@@ -11,6 +11,6 @@ data class ClientSecurityState(
   val initiatorIsSecureContext: Boolean,
   @param:JsonProperty("initiatorIPAddressSpace")
   val initiatorIPAddressSpace: IPAddressSpace,
-  @param:JsonProperty("privateNetworkRequestPolicy")
-  val privateNetworkRequestPolicy: PrivateNetworkRequestPolicy,
+  @param:JsonProperty("localNetworkAccessRequestPolicy")
+  val localNetworkAccessRequestPolicy: LocalNetworkAccessRequestPolicy,
 )

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
- * Only set for "token-redemption" type and determine whether
+ * Only set for "token-redemption" operation and determine whether
  * to request a fresh SRR or use a still valid cached SRR.
  */
 public enum class TrustTokenParamsRefreshPolicy {

@@ -25,7 +25,6 @@ import kotlin.String
 import kotlin.Unit
 import kotlin.collections.List
 
-@Experimental
 interface Tracing {
   /**
    * Stop trace events collection.
@@ -35,14 +34,23 @@ interface Tracing {
   /**
    * Gets supported tracing categories.
    */
+  @Experimental
   @Returns("categories")
   @ReturnTypeParameter(String::class)
   suspend fun getCategories(): List<String>
 
   /**
+   * Return a descriptor for all available tracing categories.
+   */
+  @Experimental
+  @Returns("descriptor")
+  suspend fun getTrackEventDescriptor(): String
+
+  /**
    * Record a clock sync marker in the trace.
    * @param syncId The ID of this clock sync marker
    */
+  @Experimental
   suspend fun recordClockSyncMarker(@ParamName("syncId") syncId: String)
 
   /**
@@ -50,8 +58,10 @@ interface Tracing {
    * @param deterministic Enables more deterministic results by forcing garbage collection
    * @param levelOfDetail Specifies level of details in memory dump. Defaults to "detailed".
    */
+  @Experimental
   suspend fun requestMemoryDump(@ParamName("deterministic") @Optional deterministic: Boolean? = null, @ParamName("levelOfDetail") @Optional levelOfDetail: MemoryDumpLevelOfDetail? = null): RequestMemoryDump
 
+  @Experimental
   suspend fun requestMemoryDump(): RequestMemoryDump {
     return requestMemoryDump(null, null)
   }
@@ -74,15 +84,15 @@ interface Tracing {
    * @param tracingBackend Backend type (defaults to `auto`)
    */
   suspend fun start(
-    @ParamName("categories") @Optional categories: String? = null,
-    @ParamName("options") @Optional options: String? = null,
-    @ParamName("bufferUsageReportingInterval") @Optional bufferUsageReportingInterval: Double? = null,
+    @ParamName("categories") @Optional @Experimental categories: String? = null,
+    @ParamName("options") @Optional @Experimental options: String? = null,
+    @ParamName("bufferUsageReportingInterval") @Optional @Experimental bufferUsageReportingInterval: Double? = null,
     @ParamName("transferMode") @Optional transferMode: StartTransferMode? = null,
     @ParamName("streamFormat") @Optional streamFormat: StreamFormat? = null,
-    @ParamName("streamCompression") @Optional streamCompression: StreamCompression? = null,
+    @ParamName("streamCompression") @Optional @Experimental streamCompression: StreamCompression? = null,
     @ParamName("traceConfig") @Optional traceConfig: TraceConfig? = null,
-    @ParamName("perfettoConfig") @Optional perfettoConfig: String? = null,
-    @ParamName("tracingBackend") @Optional tracingBackend: TracingBackend? = null,
+    @ParamName("perfettoConfig") @Optional @Experimental perfettoConfig: String? = null,
+    @ParamName("tracingBackend") @Optional @Experimental tracingBackend: TracingBackend? = null,
   )
 
   suspend fun start() {
@@ -90,15 +100,19 @@ interface Tracing {
   }
 
   @EventName("bufferUsage")
+  @Experimental
   fun onBufferUsage(eventListener: EventHandler<BufferUsage>): EventListener
 
   @EventName("bufferUsage")
+  @Experimental
   fun onBufferUsage(eventListener: suspend (BufferUsage) -> Unit): EventListener
 
   @EventName("dataCollected")
+  @Experimental
   fun onDataCollected(eventListener: EventHandler<DataCollected>): EventListener
 
   @EventName("dataCollected")
+  @Experimental
   fun onDataCollected(eventListener: suspend (DataCollected) -> Unit): EventListener
 
   @EventName("tracingComplete")

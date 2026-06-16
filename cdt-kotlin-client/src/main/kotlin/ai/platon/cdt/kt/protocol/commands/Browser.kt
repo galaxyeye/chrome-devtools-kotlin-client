@@ -17,10 +17,12 @@ import ai.platon.cdt.kt.protocol.types.browser.Histogram
 import ai.platon.cdt.kt.protocol.types.browser.PermissionDescriptor
 import ai.platon.cdt.kt.protocol.types.browser.PermissionSetting
 import ai.platon.cdt.kt.protocol.types.browser.PermissionType
+import ai.platon.cdt.kt.protocol.types.browser.PrivacySandboxAPI
 import ai.platon.cdt.kt.protocol.types.browser.SetDownloadBehaviorBehavior
 import ai.platon.cdt.kt.protocol.types.browser.Version
 import ai.platon.cdt.kt.protocol.types.browser.WindowForTarget
 import kotlin.Boolean
+import kotlin.Deprecated
 import kotlin.Int
 import kotlin.String
 import kotlin.Unit
@@ -31,10 +33,13 @@ import kotlin.collections.List
  */
 interface Browser {
   /**
-   * Set permission settings for given origin.
+   * Set permission settings for given embedding and embedded origins.
    * @param permission Descriptor of permission to override.
    * @param setting Setting of the permission.
-   * @param origin Origin the permission applies to, all origins if not specified.
+   * @param origin Embedding origin the permission applies to, all origins if not specified.
+   * @param embeddedOrigin Embedded origin the permission applies to. It is ignored unless the embedding origin is
+   * present and valid. If the embedding origin is provided but the embedded origin isn't, the
+   * embedding origin is used as the embedded origin.
    * @param browserContextId Context to override. When omitted, default browser context is used.
    */
   @Experimental
@@ -42,20 +47,23 @@ interface Browser {
     @ParamName("permission") permission: PermissionDescriptor,
     @ParamName("setting") setting: PermissionSetting,
     @ParamName("origin") @Optional origin: String? = null,
+    @ParamName("embeddedOrigin") @Optional embeddedOrigin: String? = null,
     @ParamName("browserContextId") @Optional browserContextId: String? = null,
   )
 
   @Experimental
   suspend fun setPermission(@ParamName("permission") permission: PermissionDescriptor, @ParamName("setting") setting: PermissionSetting) {
-    return setPermission(permission, setting, null, null)
+    return setPermission(permission, setting, null, null, null)
   }
 
   /**
-   * Grant specific permissions to the given origin and reject all others.
+   * Grant specific permissions to the given origin and reject all others. Deprecated. Use
+   * setPermission instead.
    * @param permissions
    * @param origin Origin the permission applies to, all origins if not specified.
    * @param browserContextId BrowserContext to override permissions. When omitted, default browser context is used.
    */
+  @Deprecated("Deprecated by protocol")
   @Experimental
   suspend fun grantPermissions(
     @ParamName("permissions") permissions: List<PermissionType>,
@@ -63,6 +71,7 @@ interface Browser {
     @ParamName("browserContextId") @Optional browserContextId: String? = null,
   )
 
+  @Deprecated("Deprecated by protocol")
   @Experimental
   suspend fun grantPermissions(@ParamName("permissions") permissions: List<PermissionType>) {
     return grantPermissions(permissions, null, null)
@@ -72,10 +81,8 @@ interface Browser {
    * Reset all permission management for all origins.
    * @param browserContextId BrowserContext to reset permissions. When omitted, default browser context is used.
    */
-  @Experimental
   suspend fun resetPermissions(@ParamName("browserContextId") @Optional browserContextId: String? = null)
 
-  @Experimental
   suspend fun resetPermissions() {
     return resetPermissions(null)
   }
@@ -84,7 +91,7 @@ interface Browser {
    * Set the behavior when downloading a file.
    * @param behavior Whether to allow all or deny all download requests, or use default Chrome behavior if
    * available (otherwise deny). |allowAndName| allows download and names files according to
-   * their dowmload guids.
+   * their download guids.
    * @param browserContextId BrowserContext to set download behavior. When omitted, default browser context is used.
    * @param downloadPath The default path to save downloaded files to. This is required if behavior is set to 'allow'
    * or 'allowAndName'.
@@ -152,7 +159,7 @@ interface Browser {
    * @param query Requested substring in name. Only histograms which have query as a
    * substring in their name are extracted. An empty or absent query returns
    * all histograms.
-   * @param delta If true, retrieve delta since last call.
+   * @param delta If true, retrieve delta since last delta call.
    */
   @Experimental
   @Returns("histograms")
@@ -169,7 +176,7 @@ interface Browser {
   /**
    * Get a Chrome histogram by name.
    * @param name Requested histogram name.
-   * @param delta If true, retrieve delta since last call.
+   * @param delta If true, retrieve delta since last delta call.
    */
   @Experimental
   @Returns("histogram")
@@ -211,6 +218,26 @@ interface Browser {
   suspend fun setWindowBounds(@ParamName("windowId") windowId: Int, @ParamName("bounds") bounds: Bounds)
 
   /**
+   * Set size of the browser contents resizing browser window as necessary.
+   * @param windowId Browser window id.
+   * @param width The window contents width in DIP. Assumes current width if omitted.
+   * Must be specified if 'height' is omitted.
+   * @param height The window contents height in DIP. Assumes current height if omitted.
+   * Must be specified if 'width' is omitted.
+   */
+  @Experimental
+  suspend fun setContentsSize(
+    @ParamName("windowId") windowId: Int,
+    @ParamName("width") @Optional width: Int? = null,
+    @ParamName("height") @Optional height: Int? = null,
+  )
+
+  @Experimental
+  suspend fun setContentsSize(@ParamName("windowId") windowId: Int) {
+    return setContentsSize(windowId, null, null)
+  }
+
+  /**
    * Set dock tile details, platform-specific.
    * @param badgeLabel
    * @param image Png encoded image. (Encoded as a base64 string when passed over JSON)
@@ -229,6 +256,39 @@ interface Browser {
    */
   @Experimental
   suspend fun executeBrowserCommand(@ParamName("commandId") commandId: BrowserCommandId)
+
+  /**
+   * Allows a site to use privacy sandbox features that require enrollment
+   * without the site actually being enrolled. Only supported on page targets.
+   * @param url
+   */
+  suspend fun addPrivacySandboxEnrollmentOverride(@ParamName("url") url: String)
+
+  /**
+   * Configures encryption keys used with a given privacy sandbox API to talk
+   * to a trusted coordinator.  Since this is intended for test automation only,
+   * coordinatorOrigin must be a .test domain. No existing coordinator
+   * configuration for the origin may exist.
+   * @param api
+   * @param coordinatorOrigin
+   * @param keyConfig
+   * @param browserContextId BrowserContext to perform the action in. When omitted, default browser
+   * context is used.
+   */
+  suspend fun addPrivacySandboxCoordinatorKeyConfig(
+    @ParamName("api") api: PrivacySandboxAPI,
+    @ParamName("coordinatorOrigin") coordinatorOrigin: String,
+    @ParamName("keyConfig") keyConfig: String,
+    @ParamName("browserContextId") @Optional browserContextId: String? = null,
+  )
+
+  suspend fun addPrivacySandboxCoordinatorKeyConfig(
+    @ParamName("api") api: PrivacySandboxAPI,
+    @ParamName("coordinatorOrigin") coordinatorOrigin: String,
+    @ParamName("keyConfig") keyConfig: String,
+  ) {
+    return addPrivacySandboxCoordinatorKeyConfig(api, coordinatorOrigin, keyConfig, null)
+  }
 
   @EventName("downloadWillBegin")
   @Experimental

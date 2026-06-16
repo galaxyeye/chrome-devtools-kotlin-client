@@ -26,7 +26,7 @@ CDT_PROTOCOL_BUILDER_JAR="$(CDT_PROTOCOL_BUILDER_DIR)/target/cdt-kotlin-protocol
 PROTOCOL_PARSER=cdt-protocol-parser
 
 CDT_CLIENT_DIR=cdt-kotlin-client
-CDT_CLIENT_PACKAGE=ai/platon/cdt/protocol
+CDT_CLIENT_PACKAGE=ai/platon/cdt/kt/protocol
 
 CDT_SERIALIZATION_CLIENT_DIR=cdt-kotlin-client-serialization
 CDT_SERIALIZATION_CLIENT_PACKAGE=ai/platon/cdt/kt/serialization/protocol

@@ -18,6 +18,8 @@ public enum class InitiatorType {
   SIGNED_EXCHANGE,
   @JsonProperty("preflight")
   PREFLIGHT,
+  @JsonProperty("FedCM")
+  FED_CM,
   @JsonProperty("other")
   OTHER,
   @JsonEnumDefaultValue

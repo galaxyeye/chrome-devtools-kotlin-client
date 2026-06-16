@@ -18,7 +18,8 @@ data class AnimationEffect(
   @param:JsonProperty("iterationStart")
   val iterationStart: Double,
   @param:JsonProperty("iterations")
-  val iterations: Double,
+  @param:Optional
+  val iterations: Double? = null,
   @param:JsonProperty("duration")
   val duration: Double,
   @param:JsonProperty("direction")

@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.fetch
 
+import ai.platon.cdt.kt.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.protocol.types.fetch.HeaderEntry
 import ai.platon.cdt.kt.protocol.types.network.ErrorReason
@@ -18,6 +19,11 @@ import kotlin.collections.List
  * The stage of the request can be determined by presence of responseErrorReason
  * and responseStatusCode -- the request is at the response stage if either
  * of these fields is present and in the request stage otherwise.
+ * Redirect responses and subsequent requests are reported similarly to regular
+ * responses and requests. Redirect responses may be distinguished by the value
+ * of `responseStatusCode` (which is one of 301, 302, 303, 307, 308) along with
+ * presence of the `location` header. Requests resulting from a redirect will
+ * have `redirectedRequestId` field set.
  */
 data class RequestPaused(
   @param:JsonProperty("requestId")
@@ -34,10 +40,17 @@ data class RequestPaused(
   @param:JsonProperty("responseStatusCode")
   @param:Optional
   val responseStatusCode: Int? = null,
+  @param:JsonProperty("responseStatusText")
+  @param:Optional
+  val responseStatusText: String? = null,
   @param:JsonProperty("responseHeaders")
   @param:Optional
   val responseHeaders: List<HeaderEntry>? = null,
   @param:JsonProperty("networkId")
   @param:Optional
   val networkId: String? = null,
+  @param:JsonProperty("redirectedRequestId")
+  @param:Optional
+  @param:Experimental
+  val redirectedRequestId: String? = null,
 )

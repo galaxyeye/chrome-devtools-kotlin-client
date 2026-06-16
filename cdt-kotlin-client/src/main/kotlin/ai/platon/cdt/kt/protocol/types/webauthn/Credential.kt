@@ -25,4 +25,16 @@ data class Credential(
   @param:JsonProperty("largeBlob")
   @param:Optional
   val largeBlob: String? = null,
+  @param:JsonProperty("backupEligibility")
+  @param:Optional
+  val backupEligibility: Boolean? = null,
+  @param:JsonProperty("backupState")
+  @param:Optional
+  val backupState: Boolean? = null,
+  @param:JsonProperty("userName")
+  @param:Optional
+  val userName: String? = null,
+  @param:JsonProperty("userDisplayName")
+  @param:Optional
+  val userDisplayName: String? = null,
 )

@@ -2,6 +2,7 @@
 package ai.platon.cdt.kt.protocol.types.network
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
+import ai.platon.cdt.kt.protocol.support.annotations.Optional
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Double
 
@@ -39,6 +40,14 @@ data class ResourceTiming(
   @param:JsonProperty("workerRespondWithSettled")
   @param:Experimental
   val workerRespondWithSettled: Double,
+  @param:JsonProperty("workerRouterEvaluationStart")
+  @param:Optional
+  @param:Experimental
+  val workerRouterEvaluationStart: Double? = null,
+  @param:JsonProperty("workerCacheLookupStart")
+  @param:Optional
+  @param:Experimental
+  val workerCacheLookupStart: Double? = null,
   @param:JsonProperty("sendStart")
   val sendStart: Double,
   @param:JsonProperty("sendEnd")
@@ -49,6 +58,9 @@ data class ResourceTiming(
   @param:JsonProperty("pushEnd")
   @param:Experimental
   val pushEnd: Double,
+  @param:JsonProperty("receiveHeadersStart")
+  @param:Experimental
+  val receiveHeadersStart: Double,
   @param:JsonProperty("receiveHeadersEnd")
   val receiveHeadersEnd: Double,
 )

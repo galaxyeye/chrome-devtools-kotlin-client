@@ -8,8 +8,6 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * Type of the debug symbols.
  */
 public enum class DebugSymbolsType {
-  @JsonProperty("None")
-  NONE,
   @JsonProperty("SourceMap")
   SOURCE_MAP,
   @JsonProperty("EmbeddedDWARF")

@@ -1,9 +1,12 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.debugger
 
+import ai.platon.cdt.kt.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.protocol.types.runtime.RemoteObject
 import com.fasterxml.jackson.`annotation`.JsonProperty
+import kotlin.Boolean
+import kotlin.Deprecated
 import kotlin.String
 import kotlin.collections.List
 
@@ -21,6 +24,7 @@ data class CallFrame(
   @param:JsonProperty("location")
   val location: Location,
   @param:JsonProperty("url")
+  @Deprecated("Deprecated by protocol")
   val url: String,
   @param:JsonProperty("scopeChain")
   val scopeChain: List<Scope>,
@@ -29,4 +33,8 @@ data class CallFrame(
   @param:JsonProperty("returnValue")
   @param:Optional
   val returnValue: RemoteObject? = null,
+  @param:JsonProperty("canBeRestarted")
+  @param:Optional
+  @param:Experimental
+  val canBeRestarted: Boolean? = null,
 )

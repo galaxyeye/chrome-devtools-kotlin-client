@@ -14,8 +14,8 @@ import kotlin.collections.List
  */
 @Experimental
 data class TrustTokenParams(
-  @param:JsonProperty("type")
-  val type: TrustTokenOperationType,
+  @param:JsonProperty("operation")
+  val operation: TrustTokenOperationType,
   @param:JsonProperty("refreshPolicy")
   val refreshPolicy: TrustTokenParamsRefreshPolicy,
   @param:JsonProperty("issuers")

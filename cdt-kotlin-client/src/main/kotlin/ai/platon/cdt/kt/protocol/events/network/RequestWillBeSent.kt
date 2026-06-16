@@ -1,8 +1,10 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.network
 
+import ai.platon.cdt.kt.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.protocol.types.network.Initiator
+import ai.platon.cdt.kt.protocol.types.network.RenderBlockingBehavior
 import ai.platon.cdt.kt.protocol.types.network.Request
 import ai.platon.cdt.kt.protocol.types.network.ResourceType
 import ai.platon.cdt.kt.protocol.types.network.Response
@@ -29,6 +31,9 @@ data class RequestWillBeSent(
   val wallTime: Double,
   @param:JsonProperty("initiator")
   val initiator: Initiator,
+  @param:JsonProperty("redirectHasExtraInfo")
+  @param:Experimental
+  val redirectHasExtraInfo: Boolean,
   @param:JsonProperty("redirectResponse")
   @param:Optional
   val redirectResponse: Response? = null,
@@ -41,4 +46,8 @@ data class RequestWillBeSent(
   @param:JsonProperty("hasUserGesture")
   @param:Optional
   val hasUserGesture: Boolean? = null,
+  @param:JsonProperty("renderBlockingBehavior")
+  @param:Optional
+  @param:Experimental
+  val renderBlockingBehavior: RenderBlockingBehavior? = null,
 )

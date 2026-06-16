@@ -1,6 +1,8 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.network
 
+import ai.platon.cdt.kt.protocol.support.annotations.Experimental
+import ai.platon.cdt.kt.protocol.support.annotations.Optional
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Double
 import kotlin.Int
@@ -18,4 +20,8 @@ data class DataReceived(
   val dataLength: Int,
   @param:JsonProperty("encodedDataLength")
   val encodedDataLength: Int,
+  @param:JsonProperty("data")
+  @param:Optional
+  @param:Experimental
+  val `data`: String? = null,
 )

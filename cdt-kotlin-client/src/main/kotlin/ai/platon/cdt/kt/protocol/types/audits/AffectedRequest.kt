@@ -10,8 +10,8 @@ import kotlin.String
  */
 data class AffectedRequest(
   @param:JsonProperty("requestId")
-  val requestId: String,
-  @param:JsonProperty("url")
   @param:Optional
-  val url: String? = null,
+  val requestId: String? = null,
+  @param:JsonProperty("url")
+  val url: String,
 )

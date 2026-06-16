@@ -3,6 +3,7 @@ package ai.platon.cdt.kt.protocol.types.network
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
 import com.fasterxml.jackson.`annotation`.JsonProperty
+import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
@@ -40,4 +41,9 @@ data class SecurityDetails(
   val signedCertificateTimestampList: List<SignedCertificateTimestamp>,
   @param:JsonProperty("certificateTransparencyCompliance")
   val certificateTransparencyCompliance: CertificateTransparencyCompliance,
+  @param:JsonProperty("serverSignatureAlgorithm")
+  @param:Optional
+  val serverSignatureAlgorithm: Int? = null,
+  @param:JsonProperty("encryptedClientHello")
+  val encryptedClientHello: Boolean,
 )

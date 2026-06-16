@@ -15,9 +15,6 @@ import kotlin.Deprecated
 import kotlin.Int
 import kotlin.Unit
 
-/**
- * Security
- */
 interface Security {
   /**
    * Disables tracking security state changes.
@@ -33,7 +30,6 @@ interface Security {
    * Enable/disable whether all certificate errors should be ignored.
    * @param ignore If true, all certificate errors will be ignored.
    */
-  @Experimental
   suspend fun setIgnoreCertificateErrors(@ParamName("ignore") ignore: Boolean)
 
   /**
@@ -69,8 +65,10 @@ interface Security {
   fun onVisibleSecurityStateChanged(eventListener: suspend (VisibleSecurityStateChanged) -> Unit): EventListener
 
   @EventName("securityStateChanged")
+  @Deprecated("Deprecated by protocol")
   fun onSecurityStateChanged(eventListener: EventHandler<SecurityStateChanged>): EventListener
 
   @EventName("securityStateChanged")
+  @Deprecated("Deprecated by protocol")
   fun onSecurityStateChanged(eventListener: suspend (SecurityStateChanged) -> Unit): EventListener
 }

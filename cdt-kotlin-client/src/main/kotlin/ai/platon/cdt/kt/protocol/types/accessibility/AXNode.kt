@@ -22,6 +22,9 @@ data class AXNode(
   @param:JsonProperty("role")
   @param:Optional
   val role: AXValue? = null,
+  @param:JsonProperty("chromeRole")
+  @param:Optional
+  val chromeRole: AXValue? = null,
   @param:JsonProperty("name")
   @param:Optional
   val name: AXValue? = null,
@@ -34,10 +37,16 @@ data class AXNode(
   @param:JsonProperty("properties")
   @param:Optional
   val properties: List<AXProperty>? = null,
+  @param:JsonProperty("parentId")
+  @param:Optional
+  val parentId: String? = null,
   @param:JsonProperty("childIds")
   @param:Optional
   val childIds: List<String>? = null,
   @param:JsonProperty("backendDOMNodeId")
   @param:Optional
   val backendDOMNodeId: Int? = null,
+  @param:JsonProperty("frameId")
+  @param:Optional
+  val frameId: String? = null,
 )

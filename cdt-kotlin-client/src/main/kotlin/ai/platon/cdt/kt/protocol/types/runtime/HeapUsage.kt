@@ -9,4 +9,8 @@ data class HeapUsage(
   val usedSize: Double,
   @param:JsonProperty("totalSize")
   val totalSize: Double,
+  @param:JsonProperty("embedderHeapUsedSize")
+  val embedderHeapUsedSize: Double,
+  @param:JsonProperty("backingStorageSize")
+  val backingStorageSize: Double,
 )

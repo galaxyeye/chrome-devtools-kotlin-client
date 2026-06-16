@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.page
 
+import ai.platon.cdt.kt.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.protocol.types.page.DialogType
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -14,6 +15,9 @@ import kotlin.String
 data class JavascriptDialogOpening(
   @param:JsonProperty("url")
   val url: String,
+  @param:JsonProperty("frameId")
+  @param:Experimental
+  val frameId: String,
   @param:JsonProperty("message")
   val message: String,
   @param:JsonProperty("type")

@@ -1,10 +1,12 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.tracing
 
+import ai.platon.cdt.kt.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Double
 
+@Experimental
 data class BufferUsage(
   @param:JsonProperty("percentFull")
   @param:Optional

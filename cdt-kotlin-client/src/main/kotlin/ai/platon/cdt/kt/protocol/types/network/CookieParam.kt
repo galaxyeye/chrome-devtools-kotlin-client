@@ -42,10 +42,6 @@ data class CookieParam(
   @param:Optional
   @param:Experimental
   val priority: CookiePriority? = null,
-  @param:JsonProperty("sameParty")
-  @param:Optional
-  @param:Experimental
-  val sameParty: Boolean? = null,
   @param:JsonProperty("sourceScheme")
   @param:Optional
   @param:Experimental
@@ -54,4 +50,8 @@ data class CookieParam(
   @param:Optional
   @param:Experimental
   val sourcePort: Int? = null,
+  @param:JsonProperty("partitionKey")
+  @param:Optional
+  @param:Experimental
+  val partitionKey: CookiePartitionKey? = null,
 )

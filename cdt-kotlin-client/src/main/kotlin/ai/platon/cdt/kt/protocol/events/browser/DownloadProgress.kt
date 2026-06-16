@@ -2,6 +2,7 @@
 package ai.platon.cdt.kt.protocol.events.browser
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
+import ai.platon.cdt.kt.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.protocol.types.browser.DownloadProgressState
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Double
@@ -20,4 +21,8 @@ data class DownloadProgress(
   val receivedBytes: Double,
   @param:JsonProperty("state")
   val state: DownloadProgressState,
+  @param:JsonProperty("filePath")
+  @param:Optional
+  @param:Experimental
+  val filePath: String? = null,
 )

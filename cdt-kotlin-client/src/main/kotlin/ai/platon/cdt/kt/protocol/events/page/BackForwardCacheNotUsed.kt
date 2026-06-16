@@ -2,8 +2,12 @@
 package ai.platon.cdt.kt.protocol.events.page
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
+import ai.platon.cdt.kt.protocol.support.annotations.Optional
+import ai.platon.cdt.kt.protocol.types.page.BackForwardCacheNotRestoredExplanation
+import ai.platon.cdt.kt.protocol.types.page.BackForwardCacheNotRestoredExplanationTree
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
+import kotlin.collections.List
 
 /**
  * Fired for failed bfcache history navigations if BackForwardCache feature is enabled. Do
@@ -17,4 +21,9 @@ data class BackForwardCacheNotUsed(
   val loaderId: String,
   @param:JsonProperty("frameId")
   val frameId: String,
+  @param:JsonProperty("notRestoredExplanations")
+  val notRestoredExplanations: List<BackForwardCacheNotRestoredExplanation>,
+  @param:JsonProperty("notRestoredExplanationsTree")
+  @param:Optional
+  val notRestoredExplanationsTree: BackForwardCacheNotRestoredExplanationTree? = null,
 )

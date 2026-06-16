@@ -9,6 +9,8 @@ public enum class Ctap2Version {
   CTAP_2_0,
   @JsonProperty("ctap2_1")
   CTAP_2_1,
+  @JsonProperty("ctap2_2")
+  CTAP_2_2,
   @JsonEnumDefaultValue
   UNKNOWN,
 }

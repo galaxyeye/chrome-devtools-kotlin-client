@@ -21,6 +21,8 @@ data class FontFace(
   val fontWeight: String,
   @param:JsonProperty("fontStretch")
   val fontStretch: String,
+  @param:JsonProperty("fontDisplay")
+  val fontDisplay: String,
   @param:JsonProperty("unicodeRange")
   val unicodeRange: String,
   @param:JsonProperty("src")

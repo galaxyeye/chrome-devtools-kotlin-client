@@ -10,6 +10,7 @@ import ai.platon.cdt.kt.protocol.types.cachestorage.Cache
 import ai.platon.cdt.kt.protocol.types.cachestorage.CachedResponse
 import ai.platon.cdt.kt.protocol.types.cachestorage.Header
 import ai.platon.cdt.kt.protocol.types.cachestorage.RequestEntries
+import ai.platon.cdt.kt.protocol.types.storage.StorageBucket
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
@@ -31,11 +32,24 @@ interface CacheStorage {
 
   /**
    * Requests cache names.
-   * @param securityOrigin Security origin.
+   * @param securityOrigin At least and at most one of securityOrigin, storageKey, storageBucket must be specified.
+   * Security origin.
+   * @param storageKey Storage key.
+   * @param storageBucket Storage bucket. If not specified, it uses the default bucket.
    */
   @Returns("caches")
   @ReturnTypeParameter(Cache::class)
-  suspend fun requestCacheNames(@ParamName("securityOrigin") securityOrigin: String): List<Cache>
+  suspend fun requestCacheNames(
+    @ParamName("securityOrigin") @Optional securityOrigin: String? = null,
+    @ParamName("storageKey") @Optional storageKey: String? = null,
+    @ParamName("storageBucket") @Optional storageBucket: StorageBucket? = null,
+  ): List<Cache>
+
+  @Returns("caches")
+  @ReturnTypeParameter(Cache::class)
+  suspend fun requestCacheNames(): List<Cache> {
+    return requestCacheNames(null, null, null)
+  }
 
   /**
    * Fetches cache entry.

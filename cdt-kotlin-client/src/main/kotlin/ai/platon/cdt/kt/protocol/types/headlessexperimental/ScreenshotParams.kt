@@ -3,6 +3,7 @@ package ai.platon.cdt.kt.protocol.types.headlessexperimental
 
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
 import com.fasterxml.jackson.`annotation`.JsonProperty
+import kotlin.Boolean
 import kotlin.Int
 
 /**
@@ -15,4 +16,7 @@ data class ScreenshotParams(
   @param:JsonProperty("quality")
   @param:Optional
   val quality: Int? = null,
+  @param:JsonProperty("optimizeForSpeed")
+  @param:Optional
+  val optimizeForSpeed: Boolean? = null,
 )

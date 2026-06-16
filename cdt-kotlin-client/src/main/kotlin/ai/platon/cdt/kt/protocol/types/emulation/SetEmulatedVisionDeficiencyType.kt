@@ -5,15 +5,18 @@ import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
- * Vision deficiency to emulate.
+ * Vision deficiency to emulate. Order: best-effort emulations come first, followed by any
+ * physiologically accurate emulations for medically recognized color vision deficiencies.
  */
 public enum class SetEmulatedVisionDeficiencyType {
   @JsonProperty("none")
   NONE,
-  @JsonProperty("achromatopsia")
-  ACHROMATOPSIA,
   @JsonProperty("blurredVision")
   BLURRED_VISION,
+  @JsonProperty("reducedContrast")
+  REDUCED_CONTRAST,
+  @JsonProperty("achromatopsia")
+  ACHROMATOPSIA,
   @JsonProperty("deuteranopia")
   DEUTERANOPIA,
   @JsonProperty("protanopia")

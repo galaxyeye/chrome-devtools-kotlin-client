@@ -11,8 +11,6 @@ public enum class InspectMode {
   SEARCH_FOR_UA_SHADOW_DOM,
   @JsonProperty("captureAreaScreenshot")
   CAPTURE_AREA_SCREENSHOT,
-  @JsonProperty("showDistances")
-  SHOW_DISTANCES,
   @JsonProperty("none")
   NONE,
   @JsonEnumDefaultValue

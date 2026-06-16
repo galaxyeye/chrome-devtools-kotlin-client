@@ -26,6 +26,8 @@ public enum class ResourceType {
   XHR,
   @JsonProperty("Fetch")
   FETCH,
+  @JsonProperty("Prefetch")
+  PREFETCH,
   @JsonProperty("EventSource")
   EVENT_SOURCE,
   @JsonProperty("WebSocket")
@@ -40,6 +42,8 @@ public enum class ResourceType {
   CSP_VIOLATION_REPORT,
   @JsonProperty("Preflight")
   PREFLIGHT,
+  @JsonProperty("FedCM")
+  FED_CM,
   @JsonProperty("Other")
   OTHER,
   @JsonEnumDefaultValue

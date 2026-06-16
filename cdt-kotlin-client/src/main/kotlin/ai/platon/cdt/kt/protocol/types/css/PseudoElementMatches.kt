@@ -1,8 +1,10 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.css
 
+import ai.platon.cdt.kt.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.protocol.types.dom.PseudoType
 import com.fasterxml.jackson.`annotation`.JsonProperty
+import kotlin.String
 import kotlin.collections.List
 
 /**
@@ -11,6 +13,9 @@ import kotlin.collections.List
 data class PseudoElementMatches(
   @param:JsonProperty("pseudoType")
   val pseudoType: PseudoType,
+  @param:JsonProperty("pseudoIdentifier")
+  @param:Optional
+  val pseudoIdentifier: String? = null,
   @param:JsonProperty("matches")
   val matches: List<RuleMatch>,
 )

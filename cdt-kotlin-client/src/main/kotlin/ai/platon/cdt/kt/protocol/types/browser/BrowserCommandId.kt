@@ -12,6 +12,8 @@ public enum class BrowserCommandId {
   OPEN_TAB_SEARCH,
   @JsonProperty("closeTabSearch")
   CLOSE_TAB_SEARCH,
+  @JsonProperty("openGlic")
+  OPEN_GLIC,
   @JsonEnumDefaultValue
   UNKNOWN,
 }

@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.debugger
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -15,4 +16,6 @@ public enum class DebugSymbolsType {
   EMBEDDED_DWARF,
   @JsonProperty("ExternalDWARF")
   EXTERNAL_DWARF,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

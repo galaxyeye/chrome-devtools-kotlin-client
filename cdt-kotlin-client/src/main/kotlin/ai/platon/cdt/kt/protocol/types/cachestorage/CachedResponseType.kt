@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.cachestorage
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -19,4 +20,6 @@ public enum class CachedResponseType {
   OPAQUE_RESPONSE,
   @JsonProperty("opaqueRedirect")
   OPAQUE_REDIRECT,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

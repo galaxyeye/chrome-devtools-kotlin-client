@@ -1,0 +1,11 @@
+# Use Case 21: 知乎话题热问题摘要（单站点）
+# Level: Simple
+# Type: Single-site, deterministic
+# Description: 打开知乎指定话题页（无需登录），抽取若干热问题标题并输出清单
+
+1. 访问 https://www.zhihu.com/topic/19552134/hot （示例：互联网话题热榜页面，可能会跳转）
+2. 如果出现登录弹窗/引导，尝试关闭并继续浏览（不要登录）
+3. 在页面可见区域中找到“热”相关的问题列表
+4. 抽取前 10 个问题标题（仅标题文本即可）
+5. 将标题列表保存为 `zhihu-hot-questions.md`（使用有序列表）
+6. 在回答中附上 `zhihu-hot-questions.md` 的完整内容

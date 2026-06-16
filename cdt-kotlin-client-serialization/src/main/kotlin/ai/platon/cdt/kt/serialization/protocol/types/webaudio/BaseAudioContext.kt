@@ -1,30 +1,30 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.webaudio
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Double
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Protocol object for BaseAudioContext
  */
 @Serializable
 data class BaseAudioContext(
-  @SerialName("contextId")
+  @property:SerialName("contextId")
   val contextId: String,
-  @SerialName("contextType")
+  @property:SerialName("contextType")
   val contextType: ContextType,
-  @SerialName("contextState")
+  @property:SerialName("contextState")
   val contextState: ContextState,
-  @SerialName("realtimeData")
+  @property:SerialName("realtimeData")
   @param:Optional
   val realtimeData: ContextRealtimeData? = null,
-  @SerialName("callbackBufferSize")
+  @property:SerialName("callbackBufferSize")
   val callbackBufferSize: Double,
-  @SerialName("maxOutputChannelCount")
+  @property:SerialName("maxOutputChannelCount")
   val maxOutputChannelCount: Double,
-  @SerialName("sampleRate")
+  @property:SerialName("sampleRate")
   val sampleRate: Double,
 )

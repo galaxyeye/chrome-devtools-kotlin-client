@@ -1,7 +1,9 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.browser
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+
 @Serializable
 public enum class PermissionType {
   @SerialName("accessibilityEvents")
@@ -50,4 +52,5 @@ public enum class PermissionType {
   WAKE_LOCK_SCREEN,
   @SerialName("wakeLockSystem")
   WAKE_LOCK_SYSTEM,
+  UNKNOWN,
 }

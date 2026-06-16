@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.network
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -15,4 +16,6 @@ public enum class CookieSourceScheme {
   NON_SECURE,
   @JsonProperty("Secure")
   SECURE,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

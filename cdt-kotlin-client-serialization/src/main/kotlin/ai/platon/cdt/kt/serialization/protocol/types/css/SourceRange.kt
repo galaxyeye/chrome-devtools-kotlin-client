@@ -1,21 +1,21 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.css
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Int
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Text range within a resource. All numbers are zero-based.
  */
 @Serializable
 data class SourceRange(
-  @SerialName("startLine")
+  @property:SerialName("startLine")
   val startLine: Int,
-  @SerialName("startColumn")
+  @property:SerialName("startColumn")
   val startColumn: Int,
-  @SerialName("endLine")
+  @property:SerialName("endLine")
   val endLine: Int,
-  @SerialName("endColumn")
+  @property:SerialName("endColumn")
   val endColumn: Int,
 )

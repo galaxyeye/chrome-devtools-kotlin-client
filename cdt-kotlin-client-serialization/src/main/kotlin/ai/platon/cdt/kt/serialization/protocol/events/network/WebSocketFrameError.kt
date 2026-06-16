@@ -1,20 +1,20 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.network
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Double
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Fired when WebSocket message error occurs.
  */
 @Serializable
 data class WebSocketFrameError(
-  @SerialName("requestId")
+  @property:SerialName("requestId")
   val requestId: String,
-  @SerialName("timestamp")
+  @property:SerialName("timestamp")
   val timestamp: Double,
-  @SerialName("errorMessage")
+  @property:SerialName("errorMessage")
   val errorMessage: String,
 )

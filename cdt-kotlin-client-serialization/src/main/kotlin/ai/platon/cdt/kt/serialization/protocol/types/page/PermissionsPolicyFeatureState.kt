@@ -1,20 +1,20 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.page
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Boolean
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-@Experimental
 @Serializable
+@Experimental
 data class PermissionsPolicyFeatureState(
-  @SerialName("feature")
+  @property:SerialName("feature")
   val feature: PermissionsPolicyFeature,
-  @SerialName("allowed")
+  @property:SerialName("allowed")
   val allowed: Boolean,
-  @SerialName("locator")
+  @property:SerialName("locator")
   @param:Optional
   val locator: PermissionsPolicyBlockLocator? = null,
 )

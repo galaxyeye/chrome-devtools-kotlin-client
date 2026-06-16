@@ -1,0 +1,12 @@
+# Use Case 23: 政府网站政策要点摘要（单站点）
+# Level: Simple
+# Type: Single-site, deterministic, summarization
+# Description: 在政府中文网站检索某主题，打开一篇公开文章并提取要点
+
+1. 访问 https://www.gov.cn/
+2. 使用站内搜索，搜索关键词 “人工智能”
+3. 在结果中选择一篇公开可访问（无需登录）的文章并打开
+4. 提取文章标题、发布时间（若有）、来源（若有）
+5. 用 5 条要点总结文章核心内容（每条不超过 25 个字）
+6. 将结果保存为 `gov-policy-summary.md`
+7. 在回答中附上 `gov-policy-summary.md` 的完整内容

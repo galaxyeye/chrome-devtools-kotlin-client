@@ -1,33 +1,33 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.systeminfo
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Double
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a single graphics processor (GPU).
  */
 @Serializable
 data class GPUDevice(
-  @SerialName("vendorId")
+  @property:SerialName("vendorId")
   val vendorId: Double,
-  @SerialName("deviceId")
+  @property:SerialName("deviceId")
   val deviceId: Double,
-  @SerialName("subSysId")
+  @property:SerialName("subSysId")
   @param:Optional
   val subSysId: Double? = null,
-  @SerialName("revision")
+  @property:SerialName("revision")
   @param:Optional
   val revision: Double? = null,
-  @SerialName("vendorString")
+  @property:SerialName("vendorString")
   val vendorString: String,
-  @SerialName("deviceString")
+  @property:SerialName("deviceString")
   val deviceString: String,
-  @SerialName("driverVendor")
+  @property:SerialName("driverVendor")
   val driverVendor: String,
-  @SerialName("driverVersion")
+  @property:SerialName("driverVersion")
   val driverVersion: String,
 )

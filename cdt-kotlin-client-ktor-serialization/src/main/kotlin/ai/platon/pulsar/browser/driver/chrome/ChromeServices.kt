@@ -1,6 +1,5 @@
 package ai.platon.pulsar.browser.driver.chrome
 
-import ai.platon.cdt.kt.serialization.protocol.ChromeDevTools
 import ai.platon.cdt.kt.serialization.protocol.support.types.EventHandler
 import ai.platon.cdt.kt.serialization.protocol.support.types.EventListener
 import ai.platon.pulsar.browser.driver.chrome.util.ChromeIOException
@@ -34,34 +33,34 @@ interface ChromeService : AutoCloseable {
     fun canConnect(): Boolean
 
     @Throws(ChromeServiceException::class)
-    fun listTabs(): Array<ChromeTab>
+    fun listTabs(): Array<BrowserTab>
 
     @Throws(ChromeServiceException::class)
-    fun createTab(): ChromeTab
+    fun createTab(): BrowserTab
 
     @Throws(ChromeServiceException::class)
-    fun createTab(url: String): ChromeTab
+    fun createTab(url: String): BrowserTab
 
     @Throws(ChromeServiceException::class)
-    fun activateTab(tab: ChromeTab)
+    fun activateTab(tab: BrowserTab)
 
     @Throws(ChromeServiceException::class)
-    fun closeTab(tab: ChromeTab)
+    fun closeTab(tab: BrowserTab)
 
     @Throws(ChromeServiceException::class)
-    fun createDevTools(tab: ChromeTab, config: DevToolsConfig = DevToolsConfig()): ChromeDevToolsService
-
-    // Compatibility
-    @Throws(ChromeServiceException::class)
-    fun createDevToolsService(tab: ChromeTab): ChromeDevToolsService = createDevTools(tab, DevToolsConfig())
+    fun createDevTools(tab: BrowserTab, config: DevToolsConfig = DevToolsConfig()): ChromeDevToolsService
 
     // Compatibility
     @Throws(ChromeServiceException::class)
-    fun createDevToolsService(tab: ChromeTab, config: DevToolsConfig = DevToolsConfig()): ChromeDevToolsService =
+    fun createDevToolsService(tab: BrowserTab): ChromeDevToolsService = createDevTools(tab, DevToolsConfig())
+
+    // Compatibility
+    @Throws(ChromeServiceException::class)
+    fun createDevToolsService(tab: BrowserTab, config: DevToolsConfig = DevToolsConfig()): ChromeDevToolsService =
         createDevTools(tab, config)
 }
 
-interface ChromeDevToolsService : ChromeDevTools, AutoCloseable {
+interface ChromeDevToolsService : AutoCloseable {
 
     val isOpen: Boolean
 
@@ -78,6 +77,13 @@ interface ChromeDevToolsService : ChromeDevTools, AutoCloseable {
         returnClass: KClass<T>,
         returnProperty: String? = null
     ): T?
+
+    suspend fun <T : Any> execute(
+        method: String,
+        params: Map<String, Any?>?,
+        returnClass: KClass<T>,
+        returnProperty: String? = null
+    ): T? = invoke(method, params, returnClass, returnProperty)
 
     fun awaitTermination()
 

@@ -1,19 +1,19 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.heapprofiler
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Boolean
 import kotlin.Int
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Serializable
 data class ReportHeapSnapshotProgress(
-  @SerialName("done")
+  @property:SerialName("done")
   val done: Int,
-  @SerialName("total")
+  @property:SerialName("total")
   val total: Int,
-  @SerialName("finished")
+  @property:SerialName("finished")
   @param:Optional
   val finished: Boolean? = null,
 )

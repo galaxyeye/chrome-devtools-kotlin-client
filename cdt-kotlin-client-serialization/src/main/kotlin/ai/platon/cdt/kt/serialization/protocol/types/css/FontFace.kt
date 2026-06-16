@@ -1,11 +1,11 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.css
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.String
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Properties of a web font: https://www.w3.org/TR/2008/REC-CSS2-20080411/fonts.html#font-descriptions
@@ -13,23 +13,23 @@ import kotlin.collections.List
  */
 @Serializable
 data class FontFace(
-  @SerialName("fontFamily")
+  @property:SerialName("fontFamily")
   val fontFamily: String,
-  @SerialName("fontStyle")
+  @property:SerialName("fontStyle")
   val fontStyle: String,
-  @SerialName("fontVariant")
+  @property:SerialName("fontVariant")
   val fontVariant: String,
-  @SerialName("fontWeight")
+  @property:SerialName("fontWeight")
   val fontWeight: String,
-  @SerialName("fontStretch")
+  @property:SerialName("fontStretch")
   val fontStretch: String,
-  @SerialName("unicodeRange")
+  @property:SerialName("unicodeRange")
   val unicodeRange: String,
-  @SerialName("src")
+  @property:SerialName("src")
   val src: String,
-  @SerialName("platformFontFamily")
+  @property:SerialName("platformFontFamily")
   val platformFontFamily: String,
-  @SerialName("fontVariationAxes")
+  @property:SerialName("fontVariationAxes")
   @param:Optional
   val fontVariationAxes: List<FontVariationAxis>? = null,
 )

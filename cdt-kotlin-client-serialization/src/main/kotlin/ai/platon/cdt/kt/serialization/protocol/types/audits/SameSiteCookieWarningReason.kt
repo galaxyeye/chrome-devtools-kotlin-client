@@ -1,7 +1,9 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.audits
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+
 @Serializable
 public enum class SameSiteCookieWarningReason {
   @SerialName("WarnSameSiteUnspecifiedCrossSiteContext")
@@ -20,4 +22,5 @@ public enum class SameSiteCookieWarningReason {
   WARN_SAME_SITE_LAX_CROSS_DOWNGRADE_STRICT,
   @SerialName("WarnSameSiteLaxCrossDowngradeLax")
   WARN_SAME_SITE_LAX_CROSS_DOWNGRADE_LAX,
+  UNKNOWN,
 }

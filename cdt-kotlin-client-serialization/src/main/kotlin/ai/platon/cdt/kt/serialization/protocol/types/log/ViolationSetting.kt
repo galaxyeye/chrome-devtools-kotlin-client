@@ -1,17 +1,17 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.log
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Double
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Violation configuration setting.
  */
 @Serializable
 data class ViolationSetting(
-  @SerialName("name")
+  @property:SerialName("name")
   val name: ViolationSettingName,
-  @SerialName("threshold")
+  @property:SerialName("threshold")
   val threshold: Double,
 )

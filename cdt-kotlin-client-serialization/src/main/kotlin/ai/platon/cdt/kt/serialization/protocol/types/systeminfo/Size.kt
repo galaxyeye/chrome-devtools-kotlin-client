@@ -1,17 +1,17 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.systeminfo
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Int
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes the width and height dimensions of an entity.
  */
 @Serializable
 data class Size(
-  @SerialName("width")
+  @property:SerialName("width")
   val width: Int,
-  @SerialName("height")
+  @property:SerialName("height")
   val height: Int,
 )

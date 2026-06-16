@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.network
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -34,4 +35,5 @@ public enum class CookieBlockedReason {
   SCHEMEFUL_SAME_SITE_UNSPECIFIED_TREATED_AS_LAX,
   @SerialName("SamePartyFromCrossPartyContext")
   SAME_PARTY_FROM_CROSS_PARTY_CONTEXT,
+  UNKNOWN,
 }

@@ -1,21 +1,21 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.network
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.types.network.WebSocketResponse
 import kotlin.Double
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Fired when WebSocket handshake response becomes available.
  */
 @Serializable
 data class WebSocketHandshakeResponseReceived(
-  @SerialName("requestId")
+  @property:SerialName("requestId")
   val requestId: String,
-  @SerialName("timestamp")
+  @property:SerialName("timestamp")
   val timestamp: Double,
-  @SerialName("response")
+  @property:SerialName("response")
   val response: WebSocketResponse,
 )

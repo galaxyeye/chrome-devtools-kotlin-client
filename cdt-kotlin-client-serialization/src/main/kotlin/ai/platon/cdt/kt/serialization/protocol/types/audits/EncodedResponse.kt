@@ -1,19 +1,19 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.audits
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Serializable
 data class EncodedResponse(
-  @SerialName("body")
+  @property:SerialName("body")
   @param:Optional
   val body: String? = null,
-  @SerialName("originalSize")
+  @property:SerialName("originalSize")
   val originalSize: Int,
-  @SerialName("encodedSize")
+  @property:SerialName("encodedSize")
   val encodedSize: Int,
 )

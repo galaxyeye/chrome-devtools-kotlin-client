@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.dom
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -45,4 +46,6 @@ public enum class PseudoType {
   RESIZER,
   @JsonProperty("input-list-button")
   INPUT_LIST_BUTTON,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

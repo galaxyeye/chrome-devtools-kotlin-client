@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.media
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -24,4 +25,5 @@ public enum class PlayerMessageLevel {
   INFO,
   @SerialName("debug")
   DEBUG,
+  UNKNOWN,
 }

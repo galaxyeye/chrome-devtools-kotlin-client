@@ -14,13 +14,12 @@ import ai.platon.cdt.kt.serialization.protocol.support.types.EventListener
 import ai.platon.cdt.kt.serialization.protocol.types.dom.Rect
 import ai.platon.cdt.kt.serialization.protocol.types.layertree.CompositingReasons
 import ai.platon.cdt.kt.serialization.protocol.types.layertree.PictureTile
-import kotlin.Any
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlin.collections.List
-import kotlin.collections.Map
+import kotlinx.serialization.json.JsonObject
 
 @Experimental
 interface LayerTree {
@@ -106,8 +105,8 @@ interface LayerTree {
    * @param snapshotId The id of the layer snapshot.
    */
   @Returns("commandLog")
-  @ReturnTypeParameter(Map::class, String::class, Any::class)
-  suspend fun snapshotCommandLog(@ParamName("snapshotId") snapshotId: String): List<Map<String, Any?>>
+  @ReturnTypeParameter(JsonObject::class)
+  suspend fun snapshotCommandLog(@ParamName("snapshotId") snapshotId: String): List<JsonObject?>
 
   @EventName("layerPainted")
   fun onLayerPainted(eventListener: EventHandler<LayerPainted>): EventListener

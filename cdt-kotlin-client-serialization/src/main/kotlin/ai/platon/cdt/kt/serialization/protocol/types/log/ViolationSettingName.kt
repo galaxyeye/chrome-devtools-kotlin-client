@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.log
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -22,4 +23,5 @@ public enum class ViolationSettingName {
   HANDLER,
   @SerialName("recurringHandler")
   RECURRING_HANDLER,
+  UNKNOWN,
 }

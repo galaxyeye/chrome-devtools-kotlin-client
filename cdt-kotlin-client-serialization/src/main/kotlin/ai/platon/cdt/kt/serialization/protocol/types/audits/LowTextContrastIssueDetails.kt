@@ -1,26 +1,26 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.audits
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Serializable
 data class LowTextContrastIssueDetails(
-  @SerialName("violatingNodeId")
+  @property:SerialName("violatingNodeId")
   val violatingNodeId: Int,
-  @SerialName("violatingNodeSelector")
+  @property:SerialName("violatingNodeSelector")
   val violatingNodeSelector: String,
-  @SerialName("contrastRatio")
+  @property:SerialName("contrastRatio")
   val contrastRatio: Double,
-  @SerialName("thresholdAA")
+  @property:SerialName("thresholdAA")
   val thresholdAA: Double,
-  @SerialName("thresholdAAA")
+  @property:SerialName("thresholdAAA")
   val thresholdAAA: Double,
-  @SerialName("fontSize")
+  @property:SerialName("fontSize")
   val fontSize: String,
-  @SerialName("fontWeight")
+  @property:SerialName("fontWeight")
   val fontWeight: String,
 )

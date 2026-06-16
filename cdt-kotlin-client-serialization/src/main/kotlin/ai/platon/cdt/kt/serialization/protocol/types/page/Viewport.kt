@@ -1,23 +1,23 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.page
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Double
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Viewport for capturing screenshot.
  */
 @Serializable
 data class Viewport(
-  @SerialName("x")
+  @property:SerialName("x")
   val x: Double,
-  @SerialName("y")
+  @property:SerialName("y")
   val y: Double,
-  @SerialName("width")
+  @property:SerialName("width")
   val width: Double,
-  @SerialName("height")
+  @property:SerialName("height")
   val height: Double,
-  @SerialName("scale")
+  @property:SerialName("scale")
   val scale: Double,
 )

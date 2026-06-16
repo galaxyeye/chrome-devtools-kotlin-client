@@ -1,23 +1,23 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.input
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-@Experimental
 @Serializable
+@Experimental
 data class DragDataItem(
-  @SerialName("mimeType")
+  @property:SerialName("mimeType")
   val mimeType: String,
-  @SerialName("data")
+  @property:SerialName("data")
   val `data`: String,
-  @SerialName("title")
+  @property:SerialName("title")
   @param:Optional
   val title: String? = null,
-  @SerialName("baseURL")
+  @property:SerialName("baseURL")
   @param:Optional
   val baseURL: String? = null,
 )

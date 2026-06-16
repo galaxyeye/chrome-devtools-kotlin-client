@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.tracing
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -15,4 +16,6 @@ public enum class TraceConfigRecordMode {
   RECORD_AS_MUCH_AS_POSSIBLE,
   @JsonProperty("echoToConsole")
   ECHO_TO_CONSOLE,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.page
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -34,4 +35,5 @@ public enum class TransitionType {
   KEYWORD_GENERATED,
   @SerialName("other")
   OTHER,
+  UNKNOWN,
 }

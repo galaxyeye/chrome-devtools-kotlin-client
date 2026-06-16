@@ -1,17 +1,17 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.memory
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Array of heap profile samples.
  */
 @Serializable
 data class SamplingProfile(
-  @SerialName("samples")
+  @property:SerialName("samples")
   val samples: List<SamplingProfileNode>,
-  @SerialName("modules")
+  @property:SerialName("modules")
   val modules: List<Module>,
 )

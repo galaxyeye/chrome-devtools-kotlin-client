@@ -1,23 +1,23 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.network
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-@Experimental
 @Serializable
+@Experimental
 data class CrossOriginOpenerPolicyStatus(
-  @SerialName("value")
+  @property:SerialName("value")
   val `value`: CrossOriginOpenerPolicyValue,
-  @SerialName("reportOnlyValue")
+  @property:SerialName("reportOnlyValue")
   val reportOnlyValue: CrossOriginOpenerPolicyValue,
-  @SerialName("reportingEndpoint")
+  @property:SerialName("reportingEndpoint")
   @param:Optional
   val reportingEndpoint: String? = null,
-  @SerialName("reportOnlyReportingEndpoint")
+  @property:SerialName("reportOnlyReportingEndpoint")
   @param:Optional
   val reportOnlyReportingEndpoint: String? = null,
 )

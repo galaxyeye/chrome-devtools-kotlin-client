@@ -1,27 +1,27 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.runtime
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Object private field descriptor.
  */
-@Experimental
 @Serializable
+@Experimental
 data class PrivatePropertyDescriptor(
-  @SerialName("name")
+  @property:SerialName("name")
   val name: String,
-  @SerialName("value")
+  @property:SerialName("value")
   @param:Optional
   val `value`: RemoteObject? = null,
-  @SerialName("get")
+  @property:SerialName("get")
   @param:Optional
   val `get`: RemoteObject? = null,
-  @SerialName("set")
+  @property:SerialName("set")
   @param:Optional
   val `set`: RemoteObject? = null,
 )

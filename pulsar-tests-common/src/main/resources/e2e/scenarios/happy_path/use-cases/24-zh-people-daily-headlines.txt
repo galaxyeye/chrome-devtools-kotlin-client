@@ -1,0 +1,10 @@
+# Use Case 24: 人民网首页要闻提取（单站点）
+# Level: Simple
+# Type: Single-site, deterministic
+# Description: 打开人民网首页，提取要闻/头条标题并保存
+
+1. 访问 http://人民网.com.cn/ （如果无法解析，请直接访问 https://www.people.com.cn/）
+2. 在首页找到“要闻/头条/新闻”相关区域
+3. 抽取前 15 条标题文本（不需要打开详情）
+4. 保存为 `people-headlines.md`（使用无序列表）
+5. 在回答中附上 `people-headlines.md` 的完整内容

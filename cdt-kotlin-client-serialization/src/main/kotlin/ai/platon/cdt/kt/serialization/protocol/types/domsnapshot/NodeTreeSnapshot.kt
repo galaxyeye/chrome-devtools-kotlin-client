@@ -1,60 +1,60 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.domsnapshot
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Int
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Table containing nodes.
  */
 @Serializable
 data class NodeTreeSnapshot(
-  @SerialName("parentIndex")
+  @property:SerialName("parentIndex")
   @param:Optional
   val parentIndex: List<Int>? = null,
-  @SerialName("nodeType")
+  @property:SerialName("nodeType")
   @param:Optional
   val nodeType: List<Int>? = null,
-  @SerialName("nodeName")
+  @property:SerialName("nodeName")
   @param:Optional
   val nodeName: List<Int>? = null,
-  @SerialName("nodeValue")
+  @property:SerialName("nodeValue")
   @param:Optional
   val nodeValue: List<Int>? = null,
-  @SerialName("backendNodeId")
+  @property:SerialName("backendNodeId")
   @param:Optional
   val backendNodeId: List<Int>? = null,
-  @SerialName("attributes")
+  @property:SerialName("attributes")
   @param:Optional
   val attributes: List<List<Int>>? = null,
-  @SerialName("textValue")
+  @property:SerialName("textValue")
   @param:Optional
   val textValue: RareStringData? = null,
-  @SerialName("inputValue")
+  @property:SerialName("inputValue")
   @param:Optional
   val inputValue: RareStringData? = null,
-  @SerialName("inputChecked")
+  @property:SerialName("inputChecked")
   @param:Optional
   val inputChecked: RareBooleanData? = null,
-  @SerialName("optionSelected")
+  @property:SerialName("optionSelected")
   @param:Optional
   val optionSelected: RareBooleanData? = null,
-  @SerialName("contentDocumentIndex")
+  @property:SerialName("contentDocumentIndex")
   @param:Optional
   val contentDocumentIndex: RareIntegerData? = null,
-  @SerialName("pseudoType")
+  @property:SerialName("pseudoType")
   @param:Optional
   val pseudoType: RareStringData? = null,
-  @SerialName("isClickable")
+  @property:SerialName("isClickable")
   @param:Optional
   val isClickable: RareBooleanData? = null,
-  @SerialName("currentSourceURL")
+  @property:SerialName("currentSourceURL")
   @param:Optional
   val currentSourceURL: RareStringData? = null,
-  @SerialName("originURL")
+  @property:SerialName("originURL")
   @param:Optional
   val originURL: RareStringData? = null,
 )

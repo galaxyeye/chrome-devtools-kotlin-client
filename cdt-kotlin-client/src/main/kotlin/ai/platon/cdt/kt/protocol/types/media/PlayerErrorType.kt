@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.media
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 public enum class PlayerErrorType {
@@ -8,4 +9,6 @@ public enum class PlayerErrorType {
   PIPELINE_ERROR,
   @JsonProperty("media_error")
   MEDIA_ERROR,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

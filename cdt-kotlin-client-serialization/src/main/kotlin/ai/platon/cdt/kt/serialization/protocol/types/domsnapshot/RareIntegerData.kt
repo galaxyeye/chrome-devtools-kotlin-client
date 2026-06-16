@@ -1,15 +1,15 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.domsnapshot
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Int
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Serializable
 data class RareIntegerData(
-  @SerialName("index")
+  @property:SerialName("index")
   val index: List<Int>,
-  @SerialName("value")
+  @property:SerialName("value")
   val `value`: List<Int>,
 )

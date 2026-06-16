@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.debugger
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -12,4 +13,5 @@ public enum class SetInstrumentationBreakpointInstrumentation {
   BEFORE_SCRIPT_EXECUTION,
   @SerialName("beforeScriptWithSourceMapExecution")
   BEFORE_SCRIPT_WITH_SOURCE_MAP_EXECUTION,
+  UNKNOWN,
 }

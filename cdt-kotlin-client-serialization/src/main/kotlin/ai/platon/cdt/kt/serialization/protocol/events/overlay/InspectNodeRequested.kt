@@ -1,9 +1,9 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.overlay
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Int
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Fired when the node should be inspected. This happens after call to `setInspectMode` or when
@@ -11,6 +11,6 @@ import kotlin.Int
  */
 @Serializable
 data class InspectNodeRequested(
-  @SerialName("backendNodeId")
+  @property:SerialName("backendNodeId")
   val backendNodeId: Int,
 )

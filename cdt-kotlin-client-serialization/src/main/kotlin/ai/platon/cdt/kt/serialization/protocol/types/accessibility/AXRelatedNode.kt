@@ -1,20 +1,20 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.accessibility
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Serializable
 data class AXRelatedNode(
-  @SerialName("backendDOMNodeId")
+  @property:SerialName("backendDOMNodeId")
   val backendDOMNodeId: Int,
-  @SerialName("idref")
+  @property:SerialName("idref")
   @param:Optional
   val idref: String? = null,
-  @SerialName("text")
+  @property:SerialName("text")
   @param:Optional
   val text: String? = null,
 )

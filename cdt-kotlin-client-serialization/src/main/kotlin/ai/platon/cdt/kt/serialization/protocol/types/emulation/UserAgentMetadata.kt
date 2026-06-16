@@ -1,35 +1,35 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.emulation
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Boolean
 import kotlin.String
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Used to specify User Agent Cient Hints to emulate. See https://wicg.github.io/ua-client-hints
  * Missing optional values will be filled in by the target with what it would normally use.
  */
-@Experimental
 @Serializable
+@Experimental
 data class UserAgentMetadata(
-  @SerialName("brands")
+  @property:SerialName("brands")
   @param:Optional
   val brands: List<UserAgentBrandVersion>? = null,
-  @SerialName("fullVersion")
+  @property:SerialName("fullVersion")
   @param:Optional
   val fullVersion: String? = null,
-  @SerialName("platform")
+  @property:SerialName("platform")
   val platform: String,
-  @SerialName("platformVersion")
+  @property:SerialName("platformVersion")
   val platformVersion: String,
-  @SerialName("architecture")
+  @property:SerialName("architecture")
   val architecture: String,
-  @SerialName("model")
+  @property:SerialName("model")
   val model: String,
-  @SerialName("mobile")
+  @property:SerialName("mobile")
   val mobile: Boolean,
 )

@@ -1,7 +1,5 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.network
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
@@ -9,6 +7,8 @@ import ai.platon.cdt.kt.serialization.protocol.types.network.TrustTokenOperation
 import ai.platon.cdt.kt.serialization.protocol.types.network.TrustTokenOperationType
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Fired exactly once for each Trust Token operation. Depending on
@@ -16,22 +16,22 @@ import kotlin.String
  * failed, the event is fired before the corresponding request was sent
  * or after the response was received.
  */
-@Experimental
 @Serializable
+@Experimental
 data class TrustTokenOperationDone(
-  @SerialName("status")
+  @property:SerialName("status")
   val status: TrustTokenOperationDoneStatus,
-  @SerialName("type")
+  @property:SerialName("type")
   val type: TrustTokenOperationType,
-  @SerialName("requestId")
+  @property:SerialName("requestId")
   val requestId: String,
-  @SerialName("topLevelOrigin")
+  @property:SerialName("topLevelOrigin")
   @param:Optional
   val topLevelOrigin: String? = null,
-  @SerialName("issuerOrigin")
+  @property:SerialName("issuerOrigin")
   @param:Optional
   val issuerOrigin: String? = null,
-  @SerialName("issuedTokenCount")
+  @property:SerialName("issuedTokenCount")
   @param:Optional
   val issuedTokenCount: Int? = null,
 )

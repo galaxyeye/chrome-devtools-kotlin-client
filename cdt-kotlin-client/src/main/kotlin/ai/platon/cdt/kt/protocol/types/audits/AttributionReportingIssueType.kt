@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.audits
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 public enum class AttributionReportingIssueType {
@@ -14,4 +15,6 @@ public enum class AttributionReportingIssueType {
   ATTRIBUTION_SOURCE_UNTRUSTWORTHY_ORIGIN,
   @JsonProperty("AttributionUntrustworthyOrigin")
   ATTRIBUTION_UNTRUSTWORTHY_ORIGIN,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

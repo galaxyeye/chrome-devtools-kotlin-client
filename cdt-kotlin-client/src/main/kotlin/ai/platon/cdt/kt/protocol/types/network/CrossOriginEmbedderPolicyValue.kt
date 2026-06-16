@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.network
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 public enum class CrossOriginEmbedderPolicyValue {
@@ -10,4 +11,6 @@ public enum class CrossOriginEmbedderPolicyValue {
   CORS_OR_CREDENTIALLESS,
   @JsonProperty("RequireCorp")
   REQUIRE_CORP,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

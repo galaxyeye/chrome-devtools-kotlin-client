@@ -1,15 +1,15 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.animation
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Event for each animation that has been created.
  */
 @Serializable
 data class AnimationCreated(
-  @SerialName("id")
+  @property:SerialName("id")
   val id: String,
 )

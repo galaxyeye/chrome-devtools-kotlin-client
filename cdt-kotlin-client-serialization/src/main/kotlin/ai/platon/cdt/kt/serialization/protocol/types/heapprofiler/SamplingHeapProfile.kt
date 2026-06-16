@@ -1,17 +1,17 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.heapprofiler
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Sampling profile.
  */
 @Serializable
 data class SamplingHeapProfile(
-  @SerialName("head")
+  @property:SerialName("head")
   val head: SamplingHeapProfileNode,
-  @SerialName("samples")
+  @property:SerialName("samples")
   val samples: List<SamplingHeapProfileSample>,
 )

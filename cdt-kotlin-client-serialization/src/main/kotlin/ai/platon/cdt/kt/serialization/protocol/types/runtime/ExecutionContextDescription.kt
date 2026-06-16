@@ -1,30 +1,29 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.runtime
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
-import kotlin.Any
 import kotlin.Int
 import kotlin.String
-import kotlin.collections.Map
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonObject
 
 /**
  * Description of an isolated world.
  */
 @Serializable
 data class ExecutionContextDescription(
-  @SerialName("id")
+  @property:SerialName("id")
   val id: Int,
-  @SerialName("origin")
+  @property:SerialName("origin")
   val origin: String,
-  @SerialName("name")
+  @property:SerialName("name")
   val name: String,
-  @SerialName("uniqueId")
+  @property:SerialName("uniqueId")
   @param:Experimental
   val uniqueId: String,
-  @SerialName("auxData")
+  @property:SerialName("auxData")
   @param:Optional
-  val auxData: Map<String, Any?>? = null,
+  val auxData: JsonObject? = null,
 )

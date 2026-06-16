@@ -1,7 +1,5 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.network
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
@@ -9,43 +7,45 @@ import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Cookie object
  */
 @Serializable
 data class Cookie(
-  @SerialName("name")
+  @property:SerialName("name")
   val name: String,
-  @SerialName("value")
+  @property:SerialName("value")
   val `value`: String,
-  @SerialName("domain")
+  @property:SerialName("domain")
   val domain: String,
-  @SerialName("path")
+  @property:SerialName("path")
   val path: String,
-  @SerialName("expires")
+  @property:SerialName("expires")
   val expires: Double,
-  @SerialName("size")
+  @property:SerialName("size")
   val size: Int,
-  @SerialName("httpOnly")
+  @property:SerialName("httpOnly")
   val httpOnly: Boolean,
-  @SerialName("secure")
+  @property:SerialName("secure")
   val secure: Boolean,
-  @SerialName("session")
+  @property:SerialName("session")
   val session: Boolean,
-  @SerialName("sameSite")
+  @property:SerialName("sameSite")
   @param:Optional
   val sameSite: CookieSameSite? = null,
-  @SerialName("priority")
+  @property:SerialName("priority")
   @param:Experimental
   val priority: CookiePriority,
-  @SerialName("sameParty")
+  @property:SerialName("sameParty")
   @param:Experimental
   val sameParty: Boolean,
-  @SerialName("sourceScheme")
+  @property:SerialName("sourceScheme")
   @param:Experimental
   val sourceScheme: CookieSourceScheme,
-  @SerialName("sourcePort")
+  @property:SerialName("sourcePort")
   @param:Experimental
   val sourcePort: Int,
 )

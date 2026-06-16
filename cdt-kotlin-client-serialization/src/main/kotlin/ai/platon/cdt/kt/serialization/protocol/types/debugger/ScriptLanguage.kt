@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.debugger
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -12,4 +13,5 @@ public enum class ScriptLanguage {
   JAVA_SCRIPT,
   @SerialName("WebAssembly")
   WEB_ASSEMBLY,
+  UNKNOWN,
 }

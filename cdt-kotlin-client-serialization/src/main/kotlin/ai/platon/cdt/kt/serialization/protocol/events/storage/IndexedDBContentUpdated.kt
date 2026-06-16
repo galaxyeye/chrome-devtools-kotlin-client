@@ -1,19 +1,19 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.storage
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * The origin's IndexedDB object store has been modified.
  */
 @Serializable
 data class IndexedDBContentUpdated(
-  @SerialName("origin")
+  @property:SerialName("origin")
   val origin: String,
-  @SerialName("databaseName")
+  @property:SerialName("databaseName")
   val databaseName: String,
-  @SerialName("objectStoreName")
+  @property:SerialName("objectStoreName")
   val objectStoreName: String,
 )

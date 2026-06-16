@@ -1,49 +1,49 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.domsnapshot
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Double
 import kotlin.Int
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Document snapshot.
  */
 @Serializable
 data class DocumentSnapshot(
-  @SerialName("documentURL")
+  @property:SerialName("documentURL")
   val documentURL: Int,
-  @SerialName("title")
+  @property:SerialName("title")
   val title: Int,
-  @SerialName("baseURL")
+  @property:SerialName("baseURL")
   val baseURL: Int,
-  @SerialName("contentLanguage")
+  @property:SerialName("contentLanguage")
   val contentLanguage: Int,
-  @SerialName("encodingName")
+  @property:SerialName("encodingName")
   val encodingName: Int,
-  @SerialName("publicId")
+  @property:SerialName("publicId")
   val publicId: Int,
-  @SerialName("systemId")
+  @property:SerialName("systemId")
   val systemId: Int,
-  @SerialName("frameId")
+  @property:SerialName("frameId")
   val frameId: Int,
-  @SerialName("nodes")
+  @property:SerialName("nodes")
   val nodes: NodeTreeSnapshot,
-  @SerialName("layout")
+  @property:SerialName("layout")
   val layout: LayoutTreeSnapshot,
-  @SerialName("textBoxes")
+  @property:SerialName("textBoxes")
   val textBoxes: TextBoxSnapshot,
-  @SerialName("scrollOffsetX")
+  @property:SerialName("scrollOffsetX")
   @param:Optional
   val scrollOffsetX: Double? = null,
-  @SerialName("scrollOffsetY")
+  @property:SerialName("scrollOffsetY")
   @param:Optional
   val scrollOffsetY: Double? = null,
-  @SerialName("contentWidth")
+  @property:SerialName("contentWidth")
   @param:Optional
   val contentWidth: Double? = null,
-  @SerialName("contentHeight")
+  @property:SerialName("contentHeight")
   @param:Optional
   val contentHeight: Double? = null,
 )

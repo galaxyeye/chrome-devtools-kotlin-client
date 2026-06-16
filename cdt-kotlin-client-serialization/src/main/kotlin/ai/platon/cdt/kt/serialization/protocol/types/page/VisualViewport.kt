@@ -1,31 +1,31 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.page
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Double
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Visual viewport position, dimensions, and scale.
  */
 @Serializable
 data class VisualViewport(
-  @SerialName("offsetX")
+  @property:SerialName("offsetX")
   val offsetX: Double,
-  @SerialName("offsetY")
+  @property:SerialName("offsetY")
   val offsetY: Double,
-  @SerialName("pageX")
+  @property:SerialName("pageX")
   val pageX: Double,
-  @SerialName("pageY")
+  @property:SerialName("pageY")
   val pageY: Double,
-  @SerialName("clientWidth")
+  @property:SerialName("clientWidth")
   val clientWidth: Double,
-  @SerialName("clientHeight")
+  @property:SerialName("clientHeight")
   val clientHeight: Double,
-  @SerialName("scale")
+  @property:SerialName("scale")
   val scale: Double,
-  @SerialName("zoom")
+  @property:SerialName("zoom")
   @param:Optional
   val zoom: Double? = null,
 )

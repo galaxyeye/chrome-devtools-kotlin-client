@@ -1,25 +1,25 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.browser
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.types.browser.DownloadProgressState
 import kotlin.Double
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Fired when download makes progress. Last call has |done| == true.
  */
-@Experimental
 @Serializable
+@Experimental
 data class DownloadProgress(
-  @SerialName("guid")
+  @property:SerialName("guid")
   val guid: String,
-  @SerialName("totalBytes")
+  @property:SerialName("totalBytes")
   val totalBytes: Double,
-  @SerialName("receivedBytes")
+  @property:SerialName("receivedBytes")
   val receivedBytes: Double,
-  @SerialName("state")
+  @property:SerialName("state")
   val state: DownloadProgressState,
 )

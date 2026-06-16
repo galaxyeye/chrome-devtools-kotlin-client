@@ -1,18 +1,18 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.dom
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Mirrors `DOMCharacterDataModified` event.
  */
 @Serializable
 data class CharacterDataModified(
-  @SerialName("nodeId")
+  @property:SerialName("nodeId")
   val nodeId: Int,
-  @SerialName("characterData")
+  @property:SerialName("characterData")
   val characterData: String,
 )

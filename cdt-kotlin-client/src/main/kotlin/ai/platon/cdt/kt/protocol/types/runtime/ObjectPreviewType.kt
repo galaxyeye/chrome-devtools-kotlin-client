@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.runtime
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -23,4 +24,6 @@ public enum class ObjectPreviewType {
   SYMBOL,
   @JsonProperty("bigint")
   BIGINT,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

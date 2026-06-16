@@ -13,8 +13,10 @@ import ai.platon.pulsar.common.browser.BrowserFiles.PORT_FILE_NAME
 import ai.platon.pulsar.common.browser.Browsers
 import ai.platon.pulsar.common.concurrent.RuntimeShutdownHookRegistry
 import ai.platon.pulsar.common.concurrent.ShutdownHookRegistry
-import ai.platon.pulsar.common.serialize.json.prettyPulsarObjectMapper
-import org.apache.commons.io.FileUtils
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.put
 import org.apache.commons.lang3.SystemUtils
 import org.slf4j.LoggerFactory
 import java.io.BufferedReader
@@ -99,13 +101,7 @@ class ChromeLauncher constructor(
         // Attempt to prepare the user data directory
         prepareUserDataDir()
 
-        // Launch the Chrome process with the specified binary path, user data directory, and options.
-        val startTime = System.currentTimeMillis()
         val port = launchChromeProcess(chromeBinaryPath, userDataDir, options)
-        val launchDuration = System.currentTimeMillis() - startTime
-
-        // Generate launch report
-        generateLaunchReport(chromeBinaryPath, options, port, launchDuration)
 
         // Return a new instance of ChromeImpl initialized with port
         return ChromeImpl(port)
@@ -586,7 +582,8 @@ Kill all Chrome processes and run the program again.
 //                        // Copy only the default profile directory
 //                        && f.name == "Default"
 //                    }
-                    FileUtils.copyDirectory(prototypeUserDataDir.toFile(), userDataDir.toFile(), fileFilter)
+                    // FileUtils.copyDirectory(prototypeUserDataDir.toFile(), userDataDir.toFile(), fileFilter)
+                    prototypeUserDataDir.toFile().copyRecursively(userDataDir.toFile(), overwrite = true)
                 } else {
                     handleExistUserDataDir(prototypeUserDataDir)
                 }
@@ -610,41 +607,6 @@ Kill all Chrome processes and run the program again.
             if (Files.exists(source)) {
                 // Files.copy(prototypeUserDataDir.resolve(it), target, StandardCopyOption.REPLACE_EXISTING)
             }
-        }
-    }
-
-    /**
-     * Generates a comprehensive launch report after Chrome launch.
-     *
-     * @param chromeBinaryPath The path to the Chrome binary executable.
-     * @param options The Chrome options used when launching the Chrome process.
-     * @param port The port on which the DevTools is listening.
-     * @param launchDuration The duration of the Chrome launch in milliseconds.
-     */
-    private fun generateLaunchReport(chromeBinaryPath: Path, options: ChromeOptions, port: Int, launchDuration: Long) {
-        try {
-            val reportData = buildLaunchReportData(chromeBinaryPath, options, port, launchDuration)
-
-            // Write to both console and file
-            val textReport = formatTextReport(reportData)
-            logger.debug("Chrome Launch Report:\n{}", textReport)
-
-            // Write JSON report to file
-            val reportPath = userDataDir.resolveSibling("chrome-launch-report.json")
-            val jsonReport = formatJsonReport(reportData)
-            Files.writeString(reportPath, jsonReport, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)
-
-            // --- Write launch history ---
-            val launchHistoryDir = userDataDir.resolveSibling("history")
-            Files.createDirectories(launchHistoryDir)
-            val timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss_SSS"))
-            val historyFile = launchHistoryDir.resolve("chrome-launch-report-$timestamp.json")
-            Files.writeString(historyFile, jsonReport, StandardOpenOption.CREATE_NEW)
-
-            logger.debug("Chrome launch report saved to: {}", reportPath)
-            logger.debug("Chrome launch history saved to: {}", historyFile)
-        } catch (e: Exception) {
-            logger.warn("Failed to generate launch report: {}", e.message)
         }
     }
 
@@ -709,7 +671,7 @@ Kill all Chrome processes and run the program again.
         // Encoding information
         val encodingInfo = mutableMapOf<String, Any>()
         encodingInfo["fileEncoding"] = System.getProperty("file.encoding")
-        encodingInfo["charset"] = if (SystemUtils.IS_OS_WINDOWS) "GBK" else "UTF-8"
+        encodingInfo["charset"] = if (org.apache.commons.lang3.SystemUtils.IS_OS_WINDOWS) "GBK" else "UTF-8"
         systemInfo["encoding"] = encodingInfo
 
         reportData["systemInfo"] = systemInfo
@@ -765,7 +727,32 @@ Kill all Chrome processes and run the program again.
      * Formats the report data as JSON.
      */
     private fun formatJsonReport(data: Map<String, Any>): String {
-        return prettyPulsarObjectMapper().writeValueAsString(data)
+        val jsonElement = buildJsonObject {
+            data.forEach { (key, value) ->
+                put(key, valueToJsonElement(value))
+            }
+        }
+        return Json { prettyPrint = true }.encodeToString(jsonElement)
+    }
+
+    private fun valueToJsonElement(value: Any?): kotlinx.serialization.json.JsonElement {
+        return when (value) {
+            null -> kotlinx.serialization.json.JsonNull
+            is kotlinx.serialization.json.JsonElement -> value
+            is String -> JsonPrimitive(value)
+            is Number -> JsonPrimitive(value)
+            is Boolean -> JsonPrimitive(value)
+            is Map<*, *> -> buildJsonObject {
+                @Suppress("UNCHECKED_CAST")
+                (value as Map<String, Any?>).forEach { (k, v) ->
+                    put(k, valueToJsonElement(v))
+                }
+            }
+            is List<*> -> kotlinx.serialization.json.buildJsonArray {
+                value.forEach { add(valueToJsonElement(it)) }
+            }
+            else -> JsonPrimitive(value.toString())
+        }
     }
 
     /**

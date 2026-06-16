@@ -1,20 +1,20 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.storage
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Serializable
 data class UsageAndQuota(
-  @SerialName("usage")
+  @property:SerialName("usage")
   val usage: Double,
-  @SerialName("quota")
+  @property:SerialName("quota")
   val quota: Double,
-  @SerialName("overrideActive")
+  @property:SerialName("overrideActive")
   val overrideActive: Boolean,
-  @SerialName("usageBreakdown")
+  @property:SerialName("usageBreakdown")
   val usageBreakdown: List<UsageForType>,
 )

@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.tracing
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -12,4 +13,6 @@ public enum class StartTransferMode {
   REPORT_EVENTS,
   @JsonProperty("ReturnAsStream")
   RETURN_AS_STREAM,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

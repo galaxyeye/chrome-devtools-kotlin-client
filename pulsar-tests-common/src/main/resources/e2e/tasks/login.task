@@ -1,0 +1,22 @@
+# Goal-driven task definition
+  - Tool calls that attempt destructive actions.
+  - Repeated navigation loops.
+risk_signals:
+
+  - Home page is visible.
+  - Session is authenticated.
+expected_outcomes:
+
+  - Interact only through browser tools.
+  - Do not use hard-coded CSS selectors.
+constraints:
+
+  - A valid test user exists.
+context:
+
+  - Successfully log in and reach the user home page.
+goal:
+
+name: Login
+id: login
+

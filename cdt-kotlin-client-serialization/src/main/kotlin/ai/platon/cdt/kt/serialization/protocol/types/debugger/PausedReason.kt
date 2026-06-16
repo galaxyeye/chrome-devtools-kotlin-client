@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.debugger
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -32,4 +33,5 @@ public enum class PausedReason {
   PROMISE_REJECTION,
   @SerialName("XHR")
   XHR,
+  UNKNOWN,
 }

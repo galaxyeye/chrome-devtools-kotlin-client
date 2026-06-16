@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.audits
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -8,8 +9,8 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class InspectorIssue(
-  @SerialName("code")
+  @property:SerialName("code")
   val code: InspectorIssueCode,
-  @SerialName("details")
+  @property:SerialName("details")
   val details: InspectorIssueDetails,
 )

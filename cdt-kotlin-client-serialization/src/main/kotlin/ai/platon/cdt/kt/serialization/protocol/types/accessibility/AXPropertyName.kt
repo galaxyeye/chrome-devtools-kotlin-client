@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.accessibility
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -13,16 +14,6 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 public enum class AXPropertyName {
-  // vincent: 20251026, protocol upgrade
-  @SerialName("url")
-  URL,
-  // vincent: 20251026, protocol upgrade
-  @SerialName("uninteresting")
-  UNINTERSECTING,
-  // vincent: 20251026
-  // Default fallback for any unknown AXProperty name coming from newer Chrome versions
-  UNKNOWN,
-
   @SerialName("busy")
   BUSY,
   @SerialName("disabled")
@@ -101,4 +92,5 @@ public enum class AXPropertyName {
   LABELLEDBY,
   @SerialName("owns")
   OWNS,
+  UNKNOWN,
 }

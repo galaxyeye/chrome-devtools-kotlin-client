@@ -1,10 +1,10 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.domsnapshot
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.types.dom.Rect
 import kotlin.Int
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Details of post layout rendered text positions. The exact layout should not be regarded as
@@ -12,10 +12,10 @@ import kotlin.Int
  */
 @Serializable
 data class InlineTextBox(
-  @SerialName("boundingBox")
+  @property:SerialName("boundingBox")
   val boundingBox: Rect,
-  @SerialName("startCharacterIndex")
+  @property:SerialName("startCharacterIndex")
   val startCharacterIndex: Int,
-  @SerialName("numCharacters")
+  @property:SerialName("numCharacters")
   val numCharacters: Int,
 )

@@ -9,7 +9,6 @@ import ai.platon.cdt.kt.serialization.protocol.support.annotations.EventName
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.ParamName
-import ai.platon.cdt.kt.serialization.protocol.support.annotations.ReturnTypeParameter
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Returns
 import ai.platon.cdt.kt.serialization.protocol.support.types.EventHandler
 import ai.platon.cdt.kt.serialization.protocol.support.types.EventListener
@@ -22,14 +21,13 @@ import ai.platon.cdt.kt.serialization.protocol.types.overlay.HingeConfig
 import ai.platon.cdt.kt.serialization.protocol.types.overlay.InspectMode
 import ai.platon.cdt.kt.serialization.protocol.types.overlay.ScrollSnapHighlightConfig
 import ai.platon.cdt.kt.serialization.protocol.types.overlay.SourceOrderConfig
-import kotlin.Any
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlin.collections.List
-import kotlin.collections.Map
+import kotlinx.serialization.json.JsonObject
 
 /**
  * This domain provides various functionality related to drawing atop the inspected page.
@@ -55,18 +53,16 @@ interface Overlay {
    * @param showAccessibilityInfo Whether to show accessibility info (default: true).
    */
   @Returns("highlight")
-  @ReturnTypeParameter(String::class, Any::class)
   suspend fun getHighlightObjectForTest(
     @ParamName("nodeId") nodeId: Int,
     @ParamName("includeDistance") @Optional includeDistance: Boolean? = null,
     @ParamName("includeStyle") @Optional includeStyle: Boolean? = null,
     @ParamName("colorFormat") @Optional colorFormat: ColorFormat? = null,
     @ParamName("showAccessibilityInfo") @Optional showAccessibilityInfo: Boolean? = null,
-  ): Map<String, Any?>
+  ): JsonObject?
 
   @Returns("highlight")
-  @ReturnTypeParameter(String::class, Any::class)
-  suspend fun getHighlightObjectForTest(@ParamName("nodeId") nodeId: Int): Map<String, Any?> {
+  suspend fun getHighlightObjectForTest(@ParamName("nodeId") nodeId: Int): JsonObject? {
     return getHighlightObjectForTest(nodeId, null, null, null, null)
   }
 
@@ -75,16 +71,14 @@ interface Overlay {
    * @param nodeIds Ids of the node to get highlight object for.
    */
   @Returns("highlights")
-  @ReturnTypeParameter(String::class, Any::class)
-  suspend fun getGridHighlightObjectsForTest(@ParamName("nodeIds") nodeIds: List<Int>): Map<String, Any?>
+  suspend fun getGridHighlightObjectsForTest(@ParamName("nodeIds") nodeIds: List<Int>): JsonObject?
 
   /**
    * For Source Order Viewer testing.
    * @param nodeId Id of the node to highlight.
    */
   @Returns("highlight")
-  @ReturnTypeParameter(String::class, Any::class)
-  suspend fun getSourceOrderHighlightObjectForTest(@ParamName("nodeId") nodeId: Int): Map<String, Any?>
+  suspend fun getSourceOrderHighlightObjectForTest(@ParamName("nodeId") nodeId: Int): JsonObject?
 
   /**
    * Hides any highlight.

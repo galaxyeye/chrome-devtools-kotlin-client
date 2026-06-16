@@ -1,17 +1,17 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.profiler
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Int
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Specifies a number of samples attributed to a certain source position.
  */
 @Serializable
 data class PositionTickInfo(
-  @SerialName("line")
+  @property:SerialName("line")
   val line: Int,
-  @SerialName("ticks")
+  @property:SerialName("ticks")
   val ticks: Int,
 )

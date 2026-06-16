@@ -1,10 +1,10 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.systeminfo
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a supported video encoding profile with its associated maximum
@@ -12,12 +12,12 @@ import kotlin.String
  */
 @Serializable
 data class VideoEncodeAcceleratorCapability(
-  @SerialName("profile")
+  @property:SerialName("profile")
   val profile: String,
-  @SerialName("maxResolution")
+  @property:SerialName("maxResolution")
   val maxResolution: Size,
-  @SerialName("maxFramerateNumerator")
+  @property:SerialName("maxFramerateNumerator")
   val maxFramerateNumerator: Int,
-  @SerialName("maxFramerateDenominator")
+  @property:SerialName("maxFramerateDenominator")
   val maxFramerateDenominator: Int,
 )

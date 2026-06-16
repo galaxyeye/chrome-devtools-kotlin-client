@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.audits
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 public enum class SameSiteCookieExclusionReason {
@@ -12,4 +13,6 @@ public enum class SameSiteCookieExclusionReason {
   EXCLUDE_SAME_SITE_LAX,
   @JsonProperty("ExcludeSameSiteStrict")
   EXCLUDE_SAME_SITE_STRICT,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

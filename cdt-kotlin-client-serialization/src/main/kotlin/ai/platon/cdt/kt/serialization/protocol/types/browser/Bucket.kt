@@ -1,21 +1,21 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.browser
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import kotlin.Int
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Chrome histogram bucket.
  */
-@Experimental
 @Serializable
+@Experimental
 data class Bucket(
-  @SerialName("low")
+  @property:SerialName("low")
   val low: Int,
-  @SerialName("high")
+  @property:SerialName("high")
   val high: Int,
-  @SerialName("count")
+  @property:SerialName("count")
   val count: Int,
 )

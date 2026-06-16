@@ -1,11 +1,11 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.runtime
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
-import kotlin.Any
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonElement
 
 /**
  * Represents function call argument. Either remote object id `objectId`, primitive `value`,
@@ -13,13 +13,13 @@ import kotlin.String
  */
 @Serializable
 data class CallArgument(
-  @SerialName("value")
+  @property:SerialName("value")
   @param:Optional
-  val `value`: Any? = null,
-  @SerialName("unserializableValue")
+  val `value`: JsonElement? = null,
+  @property:SerialName("unserializableValue")
   @param:Optional
   val unserializableValue: String? = null,
-  @SerialName("objectId")
+  @property:SerialName("objectId")
   @param:Optional
   val objectId: String? = null,
 )

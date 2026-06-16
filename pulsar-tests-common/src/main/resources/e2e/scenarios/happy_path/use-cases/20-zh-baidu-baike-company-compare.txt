@@ -1,0 +1,13 @@
+# Use Case 20: 百度百科公司信息对比（单站点）
+# Level: Simple
+# Type: Single-site, deterministic
+# Description: 在百度百科检索两家公司，提取成立时间/总部/简介并输出对比表
+
+1. 访问 https://baike.baidu.com/
+2. 搜索 “华为” 并打开对应百科条目
+3. 提取并记录以下字段（若不存在则写“未找到”）：全称/成立时间/总部地点/公司简介（前 1-2 段）
+4. 返回百度百科首页
+5. 搜索 “小米” 并打开对应百科条目
+6. 提取同样字段
+7. 将两家公司信息整理成一个 markdown 对比表，保存为 `company-compare.md`
+8. 在回答中附上 `company-compare.md` 的完整内容

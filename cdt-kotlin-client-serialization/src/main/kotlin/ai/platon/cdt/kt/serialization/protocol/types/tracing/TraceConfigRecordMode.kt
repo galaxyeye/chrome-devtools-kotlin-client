@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.tracing
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -16,4 +17,5 @@ public enum class TraceConfigRecordMode {
   RECORD_AS_MUCH_AS_POSSIBLE,
   @SerialName("echoToConsole")
   ECHO_TO_CONSOLE,
+  UNKNOWN,
 }

@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.page
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -14,4 +15,5 @@ public enum class CrossOriginIsolatedContextType {
   NOT_ISOLATED,
   @SerialName("NotIsolatedFeatureDisabled")
   NOT_ISOLATED_FEATURE_DISABLED,
+  UNKNOWN,
 }

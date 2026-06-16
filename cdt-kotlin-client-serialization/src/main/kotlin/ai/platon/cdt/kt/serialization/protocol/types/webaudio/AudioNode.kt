@@ -1,30 +1,30 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.webaudio
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Double
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Protocol object for AudioNode
  */
 @Serializable
 data class AudioNode(
-  @SerialName("nodeId")
+  @property:SerialName("nodeId")
   val nodeId: String,
-  @SerialName("contextId")
+  @property:SerialName("contextId")
   val contextId: String,
-  @SerialName("nodeType")
+  @property:SerialName("nodeType")
   val nodeType: String,
-  @SerialName("numberOfInputs")
+  @property:SerialName("numberOfInputs")
   val numberOfInputs: Double,
-  @SerialName("numberOfOutputs")
+  @property:SerialName("numberOfOutputs")
   val numberOfOutputs: Double,
-  @SerialName("channelCount")
+  @property:SerialName("channelCount")
   val channelCount: Double,
-  @SerialName("channelCountMode")
+  @property:SerialName("channelCountMode")
   val channelCountMode: ChannelCountMode,
-  @SerialName("channelInterpretation")
+  @property:SerialName("channelInterpretation")
   val channelInterpretation: ChannelInterpretation,
 )

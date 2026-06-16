@@ -1,10 +1,10 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.media
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.String
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Called whenever a player is created, or when a new agent joins and receives
@@ -13,6 +13,6 @@ import kotlin.collections.List
  */
 @Serializable
 data class PlayersCreated(
-  @SerialName("players")
+  @property:SerialName("players")
   val players: List<String>,
 )

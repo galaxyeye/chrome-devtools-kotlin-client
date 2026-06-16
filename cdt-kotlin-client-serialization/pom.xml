@@ -253,7 +253,17 @@
                 </executions>
                 <configuration>
                     <jvmTarget>17</jvmTarget>
+                    <compilerPlugins>
+                        <plugin>kotlinx-serialization</plugin>
+                    </compilerPlugins>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jetbrains.kotlin</groupId>
+                        <artifactId>kotlin-maven-serialization</artifactId>
+                        <version>${kotlin.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -361,7 +371,7 @@
         <javac.src.version>17</javac.src.version>
         <javac.target.version>17</javac.target.version>
         <maven.compiler.target>17</maven.compiler.target>
-        <kotlin.version>2.2.20</kotlin.version>
+        <kotlin.version>2.3.21</kotlin.version>
         <kotlin.coroutine.version>1.10.2</kotlin.coroutine.version>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
         <kotlinx.serialization.version>1.8.1</kotlinx.serialization.version>

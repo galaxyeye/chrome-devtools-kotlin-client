@@ -1,7 +1,5 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.security
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
@@ -9,50 +7,52 @@ import kotlin.Boolean
 import kotlin.Double
 import kotlin.String
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Details about the security state of the page certificate.
  */
-@Experimental
 @Serializable
+@Experimental
 data class CertificateSecurityState(
-  @SerialName("protocol")
+  @property:SerialName("protocol")
   val protocol: String,
-  @SerialName("keyExchange")
+  @property:SerialName("keyExchange")
   val keyExchange: String,
-  @SerialName("keyExchangeGroup")
+  @property:SerialName("keyExchangeGroup")
   @param:Optional
   val keyExchangeGroup: String? = null,
-  @SerialName("cipher")
+  @property:SerialName("cipher")
   val cipher: String,
-  @SerialName("mac")
+  @property:SerialName("mac")
   @param:Optional
   val mac: String? = null,
-  @SerialName("certificate")
+  @property:SerialName("certificate")
   val certificate: List<String>,
-  @SerialName("subjectName")
+  @property:SerialName("subjectName")
   val subjectName: String,
-  @SerialName("issuer")
+  @property:SerialName("issuer")
   val issuer: String,
-  @SerialName("validFrom")
+  @property:SerialName("validFrom")
   val validFrom: Double,
-  @SerialName("validTo")
+  @property:SerialName("validTo")
   val validTo: Double,
-  @SerialName("certificateNetworkError")
+  @property:SerialName("certificateNetworkError")
   @param:Optional
   val certificateNetworkError: String? = null,
-  @SerialName("certificateHasWeakSignature")
+  @property:SerialName("certificateHasWeakSignature")
   val certificateHasWeakSignature: Boolean,
-  @SerialName("certificateHasSha1Signature")
+  @property:SerialName("certificateHasSha1Signature")
   val certificateHasSha1Signature: Boolean,
-  @SerialName("modernSSL")
+  @property:SerialName("modernSSL")
   val modernSSL: Boolean,
-  @SerialName("obsoleteSslProtocol")
+  @property:SerialName("obsoleteSslProtocol")
   val obsoleteSslProtocol: Boolean,
-  @SerialName("obsoleteSslKeyExchange")
+  @property:SerialName("obsoleteSslKeyExchange")
   val obsoleteSslKeyExchange: Boolean,
-  @SerialName("obsoleteSslCipher")
+  @property:SerialName("obsoleteSslCipher")
   val obsoleteSslCipher: Boolean,
-  @SerialName("obsoleteSslSignature")
+  @property:SerialName("obsoleteSslSignature")
   val obsoleteSslSignature: Boolean,
 )

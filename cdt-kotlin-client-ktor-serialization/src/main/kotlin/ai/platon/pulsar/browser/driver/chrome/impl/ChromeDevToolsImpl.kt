@@ -6,46 +6,28 @@ import ai.platon.pulsar.browser.driver.chrome.DevToolsConfig
 import ai.platon.pulsar.browser.driver.chrome.MethodInvocation
 import ai.platon.pulsar.browser.driver.chrome.RemoteDevTools
 import ai.platon.pulsar.browser.driver.chrome.Transport
-import ai.platon.pulsar.browser.driver.chrome.util.*
-import ai.platon.pulsar.common.config.AppConstants
-import ai.platon.pulsar.common.readable
-import ai.platon.pulsar.common.sleepSeconds
+import ai.platon.pulsar.browser.driver.chrome.util.CDPReturnError
+import ai.platon.pulsar.browser.driver.chrome.util.ChromeIOException
+import ai.platon.pulsar.browser.driver.chrome.util.ChromeRPCException
+import ai.platon.pulsar.browser.driver.chrome.util.ChromeRPCTimeoutException
 import ai.platon.pulsar.common.warnForClose
-import com.codahale.metrics.Gauge
-import com.codahale.metrics.SharedMetricRegistries
 import kotlinx.serialization.json.JsonElement
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeoutOrNull
 import org.slf4j.LoggerFactory
 import java.io.IOException
-import java.lang.reflect.Method
 import java.time.Duration
 import java.time.Instant
-import java.util.concurrent.ConcurrentHashMap
+import java.util.Collections.emptyMap
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicLong
 import kotlin.reflect.KClass
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 
-class CachedDevToolsInvocationHandlerProxies(impl: Any) : SuspendAwareHandler(impl) {
-    val commandHandler: DevToolsInvocationHandler = DevToolsInvocationHandler(impl)
-    val commands: MutableMap<Method, Any> = ConcurrentHashMap()
-
-    init {
-        // println("CommandHandler hashCode: " + commandHandler.hashCode())
-    }
-
-    // Typical proxy:
-    //   - jdk.proxy1.$Proxy24
-    // Typical methods:
-    //   - public abstract void com.github.kklisura.cdt.protocol.commands.Page.enable()
-    //   - public abstract com...page.Navigate com...Page.navigate(java.lang.String)
-    override fun invoke(proxy: Any, method: Method, args: Array<out Any>?): Any? {
-        return commands.computeIfAbsent(method) {
-            ProxyClasses.createProxy(method.returnType, commandHandler)
-        }
-    }
-}
-
-abstract class ChromeDevToolsImpl(
+internal class ChromeDevToolsImpl(
     private val browserTransport: Transport,
     private val pageTransport: Transport,
     private val config: DevToolsConfig
@@ -56,16 +38,23 @@ abstract class ChromeDevToolsImpl(
         private var lastActiveTime = startTime
         private val idleTime get() = Duration.between(lastActiveTime, Instant.now())
 
-        private val metrics = SharedMetricRegistries.getOrCreate(AppConstants.DEFAULT_METRICS_NAME)
-        private val metricsPrefix = "c.i.BasicDevTools.global"
-        private val numInvokes = metrics.counter("$metricsPrefix.invokes")
-        val numAccepts = metrics.counter("$metricsPrefix.accepts")
-        private val gauges = mapOf(
-            "idleTime" to Gauge { idleTime.readable() }
-        )
+        private val ID_SUPPLIER = AtomicLong(1L)
 
-        init {
-            gauges.forEach { (name, gauge) -> metrics.gauge("$metricsPrefix.$name") { gauge } }
+        fun nextId() = ID_SUPPLIER.incrementAndGet()
+
+        /**
+         * Create a [MethodInvocation] from a method name and parameter map.
+         * This is the non-reflective variant used by [DirectChromeProtocol].
+         */
+        fun createMethodInvocation(method: String, params: Map<String, Any?>?): MethodInvocation {
+            val params0 = (params ?: emptyMap()).toMutableMap()
+            val methodId = params0[EventDispatcher.ID_PROPERTY]?.toString()?.toLongOrNull() ?: nextId()
+            params0[EventDispatcher.ID_PROPERTY] = methodId.toString()
+
+            val params1: Map<String, Any> = params0.entries
+                .filter { it.value != null }
+                .associate { it.key to it.value as Any }
+            return MethodInvocation(methodId, method, params1)
         }
     }
 
@@ -86,15 +75,15 @@ abstract class ChromeDevToolsImpl(
     override suspend operator fun <T : Any> invoke(
         method: String, params: Map<String, Any?>?, returnClass: KClass<T>, returnProperty: String?
     ): T? {
-        val invocation = DevToolsInvocationHandler.createMethodInvocation(method, params)
+        val invocation = createMethodInvocation(method, params)
 
         // Non-blocking
         val message = dispatcher.serialize(invocation.id, invocation.method, invocation.params, null)
 
         val rpcResult = sendAndReceive(invocation.id, method, returnProperty, message) ?: return null
-        val jsonNode = rpcResult.result ?: return null
+        val jsonElement = rpcResult.result ?: return null
 
-        return dispatcher.deserialize(returnClass.java, jsonNode)
+        return dispatcher.deserialize(returnClass.java, jsonElement)
     }
 
     /**
@@ -133,8 +122,6 @@ abstract class ChromeDevToolsImpl(
         // for test purpose
         mockRpcResult: RpcResult? = null
     ): T? {
-        numInvokes.inc()
-
         // Serialize the method invocation into a message to be sent to the remote server.
         val message = dispatcher.serialize(method)
 
@@ -145,7 +132,7 @@ abstract class ChromeDevToolsImpl(
         if (rpcResult == null) {
             val methodName = method.method
             val readTimeout = config.readTimeout
-            throw ChromeRPCTimeoutException("No response | $methodName | #${numInvokes.count}, ($readTimeout)")
+            throw ChromeRPCTimeoutException("No response | $methodName |, ($readTimeout)")
         }
 
         // Handle the result based on its success status and the expected return type.
@@ -155,10 +142,10 @@ abstract class ChromeDevToolsImpl(
                 handleFailedFurther(rpcResult.result).let { e ->
                     //
                     // Known errors:
-                    // * -3200L Could not find node with given id
-                    if (e.errorCode != -3200L) {
-                        // -3200L is expected and handled in higher layer, so no log needed
-                        logger.info("Protocol return error: {}/{} | request: {}", e.errorCode, e.errorMessage, message)
+                    // * -32000L Could not find node with given id
+                    if (e.errorCode != -32000L) {
+                        // -32000L is expected and handled in higher layer, so no log needed
+                        logger.info("Protocol return error. errorCode={}, errorMessage={} | request={}", e.errorCode, e.errorMessage, message)
                     }
                     throw e
                 }
@@ -185,7 +172,7 @@ abstract class ChromeDevToolsImpl(
 
         // Await without blocking a thread; enforce the configured timeout.
         val timeoutMillis = config.readTimeout.toMillis()
-        val result = withTimeoutOrNull(timeoutMillis) { future.deferred.await() }
+        val result = withTimeoutOrNull(timeoutMillis.milliseconds) { future.deferred.await() }
         if (result == null) {
             // Ensure we don't leak the future if timed out
             dispatcher.unsubscribe(methodId)
@@ -215,14 +202,14 @@ abstract class ChromeDevToolsImpl(
     @Throws(ChromeRPCException::class, IOException::class)
     private fun handleFailedFurther(error: JsonElement?): CDPReturnError {
         // Received an error
-        val error = dispatcher.deserialize(ErrorObject::class.java, error)
-        val sb = StringBuilder(error.message)
-        if (error.data != null) {
+        val errorObj = dispatcher.deserialize<ErrorObject>(ErrorObject::class.java, error)
+        val sb = StringBuilder(errorObj.message)
+        if (errorObj.data != null) {
             sb.append(": ")
-            sb.append(error.data)
+            sb.append(errorObj.data)
         }
 
-        return CDPReturnError(error.code, error.data, error.message, sb.toString())
+        return CDPReturnError(errorObj.code, errorObj.data, errorObj.message, sb.toString())
     }
 
     override fun addEventListener(
@@ -255,7 +242,7 @@ abstract class ChromeDevToolsImpl(
     override fun close() {
         if (closed.compareAndSet(false, true)) {
             // discard all furthers in dispatcher?
-            runCatching { doClose() }.onFailure { warnForClose(this, it) }
+            runCatching { runBlocking { doClose() } }.onFailure { warnForClose(this, it) }
 
             // Decrements the count of the latch, releasing all waiting threads if the count reaches zero.
             // If the current count is greater than zero then it is decremented. If the new count is zero then all
@@ -266,8 +253,16 @@ abstract class ChromeDevToolsImpl(
     }
 
     @Throws(Exception::class)
-    private fun doClose() {
-        waitUntilIdle(Duration.ofSeconds(10))
+    private suspend fun doClose() {
+        // Use shorter timeout if both transports are already closed/inactive
+        // If either transport is still open, use full timeout for graceful shutdown
+        val shutdownWaitTimeout = if (pageTransport.isOpen || browserTransport.isOpen) {
+            Duration.ofSeconds(10)
+        } else {
+            Duration.ofSeconds(3)
+        }
+
+        waitUntilIdle(shutdownWaitTimeout)
 
         logger.debug("Closing devtools client ...")
 
@@ -275,10 +270,10 @@ abstract class ChromeDevToolsImpl(
         browserTransport.close()
     }
 
-    private fun waitUntilIdle(timeout: Duration) {
+    private suspend fun waitUntilIdle(timeout: Duration) {
         val endTime = Instant.now().plus(timeout)
         while (dispatcher.hasFutures() && Instant.now().isBefore(endTime)) {
-            sleepSeconds(1)
+            delay(1.seconds)
         }
     }
 }

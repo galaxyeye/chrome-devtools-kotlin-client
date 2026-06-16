@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.domdebugger
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -14,4 +15,5 @@ public enum class DOMBreakpointType {
   ATTRIBUTE_MODIFIED,
   @SerialName("node-removed")
   NODE_REMOVED,
+  UNKNOWN,
 }

@@ -1,12 +1,10 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.tracing
+
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-
-import kotlin.Any
-import kotlin.String
-import kotlin.collections.List
-import kotlin.collections.Map
+import kotlinx.serialization.json.JsonObject
 
 /**
  * Contains an bucket of collected trace events. When tracing is stopped collected events will be
@@ -14,6 +12,6 @@ import kotlin.collections.Map
  */
 @Serializable
 data class DataCollected(
-  @SerialName("value")
-  val `value`: List<Map<String, Any?>>,
+  @property:SerialName("value")
+  val `value`: List<JsonObject?>,
 )

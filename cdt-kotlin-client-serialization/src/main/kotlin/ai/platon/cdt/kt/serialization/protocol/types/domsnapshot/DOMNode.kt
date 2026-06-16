@@ -1,7 +1,5 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.domsnapshot
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.serialization.protocol.types.dom.PseudoType
@@ -12,90 +10,92 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A Node in the DOM tree.
  */
 @Serializable
 data class DOMNode(
-  @SerialName("nodeType")
+  @property:SerialName("nodeType")
   val nodeType: Int,
-  @SerialName("nodeName")
+  @property:SerialName("nodeName")
   val nodeName: String,
-  @SerialName("nodeValue")
+  @property:SerialName("nodeValue")
   val nodeValue: String,
-  @SerialName("textValue")
+  @property:SerialName("textValue")
   @param:Optional
   val textValue: String? = null,
-  @SerialName("inputValue")
+  @property:SerialName("inputValue")
   @param:Optional
   val inputValue: String? = null,
-  @SerialName("inputChecked")
+  @property:SerialName("inputChecked")
   @param:Optional
   val inputChecked: Boolean? = null,
-  @SerialName("optionSelected")
+  @property:SerialName("optionSelected")
   @param:Optional
   val optionSelected: Boolean? = null,
-  @SerialName("backendNodeId")
+  @property:SerialName("backendNodeId")
   val backendNodeId: Int,
-  @SerialName("childNodeIndexes")
+  @property:SerialName("childNodeIndexes")
   @param:Optional
   val childNodeIndexes: List<Int>? = null,
-  @SerialName("attributes")
+  @property:SerialName("attributes")
   @param:Optional
   val attributes: List<NameValue>? = null,
-  @SerialName("pseudoElementIndexes")
+  @property:SerialName("pseudoElementIndexes")
   @param:Optional
   val pseudoElementIndexes: List<Int>? = null,
-  @SerialName("layoutNodeIndex")
+  @property:SerialName("layoutNodeIndex")
   @param:Optional
   val layoutNodeIndex: Int? = null,
-  @SerialName("documentURL")
+  @property:SerialName("documentURL")
   @param:Optional
   val documentURL: String? = null,
-  @SerialName("baseURL")
+  @property:SerialName("baseURL")
   @param:Optional
   val baseURL: String? = null,
-  @SerialName("contentLanguage")
+  @property:SerialName("contentLanguage")
   @param:Optional
   val contentLanguage: String? = null,
-  @SerialName("documentEncoding")
+  @property:SerialName("documentEncoding")
   @param:Optional
   val documentEncoding: String? = null,
-  @SerialName("publicId")
+  @property:SerialName("publicId")
   @param:Optional
   val publicId: String? = null,
-  @SerialName("systemId")
+  @property:SerialName("systemId")
   @param:Optional
   val systemId: String? = null,
-  @SerialName("frameId")
+  @property:SerialName("frameId")
   @param:Optional
   val frameId: String? = null,
-  @SerialName("contentDocumentIndex")
+  @property:SerialName("contentDocumentIndex")
   @param:Optional
   val contentDocumentIndex: Int? = null,
-  @SerialName("pseudoType")
+  @property:SerialName("pseudoType")
   @param:Optional
   val pseudoType: PseudoType? = null,
-  @SerialName("shadowRootType")
+  @property:SerialName("shadowRootType")
   @param:Optional
   val shadowRootType: ShadowRootType? = null,
-  @SerialName("isClickable")
+  @property:SerialName("isClickable")
   @param:Optional
   val isClickable: Boolean? = null,
-  @SerialName("eventListeners")
+  @property:SerialName("eventListeners")
   @param:Optional
   val eventListeners: List<EventListener>? = null,
-  @SerialName("currentSourceURL")
+  @property:SerialName("currentSourceURL")
   @param:Optional
   val currentSourceURL: String? = null,
-  @SerialName("originURL")
+  @property:SerialName("originURL")
   @param:Optional
   val originURL: String? = null,
-  @SerialName("scrollOffsetX")
+  @property:SerialName("scrollOffsetX")
   @param:Optional
   val scrollOffsetX: Double? = null,
-  @SerialName("scrollOffsetY")
+  @property:SerialName("scrollOffsetY")
   @param:Optional
   val scrollOffsetY: Double? = null,
 )

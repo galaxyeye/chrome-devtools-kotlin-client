@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.systeminfo
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -14,4 +15,5 @@ public enum class SubsamplingFormat {
   YUV_422,
   @SerialName("yuv444")
   YUV_444,
+  UNKNOWN,
 }

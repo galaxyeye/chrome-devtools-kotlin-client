@@ -1,24 +1,24 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.network
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Double
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Fired when EventSource message is received.
  */
 @Serializable
 data class EventSourceMessageReceived(
-  @SerialName("requestId")
+  @property:SerialName("requestId")
   val requestId: String,
-  @SerialName("timestamp")
+  @property:SerialName("timestamp")
   val timestamp: Double,
-  @SerialName("eventName")
+  @property:SerialName("eventName")
   val eventName: String,
-  @SerialName("eventId")
+  @property:SerialName("eventId")
   val eventId: String,
-  @SerialName("data")
+  @property:SerialName("data")
   val `data`: String,
 )

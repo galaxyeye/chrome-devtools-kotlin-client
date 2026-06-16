@@ -1,7 +1,9 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.page
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+
 @Serializable
 public enum class GatedAPIFeatures {
   @SerialName("SharedArrayBuffers")
@@ -12,4 +14,5 @@ public enum class GatedAPIFeatures {
   PERFORMANCE_MEASURE_MEMORY,
   @SerialName("PerformanceProfile")
   PERFORMANCE_PROFILE,
+  UNKNOWN,
 }

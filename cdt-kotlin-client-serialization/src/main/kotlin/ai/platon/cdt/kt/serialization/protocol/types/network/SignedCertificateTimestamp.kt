@@ -1,30 +1,30 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.network
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Double
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Details of a signed certificate timestamp (SCT).
  */
 @Serializable
 data class SignedCertificateTimestamp(
-  @SerialName("status")
+  @property:SerialName("status")
   val status: String,
-  @SerialName("origin")
+  @property:SerialName("origin")
   val origin: String,
-  @SerialName("logDescription")
+  @property:SerialName("logDescription")
   val logDescription: String,
-  @SerialName("logId")
+  @property:SerialName("logId")
   val logId: String,
-  @SerialName("timestamp")
+  @property:SerialName("timestamp")
   val timestamp: Double,
-  @SerialName("hashAlgorithm")
+  @property:SerialName("hashAlgorithm")
   val hashAlgorithm: String,
-  @SerialName("signatureAlgorithm")
+  @property:SerialName("signatureAlgorithm")
   val signatureAlgorithm: String,
-  @SerialName("signatureData")
+  @property:SerialName("signatureData")
   val signatureData: String,
 )

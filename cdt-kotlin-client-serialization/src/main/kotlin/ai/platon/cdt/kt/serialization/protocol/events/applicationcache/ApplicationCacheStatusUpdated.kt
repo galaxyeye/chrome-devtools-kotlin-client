@@ -1,17 +1,17 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.applicationcache
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Serializable
 data class ApplicationCacheStatusUpdated(
-  @SerialName("frameId")
+  @property:SerialName("frameId")
   val frameId: String,
-  @SerialName("manifestURL")
+  @property:SerialName("manifestURL")
   val manifestURL: String,
-  @SerialName("status")
+  @property:SerialName("status")
   val status: Int,
 )

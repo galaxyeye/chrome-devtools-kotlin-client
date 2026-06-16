@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.page
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 public enum class ClientNavigationDisposition {
@@ -12,4 +13,6 @@ public enum class ClientNavigationDisposition {
   NEW_WINDOW,
   @JsonProperty("download")
   DOWNLOAD,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

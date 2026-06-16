@@ -87,6 +87,12 @@ class KotlinTypeMapper(private val context: KotlinGenerationContext) {
     private val intType = Int::class.asTypeName()
     private val mapType = MAP.parameterizedBy(STRING, anyNullable)
 
+    /** kotlinx.serialization JSON types — used when [context.useSerialization] is true */
+    private val jsonElement = ClassName("kotlinx.serialization.json", "JsonElement")
+    private val jsonElementNullable = jsonElement.copy(nullable = true)
+    private val jsonObject = ClassName("kotlinx.serialization.json", "JsonObject")
+    private val jsonObjectNullable = jsonObject.copy(nullable = true)
+
     fun resolveProperty(
         property: Property,
         domain: Domain,
@@ -98,12 +104,18 @@ class KotlinTypeMapper(private val context: KotlinGenerationContext) {
             is IntegerProperty -> KotlinResolvedType(intType)
             is NumberProperty -> KotlinResolvedType(doubleType)
             is BooleanProperty -> KotlinResolvedType(booleanType)
-            is AnyProperty -> KotlinResolvedType(anyNullable)
-            is ObjectProperty -> KotlinResolvedType(mapType)
+            is AnyProperty -> KotlinResolvedType(
+                if (context.useSerialization) jsonElementNullable else anyNullable
+            )
+            is ObjectProperty -> KotlinResolvedType(
+                if (context.useSerialization) jsonObjectNullable else mapType
+            )
             is EnumProperty -> buildInlineEnum(property, domain, owner)
             is ArrayProperty -> resolveArray(property.name, property.items, domain, owner, resolver)
             is RefProperty -> resolveRef(property.ref, domain, owner, resolver)
-            else -> KotlinResolvedType(anyNullable)
+            else -> KotlinResolvedType(
+                if (context.useSerialization) jsonElementNullable else anyNullable
+            )
         }
         return if (property.optional == java.lang.Boolean.TRUE) {
             resolution.copy(typeName = resolution.typeName.copy(nullable = true))
@@ -143,7 +155,9 @@ class KotlinTypeMapper(private val context: KotlinGenerationContext) {
             is ArrayType -> resolveArrayType(refName, type, namespace, refName, owner, domain, resolver)
             is ObjectType -> {
                 if (type.properties == null || type.properties.isEmpty()) {
-                    KotlinResolvedType(mapType)
+                    KotlinResolvedType(
+                        if (context.useSerialization) jsonObjectNullable else mapType
+                    )
                 } else {
                     val pkg = StringUtils.buildPackageName(
                         context.typesPackage, namespace.lowercase(Locale.ROOT)
@@ -177,7 +191,9 @@ class KotlinTypeMapper(private val context: KotlinGenerationContext) {
             is TopLevelIntegerArrayItem -> KotlinResolvedType(intType)
             is TopLevelNumberArrayItem -> KotlinResolvedType(doubleType)
             is TopLevelRefArrayItem -> resolveRef(item.ref, domain, owner, resolver)
-            else -> KotlinResolvedType(anyNullable)
+            else -> KotlinResolvedType(
+                if (context.useSerialization) jsonElementNullable else anyNullable
+            )
         }
         val listType = LIST.parameterizedBy(elementResolution.typeName)
         return elementResolution.copy(typeName = listType)
@@ -191,9 +207,15 @@ class KotlinTypeMapper(private val context: KotlinGenerationContext) {
         resolver: DomainTypeResolver
     ): KotlinResolvedType {
         val element = when (item) {
-            null -> KotlinResolvedType(anyNullable)
-            is ObjectArrayItem -> KotlinResolvedType(mapType)
-            is AnyArrayItem -> KotlinResolvedType(anyNullable)
+            null -> KotlinResolvedType(
+                if (context.useSerialization) jsonElementNullable else anyNullable
+            )
+            is ObjectArrayItem -> KotlinResolvedType(
+                if (context.useSerialization) jsonObjectNullable else mapType
+            )
+            is AnyArrayItem -> KotlinResolvedType(
+                if (context.useSerialization) jsonElementNullable else anyNullable
+            )
             is StringArrayItem -> KotlinResolvedType(STRING)
             is IntegerArrayItem -> KotlinResolvedType(intType)
             is NumberArrayItem -> KotlinResolvedType(doubleType)
@@ -203,7 +225,9 @@ class KotlinTypeMapper(private val context: KotlinGenerationContext) {
             }
 
             is RefArrayItem -> resolveRef(item.ref, domain, owner, resolver)
-            else -> KotlinResolvedType(anyNullable)
+            else -> KotlinResolvedType(
+                if (context.useSerialization) jsonElementNullable else anyNullable
+            )
         }
         return element.copy(typeName = LIST.parameterizedBy(element.typeName))
     }
@@ -355,7 +379,7 @@ class KotlinTypeMapper(private val context: KotlinGenerationContext) {
             if (context.useSerialization) {
                 propertyBuilder.addAnnotation(
                     AnnotationSpec.builder(context.serialNameAnnotation)
-                        .useSiteTarget(AnnotationSpec.UseSiteTarget.PARAM)
+                        .useSiteTarget(AnnotationSpec.UseSiteTarget.PROPERTY)
                         .addMember("%S", property.name)
                         .build()
                 )

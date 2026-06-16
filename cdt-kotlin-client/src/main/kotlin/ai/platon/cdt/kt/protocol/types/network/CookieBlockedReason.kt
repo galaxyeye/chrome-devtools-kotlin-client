@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.network
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -33,4 +34,6 @@ public enum class CookieBlockedReason {
   SCHEMEFUL_SAME_SITE_UNSPECIFIED_TREATED_AS_LAX,
   @JsonProperty("SamePartyFromCrossPartyContext")
   SAME_PARTY_FROM_CROSS_PARTY_CONTEXT,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

@@ -1,26 +1,26 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.backgroundservice
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Double
 import kotlin.String
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Serializable
 data class BackgroundServiceEvent(
-  @SerialName("timestamp")
+  @property:SerialName("timestamp")
   val timestamp: Double,
-  @SerialName("origin")
+  @property:SerialName("origin")
   val origin: String,
-  @SerialName("serviceWorkerRegistrationId")
+  @property:SerialName("serviceWorkerRegistrationId")
   val serviceWorkerRegistrationId: String,
-  @SerialName("service")
+  @property:SerialName("service")
   val service: ServiceName,
-  @SerialName("eventName")
+  @property:SerialName("eventName")
   val eventName: String,
-  @SerialName("instanceId")
+  @property:SerialName("instanceId")
   val instanceId: String,
-  @SerialName("eventMetadata")
+  @property:SerialName("eventMetadata")
   val eventMetadata: List<EventMetadata>,
 )

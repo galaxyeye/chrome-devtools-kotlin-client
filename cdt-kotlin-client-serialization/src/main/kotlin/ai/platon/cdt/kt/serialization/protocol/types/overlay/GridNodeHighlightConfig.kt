@@ -1,17 +1,17 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.overlay
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Int
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Configurations for Persistent Grid Highlight
  */
 @Serializable
 data class GridNodeHighlightConfig(
-  @SerialName("gridHighlightConfig")
+  @property:SerialName("gridHighlightConfig")
   val gridHighlightConfig: GridHighlightConfig,
-  @SerialName("nodeId")
+  @property:SerialName("nodeId")
   val nodeId: Int,
 )

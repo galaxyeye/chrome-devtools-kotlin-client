@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.debugger
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -31,4 +32,6 @@ public enum class PausedReason {
   PROMISE_REJECTION,
   @JsonProperty("XHR")
   XHR,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

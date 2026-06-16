@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.network
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -31,4 +32,6 @@ public enum class BlockedReason {
   CORP_NOT_SAME_ORIGIN_AFTER_DEFAULTED_TO_SAME_ORIGIN_BY_COEP,
   @JsonProperty("corp-not-same-site")
   CORP_NOT_SAME_SITE,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

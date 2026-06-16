@@ -66,7 +66,8 @@ public class Configuration {
 
   @Option(
       name = "--serialization",
-      usage = "Use kotlinx.serialization annotations (@Serializable, @SerialName) instead of Jackson (@JsonProperty, @JsonEnumDefaultValue). Only applicable when --language=kotlin.",
+      usage =
+          "Use kotlinx.serialization annotations (@Serializable, @SerialName) instead of Jackson (@JsonProperty, @JsonEnumDefaultValue). Only applicable when --language=kotlin.",
       metaVar = "BOOL")
   private boolean serialization = false;
 }

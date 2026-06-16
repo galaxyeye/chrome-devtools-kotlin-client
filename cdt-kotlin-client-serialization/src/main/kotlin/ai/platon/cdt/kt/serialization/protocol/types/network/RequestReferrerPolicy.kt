@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.network
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -24,4 +25,5 @@ public enum class RequestReferrerPolicy {
   STRICT_ORIGIN,
   @SerialName("strict-origin-when-cross-origin")
   STRICT_ORIGIN_WHEN_CROSS_ORIGIN,
+  UNKNOWN,
 }

@@ -1,7 +1,5 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.runtime
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
@@ -12,24 +10,26 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Issued when console API was called.
  */
 @Serializable
 data class ConsoleAPICalled(
-  @SerialName("type")
+  @property:SerialName("type")
   val type: ConsoleAPICalledType,
-  @SerialName("args")
+  @property:SerialName("args")
   val args: List<RemoteObject>,
-  @SerialName("executionContextId")
+  @property:SerialName("executionContextId")
   val executionContextId: Int,
-  @SerialName("timestamp")
+  @property:SerialName("timestamp")
   val timestamp: Double,
-  @SerialName("stackTrace")
+  @property:SerialName("stackTrace")
   @param:Optional
   val stackTrace: StackTrace? = null,
-  @SerialName("context")
+  @property:SerialName("context")
   @param:Optional
   @param:Experimental
   val context: String? = null,

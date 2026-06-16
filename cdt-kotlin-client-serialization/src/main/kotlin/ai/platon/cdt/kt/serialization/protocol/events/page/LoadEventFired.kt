@@ -1,12 +1,12 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.page
+
+import kotlin.Double
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-import kotlin.Double
-
 @Serializable
 data class LoadEventFired(
-  @SerialName("timestamp")
+  @property:SerialName("timestamp")
   val timestamp: Double,
 )

@@ -48,7 +48,6 @@ import ai.platon.cdt.kt.serialization.protocol.types.network.RequestPattern
 import ai.platon.cdt.kt.serialization.protocol.types.network.ResponseBody
 import ai.platon.cdt.kt.serialization.protocol.types.network.ResponseBodyForInterception
 import ai.platon.cdt.kt.serialization.protocol.types.network.SecurityIsolationStatus
-import kotlin.Any
 import kotlin.Boolean
 import kotlin.Deprecated
 import kotlin.Double
@@ -56,7 +55,7 @@ import kotlin.Int
 import kotlin.String
 import kotlin.Unit
 import kotlin.collections.List
-import kotlin.collections.Map
+import kotlinx.serialization.json.JsonObject
 
 /**
  * Network domain allows tracking network activities of the page. It exposes information about http,
@@ -137,7 +136,7 @@ interface Network {
     @ParamName("url") @Optional url: String? = null,
     @ParamName("method") @Optional method: String? = null,
     @ParamName("postData") @Optional postData: String? = null,
-    @ParamName("headers") @Optional headers: Map<String, Any?>? = null,
+    @ParamName("headers") @Optional headers: JsonObject? = null,
     @ParamName("authChallengeResponse") @Optional authChallengeResponse: AuthChallengeResponse? = null,
   )
 
@@ -389,7 +388,7 @@ interface Network {
    * Specifies whether to always send extra HTTP headers with the requests from this page.
    * @param headers Map with extra HTTP headers.
    */
-  suspend fun setExtraHTTPHeaders(@ParamName("headers") headers: Map<String, Any?>)
+  suspend fun setExtraHTTPHeaders(@ParamName("headers") headers: JsonObject?)
 
   /**
    * Specifies whether to attach a page script stack id in requests

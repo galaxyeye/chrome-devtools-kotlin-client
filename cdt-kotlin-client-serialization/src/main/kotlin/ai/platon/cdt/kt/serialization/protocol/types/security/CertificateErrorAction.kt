@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.security
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -13,4 +14,5 @@ public enum class CertificateErrorAction {
   CONTINUE,
   @SerialName("cancel")
   CANCEL,
+  UNKNOWN,
 }

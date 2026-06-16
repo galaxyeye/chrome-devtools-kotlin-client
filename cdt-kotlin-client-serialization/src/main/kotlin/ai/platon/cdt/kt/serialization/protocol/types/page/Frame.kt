@@ -1,56 +1,56 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.page
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.String
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Information about the Frame on the page.
  */
 @Serializable
 data class Frame(
-  @SerialName("id")
+  @property:SerialName("id")
   val id: String,
-  @SerialName("parentId")
+  @property:SerialName("parentId")
   @param:Optional
   val parentId: String? = null,
-  @SerialName("loaderId")
+  @property:SerialName("loaderId")
   val loaderId: String,
-  @SerialName("name")
+  @property:SerialName("name")
   @param:Optional
   val name: String? = null,
-  @SerialName("url")
+  @property:SerialName("url")
   val url: String,
-  @SerialName("urlFragment")
+  @property:SerialName("urlFragment")
   @param:Optional
   @param:Experimental
   val urlFragment: String? = null,
-  @SerialName("domainAndRegistry")
+  @property:SerialName("domainAndRegistry")
   @param:Experimental
   val domainAndRegistry: String,
-  @SerialName("securityOrigin")
+  @property:SerialName("securityOrigin")
   val securityOrigin: String,
-  @SerialName("mimeType")
+  @property:SerialName("mimeType")
   val mimeType: String,
-  @SerialName("unreachableUrl")
+  @property:SerialName("unreachableUrl")
   @param:Optional
   @param:Experimental
   val unreachableUrl: String? = null,
-  @SerialName("adFrameType")
+  @property:SerialName("adFrameType")
   @param:Optional
   @param:Experimental
   val adFrameType: AdFrameType? = null,
-  @SerialName("secureContextType")
+  @property:SerialName("secureContextType")
   @param:Experimental
   val secureContextType: SecureContextType,
-  @SerialName("crossOriginIsolatedContextType")
+  @property:SerialName("crossOriginIsolatedContextType")
   @param:Experimental
   val crossOriginIsolatedContextType: CrossOriginIsolatedContextType,
-  @SerialName("gatedAPIFeatures")
+  @property:SerialName("gatedAPIFeatures")
   @param:Experimental
   val gatedAPIFeatures: List<GatedAPIFeatures>,
 )

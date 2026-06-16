@@ -1,16 +1,16 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.emulation
+
+import kotlin.Int
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-import kotlin.Int
-
 @Serializable
 data class DisplayFeature(
-  @SerialName("orientation")
+  @property:SerialName("orientation")
   val orientation: DisplayFeatureOrientation,
-  @SerialName("offset")
+  @property:SerialName("offset")
   val offset: Int,
-  @SerialName("maskLength")
+  @property:SerialName("maskLength")
   val maskLength: Int,
 )

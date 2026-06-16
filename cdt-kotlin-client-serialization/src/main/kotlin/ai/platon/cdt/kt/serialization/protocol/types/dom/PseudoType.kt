@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.dom
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -46,4 +47,5 @@ public enum class PseudoType {
   RESIZER,
   @SerialName("input-list-button")
   INPUT_LIST_BUTTON,
+  UNKNOWN,
 }

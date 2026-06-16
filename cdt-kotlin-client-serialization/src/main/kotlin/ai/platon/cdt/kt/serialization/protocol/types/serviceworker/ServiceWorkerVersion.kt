@@ -1,38 +1,38 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.serviceworker
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Double
 import kotlin.String
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * ServiceWorker version.
  */
 @Serializable
 data class ServiceWorkerVersion(
-  @SerialName("versionId")
+  @property:SerialName("versionId")
   val versionId: String,
-  @SerialName("registrationId")
+  @property:SerialName("registrationId")
   val registrationId: String,
-  @SerialName("scriptURL")
+  @property:SerialName("scriptURL")
   val scriptURL: String,
-  @SerialName("runningStatus")
+  @property:SerialName("runningStatus")
   val runningStatus: ServiceWorkerVersionRunningStatus,
-  @SerialName("status")
+  @property:SerialName("status")
   val status: ServiceWorkerVersionStatus,
-  @SerialName("scriptLastModified")
+  @property:SerialName("scriptLastModified")
   @param:Optional
   val scriptLastModified: Double? = null,
-  @SerialName("scriptResponseTime")
+  @property:SerialName("scriptResponseTime")
   @param:Optional
   val scriptResponseTime: Double? = null,
-  @SerialName("controlledClients")
+  @property:SerialName("controlledClients")
   @param:Optional
   val controlledClients: List<String>? = null,
-  @SerialName("targetId")
+  @property:SerialName("targetId")
   @param:Optional
   val targetId: String? = null,
 )

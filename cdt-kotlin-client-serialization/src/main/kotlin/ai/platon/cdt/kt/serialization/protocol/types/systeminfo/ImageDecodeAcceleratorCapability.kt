@@ -1,9 +1,9 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.systeminfo
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a supported image decoding profile with its associated minimum and
@@ -11,12 +11,12 @@ import kotlin.collections.List
  */
 @Serializable
 data class ImageDecodeAcceleratorCapability(
-  @SerialName("imageType")
+  @property:SerialName("imageType")
   val imageType: ImageType,
-  @SerialName("maxDimensions")
+  @property:SerialName("maxDimensions")
   val maxDimensions: Size,
-  @SerialName("minDimensions")
+  @property:SerialName("minDimensions")
   val minDimensions: Size,
-  @SerialName("subsamplings")
+  @property:SerialName("subsamplings")
   val subsamplings: List<SubsamplingFormat>,
 )

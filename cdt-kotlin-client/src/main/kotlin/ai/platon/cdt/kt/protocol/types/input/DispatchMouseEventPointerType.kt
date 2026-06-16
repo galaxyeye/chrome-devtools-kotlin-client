@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.input
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -11,4 +12,6 @@ public enum class DispatchMouseEventPointerType {
   MOUSE,
   @JsonProperty("pen")
   PEN,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

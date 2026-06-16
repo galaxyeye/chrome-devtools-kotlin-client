@@ -1,17 +1,17 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.page
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Deprecated
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Fired when frame no longer has a scheduled navigation.
  */
-@Deprecated("Deprecated")
 @Serializable
+@Deprecated("Deprecated")
 data class FrameClearedScheduledNavigation(
-  @SerialName("frameId")
+  @property:SerialName("frameId")
   val frameId: String,
 )

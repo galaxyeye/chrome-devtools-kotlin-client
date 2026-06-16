@@ -1,20 +1,20 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.applicationcache
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Detailed application cache resource information.
  */
 @Serializable
 data class ApplicationCacheResource(
-  @SerialName("url")
+  @property:SerialName("url")
   val url: String,
-  @SerialName("size")
+  @property:SerialName("size")
   val size: Int,
-  @SerialName("type")
+  @property:SerialName("type")
   val type: String,
 )

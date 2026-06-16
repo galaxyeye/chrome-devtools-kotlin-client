@@ -1,15 +1,15 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.animation
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.types.animation.Animation
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Event for animation that has been started.
  */
 @Serializable
 data class AnimationStarted(
-  @SerialName("animation")
+  @property:SerialName("animation")
   val animation: Animation,
 )

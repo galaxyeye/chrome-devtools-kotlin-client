@@ -1,9 +1,9 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.audits
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * This struct holds a list of optional fields with additional information
@@ -12,34 +12,34 @@ import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
  */
 @Serializable
 data class InspectorIssueDetails(
-  @SerialName("sameSiteCookieIssueDetails")
+  @property:SerialName("sameSiteCookieIssueDetails")
   @param:Optional
   val sameSiteCookieIssueDetails: SameSiteCookieIssueDetails? = null,
-  @SerialName("mixedContentIssueDetails")
+  @property:SerialName("mixedContentIssueDetails")
   @param:Optional
   val mixedContentIssueDetails: MixedContentIssueDetails? = null,
-  @SerialName("blockedByResponseIssueDetails")
+  @property:SerialName("blockedByResponseIssueDetails")
   @param:Optional
   val blockedByResponseIssueDetails: BlockedByResponseIssueDetails? = null,
-  @SerialName("heavyAdIssueDetails")
+  @property:SerialName("heavyAdIssueDetails")
   @param:Optional
   val heavyAdIssueDetails: HeavyAdIssueDetails? = null,
-  @SerialName("contentSecurityPolicyIssueDetails")
+  @property:SerialName("contentSecurityPolicyIssueDetails")
   @param:Optional
   val contentSecurityPolicyIssueDetails: ContentSecurityPolicyIssueDetails? = null,
-  @SerialName("sharedArrayBufferIssueDetails")
+  @property:SerialName("sharedArrayBufferIssueDetails")
   @param:Optional
   val sharedArrayBufferIssueDetails: SharedArrayBufferIssueDetails? = null,
-  @SerialName("twaQualityEnforcementDetails")
+  @property:SerialName("twaQualityEnforcementDetails")
   @param:Optional
   val twaQualityEnforcementDetails: TrustedWebActivityIssueDetails? = null,
-  @SerialName("lowTextContrastIssueDetails")
+  @property:SerialName("lowTextContrastIssueDetails")
   @param:Optional
   val lowTextContrastIssueDetails: LowTextContrastIssueDetails? = null,
-  @SerialName("corsIssueDetails")
+  @property:SerialName("corsIssueDetails")
   @param:Optional
   val corsIssueDetails: CorsIssueDetails? = null,
-  @SerialName("attributionReportingIssueDetails")
+  @property:SerialName("attributionReportingIssueDetails")
   @param:Optional
   val attributionReportingIssueDetails: AttributionReportingIssueDetails? = null,
 )

@@ -1,5 +1,6 @@
 package ai.platon.pulsar.browser.driver.chrome.impl
 
+import ai.platon.pulsar.browser.common.Utils
 import ai.platon.pulsar.browser.driver.chrome.Transport
 import ai.platon.pulsar.browser.driver.chrome.util.ChromeDriverException
 import ai.platon.pulsar.browser.driver.chrome.util.ChromeIOException
@@ -8,10 +9,9 @@ import ai.platon.pulsar.common.config.AppConstants
 import ai.platon.pulsar.common.getLogger
 import ai.platon.pulsar.common.getTracerOrNull
 import ai.platon.pulsar.common.warnForClose
-import com.codahale.metrics.SharedMetricRegistries
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
-import io.ktor.client.plugins.HttpTimeout
+import io.ktor.client.plugins.*
 import io.ktor.client.plugins.websocket.*
 import io.ktor.websocket.*
 import kotlinx.coroutines.*
@@ -21,14 +21,13 @@ import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicReference
 import java.util.function.Consumer
-import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * Ktor-based WebSocket transport that supports Kotlin coroutines under the hood,
  * but exposes the legacy Transport interface for compatibility.
  */
-class KtorTransport : Transport {
+internal class KtorTransport : Transport {
     private val logger = getLogger(this)
     private val tracer = getTracerOrNull(this)
     private val closed = AtomicBoolean()
@@ -38,10 +37,6 @@ class KtorTransport : Transport {
     private var client: HttpClient? = null
     private var session: DefaultClientWebSocketSession? = null
     private val messageConsumer = AtomicReference<Consumer<String>?>(null)
-
-    private val metricsPrefix = "c.i.WebSocketClient"
-    private val metrics = SharedMetricRegistries.getOrCreate(AppConstants.DEFAULT_METRICS_NAME)
-    private val meterRequests = metrics.meter("$metricsPrefix.requests")
 
     private var uri: URI? = null
 
@@ -56,8 +51,8 @@ class KtorTransport : Transport {
         this.uri = normalizedUri
         try {
             client = HttpClient(CIO) {
-                install(WebSockets) {
-                    pingInterval = DEFAULT_PING_INTERVAL.inWholeMilliseconds
+                install(WebSockets.Plugin) {
+                    pingInterval = DEFAULT_PING_INTERVAL_MS
                 }
                 install(HttpTimeout) {
                     connectTimeoutMillis = DEFAULT_CONNECT_TIMEOUT_MS
@@ -105,7 +100,12 @@ class KtorTransport : Transport {
             val open = isOpen
             when (e) {
                 is ChromeIOException -> throw e
-                is TimeoutCancellationException -> throw ChromeIOException("Timed out connecting to ws server | $normalizedUri", e, open)
+                is TimeoutCancellationException -> throw ChromeIOException(
+                    "Timed out connecting to ws server | $normalizedUri",
+                    e,
+                    open
+                )
+
                 is IOException -> throw ChromeIOException("Failed connecting to ws server | $normalizedUri", e, open)
                 else -> throw ChromeIOException("Failed connecting to ws server | $normalizedUri", e, open)
             }
@@ -113,7 +113,6 @@ class KtorTransport : Transport {
     }
 
     override suspend fun send(message: String) {
-        meterRequests.mark()
         val ws = session ?: return
 
         tracer?.trace("▶ Send {}", shortenMessage(message))
@@ -134,8 +133,15 @@ class KtorTransport : Transport {
             scope.cancel()
             if (ws != null) {
                 runCatching {
-                    runBlocking(Dispatchers.IO) { ws.close(CloseReason(CloseReason.Codes.NORMAL, "")) }
-                }.onFailure { warnForClose(this, it) }
+                    runBlocking(Dispatchers.IO) {
+                        withTimeout(CLOSE_TIMEOUT_MS.milliseconds) {
+                            ws.close(CloseReason(CloseReason.Codes.NORMAL, ""))
+                        }
+                    }
+                }.onFailure {
+                    logger.debug("WebSocket close timeout or error, forcing closure | {}", uri)
+                    warnForClose(this, it)
+                }
             }
             runCatching { client?.close() }.onFailure { warnForClose(this, it) }
         }
@@ -146,11 +152,13 @@ class KtorTransport : Transport {
     }
 
     private fun shortenMessage(message: String, length: Int = 500): String {
-        return org.apache.commons.lang3.StringUtils.abbreviateMiddle(message, "...", length)
+        return Utils.abbreviateMiddle(message, "...", length)
     }
 
     /**
-     * On Windows, “localhost” often resolves to IPv6 ::1 first. If Chrome is listening only on IPv4 127.0.0.1 for the DevTools WebSocket, the handshake can silently stall in the socket layer, and Ktor’s webSocketSession may not return quickly without an explicit timeout.
+     * On Windows, “localhost” often resolves to IPv6 ::1 first. If Chrome is listening only on IPv4 127.0.0.1 for the
+     * DevTools WebSocket, the handshake can silently stall in the socket layer, and Ktor’s webSocketSession may not
+     * return quickly without an explicit timeout.
      * */
     private fun normalizeUri(uri: URI): URI {
         // Prefer IPv4 loopback for localhost to avoid potential IPv6-only bind issues on Windows
@@ -165,8 +173,9 @@ class KtorTransport : Transport {
         private const val DEFAULT_CONNECT_TIMEOUT_MS: Long = 10_000
         private const val DEFAULT_REQUEST_TIMEOUT_MS: Long = 20_000
         private const val DEFAULT_SOCKET_TIMEOUT_MS: Long = 20_000
-        private val DEFAULT_PING_INTERVAL: Duration = 15_000.milliseconds
+        private const val DEFAULT_PING_INTERVAL_MS: Long = 15_000
         private const val DEFAULT_KEEP_ALIVE_TIME_MS: Long = 5_000
+        private const val CLOSE_TIMEOUT_MS: Long = 3_000
 
         @Throws(ChromeIOException::class)
         fun create(uri: URI): Transport {

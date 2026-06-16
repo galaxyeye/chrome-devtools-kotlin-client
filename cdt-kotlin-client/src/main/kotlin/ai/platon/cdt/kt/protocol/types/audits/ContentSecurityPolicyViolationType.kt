@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.audits
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 public enum class ContentSecurityPolicyViolationType {
@@ -14,4 +15,6 @@ public enum class ContentSecurityPolicyViolationType {
   K_TRUSTED_TYPES_SINK_VIOLATION,
   @JsonProperty("kTrustedTypesPolicyViolation")
   K_TRUSTED_TYPES_POLICY_VIOLATION,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

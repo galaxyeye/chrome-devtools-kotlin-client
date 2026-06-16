@@ -1,27 +1,27 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.network
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Information about a signed exchange response.
  */
-@Experimental
 @Serializable
+@Experimental
 data class SignedExchangeInfo(
-  @SerialName("outerResponse")
+  @property:SerialName("outerResponse")
   val outerResponse: Response,
-  @SerialName("header")
+  @property:SerialName("header")
   @param:Optional
   val `header`: SignedExchangeHeader? = null,
-  @SerialName("securityDetails")
+  @property:SerialName("securityDetails")
   @param:Optional
   val securityDetails: SecurityDetails? = null,
-  @SerialName("errors")
+  @property:SerialName("errors")
   @param:Optional
   val errors: List<SignedExchangeError>? = null,
 )

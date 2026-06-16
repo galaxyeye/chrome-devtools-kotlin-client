@@ -27,7 +27,7 @@ interface ApplicationCache {
    * @param frameId Identifier of the frame containing document whose application cache is retrieved.
    */
   @Returns("applicationCache")
-  suspend fun getApplicationCacheForFrame(@ParamName("frameId") frameId: String): ApplicationCache
+  suspend fun getApplicationCacheForFrame(@ParamName("frameId") frameId: String): ai.platon.cdt.kt.serialization.protocol.types.applicationcache.ApplicationCache
 
   /**
    * Returns array of frame identifiers with manifest urls for each frame containing a document

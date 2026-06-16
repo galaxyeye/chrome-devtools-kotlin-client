@@ -1,17 +1,17 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.profiler
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a type collected during runtime.
  */
-@Experimental
 @Serializable
+@Experimental
 data class TypeObject(
-  @SerialName("name")
+  @property:SerialName("name")
   val name: String,
 )

@@ -1,30 +1,30 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.webaudio
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Double
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Protocol object for AudioParam
  */
 @Serializable
 data class AudioParam(
-  @SerialName("paramId")
+  @property:SerialName("paramId")
   val paramId: String,
-  @SerialName("nodeId")
+  @property:SerialName("nodeId")
   val nodeId: String,
-  @SerialName("contextId")
+  @property:SerialName("contextId")
   val contextId: String,
-  @SerialName("paramType")
+  @property:SerialName("paramType")
   val paramType: String,
-  @SerialName("rate")
+  @property:SerialName("rate")
   val rate: AutomationRate,
-  @SerialName("defaultValue")
+  @property:SerialName("defaultValue")
   val defaultValue: Double,
-  @SerialName("minValue")
+  @property:SerialName("minValue")
   val minValue: Double,
-  @SerialName("maxValue")
+  @property:SerialName("maxValue")
   val maxValue: Double,
 )

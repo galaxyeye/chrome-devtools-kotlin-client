@@ -1,22 +1,22 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.page
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Error while paring app manifest.
  */
 @Serializable
 data class AppManifestError(
-  @SerialName("message")
+  @property:SerialName("message")
   val message: String,
-  @SerialName("critical")
+  @property:SerialName("critical")
   val critical: Int,
-  @SerialName("line")
+  @property:SerialName("line")
   val line: Int,
-  @SerialName("column")
+  @property:SerialName("column")
   val column: Int,
 )

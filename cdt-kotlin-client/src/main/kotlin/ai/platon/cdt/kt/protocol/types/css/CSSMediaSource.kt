@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.css
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -18,4 +19,6 @@ public enum class CSSMediaSource {
   LINKED_SHEET,
   @JsonProperty("inlineSheet")
   INLINE_SHEET,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

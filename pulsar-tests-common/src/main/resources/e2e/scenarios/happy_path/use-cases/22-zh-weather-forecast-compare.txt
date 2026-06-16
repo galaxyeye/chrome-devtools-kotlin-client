@@ -1,0 +1,12 @@
+# Use Case 22: 中文天气预报信息核对（跨站点）
+# Level: Complex
+# Type: Multi-site, deterministic, aggregation
+# Description: 查询同一城市的天气信息，跨两个中文站点提取关键字段并输出对比
+
+1. 选择一个城市：上海
+2. 访问 https://www.weather.com.cn/ 并搜索“上海”进入城市天气页
+3. 提取并记录：当前温度/天气现象/空气质量（若有）/未来 3 天最高最低温
+4. 访问 https://tianqi.qq.com/ 并搜索“上海”进入城市天气页
+5. 提取同样字段（若字段名称不同，按最接近的含义匹配；不存在则写“未找到”）
+6. 将两站点结果整理成一个 markdown 对比表，保存为 `shanghai-weather-compare.md`
+7. 在回答中附上 `shanghai-weather-compare.md` 的完整内容

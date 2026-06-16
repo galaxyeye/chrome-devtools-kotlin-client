@@ -1,25 +1,25 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.network
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Fired when HTTP request has finished loading.
  */
 @Serializable
 data class LoadingFinished(
-  @SerialName("requestId")
+  @property:SerialName("requestId")
   val requestId: String,
-  @SerialName("timestamp")
+  @property:SerialName("timestamp")
   val timestamp: Double,
-  @SerialName("encodedDataLength")
+  @property:SerialName("encodedDataLength")
   val encodedDataLength: Double,
-  @SerialName("shouldReportCorbBlocking")
+  @property:SerialName("shouldReportCorbBlocking")
   @param:Optional
   val shouldReportCorbBlocking: Boolean? = null,
 )

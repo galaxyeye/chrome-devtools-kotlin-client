@@ -1,33 +1,33 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.network
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.serialization.protocol.types.runtime.StackTrace
 import kotlin.Double
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Information about the request initiator.
  */
 @Serializable
 data class Initiator(
-  @SerialName("type")
+  @property:SerialName("type")
   val type: InitiatorType,
-  @SerialName("stack")
+  @property:SerialName("stack")
   @param:Optional
   val stack: StackTrace? = null,
-  @SerialName("url")
+  @property:SerialName("url")
   @param:Optional
   val url: String? = null,
-  @SerialName("lineNumber")
+  @property:SerialName("lineNumber")
   @param:Optional
   val lineNumber: Double? = null,
-  @SerialName("columnNumber")
+  @property:SerialName("columnNumber")
   @param:Optional
   val columnNumber: Double? = null,
-  @SerialName("requestId")
+  @property:SerialName("requestId")
   @param:Optional
   val requestId: String? = null,
 )

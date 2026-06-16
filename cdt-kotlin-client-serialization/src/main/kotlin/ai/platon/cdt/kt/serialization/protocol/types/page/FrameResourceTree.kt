@@ -1,23 +1,23 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.page
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Information about the Frame hierarchy along with their cached resources.
  */
-@Experimental
 @Serializable
+@Experimental
 data class FrameResourceTree(
-  @SerialName("frame")
+  @property:SerialName("frame")
   val frame: Frame,
-  @SerialName("childFrames")
+  @property:SerialName("childFrames")
   @param:Optional
   val childFrames: List<FrameResourceTree>? = null,
-  @SerialName("resources")
+  @property:SerialName("resources")
   val resources: List<FrameResource>,
 )

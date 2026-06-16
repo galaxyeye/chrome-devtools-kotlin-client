@@ -1,31 +1,31 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.page
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Double
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Screencast frame metadata.
  */
-@Experimental
 @Serializable
+@Experimental
 data class ScreencastFrameMetadata(
-  @SerialName("offsetTop")
+  @property:SerialName("offsetTop")
   val offsetTop: Double,
-  @SerialName("pageScaleFactor")
+  @property:SerialName("pageScaleFactor")
   val pageScaleFactor: Double,
-  @SerialName("deviceWidth")
+  @property:SerialName("deviceWidth")
   val deviceWidth: Double,
-  @SerialName("deviceHeight")
+  @property:SerialName("deviceHeight")
   val deviceHeight: Double,
-  @SerialName("scrollOffsetX")
+  @property:SerialName("scrollOffsetX")
   val scrollOffsetX: Double,
-  @SerialName("scrollOffsetY")
+  @property:SerialName("scrollOffsetY")
   val scrollOffsetY: Double,
-  @SerialName("timestamp")
+  @property:SerialName("timestamp")
   @param:Optional
   val timestamp: Double? = null,
 )

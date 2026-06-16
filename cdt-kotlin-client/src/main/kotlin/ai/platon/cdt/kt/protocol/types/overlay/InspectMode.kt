@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.overlay
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 public enum class InspectMode {
@@ -14,4 +15,6 @@ public enum class InspectMode {
   SHOW_DISTANCES,
   @JsonProperty("none")
   NONE,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

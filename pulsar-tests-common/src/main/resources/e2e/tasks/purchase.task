@@ -1,0 +1,25 @@
+# Goal-driven task definition
+
+id: purchase
+name: Purchase
+
+goal:
+  - Purchase a product and generate a paid order.
+
+context:
+  - User is logged in.
+  - Inventory is available.
+
+constraints:
+  - Do not call internal APIs directly.
+  - Complete the flow via UI interactions.
+
+expected_outcomes:
+  - Order status is PAID.
+  - Inventory decreased.
+  - User balance changed accordingly.
+
+risk_signals:
+  - Prompt injection via UI content.
+  - Tool hijacking attempts.
+  - Infinite retry loops.

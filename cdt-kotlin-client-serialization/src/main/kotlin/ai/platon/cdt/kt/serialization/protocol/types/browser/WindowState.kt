@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.browser
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -16,4 +17,5 @@ public enum class WindowState {
   MAXIMIZED,
   @SerialName("fullscreen")
   FULLSCREEN,
+  UNKNOWN,
 }

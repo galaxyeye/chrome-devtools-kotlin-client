@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.accessibility
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -42,4 +43,5 @@ public enum class AXValueType {
   INTERNAL_ROLE,
   @SerialName("valueUndefined")
   VALUE_UNDEFINED,
+  UNKNOWN,
 }

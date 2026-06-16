@@ -1,32 +1,32 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.cachestorage
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Data entry.
  */
 @Serializable
 data class DataEntry(
-  @SerialName("requestURL")
+  @property:SerialName("requestURL")
   val requestURL: String,
-  @SerialName("requestMethod")
+  @property:SerialName("requestMethod")
   val requestMethod: String,
-  @SerialName("requestHeaders")
+  @property:SerialName("requestHeaders")
   val requestHeaders: List<Header>,
-  @SerialName("responseTime")
+  @property:SerialName("responseTime")
   val responseTime: Double,
-  @SerialName("responseStatus")
+  @property:SerialName("responseStatus")
   val responseStatus: Int,
-  @SerialName("responseStatusText")
+  @property:SerialName("responseStatusText")
   val responseStatusText: String,
-  @SerialName("responseType")
+  @property:SerialName("responseType")
   val responseType: CachedResponseType,
-  @SerialName("responseHeaders")
+  @property:SerialName("responseHeaders")
   val responseHeaders: List<Header>,
 )

@@ -1,23 +1,23 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.css
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * CSS coverage information.
  */
 @Serializable
 data class RuleUsage(
-  @SerialName("styleSheetId")
+  @property:SerialName("styleSheetId")
   val styleSheetId: String,
-  @SerialName("startOffset")
+  @property:SerialName("startOffset")
   val startOffset: Double,
-  @SerialName("endOffset")
+  @property:SerialName("endOffset")
   val endOffset: Double,
-  @SerialName("used")
+  @property:SerialName("used")
   val used: Boolean,
 )

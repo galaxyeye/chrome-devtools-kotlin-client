@@ -1,12 +1,10 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.runtime
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.types.runtime.RemoteObject
-import kotlin.Any
-import kotlin.String
-import kotlin.collections.Map
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonObject
 
 /**
  * Issued when object should be inspected (for example, as a result of inspect() command line API
@@ -14,8 +12,8 @@ import kotlin.collections.Map
  */
 @Serializable
 data class InspectRequested(
-  @SerialName("object")
+  @property:SerialName("object")
   val `object`: RemoteObject,
-  @SerialName("hints")
-  val hints: Map<String, Any?>,
+  @property:SerialName("hints")
+  val hints: JsonObject?,
 )

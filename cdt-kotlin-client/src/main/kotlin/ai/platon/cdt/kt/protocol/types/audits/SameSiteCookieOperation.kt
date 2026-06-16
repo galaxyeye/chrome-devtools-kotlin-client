@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.audits
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 public enum class SameSiteCookieOperation {
@@ -8,4 +9,6 @@ public enum class SameSiteCookieOperation {
   SET_COOKIE,
   @JsonProperty("ReadCookie")
   READ_COOKIE,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

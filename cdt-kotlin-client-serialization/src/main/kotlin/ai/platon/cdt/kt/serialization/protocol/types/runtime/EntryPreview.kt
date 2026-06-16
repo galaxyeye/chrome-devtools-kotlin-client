@@ -1,17 +1,17 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.runtime
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-@Experimental
 @Serializable
+@Experimental
 data class EntryPreview(
-  @SerialName("key")
+  @property:SerialName("key")
   @param:Optional
   val key: ObjectPreview? = null,
-  @SerialName("value")
+  @property:SerialName("value")
   val `value`: ObjectPreview,
 )

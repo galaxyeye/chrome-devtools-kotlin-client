@@ -1,9 +1,9 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.systeminfo
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Describes a supported video decoding profile with its associated minimum and
@@ -11,10 +11,10 @@ import kotlin.String
  */
 @Serializable
 data class VideoDecodeAcceleratorCapability(
-  @SerialName("profile")
+  @property:SerialName("profile")
   val profile: String,
-  @SerialName("maxResolution")
+  @property:SerialName("maxResolution")
   val maxResolution: Size,
-  @SerialName("minResolution")
+  @property:SerialName("minResolution")
   val minResolution: Size,
 )

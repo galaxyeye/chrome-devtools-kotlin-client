@@ -1,67 +1,66 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.debugger
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.serialization.protocol.types.debugger.ScriptLanguage
 import ai.platon.cdt.kt.serialization.protocol.types.runtime.StackTrace
-import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
-import kotlin.collections.Map
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonObject
 
 /**
  * Fired when virtual machine fails to parse the script.
  */
 @Serializable
 data class ScriptFailedToParse(
-  @SerialName("scriptId")
+  @property:SerialName("scriptId")
   val scriptId: String,
-  @SerialName("url")
+  @property:SerialName("url")
   val url: String,
-  @SerialName("startLine")
+  @property:SerialName("startLine")
   val startLine: Int,
-  @SerialName("startColumn")
+  @property:SerialName("startColumn")
   val startColumn: Int,
-  @SerialName("endLine")
+  @property:SerialName("endLine")
   val endLine: Int,
-  @SerialName("endColumn")
+  @property:SerialName("endColumn")
   val endColumn: Int,
-  @SerialName("executionContextId")
+  @property:SerialName("executionContextId")
   val executionContextId: Int,
-  @SerialName("hash")
+  @property:SerialName("hash")
   val hash: String,
-  @SerialName("executionContextAuxData")
+  @property:SerialName("executionContextAuxData")
   @param:Optional
-  val executionContextAuxData: Map<String, Any?>? = null,
-  @SerialName("sourceMapURL")
+  val executionContextAuxData: JsonObject? = null,
+  @property:SerialName("sourceMapURL")
   @param:Optional
   val sourceMapURL: String? = null,
-  @SerialName("hasSourceURL")
+  @property:SerialName("hasSourceURL")
   @param:Optional
   val hasSourceURL: Boolean? = null,
-  @SerialName("isModule")
+  @property:SerialName("isModule")
   @param:Optional
   val isModule: Boolean? = null,
-  @SerialName("length")
+  @property:SerialName("length")
   @param:Optional
   val length: Int? = null,
-  @SerialName("stackTrace")
+  @property:SerialName("stackTrace")
   @param:Optional
   @param:Experimental
   val stackTrace: StackTrace? = null,
-  @SerialName("codeOffset")
+  @property:SerialName("codeOffset")
   @param:Optional
   @param:Experimental
   val codeOffset: Int? = null,
-  @SerialName("scriptLanguage")
+  @property:SerialName("scriptLanguage")
   @param:Optional
   @param:Experimental
   val scriptLanguage: ScriptLanguage? = null,
-  @SerialName("embedderName")
+  @property:SerialName("embedderName")
   @param:Optional
   @param:Experimental
   val embedderName: String? = null,

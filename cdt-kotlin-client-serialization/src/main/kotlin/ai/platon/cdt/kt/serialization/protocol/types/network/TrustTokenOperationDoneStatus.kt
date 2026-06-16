@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.network
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -31,4 +32,5 @@ public enum class TrustTokenOperationDoneStatus {
   UNKNOWN_ERROR,
   @SerialName("FulfilledLocally")
   FULFILLED_LOCALLY,
+  UNKNOWN,
 }

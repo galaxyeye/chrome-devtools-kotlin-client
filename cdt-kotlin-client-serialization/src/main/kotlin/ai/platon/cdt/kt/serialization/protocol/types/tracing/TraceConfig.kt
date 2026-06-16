@@ -1,39 +1,38 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.tracing
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
-import kotlin.Any
 import kotlin.Boolean
 import kotlin.String
 import kotlin.collections.List
-import kotlin.collections.Map
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonObject
 
 @Serializable
 data class TraceConfig(
-  @SerialName("recordMode")
+  @property:SerialName("recordMode")
   @param:Optional
   val recordMode: TraceConfigRecordMode? = null,
-  @SerialName("enableSampling")
+  @property:SerialName("enableSampling")
   @param:Optional
   val enableSampling: Boolean? = null,
-  @SerialName("enableSystrace")
+  @property:SerialName("enableSystrace")
   @param:Optional
   val enableSystrace: Boolean? = null,
-  @SerialName("enableArgumentFilter")
+  @property:SerialName("enableArgumentFilter")
   @param:Optional
   val enableArgumentFilter: Boolean? = null,
-  @SerialName("includedCategories")
+  @property:SerialName("includedCategories")
   @param:Optional
   val includedCategories: List<String>? = null,
-  @SerialName("excludedCategories")
+  @property:SerialName("excludedCategories")
   @param:Optional
   val excludedCategories: List<String>? = null,
-  @SerialName("syntheticDelays")
+  @property:SerialName("syntheticDelays")
   @param:Optional
   val syntheticDelays: List<String>? = null,
-  @SerialName("memoryDumpConfig")
+  @property:SerialName("memoryDumpConfig")
   @param:Optional
-  val memoryDumpConfig: Map<String, Any?>? = null,
+  val memoryDumpConfig: JsonObject? = null,
 )

@@ -4,27 +4,15 @@ import ai.platon.pulsar.common.AppPaths
 import ai.platon.pulsar.common.ResourceLoader
 import ai.platon.pulsar.common.config.AppConstants
 import ai.platon.pulsar.common.getLogger
-import ai.platon.pulsar.common.serialize.json.pulsarObjectMapper
 import java.nio.file.Files
 import kotlin.io.path.isReadable
 import kotlin.io.path.listDirectoryEntries
 
 open class ScriptLoader(
-    val confuser: ScriptConfuser,
-    val jsPropertyNames: List<String>
+    val confuser: ScriptConfuser
 ) {
     companion object {
         private val logger = getLogger(this)
-
-        private val jsInitParameters: MutableMap<String, Any> = mutableMapOf()
-
-        /**
-         * addInitParameter("ATTR_ELEMENT_NODE_DATA", AppConstants.PULSAR_ATTR_ELEMENT_NODE_DATA)
-         * addInitParameter("ATTR_COMPUTED_STYLE", AppConstants.PULSAR_ATTR_COMPUTED_STYLE)
-         * */
-        fun addInitParameter(name: String, value: String) {
-            jsInitParameters[name] = value
-        }
 
         val RESOURCES = """
             stealth.js
@@ -64,18 +52,10 @@ open class ScriptLoader(
         return preloadJs
     }
 
-    @Synchronized
-    fun reload() {
-        load()
-    }
-
     private fun load(): String {
         jsCache.clear()
 
         val sb = StringBuilder()
-
-        val jsVariables = generatePredefinedJsConfig()
-        sb.appendLine(jsVariables).appendLine("\n\n\n")
 
         loadExternalResource()
         loadDefaultResource()
@@ -86,18 +66,6 @@ open class ScriptLoader(
         reportPreloadJs(preloadJs)
 
         return preloadJs
-    }
-
-    private fun generatePredefinedJsConfig(): String {
-        // Note: Json-2.6.2 does not recognize MutableMap, but knows Map
-        val configs = pulsarObjectMapper().writeValueAsString(jsInitParameters.toMap())
-
-        // set predefined variables shared between javascript and jvm program
-        val configVar = confuser.confuse("__pulsar_CONFIGS")
-        return """
-            ;
-            let $configVar = $configs;
-        """.trimIndent()
     }
 
     private fun loadDefaultResource() {
@@ -125,7 +93,6 @@ open class ScriptLoader(
 
     private fun initDefaultJsParameters() {
         mapOf(
-            "propertyNames" to jsPropertyNames,
             "viewPortWidth" to BrowserSettings.SCREEN_VIEWPORT.width,
             "viewPortHeight" to BrowserSettings.SCREEN_VIEWPORT.height,
 
@@ -136,6 +103,6 @@ open class ScriptLoader(
             "ATTR_OVERFLOW_VISIBLE" to AppConstants.PULSAR_ATTR_OVERFLOW_VISIBLE,
             "ATTR_ELEMENT_NODE_VI" to AppConstants.PULSAR_ATTR_ELEMENT_NODE_VI,
             "ATTR_TEXT_NODE_VI" to AppConstants.PULSAR_ATTR_TEXT_NODE_VI
-        ).also { jsInitParameters.putAll(it) }
+        )
     }
 }

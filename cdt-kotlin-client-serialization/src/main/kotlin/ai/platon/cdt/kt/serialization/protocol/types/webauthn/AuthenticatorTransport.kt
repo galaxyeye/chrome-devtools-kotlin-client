@@ -1,7 +1,9 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.webauthn
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+
 @Serializable
 public enum class AuthenticatorTransport {
   @SerialName("usb")
@@ -14,4 +16,5 @@ public enum class AuthenticatorTransport {
   CABLE,
   @SerialName("internal")
   INTERNAL,
+  UNKNOWN,
 }

@@ -1,7 +1,5 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.fetch
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.serialization.protocol.types.fetch.HeaderEntry
@@ -11,6 +9,8 @@ import ai.platon.cdt.kt.serialization.protocol.types.network.ResourceType
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Issued when the domain is enabled and the request URL matches the
@@ -22,24 +22,24 @@ import kotlin.collections.List
  */
 @Serializable
 data class RequestPaused(
-  @SerialName("requestId")
+  @property:SerialName("requestId")
   val requestId: String,
-  @SerialName("request")
+  @property:SerialName("request")
   val request: Request,
-  @SerialName("frameId")
+  @property:SerialName("frameId")
   val frameId: String,
-  @SerialName("resourceType")
+  @property:SerialName("resourceType")
   val resourceType: ResourceType,
-  @SerialName("responseErrorReason")
+  @property:SerialName("responseErrorReason")
   @param:Optional
   val responseErrorReason: ErrorReason? = null,
-  @SerialName("responseStatusCode")
+  @property:SerialName("responseStatusCode")
   @param:Optional
   val responseStatusCode: Int? = null,
-  @SerialName("responseHeaders")
+  @property:SerialName("responseHeaders")
   @param:Optional
   val responseHeaders: List<HeaderEntry>? = null,
-  @SerialName("networkId")
+  @property:SerialName("networkId")
   @param:Optional
   val networkId: String? = null,
 )

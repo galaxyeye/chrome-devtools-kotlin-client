@@ -1,11 +1,11 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.audits
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.String
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * This information is currently necessary, as the front-end has a difficult
@@ -14,21 +14,21 @@ import kotlin.collections.List
  */
 @Serializable
 data class SameSiteCookieIssueDetails(
-  @SerialName("cookie")
+  @property:SerialName("cookie")
   val cookie: AffectedCookie,
-  @SerialName("cookieWarningReasons")
+  @property:SerialName("cookieWarningReasons")
   val cookieWarningReasons: List<SameSiteCookieWarningReason>,
-  @SerialName("cookieExclusionReasons")
+  @property:SerialName("cookieExclusionReasons")
   val cookieExclusionReasons: List<SameSiteCookieExclusionReason>,
-  @SerialName("operation")
+  @property:SerialName("operation")
   val operation: SameSiteCookieOperation,
-  @SerialName("siteForCookies")
+  @property:SerialName("siteForCookies")
   @param:Optional
   val siteForCookies: String? = null,
-  @SerialName("cookieUrl")
+  @property:SerialName("cookieUrl")
   @param:Optional
   val cookieUrl: String? = null,
-  @SerialName("request")
+  @property:SerialName("request")
   @param:Optional
   val request: AffectedRequest? = null,
 )

@@ -1,16 +1,16 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.memory
+
+import kotlin.Int
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-import kotlin.Int
-
 @Serializable
 data class DOMCounters(
-  @SerialName("documents")
+  @property:SerialName("documents")
   val documents: Int,
-  @SerialName("nodes")
+  @property:SerialName("nodes")
   val nodes: Int,
-  @SerialName("jsEventListeners")
+  @property:SerialName("jsEventListeners")
   val jsEventListeners: Int,
 )

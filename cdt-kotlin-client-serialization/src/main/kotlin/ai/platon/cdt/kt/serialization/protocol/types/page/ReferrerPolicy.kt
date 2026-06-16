@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.page
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -24,4 +25,5 @@ public enum class ReferrerPolicy {
   STRICT_ORIGIN_WHEN_CROSS_ORIGIN,
   @SerialName("unsafeUrl")
   UNSAFE_URL,
+  UNKNOWN,
 }

@@ -1,56 +1,56 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.network
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import kotlin.Double
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Timing information for the request.
  */
 @Serializable
 data class ResourceTiming(
-  @SerialName("requestTime")
+  @property:SerialName("requestTime")
   val requestTime: Double,
-  @SerialName("proxyStart")
+  @property:SerialName("proxyStart")
   val proxyStart: Double,
-  @SerialName("proxyEnd")
+  @property:SerialName("proxyEnd")
   val proxyEnd: Double,
-  @SerialName("dnsStart")
+  @property:SerialName("dnsStart")
   val dnsStart: Double,
-  @SerialName("dnsEnd")
+  @property:SerialName("dnsEnd")
   val dnsEnd: Double,
-  @SerialName("connectStart")
+  @property:SerialName("connectStart")
   val connectStart: Double,
-  @SerialName("connectEnd")
+  @property:SerialName("connectEnd")
   val connectEnd: Double,
-  @SerialName("sslStart")
+  @property:SerialName("sslStart")
   val sslStart: Double,
-  @SerialName("sslEnd")
+  @property:SerialName("sslEnd")
   val sslEnd: Double,
-  @SerialName("workerStart")
+  @property:SerialName("workerStart")
   @param:Experimental
   val workerStart: Double,
-  @SerialName("workerReady")
+  @property:SerialName("workerReady")
   @param:Experimental
   val workerReady: Double,
-  @SerialName("workerFetchStart")
+  @property:SerialName("workerFetchStart")
   @param:Experimental
   val workerFetchStart: Double,
-  @SerialName("workerRespondWithSettled")
+  @property:SerialName("workerRespondWithSettled")
   @param:Experimental
   val workerRespondWithSettled: Double,
-  @SerialName("sendStart")
+  @property:SerialName("sendStart")
   val sendStart: Double,
-  @SerialName("sendEnd")
+  @property:SerialName("sendEnd")
   val sendEnd: Double,
-  @SerialName("pushStart")
+  @property:SerialName("pushStart")
   @param:Experimental
   val pushStart: Double,
-  @SerialName("pushEnd")
+  @property:SerialName("pushEnd")
   @param:Experimental
   val pushEnd: Double,
-  @SerialName("receiveHeadersEnd")
+  @property:SerialName("receiveHeadersEnd")
   val receiveHeadersEnd: Double,
 )

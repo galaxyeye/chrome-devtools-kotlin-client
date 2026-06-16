@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.audits
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 public enum class MixedContentResourceType {
@@ -56,4 +57,6 @@ public enum class MixedContentResourceType {
   XML_HTTP_REQUEST,
   @JsonProperty("XSLT")
   XSLT,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

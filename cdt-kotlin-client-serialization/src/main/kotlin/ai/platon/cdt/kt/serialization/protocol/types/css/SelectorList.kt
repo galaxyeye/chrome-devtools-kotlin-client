@@ -1,18 +1,18 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.css
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.String
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Selector list data.
  */
 @Serializable
 data class SelectorList(
-  @SerialName("selectors")
+  @property:SerialName("selectors")
   val selectors: List<Value>,
-  @SerialName("text")
+  @property:SerialName("text")
   val text: String,
 )

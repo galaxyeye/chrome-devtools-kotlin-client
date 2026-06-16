@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.security
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -15,4 +16,5 @@ public enum class MixedContentType {
   OPTIONALLY_BLOCKABLE,
   @SerialName("none")
   NONE,
+  UNKNOWN,
 }

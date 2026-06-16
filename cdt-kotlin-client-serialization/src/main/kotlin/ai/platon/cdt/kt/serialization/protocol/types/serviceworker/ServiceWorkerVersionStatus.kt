@@ -1,7 +1,9 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.serviceworker
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+
 @Serializable
 public enum class ServiceWorkerVersionStatus {
   @SerialName("new")
@@ -16,4 +18,5 @@ public enum class ServiceWorkerVersionStatus {
   ACTIVATED,
   @SerialName("redundant")
   REDUNDANT,
+  UNKNOWN,
 }

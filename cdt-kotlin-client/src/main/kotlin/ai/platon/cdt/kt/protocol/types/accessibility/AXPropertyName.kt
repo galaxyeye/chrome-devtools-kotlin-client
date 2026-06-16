@@ -1,9 +1,8 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.accessibility
 
-import com.fasterxml.jackson.annotation.JsonEnumDefaultValue
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
-
 
 /**
  * Values of AXProperty name:
@@ -14,17 +13,6 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
  * - from 'activedescendant' to 'owns' - relationships between elements other than parent/child/sibling.
  */
 public enum class AXPropertyName {
-  // vincent: 20251026, protocol upgrade
-  @JsonProperty("url")
-  URL,
-  // vincent: 20251026, protocol upgrade
-  @JsonProperty("uninteresting")
-  UNINTERSECTING,
-  // vincent: 20251026
-  // Default fallback for any unknown AXProperty name coming from newer Chrome versions
-  @JsonEnumDefaultValue
-  UNKNOWN,
-
   @JsonProperty("busy")
   BUSY,
   @JsonProperty("disabled")
@@ -103,4 +91,6 @@ public enum class AXPropertyName {
   LABELLEDBY,
   @JsonProperty("owns")
   OWNS,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.backgroundservice
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -22,4 +23,5 @@ public enum class ServiceName {
   PAYMENT_HANDLER,
   @SerialName("periodicBackgroundSync")
   PERIODIC_BACKGROUND_SYNC,
+  UNKNOWN,
 }

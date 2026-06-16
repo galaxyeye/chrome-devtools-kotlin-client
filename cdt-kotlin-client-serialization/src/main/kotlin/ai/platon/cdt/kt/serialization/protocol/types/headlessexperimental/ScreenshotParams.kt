@@ -1,20 +1,20 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.headlessexperimental
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Int
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Encoding options for a screenshot.
  */
 @Serializable
 data class ScreenshotParams(
-  @SerialName("format")
+  @property:SerialName("format")
   @param:Optional
   val format: ScreenshotParamsFormat? = null,
-  @SerialName("quality")
+  @property:SerialName("quality")
   @param:Optional
   val quality: Int? = null,
 )

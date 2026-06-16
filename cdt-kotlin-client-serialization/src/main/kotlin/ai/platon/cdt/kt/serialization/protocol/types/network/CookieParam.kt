@@ -1,7 +1,5 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.network
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
@@ -9,50 +7,52 @@ import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Cookie parameter object
  */
 @Serializable
 data class CookieParam(
-  @SerialName("name")
+  @property:SerialName("name")
   val name: String,
-  @SerialName("value")
+  @property:SerialName("value")
   val `value`: String,
-  @SerialName("url")
+  @property:SerialName("url")
   @param:Optional
   val url: String? = null,
-  @SerialName("domain")
+  @property:SerialName("domain")
   @param:Optional
   val domain: String? = null,
-  @SerialName("path")
+  @property:SerialName("path")
   @param:Optional
   val path: String? = null,
-  @SerialName("secure")
+  @property:SerialName("secure")
   @param:Optional
   val secure: Boolean? = null,
-  @SerialName("httpOnly")
+  @property:SerialName("httpOnly")
   @param:Optional
   val httpOnly: Boolean? = null,
-  @SerialName("sameSite")
+  @property:SerialName("sameSite")
   @param:Optional
   val sameSite: CookieSameSite? = null,
-  @SerialName("expires")
+  @property:SerialName("expires")
   @param:Optional
   val expires: Double? = null,
-  @SerialName("priority")
+  @property:SerialName("priority")
   @param:Optional
   @param:Experimental
   val priority: CookiePriority? = null,
-  @SerialName("sameParty")
+  @property:SerialName("sameParty")
   @param:Optional
   @param:Experimental
   val sameParty: Boolean? = null,
-  @SerialName("sourceScheme")
+  @property:SerialName("sourceScheme")
   @param:Optional
   @param:Experimental
   val sourceScheme: CookieSourceScheme? = null,
-  @SerialName("sourcePort")
+  @property:SerialName("sourcePort")
   @param:Optional
   @param:Experimental
   val sourcePort: Int? = null,

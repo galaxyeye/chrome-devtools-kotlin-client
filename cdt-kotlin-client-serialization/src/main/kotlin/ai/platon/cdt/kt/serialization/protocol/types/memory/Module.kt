@@ -1,22 +1,22 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.memory
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Double
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Executable module information
  */
 @Serializable
 data class Module(
-  @SerialName("name")
+  @property:SerialName("name")
   val name: String,
-  @SerialName("uuid")
+  @property:SerialName("uuid")
   val uuid: String,
-  @SerialName("baseAddress")
+  @property:SerialName("baseAddress")
   val baseAddress: String,
-  @SerialName("size")
+  @property:SerialName("size")
   val size: Double,
 )

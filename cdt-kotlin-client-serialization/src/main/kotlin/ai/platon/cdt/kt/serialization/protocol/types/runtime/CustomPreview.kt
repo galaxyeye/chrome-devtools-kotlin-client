@@ -1,18 +1,18 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.runtime
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-@Experimental
 @Serializable
+@Experimental
 data class CustomPreview(
-  @SerialName("header")
+  @property:SerialName("header")
   val `header`: String,
-  @SerialName("bodyGetterId")
+  @property:SerialName("bodyGetterId")
   @param:Optional
   val bodyGetterId: String? = null,
 )

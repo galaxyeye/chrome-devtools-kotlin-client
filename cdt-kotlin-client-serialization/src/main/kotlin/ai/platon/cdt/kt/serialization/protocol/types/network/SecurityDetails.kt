@@ -1,45 +1,45 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.network
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Security details about a request.
  */
 @Serializable
 data class SecurityDetails(
-  @SerialName("protocol")
+  @property:SerialName("protocol")
   val protocol: String,
-  @SerialName("keyExchange")
+  @property:SerialName("keyExchange")
   val keyExchange: String,
-  @SerialName("keyExchangeGroup")
+  @property:SerialName("keyExchangeGroup")
   @param:Optional
   val keyExchangeGroup: String? = null,
-  @SerialName("cipher")
+  @property:SerialName("cipher")
   val cipher: String,
-  @SerialName("mac")
+  @property:SerialName("mac")
   @param:Optional
   val mac: String? = null,
-  @SerialName("certificateId")
+  @property:SerialName("certificateId")
   val certificateId: Int,
-  @SerialName("subjectName")
+  @property:SerialName("subjectName")
   val subjectName: String,
-  @SerialName("sanList")
+  @property:SerialName("sanList")
   val sanList: List<String>,
-  @SerialName("issuer")
+  @property:SerialName("issuer")
   val issuer: String,
-  @SerialName("validFrom")
+  @property:SerialName("validFrom")
   val validFrom: Double,
-  @SerialName("validTo")
+  @property:SerialName("validTo")
   val validTo: Double,
-  @SerialName("signedCertificateTimestampList")
+  @property:SerialName("signedCertificateTimestampList")
   val signedCertificateTimestampList: List<SignedCertificateTimestamp>,
-  @SerialName("certificateTransparencyCompliance")
+  @property:SerialName("certificateTransparencyCompliance")
   val certificateTransparencyCompliance: CertificateTransparencyCompliance,
 )

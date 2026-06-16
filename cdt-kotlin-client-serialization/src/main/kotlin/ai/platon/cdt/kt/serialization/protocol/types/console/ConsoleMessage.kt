@@ -1,30 +1,30 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.console
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Console message.
  */
 @Serializable
 data class ConsoleMessage(
-  @SerialName("source")
+  @property:SerialName("source")
   val source: ConsoleMessageSource,
-  @SerialName("level")
+  @property:SerialName("level")
   val level: ConsoleMessageLevel,
-  @SerialName("text")
+  @property:SerialName("text")
   val text: String,
-  @SerialName("url")
+  @property:SerialName("url")
   @param:Optional
   val url: String? = null,
-  @SerialName("line")
+  @property:SerialName("line")
   @param:Optional
   val line: Int? = null,
-  @SerialName("column")
+  @property:SerialName("column")
   @param:Optional
   val column: Int? = null,
 )

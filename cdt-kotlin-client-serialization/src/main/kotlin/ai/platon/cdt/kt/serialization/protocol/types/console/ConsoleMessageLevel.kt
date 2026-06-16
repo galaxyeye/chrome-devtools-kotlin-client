@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.console
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -18,4 +19,5 @@ public enum class ConsoleMessageLevel {
   DEBUG,
   @SerialName("info")
   INFO,
+  UNKNOWN,
 }

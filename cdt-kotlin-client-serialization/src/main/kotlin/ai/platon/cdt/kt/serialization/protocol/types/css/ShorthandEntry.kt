@@ -1,19 +1,19 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.css
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Boolean
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Serializable
 data class ShorthandEntry(
-  @SerialName("name")
+  @property:SerialName("name")
   val name: String,
-  @SerialName("value")
+  @property:SerialName("value")
   val `value`: String,
-  @SerialName("important")
+  @property:SerialName("important")
   @param:Optional
   val important: Boolean? = null,
 )

@@ -8,7 +8,6 @@ import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
 
-
 /**
  * A node in the accessibility tree.
  */

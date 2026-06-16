@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.network
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -58,4 +59,5 @@ public enum class CorsError {
   REDIRECT_CONTAINS_CREDENTIALS,
   @SerialName("InsecurePrivateNetwork")
   INSECURE_PRIVATE_NETWORK,
+  UNKNOWN,
 }

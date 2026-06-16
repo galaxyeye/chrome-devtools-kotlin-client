@@ -1,7 +1,9 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.audits
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+
 @Serializable
 public enum class SameSiteCookieExclusionReason {
   @SerialName("ExcludeSameSiteUnspecifiedTreatedAsLax")
@@ -12,4 +14,5 @@ public enum class SameSiteCookieExclusionReason {
   EXCLUDE_SAME_SITE_LAX,
   @SerialName("ExcludeSameSiteStrict")
   EXCLUDE_SAME_SITE_STRICT,
+  UNKNOWN,
 }

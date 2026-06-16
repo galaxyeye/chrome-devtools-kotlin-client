@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.network
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 public enum class CrossOriginOpenerPolicyValue {
@@ -12,4 +13,6 @@ public enum class CrossOriginOpenerPolicyValue {
   UNSAFE_NONE,
   @JsonProperty("SameOriginPlusCoep")
   SAME_ORIGIN_PLUS_COEP,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

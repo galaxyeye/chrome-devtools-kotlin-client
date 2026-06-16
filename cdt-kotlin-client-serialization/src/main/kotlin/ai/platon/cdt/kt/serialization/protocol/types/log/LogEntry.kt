@@ -1,7 +1,5 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.log
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.serialization.protocol.types.runtime.RemoteObject
@@ -10,36 +8,38 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Log entry.
  */
 @Serializable
 data class LogEntry(
-  @SerialName("source")
+  @property:SerialName("source")
   val source: LogEntrySource,
-  @SerialName("level")
+  @property:SerialName("level")
   val level: LogEntryLevel,
-  @SerialName("text")
+  @property:SerialName("text")
   val text: String,
-  @SerialName("timestamp")
+  @property:SerialName("timestamp")
   val timestamp: Double,
-  @SerialName("url")
+  @property:SerialName("url")
   @param:Optional
   val url: String? = null,
-  @SerialName("lineNumber")
+  @property:SerialName("lineNumber")
   @param:Optional
   val lineNumber: Int? = null,
-  @SerialName("stackTrace")
+  @property:SerialName("stackTrace")
   @param:Optional
   val stackTrace: StackTrace? = null,
-  @SerialName("networkRequestId")
+  @property:SerialName("networkRequestId")
   @param:Optional
   val networkRequestId: String? = null,
-  @SerialName("workerId")
+  @property:SerialName("workerId")
   @param:Optional
   val workerId: String? = null,
-  @SerialName("args")
+  @property:SerialName("args")
   @param:Optional
   val args: List<RemoteObject>? = null,
 )

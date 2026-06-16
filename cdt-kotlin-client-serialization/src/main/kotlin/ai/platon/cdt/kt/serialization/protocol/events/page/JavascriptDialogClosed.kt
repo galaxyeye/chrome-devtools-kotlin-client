@@ -1,10 +1,10 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.page
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Boolean
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Fired when a JavaScript initiated dialog (alert, confirm, prompt, or onbeforeunload) has been
@@ -12,8 +12,8 @@ import kotlin.String
  */
 @Serializable
 data class JavascriptDialogClosed(
-  @SerialName("result")
+  @property:SerialName("result")
   val result: Boolean,
-  @SerialName("userInput")
+  @property:SerialName("userInput")
   val userInput: String,
 )

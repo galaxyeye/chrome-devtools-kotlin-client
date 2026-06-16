@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.security
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 public enum class SafetyTipStatus {
@@ -8,4 +9,6 @@ public enum class SafetyTipStatus {
   BAD_REPUTATION,
   @JsonProperty("lookalike")
   LOOKALIKE,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

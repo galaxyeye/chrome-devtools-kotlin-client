@@ -1,48 +1,48 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.input
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Double
 import kotlin.Int
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Serializable
 data class TouchPoint(
-  @SerialName("x")
+  @property:SerialName("x")
   val x: Double,
-  @SerialName("y")
+  @property:SerialName("y")
   val y: Double,
-  @SerialName("radiusX")
+  @property:SerialName("radiusX")
   @param:Optional
   val radiusX: Double? = null,
-  @SerialName("radiusY")
+  @property:SerialName("radiusY")
   @param:Optional
   val radiusY: Double? = null,
-  @SerialName("rotationAngle")
+  @property:SerialName("rotationAngle")
   @param:Optional
   val rotationAngle: Double? = null,
-  @SerialName("force")
+  @property:SerialName("force")
   @param:Optional
   val force: Double? = null,
-  @SerialName("tangentialPressure")
+  @property:SerialName("tangentialPressure")
   @param:Optional
   @param:Experimental
   val tangentialPressure: Double? = null,
-  @SerialName("tiltX")
+  @property:SerialName("tiltX")
   @param:Optional
   @param:Experimental
   val tiltX: Int? = null,
-  @SerialName("tiltY")
+  @property:SerialName("tiltY")
   @param:Optional
   @param:Experimental
   val tiltY: Int? = null,
-  @SerialName("twist")
+  @property:SerialName("twist")
   @param:Optional
   @param:Experimental
   val twist: Int? = null,
-  @SerialName("id")
+  @property:SerialName("id")
   @param:Optional
   val id: Double? = null,
 )

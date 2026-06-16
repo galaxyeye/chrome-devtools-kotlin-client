@@ -1,15 +1,15 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.debugger
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.String
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Serializable
 data class SetBreakpointByUrl(
-  @SerialName("breakpointId")
+  @property:SerialName("breakpointId")
   val breakpointId: String,
-  @SerialName("locations")
+  @property:SerialName("locations")
   val locations: List<Location>,
 )

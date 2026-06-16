@@ -1,17 +1,17 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.webaudio
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Protocol object for AudioListener
  */
 @Serializable
 data class AudioListener(
-  @SerialName("listenerId")
+  @property:SerialName("listenerId")
   val listenerId: String,
-  @SerialName("contextId")
+  @property:SerialName("contextId")
   val contextId: String,
 )

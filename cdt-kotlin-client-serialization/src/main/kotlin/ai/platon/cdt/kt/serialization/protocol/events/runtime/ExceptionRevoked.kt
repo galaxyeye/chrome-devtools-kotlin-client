@@ -1,18 +1,18 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.runtime
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Issued when unhandled exception was revoked.
  */
 @Serializable
 data class ExceptionRevoked(
-  @SerialName("reason")
+  @property:SerialName("reason")
   val reason: String,
-  @SerialName("exceptionId")
+  @property:SerialName("exceptionId")
   val exceptionId: Int,
 )

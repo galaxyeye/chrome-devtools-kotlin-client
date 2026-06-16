@@ -1,24 +1,24 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.dom
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Double
 import kotlin.Int
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A structure holding an RGBA color.
  */
 @Serializable
 data class RGBA(
-  @SerialName("r")
+  @property:SerialName("r")
   val r: Int,
-  @SerialName("g")
+  @property:SerialName("g")
   val g: Int,
-  @SerialName("b")
+  @property:SerialName("b")
   val b: Int,
-  @SerialName("a")
+  @property:SerialName("a")
   @param:Optional
   val a: Double? = null,
 )

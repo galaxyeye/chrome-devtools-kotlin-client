@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.browser
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 public enum class PermissionType {
@@ -50,4 +51,6 @@ public enum class PermissionType {
   WAKE_LOCK_SCREEN,
   @JsonProperty("wakeLockSystem")
   WAKE_LOCK_SYSTEM,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

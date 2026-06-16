@@ -1,26 +1,26 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.audits
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Serializable
 data class MixedContentIssueDetails(
-  @SerialName("resourceType")
+  @property:SerialName("resourceType")
   @param:Optional
   val resourceType: MixedContentResourceType? = null,
-  @SerialName("resolutionStatus")
+  @property:SerialName("resolutionStatus")
   val resolutionStatus: MixedContentResolutionStatus,
-  @SerialName("insecureURL")
+  @property:SerialName("insecureURL")
   val insecureURL: String,
-  @SerialName("mainResourceURL")
+  @property:SerialName("mainResourceURL")
   val mainResourceURL: String,
-  @SerialName("request")
+  @property:SerialName("request")
   @param:Optional
   val request: AffectedRequest? = null,
-  @SerialName("frame")
+  @property:SerialName("frame")
   @param:Optional
   val frame: AffectedFrame? = null,
 )

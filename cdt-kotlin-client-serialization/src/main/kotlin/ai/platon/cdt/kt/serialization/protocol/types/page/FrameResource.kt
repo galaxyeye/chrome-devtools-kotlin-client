@@ -1,7 +1,5 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.page
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
@@ -9,29 +7,31 @@ import ai.platon.cdt.kt.serialization.protocol.types.network.ResourceType
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Information about the Resource on the page.
  */
-@Experimental
 @Serializable
+@Experimental
 data class FrameResource(
-  @SerialName("url")
+  @property:SerialName("url")
   val url: String,
-  @SerialName("type")
+  @property:SerialName("type")
   val type: ResourceType,
-  @SerialName("mimeType")
+  @property:SerialName("mimeType")
   val mimeType: String,
-  @SerialName("lastModified")
+  @property:SerialName("lastModified")
   @param:Optional
   val lastModified: Double? = null,
-  @SerialName("contentSize")
+  @property:SerialName("contentSize")
   @param:Optional
   val contentSize: Double? = null,
-  @SerialName("failed")
+  @property:SerialName("failed")
   @param:Optional
   val failed: Boolean? = null,
-  @SerialName("canceled")
+  @property:SerialName("canceled")
   @param:Optional
   val canceled: Boolean? = null,
 )

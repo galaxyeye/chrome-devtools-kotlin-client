@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.emulation
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -17,4 +18,5 @@ public enum class VirtualTimePolicy {
   PAUSE,
   @SerialName("pauseIfNetworkFetchesPending")
   PAUSE_IF_NETWORK_FETCHES_PENDING,
+  UNKNOWN,
 }

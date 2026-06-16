@@ -1,30 +1,30 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.security
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.String
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * An explanation of an factor contributing to the security state.
  */
 @Serializable
 data class SecurityStateExplanation(
-  @SerialName("securityState")
+  @property:SerialName("securityState")
   val securityState: SecurityState,
-  @SerialName("title")
+  @property:SerialName("title")
   val title: String,
-  @SerialName("summary")
+  @property:SerialName("summary")
   val summary: String,
-  @SerialName("description")
+  @property:SerialName("description")
   val description: String,
-  @SerialName("mixedContentType")
+  @property:SerialName("mixedContentType")
   val mixedContentType: MixedContentType,
-  @SerialName("certificate")
+  @property:SerialName("certificate")
   val certificate: List<String>,
-  @SerialName("recommendations")
+  @property:SerialName("recommendations")
   @param:Optional
   val recommendations: List<String>? = null,
 )

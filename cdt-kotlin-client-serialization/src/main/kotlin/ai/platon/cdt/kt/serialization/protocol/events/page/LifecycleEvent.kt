@@ -1,22 +1,22 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.page
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Double
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Fired for top level page lifecycle events such as navigation, load, paint, etc.
  */
 @Serializable
 data class LifecycleEvent(
-  @SerialName("frameId")
+  @property:SerialName("frameId")
   val frameId: String,
-  @SerialName("loaderId")
+  @property:SerialName("loaderId")
   val loaderId: String,
-  @SerialName("name")
+  @property:SerialName("name")
   val name: String,
-  @SerialName("timestamp")
+  @property:SerialName("timestamp")
   val timestamp: Double,
 )

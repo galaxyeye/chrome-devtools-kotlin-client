@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.input
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -17,4 +18,5 @@ public enum class DispatchTouchEventType {
   TOUCH_MOVE,
   @SerialName("touchCancel")
   TOUCH_CANCEL,
+  UNKNOWN,
 }

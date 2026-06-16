@@ -1,20 +1,20 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.dom
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.types.dom.Node
 import kotlin.Int
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Mirrors `DOMNodeInserted` event.
  */
 @Serializable
 data class ChildNodeInserted(
-  @SerialName("parentNodeId")
+  @property:SerialName("parentNodeId")
   val parentNodeId: Int,
-  @SerialName("previousNodeId")
+  @property:SerialName("previousNodeId")
   val previousNodeId: Int,
-  @SerialName("node")
+  @property:SerialName("node")
   val node: Node,
 )

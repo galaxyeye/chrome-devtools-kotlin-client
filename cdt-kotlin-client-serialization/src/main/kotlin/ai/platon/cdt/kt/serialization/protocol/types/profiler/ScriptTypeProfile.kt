@@ -1,22 +1,22 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.profiler
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import kotlin.String
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Type profile data collected during runtime for a JavaScript script.
  */
-@Experimental
 @Serializable
+@Experimental
 data class ScriptTypeProfile(
-  @SerialName("scriptId")
+  @property:SerialName("scriptId")
   val scriptId: String,
-  @SerialName("url")
+  @property:SerialName("url")
   val url: String,
-  @SerialName("entries")
+  @property:SerialName("entries")
   val entries: List<TypeProfileEntry>,
 )

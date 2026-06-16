@@ -1,6 +1,5 @@
 package ai.platon.pulsar.browser.common
 
-import org.apache.commons.lang3.RandomStringUtils
 import kotlin.text.replace
 
 open class SimpleScriptConfuser: ScriptConfuser {
@@ -11,7 +10,7 @@ open class SimpleScriptConfuser: ScriptConfuser {
          * All names in injected scripts must not be detected by javascript,
          * the name mangling technology helps to achieve this purpose.
          * */
-        val CIPHER = RandomStringUtils.randomAlphabetic(6)
+        val CIPHER = Utils.nextAlphabetic(6)
 
         /**
          * The default name mangler replaces all `__pulsar_` to a random string

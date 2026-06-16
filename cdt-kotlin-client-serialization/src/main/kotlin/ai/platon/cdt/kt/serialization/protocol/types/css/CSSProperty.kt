@@ -1,37 +1,37 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.css
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Boolean
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * CSS property declaration data.
  */
 @Serializable
 data class CSSProperty(
-  @SerialName("name")
+  @property:SerialName("name")
   val name: String,
-  @SerialName("value")
+  @property:SerialName("value")
   val `value`: String,
-  @SerialName("important")
+  @property:SerialName("important")
   @param:Optional
   val important: Boolean? = null,
-  @SerialName("implicit")
+  @property:SerialName("implicit")
   @param:Optional
   val implicit: Boolean? = null,
-  @SerialName("text")
+  @property:SerialName("text")
   @param:Optional
   val text: String? = null,
-  @SerialName("parsedOk")
+  @property:SerialName("parsedOk")
   @param:Optional
   val parsedOk: Boolean? = null,
-  @SerialName("disabled")
+  @property:SerialName("disabled")
   @param:Optional
   val disabled: Boolean? = null,
-  @SerialName("range")
+  @property:SerialName("range")
   @param:Optional
   val range: SourceRange? = null,
 )

@@ -1,20 +1,20 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.layertree
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Double
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Serialized fragment of layer picture along with its offset within the layer.
  */
 @Serializable
 data class PictureTile(
-  @SerialName("x")
+  @property:SerialName("x")
   val x: Double,
-  @SerialName("y")
+  @property:SerialName("y")
   val y: Double,
-  @SerialName("picture")
+  @property:SerialName("picture")
   val picture: String,
 )

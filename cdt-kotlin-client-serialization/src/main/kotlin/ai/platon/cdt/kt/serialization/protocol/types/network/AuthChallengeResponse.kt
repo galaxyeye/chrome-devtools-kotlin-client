@@ -1,24 +1,24 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.network
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Response to an AuthChallenge.
  */
-@Experimental
 @Serializable
+@Experimental
 data class AuthChallengeResponse(
-  @SerialName("response")
+  @property:SerialName("response")
   val response: AuthChallengeResponseResponse,
-  @SerialName("username")
+  @property:SerialName("username")
   @param:Optional
   val username: String? = null,
-  @SerialName("password")
+  @property:SerialName("password")
   @param:Optional
   val password: String? = null,
 )

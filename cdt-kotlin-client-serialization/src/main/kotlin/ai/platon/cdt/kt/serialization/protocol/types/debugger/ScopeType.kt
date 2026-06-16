@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.debugger
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -28,4 +29,5 @@ public enum class ScopeType {
   MODULE,
   @SerialName("wasm-expression-stack")
   WASM_EXPRESSION_STACK,
+  UNKNOWN,
 }

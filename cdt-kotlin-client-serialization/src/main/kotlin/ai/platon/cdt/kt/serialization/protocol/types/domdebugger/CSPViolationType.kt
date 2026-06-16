@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.domdebugger
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -12,4 +13,5 @@ public enum class CSPViolationType {
   TRUSTEDTYPE_SINK_VIOLATION,
   @SerialName("trustedtype-policy-violation")
   TRUSTEDTYPE_POLICY_VIOLATION,
+  UNKNOWN,
 }

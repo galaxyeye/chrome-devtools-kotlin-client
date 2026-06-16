@@ -1,19 +1,19 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.network
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A cookie with was not sent with a request with the corresponding reason.
  */
-@Experimental
 @Serializable
+@Experimental
 data class BlockedCookieWithReason(
-  @SerialName("blockedReasons")
+  @property:SerialName("blockedReasons")
   val blockedReasons: List<CookieBlockedReason>,
-  @SerialName("cookie")
+  @property:SerialName("cookie")
   val cookie: Cookie,
 )

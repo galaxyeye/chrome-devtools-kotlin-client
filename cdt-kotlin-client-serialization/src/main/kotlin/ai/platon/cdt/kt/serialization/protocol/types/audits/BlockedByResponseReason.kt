@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.audits
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -19,4 +20,5 @@ public enum class BlockedByResponseReason {
   CORP_NOT_SAME_ORIGIN_AFTER_DEFAULTED_TO_SAME_ORIGIN_BY_COEP,
   @SerialName("CorpNotSameSite")
   CORP_NOT_SAME_SITE,
+  UNKNOWN,
 }

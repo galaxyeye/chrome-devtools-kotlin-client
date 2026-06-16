@@ -1,80 +1,79 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.network
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.serialization.protocol.types.security.SecurityState
-import kotlin.Any
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
-import kotlin.collections.Map
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonObject
 
 /**
  * HTTP response data.
  */
 @Serializable
 data class Response(
-  @SerialName("url")
+  @property:SerialName("url")
   val url: String,
-  @SerialName("status")
+  @property:SerialName("status")
   val status: Int,
-  @SerialName("statusText")
+  @property:SerialName("statusText")
   val statusText: String,
-  @SerialName("headers")
-  val headers: Map<String, Any?>,
-  @SerialName("headersText")
+  @property:SerialName("headers")
+  val headers: JsonObject?,
+  @property:SerialName("headersText")
   @param:Optional
   val headersText: String? = null,
-  @SerialName("mimeType")
+  @property:SerialName("mimeType")
   val mimeType: String,
-  @SerialName("requestHeaders")
+  @property:SerialName("requestHeaders")
   @param:Optional
-  val requestHeaders: Map<String, Any?>? = null,
-  @SerialName("requestHeadersText")
+  val requestHeaders: JsonObject? = null,
+  @property:SerialName("requestHeadersText")
   @param:Optional
   val requestHeadersText: String? = null,
-  @SerialName("connectionReused")
+  @property:SerialName("connectionReused")
   val connectionReused: Boolean,
-  @SerialName("connectionId")
+  @property:SerialName("connectionId")
   val connectionId: Double,
-  @SerialName("remoteIPAddress")
+  @property:SerialName("remoteIPAddress")
   @param:Optional
   val remoteIPAddress: String? = null,
-  @SerialName("remotePort")
+  @property:SerialName("remotePort")
   @param:Optional
   val remotePort: Int? = null,
-  @SerialName("fromDiskCache")
+  @property:SerialName("fromDiskCache")
   @param:Optional
   val fromDiskCache: Boolean? = null,
-  @SerialName("fromServiceWorker")
+  @property:SerialName("fromServiceWorker")
   @param:Optional
   val fromServiceWorker: Boolean? = null,
-  @SerialName("fromPrefetchCache")
+  @property:SerialName("fromPrefetchCache")
   @param:Optional
   val fromPrefetchCache: Boolean? = null,
-  @SerialName("encodedDataLength")
+  @property:SerialName("encodedDataLength")
   val encodedDataLength: Double,
-  @SerialName("timing")
+  @property:SerialName("timing")
   @param:Optional
   val timing: ResourceTiming? = null,
-  @SerialName("serviceWorkerResponseSource")
+  @property:SerialName("serviceWorkerResponseSource")
   @param:Optional
   val serviceWorkerResponseSource: ServiceWorkerResponseSource? = null,
-  @SerialName("responseTime")
+  @property:SerialName("responseTime")
   @param:Optional
   val responseTime: Double? = null,
-  @SerialName("cacheStorageCacheName")
+  @property:SerialName("cacheStorageCacheName")
   @param:Optional
   val cacheStorageCacheName: String? = null,
-  @SerialName("protocol")
+  @property:SerialName("protocol")
   @param:Optional
   val protocol: String? = null,
-  @SerialName("securityState")
+  @property:SerialName("securityState")
   val securityState: SecurityState,
-  @SerialName("securityDetails")
+  @property:SerialName("securityDetails")
   @param:Optional
   val securityDetails: SecurityDetails? = null,
 )

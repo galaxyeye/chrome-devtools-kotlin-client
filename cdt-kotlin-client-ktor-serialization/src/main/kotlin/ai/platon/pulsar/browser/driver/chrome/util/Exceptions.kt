@@ -1,7 +1,5 @@
 package ai.platon.pulsar.browser.driver.chrome.util
 
-import ai.platon.pulsar.browser.driver.chrome.impl.ErrorObject
-
 open class ChromeDriverException(
     message: String,
     cause: Throwable? = null,

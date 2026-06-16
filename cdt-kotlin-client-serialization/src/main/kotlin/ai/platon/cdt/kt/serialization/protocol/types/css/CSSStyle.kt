@@ -1,28 +1,28 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.css
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.String
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * CSS style representation.
  */
 @Serializable
 data class CSSStyle(
-  @SerialName("styleSheetId")
+  @property:SerialName("styleSheetId")
   @param:Optional
   val styleSheetId: String? = null,
-  @SerialName("cssProperties")
+  @property:SerialName("cssProperties")
   val cssProperties: List<CSSProperty>,
-  @SerialName("shorthandEntries")
+  @property:SerialName("shorthandEntries")
   val shorthandEntries: List<ShorthandEntry>,
-  @SerialName("cssText")
+  @property:SerialName("cssText")
   @param:Optional
   val cssText: String? = null,
-  @SerialName("range")
+  @property:SerialName("range")
   @param:Optional
   val range: SourceRange? = null,
 )

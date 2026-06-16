@@ -1,43 +1,43 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.runtime
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
-import kotlin.Any
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonElement
 
 /**
  * Mirror object referencing original JavaScript object.
  */
 @Serializable
 data class RemoteObject(
-  @SerialName("type")
+  @property:SerialName("type")
   val type: RemoteObjectType,
-  @SerialName("subtype")
+  @property:SerialName("subtype")
   @param:Optional
   val subtype: RemoteObjectSubtype? = null,
-  @SerialName("className")
+  @property:SerialName("className")
   @param:Optional
   val className: String? = null,
-  @SerialName("value")
+  @property:SerialName("value")
   @param:Optional
-  val `value`: Any? = null,
-  @SerialName("unserializableValue")
+  val `value`: JsonElement? = null,
+  @property:SerialName("unserializableValue")
   @param:Optional
   val unserializableValue: String? = null,
-  @SerialName("description")
+  @property:SerialName("description")
   @param:Optional
   val description: String? = null,
-  @SerialName("objectId")
+  @property:SerialName("objectId")
   @param:Optional
   val objectId: String? = null,
-  @SerialName("preview")
+  @property:SerialName("preview")
   @param:Optional
   @param:Experimental
   val preview: ObjectPreview? = null,
-  @SerialName("customPreview")
+  @property:SerialName("customPreview")
   @param:Optional
   @param:Experimental
   val customPreview: CustomPreview? = null,

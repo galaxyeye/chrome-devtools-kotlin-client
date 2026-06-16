@@ -1,7 +1,5 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.layertree
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Boolean
@@ -9,51 +7,53 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Information about a compositing layer.
  */
 @Serializable
 data class Layer(
-  @SerialName("layerId")
+  @property:SerialName("layerId")
   val layerId: String,
-  @SerialName("parentLayerId")
+  @property:SerialName("parentLayerId")
   @param:Optional
   val parentLayerId: String? = null,
-  @SerialName("backendNodeId")
+  @property:SerialName("backendNodeId")
   @param:Optional
   val backendNodeId: Int? = null,
-  @SerialName("offsetX")
+  @property:SerialName("offsetX")
   val offsetX: Double,
-  @SerialName("offsetY")
+  @property:SerialName("offsetY")
   val offsetY: Double,
-  @SerialName("width")
+  @property:SerialName("width")
   val width: Double,
-  @SerialName("height")
+  @property:SerialName("height")
   val height: Double,
-  @SerialName("transform")
+  @property:SerialName("transform")
   @param:Optional
   val transform: List<Double>? = null,
-  @SerialName("anchorX")
+  @property:SerialName("anchorX")
   @param:Optional
   val anchorX: Double? = null,
-  @SerialName("anchorY")
+  @property:SerialName("anchorY")
   @param:Optional
   val anchorY: Double? = null,
-  @SerialName("anchorZ")
+  @property:SerialName("anchorZ")
   @param:Optional
   val anchorZ: Double? = null,
-  @SerialName("paintCount")
+  @property:SerialName("paintCount")
   val paintCount: Int,
-  @SerialName("drawsContent")
+  @property:SerialName("drawsContent")
   val drawsContent: Boolean,
-  @SerialName("invisible")
+  @property:SerialName("invisible")
   @param:Optional
   val invisible: Boolean? = null,
-  @SerialName("scrollRects")
+  @property:SerialName("scrollRects")
   @param:Optional
   val scrollRects: List<ScrollRect>? = null,
-  @SerialName("stickyPositionConstraint")
+  @property:SerialName("stickyPositionConstraint")
   @param:Optional
   val stickyPositionConstraint: StickyPositionConstraint? = null,
 )

@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.systeminfo
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -13,4 +14,6 @@ public enum class SubsamplingFormat {
   YUV_422,
   @JsonProperty("yuv444")
   YUV_444,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

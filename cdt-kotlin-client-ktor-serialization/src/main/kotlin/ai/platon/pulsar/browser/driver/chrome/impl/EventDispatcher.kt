@@ -1,25 +1,27 @@
+@file:OptIn(InternalSerializationApi::class)
+
 package ai.platon.pulsar.browser.driver.chrome.impl
 
+import ai.platon.pulsar.browser.common.Utils
 import ai.platon.pulsar.browser.driver.chrome.MethodInvocation
 import ai.platon.pulsar.browser.driver.chrome.util.ChromeRPCException
 import ai.platon.pulsar.common.getLogger
 import ai.platon.pulsar.common.getTracerOrNull
 import ai.platon.pulsar.common.stringify
 import kotlinx.coroutines.*
+import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.KSerializer
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.builtins.MapSerializer
-import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.json.*
-import org.apache.commons.lang3.StringUtils
+import kotlinx.serialization.serializer
 import java.io.IOException
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentSkipListSet
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.function.Consumer
-import kotlin.reflect.full.companionObjectInstance
 
 /**
  * Coroutine-friendly invocation result wrapper to avoid blocking the calling thread.
@@ -40,19 +42,11 @@ class InvocationFuture(val returnProperty: String? = null) {
 /** Error object returned from dev tools. */
 @Serializable
 internal class ErrorObject {
-    @SerialName("code")
     var code: Long = 0
-    @SerialName("message")
     var message: String = ""
-    @SerialName("data")
     var data: String? = null
 }
 
-/**
- * Event dispatcher that serializes/deserializes CDP messages using kotlinx.serialization.
- *
- * Replaces the Jackson-based EventDispatcher from cdt-kotlin-client-ktor.
- */
 class EventDispatcher : Consumer<String>, AutoCloseable {
     companion object {
         const val ID_PROPERTY = "id"
@@ -61,105 +55,17 @@ class EventDispatcher : Consumer<String>, AutoCloseable {
         const val METHOD_PROPERTY = "method"
         const val PARAMS_PROPERTY = "params"
 
-        /** Shared Json instance configured for CDP protocol messages. */
-        val JSON: Json = Json {
-            ignoreUnknownKeys = true
-            coerceInputValues = true
-            encodeDefaults = true
-            isLenient = true
-        }
-
-        /** Cached serializers for generic types to avoid repeated construction. */
-        private val serializerCache = ConcurrentHashMap<String, KSerializer<*>>()
-
-        /** Build a ListSerializer for the given element serializer. */
-        @Suppress("UNCHECKED_CAST")
-        fun listSerializer(elementSerializer: KSerializer<*>): KSerializer<List<Any?>> {
-            return ListSerializer(elementSerializer as KSerializer<Any?>) as KSerializer<List<Any?>>
-        }
-
-        /** Build a MapSerializer with String keys and the given value serializer. */
-        @Suppress("UNCHECKED_CAST")
-        fun mapSerializer(valueSerializer: KSerializer<*>): KSerializer<Map<String, Any?>> {
-            return MapSerializer(String.serializer(), valueSerializer as KSerializer<Any?>) as KSerializer<Map<String, Any?>>
-        }
-
-        /**
-         * Get or create a serializer for a class at runtime.
-         *
-         * Relies on the kotlinx.serialization compiler plugin which generates a
-         * `.serializer()` companion method on every @Serializable class.
-         */
-        @Suppress("UNCHECKED_CAST")
-        fun <T> serializerFor(clazz: Class<T>): KSerializer<T> {
-            val key = clazz.name
-            return serializerCache.computeIfAbsent(key) {
-                val kClass = clazz.kotlin
-                // Invoke the generated companion object's serializer() method
-                val companion = kClass.companionObjectInstance
-                if (companion != null) {
-                    val method = companion::class.members.firstOrNull { m ->
-                        m.name == "serializer" && m.parameters.size == 1
-                    }
-                    if (method != null) {
-                        method.call(companion) as KSerializer<*>
-                    } else {
-                        kClass.serializer() as KSerializer<*>
-                    }
-                } else {
-                    kClass.serializer() as KSerializer<*>
-                }
-            } as KSerializer<T>
-        }
-
-        /**
-         * Convert an arbitrary runtime value to a [JsonElement].
-         *
-         * Handles primitives, maps, lists, and @Serializable objects.  Falls back
-         * to [toString] for types that are not natively supported.
-         */
-        @Suppress("UNCHECKED_CAST")
-        fun toJsonElement(value: Any?): JsonElement {
-            return when (value) {
-                null -> JsonNull
-                is JsonElement -> value
-                is String -> JsonPrimitive(value)
-                is Number -> JsonPrimitive(value)
-                is Boolean -> JsonPrimitive(value)
-                is Enum<*> -> JsonPrimitive(value.name)
-                is Map<*, *> -> {
-                    buildJsonObject {
-                        @Suppress("UNCHECKED_CAST")
-                        (value as Map<String, Any?>).forEach { (k, v) ->
-                            put(k, toJsonElement(v))
-                        }
-                    }
-                }
-                is Iterable<*> -> {
-                    buildJsonArray {
-                        value.forEach { add(toJsonElement(it)) }
-                    }
-                }
-                is Array<*> -> {
-                    buildJsonArray {
-                        value.forEach { add(toJsonElement(it)) }
-                    }
-                }
-                else -> {
-                    // Try to use the generated serializer for @Serializable types
-                    try {
-                        val serializer = serializerFor(value.javaClass) as KSerializer<Any>
-                        JSON.encodeToJsonElement(serializer, value)
-                    } catch (_: Exception) {
-                        // Fallback for unknown types — just use toString
-                        JsonPrimitive(value.toString())
-                    }
-                }
-            }
+        /** Shared JSON instance configured for CDP protocol messages. */
+        val JSON = Json {
+            ignoreUnknownKeys = true        // equivalent to FAIL_ON_UNKNOWN_PROPERTIES = false
+            isLenient = true                // tolerant parsing
+            coerceInputValues = true        // similar to READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE
+            encodeDefaults = true           // always write the full shape
         }
     }
 
     private val logger = getLogger(this)
+
     private val tracer = getTracerOrNull(this)
 
     private val closed = AtomicBoolean()
@@ -167,96 +73,105 @@ class EventDispatcher : Consumer<String>, AutoCloseable {
     private val eventListeners: ConcurrentHashMap<String, ConcurrentSkipListSet<DevToolsEventListener>> =
         ConcurrentHashMap()
 
-    private val eventDispatcherScope = CoroutineScope(Dispatchers.Default) + CoroutineName("EventDispatcher")
+    private val eventDispatcherScope =
+        CoroutineScope(SupervisorJob() + Dispatchers.Default + CoroutineName("EventDispatcher"))
 
     val isActive get() = !closed.get()
 
-    /** Serialize a [MethodInvocation] to a JSON-RPC request string. */
-    fun serialize(method: MethodInvocation): String {
-        return JSON.encodeToString(
-            buildJsonObject {
-                put(ID_PROPERTY, method.id)
-                put(METHOD_PROPERTY, method.method)
-                if (method.params != null) {
-                    put(PARAMS_PROPERTY, toJsonElement(method.params))
-                }
-            }
-        )
-    }
+    fun patchMessageForProtocolChange(message: String, force: Boolean = false): String {
+        // Patch protocol changes if needed, e.g., some events might change their params structure across Chrome versions
+        var patched = message
 
-    /** Serialize a CDP request from its constituent parts. */
-    fun serialize(id: Long, method: String, params: Map<String, Any>?, sessionId: String?): String {
-        return JSON.encodeToString(
-            buildJsonObject {
-                put(ID_PROPERTY, id)
-                put(METHOD_PROPERTY, method)
-                if (params != null) {
-                    put(PARAMS_PROPERTY, toJsonElement(params))
-                }
-                if (sessionId != null) {
-                    put("sessionId", sessionId)
-                }
-            }
-        )
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    @Throws(IOException::class)
-    fun <T> deserialize(classParameters: Array<Class<*>>, parameterizedClazz: Class<T>, jsonElement: JsonElement): T {
-        val elementSerializer = serializerFor(parameterizedClazz)
-
-        val serializer: KSerializer<T> = when {
-            classParameters.isEmpty() -> elementSerializer
-
-            // Single-parameter generics (List-like). Support nesting via right fold.
-            // e.g., classParameters: [List, Double] with parameterizedClazz: List → List<List<Double>>
-            classParameters.size == 1 -> {
-                val inner = serializerFor(classParameters[0])
-                listSerializer(inner) as KSerializer<T>
-            }
-
-            // Two or more parameters — handle nested generics
-            else -> {
-                var current: KSerializer<*> = serializerFor(classParameters.last())
-                for (i in classParameters.size - 2 downTo 0) {
-                    val outerClass = classParameters[i]
-                    current = when {
-                        outerClass == List::class.java -> listSerializer(current)
-                        Map::class.java.isAssignableFrom(outerClass) -> mapSerializer(current)
-                        else -> elementSerializer // fallback
-                    }
-                }
-                current as KSerializer<T>
-            }
+        if (force || patched.contains("clientSecurityState")) {
+            patched = patched.replace("clientSecurityState", "clientSecurityState-Deleted")
         }
 
-        return JSON.decodeFromJsonElement(serializer, jsonElement)
+        return patched
     }
 
     /**
+     * Serializes a [MethodInvocation] into a CDP wire-format JSON string.
+     *
+     * Other [@Serializable][Serializable] objects are serialized via kotlinx.serialization.
+     */
+    fun serialize(message: Any): String {
+        return when (message) {
+            is MethodInvocation -> serialize(message.id, message.method, message.params, null)
+            else -> {
+                @Suppress("UNCHECKED_CAST")
+                val serializer = message::class.serializer() as KSerializer<Any>
+                JSON.encodeToString(serializer, message)
+            }
+        }
+    }
+
+    /**
+     * Builds the CDP wire-format JSON message: `{"id":..., "method":..., "params":..., "sessionId":...}`
+     */
+    fun serialize(id: Long, method: String, params: Map<String, Any>?, sessionId: String?): String {
+        val jsonObject = buildJsonObject {
+            put(ID_PROPERTY, JsonPrimitive(id))
+            put(METHOD_PROPERTY, JsonPrimitive(method))
+            if (params != null) {
+                put(PARAMS_PROPERTY, paramsMapToJsonElement(params))
+            }
+            if (sessionId != null) {
+                put("sessionId", JsonPrimitive(sessionId))
+            }
+        }
+        return JSON.encodeToString(jsonObject)
+    }
+
+    // ---------------------------------------------------------------------------
+    // Deserialization — parameterized types
+    // ---------------------------------------------------------------------------
+
+    /**
+     * Deserializes a [JsonElement] into a parameterized type (e.g. `List<Cookie>`, `List<List<Double>>`).
+     */
+    @Throws(IOException::class)
+    fun <T> deserialize(classParameters: Array<Class<*>>, parameterizedClazz: Class<T>, jsonElement: JsonElement): T {
+        val serializer = buildParameterizedSerializer(classParameters, parameterizedClazz)
+        try {
+            @Suppress("UNCHECKED_CAST")
+            return JSON.decodeFromJsonElement(serializer as KSerializer<T>, jsonElement)
+        } catch (e: Exception) {
+            logger.warn("Failed to deserialize class ${parameterizedClazz.name}\n", e)
+            throw e
+        }
+    }
+
+    /**
+     * Deserializes a [JsonElement] into a plain (non-generic) class.
+     *
      * A typical Server Side Event:
      * ```json
      * {"method":"Page.frameStartedLoading","params":{"frameId":"53F48CA08C50A3A72887CB9F15B293D5"}}
      * ```
      */
     @Throws(IOException::class, ChromeRPCException::class)
-    fun <T> deserialize(clazz: Class<T>, jsonElement: JsonElement?): T {
+    @Suppress("UNCHECKED_CAST")
+    fun <T : Any> deserialize(clazz: Class<*>, jsonElement: JsonElement?): T {
         if (jsonElement == null) {
-            throw ChromeRPCException("Failed converting null response to clazz " + clazz.name)
+            throw ChromeRPCException("Failed converting null response to clazz ${clazz.name}")
         }
 
         try {
-            val serializer = serializerFor(clazz)
+            val serializer = clazz.kotlin.serializer() as KSerializer<T>
             return JSON.decodeFromJsonElement(serializer, jsonElement)
-        } catch (e: Exception) {
+        } catch (e: SerializationException) {
             val message = """
                 Failed converting response to clazz ${clazz.name}
                 $jsonElement
-            """.trimIndent()
+                """.trimIndent()
             logger.warn(message, e)
-            throw ChromeRPCException("Failed to deserialize ${clazz.name}", e)
+            throw IOException("Failed converting response to clazz ${clazz.name}", e)
         }
     }
+
+    // ---------------------------------------------------------------------------
+    // Future / subscription management
+    // ---------------------------------------------------------------------------
 
     fun hasFutures() = invocationFutures.isNotEmpty()
 
@@ -287,15 +202,17 @@ class EventDispatcher : Consumer<String>, AutoCloseable {
         eventListeners.clear()
     }
 
+    // ---------------------------------------------------------------------------
+    // Incoming message dispatch
+    // ---------------------------------------------------------------------------
+
     @Throws(ChromeRPCException::class, IOException::class)
     override fun accept(message: String) {
-        tracer?.trace("◀ Accept {}", StringUtils.abbreviateMiddle(message, "...", 20000))
+        tracer?.trace("◀ Accept {}", Utils.abbreviateMiddle(message, "...", 20000))
 
-        ChromeDevToolsImpl.numAccepts.inc()
         try {
             val jsonElement = JSON.parseToJsonElement(message)
             val jsonObject = jsonElement.jsonObject
-
             val idElement = jsonObject[ID_PROPERTY]
             if (idElement != null) {
                 val id = idElement.jsonPrimitive.long
@@ -305,11 +222,11 @@ class EventDispatcher : Consumer<String>, AutoCloseable {
                     var resultElement = jsonObject[RESULT_PROPERTY]
                     val errorElement = jsonObject[ERROR_PROPERTY]
                     if (errorElement != null) {
-                        logger.debug("Error node: {}", StringUtils.abbreviateMiddle(message, "...", 20000))
+                        logger.debug("Error node: {}", Utils.abbreviateMiddle(message, "...", 20000))
                         future.deferred.complete(RpcResult(false, errorElement, message))
                     } else {
                         if (future.returnProperty != null) {
-                            resultElement = resultElement?.jsonObject?.get(future.returnProperty)
+                            resultElement = resultElement?.let { it.jsonObject[future.returnProperty] }
                         }
 
                         future.deferred.complete(RpcResult(true, resultElement, message))
@@ -325,7 +242,7 @@ class EventDispatcher : Consumer<String>, AutoCloseable {
                 }
             }
         } catch (e: Exception) {
-            val msg = StringUtils.abbreviateMiddle(message, "...", 500)
+            val msg = Utils.abbreviateMiddle(message, "...", 500)
             logger.error("Failed to parse message | {} | {}", msg, e.stringify())
         }
     }
@@ -337,8 +254,13 @@ class EventDispatcher : Consumer<String>, AutoCloseable {
         if (closed.compareAndSet(false, true)) {
             unsubscribeAll()
             removeAllListeners()
+            eventDispatcherScope.cancel()
         }
     }
+
+    // ---------------------------------------------------------------------------
+    // Event handling
+    // ---------------------------------------------------------------------------
 
     private fun handleEventAsync(name: String, params: JsonElement?) {
         val listeners = eventListeners[name] ?: return
@@ -365,11 +287,15 @@ class EventDispatcher : Consumer<String>, AutoCloseable {
      * ```json
      * {"method":"Page.frameStartedLoading","params":{"frameId":"53F48CA08C50A3A72887CB9F15B293D5"}}
      * ```
+     *
+     * @param params the params node
+     * @param unmodifiedListeners the listeners
+     * @throws ChromeRPCException if the event could not be handled
      */
     private suspend fun handleEvent0(params: JsonElement?, unmodifiedListeners: Iterable<DevToolsEventListener>) {
         try {
             handleEvent1(params, unmodifiedListeners)
-        } catch (e: Exception) {
+        } catch (e: SerializationException) {
             logger.warn("Mismatched input, Chrome might have upgraded the protocol | {}", e.message)
         } catch (t: Throwable) {
             logger.warn("Failed to handle event", t)
@@ -390,16 +316,117 @@ class EventDispatcher : Consumer<String>, AutoCloseable {
                 event = deserialize(listener.paramType, params)
             }
 
+            if (event == null) continue
+
             try {
-                listener.handler.onEvent(event!!)
+                listener.handler.onEvent(event)
             } catch (e: Exception) {
                 logger.warn(
-                    "Failed to handle event, rethrow ChromeRPCException. " +
-                        "Enable debug logging to see the stack trace | {}",
+                    "Failed to handle event, rethrow ChromeRPCException. Enable debug logging to see the stack trace | {}",
                     e.message
                 )
                 logger.debug("Failed to handle event", e)
+                // Let the exception throw again, they might be caught by RobustRPC, or somewhere else
                 throw ChromeRPCException("Failed to handle event | ${listener.key}, ${listener.paramType}", e)
+            }
+        }
+    }
+
+    // ---------------------------------------------------------------------------
+    // Internal helpers
+    // ---------------------------------------------------------------------------
+
+    /**
+     * Converts a CDP params map into a [JsonObject], handling enums and nested
+     * [@Serializable][Serializable] objects through kotlinx.serialization.
+     */
+    @Suppress("UNCHECKED_CAST")
+    private fun paramsMapToJsonElement(params: Map<String, Any>): JsonElement {
+        return buildJsonObject {
+            params.forEach { (key, value) ->
+                put(key, anyToJsonElement(value))
+            }
+        }
+    }
+
+    /**
+     * Converts an arbitrary value to a [JsonElement], using kotlinx.serialization
+     * for [@Serializable][Serializable] objects and standard primitives for everything else.
+     */
+    @Suppress("UNCHECKED_CAST")
+    private fun anyToJsonElement(value: Any?): JsonElement {
+        return when (value) {
+            null -> JsonNull
+            is JsonElement -> value
+            is String -> JsonPrimitive(value)
+            is Number -> JsonPrimitive(value)
+            is Boolean -> JsonPrimitive(value)
+            is Enum<*> -> {
+                val serializer = (value as Enum<*>).declaringJavaClass.kotlin.serializer() as KSerializer<Any>
+                JSON.encodeToJsonElement(serializer, value)
+            }
+            is Map<*, *> -> buildJsonObject {
+                value.forEach { (k, v) ->
+                    put(k.toString(), anyToJsonElement(v))
+                }
+            }
+            is List<*> -> buildJsonArray {
+                value.forEach { add(anyToJsonElement(it)) }
+            }
+            else -> {
+                // @Serializable data classes (e.g. Viewport, LoadNetworkResourceOptions, etc.)
+                val serializer = value::class.serializer() as KSerializer<Any>
+                JSON.encodeToJsonElement(serializer, value)
+            }
+        }
+    }
+
+    /**
+     * Builds a [KSerializer] for a parameterized type from runtime [Class] objects.
+     * Mirrors the original `TypeFactory` logic for constructing nested generic types.
+     */
+    @Suppress("UNCHECKED_CAST")
+    private fun buildParameterizedSerializer(
+        classParameters: Array<Class<*>>,
+        parameterizedClazz: Class<*>
+    ): KSerializer<*> {
+        val typeParamCount = parameterizedClazz.typeParameters.size
+
+        return when {
+            // No parameters -> plain type
+            classParameters.isEmpty() -> parameterizedClazz.kotlin.serializer() as KSerializer<Any>
+
+            // Single-parameter generics (List-like). Support nesting via right fold.
+            typeParamCount <= 1 -> {
+                var inner: KSerializer<*> = classParameters.last().kotlin.serializer() as KSerializer<Any>
+                for (i in classParameters.size - 2 downTo 0) {
+                    inner = ListSerializer(inner as KSerializer<Any>)
+                }
+                ListSerializer(inner as KSerializer<Any>)
+            }
+
+            // Two-parameter generics (Map-like). Common case: K, V
+            typeParamCount == 2 -> {
+                if (classParameters.size == 2) {
+                    val keySer = classParameters[0].kotlin.serializer() as KSerializer<Any>
+                    val valueSer = classParameters[1].kotlin.serializer() as KSerializer<Any>
+                    MapSerializer(keySer, valueSer)
+                } else {
+                    // Interpret first as key, the rest as nested value: Map<K, VNested>
+                    var valueSer: KSerializer<*> = classParameters.last().kotlin.serializer() as KSerializer<Any>
+                    for (i in classParameters.size - 2 downTo 1) {
+                        valueSer = ListSerializer(valueSer as KSerializer<Any>)
+                    }
+                    val keySer = classParameters[0].kotlin.serializer() as KSerializer<Any>
+                    MapSerializer(keySer, valueSer as KSerializer<Any>)
+                }
+            }
+
+            // 3+ parameters: best-effort (no nesting). If nesting is needed, pass nested via classParameters accordingly.
+            else -> {
+                val serializers = classParameters.map { it.kotlin.serializer() as KSerializer<Any> }
+                // This is a simplified fallback; complex nested generics should use the other branches
+                return serializers.first()
             }
         }
     }

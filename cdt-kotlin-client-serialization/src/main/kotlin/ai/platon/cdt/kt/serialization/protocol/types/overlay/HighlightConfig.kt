@@ -1,69 +1,69 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.overlay
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.serialization.protocol.types.dom.RGBA
 import kotlin.Boolean
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Configuration data for the highlighting of page elements.
  */
 @Serializable
 data class HighlightConfig(
-  @SerialName("showInfo")
+  @property:SerialName("showInfo")
   @param:Optional
   val showInfo: Boolean? = null,
-  @SerialName("showStyles")
+  @property:SerialName("showStyles")
   @param:Optional
   val showStyles: Boolean? = null,
-  @SerialName("showRulers")
+  @property:SerialName("showRulers")
   @param:Optional
   val showRulers: Boolean? = null,
-  @SerialName("showAccessibilityInfo")
+  @property:SerialName("showAccessibilityInfo")
   @param:Optional
   val showAccessibilityInfo: Boolean? = null,
-  @SerialName("showExtensionLines")
+  @property:SerialName("showExtensionLines")
   @param:Optional
   val showExtensionLines: Boolean? = null,
-  @SerialName("contentColor")
+  @property:SerialName("contentColor")
   @param:Optional
   val contentColor: RGBA? = null,
-  @SerialName("paddingColor")
+  @property:SerialName("paddingColor")
   @param:Optional
   val paddingColor: RGBA? = null,
-  @SerialName("borderColor")
+  @property:SerialName("borderColor")
   @param:Optional
   val borderColor: RGBA? = null,
-  @SerialName("marginColor")
+  @property:SerialName("marginColor")
   @param:Optional
   val marginColor: RGBA? = null,
-  @SerialName("eventTargetColor")
+  @property:SerialName("eventTargetColor")
   @param:Optional
   val eventTargetColor: RGBA? = null,
-  @SerialName("shapeColor")
+  @property:SerialName("shapeColor")
   @param:Optional
   val shapeColor: RGBA? = null,
-  @SerialName("shapeMarginColor")
+  @property:SerialName("shapeMarginColor")
   @param:Optional
   val shapeMarginColor: RGBA? = null,
-  @SerialName("cssGridColor")
+  @property:SerialName("cssGridColor")
   @param:Optional
   val cssGridColor: RGBA? = null,
-  @SerialName("colorFormat")
+  @property:SerialName("colorFormat")
   @param:Optional
   val colorFormat: ColorFormat? = null,
-  @SerialName("gridHighlightConfig")
+  @property:SerialName("gridHighlightConfig")
   @param:Optional
   val gridHighlightConfig: GridHighlightConfig? = null,
-  @SerialName("flexContainerHighlightConfig")
+  @property:SerialName("flexContainerHighlightConfig")
   @param:Optional
   val flexContainerHighlightConfig: FlexContainerHighlightConfig? = null,
-  @SerialName("flexItemHighlightConfig")
+  @property:SerialName("flexItemHighlightConfig")
   @param:Optional
   val flexItemHighlightConfig: FlexItemHighlightConfig? = null,
-  @SerialName("contrastAlgorithm")
+  @property:SerialName("contrastAlgorithm")
   @param:Optional
   val contrastAlgorithm: ContrastAlgorithm? = null,
 )

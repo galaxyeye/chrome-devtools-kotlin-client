@@ -1,7 +1,9 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.audits
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+
 @Serializable
 public enum class ContentSecurityPolicyViolationType {
   @SerialName("kInlineViolation")
@@ -14,4 +16,5 @@ public enum class ContentSecurityPolicyViolationType {
   K_TRUSTED_TYPES_SINK_VIOLATION,
   @SerialName("kTrustedTypesPolicyViolation")
   K_TRUSTED_TYPES_POLICY_VIOLATION,
+  UNKNOWN,
 }

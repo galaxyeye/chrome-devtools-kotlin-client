@@ -1,22 +1,22 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.database
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
-import kotlin.Any
 import kotlin.String
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonElement
 
 @Serializable
 data class ExecuteSQL(
-  @SerialName("columnNames")
+  @property:SerialName("columnNames")
   @param:Optional
   val columnNames: List<String>? = null,
-  @SerialName("values")
+  @property:SerialName("values")
   @param:Optional
-  val values: List<Any?>? = null,
-  @SerialName("sqlError")
+  val values: List<JsonElement?>? = null,
+  @property:SerialName("sqlError")
   @param:Optional
   val sqlError: Error? = null,
 )

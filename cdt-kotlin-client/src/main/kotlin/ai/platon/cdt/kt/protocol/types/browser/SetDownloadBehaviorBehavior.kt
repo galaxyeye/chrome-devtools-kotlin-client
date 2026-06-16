@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.browser
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -17,4 +18,6 @@ public enum class SetDownloadBehaviorBehavior {
   ALLOW_AND_NAME,
   @JsonProperty("default")
   DEFAULT,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

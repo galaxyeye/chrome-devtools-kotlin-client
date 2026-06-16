@@ -1,31 +1,31 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.audits
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Serializable
 data class ContentSecurityPolicyIssueDetails(
-  @SerialName("blockedURL")
+  @property:SerialName("blockedURL")
   @param:Optional
   val blockedURL: String? = null,
-  @SerialName("violatedDirective")
+  @property:SerialName("violatedDirective")
   val violatedDirective: String,
-  @SerialName("isReportOnly")
+  @property:SerialName("isReportOnly")
   val isReportOnly: Boolean,
-  @SerialName("contentSecurityPolicyViolationType")
+  @property:SerialName("contentSecurityPolicyViolationType")
   val contentSecurityPolicyViolationType: ContentSecurityPolicyViolationType,
-  @SerialName("frameAncestor")
+  @property:SerialName("frameAncestor")
   @param:Optional
   val frameAncestor: AffectedFrame? = null,
-  @SerialName("sourceCodeLocation")
+  @property:SerialName("sourceCodeLocation")
   @param:Optional
   val sourceCodeLocation: SourceCodeLocation? = null,
-  @SerialName("violatingNodeId")
+  @property:SerialName("violatingNodeId")
   @param:Optional
   val violatingNodeId: Int? = null,
 )

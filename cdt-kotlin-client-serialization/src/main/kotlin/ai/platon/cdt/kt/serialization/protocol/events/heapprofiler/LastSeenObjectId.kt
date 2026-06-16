@@ -1,10 +1,10 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.heapprofiler
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Double
 import kotlin.Int
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * If heap objects tracking has been started then backend regularly sends a current value for last
@@ -13,8 +13,8 @@ import kotlin.Int
  */
 @Serializable
 data class LastSeenObjectId(
-  @SerialName("lastSeenObjectId")
+  @property:SerialName("lastSeenObjectId")
   val lastSeenObjectId: Int,
-  @SerialName("timestamp")
+  @property:SerialName("timestamp")
   val timestamp: Double,
 )

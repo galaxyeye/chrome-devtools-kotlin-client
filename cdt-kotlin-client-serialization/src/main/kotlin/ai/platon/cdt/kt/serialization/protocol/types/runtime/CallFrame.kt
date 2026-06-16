@@ -1,24 +1,24 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.runtime
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Stack entry for runtime errors and assertions.
  */
 @Serializable
 data class CallFrame(
-  @SerialName("functionName")
+  @property:SerialName("functionName")
   val functionName: String,
-  @SerialName("scriptId")
+  @property:SerialName("scriptId")
   val scriptId: String,
-  @SerialName("url")
+  @property:SerialName("url")
   val url: String,
-  @SerialName("lineNumber")
+  @property:SerialName("lineNumber")
   val lineNumber: Int,
-  @SerialName("columnNumber")
+  @property:SerialName("columnNumber")
   val columnNumber: Int,
 )

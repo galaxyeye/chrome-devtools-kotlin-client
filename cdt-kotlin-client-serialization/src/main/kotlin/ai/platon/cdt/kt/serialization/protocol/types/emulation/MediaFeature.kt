@@ -1,14 +1,14 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.emulation
+
+import kotlin.String
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-import kotlin.String
-
 @Serializable
 data class MediaFeature(
-  @SerialName("name")
+  @property:SerialName("name")
   val name: String,
-  @SerialName("value")
+  @property:SerialName("value")
   val `value`: String,
 )

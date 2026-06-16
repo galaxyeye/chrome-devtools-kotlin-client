@@ -1,42 +1,42 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.runtime
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Boolean
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Object property descriptor.
  */
 @Serializable
 data class PropertyDescriptor(
-  @SerialName("name")
+  @property:SerialName("name")
   val name: String,
-  @SerialName("value")
+  @property:SerialName("value")
   @param:Optional
   val `value`: RemoteObject? = null,
-  @SerialName("writable")
+  @property:SerialName("writable")
   @param:Optional
   val writable: Boolean? = null,
-  @SerialName("get")
+  @property:SerialName("get")
   @param:Optional
   val `get`: RemoteObject? = null,
-  @SerialName("set")
+  @property:SerialName("set")
   @param:Optional
   val `set`: RemoteObject? = null,
-  @SerialName("configurable")
+  @property:SerialName("configurable")
   val configurable: Boolean,
-  @SerialName("enumerable")
+  @property:SerialName("enumerable")
   val enumerable: Boolean,
-  @SerialName("wasThrown")
+  @property:SerialName("wasThrown")
   @param:Optional
   val wasThrown: Boolean? = null,
-  @SerialName("isOwn")
+  @property:SerialName("isOwn")
   @param:Optional
   val isOwn: Boolean? = null,
-  @SerialName("symbol")
+  @property:SerialName("symbol")
   @param:Optional
   val symbol: RemoteObject? = null,
 )

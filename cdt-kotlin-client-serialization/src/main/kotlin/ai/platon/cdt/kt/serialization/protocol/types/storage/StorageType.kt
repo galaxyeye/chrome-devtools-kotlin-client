@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.storage
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -30,4 +31,5 @@ public enum class StorageType {
   ALL,
   @SerialName("other")
   OTHER,
+  UNKNOWN,
 }

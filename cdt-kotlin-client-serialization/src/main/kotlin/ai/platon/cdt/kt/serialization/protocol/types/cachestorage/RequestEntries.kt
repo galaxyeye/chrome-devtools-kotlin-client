@@ -1,15 +1,15 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.cachestorage
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Double
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Serializable
 data class RequestEntries(
-  @SerialName("cacheDataEntries")
+  @property:SerialName("cacheDataEntries")
   val cacheDataEntries: List<DataEntry>,
-  @SerialName("returnCount")
+  @property:SerialName("returnCount")
   val returnCount: Double,
 )

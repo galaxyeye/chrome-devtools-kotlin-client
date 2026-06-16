@@ -1,7 +1,9 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.overlay
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+
 @Serializable
 public enum class InspectMode {
   @SerialName("searchForNode")
@@ -14,4 +16,5 @@ public enum class InspectMode {
   SHOW_DISTANCES,
   @SerialName("none")
   NONE,
+  UNKNOWN,
 }

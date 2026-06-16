@@ -1,7 +1,5 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.network
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.serialization.protocol.types.network.Initiator
@@ -11,36 +9,38 @@ import ai.platon.cdt.kt.serialization.protocol.types.network.Response
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Fired when page is about to send HTTP request.
  */
 @Serializable
 data class RequestWillBeSent(
-  @SerialName("requestId")
+  @property:SerialName("requestId")
   val requestId: String,
-  @SerialName("loaderId")
+  @property:SerialName("loaderId")
   val loaderId: String,
-  @SerialName("documentURL")
+  @property:SerialName("documentURL")
   val documentURL: String,
-  @SerialName("request")
+  @property:SerialName("request")
   val request: Request,
-  @SerialName("timestamp")
+  @property:SerialName("timestamp")
   val timestamp: Double,
-  @SerialName("wallTime")
+  @property:SerialName("wallTime")
   val wallTime: Double,
-  @SerialName("initiator")
+  @property:SerialName("initiator")
   val initiator: Initiator,
-  @SerialName("redirectResponse")
+  @property:SerialName("redirectResponse")
   @param:Optional
   val redirectResponse: Response? = null,
-  @SerialName("type")
+  @property:SerialName("type")
   @param:Optional
   val type: ResourceType? = null,
-  @SerialName("frameId")
+  @property:SerialName("frameId")
   @param:Optional
   val frameId: String? = null,
-  @SerialName("hasUserGesture")
+  @property:SerialName("hasUserGesture")
   @param:Optional
   val hasUserGesture: Boolean? = null,
 )

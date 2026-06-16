@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.animation
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -13,4 +14,6 @@ public enum class AnimationType {
   CSS_ANIMATION,
   @JsonProperty("WebAnimation")
   WEB_ANIMATION,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

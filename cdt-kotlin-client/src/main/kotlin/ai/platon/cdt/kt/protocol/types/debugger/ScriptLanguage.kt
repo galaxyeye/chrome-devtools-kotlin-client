@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.debugger
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -11,4 +12,6 @@ public enum class ScriptLanguage {
   JAVA_SCRIPT,
   @JsonProperty("WebAssembly")
   WEB_ASSEMBLY,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

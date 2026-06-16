@@ -1,25 +1,25 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.applicationcache
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Double
 import kotlin.String
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Detailed application cache information.
  */
 @Serializable
 data class ApplicationCache(
-  @SerialName("manifestURL")
+  @property:SerialName("manifestURL")
   val manifestURL: String,
-  @SerialName("size")
+  @property:SerialName("size")
   val size: Double,
-  @SerialName("creationTime")
+  @property:SerialName("creationTime")
   val creationTime: Double,
-  @SerialName("updateTime")
+  @property:SerialName("updateTime")
   val updateTime: Double,
-  @SerialName("resources")
+  @property:SerialName("resources")
   val resources: List<ApplicationCacheResource>,
 )

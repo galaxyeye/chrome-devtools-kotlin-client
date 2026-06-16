@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.input
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -16,4 +17,5 @@ public enum class DispatchKeyEventType {
   RAW_KEY_DOWN,
   @SerialName("char")
   CHAR,
+  UNKNOWN,
 }

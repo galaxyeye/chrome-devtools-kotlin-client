@@ -1,20 +1,20 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.browser
+
+import kotlin.String
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-import kotlin.String
-
 @Serializable
 data class Version(
-  @SerialName("protocolVersion")
+  @property:SerialName("protocolVersion")
   val protocolVersion: String,
-  @SerialName("product")
+  @property:SerialName("product")
   val product: String,
-  @SerialName("revision")
+  @property:SerialName("revision")
   val revision: String,
-  @SerialName("userAgent")
+  @property:SerialName("userAgent")
   val userAgent: String,
-  @SerialName("jsVersion")
+  @property:SerialName("jsVersion")
   val jsVersion: String,
 )

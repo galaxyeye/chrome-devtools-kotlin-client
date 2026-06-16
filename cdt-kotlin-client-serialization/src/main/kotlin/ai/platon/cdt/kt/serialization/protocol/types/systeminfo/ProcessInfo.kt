@@ -1,21 +1,21 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.systeminfo
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents process info.
  */
 @Serializable
 data class ProcessInfo(
-  @SerialName("type")
+  @property:SerialName("type")
   val type: String,
-  @SerialName("id")
+  @property:SerialName("id")
   val id: Int,
-  @SerialName("cpuTime")
+  @property:SerialName("cpuTime")
   val cpuTime: Double,
 )

@@ -1,17 +1,17 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.webaudio
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Notifies that a new AudioListener has been created.
  */
 @Serializable
 data class AudioListenerWillBeDestroyed(
-  @SerialName("contextId")
+  @property:SerialName("contextId")
   val contextId: String,
-  @SerialName("listenerId")
+  @property:SerialName("listenerId")
   val listenerId: String,
 )

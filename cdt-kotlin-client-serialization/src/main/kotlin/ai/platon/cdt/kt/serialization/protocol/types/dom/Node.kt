@@ -1,7 +1,5 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.dom
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Boolean
@@ -9,6 +7,8 @@ import kotlin.Deprecated
 import kotlin.Int
 import kotlin.String
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * DOM interaction is implemented in terms of mirror objects that represent the actual DOM nodes.
@@ -16,83 +16,83 @@ import kotlin.collections.List
  */
 @Serializable
 data class Node(
-  @SerialName("nodeId")
+  @property:SerialName("nodeId")
   val nodeId: Int,
-  @SerialName("parentId")
+  @property:SerialName("parentId")
   @param:Optional
   val parentId: Int? = null,
-  @SerialName("backendNodeId")
+  @property:SerialName("backendNodeId")
   val backendNodeId: Int,
-  @SerialName("nodeType")
+  @property:SerialName("nodeType")
   val nodeType: Int,
-  @SerialName("nodeName")
+  @property:SerialName("nodeName")
   val nodeName: String,
-  @SerialName("localName")
+  @property:SerialName("localName")
   val localName: String,
-  @SerialName("nodeValue")
+  @property:SerialName("nodeValue")
   val nodeValue: String,
-  @SerialName("childNodeCount")
+  @property:SerialName("childNodeCount")
   @param:Optional
   val childNodeCount: Int? = null,
-  @SerialName("children")
+  @property:SerialName("children")
   @param:Optional
   val children: List<Node>? = null,
-  @SerialName("attributes")
+  @property:SerialName("attributes")
   @param:Optional
   val attributes: List<String>? = null,
-  @SerialName("documentURL")
+  @property:SerialName("documentURL")
   @param:Optional
   val documentURL: String? = null,
-  @SerialName("baseURL")
+  @property:SerialName("baseURL")
   @param:Optional
   val baseURL: String? = null,
-  @SerialName("publicId")
+  @property:SerialName("publicId")
   @param:Optional
   val publicId: String? = null,
-  @SerialName("systemId")
+  @property:SerialName("systemId")
   @param:Optional
   val systemId: String? = null,
-  @SerialName("internalSubset")
+  @property:SerialName("internalSubset")
   @param:Optional
   val internalSubset: String? = null,
-  @SerialName("xmlVersion")
+  @property:SerialName("xmlVersion")
   @param:Optional
   val xmlVersion: String? = null,
-  @SerialName("name")
+  @property:SerialName("name")
   @param:Optional
   val name: String? = null,
-  @SerialName("value")
+  @property:SerialName("value")
   @param:Optional
   val `value`: String? = null,
-  @SerialName("pseudoType")
+  @property:SerialName("pseudoType")
   @param:Optional
   val pseudoType: PseudoType? = null,
-  @SerialName("shadowRootType")
+  @property:SerialName("shadowRootType")
   @param:Optional
   val shadowRootType: ShadowRootType? = null,
-  @SerialName("frameId")
+  @property:SerialName("frameId")
   @param:Optional
   val frameId: String? = null,
-  @SerialName("contentDocument")
+  @property:SerialName("contentDocument")
   @param:Optional
   val contentDocument: Node? = null,
-  @SerialName("shadowRoots")
+  @property:SerialName("shadowRoots")
   @param:Optional
   val shadowRoots: List<Node>? = null,
-  @SerialName("templateContent")
+  @property:SerialName("templateContent")
   @param:Optional
   val templateContent: Node? = null,
-  @SerialName("pseudoElements")
+  @property:SerialName("pseudoElements")
   @param:Optional
   val pseudoElements: List<Node>? = null,
-  @SerialName("importedDocument")
+  @property:SerialName("importedDocument")
   @param:Optional
   @Deprecated("Deprecated by protocol")
   val importedDocument: Node? = null,
-  @SerialName("distributedNodes")
+  @property:SerialName("distributedNodes")
   @param:Optional
   val distributedNodes: List<BackendNode>? = null,
-  @SerialName("isSVG")
+  @property:SerialName("isSVG")
   @param:Optional
   val isSVG: Boolean? = null,
 )

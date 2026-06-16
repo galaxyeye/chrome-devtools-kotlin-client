@@ -1,9 +1,9 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.media
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Have one type per entry in MediaLogRecord::Type
@@ -11,8 +11,8 @@ import kotlin.String
  */
 @Serializable
 data class PlayerMessage(
-  @SerialName("level")
+  @property:SerialName("level")
   val level: PlayerMessageLevel,
-  @SerialName("message")
+  @property:SerialName("message")
   val message: String,
 )

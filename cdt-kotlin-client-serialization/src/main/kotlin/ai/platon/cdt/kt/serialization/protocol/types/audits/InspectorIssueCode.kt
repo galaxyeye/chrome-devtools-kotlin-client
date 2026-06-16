@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.audits
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -30,4 +31,5 @@ public enum class InspectorIssueCode {
   CORS_ISSUE,
   @SerialName("AttributionReportingIssue")
   ATTRIBUTION_REPORTING_ISSUE,
+  UNKNOWN,
 }

@@ -1,9 +1,9 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.cast
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * This is fired whenever the outstanding issue/error message changes.
@@ -11,6 +11,6 @@ import kotlin.String
  */
 @Serializable
 data class IssueUpdated(
-  @SerialName("issueMessage")
+  @property:SerialName("issueMessage")
   val issueMessage: String,
 )

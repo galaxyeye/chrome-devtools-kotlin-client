@@ -1,9 +1,9 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.audits
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Boolean
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Details for a issue arising from an SAB being instantiated in, or
@@ -11,10 +11,10 @@ import kotlin.Boolean
  */
 @Serializable
 data class SharedArrayBufferIssueDetails(
-  @SerialName("sourceCodeLocation")
+  @property:SerialName("sourceCodeLocation")
   val sourceCodeLocation: SourceCodeLocation,
-  @SerialName("isWarning")
+  @property:SerialName("isWarning")
   val isWarning: Boolean,
-  @SerialName("type")
+  @property:SerialName("type")
   val type: SharedArrayBufferIssueType,
 )

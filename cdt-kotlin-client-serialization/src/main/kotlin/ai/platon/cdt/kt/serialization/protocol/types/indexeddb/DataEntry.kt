@@ -1,19 +1,19 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.indexeddb
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.types.runtime.RemoteObject
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Data entry.
  */
 @Serializable
 data class DataEntry(
-  @SerialName("key")
+  @property:SerialName("key")
   val key: RemoteObject,
-  @SerialName("primaryKey")
+  @property:SerialName("primaryKey")
   val primaryKey: RemoteObject,
-  @SerialName("value")
+  @property:SerialName("value")
   val `value`: RemoteObject,
 )

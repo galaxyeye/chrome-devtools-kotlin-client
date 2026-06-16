@@ -1,22 +1,22 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.profiler
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.serialization.protocol.types.debugger.Location
 import ai.platon.cdt.kt.serialization.protocol.types.profiler.Profile
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Serializable
 data class ConsoleProfileFinished(
-  @SerialName("id")
+  @property:SerialName("id")
   val id: String,
-  @SerialName("location")
+  @property:SerialName("location")
   val location: Location,
-  @SerialName("profile")
+  @property:SerialName("profile")
   val profile: Profile,
-  @SerialName("title")
+  @property:SerialName("title")
   @param:Optional
   val title: String? = null,
 )

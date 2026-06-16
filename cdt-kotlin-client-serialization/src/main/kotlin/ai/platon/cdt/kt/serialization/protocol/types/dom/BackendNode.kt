@@ -1,20 +1,20 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.dom
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Backend node with a friendly name.
  */
 @Serializable
 data class BackendNode(
-  @SerialName("nodeType")
+  @property:SerialName("nodeType")
   val nodeType: Int,
-  @SerialName("nodeName")
+  @property:SerialName("nodeName")
   val nodeName: String,
-  @SerialName("backendNodeId")
+  @property:SerialName("backendNodeId")
   val backendNodeId: Int,
 )

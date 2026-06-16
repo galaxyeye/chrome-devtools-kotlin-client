@@ -1,26 +1,26 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.serviceworker
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * ServiceWorker error message.
  */
 @Serializable
 data class ServiceWorkerErrorMessage(
-  @SerialName("errorMessage")
+  @property:SerialName("errorMessage")
   val errorMessage: String,
-  @SerialName("registrationId")
+  @property:SerialName("registrationId")
   val registrationId: String,
-  @SerialName("versionId")
+  @property:SerialName("versionId")
   val versionId: String,
-  @SerialName("sourceURL")
+  @property:SerialName("sourceURL")
   val sourceURL: String,
-  @SerialName("lineNumber")
+  @property:SerialName("lineNumber")
   val lineNumber: Int,
-  @SerialName("columnNumber")
+  @property:SerialName("columnNumber")
   val columnNumber: Int,
 )

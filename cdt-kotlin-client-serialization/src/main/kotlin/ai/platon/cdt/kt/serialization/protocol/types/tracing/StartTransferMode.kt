@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.tracing
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -13,4 +14,5 @@ public enum class StartTransferMode {
   REPORT_EVENTS,
   @SerialName("ReturnAsStream")
   RETURN_AS_STREAM,
+  UNKNOWN,
 }

@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.audits
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 public enum class SameSiteCookieWarningReason {
@@ -20,4 +21,6 @@ public enum class SameSiteCookieWarningReason {
   WARN_SAME_SITE_LAX_CROSS_DOWNGRADE_STRICT,
   @JsonProperty("WarnSameSiteLaxCrossDowngradeLax")
   WARN_SAME_SITE_LAX_CROSS_DOWNGRADE_LAX,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

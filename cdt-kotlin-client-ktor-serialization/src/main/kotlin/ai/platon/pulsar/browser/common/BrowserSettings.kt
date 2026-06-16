@@ -13,7 +13,7 @@ open class BrowserSettings constructor(
     /**
      * The configuration.
      * */
-    val config: ImmutableConfig = ImmutableConfig(loadDefaults = true)
+    val config: ImmutableConfig = ImmutableConfig()
 ) {
     companion object {
         /**
@@ -22,19 +22,12 @@ open class BrowserSettings constructor(
         var SCREEN_VIEWPORT: DimI = DimI(1920, 1080)
 
         /**
-         * The screenshot quality.
-         * Compression quality from range [0..100] (jpeg only) to capture screenshots.
-         * */
-        var SCREENSHOT_QUALITY = 50
-
-        /**
          * The default script confuser, which is used to confuse the javascript that will be injected to the webpage.
          *
          * If you want to use a custom script confuser, you need to set the field before the BrowserSettings object is created.
          * If you are using spring boot, you should set the field in a ApplicationContextInitializer.
          * */
         var SCRIPT_CONFUSER: ScriptConfuser = SimpleScriptConfuser()
-
     }
 
     /**
@@ -45,7 +38,7 @@ open class BrowserSettings constructor(
     /**
      * The script loader.
      * */
-    val scriptLoader = ScriptLoader(confuser, jsPropertyNames)
+    val scriptLoader = ScriptLoader(confuser)
 
     /**
      * The javascript to execute by Web browsers.

@@ -1,29 +1,29 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.performancetimeline
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Double
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Serializable
 data class TimelineEvent(
-  @SerialName("frameId")
+  @property:SerialName("frameId")
   val frameId: String,
-  @SerialName("type")
+  @property:SerialName("type")
   val type: String,
-  @SerialName("name")
+  @property:SerialName("name")
   val name: String,
-  @SerialName("time")
+  @property:SerialName("time")
   val time: Double,
-  @SerialName("duration")
+  @property:SerialName("duration")
   @param:Optional
   val duration: Double? = null,
-  @SerialName("lcpDetails")
+  @property:SerialName("lcpDetails")
   @param:Optional
   val lcpDetails: LargestContentfulPaint? = null,
-  @SerialName("layoutShiftDetails")
+  @property:SerialName("layoutShiftDetails")
   @param:Optional
   val layoutShiftDetails: LayoutShift? = null,
 )

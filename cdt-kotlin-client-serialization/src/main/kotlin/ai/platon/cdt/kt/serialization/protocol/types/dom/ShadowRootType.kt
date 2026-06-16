@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.dom
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -14,4 +15,5 @@ public enum class ShadowRootType {
   OPEN,
   @SerialName("closed")
   CLOSED,
+  UNKNOWN,
 }

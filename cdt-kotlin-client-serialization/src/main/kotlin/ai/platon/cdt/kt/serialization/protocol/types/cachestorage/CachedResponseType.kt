@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.cachestorage
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -20,4 +21,5 @@ public enum class CachedResponseType {
   OPAQUE_RESPONSE,
   @SerialName("opaqueRedirect")
   OPAQUE_REDIRECT,
+  UNKNOWN,
 }

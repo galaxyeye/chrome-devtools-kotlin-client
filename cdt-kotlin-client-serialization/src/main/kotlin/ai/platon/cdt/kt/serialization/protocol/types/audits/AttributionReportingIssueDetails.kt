@@ -1,11 +1,11 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.audits
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Details for issues around "Attribution Reporting API" usage.
@@ -13,18 +13,18 @@ import kotlin.String
  */
 @Serializable
 data class AttributionReportingIssueDetails(
-  @SerialName("violationType")
+  @property:SerialName("violationType")
   val violationType: AttributionReportingIssueType,
-  @SerialName("frame")
+  @property:SerialName("frame")
   @param:Optional
   val frame: AffectedFrame? = null,
-  @SerialName("request")
+  @property:SerialName("request")
   @param:Optional
   val request: AffectedRequest? = null,
-  @SerialName("violatingNodeId")
+  @property:SerialName("violatingNodeId")
   @param:Optional
   val violatingNodeId: Int? = null,
-  @SerialName("invalidParameter")
+  @property:SerialName("invalidParameter")
   @param:Optional
   val invalidParameter: String? = null,
 )

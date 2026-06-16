@@ -1,11 +1,11 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.runtime
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Detailed information about exception (or error) that was thrown during script compilation or
@@ -13,27 +13,27 @@ import kotlin.String
  */
 @Serializable
 data class ExceptionDetails(
-  @SerialName("exceptionId")
+  @property:SerialName("exceptionId")
   val exceptionId: Int,
-  @SerialName("text")
+  @property:SerialName("text")
   val text: String,
-  @SerialName("lineNumber")
+  @property:SerialName("lineNumber")
   val lineNumber: Int,
-  @SerialName("columnNumber")
+  @property:SerialName("columnNumber")
   val columnNumber: Int,
-  @SerialName("scriptId")
+  @property:SerialName("scriptId")
   @param:Optional
   val scriptId: String? = null,
-  @SerialName("url")
+  @property:SerialName("url")
   @param:Optional
   val url: String? = null,
-  @SerialName("stackTrace")
+  @property:SerialName("stackTrace")
   @param:Optional
   val stackTrace: StackTrace? = null,
-  @SerialName("exception")
+  @property:SerialName("exception")
   @param:Optional
   val exception: RemoteObject? = null,
-  @SerialName("executionContextId")
+  @property:SerialName("executionContextId")
   @param:Optional
   val executionContextId: Int? = null,
 )

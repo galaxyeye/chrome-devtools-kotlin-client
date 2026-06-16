@@ -1,7 +1,9 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.network
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+
 @Serializable
 public enum class CrossOriginEmbedderPolicyValue {
   @SerialName("None")
@@ -10,4 +12,5 @@ public enum class CrossOriginEmbedderPolicyValue {
   CORS_OR_CREDENTIALLESS,
   @SerialName("RequireCorp")
   REQUIRE_CORP,
+  UNKNOWN,
 }

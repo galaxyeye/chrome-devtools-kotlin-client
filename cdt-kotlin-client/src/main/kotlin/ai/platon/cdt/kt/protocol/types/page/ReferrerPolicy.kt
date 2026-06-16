@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.page
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -23,4 +24,6 @@ public enum class ReferrerPolicy {
   STRICT_ORIGIN_WHEN_CROSS_ORIGIN,
   @JsonProperty("unsafeUrl")
   UNSAFE_URL,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

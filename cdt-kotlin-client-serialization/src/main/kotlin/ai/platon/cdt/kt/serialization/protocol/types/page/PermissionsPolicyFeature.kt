@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.page
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -115,4 +116,5 @@ public enum class PermissionsPolicyFeature {
   WEB_SHARE,
   @SerialName("xr-spatial-tracking")
   XR_SPATIAL_TRACKING,
+  UNKNOWN,
 }

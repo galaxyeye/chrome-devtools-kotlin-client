@@ -1,21 +1,21 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.page
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Int
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Layout viewport position and dimensions.
  */
 @Serializable
 data class LayoutViewport(
-  @SerialName("pageX")
+  @property:SerialName("pageX")
   val pageX: Int,
-  @SerialName("pageY")
+  @property:SerialName("pageY")
   val pageY: Int,
-  @SerialName("clientWidth")
+  @property:SerialName("clientWidth")
   val clientWidth: Int,
-  @SerialName("clientHeight")
+  @property:SerialName("clientHeight")
   val clientHeight: Int,
 )

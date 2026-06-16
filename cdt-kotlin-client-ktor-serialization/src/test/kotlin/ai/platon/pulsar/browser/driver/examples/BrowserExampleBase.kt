@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,15 +22,19 @@ package ai.platon.pulsar.browser.driver.examples
 import ai.platon.pulsar.browser.common.BrowserSettings
 import ai.platon.pulsar.browser.driver.chrome.ChromeLauncher
 import ai.platon.pulsar.browser.driver.chrome.DevToolsConfig
+import ai.platon.pulsar.browser.driver.chrome.RemoteDevTools
 import ai.platon.pulsar.browser.driver.chrome.common.ChromeOptions
+import ai.platon.pulsar.browser.driver.chrome.impl.BrowserProtocol
+import ai.platon.pulsar.browser.driver.chrome.impl.DirectChromeProtocol
 import ai.platon.pulsar.common.browser.BrowserFiles
+import ai.platon.pulsar.common.math.geometric.DimI
 import kotlinx.coroutines.runBlocking
 import org.slf4j.LoggerFactory
 
 abstract class BrowserExampleBase(val headless: Boolean = false): AutoCloseable {
     val logger = LoggerFactory.getLogger(BrowserExampleBase::class.java)
 
-    open val testUrl = "https://github.com/"
+    open val testUrl = "https://gitee.com/"
 
     val browserSettings = BrowserSettings()
     val preloadJs = browserSettings.scriptLoader.getPreloadJs()
@@ -42,31 +46,27 @@ abstract class BrowserExampleBase(val headless: Boolean = false): AutoCloseable 
 
     val chrome = launcher.launch(launchOptions)
     val tab = chrome.createTab()
-    val devTools = chrome.createDevTools(tab, DevToolsConfig())
+    val remoteDevTools: RemoteDevTools = chrome.createDevTools(tab, DevToolsConfig())
+    val devTools: BrowserProtocol = DirectChromeProtocol(remoteDevTools)
 
-    val browser get() = devTools.browser
-    val network get() = devTools.network
-    val page get() = devTools.page
-    val mainFrame get() = runBlocking { page.getFrameTree().frame }
-    val runtime get() = devTools.runtime
-    val emulation get() = devTools.emulation
-    val dom get() = devTools.dom
-    val overlay get() = devTools.overlay
+    val mainFrame get() = runBlocking { devTools.mainFrame() }
 
     abstract suspend fun run()
 
     val pageSource: String
         get() {
-            val evaluation = runBlocking { runtime.evaluate("document.documentElement.outerHTML") }
+            val evaluation = runBlocking {
+                devTools.evaluate("document.documentElement.outerHTML")
+            }
             return evaluation.result.value.toString()
         }
 
     private fun formatViewPort(delimiter: String = ","): String {
-        val vp = BrowserSettings.SCREEN_VIEWPORT
+        val vp = DimI(1920, 1080)
         return "${vp.width}$delimiter${vp.height}"
     }
 
     override fun close() {
-        devTools.awaitTermination()
+        remoteDevTools.awaitTermination()
     }
 }

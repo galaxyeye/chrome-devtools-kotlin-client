@@ -13,7 +13,7 @@ open class BrowserSettings constructor(
     /**
      * The configuration.
      * */
-    val config: ImmutableConfig = ImmutableConfig(loadDefaults = true)
+    val config: ImmutableConfig = ImmutableConfig()
 ) {
     companion object {
         /**

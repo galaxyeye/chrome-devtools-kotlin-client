@@ -1,24 +1,24 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.css
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Double
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Information about font variation axes for variable fonts
  */
 @Serializable
 data class FontVariationAxis(
-  @SerialName("tag")
+  @property:SerialName("tag")
   val tag: String,
-  @SerialName("name")
+  @property:SerialName("name")
   val name: String,
-  @SerialName("minValue")
+  @property:SerialName("minValue")
   val minValue: Double,
-  @SerialName("maxValue")
+  @property:SerialName("maxValue")
   val maxValue: Double,
-  @SerialName("defaultValue")
+  @property:SerialName("defaultValue")
   val defaultValue: Double,
 )

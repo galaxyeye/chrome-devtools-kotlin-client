@@ -1,7 +1,5 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.audits
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.serialization.protocol.types.network.ClientSecurityState
@@ -9,6 +7,8 @@ import ai.platon.cdt.kt.serialization.protocol.types.network.CorsErrorStatus
 import ai.platon.cdt.kt.serialization.protocol.types.network.IPAddressSpace
 import kotlin.Boolean
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Details for a CORS related issue, e.g. a warning or error related to
@@ -16,19 +16,19 @@ import kotlin.String
  */
 @Serializable
 data class CorsIssueDetails(
-  @SerialName("corsErrorStatus")
+  @property:SerialName("corsErrorStatus")
   val corsErrorStatus: CorsErrorStatus,
-  @SerialName("isWarning")
+  @property:SerialName("isWarning")
   val isWarning: Boolean,
-  @SerialName("request")
+  @property:SerialName("request")
   val request: AffectedRequest,
-  @SerialName("initiatorOrigin")
+  @property:SerialName("initiatorOrigin")
   @param:Optional
   val initiatorOrigin: String? = null,
-  @SerialName("resourceIPAddressSpace")
+  @property:SerialName("resourceIPAddressSpace")
   @param:Optional
   val resourceIPAddressSpace: IPAddressSpace? = null,
-  @SerialName("clientSecurityState")
+  @property:SerialName("clientSecurityState")
   @param:Optional
   val clientSecurityState: ClientSecurityState? = null,
 )

@@ -1,25 +1,25 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.page
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.types.page.ClientNavigationReason
 import kotlin.Deprecated
 import kotlin.Double
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Fired when frame schedules a potential navigation.
  */
-@Deprecated("Deprecated")
 @Serializable
+@Deprecated("Deprecated")
 data class FrameScheduledNavigation(
-  @SerialName("frameId")
+  @property:SerialName("frameId")
   val frameId: String,
-  @SerialName("delay")
+  @property:SerialName("delay")
   val delay: Double,
-  @SerialName("reason")
+  @property:SerialName("reason")
   val reason: ClientNavigationReason,
-  @SerialName("url")
+  @property:SerialName("url")
   val url: String,
 )

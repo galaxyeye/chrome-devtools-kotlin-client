@@ -1,24 +1,24 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.page
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Navigation history entry.
  */
 @Serializable
 data class NavigationEntry(
-  @SerialName("id")
+  @property:SerialName("id")
   val id: Int,
-  @SerialName("url")
+  @property:SerialName("url")
   val url: String,
-  @SerialName("userTypedURL")
+  @property:SerialName("userTypedURL")
   val userTypedURL: String,
-  @SerialName("title")
+  @property:SerialName("title")
   val title: String,
-  @SerialName("transitionType")
+  @property:SerialName("transitionType")
   val transitionType: TransitionType,
 )

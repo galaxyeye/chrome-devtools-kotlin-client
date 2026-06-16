@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.network
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -42,4 +43,5 @@ public enum class SetCookieBlockedReason {
   SAME_PARTY_FROM_CROSS_PARTY_CONTEXT,
   @SerialName("SamePartyConflictsWithOtherAttributes")
   SAME_PARTY_CONFLICTS_WITH_OTHER_ATTRIBUTES,
+  UNKNOWN,
 }

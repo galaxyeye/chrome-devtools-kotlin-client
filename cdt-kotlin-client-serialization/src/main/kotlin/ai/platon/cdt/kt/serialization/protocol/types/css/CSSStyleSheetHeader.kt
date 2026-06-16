@@ -1,54 +1,54 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.css
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * CSS stylesheet metainformation.
  */
 @Serializable
 data class CSSStyleSheetHeader(
-  @SerialName("styleSheetId")
+  @property:SerialName("styleSheetId")
   val styleSheetId: String,
-  @SerialName("frameId")
+  @property:SerialName("frameId")
   val frameId: String,
-  @SerialName("sourceURL")
+  @property:SerialName("sourceURL")
   val sourceURL: String,
-  @SerialName("sourceMapURL")
+  @property:SerialName("sourceMapURL")
   @param:Optional
   val sourceMapURL: String? = null,
-  @SerialName("origin")
+  @property:SerialName("origin")
   val origin: StyleSheetOrigin,
-  @SerialName("title")
+  @property:SerialName("title")
   val title: String,
-  @SerialName("ownerNode")
+  @property:SerialName("ownerNode")
   @param:Optional
   val ownerNode: Int? = null,
-  @SerialName("disabled")
+  @property:SerialName("disabled")
   val disabled: Boolean,
-  @SerialName("hasSourceURL")
+  @property:SerialName("hasSourceURL")
   @param:Optional
   val hasSourceURL: Boolean? = null,
-  @SerialName("isInline")
+  @property:SerialName("isInline")
   val isInline: Boolean,
-  @SerialName("isMutable")
+  @property:SerialName("isMutable")
   val isMutable: Boolean,
-  @SerialName("isConstructed")
+  @property:SerialName("isConstructed")
   val isConstructed: Boolean,
-  @SerialName("startLine")
+  @property:SerialName("startLine")
   val startLine: Double,
-  @SerialName("startColumn")
+  @property:SerialName("startColumn")
   val startColumn: Double,
-  @SerialName("length")
+  @property:SerialName("length")
   val length: Double,
-  @SerialName("endLine")
+  @property:SerialName("endLine")
   val endLine: Double,
-  @SerialName("endColumn")
+  @property:SerialName("endColumn")
   val endColumn: Double,
 )

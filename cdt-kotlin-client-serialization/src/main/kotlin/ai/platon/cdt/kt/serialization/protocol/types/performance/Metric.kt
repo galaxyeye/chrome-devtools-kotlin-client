@@ -1,18 +1,18 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.performance
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Double
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Run-time execution metric.
  */
 @Serializable
 data class Metric(
-  @SerialName("name")
+  @property:SerialName("name")
   val name: String,
-  @SerialName("value")
+  @property:SerialName("value")
   val `value`: Double,
 )

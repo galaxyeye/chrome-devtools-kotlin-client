@@ -1,29 +1,29 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.security
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.Boolean
 import kotlin.Deprecated
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Information about insecure content on the page.
  */
-@Deprecated("Deprecated")
 @Serializable
+@Deprecated("Deprecated")
 data class InsecureContentStatus(
-  @SerialName("ranMixedContent")
+  @property:SerialName("ranMixedContent")
   val ranMixedContent: Boolean,
-  @SerialName("displayedMixedContent")
+  @property:SerialName("displayedMixedContent")
   val displayedMixedContent: Boolean,
-  @SerialName("containedMixedForm")
+  @property:SerialName("containedMixedForm")
   val containedMixedForm: Boolean,
-  @SerialName("ranContentWithCertErrors")
+  @property:SerialName("ranContentWithCertErrors")
   val ranContentWithCertErrors: Boolean,
-  @SerialName("displayedContentWithCertErrors")
+  @property:SerialName("displayedContentWithCertErrors")
   val displayedContentWithCertErrors: Boolean,
-  @SerialName("ranInsecureContentStyle")
+  @property:SerialName("ranInsecureContentStyle")
   val ranInsecureContentStyle: SecurityState,
-  @SerialName("displayedInsecureContentStyle")
+  @property:SerialName("displayedInsecureContentStyle")
   val displayedInsecureContentStyle: SecurityState,
 )

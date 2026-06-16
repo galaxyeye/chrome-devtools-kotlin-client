@@ -1,21 +1,21 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.database
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import kotlin.String
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Database object.
  */
 @Serializable
 data class Database(
-  @SerialName("id")
+  @property:SerialName("id")
   val id: String,
-  @SerialName("domain")
+  @property:SerialName("domain")
   val domain: String,
-  @SerialName("name")
+  @property:SerialName("name")
   val name: String,
-  @SerialName("version")
+  @property:SerialName("version")
   val version: String,
 )

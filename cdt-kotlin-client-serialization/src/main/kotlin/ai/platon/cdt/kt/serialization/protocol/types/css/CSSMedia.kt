@@ -1,31 +1,31 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.css
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Optional
 import kotlin.String
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * CSS media rule descriptor.
  */
 @Serializable
 data class CSSMedia(
-  @SerialName("text")
+  @property:SerialName("text")
   val text: String,
-  @SerialName("source")
+  @property:SerialName("source")
   val source: CSSMediaSource,
-  @SerialName("sourceURL")
+  @property:SerialName("sourceURL")
   @param:Optional
   val sourceURL: String? = null,
-  @SerialName("range")
+  @property:SerialName("range")
   @param:Optional
   val range: SourceRange? = null,
-  @SerialName("styleSheetId")
+  @property:SerialName("styleSheetId")
   @param:Optional
   val styleSheetId: String? = null,
-  @SerialName("mediaList")
+  @property:SerialName("mediaList")
   @param:Optional
   val mediaList: List<MediaQuery>? = null,
 )

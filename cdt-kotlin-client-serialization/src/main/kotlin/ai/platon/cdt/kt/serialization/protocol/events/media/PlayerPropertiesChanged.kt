@@ -1,11 +1,11 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.media
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.types.media.PlayerProperty
 import kotlin.String
 import kotlin.collections.List
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * This can be called multiple times, and can be used to set / override /
@@ -13,8 +13,8 @@ import kotlin.collections.List
  */
 @Serializable
 data class PlayerPropertiesChanged(
-  @SerialName("playerId")
+  @property:SerialName("playerId")
   val playerId: String,
-  @SerialName("properties")
+  @property:SerialName("properties")
   val properties: List<PlayerProperty>,
 )

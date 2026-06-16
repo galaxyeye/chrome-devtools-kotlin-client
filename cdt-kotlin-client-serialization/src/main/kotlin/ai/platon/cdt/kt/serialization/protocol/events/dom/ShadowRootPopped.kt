@@ -1,19 +1,19 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.events.dom
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 import ai.platon.cdt.kt.serialization.protocol.support.annotations.Experimental
 import kotlin.Int
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Called when shadow root is popped from the element.
  */
-@Experimental
 @Serializable
+@Experimental
 data class ShadowRootPopped(
-  @SerialName("hostId")
+  @property:SerialName("hostId")
   val hostId: Int,
-  @SerialName("rootId")
+  @property:SerialName("rootId")
   val rootId: Int,
 )

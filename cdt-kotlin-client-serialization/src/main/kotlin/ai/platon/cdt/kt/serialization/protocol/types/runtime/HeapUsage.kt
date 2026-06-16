@@ -1,14 +1,14 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.serialization.protocol.types.runtime
+
+import kotlin.Double
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-import kotlin.Double
-
 @Serializable
 data class HeapUsage(
-  @SerialName("usedSize")
+  @property:SerialName("usedSize")
   val usedSize: Double,
-  @SerialName("totalSize")
+  @property:SerialName("totalSize")
   val totalSize: Double,
 )

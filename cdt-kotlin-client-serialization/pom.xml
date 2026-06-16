@@ -2,6 +2,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- NOTE: Do not add parent tag here, since it gets deployed (via mvn deploy),
+         so clients won't be able to pull it unless parent is also deployed -->
+
     <groupId>ai.platon.cdt</groupId>
     <artifactId>cdt-kotlin-client-serialization</artifactId>
     <version>4.8.1-SNAPSHOT</version>
@@ -124,7 +127,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>3.1.0</version>
+                        <version>${maven-gpg-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -138,7 +141,7 @@
                     <plugin>
                         <groupId>org.sonatype.central</groupId>
                         <artifactId>central-publishing-maven-plugin</artifactId>
-                        <version>0.10.0</version>
+                        <version>${central-publishing-maven-plugin.version}</version>
                         <extensions>true</extensions>
                         <configuration>
                             <publishingServerId>central</publishingServerId>
@@ -153,6 +156,16 @@
 
     <build>
         <defaultGoal>install</defaultGoal>
+
+        <resources>
+            <resource>
+                <includes>
+                    <include>LICENSE.txt</include>
+                    <include>THIRD-PARTY.txt</include>
+                </includes>
+                <directory>.</directory>
+            </resource>
+        </resources>
 
         <plugins>
             <plugin>
@@ -186,7 +199,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <jvmTarget>17</jvmTarget>
+                    <jvmTarget>${maven.compiler.target}</jvmTarget>
                     <compilerPlugins>
                         <plugin>kotlinx-serialization</plugin>
                     </compilerPlugins>
@@ -202,10 +215,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.14.1</version>
+                <version>${version.maven-compiler-plugin}</version>
                 <configuration>
-                    <source>17</source>
-                    <target>17</target>
+                    <source>${javac.src.version}</source>
+                    <target>${javac.target.version}</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -247,27 +260,18 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>${maven-gpg-plugin.version}</version>
                 <configuration>
                     <gpgArguments>
                         <arg>--pinentry-mode</arg>
                         <arg>loopback</arg>
                     </gpgArguments>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>net.nicoulaj.maven.plugins</groupId>
                 <artifactId>checksum-maven-plugin</artifactId>
-                <version>1.11</version>
+                <version>${checksum-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>source-release-checksum</id>
@@ -306,15 +310,12 @@
         <javac.target.version>17</javac.target.version>
         <maven.compiler.target>17</maven.compiler.target>
         <kotlin.version>2.3.21</kotlin.version>
-        <kotlin.coroutine.version>1.10.2</kotlin.coroutine.version>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
         <kotlinx.serialization.version>1.8.1</kotlinx.serialization.version>
 
         <dokka.version>2.2.0</dokka.version>
         <version.maven-compiler-plugin>3.14.1</version.maven-compiler-plugin>
-        <maven.surefire.plugin.version>3.2.5</maven.surefire.plugin.version>
         <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
-        <version.checksum-maven-plugin>1.11</version.checksum-maven-plugin>
         <checksum-maven-plugin.version>1.11</checksum-maven-plugin.version>
         <central-publishing-maven-plugin.version>0.10.0</central-publishing-maven-plugin.version>
     </properties>

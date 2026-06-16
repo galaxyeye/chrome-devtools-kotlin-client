@@ -46,7 +46,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.inceptionYear>2025</project.inceptionYear>
 
-        <cdt-kotlin-client-serialization.version>4.8.1-SNAPSHOT</cdt-kotlin-client-serialization.version>
+        <cdt-kotlin-client-serialization.version>4.8.1</cdt-kotlin-client-serialization.version>
         <kotlinx.serialization.version>1.8.1</kotlinx.serialization.version>
         <jackson.verson>2.21.2</jackson.verson>
 

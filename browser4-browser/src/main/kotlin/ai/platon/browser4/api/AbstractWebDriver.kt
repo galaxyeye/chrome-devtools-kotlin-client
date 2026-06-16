@@ -2,19 +2,11 @@ package ai.platon.browser4.api
 
 import ai.platon.browser4.api.model.NavigateEntry
 import ai.platon.browser4.api.model.NavigateHistory
-import ai.platon.browser4.api.model.NetworkResourceHelper
 import ai.platon.browser4.api.model.WebDriverException
-import ai.platon.browser4.api.model.NetworkResourceResponse
 import ai.platon.pulsar.common.*
 import ai.platon.pulsar.common.urls.Hyperlink
-import ai.platon.pulsar.common.urls.URLUtils
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
-import org.jsoup.Connection
-import org.jsoup.Jsoup
-import java.io.IOException
 import java.nio.file.Files
 import java.time.Duration
 import java.time.Instant
@@ -143,9 +135,6 @@ abstract class AbstractWebDriver(
 
     /** Accumulates init scripts (preload scripts) until first navigation. */
     protected val initScriptCache = mutableListOf<String>()
-
-    private val jsoupCreateDestroyMonitor = Any()
-    private var jsoupSession: Connection? = null
 
     private val config get() = browser.settings.config
 
@@ -637,30 +626,6 @@ abstract class AbstractWebDriver(
         headers to cookies
     }
 
-    override suspend fun newJsoupSession(): Connection {
-        val headers = mainRequestHeaders.entries.associate { it.key to it.value.toString() }
-        val cookies = getCookies()
-        return newSession(headers, cookies)
-    }
-
-    @Throws(IOException::class)
-    override suspend fun loadJsoupResource(url: String): Connection.Response {
-        val jsession: Connection = synchronized(jsoupCreateDestroyMonitor) { jsoupSession ?: createJsoupSession() }
-        jsoupSession = jsession
-        return withContext(Dispatchers.IO) { jsession.newRequest().url(url).execute() }
-    }
-
-    private fun createJsoupSession(): Connection {
-        val (headers, cookies) = getHeadersAndCookies()
-        return newSession(headers, cookies)
-    }
-
-    @Throws(IOException::class)
-    override suspend fun loadResource(url: String): NetworkResourceResponse {
-        return NetworkResourceHelper.fromJsoup(loadJsoupResource(url))
-    }
-
-
     override fun equals(other: Any?): Boolean = this === other || (other is AbstractWebDriver && other.id == this.id)
     override fun hashCode(): Int = id
     override fun compareTo(other: AbstractWebDriver): Int = id - other.id
@@ -679,27 +644,6 @@ abstract class AbstractWebDriver(
         if (isQuit) return
         state.set(State.QUIT)
         runCatching { runBlocking { stop() } }.onFailure { warnForClose(this, it) }
-    }
-
-    private fun newSession(headers: Map<String, String>, cookies: List<Map<String, String>>): Connection {
-        val httpTimeout = Duration.ofSeconds(20)
-        val session = Jsoup.newSession()
-            .timeout(httpTimeout.toMillis().toInt())
-            .headers(headers)
-            .ignoreContentType(true)
-            .ignoreHttpErrors(true)
-        session.userAgent(browser.userAgent)
-        if (cookies.isNotEmpty()) {
-            session.cookies(cookies.first())
-        }
-        val proxy = browser.id.fingerprint.proxyURI?.toString() ?: System.getenv("http_proxy")
-        if (proxy != null && URLUtils.isStandard(proxy)) {
-            val u = URLUtils.getURLOrNull2(proxy)
-            if (u != null) {
-                session.proxy(u.host, u.port)
-            }
-        }
-        return session
     }
 
     fun quickCheckHealthy(action: String = ""): CheckState {

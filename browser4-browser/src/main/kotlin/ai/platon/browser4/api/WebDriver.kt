@@ -16,7 +16,6 @@ import ai.platon.pulsar.common.serialize.json.Pson
 import ai.platon.pulsar.common.serialize.json.pulsarObjectMapper
 import ai.platon.pulsar.common.urls.Hyperlink
 import com.google.common.annotations.Beta
-import org.jsoup.Connection
 import java.io.Closeable
 import java.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
@@ -1991,27 +1990,6 @@ interface WebDriver : Closeable {
     @Throws(WebDriverException::class)
     @MCP
     suspend fun boundingBox(selector: String): RectD?
-
-    /**
-     * Create a new Jsoup session with the last page's context, which means, the same headers and cookies. @mcp
-     *
-     * @return The Jsoup session.
-     * */
-    @Throws(WebDriverException::class)
-    @MCP
-    suspend fun newJsoupSession(): Connection
-
-    /**
-     * Load the url as a resource with Jsoup rather than browser rendering, with the last page's context. @mcp
-     *
-     * This means, the same headers and cookies.
-     *
-     * @param url The URL to load.
-     * @return The Jsoup response.
-     * */
-    @Throws(WebDriverException::class)
-    @MCP
-    suspend fun loadJsoupResource(url: String): Connection.Response
 
     /**
      * Load the url as a resource without browser rendering, with the last page's context. @mcp

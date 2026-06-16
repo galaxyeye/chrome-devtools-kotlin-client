@@ -1,7 +1,5 @@
 package ai.platon.browser4.api.model
 
-import ai.platon.browser4.api.model.NetworkResourceResponse
-import org.jsoup.Connection
 import java.util.*
 
 data class JsException(
@@ -67,19 +65,6 @@ class NavigateHistory {
 
     fun clear() {
         _history.clear()
-    }
-}
-
-object NetworkResourceHelper {
-    fun fromJsoup(response: Connection.Response): NetworkResourceResponse {
-        val success = response.statusCode() == 200
-        val httpStatusCode = response.statusCode()
-        //    val stream = response.bodyStream()
-        val stream = response.body()
-        val headers = response.headers().toMutableMap()
-        // All pulsar added headers have a prefix Q-
-        headers["Q-client"] = "Jsoup"
-        return NetworkResourceResponse(success, 0, "", httpStatusCode, stream, headers)
     }
 }
 

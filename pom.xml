@@ -17,6 +17,7 @@
         <module>cdt-kotlin-client-ktor</module>
         <module>cdt-kotlin-client-ktor-serialization</module>
         <module>browser4-browser</module>
+        <module>browser4-browser-runner</module>
     </modules>
 
     <profiles>
@@ -95,7 +96,6 @@
                     <groupId>org.jetbrains.kotlin</groupId>
                     <artifactId>kotlin-maven-plugin</artifactId>
                     <version>${kotlin.version}</version>
-                    <!-- You can set this option to automatically take information about lifecycles -->
                     <extensions>true</extensions>
                     <executions>
                         <execution>
@@ -123,33 +123,7 @@
                             </configuration>
                         </execution>
                     </executions>
-                    <!--  Required by spring  -->
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.jetbrains.kotlin</groupId>
-                            <artifactId>kotlin-maven-allopen</artifactId>
-                            <version>${kotlin.version}</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.jetbrains.kotlin</groupId>
-                            <artifactId>kotlin-maven-noarg</artifactId>
-                            <version>${kotlin.version}</version>
-                        </dependency>
-                    </dependencies>
                     <configuration>
-                        <args>
-                            <arg>-Xjsr305=strict</arg>
-                        </args>
-                        <compilerPlugins>
-                            <plugin>spring</plugin>
-                            <plugin>jpa</plugin>
-                            <plugin>all-open</plugin>
-                        </compilerPlugins>
-                        <pluginOptions>
-                            <option>all-open:annotation=javax.persistence.Entity</option>
-                            <option>all-open:annotation=javax.persistence.Embeddable</option>
-                            <option>all-open:annotation=javax.persistence.MappedSuperclass</option>
-                        </pluginOptions>
                         <jvmTarget>${kotlin.compiler.jvmTarget}</jvmTarget>
                     </configuration>
                 </plugin>

@@ -15,7 +15,7 @@ import ai.platon.pulsar.common.math.geometric.RectD
 import ai.platon.pulsar.common.serialize.json.Pson
 import ai.platon.pulsar.common.serialize.json.pulsarObjectMapper
 import ai.platon.pulsar.common.urls.Hyperlink
-import com.google.common.annotations.Beta
+import ai.platon.browser4.api.annotations.Beta
 import java.io.Closeable
 import java.time.Duration
 import kotlin.time.Duration.Companion.milliseconds

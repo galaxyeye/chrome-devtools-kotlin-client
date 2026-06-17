@@ -109,7 +109,7 @@ class ChromeImplLauncherTest {
         val launchOptions = ChromeOptions()
         launchOptions.headless = true
 
-        val userDataDir = BrowserFiles.computeTestContextDir()
+        val userDataDir = BrowserFiles.computeRandomTmpContextDir()
         val cdpUrlPath = userDataDir.resolveSibling(CDP_URL_FILE_NAME)
 
         val launcher1 = ChromeLauncher(userDataDir, options = LauncherOptions())

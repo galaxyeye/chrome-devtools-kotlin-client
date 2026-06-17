@@ -169,7 +169,7 @@
     </dependencies>
 
     <build>
-        <defaultGoal>package</defaultGoal>
+        <defaultGoal>install</defaultGoal>
 
         <plugins>
             <plugin>

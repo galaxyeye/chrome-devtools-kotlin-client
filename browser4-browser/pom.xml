@@ -43,47 +43,8 @@
     </scm>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.inceptionYear>2025</project.inceptionYear>
-
         <kotlinx.serialization.version>1.8.1</kotlinx.serialization.version>
-        <jackson.verson>2.21.2</jackson.verson>
-
-        <websocket.api.version>1.1</websocket.api.version>
-
-        <javassist.version>3.24.1-GA</javassist.version>
-        <slf4j.version>2.0.13</slf4j.version>
-
-        <logback.version>1.5.13</logback.version>
-        <junit.version>4.13.1</junit.version>
-        <jacoco.version>0.8.14</jacoco.version>
-        <easy.mock.version>3.4</easy.mock.version>
-        <powermock.version>2.0.9</powermock.version>
-        <jsonassert.version>1.5.0</jsonassert.version>
-        <mockwebserver.version>2.7.5</mockwebserver.version>
-
-        <version.maven-compiler-plugin>3.14.1</version.maven-compiler-plugin>
-        <maven.surefire.plugin.version>3.2.5</maven.surefire.plugin.version>
     </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.jetbrains.kotlinx</groupId>
-                <artifactId>kotlinx-coroutines-bom</artifactId>
-                <version>${kotlin.coroutine.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.jetbrains.kotlin</groupId>
-                <artifactId>kotlin-bom</artifactId>
-                <version>${kotlin.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -91,10 +52,6 @@
             <artifactId>pulsar-common</artifactId>
             <version>4.9.1</version>
             <exclusions>
-                <exclusion>
-                    <groupId>org.jetbrains.kotlin</groupId>
-                    <artifactId>kotlin-reflect</artifactId>
-                </exclusion>
                 <exclusion>
                     <groupId>com.fasterxml.jackson.core</groupId>
                     <artifactId>jackson-databind</artifactId>
@@ -206,6 +163,7 @@
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
                 <version>${kotlin.version}</version>
+                <extensions>true</extensions>
                 <executions>
                     <execution>
                         <id>compile</id>
@@ -255,7 +213,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${version.maven-compiler-plugin}</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <source>${javac.src.version}</source>
                     <target>${javac.target.version}</target>
@@ -273,6 +231,7 @@
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
+                            <outputDirectory>${project.build.directory}/dependency</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
@@ -280,7 +239,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven.surefire.plugin.version}</version>
+                <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <excludedGroups>integration</excludedGroups>
                 </configuration>
@@ -288,7 +247,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>${maven.surefire.plugin.version}</version>
+                <version>${maven-failsafe-plugin.version}</version>
                 <configuration>
                     <groups>integration</groups>
                     <includes>
@@ -308,7 +267,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco.version}</version>
+                <version>${jacoco-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>prepare-agent</id>

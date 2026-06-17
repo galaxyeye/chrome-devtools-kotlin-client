@@ -28,7 +28,7 @@ class JsHandlerIntegrationTest : BrowserIntegrationTest() {
         pageHandler.navigate("$baseUrl/simple.html")
 
         val result = jsHandler.evaluate("1 + 1")
-        assertEquals(2, result, "1 + 1 should equal 2")
+        assertEquals(2L, result, "1 + 1 should equal 2")
     }
 
     @Test

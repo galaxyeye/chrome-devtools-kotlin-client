@@ -5,12 +5,8 @@ import ai.platon.browser4.api.InteractSettings
 import ai.platon.pulsar.common.browser.InteractLevel
 import ai.platon.pulsar.common.config.CapabilityTypes
 import ai.platon.pulsar.common.config.MutableConfig
-import ai.platon.pulsar.common.serialize.json.pulsarObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
-import kotlin.test.assertTrue
+import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Test
 
 class BrowserSettingsTests {
 
@@ -22,7 +18,7 @@ class BrowserSettingsTests {
         val json = System.getProperty(CapabilityTypes.BROWSER_INTERACT_SETTINGS)
         assertNotNull(json)
 
-        val settings2: InteractSettings = pulsarObjectMapper().readValue(json)
+        val settings2: InteractSettings = InteractSettings.fromJson(json!!)
         assertEquals(settings.toString(), settings2.toString())
     }
 
@@ -104,7 +100,7 @@ class BrowserSettingsTests {
         val json = settings.toJson()
         assertNotNull(json)
 
-        val settings2: InteractSettings = pulsarObjectMapper().readValue(json)
+        val settings2: InteractSettings = InteractSettings.fromJson(json!!)
         assertNotNull(settings2)
         assertEquals(settings.toString(), settings2.toString())
     }
@@ -118,7 +114,7 @@ class BrowserSettingsTests {
         val json = conf.get(CapabilityTypes.BROWSER_INTERACT_SETTINGS)
         assertNotNull(json)
 
-        val settings2: InteractSettings = pulsarObjectMapper().readValue(json)
+        val settings2: InteractSettings = InteractSettings.fromJson(json!!)
         assertEquals(settings.toString(), settings2.toString())
     }
 }

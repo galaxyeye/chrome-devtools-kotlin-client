@@ -42,6 +42,7 @@ class PageHandlerIntegrationTest : BrowserIntegrationTest() {
     @Test
     @DisplayName("check element visibility")
     fun testElementVisibility() = runBlocking {
+        bp.cssEnable()
         pageHandler.navigate("$baseUrl/simple.html")
 
         val visible = pageHandler.isVisible("h1")

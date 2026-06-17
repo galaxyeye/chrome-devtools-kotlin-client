@@ -2,6 +2,7 @@ package ai.platon.browser4.integration
 
 import ai.platon.browser4.chrome.protocol.types.page.CaptureScreenshotFormat
 import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.json.jsonPrimitive
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -24,14 +25,15 @@ class ChromeIntegrationTest : BrowserIntegrationTest() {
 
         // 3. Verify page loaded by evaluating JS
         val titleEval = bp.evaluate("document.title", returnByValue = true)
-        assertEquals("Test Page", titleEval.result?.value, "Page title should be 'Test Page'")
+        assertEquals("Test Page", titleEval.result.value?.jsonPrimitive?.content,
+            "Page title should be 'Test Page'")
 
         // 4. Verify DOM is accessible
         val headingEval = bp.evaluate(
             "document.getElementById('main-heading').textContent",
             returnByValue = true
         )
-        assertEquals("Hello World", headingEval.result?.value)
+        assertEquals("Hello World", headingEval.result.value?.jsonPrimitive?.content)
 
         // 5. Take a screenshot and verify it's a valid image
         val screenshot = bp.captureScreenshot(format = CaptureScreenshotFormat.PNG)
@@ -52,7 +54,7 @@ class ChromeIntegrationTest : BrowserIntegrationTest() {
         assertNotNull(navResult)
 
         val title = bp.evaluate("document.title", returnByValue = true)
-        assertEquals("Example Domain", title.result?.value)
+        assertEquals("Example Domain", title.result.value?.jsonPrimitive?.content)
     }
 
     @Test
@@ -62,7 +64,7 @@ class ChromeIntegrationTest : BrowserIntegrationTest() {
 
         val metrics = bp.getLayoutMetrics()
         assertNotNull(metrics)
-        assertTrue(metrics.layoutViewport.clientWidth > 0)
-        assertTrue(metrics.layoutViewport.clientHeight > 0)
+        assertTrue(metrics.cssLayoutViewport.clientWidth > 0)
+        assertTrue(metrics.cssLayoutViewport.clientHeight > 0)
     }
 }

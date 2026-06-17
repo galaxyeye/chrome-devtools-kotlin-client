@@ -5,12 +5,15 @@ import ai.platon.browser4.chrome.protocol.ScreenshotHandler
 import ai.platon.browser4.api.model.BrowserSettings
 import ai.platon.browser4.api.model.NodeRef
 import ai.platon.pulsar.common.math.geometric.RectD
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import java.util.Base64
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 
 class ScreenshotHandlerIntegrationTest : BrowserIntegrationTest() {
 
@@ -61,6 +64,7 @@ class ScreenshotHandlerIntegrationTest : BrowserIntegrationTest() {
     @DisplayName("rect screenshot produces valid PNG")
     fun testRectScreenshot() = runBlocking {
         pageHandler.navigate("$baseUrl/simple.html")
+        delay(500.milliseconds) // Wait for page to fully render
 
         val clip = RectD(0.0, 0.0, 100.0, 100.0)
         val screenshot = screenshotHandler.screenshot(clip)

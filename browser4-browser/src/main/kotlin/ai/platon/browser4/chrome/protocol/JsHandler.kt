@@ -9,6 +9,11 @@ import ai.platon.browser4.chrome.protocol.types.runtime.Evaluate
 import ai.platon.browser4.api.BrowserProtocol
 import ai.platon.pulsar.common.getLogger
 import ai.platon.pulsar.common.js.JsUtils
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonNull
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
 
 class JsHandler(
     private val bp: BrowserProtocol,
@@ -80,7 +85,7 @@ class JsHandler(
         }
 
         val result = evaluate?.result
-        return result?.value
+        return jsonElementToNativeValue(result?.value)
     }
 
     /**
@@ -131,7 +136,7 @@ class JsHandler(
             logger.warn(exception.description + "\n>>>$script<<<")
         }
 
-        return evaluate?.result?.value
+        return jsonElementToNativeValue(evaluate?.result?.value)
     }
 
     /**
@@ -154,7 +159,7 @@ class JsHandler(
             logger.warn(exception.description + "\n>>>$functionDeclaration<<<")
         }
 
-        return result?.result?.value
+        return jsonElementToNativeValue(result?.result?.value)
     }
 
     /**
@@ -168,5 +173,30 @@ class JsHandler(
      * */
     private suspend fun evaluateInContext(expression: String, contextId: Int, returnByValue: Boolean): Evaluate? {
         return bp.evaluate(expression = expression, contextId = contextId, returnByValue = returnByValue)
+    }
+
+    companion object {
+        /**
+         * Converts a [JsonElement] to its native Kotlin representation.
+         *
+         * - [JsonNull] maps to null
+         * - [JsonPrimitive] string maps to [String] (without quotes)
+         * - [JsonPrimitive] boolean maps to [Boolean]
+         * - [JsonPrimitive] number maps to [Long], [Double], or falls back to [String]
+         * - [JsonObject] maps to `Map<String, Any?>`
+         * - [JsonArray] maps to `List<Any?>`
+         */
+        fun jsonElementToNativeValue(element: JsonElement?): Any? = when (element) {
+            null, is JsonNull -> null
+            is JsonPrimitive -> {
+                if (element.isString) element.content
+                else element.content.toBooleanStrictOrNull()
+                    ?: element.content.toLongOrNull()
+                    ?: element.content.toDoubleOrNull()
+                    ?: element.content
+            }
+            is JsonObject -> element.mapValues { (_, v) -> jsonElementToNativeValue(v) }
+            is JsonArray -> element.map { jsonElementToNativeValue(it) }
+        }
     }
 }

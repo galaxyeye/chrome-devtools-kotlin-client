@@ -10,12 +10,12 @@ import ai.platon.pulsar.common.browser.BrowserFiles
 import ai.platon.pulsar.common.serialize.json.Pson
 import ai.platon.pulsar.common.sleepSeconds
 import kotlinx.coroutines.runBlocking
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
-import kotlin.test.AfterTest
-import kotlin.test.BeforeTest
-import kotlin.test.assertNotNull
-import kotlin.test.assertTrue
 
 @Tag("integration")
 class ChromeDevToolsTest {
@@ -25,7 +25,7 @@ class ChromeDevToolsTest {
     private lateinit var devTools: RemoteDevTools
     private lateinit var browserProtocol: BrowserProtocol
 
-    @BeforeTest
+    @BeforeEach
     fun createDevTools() {
         val userDataDir = BrowserFiles.computeTestContextDir()
 
@@ -43,7 +43,7 @@ class ChromeDevToolsTest {
         runBlocking { browserProtocol.pageEnable() }
     }
 
-    @AfterTest
+    @AfterEach
     fun closeBrowser() {
         chrome.close()
         launcher.close()

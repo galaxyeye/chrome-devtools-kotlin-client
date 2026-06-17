@@ -6,11 +6,15 @@ import ai.platon.browser4.chrome.protocol.Mouse
 import ai.platon.browser4.chrome.protocol.PageHandler
 import ai.platon.browser4.api.model.BrowserSettings
 import ai.platon.browser4.api.model.NodeRef
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.json.jsonPrimitive
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 
 class EmulationHandlerIntegrationTest : BrowserIntegrationTest() {
 
@@ -38,7 +42,8 @@ class EmulationHandlerIntegrationTest : BrowserIntegrationTest() {
             "document.getElementById('submit-btn').textContent",
             returnByValue = true
         )
-        assertEquals("clicked", buttonText.result?.value, "Button text should change to 'clicked'")
+        assertEquals("clicked", buttonText.result.value?.jsonPrimitive?.content,
+            "Button text should change to 'clicked'")
     }
 
     @Test
@@ -56,25 +61,27 @@ class EmulationHandlerIntegrationTest : BrowserIntegrationTest() {
             "document.getElementById('submit-btn').textContent",
             returnByValue = true
         )
-        assertEquals("clicked", buttonText.result?.value)
+        assertEquals("clicked", buttonText.result.value?.jsonPrimitive?.content)
     }
 
     @Test
     @DisplayName("hover triggers CSS :hover style change")
     fun testHover() = runBlocking {
         pageHandler.navigate("$baseUrl/hover.html")
+        delay(200.milliseconds) // Wait for page to load and styles to apply
 
         val hoverRef = pageHandler.focusOnSelector("#hover-div")
         assertNotNull(hoverRef, "Hover target should be found")
 
         emulationHandler.hover(hoverRef!!)
+        delay(200.milliseconds)
 
         // Check that the background color changed from blue to red
         val bgColor = bp.evaluate(
             "getComputedStyle(document.getElementById('hover-div')).backgroundColor",
             returnByValue = true
         )
-        val color = bgColor.result?.value as? String ?: ""
+        val color = bgColor.result.value?.jsonPrimitive?.content ?: ""
         assertTrue(color.contains("255, 0, 0") || color.contains("rgb(255, 0, 0)"),
             "Background should be red after hover, got: $color")
     }

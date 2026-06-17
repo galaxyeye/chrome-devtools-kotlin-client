@@ -143,9 +143,12 @@ internal class ChromeDevToolsImpl(
         return handleFailedFurther(result.result)
     }
 
-    @Throws(ChromeRPCException::class, IOException::class)
     private fun handleFailedFurther(error: JsonElement?): CDPReturnError {
         val errorObj = dispatcher.deserialize<ErrorObject>(ErrorObject::class, error)
+        if (errorObj == null) {
+            return CDPReturnError(-1, null, "Unknown protocol error",
+                "Failed to parse Chrome error response")
+        }
         val sb = StringBuilder(errorObj.message)
         if (errorObj.data != null) {
             sb.append(": ")

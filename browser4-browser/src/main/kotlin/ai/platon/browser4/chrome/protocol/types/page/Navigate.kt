@@ -22,4 +22,9 @@ data class Navigate(
   @param:Optional
   @param:Experimental
   val isDownload: Boolean? = null,
-)
+) {
+  companion object {
+    /** Fallback instance used when CDP deserialization fails due to protocol mismatch. */
+    fun degraded(): Navigate = Navigate(frameId = "")
+  }
+}

@@ -28,4 +28,12 @@ data class BoxModel(
   @property:SerialName("shapeOutside")
   @param:Optional
   val shapeOutside: ShapeOutsideInfo? = null,
-)
+) {
+  companion object {
+    /** Fallback instance used when CDP deserialization fails due to protocol mismatch. */
+    fun degraded(): BoxModel = BoxModel(
+      content = emptyList(), padding = emptyList(), border = emptyList(),
+      margin = emptyList(), width = 0, height = 0
+    )
+  }
+}

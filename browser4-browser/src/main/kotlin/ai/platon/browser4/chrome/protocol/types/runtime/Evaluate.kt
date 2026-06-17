@@ -12,4 +12,9 @@ data class Evaluate(
   @property:SerialName("exceptionDetails")
   @param:Optional
   val exceptionDetails: ExceptionDetails? = null,
-)
+) {
+  companion object {
+    /** Fallback instance used when CDP deserialization fails due to protocol mismatch. */
+    fun degraded(): Evaluate = Evaluate(result = RemoteObject.degraded())
+  }
+}

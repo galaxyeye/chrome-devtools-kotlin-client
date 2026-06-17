@@ -16,4 +16,9 @@ data class FrameTree(
   @property:SerialName("childFrames")
   @param:Optional
   val childFrames: List<FrameTree>? = null,
-)
+) {
+  companion object {
+    /** Fallback instance used when CDP deserialization fails due to protocol mismatch. */
+    fun degraded(): FrameTree = FrameTree(frame = Frame.degraded())
+  }
+}

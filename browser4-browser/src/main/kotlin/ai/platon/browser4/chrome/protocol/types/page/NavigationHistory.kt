@@ -12,4 +12,9 @@ data class NavigationHistory(
   val currentIndex: Int,
   @property:SerialName("entries")
   val entries: List<NavigationEntry>,
-)
+) {
+  companion object {
+    /** Fallback instance used when CDP deserialization fails due to protocol mismatch. */
+    fun degraded(): NavigationHistory = NavigationHistory(currentIndex = -1, entries = emptyList())
+  }
+}

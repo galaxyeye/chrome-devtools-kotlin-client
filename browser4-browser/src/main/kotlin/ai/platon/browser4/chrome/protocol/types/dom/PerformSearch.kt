@@ -12,4 +12,9 @@ data class PerformSearch(
   val searchId: String,
   @property:SerialName("resultCount")
   val resultCount: Int,
-)
+) {
+  companion object {
+    /** Fallback instance used when CDP deserialization fails due to protocol mismatch. */
+    fun degraded(): PerformSearch = PerformSearch(searchId = "", resultCount = 0)
+  }
+}

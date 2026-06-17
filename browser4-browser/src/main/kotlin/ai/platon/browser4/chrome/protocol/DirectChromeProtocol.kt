@@ -34,6 +34,7 @@ import ai.platon.browser4.chrome.protocol.types.runtime.CallArgument
 import ai.platon.browser4.chrome.protocol.types.runtime.CallFunctionOn
 import ai.platon.browser4.chrome.protocol.types.runtime.Evaluate
 import ai.platon.browser4.chrome.protocol.types.runtime.RemoteObject
+import ai.platon.pulsar.common.getLogger
 import kotlin.reflect.KClass
 
 /**
@@ -48,6 +49,8 @@ class DirectChromeProtocol(
     val devTools: BrowserDevTools
 ) : BrowserProtocol {
     private data class EmptyResult(val ignored: String? = null)
+
+    private val logger = getLogger(this)
 
     override val isOpen: Boolean get() = devTools.isOpen
 
@@ -66,6 +69,23 @@ class DirectChromeProtocol(
         params: Map<String, Any?>? = null,
         returnProperty: String? = null,
     ): T? = devTools.execute(method, params, T::class, returnProperty)
+
+    /**
+     * Execute a CDP command with a degraded fallback when deserialization fails
+     * (e.g. because the Chrome protocol version changed and fields expected by
+     * the Kotlin data class are missing from the response).
+     */
+    private suspend inline fun <reified T : Any> commandResilient(
+        method: String,
+        params: Map<String, Any?>? = null,
+        returnProperty: String? = null,
+        crossinline degraded: () -> T,
+    ): T {
+        return command<T>(method, params, returnProperty) ?: run {
+            logger.warn("CDP '{}' response failed to deserialize — using degraded fallback", method)
+            degraded()
+        }
+    }
 
     /**
      * Execute a CDP command that returns a typed list.
@@ -143,7 +163,8 @@ class DirectChromeProtocol(
     // Page domain
     // ---------------------------------------------------------------------------
 
-    override suspend fun mainFrame() = command<FrameTree>("Page.getFrameTree", returnProperty = "frameTree")!!.frame
+    override suspend fun mainFrame() =
+        commandResilient("Page.getFrameTree", returnProperty = "frameTree") { FrameTree.degraded() }.frame
 
     override suspend fun pageEnable() = command("Page.enable")
     override suspend fun domEnable() = command("DOM.enable")
@@ -159,7 +180,8 @@ class DirectChromeProtocol(
 
     override suspend fun securityEnable() = command("Security.enable")
 
-    override suspend fun getFrameTree() = command<FrameTree>("Page.getFrameTree", returnProperty = "frameTree")!!
+    override suspend fun getFrameTree() =
+        commandResilient("Page.getFrameTree", returnProperty = "frameTree") { FrameTree.degraded() }
 
     override suspend fun reload() = command("Page.reload")
     override suspend fun navigateToHistoryEntry(entryId: Int) {
@@ -185,7 +207,10 @@ class DirectChromeProtocol(
             "Page.addScriptToEvaluateOnNewDocument",
             mapOf("source" to script),
             returnProperty = "identifier"
-        )!!
+        ) ?: run {
+            logger.warn("CDP 'Page.addScriptToEvaluateOnNewDocument' response failed to deserialize")
+            ""
+        }
     }
 
     override fun onDocumentOpened(handler: suspend (DocumentOpened) -> Unit) =
@@ -198,7 +223,7 @@ class DirectChromeProtocol(
         onEvent("Page", "windowOpen", WindowOpen::class, handler)
 
     override suspend fun navigate(url: String): Navigate {
-        return command<Navigate>("Page.navigate", mapOf("url" to url))!!
+        return commandResilient("Page.navigate", mapOf("url" to url)) { Navigate.degraded() }
     }
 
     override suspend fun navigate(
@@ -208,7 +233,7 @@ class DirectChromeProtocol(
         frameId: String?,
         referrerPolicy: ReferrerPolicy?,
     ): Navigate {
-        return command<Navigate>(
+        return commandResilient(
             "Page.navigate",
             params {
                 put("url", url)
@@ -217,7 +242,7 @@ class DirectChromeProtocol(
                 frameId?.let { put("frameId", it) }
                 referrerPolicy?.let { put("referrerPolicy", it) }
             }
-        )!!
+        ) { Navigate.degraded() }
     }
 
     // ---------------------------------------------------------------------------
@@ -230,7 +255,7 @@ class DirectChromeProtocol(
         returnByValue: Boolean?,
         awaitPromise: Boolean?,
     ): Evaluate {
-        return command<Evaluate>(
+        return commandResilient(
             "Runtime.evaluate",
             params {
                 put("expression", expression)
@@ -238,7 +263,7 @@ class DirectChromeProtocol(
                 returnByValue?.let { put("returnByValue", it) }
                 awaitPromise?.let { put("awaitPromise", it) }
             }
-        )!!
+        ) { Evaluate.degraded() }
     }
 
     override suspend fun callFunctionOn(
@@ -253,7 +278,7 @@ class DirectChromeProtocol(
         executionContextId: Int?,
         objectGroup: String?,
     ): CallFunctionOn {
-        return command<CallFunctionOn>(
+        return commandResilient(
             "Runtime.callFunctionOn",
             params {
                 put("functionDeclaration", functionDeclaration)
@@ -267,7 +292,7 @@ class DirectChromeProtocol(
                 executionContextId?.let { put("executionContextId", it) }
                 objectGroup?.let { put("objectGroup", it) }
             }
-        )!!
+        ) { CallFunctionOn.degraded() }
     }
 
     override suspend fun releaseObject(objectId: String) {
@@ -278,9 +303,11 @@ class DirectChromeProtocol(
     // Page domain (continued)
     // ---------------------------------------------------------------------------
 
-    override suspend fun getLayoutMetrics() = command<LayoutMetrics>("Page.getLayoutMetrics")!!
+    override suspend fun getLayoutMetrics() =
+        commandResilient("Page.getLayoutMetrics") { LayoutMetrics.degraded() }
 
-    override suspend fun getNavigationHistory() = command<NavigationHistory>("Page.getNavigationHistory")!!
+    override suspend fun getNavigationHistory() =
+        commandResilient("Page.getNavigationHistory") { NavigationHistory.degraded() }
 
     override suspend fun createIsolatedWorld(frameId: String, worldName: String, grantUniveralAccess: Boolean): Int {
         return command<Int>(
@@ -291,7 +318,10 @@ class DirectChromeProtocol(
                 "grantUniveralAccess" to grantUniveralAccess, // matches CDP spec typo
             ),
             returnProperty = "executionContextId"
-        )!!
+        ) ?: run {
+            logger.warn("CDP 'Page.createIsolatedWorld' response failed to deserialize")
+            0
+        }
     }
 
     override suspend fun captureScreenshot(
@@ -311,7 +341,10 @@ class DirectChromeProtocol(
                 captureBeyondViewport?.let { put("captureBeyondViewport", it) }
             },
             returnProperty = "data"
-        )!!
+        ) ?: run {
+            logger.warn("CDP 'Page.captureScreenshot' response failed to deserialize")
+            ""
+        }
     }
 
     // ---------------------------------------------------------------------------
@@ -346,14 +379,14 @@ class DirectChromeProtocol(
     // ---------------------------------------------------------------------------
 
     override suspend fun getDocument(depth: Int?, pierce: Boolean?): Node {
-        return command<Node>(
+        return commandResilient(
             "DOM.getDocument",
             params {
                 depth?.let { put("depth", it) }
                 pierce?.let { put("pierce", it) }
             },
             returnProperty = "root"
-        )!!
+        ) { Node.degraded() }
     }
 
     override suspend fun getContentQuads(nodeId: Int): List<List<Double>> {
@@ -366,9 +399,9 @@ class DirectChromeProtocol(
     }
 
     override suspend fun getBoxModel(nodeId: Int): BoxModel {
-        return command<BoxModel>(
+        return commandResilient(
             "DOM.getBoxModel", mapOf("nodeId" to nodeId), returnProperty = "model"
-        )!!
+        ) { BoxModel.degraded() }
     }
 
     override suspend fun querySelector(nodeId: Int, selector: String): Int {
@@ -376,7 +409,10 @@ class DirectChromeProtocol(
             "DOM.querySelector",
             mapOf("nodeId" to nodeId, "selector" to selector),
             returnProperty = "nodeId"
-        )!!
+        ) ?: run {
+            logger.warn("CDP 'DOM.querySelector' response failed to deserialize")
+            0
+        }
     }
 
     override suspend fun querySelectorAll(nodeId: Int, selector: String): List<Int> {
@@ -389,13 +425,13 @@ class DirectChromeProtocol(
     }
 
     override suspend fun performSearch(query: String, includeUserAgentShadowDOM: Boolean?): PerformSearch {
-        return command<PerformSearch>(
+        return commandResilient(
             "DOM.performSearch",
             params {
                 put("query", query)
                 includeUserAgentShadowDOM?.let { put("includeUserAgentShadowDOM", it) }
             }
-        )!!
+        ) { PerformSearch.degraded() }
     }
 
     override suspend fun getSearchResults(searchId: String, fromIndex: Int, toIndex: Int): List<Int> {
@@ -428,7 +464,7 @@ class DirectChromeProtocol(
         depth: Int?,
         pierce: Boolean?,
     ): Node {
-        return command<Node>(
+        return commandResilient(
             "DOM.describeNode",
             params {
                 nodeId?.let { put("nodeId", it) }
@@ -438,7 +474,7 @@ class DirectChromeProtocol(
                 pierce?.let { put("pierce", it) }
             },
             returnProperty = "node"
-        )!!
+        ) { Node.degraded() }
     }
 
     override suspend fun scrollIntoViewIfNeeded(
@@ -456,21 +492,24 @@ class DirectChromeProtocol(
     }
 
     override suspend fun resolveNodeByNodeId(nodeId: Int): RemoteObject {
-        return command<RemoteObject>(
+        return commandResilient(
             "DOM.resolveNode", mapOf("nodeId" to nodeId), returnProperty = "object"
-        )!!
+        ) { RemoteObject.degraded() }
     }
 
     override suspend fun resolveNodeByBackendNodeId(backendNodeId: Int): RemoteObject {
-        return command<RemoteObject>(
+        return commandResilient(
             "DOM.resolveNode", mapOf("backendNodeId" to backendNodeId), returnProperty = "object"
-        )!!
+        ) { RemoteObject.degraded() }
     }
 
     override suspend fun requestNode(objectId: String): Int {
         return command<Int>(
             "DOM.requestNode", mapOf("objectId" to objectId), returnProperty = "nodeId"
-        )!!
+        ) ?: run {
+            logger.warn("CDP 'DOM.requestNode' response failed to deserialize")
+            0
+        }
     }
 
     // ---------------------------------------------------------------------------
@@ -528,11 +567,11 @@ class DirectChromeProtocol(
     override suspend fun loadNetworkResource(
         frameId: String, url: String, options: LoadNetworkResourceOptions
     ): LoadNetworkResourcePageResult {
-        return command<LoadNetworkResourcePageResult>(
+        return commandResilient(
             "Network.loadNetworkResource",
             mapOf("frameId" to frameId, "url" to url, "options" to options),
             returnProperty = "resource"
-        )!!
+        ) { LoadNetworkResourcePageResult.degraded() }
     }
 
     override suspend fun setExtraHTTPHeaders(headers: Map<String, Any>) {
@@ -573,9 +612,9 @@ class DirectChromeProtocol(
     }
 
     override suspend fun getResponseBody(requestId: String): ResponseBody {
-        return command<ResponseBody>(
+        return commandResilient(
             "Fetch.getResponseBody", mapOf("requestId" to requestId)
-        )!!
+        ) { ResponseBody.degraded() }
     }
 
     override suspend fun setFileInputFiles(files: List<String>, nodeId: Int) {
@@ -591,7 +630,10 @@ class DirectChromeProtocol(
                 objectId?.let { put("objectId", it) }
             },
             returnProperty = "outerHTML"
-        )!!
+        ) ?: run {
+            logger.warn("CDP 'DOM.getOuterHTML' response failed to deserialize")
+            ""
+        }
     }
 
     override fun onDragIntercepted(handler: (DragIntercepted) -> Unit) =
@@ -722,7 +764,7 @@ class DirectChromeProtocol(
         includeBlendedBackgroundColors: Boolean?,
         includeTextColorOpacities: Boolean?,
     ): CaptureSnapshot {
-        return command<CaptureSnapshot>(
+        return commandResilient(
             "DOMSnapshot.captureSnapshot",
             params {
                 put("computedStyles", computedStyles)
@@ -731,7 +773,7 @@ class DirectChromeProtocol(
                 includeBlendedBackgroundColors?.let { put("includeBlendedBackgroundColors", it) }
                 includeTextColorOpacities?.let { put("includeTextColorOpacities", it) }
             }
-        )!!
+        ) { CaptureSnapshot.degraded() }
     }
 
     // ---------------------------------------------------------------------------

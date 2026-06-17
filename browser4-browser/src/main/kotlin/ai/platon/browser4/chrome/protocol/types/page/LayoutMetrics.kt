@@ -23,4 +23,19 @@ data class LayoutMetrics(
   val cssVisualViewport: VisualViewport,
   @property:SerialName("cssContentSize")
   val cssContentSize: Rect,
-)
+) {
+  companion object {
+    /**
+     * Fallback instance used when CDP deserialization fails due to protocol mismatch.
+     * Chrome 127+ deprecated the old layoutViewport/visualViewport/contentSize fields.
+     */
+    fun degraded(): LayoutMetrics = LayoutMetrics(
+      layoutViewport = LayoutViewport.degraded(),
+      visualViewport = VisualViewport.degraded(),
+      contentSize = Rect.degraded(),
+      cssLayoutViewport = LayoutViewport.degraded(),
+      cssVisualViewport = VisualViewport.degraded(),
+      cssContentSize = Rect.degraded()
+    )
+  }
+}

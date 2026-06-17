@@ -57,4 +57,15 @@ data class Frame(
   @property:SerialName("gatedAPIFeatures")
   @param:Experimental
   val gatedAPIFeatures: List<GatedAPIFeatures>,
-)
+) {
+  companion object {
+    /** Fallback instance used when CDP deserialization fails due to protocol mismatch. */
+    fun degraded(): Frame = Frame(
+      id = "", loaderId = "", url = "", domainAndRegistry = "",
+      securityOrigin = "", mimeType = "",
+      secureContextType = SecureContextType.UNKNOWN,
+      crossOriginIsolatedContextType = CrossOriginIsolatedContextType.UNKNOWN,
+      gatedAPIFeatures = emptyList()
+    )
+  }
+}

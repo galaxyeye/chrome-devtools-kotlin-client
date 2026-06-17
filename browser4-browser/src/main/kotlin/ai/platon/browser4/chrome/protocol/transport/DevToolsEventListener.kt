@@ -171,6 +171,9 @@ internal class ChromeImpl(
             ?: throw ChromeIOException("Invalid web socket url to page")
         val pageTransport = KtorTransport.create(URI.create(debuggerUrl))
 
+        logger.warn("Chrome: {} | Protocol: {} | V8: {}",
+            version.browser ?: "?", version.protocolVersion ?: "?", version.v8Version ?: "?")
+
         return ChromeDevToolsImpl(browserTransport, pageTransport, config)
     }
 

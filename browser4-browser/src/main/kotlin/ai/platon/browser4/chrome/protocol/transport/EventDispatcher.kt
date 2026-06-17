@@ -78,11 +78,23 @@ class EventDispatcher : Consumer<String>, AutoCloseable {
 
     val isActive get() = !closed.get()
 
+    /**
+     * Known Chrome protocol breaking changes that require field renaming.
+     * Each entry documents the Chrome version that introduced the change.
+     */
+    private data class PatchRule(val pattern: String, val replacement: String, val note: String)
+
+    private val protocolPatches = listOf(
+        // Chrome 124+: clientSecurityState removed from some security events
+        PatchRule("clientSecurityState", "clientSecurityState-Deleted", "Chrome 124+"),
+    )
+
     fun patchMessageForProtocolChange(message: String, force: Boolean = false): String {
-        // Patch protocol changes if needed, e.g., some events might change their params structure across Chrome versions
         var patched = message
-        if (force || patched.contains("clientSecurityState")) {
-            patched = patched.replace("clientSecurityState", "clientSecurityState-Deleted")
+        for (rule in protocolPatches) {
+            if (force || patched.contains(rule.pattern)) {
+                patched = patched.replace(rule.pattern, rule.replacement)
+            }
         }
         return patched
     }
@@ -112,43 +124,52 @@ class EventDispatcher : Consumer<String>, AutoCloseable {
         return JSON.encodeToString(jsonObject)
     }
 
-    @Throws(IOException::class)
     @Suppress("UNCHECKED_CAST")
-    fun <T> deserialize(classParameters: Array<KClass<*>>, parameterizedClazz: KClass<*>, jsonElement: JsonElement): T {
-        val serializer = buildParameterizedSerializer(classParameters, parameterizedClazz)
-        try {
+    fun <T> deserialize(classParameters: Array<KClass<*>>, parameterizedClazz: KClass<*>, jsonElement: JsonElement): T? {
+        return try {
+            val serializer = buildParameterizedSerializer(classParameters, parameterizedClazz)
             @Suppress("UNCHECKED_CAST")
-            return JSON.decodeFromJsonElement(serializer as KSerializer<T>, jsonElement)
+            JSON.decodeFromJsonElement(serializer as KSerializer<T>, jsonElement)
         } catch (e: Exception) {
-            logger.warn("Failed to deserialize class ${parameterizedClazz.qualifiedName}\n", e)
-            throw e
+            logger.warn(
+                "CDP protocol mismatch — failed to deserialize {}<{}>: {}",
+                parameterizedClazz.simpleName,
+                classParameters.joinToString { it.simpleName ?: "?" },
+                e.message
+            )
+            null
         }
     }
 
     /**
+     * Deserializes a [JsonElement] into the given [KClass], or returns `null` if
+     * deserialization fails (e.g. because the Chrome protocol version has changed
+     * and fields expected by the Kotlin data class are missing).
+     *
      * A typical Server Side Event:
      * ```json
      * {"method":"Page.frameStartedLoading","params":{"frameId":"53F48CA08C50A3A72887CB9F15B293D5"}}
      * ```
      */
-    @Throws(IOException::class, ChromeRPCException::class)
     @Suppress("UNCHECKED_CAST")
-    fun <T : Any> deserialize(clazz: KClass<*>, jsonElement: JsonElement?): T {
+    fun <T : Any> deserialize(clazz: KClass<*>, jsonElement: JsonElement?): T? {
         if (jsonElement == null) {
-            throw ChromeRPCException("Failed converting null response to clazz ${clazz.qualifiedName}")
+            logger.warn("Attempted to deserialize null JSON element to {}", clazz.qualifiedName)
+            return null
         }
 
-        try {
+        return try {
             @Suppress("UNCHECKED_CAST")
             val serializer = clazz.serializer() as KSerializer<T>
-            return JSON.decodeFromJsonElement(serializer, jsonElement)
+            JSON.decodeFromJsonElement(serializer, jsonElement)
         } catch (e: SerializationException) {
-            val message = """
-                Failed converting response to clazz ${clazz.qualifiedName}
-                $jsonElement
-                """.trimIndent()
-            logger.warn(message, e)
-            throw IOException("Failed converting response to clazz ${clazz.qualifiedName}", e)
+            logger.warn(
+                "CDP protocol mismatch — failed to deserialize {}: {}",
+                clazz.simpleName,
+                jsonElement.toString().take(1000)
+            )
+            logger.debug("Full JSON for deserialization failure of {}", clazz.simpleName, e)
+            null
         }
     }
 

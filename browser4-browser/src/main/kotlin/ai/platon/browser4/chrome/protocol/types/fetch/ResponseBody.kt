@@ -12,4 +12,9 @@ data class ResponseBody(
   val body: String,
   @property:SerialName("base64Encoded")
   val base64Encoded: Boolean,
-)
+) {
+  companion object {
+    /** Fallback instance used when CDP deserialization fails due to protocol mismatch. */
+    fun degraded(): ResponseBody = ResponseBody(body = "", base64Encoded = false)
+  }
+}

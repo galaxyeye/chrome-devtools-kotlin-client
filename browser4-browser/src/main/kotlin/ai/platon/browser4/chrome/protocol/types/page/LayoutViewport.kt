@@ -18,4 +18,9 @@ data class LayoutViewport(
   val clientWidth: Int,
   @property:SerialName("clientHeight")
   val clientHeight: Int,
-)
+) {
+  companion object {
+    /** Fallback instance used when CDP deserialization fails due to protocol mismatch. */
+    fun degraded(): LayoutViewport = LayoutViewport(pageX = 0, pageY = 0, clientWidth = 0, clientHeight = 0)
+  }
+}

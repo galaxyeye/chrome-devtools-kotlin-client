@@ -33,4 +33,9 @@ data class LoadNetworkResourcePageResult(
   @property:SerialName("headers")
   @param:Optional
   val headers: JsonObject? = null,
-)
+) {
+  companion object {
+    /** Fallback instance used when CDP deserialization fails due to protocol mismatch. */
+    fun degraded(): LoadNetworkResourcePageResult = LoadNetworkResourcePageResult(success = false)
+  }
+}

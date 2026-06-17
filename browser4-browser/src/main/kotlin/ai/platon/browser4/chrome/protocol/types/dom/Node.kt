@@ -122,4 +122,12 @@ data class Node(
   @param:Optional
   @param:Experimental
   val adProvenance: AdProvenance? = null,
-)
+) {
+  companion object {
+    /** Fallback instance used when CDP deserialization fails due to protocol mismatch. */
+    fun degraded(): Node = Node(
+      nodeId = 0, backendNodeId = 0, nodeType = 0,
+      nodeName = "", localName = "", nodeValue = ""
+    )
+  }
+}

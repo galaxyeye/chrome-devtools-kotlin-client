@@ -45,4 +45,9 @@ data class RemoteObject(
   @param:Optional
   @param:Experimental
   val customPreview: CustomPreview? = null,
-)
+) {
+  companion object {
+    /** Fallback instance used when CDP deserialization fails due to protocol mismatch. */
+    fun degraded(): RemoteObject = RemoteObject(type = RemoteObjectType.UNKNOWN)
+  }
+}

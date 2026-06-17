@@ -18,4 +18,9 @@ data class Rect(
   val width: Double,
   @property:SerialName("height")
   val height: Double,
-)
+) {
+  companion object {
+    /** Fallback instance used when CDP deserialization fails due to protocol mismatch. */
+    fun degraded(): Rect = Rect(x = 0.0, y = 0.0, width = 0.0, height = 0.0)
+  }
+}

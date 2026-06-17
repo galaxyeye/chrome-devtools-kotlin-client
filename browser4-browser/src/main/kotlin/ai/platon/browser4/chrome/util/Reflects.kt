@@ -1,4 +1,4 @@
-package ai.platon.browser4.deprecated
+package ai.platon.browser4.chrome.util
 
 import java.lang.reflect.*
 import kotlin.coroutines.Continuation
@@ -88,8 +88,8 @@ object ReflectUtils {
         }
     }
 
-    /** Extract the raw Class from a [java.lang.reflect.Type], resolving wildcard bounds if present. */
-    private fun rawOf(t: java.lang.reflect.Type): Class<*> = when (t) {
+    /** Extract the raw Class from a [Type], resolving wildcard bounds if present. */
+    private fun rawOf(t: Type): Class<*> = when (t) {
         is Class<*> -> t
         is ParameterizedType -> t.rawType as Class<*>
         is WildcardType -> {
@@ -103,8 +103,8 @@ object ReflectUtils {
         else -> Any::class.java
     }
 
-    /** Resolve a [java.lang.reflect.Type] into (rawClass, typeParameters). */
-    private fun resolveType(type: java.lang.reflect.Type): Pair<Class<*>, Array<Class<*>>?> {
+    /** Resolve a [Type] into (rawClass, typeParameters). */
+    private fun resolveType(type: Type): Pair<Class<*>, Array<Class<*>>?> {
         return when (type) {
             is Class<*> -> type to null
             is ParameterizedType -> {

@@ -3,7 +3,7 @@ package ai.platon.browser4.chrome.protocol.transport
 import ai.platon.browser4.chrome.RemoteDevTools
 import ai.platon.browser4.chrome.util.ChromeIOException
 import ai.platon.browser4.chrome.util.ChromeRPCException
-import ai.platon.browser4.deprecated.ReflectUtils
+import ai.platon.browser4.chrome.util.ReflectUtils
 import ai.platon.browser4.chrome.protocol.support.EventHandler
 import ai.platon.browser4.chrome.protocol.support.EventListener
 import ai.platon.browser4.chrome.protocol.support.EventName

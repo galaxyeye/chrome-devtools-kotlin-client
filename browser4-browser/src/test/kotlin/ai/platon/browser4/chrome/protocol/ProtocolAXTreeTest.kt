@@ -43,8 +43,11 @@ class ProtocolAXTreeTest {
         val jsonNodes = jsonElement.jsonObject.getValue("result").jsonObject.getValue("nodes")
         // Deserialize a List<AXNode> using the generic-aware overload
         @Suppress("UNCHECKED_CAST")
-        val nodes = dispatcher.deserialize(arrayOf(AXNode::class), List::class, jsonNodes) as List<AXNode>
+        val nodes = dispatcher.deserialize(arrayOf(AXNode::class), List::class, jsonNodes)
+                as List<AXNode>?
 
+        Assertions.assertNotNull(nodes)
+        require(nodes != null)
         Assertions.assertTrue { nodes.isNotEmpty() }
     }
 
@@ -59,8 +62,9 @@ class ProtocolAXTreeTest {
         val dispatcher = EventDispatcher()
         // Deserialize a List<AXNode> using the generic-aware overload
         @Suppress("UNCHECKED_CAST")
-        val nodes = dispatcher.deserialize(arrayOf(AXNode::class), List::class, jsonNodes) as List<AXNode>
+        val nodes = dispatcher.deserialize(arrayOf(AXNode::class), List::class, jsonNodes) as List<AXNode>?
 
+        requireNotNull(nodes)
         Assertions.assertTrue { nodes.isNotEmpty() }
     }
 }

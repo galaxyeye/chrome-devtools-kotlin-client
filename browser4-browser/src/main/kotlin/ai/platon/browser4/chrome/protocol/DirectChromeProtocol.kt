@@ -35,7 +35,13 @@ import ai.platon.browser4.chrome.protocol.types.runtime.CallFunctionOn
 import ai.platon.browser4.chrome.protocol.types.runtime.Evaluate
 import ai.platon.browser4.chrome.protocol.types.runtime.RemoteObject
 import ai.platon.pulsar.common.getLogger
+import kotlinx.serialization.Serializable
 import kotlin.reflect.KClass
+
+@Serializable
+data class EmptyResult(
+    val ignored: String? = null
+)
 
 /**
  * CDP is the single access point for all Chrome DevTools Protocol (CDP) domain APIs.
@@ -48,7 +54,6 @@ import kotlin.reflect.KClass
 class DirectChromeProtocol(
     val devTools: BrowserDevTools
 ) : BrowserProtocol {
-    private data class EmptyResult(val ignored: String? = null)
 
     private val logger = getLogger(this)
 

@@ -58,7 +58,7 @@ suspend fun releaseNodeObjectIfNeeded(devTools: RemoteDevTools, resolved: Resolv
 }
 
 suspend fun releaseNodeObjectIfNeeded(bp: BrowserProtocol, resolved: ResolvedNodeObjectId?) {
-    val devTools = (bp as DirectChromeProtocol).devTools ?: return
+    val devTools = (bp as DirectChromeProtocol).devTools
     releaseNodeObjectIfNeeded(devTools, resolved)
 }
 

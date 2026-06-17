@@ -72,10 +72,10 @@ interface BrowserDevTools : AutoCloseable {
 
     val isOpen: Boolean
 
-    suspend fun <T> invoke(
-        clazz: Class<T>,
+    suspend fun <T : Any> invoke(
+        clazz: KClass<T>,
         returnProperty: String?,
-        returnTypeClasses: Array<Class<out Any>>?,
+        returnTypeClasses: Array<KClass<*>>?,
         method: MethodInvocation
     ): T?
 
@@ -99,7 +99,7 @@ interface BrowserDevTools : AutoCloseable {
         domainName: String,
         eventName: String,
         eventHandler: EventHandler<Any>,
-        eventType: Class<*>
+        eventType: KClass<*>
     ): EventListener
 
     fun removeEventListener(eventListener: EventListener)

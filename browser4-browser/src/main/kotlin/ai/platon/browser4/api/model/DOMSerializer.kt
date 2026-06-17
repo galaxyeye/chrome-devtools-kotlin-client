@@ -1,36 +1,27 @@
 package ai.platon.browser4.api.model
 
-import ai.platon.browser4.api.model.*
-import ai.platon.pulsar.common.serialize.json.doubleBindModule
-import com.fasterxml.jackson.annotation.JsonInclude
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import kotlinx.serialization.json.Json
 
+/**
+ * Serializes DOM model objects to JSON using kotlinx.serialization.
+ * Uses [encodeDefaults] = false to mimic Jackson's NON_EMPTY inclusion —
+ * null and empty fields are omitted from the output.
+ */
 object DOMSerializer {
-    val MAPPER: ObjectMapper = jacksonObjectMapper().apply {
-        setDefaultPropertyInclusion(JsonInclude.Include.NON_EMPTY)
-        registerModule(doubleBindModule())
+    private val domJson = Json {
+        ignoreUnknownKeys = true
+        isLenient = true
+        coerceInputValues = true
+        encodeDefaults = false
     }
 
-    fun toJson(root: SerializableDOMTree): String {
-        return MAPPER.writeValueAsString(root)
-    }
+    fun toJson(root: SerializableDOMTree): String = domJson.encodeToString(root)
 
-    fun toJson(browserState: BrowserState): String {
-        return MAPPER.writeValueAsString(browserState)
-    }
+    fun toJson(browserState: BrowserState): String = domJson.encodeToString(browserState)
 
-    fun toJson(tabsState: List<TabState>): String {
-        return MAPPER.writeValueAsString(tabsState)
-    }
+    fun toJson(tabsState: List<TabState>): String = domJson.encodeToString(tabsState)
 
-    // serialize nano tree
-    fun toJson(nano: NanoDOMTree): String {
-        return MAPPER.writeValueAsString(nano)
-    }
+    fun toJson(nano: NanoDOMTree): String = domJson.encodeToString(nano)
 
-    // serialize nano tree
-    fun toJson(nodes: InteractiveDOMTreeNodeList): String {
-        return MAPPER.writeValueAsString(nodes)
-    }
+    fun toJson(nodes: InteractiveDOMTreeNodeList): String = domJson.encodeToString(nodes)
 }

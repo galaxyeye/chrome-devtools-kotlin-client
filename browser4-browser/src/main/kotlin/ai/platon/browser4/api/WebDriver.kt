@@ -12,9 +12,13 @@ import ai.platon.pulsar.common.ai.llm.MCP
 import ai.platon.pulsar.common.browser.BrowserType
 import ai.platon.pulsar.common.math.geometric.PointD
 import ai.platon.pulsar.common.math.geometric.RectD
-import ai.platon.pulsar.common.serialize.json.Pson
-import ai.platon.pulsar.common.serialize.json.pulsarObjectMapper
+import ai.platon.browser4.chrome.util.encodeJsonString
+import ai.platon.browser4.chrome.util.json
 import ai.platon.pulsar.common.urls.Hyperlink
+import kotlinx.serialization.json.booleanOrNull
+import kotlinx.serialization.json.contentOrNull
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import ai.platon.browser4.api.annotations.Beta
 import java.io.Closeable
 import java.time.Duration
@@ -1419,8 +1423,8 @@ interface WebDriver : Closeable {
      */
     @MCP
     suspend fun drag(sourceSelector: String, targetSelector: String) {
-        val encodedSource = Pson.toJson(sourceSelector)
-        val encodedTarget = Pson.toJson(targetSelector)
+        val encodedSource = encodeJsonString(sourceSelector)
+        val encodedTarget = encodeJsonString(targetSelector)
         val script = """
             (() => {
                 const source = document.querySelector($encodedSource);
@@ -1473,9 +1477,9 @@ interface WebDriver : Closeable {
         """.trimIndent()
         val result = evaluate(script) as? String
             ?: """{"ok":false,"error":"Failed to execute drag script"}"""
-        val parsed = pulsarObjectMapper().readTree(result)
-        if (!parsed.path("ok").asBoolean(false)) {
-            val error = parsed.path("error").asText("Unknown drag failure")
+        val parsed = json.parseToJsonElement(result).jsonObject
+        if (!(parsed["ok"]?.jsonPrimitive?.booleanOrNull ?: false)) {
+            val error = parsed["error"]?.jsonPrimitive?.contentOrNull ?: "Unknown drag failure"
             throw WebDriverException(
                 "Failed to drag '$sourceSelector' to '$targetSelector': $error",
                 driver = this

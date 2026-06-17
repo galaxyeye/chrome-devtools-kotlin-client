@@ -9,7 +9,8 @@ import ai.platon.pulsar.common.browser.BrowserFiles
 import ai.platon.pulsar.common.browser.Browsers
 import ai.platon.pulsar.common.concurrent.RuntimeShutdownHookRegistry
 import ai.platon.pulsar.common.concurrent.ShutdownHookRegistry
-import ai.platon.pulsar.common.serialize.json.prettyPulsarObjectMapper
+import ai.platon.browser4.chrome.util.anyToJsonElement
+import ai.platon.browser4.chrome.util.prettyJson
 import org.apache.commons.lang3.SystemUtils
 import org.slf4j.LoggerFactory
 import java.io.BufferedReader
@@ -784,7 +785,9 @@ ${scriptPath.toUri()}
      * Formats the report data as JSON.
      */
     private fun formatJsonReport(data: Map<String, Any>): String {
-        return prettyPulsarObjectMapper().writeValueAsString(data)
+        return prettyJson.encodeToString(kotlinx.serialization.json.buildJsonObject {
+            data.forEach { (k, v) -> put(k, anyToJsonElement(v)) }
+        })
     }
 
 

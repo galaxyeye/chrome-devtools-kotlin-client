@@ -1,7 +1,9 @@
 package ai.platon.browser4.api.model
 
 import ai.platon.browser4.chrome.protocol.types.network.LoadNetworkResourcePageResult
-import com.fasterxml.jackson.annotation.JsonProperty
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import java.time.Duration
 import java.time.Instant
 
@@ -45,38 +47,41 @@ data class NodeRef constructor(
     }
 }
 
-class ChromeVersion {
-    @JsonProperty("Browser")
-    val browser: String? = null
+@Serializable
+data class ChromeVersion(
+    @SerialName("Browser")
+    val browser: String? = null,
 
-    @JsonProperty("Protocol-Version")
-    val protocolVersion: String? = null
+    @SerialName("Protocol-Version")
+    val protocolVersion: String? = null,
 
-    @JsonProperty("User-Agent")
-    val userAgent: String? = null
+    @SerialName("User-Agent")
+    val userAgent: String? = null,
 
-    @JsonProperty("V8-Version")
-    val v8Version: String? = null
+    @SerialName("V8-Version")
+    val v8Version: String? = null,
 
-    @JsonProperty("WebKit-Version")
-    val webKitVersion: String? = null
+    @SerialName("WebKit-Version")
+    val webKitVersion: String? = null,
 
-    @JsonProperty("webSocketDebuggerUrl")
-    val webSocketDebuggerUrl: String? = null
-}
+    @SerialName("webSocketDebuggerUrl")
+    val webSocketDebuggerUrl: String? = null,
+)
 
 @Suppress("unused")
-class BrowserTab {
-    var id: String = ""
-    var parentId: String? = null
-    var description: String? = null
-    var title: String? = null
-    var type: String? = null
-    var url: String? = null
-    var devtoolsFrontendUrl: String? = null
-    var webSocketDebuggerUrl: String? = null
-    var faviconUrl: String? = null
-
+@Serializable
+data class BrowserTab(
+    var id: String = "",
+    var parentId: String? = null,
+    var description: String? = null,
+    var title: String? = null,
+    var type: String? = null,
+    var url: String? = null,
+    var devtoolsFrontendUrl: String? = null,
+    var webSocketDebuggerUrl: String? = null,
+    var faviconUrl: String? = null,
+) {
+    @Transient
     val createTime = Instant.now()
 
     val urlOrEmpty get() = url ?: ""

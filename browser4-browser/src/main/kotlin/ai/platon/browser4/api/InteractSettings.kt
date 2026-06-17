@@ -4,12 +4,20 @@ import ai.platon.pulsar.common.Systems
 import ai.platon.pulsar.common.browser.InteractLevel
 import ai.platon.pulsar.common.config.CapabilityTypes
 import ai.platon.pulsar.common.config.MutableConfig
-import ai.platon.pulsar.common.serialize.json.pulsarObjectMapper
-import com.fasterxml.jackson.core.JacksonException
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.boolean
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.int
+import kotlinx.serialization.json.intOrNull
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
+import kotlinx.serialization.json.longOrNull
 import java.time.Duration
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.random.Random
 
+@Serializable
 enum class DomSettlePolicy {
     READY_STATE_INTERACTIVE,
     READY_STATE_COMPLETE,
@@ -30,52 +38,21 @@ enum class DelayPreset {
  * The interaction settings.
  * */
 data class InteractSettings constructor(
-    /**
-     * Page positions to scroll to, these numbers are percentages of the total height,
-     * e.g., 0.2 means to scroll to 20% of the height of the page.
-     *
-     * Some typical positions are:
-     * * 0.3,0.75,0.4,0.5
-     * * 0.2, 0.3, 0.5, 0.75, 0.5, 0.4, 0.5, 0.75
-     * 0.3,0.75,0.4,0.5
-     * */
     var initScrollPositions: String = "0.3,0.75",
-    /**
-     * The number of scroll downs on the page.
-     * */
     var autoScrollCount: Int = 1,
-    /**
-     * The time interval to scroll down on the page.
-     * */
     var scrollInterval: Duration = Duration.ofMillis(500),
-    /**
-     * Timeout for executing custom scripts on the page.
-     * */
     var scriptTimeout: Duration = Duration.ofMinutes(1),
-    /**
-     * Timeout for loading a webpage by session.load().
-     * */
     var pageLoadTimeout: Duration = Duration.ofMinutes(3),
-    /**
-     * Whether to bring the page to the front before scroll.
-     * */
     var bringToFront: Boolean = false,
-    /**
-     * DOM settle policy.
-     * */
     var domSettlePolicy: DomSettlePolicy = DomSettlePolicy.FIELDS_SETTLE
 ) {
-    /**
-     * The minimum delay time in milliseconds.
-     * */
     var minDelayMillis = 50
-
-    /**
-     * The minimum delay time in milliseconds.
-     * */
     var maxDelayMillis = 2000
 
     val delayPolicy = DEFAULT_DELAY_POLICY.toMutableMap()
+
+    var minTimeout = Duration.ofSeconds(1)
+    var maxTimeout = Duration.ofMinutes(3)
 
     /**
      * Apply a predefined delay profile for different crawling scenarios.
@@ -96,16 +73,6 @@ data class InteractSettings constructor(
         generateRestrictedDelayPolicy()
         return this
     }
-
-    /**
-     * The minimum delay time in milliseconds.
-     * */
-    var minTimeout = Duration.ofSeconds(1)
-
-    /**
-     * The minimum delay time in milliseconds.
-     * */
-    var maxTimeout = Duration.ofMinutes(3)
 
     /**
      * Timeout policy for each action in seconds.
@@ -255,9 +222,22 @@ data class InteractSettings constructor(
      *
      * @return a json string
      * */
-    @Throws(JacksonException::class)
     fun toJson(): String {
-        return pulsarObjectMapper().writeValueAsString(this)
+        return ai.platon.browser4.chrome.util.json.encodeToString(
+            kotlinx.serialization.json.buildJsonObject {
+                put("initScrollPositions", kotlinx.serialization.json.JsonPrimitive(initScrollPositions))
+                put("autoScrollCount", kotlinx.serialization.json.JsonPrimitive(autoScrollCount))
+                put("scrollInterval", kotlinx.serialization.json.JsonPrimitive(scrollInterval.toMillis()))
+                put("scriptTimeout", kotlinx.serialization.json.JsonPrimitive(scriptTimeout.toMillis()))
+                put("pageLoadTimeout", kotlinx.serialization.json.JsonPrimitive(pageLoadTimeout.toMillis()))
+                put("bringToFront", kotlinx.serialization.json.JsonPrimitive(bringToFront))
+                put("domSettlePolicy", kotlinx.serialization.json.JsonPrimitive(domSettlePolicy.name))
+                put("minDelayMillis", kotlinx.serialization.json.JsonPrimitive(minDelayMillis))
+                put("maxDelayMillis", kotlinx.serialization.json.JsonPrimitive(maxDelayMillis))
+                put("minTimeout", kotlinx.serialization.json.JsonPrimitive(minTimeout.toMillis()))
+                put("maxTimeout", kotlinx.serialization.json.JsonPrimitive(maxTimeout.toMillis()))
+            }
+        )
     }
 
     object Builder {
@@ -494,10 +474,23 @@ data class InteractSettings constructor(
          * @param json the json string
          * @return an InteractSettings object
          * */
-        @Throws(JacksonException::class)
         fun fromJson(json: String): InteractSettings {
             return OBJECT_CACHE.computeIfAbsent(json) {
-                pulsarObjectMapper().readValue(json, InteractSettings::class.java)
+                val obj = ai.platon.browser4.chrome.util.json.parseToJsonElement(json).jsonObject
+                InteractSettings(
+                    initScrollPositions = obj["initScrollPositions"]?.jsonPrimitive?.content ?: "0.3,0.75",
+                    autoScrollCount = obj["autoScrollCount"]?.jsonPrimitive?.int ?: 1,
+                    scrollInterval = obj["scrollInterval"]?.jsonPrimitive?.longOrNull?.let { Duration.ofMillis(it) } ?: Duration.ofMillis(500),
+                    scriptTimeout = obj["scriptTimeout"]?.jsonPrimitive?.longOrNull?.let { Duration.ofMillis(it) } ?: Duration.ofMinutes(1),
+                    pageLoadTimeout = obj["pageLoadTimeout"]?.jsonPrimitive?.longOrNull?.let { Duration.ofMillis(it) } ?: Duration.ofMinutes(3),
+                    bringToFront = obj["bringToFront"]?.jsonPrimitive?.boolean ?: false,
+                    domSettlePolicy = obj["domSettlePolicy"]?.jsonPrimitive?.content?.let { DomSettlePolicy.valueOf(it) } ?: DomSettlePolicy.FIELDS_SETTLE,
+                ).also { settings ->
+                    obj["minDelayMillis"]?.jsonPrimitive?.intOrNull?.let { settings.minDelayMillis = it }
+                    obj["maxDelayMillis"]?.jsonPrimitive?.intOrNull?.let { settings.maxDelayMillis = it }
+                    obj["minTimeout"]?.jsonPrimitive?.longOrNull?.let { settings.minTimeout = Duration.ofMillis(it) }
+                    obj["maxTimeout"]?.jsonPrimitive?.longOrNull?.let { settings.maxTimeout = Duration.ofMillis(it) }
+                }
             }
         }
 

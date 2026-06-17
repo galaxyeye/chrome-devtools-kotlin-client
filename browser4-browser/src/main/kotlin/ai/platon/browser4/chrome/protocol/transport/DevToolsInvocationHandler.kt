@@ -22,6 +22,7 @@ import kotlin.coroutines.Continuation
 import kotlin.coroutines.intrinsics.COROUTINE_SUSPENDED
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
+import kotlin.reflect.KClass
 
 class DevToolsInvocationHandler : InvocationHandler {
     companion object {
@@ -88,7 +89,7 @@ class DevToolsInvocationHandler : InvocationHandler {
         val returnProperty = method.getAnnotation(Returns::class.java)?.value
 
         val returnTypeClasses = method.getAnnotation(ReturnTypeParameter::class.java)
-            ?.value?.map { it.java }?.toTypedArray() ?: resolvedTypeParams
+            ?.value?.let { @Suppress("UNCHECKED_CAST") (it as Array<KClass<*>>) } ?: resolvedTypeParams
 
         val methodInvocation = createMethodInvocation(method, args)
 
@@ -121,7 +122,7 @@ class DevToolsInvocationHandler : InvocationHandler {
 
         val domainName = method.declaringClass.simpleName
         val eventName: String = getEventName(method)
-        val eventHandlerType = ReflectUtils.getJavaClass(method)
+        val eventHandlerType = ReflectUtils.getEventKClass(method)
 
         @Suppress("UNCHECKED_CAST")
         val handler: EventHandler<Any> = when (val arg = args[0]) {

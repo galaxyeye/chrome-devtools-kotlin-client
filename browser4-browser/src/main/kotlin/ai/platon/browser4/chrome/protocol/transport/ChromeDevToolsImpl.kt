@@ -63,22 +63,22 @@ internal class ChromeDevToolsImpl(
         val rpcResult = sendAndReceive(invocation.id, method, returnProperty, message) ?: return null
         val jsonElement = rpcResult.result ?: return null
 
-        return dispatcher.deserialize(returnClass.java, jsonElement)
+        return dispatcher.deserialize(returnClass, jsonElement)
     }
 
     @Throws(ChromeRPCException::class)
-    override suspend fun <T> invoke(
-        clazz: Class<T>,
+    override suspend fun <T : Any> invoke(
+        clazz: KClass<T>,
         returnProperty: String?,
-        returnTypeClasses: Array<Class<out Any>>?,
+        returnTypeClasses: Array<KClass<*>>?,
         method: MethodInvocation
     ): T? = invokeInternal(clazz, returnProperty, returnTypeClasses, method, null)
 
     @Throws(ChromeRPCException::class)
-    internal suspend fun <T> invokeInternal(
-        clazz: Class<T>,
+    internal suspend fun <T : Any> invokeInternal(
+        clazz: KClass<T>,
         returnProperty: String?,
-        returnTypeClasses: Array<Class<out Any>>?,
+        returnTypeClasses: Array<KClass<*>>?,
         method: MethodInvocation,
         mockRpcResult: RpcResult? = null
     ): T? {
@@ -106,7 +106,7 @@ internal class ChromeDevToolsImpl(
                 }
             }
 
-            Void.TYPE == clazz -> null
+            Unit::class == clazz -> null
             rpcResult.result == null -> null
             returnTypeClasses != null -> dispatcher.deserialize(returnTypeClasses, clazz, rpcResult.result)
             else -> dispatcher.deserialize(clazz, rpcResult.result)
@@ -145,7 +145,7 @@ internal class ChromeDevToolsImpl(
 
     @Throws(ChromeRPCException::class, IOException::class)
     private fun handleFailedFurther(error: JsonElement?): CDPReturnError {
-        val errorObj = dispatcher.deserialize<ErrorObject>(ErrorObject::class.java, error)
+        val errorObj = dispatcher.deserialize<ErrorObject>(ErrorObject::class, error)
         val sb = StringBuilder(errorObj.message)
         if (errorObj.data != null) {
             sb.append(": ")
@@ -157,7 +157,7 @@ internal class ChromeDevToolsImpl(
 
     override fun addEventListener(
         domainName: String,
-        eventName: String, eventHandler: EventHandler<Any>, eventType: Class<*>
+        eventName: String, eventHandler: EventHandler<Any>, eventType: KClass<*>
     ): EventListener {
         val key = "$domainName.$eventName"
         val listener = DevToolsEventListener(key, eventHandler, eventType, this)

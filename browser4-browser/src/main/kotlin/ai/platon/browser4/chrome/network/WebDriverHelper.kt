@@ -16,9 +16,7 @@ import ai.platon.pulsar.common.MultiSinkMessageWriter
 import ai.platon.pulsar.common.alwaysFalse
 import ai.platon.pulsar.common.urls.URLUtils
 import ai.platon.pulsar.common.warnInterruptible
-import com.fasterxml.jackson.annotation.JsonInclude
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
+import kotlinx.serialization.json.Json
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.nio.file.Files
@@ -96,8 +94,8 @@ internal class WebDriverHelper(
     }
 
     fun serialize(cookie: Cookie): Map<String, String> {
-        val mapper = jacksonObjectMapper().setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL)
-        return mapper.readValue(mapper.writeValueAsString(cookie))
+        val cookieJson = Json { encodeDefaults = false }
+        return cookieJson.decodeFromString<Map<String, String>>(cookieJson.encodeToString(cookie))
     }
 
     fun createJsEvaluate(evaluate: Evaluate?): JsEvaluation? {

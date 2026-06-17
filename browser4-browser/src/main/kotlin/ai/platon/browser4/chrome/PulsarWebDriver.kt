@@ -40,13 +40,18 @@ import ai.platon.pulsar.common.math.geometric.OffsetD
 import ai.platon.pulsar.common.math.geometric.PointD
 import ai.platon.pulsar.common.math.geometric.RectD
 import ai.platon.pulsar.common.urls.URLUtils
-import com.fasterxml.jackson.annotation.JsonInclude
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
+import ai.platon.browser4.chrome.util.anyToJsonElement
+import ai.platon.browser4.chrome.util.encodeJsonString
+import ai.platon.browser4.chrome.util.json
 import ai.platon.browser4.api.annotations.Beta
 import kotlinx.coroutines.Dispatchers
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.buildJsonArray
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.withContext
@@ -79,6 +84,7 @@ open class PulsarWebDriver constructor(
         val value: String = "",
     )
 
+    @Serializable
     private data class StorageStateLoadSummary(
         val cookies: Int,
         val origins: Int,
@@ -230,21 +236,22 @@ open class PulsarWebDriver constructor(
     }
 
     override suspend fun saveStorageState(): String {
-        val mapper = jacksonObjectMapper().setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL)
         val cookies = getCookies().map { toStorageStateCookie(it) }
         val origins = listOfNotNull(captureCurrentOriginLocalStorage())
-        return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(
-            mapOf(
-                "cookies" to cookies,
-                "origins" to origins,
-            )
-        )
+        val cookieJson = Json { encodeDefaults = false; prettyPrint = true }
+        return cookieJson.encodeToString(anyToJsonElement(mapOf(
+            "cookies" to cookies,
+            "origins" to origins,
+        )))
     }
 
     override suspend fun loadStorageState(state: String): String {
-        val mapper = jacksonObjectMapper().setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL)
-        val payload = mapper.readValue<StorageStatePayload>(state)
-        val cookies = payload.cookies.map(::normalizeCookieForSet)
+        val jsonObj = json.parseToJsonElement(state).jsonObject
+        val cookies = (jsonObj["cookies"]?.jsonArray ?: emptyList()).map { cookieElem ->
+            cookieElem.jsonObject.mapValues { (_, v) ->
+                v.jsonPrimitive?.content ?: v.toString()
+            }
+        }.map(::normalizeCookieForSet)
         if (cookies.isNotEmpty()) {
             browserProtocol.setCookies(cookies)
         }
@@ -253,22 +260,33 @@ open class PulsarWebDriver constructor(
         var restoredOrigins = 0
         var restoredLocalStorageEntries = 0
 
-        payload.origins.forEach { originState ->
-            val origin = originState.origin.trim()
+        val origins = jsonObj["origins"]?.jsonArray ?: emptyList()
+        origins.forEach { originElem ->
+            val originObj = originElem.jsonObject
+            val origin = originObj["origin"]?.jsonPrimitive?.content?.trim() ?: ""
             require(origin.isNotEmpty()) { "Storage state origin must not be blank" }
             require(URLUtils.isStandard(origin)) { "Storage state origin must be a standard URL: $origin" }
 
+            val localStorage = originObj["localStorage"]?.jsonArray?.map { entryElem ->
+                val entryObj = entryElem.jsonObject
+                StorageStateEntryPayload(
+                    name = entryObj["name"]?.jsonPrimitive?.content ?: "",
+                    value = entryObj["value"]?.jsonPrimitive?.content ?: "",
+                )
+            } ?: emptyList()
+
             open(origin)
-            restoreLocalStorage(originState.localStorage, mapper)
+            val storageJson = Json { encodeDefaults = false }
+            restoreLocalStorage(localStorage, storageJson)
             restoredOrigins += 1
-            restoredLocalStorageEntries += originState.localStorage.size
+            restoredLocalStorageEntries += localStorage.size
         }
 
-        if (payload.origins.isNotEmpty() && originalUrl.isNotBlank() && currentUrl() != originalUrl) {
+        if (origins.isNotEmpty() && originalUrl.isNotBlank() && currentUrl() != originalUrl) {
             open(originalUrl)
         }
 
-        return mapper.writeValueAsString(
+        return json.encodeToString(
             StorageStateLoadSummary(
                 cookies = cookies.size,
                 origins = restoredOrigins,
@@ -639,8 +657,7 @@ open class PulsarWebDriver constructor(
 
     @Throws(WebDriverException::class)
     override suspend fun selectOption(selector: String, values: List<String>): List<String> {
-        val mapper = jacksonObjectMapper()
-        val jsonValues = mapper.writeValueAsString(values)
+        val jsonValues = json.encodeToString(values)
 
         val functionDeclaration = """
             function(jsonValues) {
@@ -1031,14 +1048,14 @@ function() {
     @Throws(WebDriverException::class)
     override suspend fun selectTextAll(selector: String): List<String> {
         val safeSelector = page.dom.normalizeSelector(selector, true) ?: selector
-        val json = evaluate("__pulsar_utils__.selectTextAll('$safeSelector')")?.toString() ?: "[]"
-        return jacksonObjectMapper().readValue(json)
+        val jsonStr = evaluate("__pulsar_utils__.selectTextAll('$safeSelector')")?.toString() ?: "[]"
+        return json.decodeFromString<List<String>>(jsonStr)
     }
 
     override suspend fun selectAttributes(selector: String): Map<String, String> {
         val safeSelector = page.dom.normalizeSelector(selector, true) ?: selector
-        val json = evaluate("__pulsar_utils__.selectAttributes('$safeSelector')")?.toString() ?: return mapOf()
-        val attributes: List<String> = jacksonObjectMapper().readValue(json)
+        val jsonStr = evaluate("__pulsar_utils__.selectAttributes('$safeSelector')")?.toString() ?: return mapOf()
+        val attributes: List<String> = json.decodeFromString(jsonStr)
         return attributes.zipWithNext().associate { it }
     }
 
@@ -1048,8 +1065,8 @@ function() {
         val safeSelector = page.dom.normalizeSelector(selector, true) ?: selector
 
         val expression = "__pulsar_utils__.selectAttributeAll('$safeSelector', '$attrName', $start, $end)"
-        val json = evaluate(expression)?.toString() ?: return listOf()
-        return jacksonObjectMapper().readValue(json)
+        val jsonStr = evaluate(expression)?.toString() ?: return listOf()
+        return json.decodeFromString<List<String>>(jsonStr)
     }
 
     @Throws(WebDriverException::class)
@@ -1078,8 +1095,8 @@ function() {
         val end = start + limit
         val safeSelector = page.dom.normalizeSelector(selector, true) ?: selector
         val expression = "__pulsar_utils__.selectPropertyValueAll('$safeSelector', '$propName', $start, $end)"
-        val json = evaluate(expression)?.toString() ?: return listOf()
-        return jacksonObjectMapper().readValue(json)
+        val jsonStr = evaluate(expression)?.toString() ?: return listOf()
+        return json.decodeFromString<List<String>>(jsonStr)
     }
 
     @Throws(WebDriverException::class)
@@ -1674,7 +1691,7 @@ function() {
 
     private suspend fun restoreLocalStorage(
         localStorage: List<StorageStateEntryPayload>,
-        mapper: ObjectMapper,
+        mapper: kotlinx.serialization.json.Json,
     ) {
         val normalizedEntries = localStorage.map { entry ->
             val name = entry.name.trim()
@@ -1684,7 +1701,7 @@ function() {
                 "value" to entry.value,
             )
         }
-        val entriesJson = mapper.writeValueAsString(normalizedEntries)
+        val entriesJson = mapper.encodeToString(normalizedEntries)
         val restoredCount = evaluateValue(
             """
             (() => {
@@ -1704,8 +1721,8 @@ function() {
     }
 
     private fun serialize(cookie: Cookie): Map<String, String> {
-        val mapper = jacksonObjectMapper().setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL)
-        return mapper.readValue(mapper.writeValueAsString(cookie))
+        val cookieJson = Json { encodeDefaults = false }
+        return cookieJson.decodeFromString<Map<String, String>>(cookieJson.encodeToString(cookie))
     }
 
     private fun toStorageStateCookie(cookie: Map<String, String>): Map<String, Any> {
@@ -1805,7 +1822,7 @@ function() {
     }
 
     private suspend fun dispatchDomKeyboardEvent(type: String, key: String) {
-        val safeKey = jacksonObjectMapper().writeValueAsString(key)
+        val safeKey = encodeJsonString(key)
         evaluate(
             """
                 (() => {

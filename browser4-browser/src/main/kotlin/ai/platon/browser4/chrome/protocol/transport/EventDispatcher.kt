@@ -14,6 +14,7 @@ import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.builtins.MapSerializer
 import kotlinx.serialization.json.*
 import kotlinx.serialization.serializer
+import kotlin.reflect.KClass
 import org.apache.commons.lang3.StringUtils
 import java.io.IOException
 import java.util.concurrent.ConcurrentHashMap
@@ -112,13 +113,14 @@ class EventDispatcher : Consumer<String>, AutoCloseable {
     }
 
     @Throws(IOException::class)
-    fun <T> deserialize(classParameters: Array<Class<*>>, parameterizedClazz: Class<T>, jsonElement: JsonElement): T {
+    @Suppress("UNCHECKED_CAST")
+    fun <T> deserialize(classParameters: Array<KClass<*>>, parameterizedClazz: KClass<*>, jsonElement: JsonElement): T {
         val serializer = buildParameterizedSerializer(classParameters, parameterizedClazz)
         try {
             @Suppress("UNCHECKED_CAST")
             return JSON.decodeFromJsonElement(serializer as KSerializer<T>, jsonElement)
         } catch (e: Exception) {
-            logger.warn("Failed to deserialize class ${parameterizedClazz.name}\n", e)
+            logger.warn("Failed to deserialize class ${parameterizedClazz.qualifiedName}\n", e)
             throw e
         }
     }
@@ -131,21 +133,22 @@ class EventDispatcher : Consumer<String>, AutoCloseable {
      */
     @Throws(IOException::class, ChromeRPCException::class)
     @Suppress("UNCHECKED_CAST")
-    fun <T : Any> deserialize(clazz: Class<*>, jsonElement: JsonElement?): T {
+    fun <T : Any> deserialize(clazz: KClass<*>, jsonElement: JsonElement?): T {
         if (jsonElement == null) {
-            throw ChromeRPCException("Failed converting null response to clazz ${clazz.name}")
+            throw ChromeRPCException("Failed converting null response to clazz ${clazz.qualifiedName}")
         }
 
         try {
-            val serializer = clazz.kotlin.serializer() as KSerializer<T>
+            @Suppress("UNCHECKED_CAST")
+            val serializer = clazz.serializer() as KSerializer<T>
             return JSON.decodeFromJsonElement(serializer, jsonElement)
         } catch (e: SerializationException) {
             val message = """
-                Failed converting response to clazz ${clazz.name}
+                Failed converting response to clazz ${clazz.qualifiedName}
                 $jsonElement
                 """.trimIndent()
             logger.warn(message, e)
-            throw IOException("Failed converting response to clazz ${clazz.name}", e)
+            throw IOException("Failed converting response to clazz ${clazz.qualifiedName}", e)
         }
     }
 
@@ -179,7 +182,8 @@ class EventDispatcher : Consumer<String>, AutoCloseable {
             is Number -> JsonPrimitive(value)
             is Boolean -> JsonPrimitive(value)
             is Enum<*> -> {
-                val serializer = (value as Enum<*>).declaringJavaClass.kotlin.serializer() as KSerializer<Any>
+                @Suppress("UNCHECKED_CAST")
+                val serializer = (value::class).serializer() as KSerializer<Any>
                 JSON.encodeToJsonElement(serializer, value)
             }
             is Map<*, *> -> buildJsonObject {
@@ -199,21 +203,21 @@ class EventDispatcher : Consumer<String>, AutoCloseable {
     }
 
     /**
-     * Builds a [KSerializer] for a parameterized type from runtime [Class] objects.
+     * Builds a [KSerializer] for a parameterized type from runtime [KClass] objects.
      */
     @OptIn(InternalSerializationApi::class)
     @Suppress("UNCHECKED_CAST")
     private fun buildParameterizedSerializer(
-        classParameters: Array<Class<*>>,
-        parameterizedClazz: Class<*>
+        classParameters: Array<KClass<*>>,
+        parameterizedClazz: KClass<*>
     ): KSerializer<*> {
-        val typeParamCount = parameterizedClazz.typeParameters.size
+        val typeParamCount = parameterizedClazz.java.typeParameters.size
 
         return when {
-            classParameters.isEmpty() -> parameterizedClazz.kotlin.serializer() as KSerializer<Any>
+            classParameters.isEmpty() -> parameterizedClazz.serializer() as KSerializer<Any>
 
             typeParamCount <= 1 -> {
-                var inner: KSerializer<*> = classParameters.last().kotlin.serializer() as KSerializer<Any>
+                var inner: KSerializer<*> = classParameters.last().serializer() as KSerializer<Any>
                 for (i in classParameters.size - 2 downTo 0) {
                     inner = ListSerializer(inner as KSerializer<Any>)
                 }
@@ -222,21 +226,21 @@ class EventDispatcher : Consumer<String>, AutoCloseable {
 
             typeParamCount == 2 -> {
                 if (classParameters.size == 2) {
-                    val keySer = classParameters[0].kotlin.serializer() as KSerializer<Any>
-                    val valueSer = classParameters[1].kotlin.serializer() as KSerializer<Any>
+                    val keySer = classParameters[0].serializer() as KSerializer<Any>
+                    val valueSer = classParameters[1].serializer() as KSerializer<Any>
                     MapSerializer(keySer, valueSer)
                 } else {
-                    var valueSer: KSerializer<*> = classParameters.last().kotlin.serializer() as KSerializer<Any>
+                    var valueSer: KSerializer<*> = classParameters.last().serializer() as KSerializer<Any>
                     for (i in classParameters.size - 2 downTo 1) {
                         valueSer = ListSerializer(valueSer as KSerializer<Any>)
                     }
-                    val keySer = classParameters[0].kotlin.serializer() as KSerializer<Any>
+                    val keySer = classParameters[0].serializer() as KSerializer<Any>
                     MapSerializer(keySer, valueSer as KSerializer<Any>)
                 }
             }
 
             else -> {
-                val serializers = classParameters.map { it.kotlin.serializer() as KSerializer<Any> }
+                val serializers = classParameters.map { it.serializer() as KSerializer<Any> }
                 serializers.first()
             }
         }

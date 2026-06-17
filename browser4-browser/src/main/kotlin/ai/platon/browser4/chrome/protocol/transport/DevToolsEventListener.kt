@@ -17,6 +17,7 @@ import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
+import kotlin.reflect.KClass
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.InputStream
@@ -29,7 +30,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 class DevToolsEventListener(
     val key: String,
     val handler: EventHandler<Any>,
-    val paramType: Class<*>,
+    val paramType: KClass<*>,
     private val devTools: RemoteDevTools
 ): EventListener, Comparable<DevToolsEventListener> {
     override fun off() {

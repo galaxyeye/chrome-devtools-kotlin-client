@@ -34,6 +34,7 @@ import ai.platon.browser4.chrome.protocol.types.runtime.CallArgument
 import ai.platon.browser4.chrome.protocol.types.runtime.CallFunctionOn
 import ai.platon.browser4.chrome.protocol.types.runtime.Evaluate
 import ai.platon.browser4.chrome.protocol.types.runtime.RemoteObject
+import kotlin.reflect.KClass
 
 /**
  * CDP is the single access point for all Chrome DevTools Protocol (CDP) domain APIs.
@@ -74,13 +75,13 @@ class DirectChromeProtocol(
     private suspend fun <T> listCommand(
         method: String,
         params: Map<String, Any?>?,
-        elementClass: Class<T>,
+        elementClass: KClass<*>,
         returnProperty: String,
     ): List<T> {
         val invocation = DevToolsInvocationHandler.createMethodInvocation(method, params)
-        val typeArgs = arrayOf<Class<*>>(elementClass)
+        val typeArgs = arrayOf<KClass<*>>(elementClass)
         return devTools.invoke(
-            List::class.java, returnProperty, typeArgs, invocation
+            List::class, returnProperty, typeArgs, invocation
         ) as List<T>
     }
 
@@ -91,13 +92,13 @@ class DirectChromeProtocol(
     private suspend fun <T> nestedListCommand(
         method: String,
         params: Map<String, Any?>?,
-        elementClass: Class<T>,
+        elementClass: KClass<*>,
         returnProperty: String,
     ): List<List<T>> {
         val invocation = DevToolsInvocationHandler.createMethodInvocation(method, params)
-        val typeArgs = arrayOf<Class<*>>(List::class.java, elementClass)
+        val typeArgs = arrayOf<KClass<*>>(List::class, elementClass)
         return devTools.invoke(
-            List::class.java, returnProperty, typeArgs, invocation
+            List::class, returnProperty, typeArgs, invocation
         ) as List<List<T>>
     }
 
@@ -105,7 +106,7 @@ class DirectChromeProtocol(
     private fun <T : Any> onEvent(
         domain: String,
         event: String,
-        eventType: Class<T>,
+        eventType: KClass<T>,
         handler: suspend (T) -> Unit,
     ): EventListener {
         return devTools.addEventListener(
@@ -188,13 +189,13 @@ class DirectChromeProtocol(
     }
 
     override fun onDocumentOpened(handler: suspend (DocumentOpened) -> Unit) =
-        onEvent("Page", "documentOpened", DocumentOpened::class.java, handler)
+        onEvent("Page", "documentOpened", DocumentOpened::class, handler)
 
     override fun onFrameNavigated(handler: suspend (FrameNavigated) -> Unit) =
-        onEvent("Page", "frameNavigated", FrameNavigated::class.java, handler)
+        onEvent("Page", "frameNavigated", FrameNavigated::class, handler)
 
     override fun onWindowOpen(handler: suspend (WindowOpen) -> Unit) =
-        onEvent("Page", "windowOpen", WindowOpen::class.java, handler)
+        onEvent("Page", "windowOpen", WindowOpen::class, handler)
 
     override suspend fun navigate(url: String): Navigate {
         return command<Navigate>("Page.navigate", mapOf("url" to url))!!
@@ -359,7 +360,7 @@ class DirectChromeProtocol(
         return nestedListCommand(
             "DOM.getContentQuads",
             mapOf("nodeId" to nodeId),
-            Double::class.java,
+            Double::class,
             "quads"
         )
     }
@@ -382,7 +383,7 @@ class DirectChromeProtocol(
         return listCommand(
             "DOM.querySelectorAll",
             mapOf("nodeId" to nodeId, "selector" to selector),
-            Int::class.java,
+            Int::class,
             "nodeIds"
         )
     }
@@ -401,7 +402,7 @@ class DirectChromeProtocol(
         return listCommand(
             "DOM.getSearchResults",
             mapOf("searchId" to searchId, "fromIndex" to fromIndex, "toIndex" to toIndex),
-            Int::class.java,
+            Int::class,
             "nodeIds"
         )
     }
@@ -412,7 +413,7 @@ class DirectChromeProtocol(
 
     override suspend fun getAttributes(nodeId: Int): List<String> {
         return listCommand(
-            "DOM.getAttributes", mapOf("nodeId" to nodeId), String::class.java, "attributes"
+            "DOM.getAttributes", mapOf("nodeId" to nodeId), String::class, "attributes"
         )
     }
 
@@ -480,7 +481,7 @@ class DirectChromeProtocol(
         return listCommand(
             "CSS.getComputedStyleForNode",
             mapOf("nodeId" to nodeId),
-            CSSComputedStyleProperty::class.java,
+            CSSComputedStyleProperty::class,
             "computedStyle"
         )
     }
@@ -493,7 +494,7 @@ class DirectChromeProtocol(
         return listCommand(
             "Accessibility.getFullAXTree",
             params { depth?.let { put("depth", it) } },
-            AXNode::class.java,
+            AXNode::class,
             "nodes"
         )
     }
@@ -509,7 +510,7 @@ class DirectChromeProtocol(
     }
 
     override suspend fun getCookies(): List<Cookie> {
-        return listCommand("Network.getCookies", null, Cookie::class.java, "cookies")
+        return listCommand("Network.getCookies", null, Cookie::class, "cookies")
     }
 
     override suspend fun deleteCookies(name: String, url: String?, domain: String?, path: String?) {
@@ -543,25 +544,25 @@ class DirectChromeProtocol(
     }
 
     override fun onRequestWillBeSent(handler: suspend (RequestWillBeSent) -> Unit) =
-        onEvent("Network", "requestWillBeSent", RequestWillBeSent::class.java, handler)
+        onEvent("Network", "requestWillBeSent", RequestWillBeSent::class, handler)
 
     override fun onRequestWillBeSentExtraInfo(handler: suspend (RequestWillBeSentExtraInfo) -> Unit) =
-        onEvent("Network", "requestWillBeSentExtraInfo", RequestWillBeSentExtraInfo::class.java, handler)
+        onEvent("Network", "requestWillBeSentExtraInfo", RequestWillBeSentExtraInfo::class, handler)
 
     override fun onRequestServedFromCache(handler: suspend (RequestServedFromCache) -> Unit) =
-        onEvent("Network", "requestServedFromCache", RequestServedFromCache::class.java, handler)
+        onEvent("Network", "requestServedFromCache", RequestServedFromCache::class, handler)
 
     override fun onResponseReceived(handler: suspend (ResponseReceived) -> Unit) =
-        onEvent("Network", "responseReceived", ResponseReceived::class.java, handler)
+        onEvent("Network", "responseReceived", ResponseReceived::class, handler)
 
     override fun onResponseReceivedExtraInfo(handler: suspend (ResponseReceivedExtraInfo) -> Unit) =
-        onEvent("Network", "responseReceivedExtraInfo", ResponseReceivedExtraInfo::class.java, handler)
+        onEvent("Network", "responseReceivedExtraInfo", ResponseReceivedExtraInfo::class, handler)
 
     override fun onLoadingFinished(handler: suspend (LoadingFinished) -> Unit) =
-        onEvent("Network", "loadingFinished", LoadingFinished::class.java, handler)
+        onEvent("Network", "loadingFinished", LoadingFinished::class, handler)
 
     override fun onLoadingFailed(handler: suspend (LoadingFailed) -> Unit) =
-        onEvent("Network", "loadingFailed", LoadingFailed::class.java, handler)
+        onEvent("Network", "loadingFailed", LoadingFailed::class, handler)
 
     // ---------------------------------------------------------------------------
     // Fetch domain
@@ -594,7 +595,7 @@ class DirectChromeProtocol(
     }
 
     override fun onDragIntercepted(handler: (DragIntercepted) -> Unit) =
-        onEvent("Input", "dragIntercepted", DragIntercepted::class.java, handler)
+        onEvent("Input", "dragIntercepted", DragIntercepted::class, handler)
 
     // ---------------------------------------------------------------------------
     // Input domain — mouse
@@ -807,10 +808,10 @@ class DirectChromeProtocol(
     }
 
     override fun onRequestPaused(handler: suspend (RequestPaused) -> Unit) =
-        onEvent("Fetch", "requestPaused", RequestPaused::class.java, handler)
+        onEvent("Fetch", "requestPaused", RequestPaused::class, handler)
 
     override fun onAuthRequired(handler: suspend (AuthRequired) -> Unit) =
-        onEvent("Fetch", "authRequired", AuthRequired::class.java, handler)
+        onEvent("Fetch", "authRequired", AuthRequired::class, handler)
 
     // ---------------------------------------------------------------------------
     // Security domain
@@ -825,7 +826,7 @@ class DirectChromeProtocol(
     // ---------------------------------------------------------------------------
 
     override fun onConsoleMessageAdded(handler: suspend (MessageAdded) -> Unit) =
-        onEvent("Console", "messageAdded", MessageAdded::class.java, handler)
+        onEvent("Console", "messageAdded", MessageAdded::class, handler)
 
     // ---------------------------------------------------------------------------
     // Lifecycle

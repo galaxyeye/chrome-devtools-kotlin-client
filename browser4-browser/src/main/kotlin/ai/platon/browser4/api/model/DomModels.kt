@@ -11,10 +11,11 @@ import ai.platon.browser4.api.dom.NanoDOMTreeBuilder
 import ai.platon.browser4.api.model.BrowserSettings.Companion.VIEWPORT
 import ai.platon.browser4.api.model.FBNLocator
 import ai.platon.browser4.api.model.LocatorMap
+import ai.platon.browser4.chrome.util.MapStringAnySerializer
 import ai.platon.pulsar.common.math.geometric.DimI
 import ai.platon.pulsar.common.math.roundTo
-import ai.platon.pulsar.common.serialize.json.Pson
-import com.fasterxml.jackson.annotation.JsonIgnore
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import org.apache.commons.lang3.StringUtils
 import java.math.RoundingMode
 import java.time.OffsetDateTime
@@ -90,6 +91,7 @@ object DefaultIncludeAttributes {
     )
 }
 
+@Serializable
 data class CompactRect(
     val x: Double? = null,
     val y: Double? = null,
@@ -122,6 +124,7 @@ data class CompactRect(
 /**
  * DOM rectangle with coordinates.
  */
+@Serializable
 data class DOMRect(
     val x: Double,
     val y: Double,
@@ -182,14 +185,17 @@ data class DOMRect(
 /**
  * Enhanced accessibility property.
  */
+@Serializable
 data class AXPropertyEx(
     val name: String,
+    @Transient
     val value: Any? = null
 )
 
 /**
  * Enhanced accessibility node with essential AX tree information.
  */
+@Serializable
 data class AXNodeEx(
     val axNodeId: String,
     /**
@@ -236,6 +242,7 @@ data class AXNodeEx(
 /**
  * Enhanced snapshot node data extracted from DOMSnapshot.
  */
+@Serializable
 data class SnapshotNodeEx constructor(
     val isClickable: Boolean? = null,
     val cursorStyle: String? = null,
@@ -251,6 +258,7 @@ data class SnapshotNodeEx constructor(
 /**
  * Enhanced DOM tree node containing merged information from DOM, AX, and Snapshot trees.
  */
+@Serializable
 data class MergedDOMTreeNode constructor(
     // DOM Node data
     val nodeId: Int = 0,
@@ -302,9 +310,9 @@ data class MergedDOMTreeNode constructor(
      */
     fun cssSelector(): String = CSSSelectorUtils.generateCSSSelector(this)
 
-    fun toJson() = Pson.toJson(this)
+    fun toJson() = ai.platon.browser4.chrome.util.json.encodeToString(this)
 
-    fun toYaml() = Pson.toYaml(this)
+    fun toYaml() = ai.platon.browser4.chrome.util.json.encodeToString(this)
 }
 
 typealias MergedDOMTree = MergedDOMTreeNode
@@ -312,6 +320,7 @@ typealias MergedDOMTree = MergedDOMTreeNode
 /**
  * An optimized DOM tree.
  */
+@Serializable
 data class OptimizedDOMTreeNode(
     val originalNode: MergedDOMTreeNode,
     val children: List<OptimizedDOMTreeNode> = emptyList(),
@@ -340,6 +349,7 @@ typealias OptimizedDOMTree = OptimizedDOMTreeNode
  * @param isVisible If the element is visible
  * @property isInteractable If the element is interactive
  */
+@Serializable
 data class DOMInteractedElement(
     val elementHash: String,
     val xpath: String? = null,
@@ -353,6 +363,7 @@ data class DOMInteractedElement(
  * Enhanced with additional snapshot information for LLM consumption.
  * This prevents duplication since children nodes already contains them.
  */
+@Serializable
 data class CleanedDOMTreeNode constructor(
     /**
      * Locator format: `frameIndex,backendNodeId`
@@ -367,6 +378,7 @@ data class CleanedDOMTreeNode constructor(
     val nodeType: Int,
     val nodeName: String,
     val nodeValue: String?,
+    @Serializable(with = MapStringAnySerializer::class)
     val attributes: Map<String, Any>?,
     val sessionId: String?,
     val isScrollable: Boolean?,   // null means false
@@ -387,7 +399,7 @@ data class CleanedDOMTreeNode constructor(
     val contentDocument: CleanedDOMTreeNode?
     // Note: children_nodes and shadow_roots are intentionally omitted
 ) {
-    fun toJson() = Pson.toJson(this)
+    fun toJson() = ai.platon.browser4.chrome.util.json.encodeToString(this)
 
     override fun hashCode(): Int {
         return toJson().hashCode()
@@ -403,6 +415,7 @@ data class CleanedDOMTreeNode constructor(
     }
 }
 
+@Serializable
 data class InteractiveDOMTreeNode(
     /**
      * Locator format: `frameIndex,backendNodeId`
@@ -414,17 +427,17 @@ data class InteractiveDOMTreeNode(
     val invisible: Boolean? = null,    // null means false
     val viewportIndex: Int? = null,
     val clientRects: CompactRect? = null,
-    @JsonIgnore
+    @Transient
     val bounds: CompactRect? = null,
-    @JsonIgnore
+    @Transient
     val scrollRects: CompactRect? = null,
-    @JsonIgnore
+    @Transient
     val absoluteBounds: CompactRect? = null,
-    @JsonIgnore
+    @Transient
     val interactiveIndex: Int = 0,
-    @JsonIgnore
+    @Transient
     val prevInteractiveIndex: Int? = null,
-    @JsonIgnore
+    @Transient
     val nextInteractiveIndex: Int? = null,
 ) {
     fun isAnchor(): Boolean {
@@ -459,13 +472,14 @@ data class InteractiveDOMTreeNode(
     }
 }
 
+@Serializable
 class InteractiveDOMTreeNodeList(
     val nodes: List<InteractiveDOMTreeNode> = emptyList(),
 ) {
-    @get:JsonIgnore
+
     val lazyJson by lazy { DOMSerializer.toJson(this) }
 
-    @get:JsonIgnore
+
     val lazyString by lazy { toString() }
 
     fun estimatedSize() = nodes.sumOf { InteractiveNodeListBuilder.estimatedSize(it) }
@@ -478,6 +492,7 @@ class InteractiveDOMTreeNodeList(
 /**
  * Serializable DOM tree node structure. Enhanced with compound component marking and paint order information.
  */
+@Serializable
 data class SerializableDOMTreeNode(
     val shouldDisplay: Boolean? = null,
     val interactiveIndex: Int? = null,
@@ -516,6 +531,7 @@ typealias SerializableDOMTree = SerializableDOMTreeNode
 /**
  * Serializable DOM tree node structure.
  * */
+@Serializable
 data class NanoDOMTreeNode(
     /**
      * Locator format: `frameIndex,backendNodeId`
@@ -523,6 +539,7 @@ data class NanoDOMTreeNode(
     val locator: String? = null,
     val nodeName: String? = null,
     val nodeValue: String? = null,
+    @Serializable(with = MapStringAnySerializer::class)
     val attributes: Map<String, Any>? = null,
     val scrollable: Boolean? = null,   // null means false
     val interactive: Boolean? = null,  // null means false
@@ -530,38 +547,40 @@ data class NanoDOMTreeNode(
     val scrollRects: CompactRect? = null,
     val children: List<NanoDOMTreeNode>? = null,
 
-    @JsonIgnore
+    @Transient
     val viewportIndex: Int? = null,    // The position of this DOM node falls within the nth viewport, 1-based
-    @JsonIgnore
+    @Transient
     val interactiveIndex: Int? = null,
-    @JsonIgnore
+    @Transient
     val clientRects: CompactRect? = null,
-    @JsonIgnore
+    @Transient
     val bounds: CompactRect? = null,
-    @JsonIgnore
+    @Transient
     val absoluteBounds: CompactRect? = null,
-    @JsonIgnore
+    @Transient
     val serializableTreeNode: SerializableDOMTree? = null,
 ) {
-    @get:JsonIgnore
+
     val ariaSnapshot: String by lazy { NanoAriaSnapshotRenderer.render(this) }
 
-    @get:JsonIgnore
+
     val ref: Int get() = FBNLocator.parseRelaxed(locator)?.backendNodeId ?: 0
 }
 
 typealias NanoDOMTree = NanoDOMTreeNode
 
+@Serializable
 data class DOMState constructor(
     val serializableTree: SerializableDOMTree,
     val interactiveNodes: List<SerializableDOMTreeNode> = listOf(),
     val frameIds: List<String> = listOf(),
     val selectorMap: Map<String, MergedDOMTreeNode> = mapOf(),
+    @Transient
     val locatorMap: LocatorMap = LocatorMap(),
-    @get:JsonIgnore
+
     val optimizedDOMTree: OptimizedDOMTree? = null
 ) {
-    @get:JsonIgnore
+
     val ariaSnapshot: String get() = optimizedDOMTree?.let(AriaSnapshotRenderer::render)
         ?: serializableTree.toNanoTreeUnfiltered().ariaSnapshot
 
@@ -583,11 +602,13 @@ data class DOMState constructor(
     }
 }
 
+@Serializable
 data class ClientInfo(
     val datetime: String = OffsetDateTime.now().toString(),
     // time zone: "Asia/Shanghai"
     val timeZone: String = ZoneId.systemDefault().id,
     // locale: "zh_CN"
+    @Transient
     val locale: Locale = Locale.getDefault(),
     val viewportWidth: Int = VIEWPORT.width,
     val viewportHeight: Int = VIEWPORT.height,
@@ -598,9 +619,11 @@ data class ClientInfo(
 /**
  * Reserved
  * */
+@Serializable
 data class FullClientInfo(
     val timeZone: String,
-    val locale: Locale,
+    @Transient
+    val locale: Locale = Locale.getDefault(),
     val userAgent: String? = null,
     val devicePixelRatio: Double? = null,
     val viewportWidth: Int? = null,
@@ -623,9 +646,11 @@ data class FullClientInfo(
     val visibilityState: String? = null,
 )
 
+@Serializable
 data class ScrollState constructor(
     val x: Double = 0.0,
     val y: Double = 0.0,
+    @Transient
     val viewport: DimI = VIEWPORT,
     val totalHeight: Double = VIEWPORT.height.toDouble(),
     val scrollYRatio: Double = 0.0,
@@ -645,6 +670,7 @@ data class ScrollState constructor(
 /**
  * Tab state information for multi-tab browser context.
  */
+@Serializable
 data class TabState(
     val id: String,           // Tab ID, aligned with Browser.drivers key
     val driverId: Int? = null, // Driver ID for diagnostics
@@ -653,6 +679,7 @@ data class TabState(
     val active: Boolean = false // Whether this is the active tab
 )
 
+@Serializable
 data class BrowserState constructor(
     val url: String,
     val scrollState: ScrollState = ScrollState(),
@@ -662,7 +689,7 @@ data class BrowserState constructor(
     val activeTabId: String? = null,
     val clientInfo: ClientInfo = ClientInfo(),
 ) {
-    @get:JsonIgnore
+
     val lazyJson: String by lazy { DOMSerializer.toJson(this) }
 }
 

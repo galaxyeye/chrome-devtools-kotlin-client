@@ -657,7 +657,7 @@
 
         <!-- Test -->
         <junit.version>4.13.1</junit.version>
-        <junit.jupiter.version>5.8.1</junit.jupiter.version>
+        <junit.jupiter.version>5.10.3</junit.jupiter.version>
         <easymock.version>3.4</easymock.version>
         <jsonassert.version>1.5.0</jsonassert.version>
         <mockwebserver.version>2.7.5</mockwebserver.version>

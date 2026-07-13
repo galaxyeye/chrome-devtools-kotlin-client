@@ -2,9 +2,17 @@ name: Test
 
 on:
   push:
-    branches: [main, browser4-*]
+    branches: [main, 4.*, 5.*, 6.*]
+    paths:
+      - '**/*.kt'
+      - '**/*.java'
+      - '**/pom.xml'
   pull_request:
     branches: [main]
+    paths:
+      - '**/*.kt'
+      - '**/*.java'
+      - '**/pom.xml'
 
 jobs:
   unit:
@@ -13,10 +21,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
         with:
-          java-version: '21'
+          java-version: '17'
           distribution: 'temurin'
           cache: maven
 
@@ -36,10 +44,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
         with:
-          java-version: '21'
+          java-version: '17'
           distribution: 'temurin'
           cache: maven
 

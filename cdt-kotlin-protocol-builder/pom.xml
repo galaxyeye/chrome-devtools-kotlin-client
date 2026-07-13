@@ -5,48 +5,32 @@
     <parent>
         <groupId>ai.platon.cdt</groupId>
         <artifactId>cdt-client-root</artifactId>
-        <version>4.8.2-SNAPSHOT</version>
+        <version>4.8.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>cdt-kotlin-protocol-builder</artifactId>
     <packaging>jar</packaging>
 
     <name>cdt-kotlin-protocol-builder</name>
-    <description>Chrome DevTools java protocol builder</description>
-    <url>https://github.com/kklisura/chrome-devtools-java-client</url>
+    <description>Chrome DevTools Kotlin protocol builder</description>
 
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <!-- kotlinpoet 2.2.0 uses kotlin-stdlib 2.2.20; keep aligned until kotlinpoet is upgraded -->
+        <kotlin.version>2.2.20</kotlin.version>
 
         <java.parser.core.version>3.5.11</java.parser.core.version>
-        <jackson.version>2.21.2</jackson.version>
-        <apache.collections.version>4.1</apache.collections.version>
-        <apache.lang3.version>3.18.0</apache.lang3.version>
-
-        <kotlin.version>2.2.20</kotlin.version>
-        <!-- kotlinpoet-2.2.0: kotlin-stdlib: 2.1.21 -> 2.2.20 -->
         <kotlinpoet.version>2.2.0</kotlinpoet.version>
-        <!-- kotlin-compile-testing:1.6.0: kotlin-compiler-embeddable: 1.9.24 -> 2.2.20 -->
+        <!-- kotlin-compile-testing 1.6.0 embeds kotlin-compiler-embeddable 1.9.24; aligned with kotlin.version -->
         <kotlin-compile-testing>1.6.0</kotlin-compile-testing>
-
-        <!-- Updated to a version compatible with modern JDKs -->
-        <lombok.version>1.18.34</lombok.version>
-        <logback.version>1.5.13</logback.version>
         <args4j.version>2.33</args4j.version>
         <google.java.format.version>1.5</google.java.format.version>
-
-        <junit.version>4.13.1</junit.version>
-        <jacoco.version>0.8.12</jacoco.version>
-        <easy.mock.version>3.4</easy.mock.version>
-        <jsonassert.version>1.5.0</jsonassert.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>ai.platon.cdt</groupId>
             <artifactId>cdt-protocol-parser</artifactId>
-            <version>4.8.2-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
@@ -70,43 +54,35 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>${jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
-            <version>${jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
         </dependency>
-
 
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
-            <version>${apache.collections.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>${apache.lang3.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib</artifactId>
-            <version>${kotlin.version}</version>
         </dependency>
 
         <dependency>
@@ -118,31 +94,21 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
         </dependency>
 
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.skyscreamer</groupId>
             <artifactId>jsonassert</artifactId>
-            <version>${jsonassert.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.easymock</groupId>
             <artifactId>easymock</artifactId>
-            <version>${easy.mock.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jacoco</groupId>
-            <artifactId>jacoco-maven-plugin</artifactId>
-            <version>${jacoco.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -152,8 +118,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Align the embedded Kotlin compiler used in tests with the project Kotlin version
-             to avoid metadata binary version conflicts (e.g., expected 1.8.0 vs found 2.1.0). -->
+        <!-- Align the embedded Kotlin compiler used in tests with the project Kotlin version -->
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-compiler-embeddable</artifactId>
@@ -163,16 +128,6 @@
     </dependencies>
 
     <build>
-        <finalName>${project.artifactId}</finalName>
-        <resources>
-            <resource>
-                <includes>
-                    <include>LICENSE.txt</include>
-                    <include>THIRD-PARTY.txt</include>
-                </includes>
-                <directory>.</directory>
-            </resource>
-        </resources>
         <plugins>
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
@@ -210,7 +165,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <jvmTarget>${maven.compiler.target}</jvmTarget>
+                    <jvmTarget>${kotlin.compiler.jvmTarget}</jvmTarget>
                 </configuration>
             </plugin>
             <plugin>
@@ -243,7 +198,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <!--suppress UnresolvedMavenProperty -->
                     <argLine>${jacoco.agent.argLine} --add-opens java.base/java.lang=ALL-UNNAMED --add-opens
@@ -252,10 +206,8 @@
                 </configuration>
             </plugin>
             <plugin>
-                <!-- Build an executable JAR -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.0.2</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -269,7 +221,6 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco.version}</version>
                 <executions>
                     <execution>
                         <id>pre-unit-test</id>

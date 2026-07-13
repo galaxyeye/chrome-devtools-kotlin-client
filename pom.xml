@@ -4,28 +4,34 @@
 
     <groupId>ai.platon.cdt</groupId>
     <artifactId>cdt-client-root</artifactId>
-    <version>4.8.2-SNAPSHOT</version>
+    <version>4.8.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>cdt-client-root</name>
-    <description>Chrome DevTools kotlin client</description>
+    <description>Chrome DevTools Kotlin client</description>
     <url>https://github.com/galaxyeye/chrome-devtools-kotlin-client</url>
 
     <modules>
         <module>cdt-protocol-parser</module>
         <module>cdt-kotlin-protocol-builder</module>
         <module>cdt-kotlin-client</module>
-        <module>cdt-kotlin-client-ktor</module>
         <module>cdt-kotlin-client-serialization</module>
+        <module>cdt-kotlin-client-ktor</module>
         <module>cdt-kotlin-client-ktor-serialization</module>
     </modules>
 
     <licenses>
         <license>
-            <name>The Apache License, Version 2.0</name>
+            <name>The Apache Software License, Version 2.0</name>
             <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
         </license>
     </licenses>
+
+    <scm>
+        <connection>scm:git:git://github.com/galaxyeye/chrome-devtools-kotlin-client.git</connection>
+        <developerConnection>scm:git:ssh://github.com/galaxyeye/chrome-devtools-kotlin-client.git</developerConnection>
+        <url>https://github.com/galaxyeye/chrome-devtools-kotlin-client</url>
+    </scm>
 
     <developers>
         <developer>
@@ -59,15 +65,72 @@
         </repository>
     </repositories>
 
+    <properties>
+        <!-- Build -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.inceptionYear>2018</project.inceptionYear>
+
+        <!-- Java -->
+        <java.version>17</java.version>
+        <maven.compiler.target>17</maven.compiler.target>
+
+        <!-- Kotlin -->
+        <kotlin.version>2.3.21</kotlin.version>
+        <kotlin.coroutine.version>1.10.2</kotlin.coroutine.version>
+        <kotlin.compiler.jvmTarget>17</kotlin.compiler.jvmTarget>
+        <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
+
+        <!-- Ktor -->
+        <ktor.version>2.3.11</ktor.version>
+
+        <!-- Kotlin libraries -->
+        <kotlinx.serialization.version>1.8.1</kotlinx.serialization.version>
+
+        <!-- 3rd-party -->
+        <jackson.version>2.19.4</jackson.version>
+        <lombok.version>1.18.46</lombok.version>
+        <logback.version>1.5.32</logback.version>
+        <commons.collections4.version>4.5.0</commons.collections4.version>
+        <commons.lang3.version>3.20.0</commons.lang3.version>
+        <slf4j.version>2.0.13</slf4j.version>
+        <javassist.version>3.24.1-GA</javassist.version>
+        <websocket.api.version>1.1</websocket.api.version>
+        <metrics.core.version>4.2.12</metrics.core.version>
+
+        <!-- Test -->
+        <junit.version>4.13.1</junit.version>
+        <junit.jupiter.version>5.8.1</junit.jupiter.version>
+        <easymock.version>3.4</easymock.version>
+        <jsonassert.version>1.5.0</jsonassert.version>
+        <mockwebserver.version>2.7.5</mockwebserver.version>
+
+        <!-- Dokka -->
+        <dokka.version>2.2.0</dokka.version>
+
+        <!-- Plugin versions -->
+        <maven.compiler.plugin.version>3.14.1</maven.compiler.plugin.version>
+        <maven.clean.plugin.version>3.2.0</maven.clean.plugin.version>
+        <maven.exec.plugin.version>3.5.0</maven.exec.plugin.version>
+        <maven.source.plugin.version>3.3.1</maven.source.plugin.version>
+        <maven.javadoc.plugin.version>3.6.3</maven.javadoc.plugin.version>
+        <maven.deploy.plugin.version>3.1.1</maven.deploy.plugin.version>
+        <maven.release.plugin.version>3.0.1</maven.release.plugin.version>
+        <maven.gpg.plugin.version>3.1.0</maven.gpg.plugin.version>
+        <maven.surefire.plugin.version>3.2.5</maven.surefire.plugin.version>
+        <maven.failsafe.plugin.version>3.2.5</maven.failsafe.plugin.version>
+        <maven.jar.plugin.version>3.4.1</maven.jar.plugin.version>
+        <checksum.maven.plugin.version>1.11</checksum.maven.plugin.version>
+        <jacoco.maven.plugin.version>0.8.12</jacoco.maven.plugin.version>
+        <license.maven.plugin.version>2.0.0</license.maven.plugin.version>
+        <fmt.maven.plugin.version>2.9.1</fmt.maven.plugin.version>
+        <versions.maven.plugin.version>2.16.2</versions.maven.plugin.version>
+        <central.publishing.maven.plugin.version>0.10.0</central.publishing.maven.plugin.version>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.jetbrains.kotlinx</groupId>
-                <artifactId>kotlinx-coroutines-bom</artifactId>
-                <version>${kotlin.coroutine.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
+            <!-- Kotlin BOMs -->
             <dependency>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-bom</artifactId>
@@ -75,22 +138,168 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>org.jetbrains.kotlinx</groupId>
+                <artifactId>kotlinx-coroutines-bom</artifactId>
+                <version>${kotlin.coroutine.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Jackson -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <!-- Logging -->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+            <!-- Commons -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${commons.collections4.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons.lang3.version}</version>
+            </dependency>
+
+            <!-- Lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+
+            <!-- Javassist -->
+            <dependency>
+                <groupId>org.javassist</groupId>
+                <artifactId>javassist</artifactId>
+                <version>${javassist.version}</version>
+            </dependency>
+
+            <!-- WebSocket -->
+            <dependency>
+                <groupId>javax.websocket</groupId>
+                <artifactId>javax.websocket-api</artifactId>
+                <version>${websocket.api.version}</version>
+            </dependency>
+
+            <!-- Metrics -->
+            <dependency>
+                <groupId>io.dropwizard.metrics</groupId>
+                <artifactId>metrics-core</artifactId>
+                <version>${metrics.core.version}</version>
+            </dependency>
+
+            <!-- Ktor (managed by BOM, but explicit for safety) -->
+            <dependency>
+                <groupId>io.ktor</groupId>
+                <artifactId>ktor-client-core</artifactId>
+                <version>${ktor.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.ktor</groupId>
+                <artifactId>ktor-client-core-jvm</artifactId>
+                <version>${ktor.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.ktor</groupId>
+                <artifactId>ktor-client-cio</artifactId>
+                <version>${ktor.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.ktor</groupId>
+                <artifactId>ktor-client-cio-jvm</artifactId>
+                <version>${ktor.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.ktor</groupId>
+                <artifactId>ktor-client-websockets</artifactId>
+                <version>${ktor.version}</version>
+            </dependency>
+
+            <!-- kotlinx.serialization -->
+            <dependency>
+                <groupId>org.jetbrains.kotlinx</groupId>
+                <artifactId>kotlinx-serialization-json</artifactId>
+                <version>${kotlinx.serialization.version}</version>
+            </dependency>
+
+            <!-- Test -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter</artifactId>
+                <version>${junit.jupiter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.skyscreamer</groupId>
+                <artifactId>jsonassert</artifactId>
+                <version>${jsonassert.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.easymock</groupId>
+                <artifactId>easymock</artifactId>
+                <version>${easymock.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp</groupId>
+                <artifactId>mockwebserver</artifactId>
+                <version>${mockwebserver.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <build>
+        <resources>
+            <resource>
+                <directory>.</directory>
+                <includes>
+                    <include>LICENSE.txt</include>
+                    <include>THIRD-PARTY.txt</include>
+                </includes>
+            </resource>
+        </resources>
+
         <pluginManagement>
             <plugins>
-                <!--  kotlin  -->
+                <!-- Kotlin -->
                 <plugin>
                     <groupId>org.jetbrains.kotlin</groupId>
                     <artifactId>kotlin-maven-plugin</artifactId>
                     <version>${kotlin.version}</version>
-                    <!-- You can set this option to automatically take information about lifecycles -->
-                    <extensions>true</extensions>
                     <executions>
                         <execution>
                             <id>compile</id>
+                            <phase>process-sources</phase>
                             <goals>
                                 <goal>compile</goal>
                             </goals>
@@ -103,6 +312,7 @@
                         </execution>
                         <execution>
                             <id>test-compile</id>
+                            <phase>test-compile</phase>
                             <goals>
                                 <goal>test-compile</goal>
                             </goals>
@@ -114,7 +324,12 @@
                             </configuration>
                         </execution>
                     </executions>
-                    <!--  Required by spring  -->
+                    <configuration>
+                        <args>
+                            <arg>-Xjsr305=strict</arg>
+                        </args>
+                        <jvmTarget>${kotlin.compiler.jvmTarget}</jvmTarget>
+                    </configuration>
                     <dependencies>
                         <dependency>
                             <groupId>org.jetbrains.kotlin</groupId>
@@ -123,91 +338,81 @@
                         </dependency>
                         <dependency>
                             <groupId>org.jetbrains.kotlin</groupId>
-                            <artifactId>kotlin-maven-noarg</artifactId>
+                            <artifactId>kotlin-maven-serialization</artifactId>
                             <version>${kotlin.version}</version>
                         </dependency>
                     </dependencies>
-                    <configuration>
-                        <args>
-                            <arg>-Xjsr305=strict</arg>
-                        </args>
-                        <compilerPlugins>
-                            <plugin>spring</plugin>
-                            <plugin>jpa</plugin>
-                            <plugin>all-open</plugin>
-                        </compilerPlugins>
-                        <pluginOptions>
-                            <option>all-open:annotation=javax.persistence.Entity</option>
-                            <option>all-open:annotation=javax.persistence.Embeddable</option>
-                            <option>all-open:annotation=javax.persistence.MappedSuperclass</option>
-                        </pluginOptions>
-                        <jvmTarget>${kotlin.compiler.jvmTarget}</jvmTarget>
-                    </configuration>
                 </plugin>
-                <!--  java  -->
+
+                <!-- Java compiler -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${maven-compiler-plugin.version}</version>
-                    <executions>
-                        <!--  Replacing default-compile as it is treated specially by maven  -->
-                        <execution>
-                            <id>default-compile</id>
-                            <phase>none</phase>
-                        </execution>
-                        <!--  Replacing default-testCompile as it is treated specially by maven  -->
-                        <execution>
-                            <id>default-testCompile</id>
-                            <phase>none</phase>
-                        </execution>
-                        <execution>
-                            <id>java-compile</id>
-                            <phase>compile</phase>
-                            <goals>
-                                <goal>compile</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>java-test-compile</id>
-                            <phase>test-compile</phase>
-                            <goals>
-                                <goal>testCompile</goal>
-                            </goals>
-                        </execution>
-                    </executions>
+                    <version>${maven.compiler.plugin.version}</version>
                     <configuration>
                         <verbose>true</verbose>
                         <fork>true</fork>
-                        <source>${javac.src.version}</source>
-                        <target>${javac.target.version}</target>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                        <annotationProcessorPaths>
+                            <path>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                                <version>${lombok.version}</version>
+                            </path>
+                        </annotationProcessorPaths>
                     </configuration>
                 </plugin>
+
+                <!-- Clean -->
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
-                    <version>${maven-clean-plugin.version}</version>
-                    <configuration>
-                        <filesets>
-                            <fileset>
-                                <directory>${basedir}/lib</directory>
-                                <followSymlinks>false</followSymlinks>
-                                <useDefaultExcludes>true</useDefaultExcludes>
-                                <includes>
-                                    <include>*.*</include>
-                                </includes>
-                            </fileset>
-                        </filesets>
-                    </configuration>
+                    <version>${maven.clean.plugin.version}</version>
                 </plugin>
+
+                <!-- Exec -->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>exec-maven-plugin</artifactId>
-                    <version>${maven-exec-plugin.version}</version>
+                    <version>${maven.exec.plugin.version}</version>
                 </plugin>
+
+                <!-- Source -->
                 <plugin>
-                    <!-- This plugin is also present in cdt-java-client, so be sure to copy any changes here to that module as well -->
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${maven.source.plugin.version}</version>
+                </plugin>
+
+                <!-- Javadoc -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven.javadoc.plugin.version}</version>
+                    <configuration>
+                        <doclint>none</doclint>
+                    </configuration>
+                </plugin>
+
+                <!-- JAR -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${maven.jar.plugin.version}</version>
+                </plugin>
+
+                <!-- Dependency -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>3.6.1</version>
+                </plugin>
+
+                <!-- License header -->
+                <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>license-maven-plugin</artifactId>
-                    <version>2.0.0</version>
+                    <version>${license.maven.plugin.version}</version>
                     <executions>
                         <execution>
                             <id>update-file-header</id>
@@ -249,11 +454,12 @@
                         </licenseMerges>
                     </configuration>
                 </plugin>
+
+                <!-- Code formatting -->
                 <plugin>
-                    <!-- This plugin is also present in cdt-java-client, so be sure to copy any changes here to that module as well -->
                     <groupId>com.coveo</groupId>
                     <artifactId>fmt-maven-plugin</artifactId>
-                    <version>2.9.1</version>
+                    <version>${fmt.maven.plugin.version}</version>
                     <executions>
                         <execution>
                             <goals>
@@ -264,42 +470,24 @@
                     </executions>
                 </plugin>
 
-
                 <!-- GPG signing -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-gpg-plugin</artifactId>
-                    <version>${maven-gpg-plugin.version}</version>
+                    <version>${maven.gpg.plugin.version}</version>
                     <configuration>
                         <gpgArguments>
                             <arg>--pinentry-mode</arg>
                             <arg>loopback</arg>
                         </gpgArguments>
                     </configuration>
-                    <executions>
-                        <execution>
-                            <id>sign-artifacts</id>
-                            <phase>verify</phase>
-                            <goals>
-                                <goal>sign</goal>
-                            </goals>
-                        </execution>
-                    </executions>
                 </plugin>
 
-                <!-- Calculate checksums -->
+                <!-- Checksums -->
                 <plugin>
                     <groupId>net.nicoulaj.maven.plugins</groupId>
                     <artifactId>checksum-maven-plugin</artifactId>
-                    <version>${checksum-maven-plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <id>source-release-checksum</id>
-                            <goals>
-                                <goal>files</goal>
-                            </goals>
-                        </execution>
-                    </executions>
+                    <version>${checksum.maven.plugin.version}</version>
                     <configuration>
                         <algorithms>
                             <algorithm>SHA-512</algorithm>
@@ -319,10 +507,33 @@
                         <failIfNoFiles>false</failIfNoFiles>
                     </configuration>
                 </plugin>
+
+                <!-- Surefire (unit tests) -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven.surefire.plugin.version}</version>
+                </plugin>
+
+                <!-- Failsafe (integration tests) -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>${maven.failsafe.plugin.version}</version>
+                </plugin>
+
+                <!-- JaCoCo -->
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${jacoco.maven.plugin.version}</version>
+                </plugin>
+
+                <!-- Maven Central publishing -->
                 <plugin>
                     <groupId>org.sonatype.central</groupId>
                     <artifactId>central-publishing-maven-plugin</artifactId>
-                    <version>${central-publishing-maven-plugin.version}</version>
+                    <version>${central.publishing.maven.plugin.version}</version>
                     <extensions>true</extensions>
                     <configuration>
                         <publishingServerId>central</publishingServerId>
@@ -331,49 +542,4 @@
             </plugins>
         </pluginManagement>
     </build>
-
-    <properties>
-        <!-- Build properties -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <project.inceptionYear>2018</project.inceptionYear>
-
-        <ktor.version>2.3.11</ktor.version>
-
-        <version.maven-exec-plugin>3.5.0</version.maven-exec-plugin>
-
-        <!--  Java  -->
-        <javac.src.version>17</javac.src.version>
-        <javac.target.version>17</javac.target.version>
-        <maven.compiler.target>17</maven.compiler.target>
-        <!--  Kotlin  -->
-        <!-- supported languageVersion: 1.8, 1.9, 2.0, etc -->
-        <!--        <kotlin.compiler.languageVersion>1.9</kotlin.compiler.languageVersion>-->
-        <!-- Target version of the generated JVM bytecode, 1.8, 9, 10, ..., 21, default 1.8 -->
-        <kotlin.compiler.jvmTarget>17</kotlin.compiler.jvmTarget>
-
-        <kotlin.version>2.2.20</kotlin.version>
-        <kotlin.coroutine.version>1.10.2</kotlin.coroutine.version>
-        <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
-
-        <dokka.version>2.2.0</dokka.version>
-
-        <!-- Plugin versions -->
-        <maven-compiler-plugin.version>3.12.1</maven-compiler-plugin.version>
-        <maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
-        <maven-exec-plugin.version>3.3.0</maven-exec-plugin.version>
-
-        <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
-        <maven-javadoc-plugin.version>3.6.3</maven-javadoc-plugin.version>
-        <maven-deploy-plugin.version>3.1.1</maven-deploy-plugin.version>
-        <maven-release-plugin.version>3.0.1</maven-release-plugin.version>
-        <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
-        <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
-        <maven-failsafe-plugin.version>3.2.5</maven-failsafe-plugin.version>
-        <checksum-maven-plugin.version>1.11</checksum-maven-plugin.version>
-        <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
-        <license-maven-plugin.version>4.3</license-maven-plugin.version>
-        <versions-maven-plugin.version>2.16.2</versions-maven-plugin.version>
-        <central-publishing-maven-plugin.version>0.9.0</central-publishing-maven-plugin.version>
-    </properties>
 </project>

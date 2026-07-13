@@ -81,11 +81,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>com.squareup</groupId>
             <artifactId>kotlinpoet-jvm</artifactId>
             <version>${kotlinpoet.version}</version>

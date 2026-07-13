@@ -9,35 +9,14 @@
     </parent>
 
     <artifactId>cdt-kotlin-client-serialization</artifactId>
-    <packaging>jar</packaging>
 
     <name>cdt-kotlin-client-serialization</name>
     <description>Chrome DevTools Kotlin client with kotlinx.serialization support</description>
 
     <dependencies>
         <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.jetbrains.kotlinx</groupId>
             <artifactId>kotlinx-serialization-json</artifactId>
         </dependency>
     </dependencies>
-
-    <build>
-        <defaultGoal>install</defaultGoal>
-
-        <plugins>
-            <plugin>
-                <groupId>org.jetbrains.kotlin</groupId>
-                <artifactId>kotlin-maven-plugin</artifactId>
-                <configuration>
-                    <compilerPlugins>
-                        <plugin>kotlinx-serialization</plugin>
-                    </compilerPlugins>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>

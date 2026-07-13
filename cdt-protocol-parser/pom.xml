@@ -6,7 +6,7 @@
     <parent>
         <groupId>ai.platon.cdt</groupId>
         <artifactId>cdt-client-root</artifactId>
-        <version>4.8.0-SNAPSHOT</version>
+        <version>4.8.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>cdt-protocol-parser</artifactId>

@@ -17,79 +17,13 @@
     <dependencies>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib-jdk8</artifactId>
+            <artifactId>kotlin-stdlib</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlinx</groupId>
             <artifactId>kotlinx-serialization-json</artifactId>
         </dependency>
     </dependencies>
-
-    <profiles>
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                                <configuration>
-                                    <includes>
-                                        <include>src/main/java/**</include>
-                                        <include>src/main/kotlin/**</include>
-                                    </includes>
-                                    <excludes>
-                                        <exclude>target/**</exclude>
-                                    </excludes>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>attach-javadocs</id>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.sonatype.central</groupId>
-                        <artifactId>central-publishing-maven-plugin</artifactId>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <publishingServerId>central</publishingServerId>
-                            <autoPublish>true</autoPublish>
-                            <waitForPublishCompletion>true</waitForPublishCompletion>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
     <build>
         <defaultGoal>install</defaultGoal>
@@ -104,55 +38,6 @@
                     </compilerPlugins>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.jetbrains.dokka</groupId>
-                <artifactId>dokka-maven-plugin</artifactId>
-                <version>${dokka.version}</version>
-                <executions>
-                    <execution>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>dokka</goal>
-                            <goal>javadocJar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <skip>false</skip>
-                    <cacheRoot>default</cacheRoot>
-                    <jdkVersion>11</jdkVersion>
-                    <skipDeprecated>true</skipDeprecated>
-                    <reportUndocumented>true</reportUndocumented>
-                    <skipEmptyPackages>false</skipEmptyPackages>
-                    <includeNonPublic>false</includeNonPublic>
-                    <sourceDirectories>
-                        <dir>${project.basedir}/src/main/java</dir>
-                        <dir>${project.basedir}/src/main/kotlin</dir>
-                    </sourceDirectories>
-                    <noStdlibLink>false</noStdlibLink>
-                    <noJdkLink>false</noJdkLink>
-                    <perPackageOptions>
-                        <packageOptions>
-                            <skipDeprecated>false</skipDeprecated>
-                            <reportUndocumented>true</reportUndocumented>
-                            <includeNonPublic>false</includeNonPublic>
-                        </packageOptions>
-                    </perPackageOptions>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>net.nicoulaj.maven.plugins</groupId>
-                <artifactId>checksum-maven-plugin</artifactId>
-            </plugin>
         </plugins>
     </build>
-
-    <properties>
-        <project.inceptionYear>2025</project.inceptionYear>
-    </properties>
 </project>

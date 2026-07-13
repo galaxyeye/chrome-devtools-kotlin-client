@@ -15,10 +15,6 @@
     <name>cdt-protocol-parser</name>
     <description>Chrome DevTools protocol parser</description>
 
-<properties>
-    <kotlin.version>2.4.0</kotlin.version>
-</properties>
-
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -135,4 +131,38 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <!-- This module is Java-only, so use standard javadoc instead of Dokka -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <configuration>
+                            <skip>false</skip>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- Skip Dokka for this Java-only module -->
+                    <plugin>
+                        <groupId>org.jetbrains.dokka</groupId>
+                        <artifactId>dokka-maven-plugin</artifactId>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

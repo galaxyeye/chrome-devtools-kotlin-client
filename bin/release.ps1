@@ -23,6 +23,21 @@ function Parse-Version($v) {
     return [int[]]($clean -split '\.')
 }
 
+# ------------------------------------------------------------------
+# Helper: invoke mvnw safely (suppresses JVM stderr noise that would
+# otherwise trigger $ErrorActionPreference = "Stop")
+# ------------------------------------------------------------------
+function Invoke-Mvn {
+    $prevEAP = $ErrorActionPreference
+    $ErrorActionPreference = "Continue"
+    try {
+        & .\mvnw @args 2>$null
+        $global:LASTEXITCODE = $LASTEXITCODE
+    } finally {
+        $ErrorActionPreference = $prevEAP
+    }
+}
+
 $repoRoot = (git rev-parse --show-toplevel 2>$null)
 if (-not $repoRoot) {
     Write-Host "ERROR: Not in a git repository." -ForegroundColor Red
@@ -55,7 +70,7 @@ if (-not (Test-Path $pomPath)) {
 # ------------------------------------------------------------------
 # 1. Read the local SNAPSHOT version via Maven (handles inheritance + namespaces)
 # ------------------------------------------------------------------
-$snapshotVersion = .\mvnw -pl $artifactId help:evaluate "-Dexpression=project.version" -q -DforceStdout 2>$null
+$snapshotVersion = Invoke-Mvn -pl $artifactId help:evaluate "-Dexpression=project.version" -q -DforceStdout
 if (-not $snapshotVersion) {
     Write-Host "ERROR: Could not determine project version from Maven." -ForegroundColor Red
     exit 1
@@ -160,7 +175,7 @@ if ($confirm -notin @('y', 'Y')) {
 # ------------------------------------------------------------------
 Write-Host "`nSetting release version $releaseVersion ..." -ForegroundColor Cyan
 
-.\mvnw versions:set "-DnewVersion=$releaseVersion" -pl $artifactId -q
+Invoke-Mvn versions:set "-DnewVersion=$releaseVersion" -pl $artifactId -q
 if ($LASTEXITCODE -ne 0) {
     Write-Host "ERROR: Failed to set release version." -ForegroundColor Red
     exit 1
@@ -174,14 +189,14 @@ Write-Host "Set $artifactId version to $releaseVersion" -ForegroundColor Green
 Write-Host "`nRunning Maven release (clean deploy) ..." -ForegroundColor Cyan
 
 try {
-    .\mvnw -Prelease clean deploy -DskipTests -pl $artifactId -am
+    Invoke-Mvn -Prelease clean deploy -DskipTests -pl $artifactId -am
     if ($LASTEXITCODE -ne 0) {
         throw "Maven exited with code $LASTEXITCODE"
     }
     Write-Host "`nRelease $releaseVersion deployed successfully to Maven Central!" -ForegroundColor Green
 
     # Finalize the version change (removes the versions:set backup file)
-    .\mvnw versions:commit -pl $artifactId -q 2>$null
+    Invoke-Mvn versions:commit -pl $artifactId -q
 
     # ------------------------------------------------------------------
     # 7. Git: commit, tag, and update main branch
@@ -219,7 +234,7 @@ try {
     Write-Host "`nMaven release failed: $_" -ForegroundColor Red
     Write-Host "Reverting to SNAPSHOT version ..." -ForegroundColor Yellow
 
-    .\mvnw versions:revert -pl $artifactId -q 2>$null
+    Invoke-Mvn versions:revert -pl $artifactId -q
 
     Write-Host "Restored $artifactId/pom.xml to $snapshotVersion" -ForegroundColor Yellow
     exit 1

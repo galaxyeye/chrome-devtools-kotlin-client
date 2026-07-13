@@ -215,30 +215,14 @@
         </dependencies>
     </dependencyManagement>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib</artifactId>
-        </dependency>
-    </dependencies>
-
     <build>
-        <resources>
-            <resource>
-                <directory>.</directory>
-                <includes>
-                    <include>LICENSE.txt</include>
-                    <include>THIRD-PARTY.txt</include>
-                </includes>
-            </resource>
-        </resources>
+        <defaultGoal>install</defaultGoal>
 
-        <pluginManagement>
-            <plugins>
-                <!-- Kotlin -->
-                <plugin>
-                    <groupId>org.jetbrains.kotlin</groupId>
-                    <artifactId>kotlin-maven-plugin</artifactId>
+        <plugins>
+            <!-- Kotlin -->
+            <plugin>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
                     <version>${kotlin.version}</version>
                     <executions>
                         <execution>
@@ -247,6 +231,12 @@
                             <goals>
                                 <goal>compile</goal>
                             </goals>
+                            <configuration>
+                                <sourceDirs>
+                                    <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
+                                    <sourceDir>${project.basedir}/src/main/java</sourceDir>
+                                </sourceDirs>
+                            </configuration>
                         </execution>
                         <execution>
                             <id>test-compile</id>
@@ -267,6 +257,9 @@
                             <arg>-Xjsr305=strict</arg>
                         </args>
                         <jvmTarget>${kotlin.compiler.jvmTarget}</jvmTarget>
+                        <compilerPlugins>
+                            <plugin>spring</plugin>
+                        </compilerPlugins>
                     </configuration>
                     <dependencies>
                         <dependency>
@@ -301,7 +294,10 @@
                         </annotationProcessorPaths>
                     </configuration>
                 </plugin>
+        </plugins>
 
+        <pluginManagement>
+            <plugins>
                 <!-- Clean -->
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
@@ -606,6 +602,25 @@
         </profile>
     </profiles>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-reflect</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlinx</groupId>
+            <artifactId>kotlinx-coroutines-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-test-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <properties>
         <!-- Build -->

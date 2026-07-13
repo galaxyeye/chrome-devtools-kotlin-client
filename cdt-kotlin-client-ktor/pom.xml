@@ -13,10 +13,6 @@
     <name>cdt-kotlin-client-ktor</name>
     <description>A simple Chrome DevTools Client Implementation based on Ktor</description>
 
-    <properties>
-        <project.inceptionYear>2025</project.inceptionYear>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>ai.platon.cdt</groupId>
@@ -226,14 +222,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.jetbrains.kotlin</groupId>
-                <artifactId>kotlin-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

@@ -24,7 +24,7 @@
         <!-- Updated to a version compatible with modern JDKs -->
         <lombok.version>1.18.34</lombok.version>
         <java.parser.core.version>3.5.11</java.parser.core.version>
-        <jackson.version>2.11.3</jackson.version>
+        <jackson.version>2.21.2</jackson.version>
         <junit.version>4.13.1</junit.version>
         <jsonassert.version>1.5.0</jsonassert.version>
     </properties>

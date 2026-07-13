@@ -435,9 +435,9 @@
 
     <profiles>
 
-        <!-- Deployment profile -->
+        <!-- Release profile -->
         <profile>
-            <id>deploy</id>
+            <id>release</id>
 
             <build>
                 <plugins>

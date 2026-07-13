@@ -2,82 +2,26 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- NOTE: Do not add parent tag here, since it gets deployed (via mvn deploy),
-         so clients won't be able to pull it unless parent is also deployed -->
+    <parent>
+        <groupId>ai.platon.cdt</groupId>
+        <artifactId>cdt-client-root</artifactId>
+        <version>4.8.1-SNAPSHOT</version>
+    </parent>
 
-    <groupId>ai.platon.cdt</groupId>
     <artifactId>cdt-kotlin-client-serialization</artifactId>
-    <version>4.8.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>cdt-kotlin-client-serialization</name>
     <description>Chrome DevTools Kotlin client with kotlinx.serialization support</description>
-    <url>https://github.com/galaxyeye/chrome-devtools-kotlin-client</url>
-
-    <developers>
-        <developer>
-            <name>Vincent Zhang</name>
-            <email>ivincent.zhang@gmail.com</email>
-            <organization>browser4.io</organization>
-            <timezone>+8</timezone>
-        </developer>
-    </developers>
-
-    <organization>
-        <name>browser4.io</name>
-        <url>https://browser4.io</url>
-    </organization>
-
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
-    <scm>
-        <connection>scm:git:git://github.com/galaxyeye/chrome-devtools-kotlin-client.git</connection>
-        <developerConnection>scm:git:ssh://github.com/galaxyeye/chrome-devtools-kotlin-client.git</developerConnection>
-        <url>https://github.com/galaxyeye/chrome-devtools-kotlin-client</url>
-    </scm>
-
-    <distributionManagement>
-        <repository>
-            <id>central</id>
-            <url>https://central.sonatype.com/api/v1/publisher</url>
-        </repository>
-    </distributionManagement>
-
-    <repositories>
-        <repository>
-            <id>Central</id>
-            <url>https://repo1.maven.org/maven2/</url>
-        </repository>
-    </repositories>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.jetbrains.kotlin</groupId>
-                <artifactId>kotlin-bom</artifactId>
-                <version>${kotlin.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib-jdk8</artifactId>
-            <version>${kotlin.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlinx</groupId>
             <artifactId>kotlinx-serialization-json</artifactId>
-            <version>${kotlinx.serialization.version}</version>
         </dependency>
     </dependencies>
 
@@ -89,7 +33,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
-                        <version>3.3.1</version>
                         <executions>
                             <execution>
                                 <id>attach-sources</id>
@@ -111,23 +54,18 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.6.3</version>
                         <executions>
                             <execution>
                                 <id>attach-javadocs</id>
                                 <goals>
                                     <goal>jar</goal>
                                 </goals>
-                                <configuration>
-                                    <doclint>none</doclint>
-                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>${maven-gpg-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -141,7 +79,6 @@
                     <plugin>
                         <groupId>org.sonatype.central</groupId>
                         <artifactId>central-publishing-maven-plugin</artifactId>
-                        <version>${central-publishing-maven-plugin.version}</version>
                         <extensions>true</extensions>
                         <configuration>
                             <publishingServerId>central</publishingServerId>
@@ -157,69 +94,19 @@
     <build>
         <defaultGoal>install</defaultGoal>
 
-        <resources>
-            <resource>
-                <includes>
-                    <include>LICENSE.txt</include>
-                    <include>THIRD-PARTY.txt</include>
-                </includes>
-                <directory>.</directory>
-            </resource>
-        </resources>
-
         <plugins>
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
-                <version>${kotlin.version}</version>
-                <executions>
-                    <execution>
-                        <id>compile</id>
-                        <phase>process-sources</phase>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                        <configuration>
-                            <sourceDirs>
-                                <source>src/main/kotlin</source>
-                            </sourceDirs>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>test-compile</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>test-compile</goal>
-                        </goals>
-                        <configuration>
-                            <sourceDirs>
-                                <source>src/test/kotlin</source>
-                            </sourceDirs>
-                        </configuration>
-                    </execution>
-                </executions>
                 <configuration>
-                    <jvmTarget>${maven.compiler.target}</jvmTarget>
                     <compilerPlugins>
                         <plugin>kotlinx-serialization</plugin>
                     </compilerPlugins>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.jetbrains.kotlin</groupId>
-                        <artifactId>kotlin-maven-serialization</artifactId>
-                        <version>${kotlin.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${version.maven-compiler-plugin}</version>
-                <configuration>
-                    <source>${javac.src.version}</source>
-                    <target>${javac.target.version}</target>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.jetbrains.dokka</groupId>
@@ -257,67 +144,15 @@
                     </perPackageOptions>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>${maven-gpg-plugin.version}</version>
-                <configuration>
-                    <gpgArguments>
-                        <arg>--pinentry-mode</arg>
-                        <arg>loopback</arg>
-                    </gpgArguments>
-                </configuration>
-            </plugin>
+
             <plugin>
                 <groupId>net.nicoulaj.maven.plugins</groupId>
                 <artifactId>checksum-maven-plugin</artifactId>
-                <version>${checksum-maven-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>source-release-checksum</id>
-                        <goals>
-                            <goal>files</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <algorithms>
-                        <algorithm>SHA-512</algorithm>
-                        <algorithm>SHA-256</algorithm>
-                    </algorithms>
-                    <csvSummary>false</csvSummary>
-                    <fileSets>
-                        <fileSet>
-                            <directory>${project.build.directory}</directory>
-                            <includes>
-                                <include>${project.artifactId}-${project.version}-sources.jar</include>
-                                <include>${project.artifactId}-${project.version}-javadoc.jar</include>
-                                <include>${project.artifactId}-${project.version}.jar</include>
-                            </includes>
-                        </fileSet>
-                    </fileSets>
-                    <failIfNoFiles>false</failIfNoFiles>
-                </configuration>
             </plugin>
         </plugins>
     </build>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.inceptionYear>2025</project.inceptionYear>
-
-        <javac.src.version>17</javac.src.version>
-        <javac.target.version>17</javac.target.version>
-        <maven.compiler.target>17</maven.compiler.target>
-        <kotlin.version>2.3.21</kotlin.version>
-        <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
-        <kotlinx.serialization.version>1.8.1</kotlinx.serialization.version>
-
-        <dokka.version>2.2.0</dokka.version>
-        <version.maven-compiler-plugin>3.14.1</version.maven-compiler-plugin>
-        <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
-        <checksum-maven-plugin.version>1.11</checksum-maven-plugin.version>
-        <central-publishing-maven-plugin.version>0.10.0</central-publishing-maven-plugin.version>
     </properties>
-
 </project>

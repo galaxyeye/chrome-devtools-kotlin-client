@@ -1,10 +1,13 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.runtime
 
+import ai.platon.cdt.kt.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
 import com.fasterxml.jackson.`annotation`.JsonProperty
+import kotlin.Any
 import kotlin.Int
 import kotlin.String
+import kotlin.collections.Map
 
 /**
  * Detailed information about exception (or error) that was thrown during script compilation or
@@ -34,4 +37,8 @@ data class ExceptionDetails(
   @param:JsonProperty("executionContextId")
   @param:Optional
   val executionContextId: Int? = null,
+  @param:JsonProperty("exceptionMetaData")
+  @param:Optional
+  @param:Experimental
+  val exceptionMetaData: Map<String, Any?>? = null,
 )

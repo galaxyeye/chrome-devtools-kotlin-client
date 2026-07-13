@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.network
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -19,6 +20,10 @@ public enum class SetCookieBlockedReason {
   SAME_SITE_NONE_INSECURE,
   @JsonProperty("UserPreferences")
   USER_PREFERENCES,
+  @JsonProperty("ThirdPartyPhaseout")
+  THIRD_PARTY_PHASEOUT,
+  @JsonProperty("ThirdPartyBlockedInFirstPartySet")
+  THIRD_PARTY_BLOCKED_IN_FIRST_PARTY_SET,
   @JsonProperty("SyntaxError")
   SYNTAX_ERROR,
   @JsonProperty("SchemeNotSupported")
@@ -37,8 +42,12 @@ public enum class SetCookieBlockedReason {
   SCHEMEFUL_SAME_SITE_LAX,
   @JsonProperty("SchemefulSameSiteUnspecifiedTreatedAsLax")
   SCHEMEFUL_SAME_SITE_UNSPECIFIED_TREATED_AS_LAX,
-  @JsonProperty("SamePartyFromCrossPartyContext")
-  SAME_PARTY_FROM_CROSS_PARTY_CONTEXT,
-  @JsonProperty("SamePartyConflictsWithOtherAttributes")
-  SAME_PARTY_CONFLICTS_WITH_OTHER_ATTRIBUTES,
+  @JsonProperty("NameValuePairExceedsMaxSize")
+  NAME_VALUE_PAIR_EXCEEDS_MAX_SIZE,
+  @JsonProperty("DisallowedCharacter")
+  DISALLOWED_CHARACTER,
+  @JsonProperty("NoCookieContent")
+  NO_COOKIE_CONTENT,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

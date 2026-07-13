@@ -1,11 +1,11 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.commands
 
+import ai.platon.cdt.kt.protocol.events.media.PlayerCreated
 import ai.platon.cdt.kt.protocol.events.media.PlayerErrorsRaised
 import ai.platon.cdt.kt.protocol.events.media.PlayerEventsAdded
 import ai.platon.cdt.kt.protocol.events.media.PlayerMessagesLogged
 import ai.platon.cdt.kt.protocol.events.media.PlayerPropertiesChanged
-import ai.platon.cdt.kt.protocol.events.media.PlayersCreated
 import ai.platon.cdt.kt.protocol.support.annotations.EventName
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.protocol.support.types.EventHandler
@@ -13,7 +13,7 @@ import ai.platon.cdt.kt.protocol.support.types.EventListener
 import kotlin.Unit
 
 /**
- * This domain allows detailed inspection of media elements
+ * This domain allows detailed inspection of media elements.
  */
 @Experimental
 interface Media {
@@ -51,9 +51,9 @@ interface Media {
   @EventName("playerErrorsRaised")
   fun onPlayerErrorsRaised(eventListener: suspend (PlayerErrorsRaised) -> Unit): EventListener
 
-  @EventName("playersCreated")
-  fun onPlayersCreated(eventListener: EventHandler<PlayersCreated>): EventListener
+  @EventName("playerCreated")
+  fun onPlayerCreated(eventListener: EventHandler<PlayerCreated>): EventListener
 
-  @EventName("playersCreated")
-  fun onPlayersCreated(eventListener: suspend (PlayersCreated) -> Unit): EventListener
+  @EventName("playerCreated")
+  fun onPlayerCreated(eventListener: suspend (PlayerCreated) -> Unit): EventListener
 }

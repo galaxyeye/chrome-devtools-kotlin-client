@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.serviceworker
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 public enum class ServiceWorkerVersionRunningStatus {
@@ -12,4 +13,6 @@ public enum class ServiceWorkerVersionRunningStatus {
   RUNNING,
   @JsonProperty("stopping")
   STOPPING,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

@@ -64,4 +64,7 @@ data class HighlightConfig(
   @param:JsonProperty("contrastAlgorithm")
   @param:Optional
   val contrastAlgorithm: ContrastAlgorithm? = null,
+  @param:JsonProperty("containerQueryContainerHighlightConfig")
+  @param:Optional
+  val containerQueryContainerHighlightConfig: ContainerQueryContainerHighlightConfig? = null,
 )

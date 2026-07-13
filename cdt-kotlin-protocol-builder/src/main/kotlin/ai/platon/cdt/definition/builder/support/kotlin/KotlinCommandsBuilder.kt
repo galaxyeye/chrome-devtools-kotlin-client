@@ -293,8 +293,13 @@ class KotlinCommandsBuilder(
         requiredParams.forEach { overloadBuilder.addParameter(it.spec) }
 
         val argumentBlocks = mutableListOf<CodeBlock>()
-        requiredParams.forEach { argumentBlocks.add(CodeBlock.of("%N", it.spec)) }
-        optionalParams.forEach { argumentBlocks.add(CodeBlock.of("null")) }
+        allParams.forEach { param ->
+            if (param.property.optional == java.lang.Boolean.TRUE) {
+                argumentBlocks.add(CodeBlock.of("null"))
+            } else {
+                argumentBlocks.add(CodeBlock.of("%N", param.spec))
+            }
+        }
 
         val call = CodeBlock.builder()
             .add("return %N(", methodName)

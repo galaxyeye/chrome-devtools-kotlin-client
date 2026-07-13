@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.media
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -23,4 +24,6 @@ public enum class PlayerMessageLevel {
   INFO,
   @JsonProperty("debug")
   DEBUG,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

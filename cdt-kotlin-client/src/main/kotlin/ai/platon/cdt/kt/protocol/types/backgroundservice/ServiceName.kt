@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.backgroundservice
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -21,4 +22,6 @@ public enum class ServiceName {
   PAYMENT_HANDLER,
   @JsonProperty("periodicBackgroundSync")
   PERIODIC_BACKGROUND_SYNC,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

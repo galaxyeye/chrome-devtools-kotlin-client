@@ -7,6 +7,7 @@ import ai.platon.cdt.kt.protocol.types.security.MixedContentType
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Any
 import kotlin.Boolean
+import kotlin.Deprecated
 import kotlin.String
 import kotlin.collections.List
 import kotlin.collections.Map
@@ -26,6 +27,7 @@ data class Request(
   val headers: Map<String, Any?>,
   @param:JsonProperty("postData")
   @param:Optional
+  @Deprecated("Deprecated by protocol")
   val postData: String? = null,
   @param:JsonProperty("hasPostData")
   @param:Optional
@@ -48,4 +50,12 @@ data class Request(
   @param:Optional
   @param:Experimental
   val trustTokenParams: TrustTokenParams? = null,
+  @param:JsonProperty("isSameSite")
+  @param:Optional
+  @param:Experimental
+  val isSameSite: Boolean? = null,
+  @param:JsonProperty("isAdRelated")
+  @param:Optional
+  @param:Experimental
+  val isAdRelated: Boolean? = null,
 )

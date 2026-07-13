@@ -1,8 +1,10 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.page
 
+import ai.platon.cdt.kt.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
 import com.fasterxml.jackson.`annotation`.JsonProperty
+import kotlin.Boolean
 import kotlin.String
 
 data class Navigate(
@@ -14,4 +16,8 @@ data class Navigate(
   @param:JsonProperty("errorText")
   @param:Optional
   val errorText: String? = null,
+  @param:JsonProperty("isDownload")
+  @param:Optional
+  @param:Experimental
+  val isDownload: Boolean? = null,
 )

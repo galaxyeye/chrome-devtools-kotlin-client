@@ -21,4 +21,6 @@ data class BackgroundServiceEvent(
   val instanceId: String,
   @param:JsonProperty("eventMetadata")
   val eventMetadata: List<EventMetadata>,
+  @param:JsonProperty("storageKey")
+  val storageKey: String,
 )

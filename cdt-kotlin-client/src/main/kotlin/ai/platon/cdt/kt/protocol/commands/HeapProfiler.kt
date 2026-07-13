@@ -59,11 +59,31 @@ interface HeapProfiler {
   /**
    * @param samplingInterval Average sample interval in bytes. Poisson distribution is used for the intervals. The
    * default value is 32768 bytes.
+   * @param stackDepth Maximum stack depth. The default value is 128.
+   * @param includeObjectsCollectedByMajorGC By default, the sampling heap profiler reports only objects which are
+   * still alive when the profile is returned via getSamplingProfile or
+   * stopSampling, which is useful for determining what functions contribute
+   * the most to steady-state memory usage. This flag instructs the sampling
+   * heap profiler to also include information about objects discarded by
+   * major GC, which will show which functions cause large temporary memory
+   * usage or long GC pauses.
+   * @param includeObjectsCollectedByMinorGC By default, the sampling heap profiler reports only objects which are
+   * still alive when the profile is returned via getSamplingProfile or
+   * stopSampling, which is useful for determining what functions contribute
+   * the most to steady-state memory usage. This flag instructs the sampling
+   * heap profiler to also include information about objects discarded by
+   * minor GC, which is useful when tuning a latency-sensitive application
+   * for minimal GC activity.
    */
-  suspend fun startSampling(@ParamName("samplingInterval") @Optional samplingInterval: Double? = null)
+  suspend fun startSampling(
+    @ParamName("samplingInterval") @Optional samplingInterval: Double? = null,
+    @ParamName("stackDepth") @Optional stackDepth: Double? = null,
+    @ParamName("includeObjectsCollectedByMajorGC") @Optional includeObjectsCollectedByMajorGC: Boolean? = null,
+    @ParamName("includeObjectsCollectedByMinorGC") @Optional includeObjectsCollectedByMinorGC: Boolean? = null,
+  )
 
   suspend fun startSampling() {
-    return startSampling(null)
+    return startSampling(null, null, null, null)
   }
 
   /**
@@ -81,22 +101,37 @@ interface HeapProfiler {
   /**
    * @param reportProgress If true 'reportHeapSnapshotProgress' events will be generated while snapshot is being taken
    * when the tracking is stopped.
-   * @param treatGlobalObjectsAsRoots
+   * @param treatGlobalObjectsAsRoots Deprecated in favor of `exposeInternals`.
+   * @param captureNumericValue If true, numerical values are included in the snapshot
+   * @param exposeInternals If true, exposes internals of the snapshot.
    */
-  suspend fun stopTrackingHeapObjects(@ParamName("reportProgress") @Optional reportProgress: Boolean? = null, @ParamName("treatGlobalObjectsAsRoots") @Optional treatGlobalObjectsAsRoots: Boolean? = null)
+  suspend fun stopTrackingHeapObjects(
+    @ParamName("reportProgress") @Optional reportProgress: Boolean? = null,
+    @ParamName("treatGlobalObjectsAsRoots") @Optional treatGlobalObjectsAsRoots: Boolean? = null,
+    @ParamName("captureNumericValue") @Optional captureNumericValue: Boolean? = null,
+    @ParamName("exposeInternals") @Optional @Experimental exposeInternals: Boolean? = null,
+  )
 
   suspend fun stopTrackingHeapObjects() {
-    return stopTrackingHeapObjects(null, null)
+    return stopTrackingHeapObjects(null, null, null, null)
   }
 
   /**
    * @param reportProgress If true 'reportHeapSnapshotProgress' events will be generated while snapshot is being taken.
-   * @param treatGlobalObjectsAsRoots If true, a raw snapshot without artifical roots will be generated
+   * @param treatGlobalObjectsAsRoots If true, a raw snapshot without artificial roots will be generated.
+   * Deprecated in favor of `exposeInternals`.
+   * @param captureNumericValue If true, numerical values are included in the snapshot
+   * @param exposeInternals If true, exposes internals of the snapshot.
    */
-  suspend fun takeHeapSnapshot(@ParamName("reportProgress") @Optional reportProgress: Boolean? = null, @ParamName("treatGlobalObjectsAsRoots") @Optional treatGlobalObjectsAsRoots: Boolean? = null)
+  suspend fun takeHeapSnapshot(
+    @ParamName("reportProgress") @Optional reportProgress: Boolean? = null,
+    @ParamName("treatGlobalObjectsAsRoots") @Optional treatGlobalObjectsAsRoots: Boolean? = null,
+    @ParamName("captureNumericValue") @Optional captureNumericValue: Boolean? = null,
+    @ParamName("exposeInternals") @Optional @Experimental exposeInternals: Boolean? = null,
+  )
 
   suspend fun takeHeapSnapshot() {
-    return takeHeapSnapshot(null, null)
+    return takeHeapSnapshot(null, null, null, null)
   }
 
   @EventName("addHeapSnapshotChunk")

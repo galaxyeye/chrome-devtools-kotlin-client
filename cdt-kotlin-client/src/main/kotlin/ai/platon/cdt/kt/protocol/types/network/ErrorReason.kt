@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.network
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -35,4 +36,6 @@ public enum class ErrorReason {
   BLOCKED_BY_CLIENT,
   @JsonProperty("BlockedByResponse")
   BLOCKED_BY_RESPONSE,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

@@ -4,6 +4,7 @@ package ai.platon.cdt.kt.protocol.events.debugger
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.protocol.types.debugger.DebugSymbols
+import ai.platon.cdt.kt.protocol.types.debugger.ResolvedBreakpoint
 import ai.platon.cdt.kt.protocol.types.debugger.ScriptLanguage
 import ai.platon.cdt.kt.protocol.types.runtime.StackTrace
 import com.fasterxml.jackson.`annotation`.JsonProperty
@@ -11,6 +12,7 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
+import kotlin.collections.List
 import kotlin.collections.Map
 
 /**
@@ -34,6 +36,8 @@ data class ScriptParsed(
   val executionContextId: Int,
   @param:JsonProperty("hash")
   val hash: String,
+  @param:JsonProperty("buildId")
+  val buildId: String,
   @param:JsonProperty("executionContextAuxData")
   @param:Optional
   val executionContextAuxData: Map<String, Any?>? = null,
@@ -68,9 +72,13 @@ data class ScriptParsed(
   @param:JsonProperty("debugSymbols")
   @param:Optional
   @param:Experimental
-  val debugSymbols: DebugSymbols? = null,
+  val debugSymbols: List<DebugSymbols>? = null,
   @param:JsonProperty("embedderName")
   @param:Optional
   @param:Experimental
   val embedderName: String? = null,
+  @param:JsonProperty("resolvedBreakpoints")
+  @param:Optional
+  @param:Experimental
+  val resolvedBreakpoints: List<ResolvedBreakpoint>? = null,
 )

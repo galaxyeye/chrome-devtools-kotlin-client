@@ -4,6 +4,7 @@ package ai.platon.cdt.kt.protocol.types.network
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
 import com.fasterxml.jackson.`annotation`.JsonProperty
+import kotlin.Boolean
 import kotlin.collections.List
 
 /**
@@ -13,6 +14,8 @@ import kotlin.collections.List
 data class SignedExchangeInfo(
   @param:JsonProperty("outerResponse")
   val outerResponse: Response,
+  @param:JsonProperty("hasExtraInfo")
+  val hasExtraInfo: Boolean,
   @param:JsonProperty("header")
   @param:Optional
   val `header`: SignedExchangeHeader? = null,

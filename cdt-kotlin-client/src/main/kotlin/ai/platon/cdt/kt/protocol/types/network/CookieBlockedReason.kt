@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.network
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -23,6 +24,10 @@ public enum class CookieBlockedReason {
   SAME_SITE_NONE_INSECURE,
   @JsonProperty("UserPreferences")
   USER_PREFERENCES,
+  @JsonProperty("ThirdPartyPhaseout")
+  THIRD_PARTY_PHASEOUT,
+  @JsonProperty("ThirdPartyBlockedInFirstPartySet")
+  THIRD_PARTY_BLOCKED_IN_FIRST_PARTY_SET,
   @JsonProperty("UnknownError")
   UNKNOWN_ERROR,
   @JsonProperty("SchemefulSameSiteStrict")
@@ -31,6 +36,14 @@ public enum class CookieBlockedReason {
   SCHEMEFUL_SAME_SITE_LAX,
   @JsonProperty("SchemefulSameSiteUnspecifiedTreatedAsLax")
   SCHEMEFUL_SAME_SITE_UNSPECIFIED_TREATED_AS_LAX,
-  @JsonProperty("SamePartyFromCrossPartyContext")
-  SAME_PARTY_FROM_CROSS_PARTY_CONTEXT,
+  @JsonProperty("NameValuePairExceedsMaxSize")
+  NAME_VALUE_PAIR_EXCEEDS_MAX_SIZE,
+  @JsonProperty("PortMismatch")
+  PORT_MISMATCH,
+  @JsonProperty("SchemeMismatch")
+  SCHEME_MISMATCH,
+  @JsonProperty("AnonymousContext")
+  ANONYMOUS_CONTEXT,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

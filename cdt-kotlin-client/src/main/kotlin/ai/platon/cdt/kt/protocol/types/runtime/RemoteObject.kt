@@ -28,6 +28,10 @@ data class RemoteObject(
   @param:JsonProperty("description")
   @param:Optional
   val description: String? = null,
+  @param:JsonProperty("deepSerializedValue")
+  @param:Optional
+  @param:Experimental
+  val deepSerializedValue: DeepSerializedValue? = null,
   @param:JsonProperty("objectId")
   @param:Optional
   val objectId: String? = null,

@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.input
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 public enum class GestureSourceType {
@@ -10,4 +11,6 @@ public enum class GestureSourceType {
   TOUCH,
   @JsonProperty("mouse")
   MOUSE,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

@@ -7,16 +7,13 @@ import ai.platon.pulsar.browser.driver.chrome.MethodInvocation
 import ai.platon.pulsar.browser.driver.chrome.RemoteDevTools
 import ai.platon.pulsar.browser.driver.chrome.Transport
 import ai.platon.pulsar.browser.driver.chrome.util.*
-import ai.platon.pulsar.common.config.AppConstants
-import ai.platon.pulsar.common.readable
 import ai.platon.pulsar.common.sleepSeconds
 import ai.platon.pulsar.common.warnForClose
-import com.codahale.metrics.Gauge
-import com.codahale.metrics.SharedMetricRegistries
 import com.fasterxml.jackson.databind.JsonNode
 import kotlinx.coroutines.withTimeoutOrNull
 import org.slf4j.LoggerFactory
 import java.io.IOException
+import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
 import java.time.Duration
 import java.time.Instant
@@ -25,19 +22,10 @@ import java.util.concurrent.CountDownLatch
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.reflect.KClass
 
-class CachedDevToolsInvocationHandlerProxies(impl: Any) : SuspendAwareHandler(impl) {
-    val commandHandler: DevToolsInvocationHandler = DevToolsInvocationHandler(impl)
+class CachedDevToolsInvocationHandlerProxies : InvocationHandler {
+    val commandHandler: DevToolsInvocationHandler = DevToolsInvocationHandler()
     val commands: MutableMap<Method, Any> = ConcurrentHashMap()
 
-    init {
-        // println("CommandHandler hashCode: " + commandHandler.hashCode())
-    }
-
-    // Typical proxy:
-    //   - jdk.proxy1.$Proxy24
-    // Typical methods:
-    //   - public abstract void com.github.kklisura.cdt.protocol.commands.Page.enable()
-    //   - public abstract com...page.Navigate com...Page.navigate(java.lang.String)
     override fun invoke(proxy: Any, method: Method, args: Array<out Any>?): Any? {
         return commands.computeIfAbsent(method) {
             ProxyClasses.createProxy(method.returnType, commandHandler)
@@ -55,18 +43,6 @@ abstract class ChromeDevToolsImpl(
         private val startTime = Instant.now()
         private var lastActiveTime = startTime
         private val idleTime get() = Duration.between(lastActiveTime, Instant.now())
-
-        private val metrics = SharedMetricRegistries.getOrCreate(AppConstants.DEFAULT_METRICS_NAME)
-        private val metricsPrefix = "c.i.BasicDevTools.global"
-        private val numInvokes = metrics.counter("$metricsPrefix.invokes")
-        val numAccepts = metrics.counter("$metricsPrefix.accepts")
-        private val gauges = mapOf(
-            "idleTime" to Gauge { idleTime.readable() }
-        )
-
-        init {
-            gauges.forEach { (name, gauge) -> metrics.gauge("$metricsPrefix.$name") { gauge } }
-        }
     }
 
     private val logger = LoggerFactory.getLogger(ChromeDevToolsImpl::class.java)
@@ -133,8 +109,6 @@ abstract class ChromeDevToolsImpl(
         // for test purpose
         mockRpcResult: RpcResult? = null
     ): T? {
-        numInvokes.inc()
-
         // Serialize the method invocation into a message to be sent to the remote server.
         val message = dispatcher.serialize(method)
 
@@ -145,7 +119,7 @@ abstract class ChromeDevToolsImpl(
         if (rpcResult == null) {
             val methodName = method.method
             val readTimeout = config.readTimeout
-            throw ChromeRPCTimeoutException("No response | $methodName | #${numInvokes.count}, ($readTimeout)")
+            throw ChromeRPCTimeoutException("No response | $methodName | ($readTimeout)")
         }
 
         // Handle the result based on its success status and the expected return type.

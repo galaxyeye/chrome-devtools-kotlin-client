@@ -20,6 +20,9 @@ data class LogEntry(
   val level: LogEntryLevel,
   @param:JsonProperty("text")
   val text: String,
+  @param:JsonProperty("category")
+  @param:Optional
+  val category: LogEntryCategory? = null,
   @param:JsonProperty("timestamp")
   val timestamp: Double,
   @param:JsonProperty("url")

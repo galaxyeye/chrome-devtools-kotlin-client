@@ -1,0 +1,279 @@
+package ai.platon.pulsar.browser.driver.chrome.impl
+
+import ai.platon.cdt.kt.serialization.protocol.support.types.EventHandler
+import ai.platon.cdt.kt.serialization.protocol.support.types.EventListener
+import ai.platon.pulsar.browser.driver.chrome.DevToolsConfig
+import ai.platon.pulsar.browser.driver.chrome.MethodInvocation
+import ai.platon.pulsar.browser.driver.chrome.RemoteDevTools
+import ai.platon.pulsar.browser.driver.chrome.Transport
+import ai.platon.pulsar.browser.driver.chrome.util.CDPReturnError
+import ai.platon.pulsar.browser.driver.chrome.util.ChromeIOException
+import ai.platon.pulsar.browser.driver.chrome.util.ChromeRPCException
+import ai.platon.pulsar.browser.driver.chrome.util.ChromeRPCTimeoutException
+import ai.platon.pulsar.common.warnForClose
+import kotlinx.serialization.json.JsonElement
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeoutOrNull
+import org.slf4j.LoggerFactory
+import java.io.IOException
+import java.time.Duration
+import java.time.Instant
+import java.util.Collections.emptyMap
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicLong
+import kotlin.reflect.KClass
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
+
+internal class ChromeDevToolsImpl(
+    private val browserTransport: Transport,
+    private val pageTransport: Transport,
+    private val config: DevToolsConfig
+) : RemoteDevTools, AutoCloseable {
+
+    companion object {
+        private val startTime = Instant.now()
+        private var lastActiveTime = startTime
+        private val idleTime get() = Duration.between(lastActiveTime, Instant.now())
+
+        private val ID_SUPPLIER = AtomicLong(1L)
+
+        fun nextId() = ID_SUPPLIER.incrementAndGet()
+
+        /**
+         * Create a [MethodInvocation] from a method name and parameter map.
+         * This is the non-reflective variant used by [DirectChromeProtocol].
+         */
+        fun createMethodInvocation(method: String, params: Map<String, Any?>?): MethodInvocation {
+            val params0 = (params ?: emptyMap()).toMutableMap()
+            val methodId = params0[CdpMessageCodec.ID_PROPERTY]?.toString()?.toLongOrNull() ?: nextId()
+            params0[CdpMessageCodec.ID_PROPERTY] = methodId.toString()
+
+            val params1: Map<String, Any> = params0.entries
+                .filter { it.value != null }
+                .associate { it.key to it.value as Any }
+            return MethodInvocation(methodId, method, params1)
+        }
+    }
+
+    private val logger = LoggerFactory.getLogger(ChromeDevToolsImpl::class.java)
+
+    private val closeLatch = CountDownLatch(1)
+    private val closed = AtomicBoolean()
+    override val isOpen get() = !closed.get() && pageTransport.isOpen
+
+    private val dispatcher = EventDispatcher()
+
+    init {
+        browserTransport.addMessageHandler(dispatcher)
+        pageTransport.addMessageHandler(dispatcher)
+    }
+
+    @Throws(ChromeIOException::class, ChromeRPCException::class)
+    override suspend operator fun <T : Any> invoke(
+        method: String, params: Map<String, Any?>?, returnClass: KClass<T>, returnProperty: String?
+    ): T? {
+        val invocation = createMethodInvocation(method, params)
+
+        // Non-blocking
+        val message = dispatcher.serialize(invocation.id, invocation.method, invocation.params, null)
+
+        val rpcResult = sendAndReceive(invocation.id, method, returnProperty, message) ?: return null
+        val jsonElement = rpcResult.result ?: return null
+
+        return dispatcher.deserialize(returnClass.java, jsonElement)
+    }
+
+    /**
+     * Invokes a remote method and returns the result.
+     *
+     * This method is designed to be non-blocking, but it is often called in blocking methods
+     * from Java proxy objects. For example, when calling `devTools.page.navigate(url)`, the
+     * framework translates the function call to this `invoke` method. Since `devTools.page.navigate(url)`
+     * is not a suspend function, this method is wrapped in `runBlocking` to ensure compatibility.
+     *
+     * @param clazz The class of the return type. This is used to deserialize the result into the expected type.
+     * @param returnProperty The property to return from the response. This is optional and can be null.
+     * @param returnTypeClasses An array of classes representing the return type. This is used for deserialization
+     *                          when the return type involves generics or complex types.
+     * @param method The `MethodInvocation` object containing details about the method to invoke, such as its ID,
+     *               name, and parameters.
+     * @param <T> The generic return type of the method.
+     * @return The result of the invocation, deserialized into the specified type `T`, or null if the result is not available.
+     * @throws ChromeRPCException If the remote procedure call fails or the result indicates an error.
+     * @throws ChromeRPCTimeoutException If the response times out based on the configured read timeout.
+     */
+    @Throws(ChromeRPCException::class)
+    override suspend fun <T> invoke(
+        clazz: Class<T>,
+        returnProperty: String?,
+        returnTypeClasses: Array<Class<out Any>>?,
+        method: MethodInvocation
+    ): T? = invokeInternal(clazz, returnProperty, returnTypeClasses, method, null)
+
+    @Throws(ChromeRPCException::class)
+    internal suspend fun <T> invokeInternal(
+        clazz: Class<T>,
+        returnProperty: String?,
+        returnTypeClasses: Array<Class<out Any>>?,
+        method: MethodInvocation,
+        // for test purpose
+        mockRpcResult: RpcResult? = null
+    ): T? {
+        // Serialize the method invocation into a message to be sent to the remote server.
+        val message = dispatcher.serialize(method)
+
+        // Send the request and await the result in a coroutine-friendly way.
+        val rpcResult = mockRpcResult ?: sendAndReceive(method.id, method.method, returnProperty, message)
+
+        // If no result is received within the timeout, throw a timeout exception.
+        if (rpcResult == null) {
+            val methodName = method.method
+            val readTimeout = config.readTimeout
+            throw ChromeRPCTimeoutException("No response | $methodName |, ($readTimeout)")
+        }
+
+        // Handle the result based on its success status and the expected return type.
+        return when {
+            // If the result indicates failure, handle the error and throw an exception.
+            !rpcResult.isSuccess -> {
+                handleFailedFurther(rpcResult.result).let { e ->
+                    //
+                    // Known errors:
+                    // * -32000L Could not find node with given id
+                    if (e.errorCode != -32000L) {
+                        // -32000L is expected and handled in higher layer, so no log needed
+                        logger.info("Protocol return error. errorCode={}, errorMessage={} | request={}", e.errorCode, e.errorMessage, message)
+                    }
+                    throw e
+                }
+            }
+            // If the expected return type is `Void`, return null.
+            Void.TYPE == clazz -> null
+            rpcResult.result == null -> null
+
+            // If returnTypeClasses is provided, use it for deserialization.
+            returnTypeClasses != null -> dispatcher.deserialize(returnTypeClasses, clazz, rpcResult.result)
+
+            // Otherwise, deserialize the result using the provided class type.
+            else -> dispatcher.deserialize(clazz, rpcResult.result)
+        }
+    }
+
+    @Throws(ChromeIOException::class)
+    private suspend fun sendAndReceive(
+        methodId: Long, method: String, returnProperty: String?, rawMessage: String
+    ): RpcResult? {
+        val future = dispatcher.subscribe(methodId, returnProperty)
+
+        sendToBrowser(method, rawMessage)
+
+        // Await without blocking a thread; enforce the configured timeout.
+        val timeoutMillis = config.readTimeout.toMillis()
+        val result = withTimeoutOrNull(timeoutMillis.milliseconds) { future.deferred.await() }
+        if (result == null) {
+            // Ensure we don't leak the future if timed out
+            dispatcher.unsubscribe(methodId)
+        }
+
+        return result
+    }
+
+    /**
+     * Send the message to the server and return immediately
+     * */
+    private suspend fun sendToBrowser(method: String, message: String) {
+        // See https://github.com/hardkoded/puppeteer-sharp/issues/796 to understand why we need handle Target methods
+        // differently.
+        if (method.startsWith("Target.")) {
+            browserTransport.send(message)
+        } else {
+            pageTransport.send(message)
+        }
+    }
+
+    @Throws(ChromeRPCException::class, IOException::class)
+    private fun handleFailedFurther(result: RpcResult): CDPReturnError {
+        return handleFailedFurther(result.result)
+    }
+
+    @Throws(ChromeRPCException::class, IOException::class)
+    private fun handleFailedFurther(error: JsonElement?): CDPReturnError {
+        // Received an error
+        val errorObj = dispatcher.deserialize<ErrorObject>(ErrorObject::class.java, error)
+        val sb = StringBuilder(errorObj.message)
+        if (errorObj.data != null) {
+            sb.append(": ")
+            sb.append(errorObj.data)
+        }
+
+        return CDPReturnError(errorObj.code, errorObj.data, errorObj.message, sb.toString())
+    }
+
+    override fun addEventListener(
+        domainName: String,
+        eventName: String, eventHandler: EventHandler<Any>, eventType: Class<*>
+    ): EventListener {
+        val key = "$domainName.$eventName"
+        val listener = DevToolsEventListener(key, eventHandler, eventType, this)
+        dispatcher.registerListener(key, listener)
+        return listener
+    }
+
+    override fun removeEventListener(eventListener: EventListener) {
+        val listener = eventListener as DevToolsEventListener
+        dispatcher.unregisterListener(listener.key, listener)
+    }
+
+    /**
+     * Waits for the DevTool to terminate.
+     * */
+    override fun awaitTermination() {
+        try {
+            // block the calling thread
+            closeLatch.await()
+        } catch (e: InterruptedException) {
+            Thread.currentThread().interrupt()
+        }
+    }
+
+    override fun close() {
+        if (closed.compareAndSet(false, true)) {
+            // discard all furthers in dispatcher?
+            runCatching { runBlocking { doClose() } }.onFailure { warnForClose(this, it) }
+
+            // Decrements the count of the latch, releasing all waiting threads if the count reaches zero.
+            // If the current count is greater than zero then it is decremented. If the new count is zero then all
+            // waiting threads are re-enabled for thread scheduling purposes.
+            // If the current count equals zero then nothing happens.
+            closeLatch.countDown()
+        }
+    }
+
+    @Throws(Exception::class)
+    private suspend fun doClose() {
+        // Use shorter timeout if both transports are already closed/inactive
+        // If either transport is still open, use full timeout for graceful shutdown
+        val shutdownWaitTimeout = if (pageTransport.isOpen || browserTransport.isOpen) {
+            Duration.ofSeconds(10)
+        } else {
+            Duration.ofSeconds(3)
+        }
+
+        waitUntilIdle(shutdownWaitTimeout)
+
+        logger.debug("Closing devtools client ...")
+
+        pageTransport.close()
+        browserTransport.close()
+    }
+
+    private suspend fun waitUntilIdle(timeout: Duration) {
+        val endTime = Instant.now().plus(timeout)
+        while (dispatcher.hasFutures() && Instant.now().isBefore(endTime)) {
+            delay(1.seconds)
+        }
+    }
+}

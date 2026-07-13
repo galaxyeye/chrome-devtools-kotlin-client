@@ -2,15 +2,36 @@
 package ai.platon.cdt.kt.protocol.commands
 
 import ai.platon.cdt.kt.protocol.events.network.DataReceived
+import ai.platon.cdt.kt.protocol.events.network.DeviceBoundSessionEventOccurred
+import ai.platon.cdt.kt.protocol.events.network.DeviceBoundSessionsAdded
+import ai.platon.cdt.kt.protocol.events.network.DirectTCPSocketAborted
+import ai.platon.cdt.kt.protocol.events.network.DirectTCPSocketChunkReceived
+import ai.platon.cdt.kt.protocol.events.network.DirectTCPSocketChunkSent
+import ai.platon.cdt.kt.protocol.events.network.DirectTCPSocketClosed
+import ai.platon.cdt.kt.protocol.events.network.DirectTCPSocketCreated
+import ai.platon.cdt.kt.protocol.events.network.DirectTCPSocketOpened
+import ai.platon.cdt.kt.protocol.events.network.DirectUDPSocketAborted
+import ai.platon.cdt.kt.protocol.events.network.DirectUDPSocketChunkReceived
+import ai.platon.cdt.kt.protocol.events.network.DirectUDPSocketChunkSent
+import ai.platon.cdt.kt.protocol.events.network.DirectUDPSocketClosed
+import ai.platon.cdt.kt.protocol.events.network.DirectUDPSocketCreated
+import ai.platon.cdt.kt.protocol.events.network.DirectUDPSocketJoinedMulticastGroup
+import ai.platon.cdt.kt.protocol.events.network.DirectUDPSocketLeftMulticastGroup
+import ai.platon.cdt.kt.protocol.events.network.DirectUDPSocketOpened
 import ai.platon.cdt.kt.protocol.events.network.EventSourceMessageReceived
 import ai.platon.cdt.kt.protocol.events.network.LoadingFailed
 import ai.platon.cdt.kt.protocol.events.network.LoadingFinished
+import ai.platon.cdt.kt.protocol.events.network.PolicyUpdated
+import ai.platon.cdt.kt.protocol.events.network.ReportingApiEndpointsChangedForOrigin
+import ai.platon.cdt.kt.protocol.events.network.ReportingApiReportAdded
+import ai.platon.cdt.kt.protocol.events.network.ReportingApiReportUpdated
 import ai.platon.cdt.kt.protocol.events.network.RequestIntercepted
 import ai.platon.cdt.kt.protocol.events.network.RequestServedFromCache
 import ai.platon.cdt.kt.protocol.events.network.RequestWillBeSent
 import ai.platon.cdt.kt.protocol.events.network.RequestWillBeSentExtraInfo
 import ai.platon.cdt.kt.protocol.events.network.ResourceChangedPriority
 import ai.platon.cdt.kt.protocol.events.network.ResponseReceived
+import ai.platon.cdt.kt.protocol.events.network.ResponseReceivedEarlyHints
 import ai.platon.cdt.kt.protocol.events.network.ResponseReceivedExtraInfo
 import ai.platon.cdt.kt.protocol.events.network.SignedExchangeReceived
 import ai.platon.cdt.kt.protocol.events.network.TrustTokenOperationDone
@@ -34,17 +55,22 @@ import ai.platon.cdt.kt.protocol.support.types.EventHandler
 import ai.platon.cdt.kt.protocol.support.types.EventListener
 import ai.platon.cdt.kt.protocol.types.debugger.SearchMatch
 import ai.platon.cdt.kt.protocol.types.network.AuthChallengeResponse
+import ai.platon.cdt.kt.protocol.types.network.BlockPattern
 import ai.platon.cdt.kt.protocol.types.network.ConnectionType
 import ai.platon.cdt.kt.protocol.types.network.ContentEncoding
 import ai.platon.cdt.kt.protocol.types.network.Cookie
 import ai.platon.cdt.kt.protocol.types.network.CookieParam
+import ai.platon.cdt.kt.protocol.types.network.CookiePartitionKey
 import ai.platon.cdt.kt.protocol.types.network.CookiePriority
 import ai.platon.cdt.kt.protocol.types.network.CookieSameSite
 import ai.platon.cdt.kt.protocol.types.network.CookieSourceScheme
+import ai.platon.cdt.kt.protocol.types.network.DeviceBoundSessionKey
 import ai.platon.cdt.kt.protocol.types.network.ErrorReason
 import ai.platon.cdt.kt.protocol.types.network.LoadNetworkResourceOptions
 import ai.platon.cdt.kt.protocol.types.network.LoadNetworkResourcePageResult
+import ai.platon.cdt.kt.protocol.types.network.NetworkConditions
 import ai.platon.cdt.kt.protocol.types.network.RequestPattern
+import ai.platon.cdt.kt.protocol.types.network.RequestPostData
 import ai.platon.cdt.kt.protocol.types.network.ResponseBody
 import ai.platon.cdt.kt.protocol.types.network.ResponseBodyForInterception
 import ai.platon.cdt.kt.protocol.types.network.SecurityIsolationStatus
@@ -148,22 +174,25 @@ interface Network {
   }
 
   /**
-   * Deletes browser cookies with matching name and url or domain/path pair.
+   * Deletes browser cookies with matching name and url or domain/path/partitionKey pair.
    * @param name Name of the cookies to remove.
    * @param url If specified, deletes all the cookies with the given name where domain and path match
    * provided URL.
    * @param domain If specified, deletes only cookies with the exact domain.
    * @param path If specified, deletes only cookies with the exact path.
+   * @param partitionKey If specified, deletes only cookies with the the given name and partitionKey where
+   * all partition key attributes match the cookie partition key attribute.
    */
   suspend fun deleteCookies(
     @ParamName("name") name: String,
     @ParamName("url") @Optional url: String? = null,
     @ParamName("domain") @Optional domain: String? = null,
     @ParamName("path") @Optional path: String? = null,
+    @ParamName("partitionKey") @Optional @Experimental partitionKey: CookiePartitionKey? = null,
   )
 
   suspend fun deleteCookies(@ParamName("name") name: String) {
-    return deleteCookies(name, null, null, null)
+    return deleteCookies(name, null, null, null, null)
   }
 
   /**
@@ -172,14 +201,76 @@ interface Network {
   suspend fun disable()
 
   /**
-   * Activates emulation of network conditions.
+   * Activates emulation of network conditions. This command is deprecated in favor of the emulateNetworkConditionsByRule
+   * and overrideNetworkState commands, which can be used together to the same effect.
+   * @param offline True to emulate internet disconnection.
+   * @param latency Minimum latency from request sent to response headers received (ms).
+   * @param downloadThroughput Maximal aggregated download throughput (bytes/sec). -1 disables download throttling.
+   * @param uploadThroughput Maximal aggregated upload throughput (bytes/sec).  -1 disables upload throttling.
+   * @param connectionType Connection type if known.
+   * @param packetLoss WebRTC packet loss (percent, 0-100). 0 disables packet loss emulation, 100 drops all the packets.
+   * @param packetQueueLength WebRTC packet queue length (packet). 0 removes any queue length limitations.
+   * @param packetReordering WebRTC packetReordering feature.
+   */
+  @Deprecated("Deprecated by protocol")
+  suspend fun emulateNetworkConditions(
+    @ParamName("offline") offline: Boolean,
+    @ParamName("latency") latency: Double,
+    @ParamName("downloadThroughput") downloadThroughput: Double,
+    @ParamName("uploadThroughput") uploadThroughput: Double,
+    @ParamName("connectionType") @Optional connectionType: ConnectionType? = null,
+    @ParamName("packetLoss") @Optional @Experimental packetLoss: Double? = null,
+    @ParamName("packetQueueLength") @Optional @Experimental packetQueueLength: Int? = null,
+    @ParamName("packetReordering") @Optional @Experimental packetReordering: Boolean? = null,
+  )
+
+  @Deprecated("Deprecated by protocol")
+  suspend fun emulateNetworkConditions(
+    @ParamName("offline") offline: Boolean,
+    @ParamName("latency") latency: Double,
+    @ParamName("downloadThroughput") downloadThroughput: Double,
+    @ParamName("uploadThroughput") uploadThroughput: Double,
+  ) {
+    return emulateNetworkConditions(offline, latency, downloadThroughput, uploadThroughput, null, null, null, null)
+  }
+
+  /**
+   * Activates emulation of network conditions for individual requests using URL match patterns. Unlike the deprecated
+   * Network.emulateNetworkConditions this method does not affect `navigator` state. Use Network.overrideNetworkState to
+   * explicitly modify `navigator` behavior.
+   * @param offline True to emulate internet disconnection. Deprecated, use the offline property in matchedNetworkConditions
+   * or emulateOfflineServiceWorker instead.
+   * @param emulateOfflineServiceWorker True to emulate offline service worker.
+   * @param matchedNetworkConditions Configure conditions for matching requests. If multiple entries match a request, the first entry wins.  Global
+   * conditions can be configured by leaving the urlPattern for the conditions empty. These global conditions are
+   * also applied for throttling of p2p connections.
+   */
+  @Experimental
+  @Returns("ruleIds")
+  @ReturnTypeParameter(String::class)
+  suspend fun emulateNetworkConditionsByRule(
+    @ParamName("offline") @Optional offline: Boolean? = null,
+    @ParamName("emulateOfflineServiceWorker") @Optional emulateOfflineServiceWorker: Boolean? = null,
+    @ParamName("matchedNetworkConditions") matchedNetworkConditions: List<NetworkConditions>,
+  ): List<String>
+
+  @Experimental
+  @Returns("ruleIds")
+  @ReturnTypeParameter(String::class)
+  suspend fun emulateNetworkConditionsByRule(@ParamName("matchedNetworkConditions") matchedNetworkConditions: List<NetworkConditions>): List<String> {
+    return emulateNetworkConditionsByRule(null, null, matchedNetworkConditions)
+  }
+
+  /**
+   * Override the state of navigator.onLine and navigator.connection.
    * @param offline True to emulate internet disconnection.
    * @param latency Minimum latency from request sent to response headers received (ms).
    * @param downloadThroughput Maximal aggregated download throughput (bytes/sec). -1 disables download throttling.
    * @param uploadThroughput Maximal aggregated upload throughput (bytes/sec).  -1 disables upload throttling.
    * @param connectionType Connection type if known.
    */
-  suspend fun emulateNetworkConditions(
+  @Experimental
+  suspend fun overrideNetworkState(
     @ParamName("offline") offline: Boolean,
     @ParamName("latency") latency: Double,
     @ParamName("downloadThroughput") downloadThroughput: Double,
@@ -187,35 +278,63 @@ interface Network {
     @ParamName("connectionType") @Optional connectionType: ConnectionType? = null,
   )
 
-  suspend fun emulateNetworkConditions(
+  @Experimental
+  suspend fun overrideNetworkState(
     @ParamName("offline") offline: Boolean,
     @ParamName("latency") latency: Double,
     @ParamName("downloadThroughput") downloadThroughput: Double,
     @ParamName("uploadThroughput") uploadThroughput: Double,
   ) {
-    return emulateNetworkConditions(offline, latency, downloadThroughput, uploadThroughput, null)
+    return overrideNetworkState(offline, latency, downloadThroughput, uploadThroughput, null)
   }
 
   /**
    * Enables network tracking, network events will now be delivered to the client.
    * @param maxTotalBufferSize Buffer size in bytes to use when preserving network payloads (XHRs, etc).
+   * This is the maximum number of bytes that will be collected by this
+   * DevTools session.
    * @param maxResourceBufferSize Per-resource buffer size in bytes to use when preserving network payloads (XHRs, etc).
    * @param maxPostDataSize Longest post body size (in bytes) that would be included in requestWillBeSent notification
+   * @param reportDirectSocketTraffic Whether DirectSocket chunk send/receive events should be reported.
+   * @param enableDurableMessages Enable storing response bodies outside of renderer, so that these survive
+   * a cross-process navigation. Requires maxTotalBufferSize to be set.
+   * Currently defaults to false. This field is being deprecated in favor of the dedicated
+   * configureDurableMessages command, due to the possibility of deadlocks when awaiting
+   * Network.enable before issuing Runtime.runIfWaitingForDebugger.
    */
   suspend fun enable(
     @ParamName("maxTotalBufferSize") @Optional @Experimental maxTotalBufferSize: Int? = null,
     @ParamName("maxResourceBufferSize") @Optional @Experimental maxResourceBufferSize: Int? = null,
     @ParamName("maxPostDataSize") @Optional maxPostDataSize: Int? = null,
+    @ParamName("reportDirectSocketTraffic") @Optional @Experimental reportDirectSocketTraffic: Boolean? = null,
+    @ParamName("enableDurableMessages") @Optional @Experimental enableDurableMessages: Boolean? = null,
   )
 
   suspend fun enable() {
-    return enable(null, null, null)
+    return enable(null, null, null, null, null)
+  }
+
+  /**
+   * Configures storing response bodies outside of renderer, so that these survive
+   * a cross-process navigation.
+   * If maxTotalBufferSize is not set, durable messages are disabled.
+   * @param maxTotalBufferSize Buffer size in bytes to use when preserving network payloads (XHRs, etc).
+   * @param maxResourceBufferSize Per-resource buffer size in bytes to use when preserving network payloads (XHRs, etc).
+   */
+  @Experimental
+  suspend fun configureDurableMessages(@ParamName("maxTotalBufferSize") @Optional maxTotalBufferSize: Int? = null, @ParamName("maxResourceBufferSize") @Optional maxResourceBufferSize: Int? = null)
+
+  @Experimental
+  suspend fun configureDurableMessages() {
+    return configureDurableMessages(null, null)
   }
 
   /**
    * Returns all browser cookies. Depending on the backend support, will return detailed cookie
    * information in the `cookies` field.
+   * Deprecated. Use Storage.getCookies instead.
    */
+  @Deprecated("Deprecated by protocol")
   @Returns("cookies")
   @ReturnTypeParameter(Cookie::class)
   suspend fun getAllCookies(): List<Cookie>
@@ -256,8 +375,7 @@ interface Network {
    * Returns post data sent with the request. Returns an error when no data was sent with the request.
    * @param requestId Identifier of the network request to get content for.
    */
-  @Returns("postData")
-  suspend fun getRequestPostData(@ParamName("requestId") requestId: String): String
+  suspend fun getRequestPostData(@ParamName("requestId") requestId: String): RequestPostData
 
   /**
    * Returns content served for the given currently intercepted request.
@@ -312,16 +430,22 @@ interface Network {
 
   /**
    * Blocks URLs from loading.
+   * @param urlPatterns Patterns to match in the order in which they are given. These patterns
+   * also take precedence over any wildcard patterns defined in `urls`.
    * @param urls URL patterns to block. Wildcards ('*') are allowed.
    */
   @Experimental
-  suspend fun setBlockedURLs(@ParamName("urls") urls: List<String>)
+  suspend fun setBlockedURLs(@ParamName("urlPatterns") @Optional urlPatterns: List<BlockPattern>? = null, @ParamName("urls") @Optional urls: List<String>? = null)
+
+  @Experimental
+  suspend fun setBlockedURLs() {
+    return setBlockedURLs(null, null)
+  }
 
   /**
    * Toggles ignoring of service worker for each request.
    * @param bypass Bypass service worker and load from network.
    */
-  @Experimental
   suspend fun setBypassServiceWorker(@ParamName("bypass") bypass: Boolean)
 
   /**
@@ -343,11 +467,11 @@ interface Network {
    * @param sameSite Cookie SameSite type.
    * @param expires Cookie expiration date, session cookie if not set
    * @param priority Cookie Priority type.
-   * @param sameParty True if cookie is SameParty.
    * @param sourceScheme Cookie source scheme type.
    * @param sourcePort Cookie source port. Valid values are {-1, [1, 65535]}, -1 indicates an unspecified port.
    * An unspecified port value allows protocol clients to emulate legacy cookie scope for the port.
    * This is a temporary ability and it will be removed in the future.
+   * @param partitionKey Cookie partition key. If not set, the cookie will be set as not partitioned.
    */
   @Returns("success")
   suspend fun setCookie(
@@ -361,9 +485,9 @@ interface Network {
     @ParamName("sameSite") @Optional sameSite: CookieSameSite? = null,
     @ParamName("expires") @Optional expires: Double? = null,
     @ParamName("priority") @Optional @Experimental priority: CookiePriority? = null,
-    @ParamName("sameParty") @Optional @Experimental sameParty: Boolean? = null,
     @ParamName("sourceScheme") @Optional @Experimental sourceScheme: CookieSourceScheme? = null,
     @ParamName("sourcePort") @Optional @Experimental sourcePort: Int? = null,
+    @ParamName("partitionKey") @Optional @Experimental partitionKey: CookiePartitionKey? = null,
   ): Boolean
 
   @Returns("success")
@@ -376,14 +500,6 @@ interface Network {
    * @param cookies Cookies to be set.
    */
   suspend fun setCookies(@ParamName("cookies") cookies: List<CookieParam>)
-
-  /**
-   * For testing.
-   * @param maxTotalSize Maximum total buffer size.
-   * @param maxResourceSize Maximum per-resource size.
-   */
-  @Experimental
-  suspend fun setDataSizeLimitsForTest(@ParamName("maxTotalSize") maxTotalSize: Int, @ParamName("maxResourceSize") maxResourceSize: Int)
 
   /**
    * Specifies whether to always send extra HTTP headers with the requests from this page.
@@ -409,6 +525,15 @@ interface Network {
   suspend fun setRequestInterception(@ParamName("patterns") patterns: List<RequestPattern>)
 
   /**
+   * Enables streaming of the response for the given requestId.
+   * If enabled, the dataReceived event contains the data that was received during streaming.
+   * @param requestId Identifier of the request to stream.
+   */
+  @Experimental
+  @Returns("bufferedData")
+  suspend fun streamResourceContent(@ParamName("requestId") requestId: String): String
+
+  /**
    * Returns information about the COEP/COOP isolation status.
    * @param frameId If no frameId is provided, the status of the target is provided.
    */
@@ -423,18 +548,63 @@ interface Network {
   }
 
   /**
+   * Enables tracking for the Reporting API, events generated by the Reporting API will now be delivered to the client.
+   * Enabling triggers 'reportingApiReportAdded' for all existing reports.
+   * @param enable Whether to enable or disable events for the Reporting API
+   */
+  @Experimental
+  suspend fun enableReportingApi(@ParamName("enable") enable: Boolean)
+
+  /**
+   * Sets up tracking device bound sessions and fetching of initial set of sessions.
+   * @param enable Whether to enable or disable events.
+   */
+  @Experimental
+  suspend fun enableDeviceBoundSessions(@ParamName("enable") enable: Boolean)
+
+  /**
+   * Deletes a device bound session.
+   * @param key
+   */
+  @Experimental
+  suspend fun deleteDeviceBoundSession(@ParamName("key") key: DeviceBoundSessionKey)
+
+  /**
+   * Fetches the schemeful site for a specific origin.
+   * @param origin The URL origin.
+   */
+  @Experimental
+  @Returns("schemefulSite")
+  suspend fun fetchSchemefulSite(@ParamName("origin") origin: String): String
+
+  /**
    * Fetches the resource and returns the content.
-   * @param frameId Frame id to get the resource for.
+   * @param frameId Frame id to get the resource for. Mandatory for frame targets, and
+   * should be omitted for worker targets.
    * @param url URL of the resource to get content for.
    * @param options Options for the request.
    */
   @Experimental
   @Returns("resource")
   suspend fun loadNetworkResource(
-    @ParamName("frameId") frameId: String,
+    @ParamName("frameId") @Optional frameId: String? = null,
     @ParamName("url") url: String,
     @ParamName("options") options: LoadNetworkResourceOptions,
   ): LoadNetworkResourcePageResult
+
+  @Experimental
+  @Returns("resource")
+  suspend fun loadNetworkResource(@ParamName("url") url: String, @ParamName("options") options: LoadNetworkResourceOptions): LoadNetworkResourcePageResult {
+    return loadNetworkResource(null, url, options)
+  }
+
+  /**
+   * Sets Controls for third-party cookie access
+   * Page reload is required before the new cookie behavior will be observed
+   * @param enableThirdPartyCookieRestriction Whether 3pc restriction is enabled.
+   */
+  @Experimental
+  suspend fun setCookieControls(@ParamName("enableThirdPartyCookieRestriction") enableThirdPartyCookieRestriction: Boolean)
 
   @EventName("dataReceived")
   fun onDataReceived(eventListener: EventHandler<DataReceived>): EventListener
@@ -564,6 +734,118 @@ interface Network {
   @EventName("webTransportClosed")
   fun onWebTransportClosed(eventListener: suspend (WebTransportClosed) -> Unit): EventListener
 
+  @EventName("directTCPSocketCreated")
+  @Experimental
+  fun onDirectTCPSocketCreated(eventListener: EventHandler<DirectTCPSocketCreated>): EventListener
+
+  @EventName("directTCPSocketCreated")
+  @Experimental
+  fun onDirectTCPSocketCreated(eventListener: suspend (DirectTCPSocketCreated) -> Unit): EventListener
+
+  @EventName("directTCPSocketOpened")
+  @Experimental
+  fun onDirectTCPSocketOpened(eventListener: EventHandler<DirectTCPSocketOpened>): EventListener
+
+  @EventName("directTCPSocketOpened")
+  @Experimental
+  fun onDirectTCPSocketOpened(eventListener: suspend (DirectTCPSocketOpened) -> Unit): EventListener
+
+  @EventName("directTCPSocketAborted")
+  @Experimental
+  fun onDirectTCPSocketAborted(eventListener: EventHandler<DirectTCPSocketAborted>): EventListener
+
+  @EventName("directTCPSocketAborted")
+  @Experimental
+  fun onDirectTCPSocketAborted(eventListener: suspend (DirectTCPSocketAborted) -> Unit): EventListener
+
+  @EventName("directTCPSocketClosed")
+  @Experimental
+  fun onDirectTCPSocketClosed(eventListener: EventHandler<DirectTCPSocketClosed>): EventListener
+
+  @EventName("directTCPSocketClosed")
+  @Experimental
+  fun onDirectTCPSocketClosed(eventListener: suspend (DirectTCPSocketClosed) -> Unit): EventListener
+
+  @EventName("directTCPSocketChunkSent")
+  @Experimental
+  fun onDirectTCPSocketChunkSent(eventListener: EventHandler<DirectTCPSocketChunkSent>): EventListener
+
+  @EventName("directTCPSocketChunkSent")
+  @Experimental
+  fun onDirectTCPSocketChunkSent(eventListener: suspend (DirectTCPSocketChunkSent) -> Unit): EventListener
+
+  @EventName("directTCPSocketChunkReceived")
+  @Experimental
+  fun onDirectTCPSocketChunkReceived(eventListener: EventHandler<DirectTCPSocketChunkReceived>): EventListener
+
+  @EventName("directTCPSocketChunkReceived")
+  @Experimental
+  fun onDirectTCPSocketChunkReceived(eventListener: suspend (DirectTCPSocketChunkReceived) -> Unit): EventListener
+
+  @EventName("directUDPSocketJoinedMulticastGroup")
+  @Experimental
+  fun onDirectUDPSocketJoinedMulticastGroup(eventListener: EventHandler<DirectUDPSocketJoinedMulticastGroup>): EventListener
+
+  @EventName("directUDPSocketJoinedMulticastGroup")
+  @Experimental
+  fun onDirectUDPSocketJoinedMulticastGroup(eventListener: suspend (DirectUDPSocketJoinedMulticastGroup) -> Unit): EventListener
+
+  @EventName("directUDPSocketLeftMulticastGroup")
+  @Experimental
+  fun onDirectUDPSocketLeftMulticastGroup(eventListener: EventHandler<DirectUDPSocketLeftMulticastGroup>): EventListener
+
+  @EventName("directUDPSocketLeftMulticastGroup")
+  @Experimental
+  fun onDirectUDPSocketLeftMulticastGroup(eventListener: suspend (DirectUDPSocketLeftMulticastGroup) -> Unit): EventListener
+
+  @EventName("directUDPSocketCreated")
+  @Experimental
+  fun onDirectUDPSocketCreated(eventListener: EventHandler<DirectUDPSocketCreated>): EventListener
+
+  @EventName("directUDPSocketCreated")
+  @Experimental
+  fun onDirectUDPSocketCreated(eventListener: suspend (DirectUDPSocketCreated) -> Unit): EventListener
+
+  @EventName("directUDPSocketOpened")
+  @Experimental
+  fun onDirectUDPSocketOpened(eventListener: EventHandler<DirectUDPSocketOpened>): EventListener
+
+  @EventName("directUDPSocketOpened")
+  @Experimental
+  fun onDirectUDPSocketOpened(eventListener: suspend (DirectUDPSocketOpened) -> Unit): EventListener
+
+  @EventName("directUDPSocketAborted")
+  @Experimental
+  fun onDirectUDPSocketAborted(eventListener: EventHandler<DirectUDPSocketAborted>): EventListener
+
+  @EventName("directUDPSocketAborted")
+  @Experimental
+  fun onDirectUDPSocketAborted(eventListener: suspend (DirectUDPSocketAborted) -> Unit): EventListener
+
+  @EventName("directUDPSocketClosed")
+  @Experimental
+  fun onDirectUDPSocketClosed(eventListener: EventHandler<DirectUDPSocketClosed>): EventListener
+
+  @EventName("directUDPSocketClosed")
+  @Experimental
+  fun onDirectUDPSocketClosed(eventListener: suspend (DirectUDPSocketClosed) -> Unit): EventListener
+
+  @EventName("directUDPSocketChunkSent")
+  @Experimental
+  fun onDirectUDPSocketChunkSent(eventListener: EventHandler<DirectUDPSocketChunkSent>): EventListener
+
+  @EventName("directUDPSocketChunkSent")
+  @Experimental
+  fun onDirectUDPSocketChunkSent(eventListener: suspend (DirectUDPSocketChunkSent) -> Unit): EventListener
+
+  @EventName("directUDPSocketChunkReceived")
+  @Experimental
+  fun onDirectUDPSocketChunkReceived(eventListener: EventHandler<DirectUDPSocketChunkReceived>): EventListener
+
+  @EventName("directUDPSocketChunkReceived")
+  @Experimental
+  fun onDirectUDPSocketChunkReceived(eventListener: suspend (DirectUDPSocketChunkReceived) -> Unit): EventListener
+
   @EventName("requestWillBeSentExtraInfo")
   @Experimental
   fun onRequestWillBeSentExtraInfo(eventListener: EventHandler<RequestWillBeSentExtraInfo>): EventListener
@@ -580,6 +862,14 @@ interface Network {
   @Experimental
   fun onResponseReceivedExtraInfo(eventListener: suspend (ResponseReceivedExtraInfo) -> Unit): EventListener
 
+  @EventName("responseReceivedEarlyHints")
+  @Experimental
+  fun onResponseReceivedEarlyHints(eventListener: EventHandler<ResponseReceivedEarlyHints>): EventListener
+
+  @EventName("responseReceivedEarlyHints")
+  @Experimental
+  fun onResponseReceivedEarlyHints(eventListener: suspend (ResponseReceivedEarlyHints) -> Unit): EventListener
+
   @EventName("trustTokenOperationDone")
   @Experimental
   fun onTrustTokenOperationDone(eventListener: EventHandler<TrustTokenOperationDone>): EventListener
@@ -587,4 +877,52 @@ interface Network {
   @EventName("trustTokenOperationDone")
   @Experimental
   fun onTrustTokenOperationDone(eventListener: suspend (TrustTokenOperationDone) -> Unit): EventListener
+
+  @EventName("policyUpdated")
+  @Experimental
+  fun onPolicyUpdated(eventListener: EventHandler<PolicyUpdated>): EventListener
+
+  @EventName("policyUpdated")
+  @Experimental
+  fun onPolicyUpdated(eventListener: suspend (PolicyUpdated) -> Unit): EventListener
+
+  @EventName("reportingApiReportAdded")
+  @Experimental
+  fun onReportingApiReportAdded(eventListener: EventHandler<ReportingApiReportAdded>): EventListener
+
+  @EventName("reportingApiReportAdded")
+  @Experimental
+  fun onReportingApiReportAdded(eventListener: suspend (ReportingApiReportAdded) -> Unit): EventListener
+
+  @EventName("reportingApiReportUpdated")
+  @Experimental
+  fun onReportingApiReportUpdated(eventListener: EventHandler<ReportingApiReportUpdated>): EventListener
+
+  @EventName("reportingApiReportUpdated")
+  @Experimental
+  fun onReportingApiReportUpdated(eventListener: suspend (ReportingApiReportUpdated) -> Unit): EventListener
+
+  @EventName("reportingApiEndpointsChangedForOrigin")
+  @Experimental
+  fun onReportingApiEndpointsChangedForOrigin(eventListener: EventHandler<ReportingApiEndpointsChangedForOrigin>): EventListener
+
+  @EventName("reportingApiEndpointsChangedForOrigin")
+  @Experimental
+  fun onReportingApiEndpointsChangedForOrigin(eventListener: suspend (ReportingApiEndpointsChangedForOrigin) -> Unit): EventListener
+
+  @EventName("deviceBoundSessionsAdded")
+  @Experimental
+  fun onDeviceBoundSessionsAdded(eventListener: EventHandler<DeviceBoundSessionsAdded>): EventListener
+
+  @EventName("deviceBoundSessionsAdded")
+  @Experimental
+  fun onDeviceBoundSessionsAdded(eventListener: suspend (DeviceBoundSessionsAdded) -> Unit): EventListener
+
+  @EventName("deviceBoundSessionEventOccurred")
+  @Experimental
+  fun onDeviceBoundSessionEventOccurred(eventListener: EventHandler<DeviceBoundSessionEventOccurred>): EventListener
+
+  @EventName("deviceBoundSessionEventOccurred")
+  @Experimental
+  fun onDeviceBoundSessionEventOccurred(eventListener: suspend (DeviceBoundSessionEventOccurred) -> Unit): EventListener
 }

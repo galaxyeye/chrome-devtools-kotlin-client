@@ -22,10 +22,12 @@ import ai.platon.cdt.kt.protocol.types.runtime.CallArgument
 import ai.platon.cdt.kt.protocol.types.runtime.CallFunctionOn
 import ai.platon.cdt.kt.protocol.types.runtime.CompileScript
 import ai.platon.cdt.kt.protocol.types.runtime.Evaluate
+import ai.platon.cdt.kt.protocol.types.runtime.ExceptionDetails
 import ai.platon.cdt.kt.protocol.types.runtime.HeapUsage
 import ai.platon.cdt.kt.protocol.types.runtime.Properties
 import ai.platon.cdt.kt.protocol.types.runtime.RemoteObject
 import ai.platon.cdt.kt.protocol.types.runtime.RunScript
+import ai.platon.cdt.kt.protocol.types.runtime.SerializationOptions
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
@@ -68,6 +70,7 @@ interface Runtime {
    * @param silent In silent mode exceptions thrown during evaluation are not reported and do not pause
    * execution. Overrides `setPauseOnException` state.
    * @param returnByValue Whether the result is expected to be a JSON object which should be sent by value.
+   * Can be overriden by `serializationOptions`.
    * @param generatePreview Whether preview should be generated for the result.
    * @param userGesture Whether execution should be treated as initiated by user in the UI.
    * @param awaitPromise Whether execution should `await` for resulting value and return once awaited promise is
@@ -76,6 +79,15 @@ interface Runtime {
    * executionContextId or objectId should be specified.
    * @param objectGroup Symbolic group name that can be used to release multiple objects. If objectGroup is not
    * specified and objectId is, objectGroup will be inherited from object.
+   * @param throwOnSideEffect Whether to throw an exception if side effect cannot be ruled out during evaluation.
+   * @param uniqueContextId An alternative way to specify the execution context to call function on.
+   * Compared to contextId that may be reused across processes, this is guaranteed to be
+   * system-unique, so it can be used to prevent accidental function call
+   * in context different than intended (e.g. as a result of navigation across process
+   * boundaries).
+   * This is mutually exclusive with `executionContextId`.
+   * @param serializationOptions Specifies the result serialization. If provided, overrides
+   * `generatePreview` and `returnByValue`.
    */
   suspend fun callFunctionOn(
     @ParamName("functionDeclaration") functionDeclaration: String,
@@ -88,10 +100,13 @@ interface Runtime {
     @ParamName("awaitPromise") @Optional awaitPromise: Boolean? = null,
     @ParamName("executionContextId") @Optional executionContextId: Int? = null,
     @ParamName("objectGroup") @Optional objectGroup: String? = null,
+    @ParamName("throwOnSideEffect") @Optional @Experimental throwOnSideEffect: Boolean? = null,
+    @ParamName("uniqueContextId") @Optional @Experimental uniqueContextId: String? = null,
+    @ParamName("serializationOptions") @Optional @Experimental serializationOptions: SerializationOptions? = null,
   ): CallFunctionOn
 
   suspend fun callFunctionOn(@ParamName("functionDeclaration") functionDeclaration: String): CallFunctionOn {
-    return callFunctionOn(functionDeclaration, null, null, null, null, null, null, null, null, null)
+    return callFunctionOn(functionDeclaration, null, null, null, null, null, null, null, null, null, null, null, null)
   }
 
   /**
@@ -163,11 +178,13 @@ interface Runtime {
    * when called with non-callable arguments. This flag bypasses CSP for this
    * evaluation and allows unsafe-eval. Defaults to true.
    * @param uniqueContextId An alternative way to specify the execution context to evaluate in.
-   * Compared to contextId that may be reused accross processes, this is guaranteed to be
+   * Compared to contextId that may be reused across processes, this is guaranteed to be
    * system-unique, so it can be used to prevent accidental evaluation of the expression
-   * in context different than intended (e.g. as a result of navigation accross process
+   * in context different than intended (e.g. as a result of navigation across process
    * boundaries).
    * This is mutually exclusive with `contextId`.
+   * @param serializationOptions Specifies the result serialization. If provided, overrides
+   * `generatePreview` and `returnByValue`.
    */
   suspend fun evaluate(
     @ParamName("expression") expression: String,
@@ -185,10 +202,11 @@ interface Runtime {
     @ParamName("replMode") @Optional @Experimental replMode: Boolean? = null,
     @ParamName("allowUnsafeEvalBlockedByCSP") @Optional @Experimental allowUnsafeEvalBlockedByCSP: Boolean? = null,
     @ParamName("uniqueContextId") @Optional @Experimental uniqueContextId: String? = null,
+    @ParamName("serializationOptions") @Optional @Experimental serializationOptions: SerializationOptions? = null,
   ): Evaluate
 
   suspend fun evaluate(@ParamName("expression") expression: String): Evaluate {
-    return evaluate(expression, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
+    return evaluate(expression, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
   }
 
   /**
@@ -214,16 +232,18 @@ interface Runtime {
    * @param accessorPropertiesOnly If true, returns accessor properties (with getter/setter) only; internal properties are not
    * returned either.
    * @param generatePreview Whether preview should be generated for the results.
+   * @param nonIndexedPropertiesOnly If true, returns non-indexed properties only.
    */
   suspend fun getProperties(
     @ParamName("objectId") objectId: String,
     @ParamName("ownProperties") @Optional ownProperties: Boolean? = null,
     @ParamName("accessorPropertiesOnly") @Optional @Experimental accessorPropertiesOnly: Boolean? = null,
     @ParamName("generatePreview") @Optional @Experimental generatePreview: Boolean? = null,
+    @ParamName("nonIndexedPropertiesOnly") @Optional @Experimental nonIndexedPropertiesOnly: Boolean? = null,
   ): Properties
 
   suspend fun getProperties(@ParamName("objectId") objectId: String): Properties {
-    return getProperties(objectId, null, null, null)
+    return getProperties(objectId, null, null, null, null)
   }
 
   /**
@@ -329,20 +349,21 @@ interface Runtime {
    * execution context. If omitted and `executionContextName` is not set,
    * the binding is exposed to all execution contexts of the target.
    * This parameter is mutually exclusive with `executionContextName`.
+   * Deprecated in favor of `executionContextName` due to an unclear use case
+   * and bugs in implementation (crbug.com/1169639). `executionContextId` will be
+   * removed in the future.
    * @param executionContextName If specified, the binding is exposed to the executionContext with
    * matching name, even for contexts created after the binding is added.
    * See also `ExecutionContext.name` and `worldName` parameter to
    * `Page.addScriptToEvaluateOnNewDocument`.
    * This parameter is mutually exclusive with `executionContextId`.
    */
-  @Experimental
   suspend fun addBinding(
     @ParamName("name") name: String,
-    @ParamName("executionContextId") @Optional executionContextId: Int? = null,
-    @ParamName("executionContextName") @Optional @Experimental executionContextName: String? = null,
+    @ParamName("executionContextId") @Optional @Experimental executionContextId: Int? = null,
+    @ParamName("executionContextName") @Optional executionContextName: String? = null,
   )
 
-  @Experimental
   suspend fun addBinding(@ParamName("name") name: String) {
     return addBinding(name, null, null)
   }
@@ -352,8 +373,19 @@ interface Runtime {
    * unsubscribes current runtime agent from Runtime.bindingCalled notifications.
    * @param name
    */
-  @Experimental
   suspend fun removeBinding(@ParamName("name") name: String)
+
+  /**
+   * This method tries to lookup and populate exception details for a
+   * JavaScript Error object.
+   * Note that the stackTrace portion of the resulting exceptionDetails will
+   * only be populated if the Runtime domain was enabled at the time when the
+   * Error was thrown.
+   * @param errorObjectId The error object for which to resolve the exception details.
+   */
+  @Experimental
+  @Returns("exceptionDetails")
+  suspend fun getExceptionDetails(@ParamName("errorObjectId") errorObjectId: String): ExceptionDetails?
 
   @EventName("bindingCalled")
   @Experimental

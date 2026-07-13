@@ -6,8 +6,7 @@ import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
 
 /**
- * Issued for every compilation cache generated. Is only available
- * if Page.setGenerateCompilationCache is enabled.
+ * Issued for every compilation cache generated.
  */
 @Experimental
 data class CompilationCacheProduced(

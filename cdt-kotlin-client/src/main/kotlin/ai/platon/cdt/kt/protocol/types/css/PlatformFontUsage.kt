@@ -12,6 +12,8 @@ import kotlin.String
 data class PlatformFontUsage(
   @param:JsonProperty("familyName")
   val familyName: String,
+  @param:JsonProperty("postScriptName")
+  val postScriptName: String,
   @param:JsonProperty("isCustomFont")
   val isCustomFont: Boolean,
   @param:JsonProperty("glyphCount")

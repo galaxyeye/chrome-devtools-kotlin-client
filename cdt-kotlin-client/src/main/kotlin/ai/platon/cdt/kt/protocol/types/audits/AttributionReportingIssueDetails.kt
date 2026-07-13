@@ -8,14 +8,11 @@ import kotlin.String
 
 /**
  * Details for issues around "Attribution Reporting API" usage.
- * Explainer: https://github.com/WICG/conversion-measurement-api
+ * Explainer: https://github.com/WICG/attribution-reporting-api
  */
 data class AttributionReportingIssueDetails(
   @param:JsonProperty("violationType")
   val violationType: AttributionReportingIssueType,
-  @param:JsonProperty("frame")
-  @param:Optional
-  val frame: AffectedFrame? = null,
   @param:JsonProperty("request")
   @param:Optional
   val request: AffectedRequest? = null,

@@ -4,7 +4,6 @@ import ai.platon.pulsar.browser.driver.chrome.*
 import ai.platon.pulsar.browser.driver.chrome.util.ChromeIOException
 import ai.platon.pulsar.browser.driver.chrome.util.ChromeServiceException
 import ai.platon.pulsar.browser.driver.chrome.util.ProxyClasses
-import ai.platon.pulsar.browser.driver.chrome.util.SuspendAwareHandler
 import ai.platon.pulsar.common.NetUtil
 import ai.platon.pulsar.common.getLogger
 import ai.platon.pulsar.common.warnForClose
@@ -12,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.InputStream
+import java.lang.reflect.InvocationHandler
 import java.net.ConnectException
 import java.net.HttpURLConnection
 import java.net.URI
@@ -138,7 +138,7 @@ class ChromeImpl(
             ?: throw ChromeIOException("Invalid web socket url to page")
         val pageTransport = KtorTransport.create(URI.create(debuggerUrl))
 
-        val invocationHandler = CachedDevToolsInvocationHandlerProxies(this)
+        val invocationHandler = CachedDevToolsInvocationHandlerProxies()
 
         val devTools: RemoteDevTools = createRemoteDevToolsProxy(browserTransport, pageTransport, config, invocationHandler)
 
@@ -149,7 +149,7 @@ class ChromeImpl(
 
     private fun createRemoteDevToolsProxy(
         browserTransport: Transport, pageTransport: Transport, config: DevToolsConfig,
-        invocationHandler: SuspendAwareHandler
+        invocationHandler: InvocationHandler
     ): RemoteDevTools {
         // Create a class that inherits from ChromeDevToolsImpl and construct an object
         return ProxyClasses.createCoroutineSupportedProxyFromAbstract(

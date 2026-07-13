@@ -2,24 +2,31 @@
 package ai.platon.cdt.kt.protocol
 
 import ai.platon.cdt.kt.protocol.commands.Accessibility
+import ai.platon.cdt.kt.protocol.commands.Ads
 import ai.platon.cdt.kt.protocol.commands.Animation
-import ai.platon.cdt.kt.protocol.commands.ApplicationCache
 import ai.platon.cdt.kt.protocol.commands.Audits
+import ai.platon.cdt.kt.protocol.commands.Autofill
 import ai.platon.cdt.kt.protocol.commands.BackgroundService
+import ai.platon.cdt.kt.protocol.commands.BluetoothEmulation
 import ai.platon.cdt.kt.protocol.commands.Browser
 import ai.platon.cdt.kt.protocol.commands.CSS
 import ai.platon.cdt.kt.protocol.commands.CacheStorage
 import ai.platon.cdt.kt.protocol.commands.Cast
 import ai.platon.cdt.kt.protocol.commands.Console
+import ai.platon.cdt.kt.protocol.commands.CrashReportContext
 import ai.platon.cdt.kt.protocol.commands.DOM
 import ai.platon.cdt.kt.protocol.commands.DOMDebugger
 import ai.platon.cdt.kt.protocol.commands.DOMSnapshot
 import ai.platon.cdt.kt.protocol.commands.DOMStorage
-import ai.platon.cdt.kt.protocol.commands.Database
 import ai.platon.cdt.kt.protocol.commands.Debugger
+import ai.platon.cdt.kt.protocol.commands.DeviceAccess
 import ai.platon.cdt.kt.protocol.commands.DeviceOrientation
 import ai.platon.cdt.kt.protocol.commands.Emulation
+import ai.platon.cdt.kt.protocol.commands.EventBreakpoints
+import ai.platon.cdt.kt.protocol.commands.Extensions
+import ai.platon.cdt.kt.protocol.commands.FedCm
 import ai.platon.cdt.kt.protocol.commands.Fetch
+import ai.platon.cdt.kt.protocol.commands.FileSystem
 import ai.platon.cdt.kt.protocol.commands.HeadlessExperimental
 import ai.platon.cdt.kt.protocol.commands.HeapProfiler
 import ai.platon.cdt.kt.protocol.commands.IO
@@ -32,14 +39,17 @@ import ai.platon.cdt.kt.protocol.commands.Media
 import ai.platon.cdt.kt.protocol.commands.Memory
 import ai.platon.cdt.kt.protocol.commands.Network
 import ai.platon.cdt.kt.protocol.commands.Overlay
+import ai.platon.cdt.kt.protocol.commands.PWA
 import ai.platon.cdt.kt.protocol.commands.Page
 import ai.platon.cdt.kt.protocol.commands.Performance
 import ai.platon.cdt.kt.protocol.commands.PerformanceTimeline
+import ai.platon.cdt.kt.protocol.commands.Preload
 import ai.platon.cdt.kt.protocol.commands.Profiler
 import ai.platon.cdt.kt.protocol.commands.Runtime
 import ai.platon.cdt.kt.protocol.commands.Schema
 import ai.platon.cdt.kt.protocol.commands.Security
 import ai.platon.cdt.kt.protocol.commands.ServiceWorker
+import ai.platon.cdt.kt.protocol.commands.SmartCardEmulation
 import ai.platon.cdt.kt.protocol.commands.Storage
 import ai.platon.cdt.kt.protocol.commands.SystemInfo
 import ai.platon.cdt.kt.protocol.commands.Target
@@ -47,6 +57,7 @@ import ai.platon.cdt.kt.protocol.commands.Tethering
 import ai.platon.cdt.kt.protocol.commands.Tracing
 import ai.platon.cdt.kt.protocol.commands.WebAudio
 import ai.platon.cdt.kt.protocol.commands.WebAuthn
+import ai.platon.cdt.kt.protocol.commands.WebMCP
 
 interface ChromeDevTools {
   /**
@@ -80,9 +91,12 @@ interface ChromeDevTools {
 
   val accessibility: Accessibility
 
-  val animation: Animation
+  /**
+   * A domain for ad-related metrics and data.
+   */
+  val ads: Ads
 
-  val applicationCache: ApplicationCache
+  val animation: Animation
 
   /**
    * Audits domain allows investigation of page violations and possible improvements.
@@ -90,9 +104,20 @@ interface ChromeDevTools {
   val audits: Audits
 
   /**
+   * Defines commands and events for Autofill.
+   */
+  val autofill: Autofill
+
+  /**
    * Defines events for background web platform features.
    */
   val backgroundService: BackgroundService
+
+  /**
+   * This domain allows configuring virtual Bluetooth devices to test
+   * the web-bluetooth API.
+   */
+  val bluetoothEmulation: BluetoothEmulation
 
   /**
    * The Browser domain defines methods and events for browser managing.
@@ -118,13 +143,18 @@ interface ChromeDevTools {
   val cast: Cast
 
   /**
+   * This domain exposes the current state of the CrashReportContext API.
+   */
+  val crashReportContext: CrashReportContext
+
+  /**
    * This domain exposes DOM read/write operations. Each DOM Node is represented with its mirror object
    * that has an `id`. This `id` can be used to get additional information on the Node, resolve it into
    * the JavaScript object wrapper, etc. It is important that client receives DOM events only for the
    * nodes that are known to the client. Backend keeps track of the nodes that were sent to the client
    * and never sends the same node twice. It is client's responsibility to collect information about
-   * the nodes that were sent to the client.<p>Note that `iframe` owner elements will return
-   * corresponding document elements as their child nodes.</p>
+   * the nodes that were sent to the client. Note that `iframe` owner elements will return
+   * corresponding document elements as their child nodes.
    */
   val dom: DOM
 
@@ -144,7 +174,7 @@ interface ChromeDevTools {
    */
   val domStorage: DOMStorage
 
-  val database: Database
+  val deviceAccess: DeviceAccess
 
   val deviceOrientation: DeviceOrientation
 
@@ -152,6 +182,30 @@ interface ChromeDevTools {
    * This domain emulates different environments for the page.
    */
   val emulation: Emulation
+
+  /**
+   * EventBreakpoints permits setting JavaScript breakpoints on operations and events
+   * occurring in native code invoked from JavaScript. Once breakpoint is hit, it is
+   * reported through Debugger domain, similarly to regular breakpoints being hit.
+   */
+  val eventBreakpoints: EventBreakpoints
+
+  /**
+   * Defines commands and events for browser extensions.
+   */
+  val extensions: Extensions
+
+  /**
+   * This domain allows interacting with the FedCM dialog.
+   */
+  val fedCm: FedCm
+
+  /**
+   * A domain for letting clients substitute browser's network layer with client code.
+   */
+  val fetch: Fetch
+
+  val fileSystem: FileSystem
 
   /**
    * This domain provides experimental commands only supported in headless mode.
@@ -176,6 +230,11 @@ interface ChromeDevTools {
    */
   val log: Log
 
+  /**
+   * This domain allows detailed inspection of media elements.
+   */
+  val media: Media
+
   val memory: Memory
 
   /**
@@ -190,6 +249,11 @@ interface ChromeDevTools {
   val overlay: Overlay
 
   /**
+   * This domain allows interacting with the browser to control PWAs.
+   */
+  val pwa: PWA
+
+  /**
    * Actions and events related to the inspected page belong to the page domain.
    */
   val page: Page
@@ -202,12 +266,13 @@ interface ChromeDevTools {
    */
   val performanceTimeline: PerformanceTimeline
 
-  /**
-   * Security
-   */
+  val preload: Preload
+
   val security: Security
 
   val serviceWorker: ServiceWorker
+
+  val smartCardEmulation: SmartCardEmulation
 
   val storage: Storage
 
@@ -229,11 +294,6 @@ interface ChromeDevTools {
   val tracing: Tracing
 
   /**
-   * A domain for letting clients substitute browser's network layer with client code.
-   */
-  val fetch: Fetch
-
-  /**
    * This domain allows inspection of Web Audio API.
    * https://webaudio.github.io/web-audio-api/
    */
@@ -245,8 +305,5 @@ interface ChromeDevTools {
    */
   val webAuthn: WebAuthn
 
-  /**
-   * This domain allows detailed inspection of media elements
-   */
-  val media: Media
+  val webMcp: WebMCP
 }

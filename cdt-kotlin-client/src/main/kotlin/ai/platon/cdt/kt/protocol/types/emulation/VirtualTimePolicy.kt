@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.emulation
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -16,4 +17,6 @@ public enum class VirtualTimePolicy {
   PAUSE,
   @JsonProperty("pauseIfNetworkFetchesPending")
   PAUSE_IF_NETWORK_FETCHES_PENDING,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.layertree
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -13,4 +14,6 @@ public enum class ScrollRectType {
   TOUCH_EVENT_HANDLER,
   @JsonProperty("WheelEventHandler")
   WHEEL_EVENT_HANDLER,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

@@ -32,6 +32,8 @@ data class ScriptFailedToParse(
   val executionContextId: Int,
   @param:JsonProperty("hash")
   val hash: String,
+  @param:JsonProperty("buildId")
+  val buildId: String,
   @param:JsonProperty("executionContextAuxData")
   @param:Optional
   val executionContextAuxData: Map<String, Any?>? = null,

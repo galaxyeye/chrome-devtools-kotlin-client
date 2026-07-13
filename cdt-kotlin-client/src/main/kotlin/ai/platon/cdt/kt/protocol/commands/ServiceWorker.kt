@@ -55,11 +55,6 @@ interface ServiceWorker {
   suspend fun enable()
 
   /**
-   * @param versionId
-   */
-  suspend fun inspectWorker(@ParamName("versionId") versionId: String)
-
-  /**
    * @param forceUpdateOnPageLoad
    */
   suspend fun setForceUpdateOnPageLoad(@ParamName("forceUpdateOnPageLoad") forceUpdateOnPageLoad: Boolean)

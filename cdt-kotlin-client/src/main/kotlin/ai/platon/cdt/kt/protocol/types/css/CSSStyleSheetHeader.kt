@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.css
 
+import ai.platon.cdt.kt.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Boolean
@@ -49,4 +50,8 @@ data class CSSStyleSheetHeader(
   val endLine: Double,
   @param:JsonProperty("endColumn")
   val endColumn: Double,
+  @param:JsonProperty("loadingFailed")
+  @param:Optional
+  @param:Experimental
+  val loadingFailed: Boolean? = null,
 )

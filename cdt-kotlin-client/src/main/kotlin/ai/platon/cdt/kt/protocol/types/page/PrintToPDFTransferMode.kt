@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.page
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -11,4 +12,6 @@ public enum class PrintToPDFTransferMode {
   RETURN_AS_BASE_64,
   @JsonProperty("ReturnAsStream")
   RETURN_AS_STREAM,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

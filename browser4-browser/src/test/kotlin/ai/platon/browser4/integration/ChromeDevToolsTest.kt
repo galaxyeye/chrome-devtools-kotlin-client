@@ -1,0 +1,62 @@
+package ai.platon.browser4.integration
+
+import ai.platon.browser4.chrome.ChromeLauncher
+import ai.platon.browser4.chrome.RemoteChrome
+import ai.platon.browser4.chrome.RemoteDevTools
+import ai.platon.browser4.chrome.protocol.DirectChromeProtocol
+import ai.platon.browser4.api.LauncherOptions
+import ai.platon.browser4.api.BrowserProtocol
+import ai.platon.pulsar.common.browser.BrowserFiles
+import ai.platon.pulsar.common.serialize.json.Pson
+import ai.platon.pulsar.common.sleepSeconds
+import kotlinx.coroutines.runBlocking
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Tag
+import org.junit.jupiter.api.Test
+
+@Tag("integration")
+class ChromeDevToolsTest {
+
+    private lateinit var launcher: ChromeLauncher
+    private lateinit var chrome: RemoteChrome
+    private lateinit var devTools: RemoteDevTools
+    private lateinit var browserProtocol: BrowserProtocol
+
+    @BeforeEach
+    fun createDevTools() {
+        val userDataDir = BrowserFiles.computeTestContextDir()
+
+        launcher = ChromeLauncher(userDataDir, options = LauncherOptions())
+        chrome = launcher.launch()
+
+        val tab = chrome.createTab()
+        val versionString = Pson.toJson(chrome.version)
+        assertTrue(!chrome.version.browser.isNullOrBlank())
+        assertTrue(versionString.contains("Mozilla"))
+
+        devTools = chrome.createDevTools(tab)
+        browserProtocol = DirectChromeProtocol(devTools)
+
+        runBlocking { browserProtocol.pageEnable() }
+    }
+
+    @AfterEach
+    fun closeBrowser() {
+        chrome.close()
+        launcher.close()
+    }
+
+    @Test
+    fun testDevTools() {
+        runBlocking {
+            browserProtocol.navigate("https://vercel.com/")
+            val navigate = browserProtocol.navigate("https://www.example.com/")
+            assertNotNull(navigate)
+        }
+
+        sleepSeconds(2)
+    }
+}

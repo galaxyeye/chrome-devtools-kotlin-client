@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hover Test</title>
+  <style>
+    .hover-target {
+      padding: 40px;
+      margin: 20px;
+      background-color: rgb(0, 0, 255);
+      color: white;
+      text-align: center;
+      font-size: 18px;
+      transition: background-color 0.1s;
+    }
+    .hover-target:hover {
+      background-color: rgb(255, 0, 0);
+    }
+  </style>
+</head>
+<body>
+  <h1>Hover Test Page</h1>
+  <div class="hover-target" id="hover-div">Hover over me</div>
+  <div class="no-hover" id="no-hover-div">No hover effect here</div>
+</body>
+</html>

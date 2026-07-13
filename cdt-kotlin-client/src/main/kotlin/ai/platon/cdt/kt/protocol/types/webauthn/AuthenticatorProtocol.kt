@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.webauthn
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 public enum class AuthenticatorProtocol {
@@ -8,4 +9,6 @@ public enum class AuthenticatorProtocol {
   U_2F,
   @JsonProperty("ctap2")
   CTAP_2,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

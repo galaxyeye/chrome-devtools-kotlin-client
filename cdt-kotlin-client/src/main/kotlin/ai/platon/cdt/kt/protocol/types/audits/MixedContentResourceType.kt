@@ -1,9 +1,12 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.audits
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 public enum class MixedContentResourceType {
+  @JsonProperty("AttributionSrc")
+  ATTRIBUTION_SRC,
   @JsonProperty("Audio")
   AUDIO,
   @JsonProperty("Beacon")
@@ -26,6 +29,8 @@ public enum class MixedContentResourceType {
   IMAGE,
   @JsonProperty("Import")
   IMPORT,
+  @JsonProperty("JSON")
+  JSON,
   @JsonProperty("Manifest")
   MANIFEST,
   @JsonProperty("Ping")
@@ -44,6 +49,8 @@ public enum class MixedContentResourceType {
   SERVICE_WORKER,
   @JsonProperty("SharedWorker")
   SHARED_WORKER,
+  @JsonProperty("SpeculationRules")
+  SPECULATION_RULES,
   @JsonProperty("Stylesheet")
   STYLESHEET,
   @JsonProperty("Track")
@@ -56,4 +63,6 @@ public enum class MixedContentResourceType {
   XML_HTTP_REQUEST,
   @JsonProperty("XSLT")
   XSLT,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

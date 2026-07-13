@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.css
 
+import ai.platon.cdt.kt.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.String
@@ -14,4 +15,8 @@ data class Value(
   @param:JsonProperty("range")
   @param:Optional
   val range: SourceRange? = null,
+  @param:JsonProperty("specificity")
+  @param:Optional
+  @param:Experimental
+  val specificity: Specificity? = null,
 )

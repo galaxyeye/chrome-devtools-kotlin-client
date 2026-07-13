@@ -135,7 +135,8 @@ public class Application {
             commandPackageName,
             supportTypesPackageName,
             supportAnnotationsPackageName,
-            languageRoot);
+            languageRoot,
+            configuration.isSerialization());
         break;
       default:
         throw new IllegalStateException("Unhandled generation language: " + language);
@@ -260,7 +261,8 @@ public class Application {
       String commandPackageName,
       String supportTypesPackageName,
       String supportAnnotationsPackageName,
-      Path languageRoot)
+      Path languageRoot,
+      boolean useSerialization)
       throws IOException {
     KotlinProtocolGenerator generator =
         new KotlinProtocolGenerator(
@@ -270,7 +272,8 @@ public class Application {
             commandPackageName,
             supportTypesPackageName,
             supportAnnotationsPackageName,
-            languageRoot);
+            languageRoot,
+            useSerialization);
     generator.generate(protocol, DomainUtils.devToolsProtocolResolver(protocol));
   }
 

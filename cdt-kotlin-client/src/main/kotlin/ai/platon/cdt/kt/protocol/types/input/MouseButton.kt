@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.input
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 public enum class MouseButton {
@@ -16,4 +17,6 @@ public enum class MouseButton {
   BACK,
   @JsonProperty("forward")
   FORWARD,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

@@ -1,11 +1,13 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.network
 
+import ai.platon.cdt.kt.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.protocol.types.security.SecurityState
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Any
 import kotlin.Boolean
+import kotlin.Deprecated
 import kotlin.Double
 import kotlin.Int
 import kotlin.String
@@ -25,14 +27,18 @@ data class Response(
   val headers: Map<String, Any?>,
   @param:JsonProperty("headersText")
   @param:Optional
+  @Deprecated("Deprecated by protocol")
   val headersText: String? = null,
   @param:JsonProperty("mimeType")
   val mimeType: String,
+  @param:JsonProperty("charset")
+  val charset: String,
   @param:JsonProperty("requestHeaders")
   @param:Optional
   val requestHeaders: Map<String, Any?>? = null,
   @param:JsonProperty("requestHeadersText")
   @param:Optional
+  @Deprecated("Deprecated by protocol")
   val requestHeadersText: String? = null,
   @param:JsonProperty("connectionReused")
   val connectionReused: Boolean,
@@ -53,6 +59,13 @@ data class Response(
   @param:JsonProperty("fromPrefetchCache")
   @param:Optional
   val fromPrefetchCache: Boolean? = null,
+  @param:JsonProperty("fromEarlyHints")
+  @param:Optional
+  val fromEarlyHints: Boolean? = null,
+  @param:JsonProperty("serviceWorkerRouterInfo")
+  @param:Optional
+  @param:Experimental
+  val serviceWorkerRouterInfo: ServiceWorkerRouterInfo? = null,
   @param:JsonProperty("encodedDataLength")
   val encodedDataLength: Double,
   @param:JsonProperty("timing")
@@ -70,6 +83,10 @@ data class Response(
   @param:JsonProperty("protocol")
   @param:Optional
   val protocol: String? = null,
+  @param:JsonProperty("alternateProtocolUsage")
+  @param:Optional
+  @param:Experimental
+  val alternateProtocolUsage: AlternateProtocolUsage? = null,
   @param:JsonProperty("securityState")
   val securityState: SecurityState,
   @param:JsonProperty("securityDetails")

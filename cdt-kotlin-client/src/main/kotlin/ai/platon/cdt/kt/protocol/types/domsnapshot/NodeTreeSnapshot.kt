@@ -16,6 +16,9 @@ data class NodeTreeSnapshot(
   @param:JsonProperty("nodeType")
   @param:Optional
   val nodeType: List<Int>? = null,
+  @param:JsonProperty("shadowRootType")
+  @param:Optional
+  val shadowRootType: RareStringData? = null,
   @param:JsonProperty("nodeName")
   @param:Optional
   val nodeName: List<Int>? = null,
@@ -46,6 +49,9 @@ data class NodeTreeSnapshot(
   @param:JsonProperty("pseudoType")
   @param:Optional
   val pseudoType: RareStringData? = null,
+  @param:JsonProperty("pseudoIdentifier")
+  @param:Optional
+  val pseudoIdentifier: RareStringData? = null,
   @param:JsonProperty("isClickable")
   @param:Optional
   val isClickable: RareBooleanData? = null,

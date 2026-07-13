@@ -33,4 +33,7 @@ data class Animation(
   @param:JsonProperty("cssId")
   @param:Optional
   val cssId: String? = null,
+  @param:JsonProperty("viewOrScrollTimeline")
+  @param:Optional
+  val viewOrScrollTimeline: ViewOrScrollTimeline? = null,
 )

@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.accessibility
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -19,4 +20,6 @@ public enum class AXValueSourceType {
   PLACEHOLDER,
   @JsonProperty("relatedElement")
   RELATED_ELEMENT,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

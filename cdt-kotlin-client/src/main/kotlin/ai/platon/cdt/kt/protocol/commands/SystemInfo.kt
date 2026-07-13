@@ -2,10 +2,13 @@
 package ai.platon.cdt.kt.protocol.commands
 
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
+import ai.platon.cdt.kt.protocol.support.annotations.ParamName
 import ai.platon.cdt.kt.protocol.support.annotations.ReturnTypeParameter
 import ai.platon.cdt.kt.protocol.support.annotations.Returns
 import ai.platon.cdt.kt.protocol.types.systeminfo.Info
 import ai.platon.cdt.kt.protocol.types.systeminfo.ProcessInfo
+import kotlin.Boolean
+import kotlin.String
 import kotlin.collections.List
 
 /**
@@ -17,6 +20,13 @@ interface SystemInfo {
    * Returns information about the system.
    */
   suspend fun getInfo(): Info
+
+  /**
+   * Returns information about the feature state.
+   * @param featureState
+   */
+  @Returns("featureEnabled")
+  suspend fun getFeatureState(@ParamName("featureState") featureState: String): Boolean
 
   /**
    * Returns information about all running processes.

@@ -1,10 +1,11 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.network
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
- * Only set for "token-redemption" type and determine whether
+ * Only set for "token-redemption" operation and determine whether
  * to request a fresh SRR or use a still valid cached SRR.
  */
 public enum class TrustTokenParamsRefreshPolicy {
@@ -12,4 +13,6 @@ public enum class TrustTokenParamsRefreshPolicy {
   USE_CACHED,
   @JsonProperty("Refresh")
   REFRESH,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

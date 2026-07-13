@@ -21,6 +21,9 @@ import ai.platon.cdt.protocol.definition.types.type.array.items.StringArrayItem 
 
 /**
  * Shared Kotlin generation context and helpers backing Kotlin CDP output.
+ *
+ * @property useSerialization When true, generates kotlinx.serialization annotations
+ *   (@Serializable, @SerialName) instead of Jackson annotations (@JsonProperty, @JsonEnumDefaultValue).
  */
 class KotlinGenerationContext(
     val basePackage: String,
@@ -28,7 +31,8 @@ class KotlinGenerationContext(
     val eventsPackage: String,
     val commandsPackage: String,
     val supportTypesPackage: String,
-    val supportAnnotationsPackage: String
+    val supportAnnotationsPackage: String,
+    val useSerialization: Boolean = false
 ) {
     val optionalAnnotation = ClassName(supportAnnotationsPackage, "Optional")
     @Deprecated("Deprecated")
@@ -43,6 +47,11 @@ class KotlinGenerationContext(
     val eventHandlerClass = ClassName(supportTypesPackage, "EventHandler")
     val eventListenerClass = ClassName(supportTypesPackage, "EventListener")
 
+    /** kotlinx.serialization annotations */
+    val serializableAnnotation = ClassName("kotlinx.serialization", "Serializable")
+    val serialNameAnnotation = ClassName("kotlinx.serialization", "SerialName")
+
+    /** Jackson annotations (used when useSerialization is false) */
     val jsonEnumDefaultValue = ClassName("com.fasterxml.jackson.annotation", "JsonEnumDefaultValue")
     val jsonProperty = ClassName("com.fasterxml.jackson.annotation", "JsonProperty")
 
@@ -78,6 +87,12 @@ class KotlinTypeMapper(private val context: KotlinGenerationContext) {
     private val intType = Int::class.asTypeName()
     private val mapType = MAP.parameterizedBy(STRING, anyNullable)
 
+    /** kotlinx.serialization JSON types — used when [context.useSerialization] is true */
+    private val jsonElement = ClassName("kotlinx.serialization.json", "JsonElement")
+    private val jsonElementNullable = jsonElement.copy(nullable = true)
+    private val jsonObject = ClassName("kotlinx.serialization.json", "JsonObject")
+    private val jsonObjectNullable = jsonObject.copy(nullable = true)
+
     fun resolveProperty(
         property: Property,
         domain: Domain,
@@ -89,12 +104,18 @@ class KotlinTypeMapper(private val context: KotlinGenerationContext) {
             is IntegerProperty -> KotlinResolvedType(intType)
             is NumberProperty -> KotlinResolvedType(doubleType)
             is BooleanProperty -> KotlinResolvedType(booleanType)
-            is AnyProperty -> KotlinResolvedType(anyNullable)
-            is ObjectProperty -> KotlinResolvedType(mapType)
+            is AnyProperty -> KotlinResolvedType(
+                if (context.useSerialization) jsonElementNullable else anyNullable
+            )
+            is ObjectProperty -> KotlinResolvedType(
+                if (context.useSerialization) jsonObjectNullable else mapType
+            )
             is EnumProperty -> buildInlineEnum(property, domain, owner)
             is ArrayProperty -> resolveArray(property.name, property.items, domain, owner, resolver)
             is RefProperty -> resolveRef(property.ref, domain, owner, resolver)
-            else -> KotlinResolvedType(anyNullable)
+            else -> KotlinResolvedType(
+                if (context.useSerialization) jsonElementNullable else anyNullable
+            )
         }
         return if (property.optional == java.lang.Boolean.TRUE) {
             resolution.copy(typeName = resolution.typeName.copy(nullable = true))
@@ -134,7 +155,9 @@ class KotlinTypeMapper(private val context: KotlinGenerationContext) {
             is ArrayType -> resolveArrayType(refName, type, namespace, refName, owner, domain, resolver)
             is ObjectType -> {
                 if (type.properties == null || type.properties.isEmpty()) {
-                    KotlinResolvedType(mapType)
+                    KotlinResolvedType(
+                        if (context.useSerialization) jsonObjectNullable else mapType
+                    )
                 } else {
                     val pkg = StringUtils.buildPackageName(
                         context.typesPackage, namespace.lowercase(Locale.ROOT)
@@ -168,7 +191,9 @@ class KotlinTypeMapper(private val context: KotlinGenerationContext) {
             is TopLevelIntegerArrayItem -> KotlinResolvedType(intType)
             is TopLevelNumberArrayItem -> KotlinResolvedType(doubleType)
             is TopLevelRefArrayItem -> resolveRef(item.ref, domain, owner, resolver)
-            else -> KotlinResolvedType(anyNullable)
+            else -> KotlinResolvedType(
+                if (context.useSerialization) jsonElementNullable else anyNullable
+            )
         }
         val listType = LIST.parameterizedBy(elementResolution.typeName)
         return elementResolution.copy(typeName = listType)
@@ -182,9 +207,15 @@ class KotlinTypeMapper(private val context: KotlinGenerationContext) {
         resolver: DomainTypeResolver
     ): KotlinResolvedType {
         val element = when (item) {
-            null -> KotlinResolvedType(anyNullable)
-            is ObjectArrayItem -> KotlinResolvedType(mapType)
-            is AnyArrayItem -> KotlinResolvedType(anyNullable)
+            null -> KotlinResolvedType(
+                if (context.useSerialization) jsonElementNullable else anyNullable
+            )
+            is ObjectArrayItem -> KotlinResolvedType(
+                if (context.useSerialization) jsonObjectNullable else mapType
+            )
+            is AnyArrayItem -> KotlinResolvedType(
+                if (context.useSerialization) jsonElementNullable else anyNullable
+            )
             is StringArrayItem -> KotlinResolvedType(STRING)
             is IntegerArrayItem -> KotlinResolvedType(intType)
             is NumberArrayItem -> KotlinResolvedType(doubleType)
@@ -194,7 +225,9 @@ class KotlinTypeMapper(private val context: KotlinGenerationContext) {
             }
 
             is RefArrayItem -> resolveRef(item.ref, domain, owner, resolver)
-            else -> KotlinResolvedType(anyNullable)
+            else -> KotlinResolvedType(
+                if (context.useSerialization) jsonElementNullable else anyNullable
+            )
         }
         return element.copy(typeName = LIST.parameterizedBy(element.typeName))
     }
@@ -293,6 +326,10 @@ class KotlinTypeMapper(private val context: KotlinGenerationContext) {
         val typeBuilder = TypeSpec.classBuilder(className)
             .addModifiers(KModifier.DATA)
 
+        if (context.useSerialization) {
+            typeBuilder.addAnnotation(context.serializableAnnotation)
+        }
+
         objectType.description?.takeIf { it.isNotBlank() }?.let { typeBuilder.addKdoc("%L", it) }
 
         val additionalFiles = mutableListOf<FileSpec>()
@@ -338,13 +375,22 @@ class KotlinTypeMapper(private val context: KotlinGenerationContext) {
 
             val propertyBuilder = PropertySpec.builder(property.name, resolution.typeName)
                 .initializer(property.name)
-                // Attach JsonProperty to the getter explicitly
-                .addAnnotation(
+            // Attach property name annotation to the getter explicitly
+            if (context.useSerialization) {
+                propertyBuilder.addAnnotation(
+                    AnnotationSpec.builder(context.serialNameAnnotation)
+                        .useSiteTarget(AnnotationSpec.UseSiteTarget.PROPERTY)
+                        .addMember("%S", property.name)
+                        .build()
+                )
+            } else {
+                propertyBuilder.addAnnotation(
                     AnnotationSpec.builder(context.jsonProperty)
                         .useSiteTarget(AnnotationSpec.UseSiteTarget.PARAM)
                         .addMember("%S", property.name)
                         .build()
                 )
+            }
             typeBuilder.addProperty(propertyBuilder.build())
         }
 
@@ -408,16 +454,37 @@ class KotlinTypeMapper(private val context: KotlinGenerationContext) {
         val enumBuilder = TypeSpec.enumBuilder(enumName)
         description?.takeIf { it.isNotBlank() }?.let { enumBuilder.addKdoc("%L", it) }
 
+        if (context.useSerialization) {
+            enumBuilder.addAnnotation(context.serializableAnnotation)
+        }
+
+        val nameAnnotationClass = if (context.useSerialization) {
+            context.serialNameAnnotation
+        } else {
+            context.jsonProperty
+        }
+
         var hasExplicitUnknown = false
         if (values.isNotEmpty()) {
             values.forEach { rawValue ->
                 val constName = StringUtils.toEnumConstant(rawValue)
                 val constantBuilder = TypeSpec.anonymousClassBuilder()
-                    .addAnnotation(AnnotationSpec.builder(context.jsonProperty).addMember("%S", rawValue).build())
+                    .addAnnotation(
+                        AnnotationSpec.builder(nameAnnotationClass)
+                            .addMember("%S", rawValue)
+                            .build()
+                    )
 
                 if (constName == "UNKNOWN") {
                     hasExplicitUnknown = true
-                    constantBuilder.addAnnotation(AnnotationSpec.builder(context.jsonEnumDefaultValue).build())
+                    if (!context.useSerialization) {
+                        constantBuilder.addAnnotation(
+                            AnnotationSpec.builder(context.jsonEnumDefaultValue).build()
+                        )
+                    }
+                    // Note: kotlinx.serialization has no equivalent of @JsonEnumDefaultValue.
+                    // Users should configure Json { coerceInputValues = true } or use a custom
+                    // serializer if they need to gracefully handle unknown enum values.
                 }
 
                 enumBuilder.addEnumConstant(constName, constantBuilder.build())
@@ -425,12 +492,13 @@ class KotlinTypeMapper(private val context: KotlinGenerationContext) {
         }
 
         if (!hasExplicitUnknown) {
-            enumBuilder.addEnumConstant(
-                "UNKNOWN",
-                TypeSpec.anonymousClassBuilder()
-                    .addAnnotation(AnnotationSpec.builder(context.jsonEnumDefaultValue).build())
-                    .build()
-            )
+            val unknownBuilder = TypeSpec.anonymousClassBuilder()
+            if (!context.useSerialization) {
+                unknownBuilder.addAnnotation(
+                    AnnotationSpec.builder(context.jsonEnumDefaultValue).build()
+                )
+            }
+            enumBuilder.addEnumConstant("UNKNOWN", unknownBuilder.build())
         }
 
         return FileSpec.builder(packageName, enumName)

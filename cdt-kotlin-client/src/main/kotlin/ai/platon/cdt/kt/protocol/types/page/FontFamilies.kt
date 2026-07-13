@@ -29,7 +29,7 @@ data class FontFamilies(
   @param:JsonProperty("fantasy")
   @param:Optional
   val fantasy: String? = null,
-  @param:JsonProperty("pictograph")
+  @param:JsonProperty("math")
   @param:Optional
-  val pictograph: String? = null,
+  val math: String? = null,
 )

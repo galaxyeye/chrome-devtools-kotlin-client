@@ -18,7 +18,8 @@ class KotlinProtocolGenerator(
     commandPackageName: String,
     supportTypesPackageName: String,
     supportAnnotationsPackageName: String,
-    private val outputRoot: Path
+    private val outputRoot: Path,
+    useSerialization: Boolean = false
 ) {
     private val context =
         KotlinGenerationContext(
@@ -27,7 +28,8 @@ class KotlinProtocolGenerator(
             eventPackageName,
             commandPackageName,
             supportTypesPackageName,
-            supportAnnotationsPackageName
+            supportAnnotationsPackageName,
+            useSerialization
         )
     private val mapper = KotlinTypeMapper(context)
     private val typesBuilder = KotlinTypesBuilder(context, mapper)

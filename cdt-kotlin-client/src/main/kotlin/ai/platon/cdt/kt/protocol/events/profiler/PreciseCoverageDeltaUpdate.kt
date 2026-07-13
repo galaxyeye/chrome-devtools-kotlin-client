@@ -12,14 +12,14 @@ import kotlin.collections.List
  * Reports coverage delta since the last poll (either from an event like this, or from
  * `takePreciseCoverage` for the current isolate. May only be sent if precise code
  * coverage has been started. This event can be trigged by the embedder to, for example,
- * trigger collection of coverage data immediatelly at a certain point in time.
+ * trigger collection of coverage data immediately at a certain point in time.
  */
 @Experimental
 data class PreciseCoverageDeltaUpdate(
   @param:JsonProperty("timestamp")
   val timestamp: Double,
-  @param:JsonProperty("occassion")
-  val occassion: String,
+  @param:JsonProperty("occasion")
+  val occasion: String,
   @param:JsonProperty("result")
   val result: List<ScriptCoverage>,
 )

@@ -4,17 +4,34 @@ package ai.platon.cdt.kt.protocol.commands
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.protocol.support.annotations.ParamName
+import ai.platon.cdt.kt.protocol.support.annotations.ReturnTypeParameter
 import ai.platon.cdt.kt.protocol.support.annotations.Returns
+import ai.platon.cdt.kt.protocol.types.memory.DOMCounter
 import ai.platon.cdt.kt.protocol.types.memory.DOMCounters
 import ai.platon.cdt.kt.protocol.types.memory.PressureLevel
 import ai.platon.cdt.kt.protocol.types.memory.SamplingProfile
 import kotlin.Boolean
 import kotlin.Int
+import kotlin.collections.List
 
 @Experimental
 interface Memory {
+  /**
+   * Retruns current DOM object counters.
+   */
   suspend fun getDOMCounters(): DOMCounters
 
+  /**
+   * Retruns DOM object counters after preparing renderer for leak detection.
+   */
+  @Returns("counters")
+  @ReturnTypeParameter(DOMCounter::class)
+  suspend fun getDOMCountersForLeakDetection(): List<DOMCounter>
+
+  /**
+   * Prepares for leak detection by terminating workers, stopping spellcheckers,
+   * dropping non-essential internal caches, running garbage collections, etc.
+   */
   suspend fun prepareForLeakDetection()
 
   /**

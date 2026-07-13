@@ -16,7 +16,9 @@ import ai.platon.cdt.kt.protocol.events.page.FrameRequestedNavigation
 import ai.platon.cdt.kt.protocol.events.page.FrameResized
 import ai.platon.cdt.kt.protocol.events.page.FrameScheduledNavigation
 import ai.platon.cdt.kt.protocol.events.page.FrameStartedLoading
+import ai.platon.cdt.kt.protocol.events.page.FrameStartedNavigating
 import ai.platon.cdt.kt.protocol.events.page.FrameStoppedLoading
+import ai.platon.cdt.kt.protocol.events.page.FrameSubtreeWillBeDetached
 import ai.platon.cdt.kt.protocol.events.page.InterstitialHidden
 import ai.platon.cdt.kt.protocol.events.page.InterstitialShown
 import ai.platon.cdt.kt.protocol.events.page.JavascriptDialogClosed
@@ -36,6 +38,8 @@ import ai.platon.cdt.kt.protocol.support.annotations.Returns
 import ai.platon.cdt.kt.protocol.support.types.EventHandler
 import ai.platon.cdt.kt.protocol.support.types.EventListener
 import ai.platon.cdt.kt.protocol.types.debugger.SearchMatch
+import ai.platon.cdt.kt.protocol.types.network.AdAncestry
+import ai.platon.cdt.kt.protocol.types.page.AppId
 import ai.platon.cdt.kt.protocol.types.page.AppManifest
 import ai.platon.cdt.kt.protocol.types.page.CaptureScreenshotFormat
 import ai.platon.cdt.kt.protocol.types.page.CaptureSnapshotFormat
@@ -48,12 +52,16 @@ import ai.platon.cdt.kt.protocol.types.page.InstallabilityError
 import ai.platon.cdt.kt.protocol.types.page.LayoutMetrics
 import ai.platon.cdt.kt.protocol.types.page.Navigate
 import ai.platon.cdt.kt.protocol.types.page.NavigationHistory
+import ai.platon.cdt.kt.protocol.types.page.OriginTrial
 import ai.platon.cdt.kt.protocol.types.page.PermissionsPolicyFeatureState
 import ai.platon.cdt.kt.protocol.types.page.PrintToPDF
 import ai.platon.cdt.kt.protocol.types.page.PrintToPDFTransferMode
 import ai.platon.cdt.kt.protocol.types.page.ReferrerPolicy
 import ai.platon.cdt.kt.protocol.types.page.ResourceContent
+import ai.platon.cdt.kt.protocol.types.page.ScriptFontFamilies
 import ai.platon.cdt.kt.protocol.types.page.SetDownloadBehaviorBehavior
+import ai.platon.cdt.kt.protocol.types.page.SetRPHRegistrationModeMode
+import ai.platon.cdt.kt.protocol.types.page.SetSPCTransactionModeMode
 import ai.platon.cdt.kt.protocol.types.page.SetWebLifecycleStateState
 import ai.platon.cdt.kt.protocol.types.page.StartScreencastFormat
 import ai.platon.cdt.kt.protocol.types.page.TransitionType
@@ -85,13 +93,22 @@ interface Page {
    * @param worldName If specified, creates an isolated world with the given name and evaluates given script in it.
    * This world name will be used as the ExecutionContextDescription::name when the corresponding
    * event is emitted.
+   * @param includeCommandLineAPI Specifies whether command line API should be available to the script, defaults
+   * to false.
+   * @param runImmediately If true, runs the script immediately on existing execution contexts or worlds.
+   * Default: false.
    */
   @Returns("identifier")
-  suspend fun addScriptToEvaluateOnNewDocument(@ParamName("source") source: String, @ParamName("worldName") @Optional @Experimental worldName: String? = null): String
+  suspend fun addScriptToEvaluateOnNewDocument(
+    @ParamName("source") source: String,
+    @ParamName("worldName") @Optional @Experimental worldName: String? = null,
+    @ParamName("includeCommandLineAPI") @Optional @Experimental includeCommandLineAPI: Boolean? = null,
+    @ParamName("runImmediately") @Optional @Experimental runImmediately: Boolean? = null,
+  ): String
 
   @Returns("identifier")
   suspend fun addScriptToEvaluateOnNewDocument(@ParamName("source") source: String): String {
-    return addScriptToEvaluateOnNewDocument(source, null)
+    return addScriptToEvaluateOnNewDocument(source, null, null, null)
   }
 
   /**
@@ -106,6 +123,7 @@ interface Page {
    * @param clip Capture the screenshot of a given region only.
    * @param fromSurface Capture the screenshot from the surface, rather than the view. Defaults to true.
    * @param captureBeyondViewport Capture the screenshot beyond the viewport. Defaults to false.
+   * @param optimizeForSpeed Optimize image encoding for speed, not for resulting size (defaults to false)
    */
   @Returns("data")
   suspend fun captureScreenshot(
@@ -114,11 +132,12 @@ interface Page {
     @ParamName("clip") @Optional clip: Viewport? = null,
     @ParamName("fromSurface") @Optional @Experimental fromSurface: Boolean? = null,
     @ParamName("captureBeyondViewport") @Optional @Experimental captureBeyondViewport: Boolean? = null,
+    @ParamName("optimizeForSpeed") @Optional @Experimental optimizeForSpeed: Boolean? = null,
   ): String
 
   @Returns("data")
   suspend fun captureScreenshot(): String {
-    return captureScreenshot(null, null, null, null, null)
+    return captureScreenshot(null, null, null, null, null, null)
   }
 
   /**
@@ -162,19 +181,55 @@ interface Page {
 
   /**
    * Enables page domain notifications.
+   * @param enableFileChooserOpenedEvent If true, the `Page.fileChooserOpened` event will be emitted regardless of the state set by
+   * `Page.setInterceptFileChooserDialog` command (default: false).
    */
-  suspend fun enable()
+  suspend fun enable(@ParamName("enableFileChooserOpenedEvent") @Optional @Experimental enableFileChooserOpenedEvent: Boolean? = null)
 
-  suspend fun getAppManifest(): AppManifest
+  suspend fun enable() {
+    return enable(null)
+  }
+
+  /**
+   * Gets the processed manifest for this current document.
+   *   This API always waits for the manifest to be loaded.
+   *   If manifestId is provided, and it does not match the manifest of the
+   *     current document, this API errors out.
+   *   If there is not a loaded page, this API errors out immediately.
+   * @param manifestId
+   */
+  suspend fun getAppManifest(@ParamName("manifestId") @Optional manifestId: String? = null): AppManifest
+
+  suspend fun getAppManifest(): AppManifest {
+    return getAppManifest(null)
+  }
 
   @Experimental
   @Returns("installabilityErrors")
   @ReturnTypeParameter(InstallabilityError::class)
   suspend fun getInstallabilityErrors(): List<InstallabilityError>
 
+  /**
+   * Deprecated because it's not guaranteed that the returned icon is in fact the one used for PWA installation.
+   */
+  @Deprecated("Deprecated by protocol")
   @Experimental
   @Returns("primaryIcon")
   suspend fun getManifestIcons(): String?
+
+  /**
+   * Returns the unique (PWA) app id.
+   * Only returns values if the feature flag 'WebAppEnableManifestId' is enabled
+   */
+  @Experimental
+  suspend fun getAppId(): AppId
+
+  /**
+   * @param frameId
+   */
+  @Experimental
+  @Returns("adScriptAncestry")
+  suspend fun getAdScriptAncestry(@ParamName("frameId") frameId: String): AdAncestry?
 
   /**
    * Returns present frame tree structure.
@@ -262,10 +317,14 @@ interface Page {
    * @param marginBottom Bottom margin in inches. Defaults to 1cm (~0.4 inches).
    * @param marginLeft Left margin in inches. Defaults to 1cm (~0.4 inches).
    * @param marginRight Right margin in inches. Defaults to 1cm (~0.4 inches).
-   * @param pageRanges Paper ranges to print, e.g., '1-5, 8, 11-13'. Defaults to the empty string, which means
-   * print all pages.
-   * @param ignoreInvalidPageRanges Whether to silently ignore invalid but successfully parsed page ranges, such as '3-2'.
-   * Defaults to false.
+   * @param pageRanges Paper ranges to print, one based, e.g., '1-5, 8, 11-13'. Pages are
+   * printed in the document order, not in the order specified, and no
+   * more than once.
+   * Defaults to empty string, which implies the entire document is printed.
+   * The page numbers are quietly capped to actual page count of the
+   * document, and ranges beyond the end of the document are ignored.
+   * If this results in no pages to print, an error is reported.
+   * It is an error to specify a range with start greater than end.
    * @param headerTemplate HTML template for the print header. Should be valid HTML markup with following
    * classes used to inject printing values into them:
    * - `date`: formatted print date
@@ -279,6 +338,8 @@ interface Page {
    * @param preferCSSPageSize Whether or not to prefer page size as defined by css. Defaults to false,
    * in which case the content will be scaled to fit the paper size.
    * @param transferMode return as stream
+   * @param generateTaggedPDF Whether or not to generate tagged (accessible) PDF. Defaults to embedder choice.
+   * @param generateDocumentOutline Whether or not to embed the document outline into the PDF.
    */
   suspend fun printToPDF(
     @ParamName("landscape") @Optional landscape: Boolean? = null,
@@ -292,15 +353,16 @@ interface Page {
     @ParamName("marginLeft") @Optional marginLeft: Double? = null,
     @ParamName("marginRight") @Optional marginRight: Double? = null,
     @ParamName("pageRanges") @Optional pageRanges: String? = null,
-    @ParamName("ignoreInvalidPageRanges") @Optional ignoreInvalidPageRanges: Boolean? = null,
     @ParamName("headerTemplate") @Optional headerTemplate: String? = null,
     @ParamName("footerTemplate") @Optional footerTemplate: String? = null,
     @ParamName("preferCSSPageSize") @Optional preferCSSPageSize: Boolean? = null,
     @ParamName("transferMode") @Optional @Experimental transferMode: PrintToPDFTransferMode? = null,
+    @ParamName("generateTaggedPDF") @Optional @Experimental generateTaggedPDF: Boolean? = null,
+    @ParamName("generateDocumentOutline") @Optional @Experimental generateDocumentOutline: Boolean? = null,
   ): PrintToPDF
 
   suspend fun printToPDF(): PrintToPDF {
-    return printToPDF(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
+    return printToPDF(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
   }
 
   /**
@@ -308,11 +370,18 @@ interface Page {
    * @param ignoreCache If true, browser cache is ignored (as if the user pressed Shift+refresh).
    * @param scriptToEvaluateOnLoad If set, the script will be injected into all frames of the inspected page after reload.
    * Argument will be ignored if reloading dataURL origin.
+   * @param loaderId If set, an error will be thrown if the target page's main frame's
+   * loader id does not match the provided id. This prevents accidentally
+   * reloading an unintended target in case there's a racing navigation.
    */
-  suspend fun reload(@ParamName("ignoreCache") @Optional ignoreCache: Boolean? = null, @ParamName("scriptToEvaluateOnLoad") @Optional scriptToEvaluateOnLoad: String? = null)
+  suspend fun reload(
+    @ParamName("ignoreCache") @Optional ignoreCache: Boolean? = null,
+    @ParamName("scriptToEvaluateOnLoad") @Optional scriptToEvaluateOnLoad: String? = null,
+    @ParamName("loaderId") @Optional @Experimental loaderId: String? = null,
+  )
 
   suspend fun reload() {
-    return reload(null, null)
+    return reload(null, null, null)
   }
 
   /**
@@ -377,7 +446,6 @@ interface Page {
    * Enable page Content Security Policy by-passing.
    * @param enabled Whether to bypass page CSP.
    */
-  @Experimental
   suspend fun setBypassCSP(@ParamName("enabled") enabled: Boolean)
 
   /**
@@ -390,11 +458,26 @@ interface Page {
   suspend fun getPermissionsPolicyState(@ParamName("frameId") frameId: String): List<PermissionsPolicyFeatureState>
 
   /**
-   * Set generic font families.
-   * @param fontFamilies Specifies font families to set. If a font family is not specified, it won't be changed.
+   * Get Origin Trials on given frame.
+   * @param frameId
    */
   @Experimental
-  suspend fun setFontFamilies(@ParamName("fontFamilies") fontFamilies: FontFamilies)
+  @Returns("originTrials")
+  @ReturnTypeParameter(OriginTrial::class)
+  suspend fun getOriginTrials(@ParamName("frameId") frameId: String): List<OriginTrial>
+
+  /**
+   * Set generic font families.
+   * @param fontFamilies Specifies font families to set. If a font family is not specified, it won't be changed.
+   * @param forScripts Specifies font families to set for individual scripts.
+   */
+  @Experimental
+  suspend fun setFontFamilies(@ParamName("fontFamilies") fontFamilies: FontFamilies, @ParamName("forScripts") @Optional forScripts: List<ScriptFontFamilies>? = null)
+
+  @Experimental
+  suspend fun setFontFamilies(@ParamName("fontFamilies") fontFamilies: FontFamilies) {
+    return setFontFamilies(fontFamilies, null)
+  }
 
   /**
    * Set default font sizes.
@@ -430,7 +513,6 @@ interface Page {
    * Controls whether page will emit lifecycle events.
    * @param enabled If true, starts emitting lifecycle events.
    */
-  @Experimental
   suspend fun setLifecycleEventsEnabled(@ParamName("enabled") enabled: Boolean)
 
   /**
@@ -469,7 +551,6 @@ interface Page {
   /**
    * Tries to close page, running its beforeunload hooks, if any.
    */
-  @Experimental
   suspend fun close()
 
   /**
@@ -488,20 +569,9 @@ interface Page {
   suspend fun stopScreencast()
 
   /**
-   * Forces compilation cache to be generated for every subresource script.
-   * See also: `Page.produceCompilationCache`.
-   * @param enabled
-   */
-  @Experimental
-  suspend fun setProduceCompilationCache(@ParamName("enabled") enabled: Boolean)
-
-  /**
    * Requests backend to produce compilation cache for the specified scripts.
-   * Unlike setProduceCompilationCache, this allows client to only produce cache
-   * for specific scripts. `scripts` are appeneded to the list of scripts
-   * for which the cache for would produced. Disabling compilation cache with
-   * `setProduceCompilationCache` would reset all pending cache requests.
-   * The list may also be reset during page navigation.
+   * `scripts` are appended to the list of scripts for which the cache
+   * would be produced. The list may be reset during page navigation.
    * When script with a matching URL is encountered, the cache is optionally
    * produced upon backend discretion, based on internal heuristics.
    * See also: `Page.compilationCacheProduced`.
@@ -524,6 +594,22 @@ interface Page {
    */
   @Experimental
   suspend fun clearCompilationCache()
+
+  /**
+   * Sets the Secure Payment Confirmation transaction mode.
+   * https://w3c.github.io/secure-payment-confirmation/#sctn-automation-set-spc-transaction-mode
+   * @param mode
+   */
+  @Experimental
+  suspend fun setSPCTransactionMode(@ParamName("mode") mode: SetSPCTransactionModeMode)
+
+  /**
+   * Extensions for Custom Handlers API:
+   * https://html.spec.whatwg.org/multipage/system-state.html#rph-automation
+   * @param mode
+   */
+  @Experimental
+  suspend fun setRPHRegistrationMode(@ParamName("mode") mode: SetRPHRegistrationModeMode)
 
   /**
    * Generates a report for testing.
@@ -549,9 +635,43 @@ interface Page {
    * When file chooser interception is enabled, native file chooser dialog is not shown.
    * Instead, a protocol event `Page.fileChooserOpened` is emitted.
    * @param enabled
+   * @param cancel If true, cancels the dialog by emitting relevant events (if any)
+   * in addition to not showing it if the interception is enabled
+   * (default: false).
+   */
+  suspend fun setInterceptFileChooserDialog(@ParamName("enabled") enabled: Boolean, @ParamName("cancel") @Optional @Experimental cancel: Boolean? = null)
+
+  suspend fun setInterceptFileChooserDialog(@ParamName("enabled") enabled: Boolean) {
+    return setInterceptFileChooserDialog(enabled, null)
+  }
+
+  /**
+   * Enable/disable prerendering manually.
+   *
+   * This command is a short-term solution for https://crbug.com/1440085.
+   * See https://docs.google.com/document/d/12HVmFxYj5Jc-eJr5OmWsa2bqTJsbgGLKI6ZIyx0_wpA
+   * for more details.
+   *
+   * TODO(https://crbug.com/1440085): Remove this once Puppeteer supports tab targets.
+   * @param isAllowed
    */
   @Experimental
-  suspend fun setInterceptFileChooserDialog(@ParamName("enabled") enabled: Boolean)
+  suspend fun setPrerenderingAllowed(@ParamName("isAllowed") isAllowed: Boolean)
+
+  /**
+   * Get the annotated page content for the main frame.
+   * This is an experimental command that is subject to change.
+   * @param includeActionableInformation Whether to include actionable information. Defaults to true.
+   */
+  @Experimental
+  @Returns("content")
+  suspend fun getAnnotatedPageContent(@ParamName("includeActionableInformation") @Optional includeActionableInformation: Boolean? = null): String
+
+  @Experimental
+  @Returns("content")
+  suspend fun getAnnotatedPageContent(): String {
+    return getAnnotatedPageContent(null)
+  }
 
   @EventName("domContentEventFired")
   fun onDomContentEventFired(eventListener: EventHandler<DomContentEventFired>): EventListener
@@ -585,6 +705,14 @@ interface Page {
   @EventName("frameDetached")
   fun onFrameDetached(eventListener: suspend (FrameDetached) -> Unit): EventListener
 
+  @EventName("frameSubtreeWillBeDetached")
+  @Experimental
+  fun onFrameSubtreeWillBeDetached(eventListener: EventHandler<FrameSubtreeWillBeDetached>): EventListener
+
+  @EventName("frameSubtreeWillBeDetached")
+  @Experimental
+  fun onFrameSubtreeWillBeDetached(eventListener: suspend (FrameSubtreeWillBeDetached) -> Unit): EventListener
+
   @EventName("frameNavigated")
   fun onFrameNavigated(eventListener: EventHandler<FrameNavigated>): EventListener
 
@@ -606,6 +734,14 @@ interface Page {
   @EventName("frameResized")
   @Experimental
   fun onFrameResized(eventListener: suspend (FrameResized) -> Unit): EventListener
+
+  @EventName("frameStartedNavigating")
+  @Experimental
+  fun onFrameStartedNavigating(eventListener: EventHandler<FrameStartedNavigating>): EventListener
+
+  @EventName("frameStartedNavigating")
+  @Experimental
+  fun onFrameStartedNavigating(eventListener: suspend (FrameStartedNavigating) -> Unit): EventListener
 
   @EventName("frameRequestedNavigation")
   @Experimental

@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.systeminfo
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -12,5 +13,6 @@ public enum class ImageType {
   @JsonProperty("webp")
   WEBP,
   @JsonProperty("unknown")
+  @JsonEnumDefaultValue
   UNKNOWN,
 }

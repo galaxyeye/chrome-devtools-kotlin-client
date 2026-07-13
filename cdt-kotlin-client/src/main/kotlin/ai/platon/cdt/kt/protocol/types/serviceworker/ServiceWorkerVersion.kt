@@ -33,4 +33,7 @@ data class ServiceWorkerVersion(
   @param:JsonProperty("targetId")
   @param:Optional
   val targetId: String? = null,
+  @param:JsonProperty("routerRules")
+  @param:Optional
+  val routerRules: String? = null,
 )

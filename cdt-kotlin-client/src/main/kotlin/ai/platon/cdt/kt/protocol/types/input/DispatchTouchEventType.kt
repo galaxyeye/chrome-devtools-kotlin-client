@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.input
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -16,4 +17,6 @@ public enum class DispatchTouchEventType {
   TOUCH_MOVE,
   @JsonProperty("touchCancel")
   TOUCH_CANCEL,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

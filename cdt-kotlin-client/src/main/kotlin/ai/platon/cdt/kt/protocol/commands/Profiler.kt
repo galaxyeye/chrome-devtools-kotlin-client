@@ -12,11 +12,8 @@ import ai.platon.cdt.kt.protocol.support.annotations.ReturnTypeParameter
 import ai.platon.cdt.kt.protocol.support.annotations.Returns
 import ai.platon.cdt.kt.protocol.support.types.EventHandler
 import ai.platon.cdt.kt.protocol.support.types.EventListener
-import ai.platon.cdt.kt.protocol.types.profiler.CounterInfo
 import ai.platon.cdt.kt.protocol.types.profiler.Profile
-import ai.platon.cdt.kt.protocol.types.profiler.RuntimeCallCounterInfo
 import ai.platon.cdt.kt.protocol.types.profiler.ScriptCoverage
-import ai.platon.cdt.kt.protocol.types.profiler.ScriptTypeProfile
 import ai.platon.cdt.kt.protocol.types.profiler.TakePreciseCoverage
 import kotlin.Boolean
 import kotlin.Double
@@ -65,12 +62,6 @@ interface Profiler {
     return startPreciseCoverage(null, null, null)
   }
 
-  /**
-   * Enable type profile.
-   */
-  @Experimental
-  suspend fun startTypeProfile()
-
   @Returns("profile")
   suspend fun stop(): Profile
 
@@ -81,64 +72,10 @@ interface Profiler {
   suspend fun stopPreciseCoverage()
 
   /**
-   * Disable type profile. Disabling releases type profile data collected so far.
-   */
-  @Experimental
-  suspend fun stopTypeProfile()
-
-  /**
    * Collect coverage data for the current isolate, and resets execution counters. Precise code
    * coverage needs to have started.
    */
   suspend fun takePreciseCoverage(): TakePreciseCoverage
-
-  /**
-   * Collect type profile.
-   */
-  @Experimental
-  @Returns("result")
-  @ReturnTypeParameter(ScriptTypeProfile::class)
-  suspend fun takeTypeProfile(): List<ScriptTypeProfile>
-
-  /**
-   * Enable counters collection.
-   */
-  @Experimental
-  suspend fun enableCounters()
-
-  /**
-   * Disable counters collection.
-   */
-  @Experimental
-  suspend fun disableCounters()
-
-  /**
-   * Retrieve counters.
-   */
-  @Experimental
-  @Returns("result")
-  @ReturnTypeParameter(CounterInfo::class)
-  suspend fun getCounters(): List<CounterInfo>
-
-  /**
-   * Enable run time call stats collection.
-   */
-  @Experimental
-  suspend fun enableRuntimeCallStats()
-
-  /**
-   * Disable run time call stats collection.
-   */
-  @Experimental
-  suspend fun disableRuntimeCallStats()
-
-  /**
-   * Retrieve run time call stats.
-   */
-  @Experimental
-  @Returns("result")
-  @ReturnTypeParameter(RuntimeCallCounterInfo::class)
-  suspend fun getRuntimeCallStats(): List<RuntimeCallCounterInfo>
 
   @EventName("consoleProfileFinished")
   fun onConsoleProfileFinished(eventListener: EventHandler<ConsoleProfileFinished>): EventListener

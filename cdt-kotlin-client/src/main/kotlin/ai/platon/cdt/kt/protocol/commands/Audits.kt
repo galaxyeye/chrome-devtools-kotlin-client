@@ -6,14 +6,18 @@ import ai.platon.cdt.kt.protocol.support.annotations.EventName
 import ai.platon.cdt.kt.protocol.support.annotations.Experimental
 import ai.platon.cdt.kt.protocol.support.annotations.Optional
 import ai.platon.cdt.kt.protocol.support.annotations.ParamName
+import ai.platon.cdt.kt.protocol.support.annotations.ReturnTypeParameter
+import ai.platon.cdt.kt.protocol.support.annotations.Returns
 import ai.platon.cdt.kt.protocol.support.types.EventHandler
 import ai.platon.cdt.kt.protocol.support.types.EventListener
 import ai.platon.cdt.kt.protocol.types.audits.EncodedResponse
+import ai.platon.cdt.kt.protocol.types.audits.GenericIssueDetails
 import ai.platon.cdt.kt.protocol.types.audits.GetEncodedResponseEncoding
 import kotlin.Boolean
 import kotlin.Double
 import kotlin.String
 import kotlin.Unit
+import kotlin.collections.List
 
 /**
  * Audits domain allows investigation of page violations and possible improvements.
@@ -51,15 +55,12 @@ interface Audits {
   suspend fun enable()
 
   /**
-   * Runs the contrast check for the target page. Found issues are reported
+   * Runs the form issues check for the target page. Found issues are reported
    * using Audits.issueAdded event.
-   * @param reportAAA Whether to report WCAG AAA level issues. Default is false.
    */
-  suspend fun checkContrast(@ParamName("reportAAA") @Optional reportAAA: Boolean? = null)
-
-  suspend fun checkContrast() {
-    return checkContrast(null)
-  }
+  @Returns("formIssues")
+  @ReturnTypeParameter(GenericIssueDetails::class)
+  suspend fun checkFormsIssues(): List<GenericIssueDetails>
 
   @EventName("issueAdded")
   fun onIssueAdded(eventListener: EventHandler<IssueAdded>): EventListener

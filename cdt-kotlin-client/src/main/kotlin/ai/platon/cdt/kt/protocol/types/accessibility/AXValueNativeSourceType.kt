@@ -1,12 +1,15 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.accessibility
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
  * Enum of possible native property sources (as a subtype of a particular AXValueSourceType).
  */
 public enum class AXValueNativeSourceType {
+  @JsonProperty("description")
+  DESCRIPTION,
   @JsonProperty("figcaption")
   FIGCAPTION,
   @JsonProperty("label")
@@ -25,4 +28,6 @@ public enum class AXValueNativeSourceType {
   TITLE,
   @JsonProperty("other")
   OTHER,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

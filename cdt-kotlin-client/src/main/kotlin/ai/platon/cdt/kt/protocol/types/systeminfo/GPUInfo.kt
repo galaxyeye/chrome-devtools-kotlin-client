@@ -26,6 +26,4 @@ data class GPUInfo(
   val videoDecoding: List<VideoDecodeAcceleratorCapability>,
   @param:JsonProperty("videoEncoding")
   val videoEncoding: List<VideoEncodeAcceleratorCapability>,
-  @param:JsonProperty("imageDecoding")
-  val imageDecoding: List<ImageDecodeAcceleratorCapability>,
 )

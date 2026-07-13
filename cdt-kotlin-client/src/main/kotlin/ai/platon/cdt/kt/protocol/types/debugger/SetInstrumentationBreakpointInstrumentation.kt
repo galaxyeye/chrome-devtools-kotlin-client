@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.debugger
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -11,4 +12,6 @@ public enum class SetInstrumentationBreakpointInstrumentation {
   BEFORE_SCRIPT_EXECUTION,
   @JsonProperty("beforeScriptWithSourceMapExecution")
   BEFORE_SCRIPT_WITH_SOURCE_MAP_EXECUTION,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

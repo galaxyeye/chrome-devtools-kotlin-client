@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.domdebugger
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 /**
@@ -11,4 +12,6 @@ public enum class CSPViolationType {
   TRUSTEDTYPE_SINK_VIOLATION,
   @JsonProperty("trustedtype-policy-violation")
   TRUSTEDTYPE_POLICY_VIOLATION,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

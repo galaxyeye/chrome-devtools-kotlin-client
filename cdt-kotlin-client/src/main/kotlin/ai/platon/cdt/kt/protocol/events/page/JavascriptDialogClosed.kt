@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.events.page
 
+import ai.platon.cdt.kt.protocol.support.annotations.Experimental
 import com.fasterxml.jackson.`annotation`.JsonProperty
 import kotlin.Boolean
 import kotlin.String
@@ -10,6 +11,9 @@ import kotlin.String
  * closed.
  */
 data class JavascriptDialogClosed(
+  @param:JsonProperty("frameId")
+  @param:Experimental
+  val frameId: String,
   @param:JsonProperty("result")
   val result: Boolean,
   @param:JsonProperty("userInput")

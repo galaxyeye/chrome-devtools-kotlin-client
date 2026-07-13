@@ -1,6 +1,7 @@
 @file:Suppress("unused")
 package ai.platon.cdt.kt.protocol.types.overlay
 
+import com.fasterxml.jackson.`annotation`.JsonEnumDefaultValue
 import com.fasterxml.jackson.`annotation`.JsonProperty
 
 public enum class ContrastAlgorithm {
@@ -10,4 +11,6 @@ public enum class ContrastAlgorithm {
   AAA,
   @JsonProperty("apca")
   APCA,
+  @JsonEnumDefaultValue
+  UNKNOWN,
 }

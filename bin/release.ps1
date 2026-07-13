@@ -8,7 +8,7 @@
     2. Reads the local SNAPSHOT version (via Maven, handles version inheritance).
     3. Checks the latest released version on Maven Central.
     4. Validates that the local SNAPSHOT version is the next patch release.
-    5. Sets the release version with mvn versions:set.
+    5. Sets the release version on the root POM with mvn versions:set.
     6. Runs Maven deploy with the release profile.
     7. On failure, reverts to the SNAPSHOT version automatically.
 #>
@@ -175,7 +175,7 @@ if ($confirm -notin @('y', 'Y')) {
 # ------------------------------------------------------------------
 Write-Host "`nSetting release version $releaseVersion ..." -ForegroundColor Cyan
 
-Invoke-Mvn versions:set "-DnewVersion=$releaseVersion" -pl $artifactId -q
+Invoke-Mvn versions:set "-DnewVersion=$releaseVersion" -q
 if ($LASTEXITCODE -ne 0) {
     Write-Host "ERROR: Failed to set release version." -ForegroundColor Red
     exit 1
@@ -196,7 +196,7 @@ try {
     Write-Host "`nRelease $releaseVersion deployed successfully to Maven Central!" -ForegroundColor Green
 
     # Finalize the version change (removes the versions:set backup file)
-    Invoke-Mvn versions:commit -pl $artifactId -q
+    Invoke-Mvn versions:commit -q
 
     # ------------------------------------------------------------------
     # 7. Git: commit, tag, and update main branch
@@ -234,7 +234,7 @@ try {
     Write-Host "`nMaven release failed: $_" -ForegroundColor Red
     Write-Host "Reverting to SNAPSHOT version ..." -ForegroundColor Yellow
 
-    Invoke-Mvn versions:revert -pl $artifactId -q
+    Invoke-Mvn versions:revert -q
 
     Write-Host "Restored $artifactId/pom.xml to $snapshotVersion" -ForegroundColor Yellow
     exit 1

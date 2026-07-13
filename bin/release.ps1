@@ -4,13 +4,24 @@
     Release the cdt-kotlin-client-serialization module to Maven Central.
 
 .DESCRIPTION
-    1. Checks the latest released version on Maven Central.
-    2. Validates that the local SNAPSHOT version is the next patch release.
-    3. Removes the -SNAPSHOT suffix to create the release version.
-    4. Runs Maven deploy with the release profile.
+    1. Validates the working tree is clean.
+    2. Reads the local SNAPSHOT version (via Maven, handles version inheritance).
+    3. Checks the latest released version on Maven Central.
+    4. Validates that the local SNAPSHOT version is the next patch release.
+    5. Sets the release version with mvn versions:set.
+    6. Runs Maven deploy with the release profile.
+    7. On failure, reverts to the SNAPSHOT version automatically.
 #>
 
 $ErrorActionPreference = "Stop"
+
+# ------------------------------------------------------------------
+# Helper: parse a version string into integer components
+# ------------------------------------------------------------------
+function Parse-Version($v) {
+    $clean = $v -replace '-.*$', ''  # strip any pre-release suffix
+    return [int[]]($clean -split '\.')
+}
 
 $repoRoot = (git rev-parse --show-toplevel 2>$null)
 if (-not $repoRoot) {
@@ -18,6 +29,15 @@ if (-not $repoRoot) {
     exit 1
 }
 Set-Location $repoRoot
+
+# ------------------------------------------------------------------
+# Check for a clean working tree
+# ------------------------------------------------------------------
+$dirty = git status --porcelain 2>$null
+if ($dirty) {
+    Write-Host "ERROR: Working tree is not clean. Please commit or stash changes first." -ForegroundColor Red
+    exit 1
+}
 
 # ------------------------------------------------------------------
 # Configuration
@@ -33,10 +53,14 @@ if (-not (Test-Path $pomPath)) {
 }
 
 # ------------------------------------------------------------------
-# 1. Read the local SNAPSHOT version
+# 1. Read the local SNAPSHOT version via Maven (handles inheritance + namespaces)
 # ------------------------------------------------------------------
-[xml]$pom = Get-Content $pomPath
-$snapshotVersion = $pom.project.version
+$snapshotVersion = .\mvnw -pl $artifactId help:evaluate "-Dexpression=project.version" -q -DforceStdout 2>$null
+if (-not $snapshotVersion) {
+    Write-Host "ERROR: Could not determine project version from Maven." -ForegroundColor Red
+    exit 1
+}
+$snapshotVersion = $snapshotVersion.Trim()
 
 if ($snapshotVersion -notlike "*-SNAPSHOT") {
     Write-Host "ERROR: Version '$snapshotVersion' is not a SNAPSHOT. Already released?" -ForegroundColor Red
@@ -80,12 +104,6 @@ try {
 # 3. Validate that the local version is the next patch after latest
 # ------------------------------------------------------------------
 if ($latestVersion) {
-    # Parse versions into numeric components (ignore pre-release suffixes like -alpha, -beta, etc.)
-    function Parse-Version($v) {
-        $clean = $v -replace '-.*$', ''  # strip any pre-release suffix
-        return [int[]]($clean -split '\.')
-    }
-
     $latestParts  = Parse-Version $latestVersion
     $releaseParts = Parse-Version $releaseVersion
 
@@ -98,7 +116,7 @@ if ($latestVersion) {
 
         if ($releaseVersion -ne $expectedNextPatch) {
             Write-Host ""
-            Write-Warning "Version mismatch detected!"
+            Write-Warning "This appears to be more than a patch bump!"
             Write-Host "  Latest released version : $latestVersion"
             Write-Host "  Expected next patch     : $expectedNextPatch"
             Write-Host "  Local release version   : $releaseVersion"
@@ -138,15 +156,17 @@ if ($confirm -notin @('y', 'Y')) {
 }
 
 # ------------------------------------------------------------------
-# 5. Remove -SNAPSHOT suffix to create release version
+# 5. Set the release version via Maven (handles inheritance correctly)
 # ------------------------------------------------------------------
-Write-Host "`nRemoving -SNAPSHOT suffix from $pomPath ..." -ForegroundColor Cyan
+Write-Host "`nSetting release version $releaseVersion ..." -ForegroundColor Cyan
 
-$pomContent = Get-Content $pomPath -Raw
-$pomContent = $pomContent -replace [regex]::Escape($snapshotVersion), $releaseVersion
-Set-Content -Path $pomPath -Value $pomContent -NoNewline
+.\mvnw versions:set "-DnewVersion=$releaseVersion" -pl $artifactId -q
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "ERROR: Failed to set release version." -ForegroundColor Red
+    exit 1
+}
 
-Write-Host "Updated $artifactId/pom.xml : $snapshotVersion -> $releaseVersion" -ForegroundColor Green
+Write-Host "Set $artifactId version to $releaseVersion" -ForegroundColor Green
 
 # ------------------------------------------------------------------
 # 6. Run Maven release
@@ -159,13 +179,14 @@ try {
         throw "Maven exited with code $LASTEXITCODE"
     }
     Write-Host "`nRelease $releaseVersion deployed successfully to Maven Central!" -ForegroundColor Green
+
+    # Commit the version change (removes the versions:set backup file)
+    .\mvnw versions:commit -pl $artifactId -q 2>$null
 } catch {
     Write-Host "`nMaven release failed: $_" -ForegroundColor Red
-    Write-Host "Restoring SNAPSHOT version in pom.xml ..." -ForegroundColor Yellow
+    Write-Host "Reverting to SNAPSHOT version ..." -ForegroundColor Yellow
 
-    $pomContent = Get-Content $pomPath -Raw
-    $pomContent = $pomContent -replace [regex]::Escape($releaseVersion), $snapshotVersion
-    Set-Content -Path $pomPath -Value $pomContent -NoNewline
+    .\mvnw versions:revert -pl $artifactId -q 2>$null
 
     Write-Host "Restored $artifactId/pom.xml to $snapshotVersion" -ForegroundColor Yellow
     exit 1

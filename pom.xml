@@ -537,6 +537,9 @@
                     <extensions>true</extensions>
                     <configuration>
                         <publishingServerId>central</publishingServerId>
+                        <autoPublish>true</autoPublish>
+                        <!-- Just for validated to avoid waiting for too long time -->
+                        <waitUntil>validated</waitUntil>
                     </configuration>
                 </plugin>
             </plugins>

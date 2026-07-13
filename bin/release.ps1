@@ -180,8 +180,41 @@ try {
     }
     Write-Host "`nRelease $releaseVersion deployed successfully to Maven Central!" -ForegroundColor Green
 
-    # Commit the version change (removes the versions:set backup file)
+    # Finalize the version change (removes the versions:set backup file)
     .\mvnw versions:commit -pl $artifactId -q 2>$null
+
+    # ------------------------------------------------------------------
+    # 7. Git: commit, tag, and update main branch
+    # ------------------------------------------------------------------
+    Write-Host "`nCommitting release and updating main branch..." -ForegroundColor Cyan
+
+    # Stage all modified tracked files (the version bump in pom.xml)
+    git add -u
+
+    $commitMsg = "Release $releaseVersion"
+    git commit -m $commitMsg
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "ERROR: Failed to commit." -ForegroundColor Red
+        exit 1
+    }
+    Write-Host "Committed: $commitMsg" -ForegroundColor Green
+
+    git tag "v$releaseVersion"
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "ERROR: Failed to create tag." -ForegroundColor Red
+        exit 1
+    }
+    Write-Host "Tagged: v$releaseVersion" -ForegroundColor Green
+
+    # Hard-reset main to point to this release commit
+    $currentBranch = git rev-parse --abbrev-ref HEAD
+    git branch -f main HEAD
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "ERROR: Failed to update main branch." -ForegroundColor Red
+        exit 1
+    }
+    Write-Host "main branch reset to this release commit." -ForegroundColor Green
+
 } catch {
     Write-Host "`nMaven release failed: $_" -ForegroundColor Red
     Write-Host "Reverting to SNAPSHOT version ..." -ForegroundColor Yellow
@@ -193,9 +226,13 @@ try {
 }
 
 # ------------------------------------------------------------------
-# 7. Post-release reminder
+# 8. Post-release reminder
 # ------------------------------------------------------------------
-Write-Host "`nNext steps:" -ForegroundColor Cyan
-Write-Host "  1. Update $artifactId/pom.xml to the next development SNAPSHOT version"
-Write-Host "  2. Commit and tag the release: git commit -am 'Release $releaseVersion' && git tag v$releaseVersion"
-Write-Host "  3. Push: git push --follow-tags"
+Write-Host "`nRelease $releaseVersion complete!" -ForegroundColor Green
+Write-Host ""
+Write-Host "Current branch : $currentBranch" -ForegroundColor Cyan
+Write-Host "main branch    : updated to point to this release commit" -ForegroundColor Cyan
+Write-Host ""
+Write-Host "Next steps:" -ForegroundColor Cyan
+Write-Host "  1. Update pom.xml to the next development SNAPSHOT version"
+Write-Host "  2. Push both branches: git push origin $currentBranch main --tags"

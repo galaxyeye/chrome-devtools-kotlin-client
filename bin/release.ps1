@@ -186,12 +186,28 @@ Write-Host "Set $artifactId version to $releaseVersion" -ForegroundColor Green
 # ------------------------------------------------------------------
 # 6. Run Maven release
 # ------------------------------------------------------------------
-Write-Host "`nRunning Maven release (clean deploy) ..." -ForegroundColor Cyan
+Write-Host "`nRunning Maven release (clean install + deploy) ..." -ForegroundColor Cyan
 
 try {
-    Invoke-Mvn -Prelease clean deploy -DskipTests -pl $artifactId -am
+    # Step 1: Install all modules to the local repo (includes root POM and
+    #         ancestor modules via -am). This avoids trying to deploy the
+    #         root POM, which lacks the central-publishing-maven-plugin
+    #         in its active plugins and would fail with the standard deploy
+    #         plugin against the Central Publisher API endpoint.
+    Write-Host "  Building all dependencies locally ..." -ForegroundColor Gray
+    Invoke-Mvn -Prelease clean install -DskipTests -pl $artifactId -am
     if ($LASTEXITCODE -ne 0) {
-        throw "Maven exited with code $LASTEXITCODE"
+        throw "Maven install failed with code $LASTEXITCODE"
+    }
+
+    # Step 2: Deploy only the leaf module (no -am). All dependencies
+    #         (including the parent POM) are already in the local repo
+    #         from step 1, so Maven can resolve them without the root
+    #         POM in the reactor.
+    Write-Host "  Deploying $artifactId to Maven Central ..." -ForegroundColor Gray
+    Invoke-Mvn -Prelease deploy -DskipTests -pl $artifactId
+    if ($LASTEXITCODE -ne 0) {
+        throw "Maven deploy failed with code $LASTEXITCODE"
     }
     Write-Host "`nRelease $releaseVersion deployed successfully to Maven Central!" -ForegroundColor Green
 
